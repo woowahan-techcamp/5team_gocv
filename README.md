@@ -60,3 +60,6 @@
 * 통신 시 받아오는 데이터를 무조건 클래스로 만들어서 관리한다.
 * 중요한 string은 plist로 관리한다.
 =======
+
+## 기획서 링크 
+[편리해 기획서 초안 링크](https://docs.google.com/document/d/1jVmS0zjNG-4lkVaPkqFE1c6sU9i3j-eR2COsos0fbHE/edit)
