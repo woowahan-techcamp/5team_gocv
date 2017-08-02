@@ -27,6 +27,7 @@
 * 한 주마다 데모시, 혹은 큰 기능이 완료 되었다고 판단했을 경우 TAG를 부여한다.
 * TAG Name은   V.0.주차.1  / V.1.0.0 - 마지막 최종 릴리즈
 
+* 결정이 안날 경우 사다리 타기를 진행한다.
 
 ----------------------------
 ## 데이터 가져오는 방법
@@ -81,3 +82,6 @@
 
 ## 앱 백로그
 [백로그 스프레드 시트 링크](https://docs.google.com/spreadsheets/d/1VxQ7uHRMojI4kAINT8IKsNo_10K-AX_7Z-9kQjrHyrM/edit?usp=sharing)
+
+## 웹 백로그
+[백로그 스프레드 시트 링크](https://docs.google.com/a/woowahan.com/spreadsheets/d/1fkCNpmwckjDcSs0wb7FZsA7qmkSLn5rjkvw7VBgXzYU/edit?usp=sharing)
