@@ -79,5 +79,5 @@
 ## 데이터 모델링 링크 (firebase,NOSQL)
 [데이터 모델링 스프레드 시트 링크](https://docs.google.com/spreadsheets/d/1NzoCFyUQgactdnypufIrkrYPb2KS8XLQwqlvuBE_gJ4/edit?usp=sharing)
 
-## 웹 백로그
+## 앱 백로그
 [백로그 스프레드 시트 링크](https://docs.google.com/spreadsheets/d/1VxQ7uHRMojI4kAINT8IKsNo_10K-AX_7Z-9kQjrHyrM/edit?usp=sharing)
