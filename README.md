@@ -75,3 +75,6 @@
 
 ## 기획서 링크 
 [편리해 기획서 초안 링크](https://docs.google.com/document/d/1jVmS0zjNG-4lkVaPkqFE1c6sU9i3j-eR2COsos0fbHE/edit)
+
+## 데이터 모델링 링크 (firebase,NOSQL)
+[데이터 모델링 스프레드 시트 링크](https://docs.google.com/spreadsheets/d/1NzoCFyUQgactdnypufIrkrYPb2KS8XLQwqlvuBE_gJ4/edit#gid=0)
