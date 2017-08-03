@@ -74,11 +74,82 @@
 * 중요한 string은 plist로 관리한다.
 =======
 
+
+## 데이터 모델링
+### Use to Firebase
+
+### Overview
+> 편리해 프로젝트를 사용할 때 필요한 데이터 정리
+
+#### 1. 상품(item)
+key | type | example| description
+----|--------|------|-----|
+id| int | PR0001 | 상품의 고유번호
+img| string | URL | 상품의 이미지 URL
+name | string | 백종원의 제육덮밥 | 상품의 이름
+price | int | 3900 | 상품의 가격
+brand | array | ["CU", "GS"] | 해당 상품의 브랜드 리스트
+recipeList | array | [RE0001, RE0002] | 해당 상품이 사용된 레시피의 목록
+allergy | array | ["당근", "토마토"] | 알레르기에 정보 목록
+category | string | 즉석식품 | 상품의 카테고리(대분류)
+type | string | 도시락 | 상품의 종류(중분류)
+grade_avg | float | 4.5 | 상품의 평점(별)
+grade_total | int | 90 | 상품의 총 평점(모든 평점의 합)
+grade_count | int | 20 | 해당 상품을 평가한 사람 수
+price_level | object | {p1:10, p2:20, p3:15} | 가격의 수치를 표현한것(p1:저렴, p2:중간, p3:비쌈)
+flavor_level | object | {f1:10, f2:20, f3:15} | 맛의 수치를 표현한 것(f1:극혐, f2:중간, f3:존맛)
+quantity_level | object | {q1:10, q2:20, q3:15} | 양의 수치를 표현한 것(q1:창렬, q2:적당, q3:넘많)
+review_count | int | 100 | 해당 상품의 리뷰 개수
+reviewList | array | ["R0001, R0002"] | 해당 상품의 리뷰 
+
+#### 2. 레시피(recipe)
+key | type | example| description
+----|--------|------|-----|
+id| int | RE0001 | 레시피의 고유번호
+name | string | 짜파구리 | 레시피의 이름
+like | int | 140 | 해당 레시피의 좋아요 수
+price | int | 3400 | 해당 레시피를 만드는데 필요한 금액
+date | timestamp | 2017-08-02 | 해당 레시피를 작성한 날짜
+description | string | 첫번째로 ... | 레시피를 만드는 방법에 대한 것
+image | string | URL | 레시피 이미지 URL
+ingredient | array | [PR001, PR002] | 해당 레시피를 사용하는데 필요한 상품의 리스트
+user_id | string | ~@mail.com | 레시피를 작성한 사람의 아이디
+
+#### 3. 이벤트(event)
+key | type | example| description
+----|--------|------|-----|
+id| int | EV0001 | 이벤트의 고유번호
+brand | string | CU | 이벤트를 주최하는 브랜드
+url | string | LINK URL | 해당 이벤트 링크
+image | string | IMAGE URL | 해당 이벤트 이미지 링크
+timestamp | timestamp | 2017-08-02 | 이벤트가 시작된 날짜
+
+#### 4. 사용자(user)
+key | type | example| description
+----|--------|------|-----|
+id| string | ~@mail.com | 사용자의 고유 아이디
+pwd | string | sha255 | 사용자의 패스워드
+nickname | string | jude | 사용자의 별명
+likeList | array | [RE0001, RE0002] | 레시피를 좋아요 누른 리스트
+reviewList | array | [PR0001, PR0002] | 상품에 리뷰를 작성한 리스트
+wish_product | array | [PR0001, PR0002] | 상품을 즐겨찾기에 추가한 리스트
+wish_recipe| array | [RE0002] | 레시피에 좋아요 누른 리스트
+my_recipe| array | [RE0003, RE0004] | 사용자가 쓴 레시피 리스트
+
+#### 5. 리뷰(review)
+
+key |	type |	example |	description
+----|------|----------|------------
+id	| string	| R0001 | 리뷰 고유번호
+user | string | jude | 유저의 닉네임
+product_key | string | PR0001 | 어떤상품에 리뷰를 달았는지 알려주는 key
+timestamp | timestamp | 2017-08-01 | 해당 리뷰를 남긴 날짜
+grade | float | 4 | 해당 상품의 별점
+
+
+
 ## 기획서 링크 
 [편리해 기획서 초안 링크](https://docs.google.com/document/d/1jVmS0zjNG-4lkVaPkqFE1c6sU9i3j-eR2COsos0fbHE/edit)
-
-## 데이터 모델링 링크 (firebase,NOSQL)
-[데이터 모델링 스프레드 시트 링크](https://docs.google.com/spreadsheets/d/1NzoCFyUQgactdnypufIrkrYPb2KS8XLQwqlvuBE_gJ4/edit?usp=sharing)
 
 ## 앱 백로그
 [백로그 스프레드 시트 링크](https://docs.google.com/spreadsheets/d/1VxQ7uHRMojI4kAINT8IKsNo_10K-AX_7Z-9kQjrHyrM/edit?usp=sharing)
