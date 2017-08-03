@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <link rel="stylesheet" href="./node_modules/mocha/mocha.css">
+</head>
+<body>
+
+<div id="dummy"></div>
+
+<div id="mocha">
+    <script src="./node_modules/mocha/mocha.js"></script>
+    <script src="./node_modules/chai/chai.js"></script>
+    <script>mocha.setup('bdd')</script>
+    <script src="./dist/bundle.js"></script>
+    <script>
+        const assert = chai.assert;
+
+        describe('equal', function () {
+            it('test', function () {
+                //given
+                //when
+                const text = Test();
+                //then
+                assert.equal(text, "dummy");
+            })
+        })
+    </script>
+    <script>mocha.run();</script>
+</div>
+
+</body>
+</html>
