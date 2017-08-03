@@ -1,0 +1,21 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'pyunrihae' do
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for pyunrihae
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
+  target 'pyunrihaeTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'pyunrihaeUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
