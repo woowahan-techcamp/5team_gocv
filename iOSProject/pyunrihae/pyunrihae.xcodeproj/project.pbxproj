@@ -114,6 +114,55 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		98D819011F32F97D00BE2A95 /* Asset */ = {
+			isa = PBXGroup;
+			children = (
+				98F172F01F32EDB70044FD0D /* Assets.xcassets */,
+				98F172F51F32EDB70044FD0D /* Info.plist */,
+				984395851F32F29A0016B67D /* GoogleService-Info.plist */,
+			);
+			name = Asset;
+			sourceTree = "<group>";
+		};
+		98D819021F32F99500BE2A95 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		98D819031F32F99C00BE2A95 /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				98F172EB1F32EDB70044FD0D /* ViewController.swift */,
+			);
+			name = "View Controller";
+			sourceTree = "<group>";
+		};
+		98D819041F32F9A500BE2A95 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		98D819061F32F9B700BE2A95 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				98F172F21F32EDB70044FD0D /* LaunchScreen.storyboard */,
+				98F172ED1F32EDB70044FD0D /* Main.storyboard */,
+			);
+			name = Storyboard;
+			sourceTree = "<group>";
+		};
+		98D819071F32F9C000BE2A95 /* etc */ = {
+			isa = PBXGroup;
+			children = (
+				98F172E91F32EDB70044FD0D /* AppDelegate.swift */,
+			);
+			name = etc;
+			sourceTree = "<group>";
+		};
 		98F172DD1F32EDB70044FD0D = {
 			isa = PBXGroup;
 			children = (
@@ -139,13 +188,12 @@
 		98F172E81F32EDB70044FD0D /* pyunrihae */ = {
 			isa = PBXGroup;
 			children = (
-				984395851F32F29A0016B67D /* GoogleService-Info.plist */,
-				98F172E91F32EDB70044FD0D /* AppDelegate.swift */,
-				98F172EB1F32EDB70044FD0D /* ViewController.swift */,
-				98F172ED1F32EDB70044FD0D /* Main.storyboard */,
-				98F172F01F32EDB70044FD0D /* Assets.xcassets */,
-				98F172F21F32EDB70044FD0D /* LaunchScreen.storyboard */,
-				98F172F51F32EDB70044FD0D /* Info.plist */,
+				98D819071F32F9C000BE2A95 /* etc */,
+				98D819061F32F9B700BE2A95 /* Storyboard */,
+				98D819041F32F9A500BE2A95 /* View */,
+				98D819031F32F99C00BE2A95 /* View Controller */,
+				98D819021F32F99500BE2A95 /* Model */,
+				98D819011F32F97D00BE2A95 /* Asset */,
 			);
 			path = pyunrihae;
 			sourceTree = "<group>";
