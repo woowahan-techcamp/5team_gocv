@@ -84,7 +84,7 @@
 #### 1. 상품(item)
 key | type | example| description
 ----|--------|------|-----|
-id| int | PR0001 | 상품의 고유번호
+id| string | PR0001 | 상품의 고유번호
 img| string | URL | 상품의 이미지 URL
 name | string | 백종원의 제육덮밥 | 상품의 이름
 price | int | 3900 | 상품의 가격
@@ -105,7 +105,7 @@ reviewList | array | ["R0001, R0002"] | 해당 상품의 리뷰
 #### 2. 레시피(recipe)
 key | type | example| description
 ----|--------|------|-----|
-id| int | RE0001 | 레시피의 고유번호
+id| string | RE0001 | 레시피의 고유번호
 name | string | 짜파구리 | 레시피의 이름
 like | int | 140 | 해당 레시피의 좋아요 수
 price | int | 3400 | 해당 레시피를 만드는데 필요한 금액
@@ -118,11 +118,13 @@ user_id | string | ~@mail.com | 레시피를 작성한 사람의 아이디
 #### 3. 이벤트(event)
 key | type | example| description
 ----|--------|------|-----|
-id| int | EV0001 | 이벤트의 고유번호
+id| string | EV0001 | 이벤트의 고유번호
+name | string | 완쁠라스 완 | 이벤트 이름
 brand | string | CU | 이벤트를 주최하는 브랜드
 url | string | LINK URL | 해당 이벤트 링크
 image | string | IMAGE URL | 해당 이벤트 이미지 링크
-timestamp | timestamp | 2017-08-02 | 이벤트가 시작된 날짜
+startDate | timestamp | 2017-08-02 | 이벤트가 시작된 날짜
+endDate | timestamp | 2017-08-30 | 이벤트가 종료된 날짜
 
 #### 4. 사용자(user)
 key | type | example| description
