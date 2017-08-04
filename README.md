@@ -152,6 +152,12 @@ grade | float | 4 | 해당 상품의 별점
 
 ## 기획서 링크 
 [편리해 기획서 초안 링크](https://docs.google.com/document/d/1jVmS0zjNG-4lkVaPkqFE1c6sU9i3j-eR2COsos0fbHE/edit)
+[편리해 기획서](https://drive.google.com/open?id=0By1KuX15XRMnVHF5MEZZcDRkVDg)
+
+## 웹 앱 스토리보드
+* [웹스토리보드](https://goo.gl/a3wq7j)
+* [ios 앱 스토리보드](https://ovenapp.io/project/QRMrNHKGcDf9ZVkttOoU16PzyJbXENQJ#aBYOF)
+
 
 ## 앱 백로그
 [백로그 스프레드 시트 링크](https://docs.google.com/spreadsheets/d/1VxQ7uHRMojI4kAINT8IKsNo_10K-AX_7Z-9kQjrHyrM/edit?usp=sharing)
