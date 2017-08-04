@@ -10,8 +10,14 @@
 		025FB54D69452E7E0E398251 /* Pods_pyunrihae.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4488E201DEAF59744BC95780 /* Pods_pyunrihae.framework */; };
 		14F146B434332A2D6E2CFF9B /* Pods_pyunrihaeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40585D3F57E929D9644DF6CD /* Pods_pyunrihaeUITests.framework */; };
 		984395861F32F29A0016B67D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 984395851F32F29A0016B67D /* GoogleService-Info.plist */; };
+		98C5AACE1F33FAE800610115 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C5AACD1F33FAE800610115 /* MainViewController.swift */; };
+		98C5AAD01F33FAF900610115 /* RankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C5AACF1F33FAF900610115 /* RankingViewController.swift */; };
+		98C5AAD21F33FB0200610115 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C5AAD11F33FB0200610115 /* RecipeViewController.swift */; };
+		98C5AAD41F33FB4200610115 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C5AAD31F33FB4200610115 /* LoginViewController.swift */; };
+		98D819091F33066600BE2A95 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D819081F33066600BE2A95 /* EventViewController.swift */; };
+		98D8190B1F330D2F00BE2A95 /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8190A1F330D2F00BE2A95 /* EventDetailViewController.swift */; };
+		98D8190F1F330EE700BE2A95 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8190E1F330EE700BE2A95 /* EventTableViewCell.swift */; };
 		98F172EA1F32EDB70044FD0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F172E91F32EDB70044FD0D /* AppDelegate.swift */; };
-		98F172EC1F32EDB70044FD0D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F172EB1F32EDB70044FD0D /* ViewController.swift */; };
 		98F172EF1F32EDB70044FD0D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98F172ED1F32EDB70044FD0D /* Main.storyboard */; };
 		98F172F11F32EDB70044FD0D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98F172F01F32EDB70044FD0D /* Assets.xcassets */; };
 		98F172F41F32EDB70044FD0D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98F172F21F32EDB70044FD0D /* LaunchScreen.storyboard */; };
@@ -46,9 +52,15 @@
 		7CA4DBEA1A634BF99D8EFBF2 /* Pods-pyunrihae.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pyunrihae.release.xcconfig"; path = "Pods/Target Support Files/Pods-pyunrihae/Pods-pyunrihae.release.xcconfig"; sourceTree = "<group>"; };
 		8031BBFEA7C96B0C91D5EAA8 /* Pods-pyunrihaeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pyunrihaeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pyunrihaeUITests/Pods-pyunrihaeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		984395851F32F29A0016B67D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		98C5AACD1F33FAE800610115 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		98C5AACF1F33FAF900610115 /* RankingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RankingViewController.swift; sourceTree = "<group>"; };
+		98C5AAD11F33FB0200610115 /* RecipeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
+		98C5AAD31F33FB4200610115 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		98D819081F33066600BE2A95 /* EventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
+		98D8190A1F330D2F00BE2A95 /* EventDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
+		98D8190E1F330EE700BE2A95 /* EventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		98F172E61F32EDB70044FD0D /* pyunrihae.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pyunrihae.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98F172E91F32EDB70044FD0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		98F172EB1F32EDB70044FD0D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		98F172EE1F32EDB70044FD0D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		98F172F01F32EDB70044FD0D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		98F172F31F32EDB70044FD0D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -114,6 +126,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		98C5AACC1F33FAAE00610115 /* DetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				98D8190A1F330D2F00BE2A95 /* EventDetailViewController.swift */,
+			);
+			name = DetailViewController;
+			sourceTree = "<group>";
+		};
 		98D819011F32F97D00BE2A95 /* Asset */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,7 +154,12 @@
 		98D819031F32F99C00BE2A95 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
-				98F172EB1F32EDB70044FD0D /* ViewController.swift */,
+				98C5AAD31F33FB4200610115 /* LoginViewController.swift */,
+				98C5AACD1F33FAE800610115 /* MainViewController.swift */,
+				98C5AACF1F33FAF900610115 /* RankingViewController.swift */,
+				98C5AAD11F33FB0200610115 /* RecipeViewController.swift */,
+				98D819081F33066600BE2A95 /* EventViewController.swift */,
+				98C5AACC1F33FAAE00610115 /* DetailViewController */,
 			);
 			name = "View Controller";
 			sourceTree = "<group>";
@@ -142,6 +167,7 @@
 		98D819041F32F9A500BE2A95 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				98D8190E1F330EE700BE2A95 /* EventTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -498,8 +524,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98F172EC1F32EDB70044FD0D /* ViewController.swift in Sources */,
+				98D8190F1F330EE700BE2A95 /* EventTableViewCell.swift in Sources */,
+				98D8190B1F330D2F00BE2A95 /* EventDetailViewController.swift in Sources */,
+				98C5AAD21F33FB0200610115 /* RecipeViewController.swift in Sources */,
 				98F172EA1F32EDB70044FD0D /* AppDelegate.swift in Sources */,
+				98C5AAD41F33FB4200610115 /* LoginViewController.swift in Sources */,
+				98D819091F33066600BE2A95 /* EventViewController.swift in Sources */,
+				98C5AACE1F33FAE800610115 /* MainViewController.swift in Sources */,
+				98C5AAD01F33FAF900610115 /* RankingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
