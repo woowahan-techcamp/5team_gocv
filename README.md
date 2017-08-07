@@ -91,8 +91,7 @@ price | int | 3900 | 상품의 가격
 brand | array | ["CU", "GS"] | 해당 상품의 브랜드 리스트
 event | array | ["1+1", "2+1"] | 해당 상품의 이벤트 목록
 allergy | array | ["당근", "토마토"] | 알레르기에 정보 목록
-category | string | 즉석식품 | 상품의 카테고리(대분류)
-type | string | 도시락 | 상품의 종류(중분류)
+category | string | 즉석식품 | 상품의 카테고리(분류) 
 grade_avg | float | 4.5 | 가중치 공식에 맞게 평점을 낸 것 
 grade_total | int | 90 | 상품의 총 평점(모든 평점의 합)
 grade_count | int | 20 | 해당 상품을 평가한 사람 수
@@ -102,7 +101,8 @@ quantity_level | object | {q1:10, q2:20, q3:15} | 양의 수치를 표현한 것
 review_count | int | 100 | 해당 상품의 리뷰 개수
 reviewList | array | ["R0001, R0002"] | 해당 상품의 리뷰 
 
-[가중치 공식 관련 홈페이지](http://www.beerforum.co.kr/index.php?document_srl=96427&mid=article_beer)
+* [가중치 공식 관련 홈페이지](http://www.beerforum.co.kr/index.php?document_srl=96427&mid=article_beer)
+* 상품분류 8가지 : 도시락 / 김밥 / 베이커리 / 라면 / 스낵 / 유제품 / 음료 / 즉석식품
 
 #### 2. 사용자(user)
 key | type | example| description
