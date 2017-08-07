@@ -118,6 +118,7 @@ wish_product_list | array | [PR0001, PR0002] | 본인이 상품을 즐겨찾기�
 key |	type |	example |	description
 ----|------|----------|------------
 id	| string	| R0001 | 리뷰 고유번호
+image | string | url | 사용자가 올린 사진
 user | string | jude | 유저의 닉네임
 product_key | string | PR0001 | 어떤상품에 리뷰를 달았는지 알려주는 key
 timestamp | timestamp | 2017-08-01 | 해당 리뷰를 남긴 날짜
