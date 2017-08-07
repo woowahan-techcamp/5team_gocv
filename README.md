@@ -102,7 +102,7 @@ quantity_level | object | {q1:10, q2:20, q3:15} | 양의 수치를 표현한 것
 review_count | int | 100 | 해당 상품의 리뷰 개수
 reviewList | array | ["R0001, R0002"] | 해당 상품의 리뷰 
 
-[가중치 공식 관련 홈페이지](
+[가중치 공식 관련 홈페이지](http://www.beerforum.co.kr/index.php?document_srl=96427&mid=article_beer)
 
 #### 2. 사용자(user)
 key | type | example| description
@@ -168,7 +168,7 @@ endDate | timestamp | 2017-08-30 | 이벤트가 종료된 날짜
 
 ## 스토리보드
 * [Web 스토리보드](https://goo.gl/a3wq7j)
-* [ios 스토리보드](https://ovenapp.io/project/QRMrNHKGcDf9ZVkttOoU16PzyJbXENQJ#aBYOF)
+* [ios 스토리보드](https://projects.invisionapp.com/share/MKCWW0NH5#/screens/247362313)
 
 
 ## 백로그
