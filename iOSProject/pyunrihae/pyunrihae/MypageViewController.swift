@@ -1,14 +1,14 @@
 //
-//  RecipeViewController.swift
+//  MypageViewController.swift
 //  pyunrihae
 //
-//  Created by woowabrothers on 2017. 8. 4..
+//  Created by woowabrothers on 2017. 8. 7..
 //  Copyright © 2017년 busride. All rights reserved.
 //
 
 import UIKit
 
-class RecipeViewController: UIViewController {
+class MypageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

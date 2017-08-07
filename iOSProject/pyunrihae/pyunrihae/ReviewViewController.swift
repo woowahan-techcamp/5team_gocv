@@ -1,23 +1,19 @@
 //
-//  EventDetailViewController.swift
+//  ReviewViewController.swift
 //  pyunrihae
 //
-//  Created by woowabrothers on 2017. 8. 3..
+//  Created by woowabrothers on 2017. 8. 7..
 //  Copyright © 2017년 busride. All rights reserved.
 //
 
 import UIKit
 
-class EventDetailViewController: UIViewController {
-    
-    @IBOutlet weak var eventDetailView: UIWebView!
+class ReviewViewController: UIViewController {
+
     override func viewDidLoad() {
-        self.navigationController?.isNavigationBarHidden = false
         super.viewDidLoad()
+
         // Do any additional setup after loading the view.
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.isNavigationBarHidden = true
     }
 
     override func didReceiveMemoryWarning() {
