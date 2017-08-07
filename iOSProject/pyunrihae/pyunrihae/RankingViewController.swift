@@ -2,7 +2,7 @@
 //  RankingViewController.swift
 //  pyunrihae
 //
-//  Created by woowabrothers on 2017. 8. 4..
+//  Created by woowabrothers on 2017. 8. 7..
 //  Copyright © 2017년 busride. All rights reserved.
 //
 
