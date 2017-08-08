@@ -15,6 +15,8 @@
 		984395861F32F29A0016B67D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 984395851F32F29A0016B67D /* GoogleService-Info.plist */; };
 		9865E4F61F387C7A00014795 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E4F51F387C7A00014795 /* TabBarViewController.swift */; };
 		9865E4F81F38801B00014795 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E4F71F38801B00014795 /* TabBarView.swift */; };
+		98B73F861F39394500E55420 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B73F851F39394500E55420 /* Review.swift */; };
+		98B73F881F394CAB00E55420 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B73F871F394CAB00E55420 /* Product.swift */; };
 		98C5AACE1F33FAE800610115 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C5AACD1F33FAE800610115 /* MainViewController.swift */; };
 		98C5AAD61F342C3100610115 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C5AAD51F342C3100610115 /* Event.swift */; };
 		98C5AAD81F342C3900610115 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C5AAD71F342C3900610115 /* DataManager.swift */; };
@@ -58,6 +60,8 @@
 		984395851F32F29A0016B67D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9865E4F51F387C7A00014795 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		9865E4F71F38801B00014795 /* TabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		98B73F851F39394500E55420 /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		98B73F871F394CAB00E55420 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		98C5AACD1F33FAE800610115 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		98C5AAD51F342C3100610115 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		98C5AAD71F342C3900610115 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
@@ -143,6 +147,8 @@
 			children = (
 				98C5AAD51F342C3100610115 /* Event.swift */,
 				98C5AAD71F342C3900610115 /* DataManager.swift */,
+				98B73F851F39394500E55420 /* Review.swift */,
+				98B73F871F394CAB00E55420 /* Product.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -524,6 +530,8 @@
 				981E932A1F38666E004BE63B /* RankingViewController.swift in Sources */,
 				98C5AAD81F342C3900610115 /* DataManager.swift in Sources */,
 				981E932E1F386681004BE63B /* MypageViewController.swift in Sources */,
+				98B73F881F394CAB00E55420 /* Product.swift in Sources */,
+				98B73F861F39394500E55420 /* Review.swift in Sources */,
 				981E932C1F386677004BE63B /* ReviewViewController.swift in Sources */,
 				98C5AAD61F342C3100610115 /* Event.swift in Sources */,
 				98F172EA1F32EDB70044FD0D /* AppDelegate.swift in Sources */,
