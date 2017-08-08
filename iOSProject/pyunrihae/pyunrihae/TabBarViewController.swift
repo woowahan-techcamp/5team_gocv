@@ -26,17 +26,12 @@ class TabBarViewController: UIViewController {
         previousVC.willMove(toParentViewController: nil)
         previousVC.view.removeFromSuperview()
         previousVC.removeFromParentViewController()
-        select(Btn: sender) // 선택된 탭 뷰 보여주기
+        Button.select(Btn: sender) // 선택된 탭 뷰 보여주기
         let vc = viewControllers[selectedIndex]
         addChildViewController(vc)
         vc.view.frame = contentView.bounds
         contentView.addSubview(vc.view)
         vc.didMove(toParentViewController: self)
-    }
-    func select(Btn: UIButton){
-        let color = UIColor(red: CGFloat(Float(0xE3) / 255.0), green: CGFloat(Float(0x4B) / 255.0),  blue: CGFloat(Float(0x0A) / 255.0), alpha: CGFloat(Float(1)))
-        Btn.isSelected = true
-        Btn.setTitleColor(color, for: .selected)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +41,7 @@ class TabBarViewController: UIViewController {
         reviewViewController = storyboard.instantiateViewController(withIdentifier: "ReviewViewController")
         mypageViewController = storyboard.instantiateViewController(withIdentifier: "MypageViewController")
         viewControllers = [mainViewController,rankingViewController,reviewViewController,mypageViewController]
-        select(Btn: tabBtns[selectedIndex])
+        Button.select(Btn: tabBtns[selectedIndex])
         didPressTabBtn(tabBtns[selectedIndex])
         // Do any additional setup after loading the view.
     }
