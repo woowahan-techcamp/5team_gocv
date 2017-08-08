@@ -9,19 +9,13 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    @IBOutlet var searchBtn : UIButton!
-    @IBOutlet var brandBtns : [UIButton]! // 브랜드 메뉴 버튼 4개
     @IBOutlet weak var showAllBtn: UIButton!
     @IBOutlet weak var reviewImageView: UIScrollView!
     @IBOutlet weak var collectionView : UICollectionView!
     @IBOutlet weak var categoryScrollView: CategoryScrollView!
-    @IBAction func didPressBrandBtn(_ sender: UIButton) { // 브랜드 버튼 클릭 함수
-        let previousBrandIndex = selectedBrandIndex
-        selectedBrandIndex = sender.tag
-        brandBtns[previousBrandIndex].isSelected = false
-        Button.select(Btn: sender) // 선택된 버튼에 따라 뷰 보여주기
+    @IBAction func didPressshowAllBtn(_ sender: UIButton){
+        
     }
-    var selectedBrandIndex: Int = 0 // 선택된 브랜드 인덱스, 초기값은 0 (전체)
     var selectedCategoryIndex: Int = 0 // 선택된 카테고리 인덱스, 초기값은 0 (전체)
     var categoryBtns = [UIButton]()
     let category = ["전체","도시락","김밥","베이커리","라면","즉석식품","스낵","유제품","음료"]
@@ -45,17 +39,14 @@ class MainViewController: UIViewController {
         let previousCategoryIndex = selectedCategoryIndex
         selectedCategoryIndex = sender.tag
         categoryBtns[previousCategoryIndex].isSelected = false
-        Button.select(Btn: sender) // 선택된 버튼에 따라 뷰 보여주기
+        Button.select(btn: sender) // 선택된 버튼에 따라 뷰 보여주기
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
         addCategoryBtn() // 카테고리 버튼 만들어서 스크롤 뷰에 붙이기
-        searchBtn.changeColor(color: UIColor.white, imageName: "search.png") //서치 이미지 하얀색 틴트로 바꾸기
-        Button.select(Btn: brandBtns[selectedBrandIndex]) // 맨 처음 브랜드는 전체 선택된 것으로 나타나게 함
-        didPressBrandBtn(brandBtns[selectedBrandIndex])
-        Button.select(Btn: categoryBtns[selectedCategoryIndex]) // 맨 처음 카테고리는 전체 선택된 것으로 나타나게 함
+        Button.select(btn: categoryBtns[selectedCategoryIndex]) // 맨 처음 카테고리는 전체 선택된 것으로 나타나게 함
         didPressCategoryBtn(sender: categoryBtns[selectedCategoryIndex])
         reviewImageView.backgroundColor = UIColor.lightGray
         showAllBtn.layer.borderColor = UIColor.lightGray.cgColor
@@ -105,12 +96,4 @@ extension MainViewController: UICollectionViewDataSource { //메인화면에서 
     }
 }
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-}
-extension UIButton {
-    func changeColor(color: UIColor, imageName: String){
-        let origImage = UIImage(named: imageName);
-        let tintedImage = origImage?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        self.setImage(tintedImage, for: .normal)
-        self.tintColor = color
-    }
 }
