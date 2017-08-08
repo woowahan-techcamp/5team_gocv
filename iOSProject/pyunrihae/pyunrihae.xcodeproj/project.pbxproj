@@ -18,7 +18,6 @@
 		98B73F861F39394500E55420 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B73F851F39394500E55420 /* Review.swift */; };
 		98B73F881F394CAB00E55420 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B73F871F394CAB00E55420 /* Product.swift */; };
 		98C5AACE1F33FAE800610115 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C5AACD1F33FAE800610115 /* MainViewController.swift */; };
-		98C5AAD61F342C3100610115 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C5AAD51F342C3100610115 /* Event.swift */; };
 		98C5AAD81F342C3900610115 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C5AAD71F342C3900610115 /* DataManager.swift */; };
 		98F172EA1F32EDB70044FD0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F172E91F32EDB70044FD0D /* AppDelegate.swift */; };
 		98F172EF1F32EDB70044FD0D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98F172ED1F32EDB70044FD0D /* Main.storyboard */; };
@@ -63,7 +62,6 @@
 		98B73F851F39394500E55420 /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		98B73F871F394CAB00E55420 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		98C5AACD1F33FAE800610115 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		98C5AAD51F342C3100610115 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		98C5AAD71F342C3900610115 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		98F172E61F32EDB70044FD0D /* pyunrihae.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pyunrihae.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98F172E91F32EDB70044FD0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -145,7 +143,6 @@
 		98D819021F32F99500BE2A95 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				98C5AAD51F342C3100610115 /* Event.swift */,
 				98C5AAD71F342C3900610115 /* DataManager.swift */,
 				98B73F851F39394500E55420 /* Review.swift */,
 				98B73F871F394CAB00E55420 /* Product.swift */,
@@ -533,7 +530,6 @@
 				98B73F881F394CAB00E55420 /* Product.swift in Sources */,
 				98B73F861F39394500E55420 /* Review.swift in Sources */,
 				981E932C1F386677004BE63B /* ReviewViewController.swift in Sources */,
-				98C5AAD61F342C3100610115 /* Event.swift in Sources */,
 				98F172EA1F32EDB70044FD0D /* AppDelegate.swift in Sources */,
 				98C5AACE1F33FAE800610115 /* MainViewController.swift in Sources */,
 			);
