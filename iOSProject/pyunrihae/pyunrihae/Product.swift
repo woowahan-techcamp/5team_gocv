@@ -73,7 +73,7 @@ class Product {
     convenience init(snapshot : DataSnapshot){
         let dict = snapshot.value as? [String : Any] ?? [:]
         let id = dict["id"] as? String ?? ""
-        let image = dict["image"] as? String ?? ""
+        let image = dict["img"] as? String ?? ""
         let name = dict["name"] as? String ?? ""
         let price = dict["price"] as? String ?? ""
         let brand = dict["brand"] as? String ?? ""
