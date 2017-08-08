@@ -41,7 +41,7 @@
 ### 웹
 * 한줄처리 하지 말것(가독성)
 * 프레임워크는 Pure Javascript로 한다.(추후에 Vue.js 가능성이 있다.)
-* CSS는 div-header-wrapper와 같이 선언하며, [tag이름-기능]과 같이 구현한다.(우리만의 룰 정리가 더 필요하다)
+* CSS는 top-fixTab-wrapper와 같이 선언하며, [위치-큰기능-세부기능]과 같이 구현한다.(우리만의 룰 정리가 더 필요하다)
 * JS에서는 클래스는 대문자, 함수는 소문자로 사용하며 동사+명사로 사용한다.
 * 변수는 소문자로 시작하며 중간 구분을 대문자로 한다(ex. httpRequest)
 * Template은 Handlebar.js 를 사용한다.
