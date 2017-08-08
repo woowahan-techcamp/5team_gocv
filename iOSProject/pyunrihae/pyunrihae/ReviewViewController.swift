@@ -9,8 +9,39 @@
 import UIKit
 
 class ReviewViewController: UIViewController {
+    @IBOutlet weak var categoryScrollView: UIScrollView!
+    var selectedCategoryIndex: Int = 0 // 선택된 카테고리 인덱스, 초기값은 0 (전체)
+    var categoryBtns = [UIButton]()
+    let category = ["전체","도시락","김밥","베이커리","라면","즉석식품","스낵","유제품","음료"]
+    func addCategoryBtn(){ // 카테고리 버튼 스크롤 뷰에 추가하기
+        categoryScrollView.isScrollEnabled = true
+        categoryScrollView.contentSize.width = CGFloat(80 * category.count)
+        for index in 0..<category.count {
+            let categoryBtn = UIButton(frame: CGRect(x: 80 * index, y: 5, width: 80, height: 40))
+            categoryBtn.setTitle(category[index], for: .normal) // 카테고리 버튼 텍스트
+            categoryBtn.setTitleColor(UIColor.darkGray, for: .normal) // 카테고리 버튼 텍스트 색깔
+            categoryBtn.contentHorizontalAlignment = .center // 카테고리 버튼 중앙정렬
+            categoryBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15) // 카테고리 버튼 폰트 크기 15
+            categoryBtn.tag = index // 버튼 태그 생성해주기
+            categoryBtns.append(categoryBtn)
+            categoryBtn.addTarget(self, action: #selector(didPressCategoryBtn), for: UIControlEvents.touchUpInside)
+            categoryScrollView.addSubview(categoryBtn)
+        }
+        categoryScrollView.showsHorizontalScrollIndicator = false // 스크롤 바 없애기
+    }
+    func didPressCategoryBtn(sender: UIButton) { // 카테고리 버튼 클릭 함수
+        let previousCategoryIndex = selectedCategoryIndex
+        selectedCategoryIndex = sender.tag
+        categoryBtns[previousCategoryIndex].isSelected = false
+        Button.select(btn: sender) // 선택된 버튼에 따라 뷰 보여주기
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        categoryScrollView.backgroundColor = UIColor.white
+        addCategoryBtn() // 카테고리 버튼 만들어서 스크롤 뷰에 붙이기
+        Button.select(btn: categoryBtns[selectedCategoryIndex]) // 맨 처음 카테고리는 전체 선택된 것으로 나타나게 함
+        didPressCategoryBtn(sender: categoryBtns[selectedCategoryIndex])
+
         // Do any additional setup after loading the view.
     }
 

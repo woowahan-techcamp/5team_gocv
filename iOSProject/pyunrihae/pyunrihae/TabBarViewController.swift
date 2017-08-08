@@ -13,6 +13,7 @@ class TabBarViewController: UIViewController {
     @IBOutlet var titleLabel : UILabel!
     @IBOutlet var brandBtns : [UIButton]! // 브랜드 메뉴 버튼 4개
     @IBOutlet var contentView: UIView!
+    @IBOutlet weak var brandContentView: UIView!
     @IBOutlet var tabBtns : [UIButton]! // 탭 메뉴 버튼 4개
     var mainViewController : UIViewController!
     var rankingViewController : UIViewController!
@@ -37,6 +38,11 @@ class TabBarViewController: UIViewController {
         contentView.addSubview(vc.view)
         vc.didMove(toParentViewController: self)
         titleLabel.text = titleName[selectedTabIndex]
+        if selectedTabIndex == 3 {
+            brandContentView.isHidden = true
+        } else {
+            brandContentView.isHidden = false
+        }
     }
     @IBAction func didPressBrandBtn(_ sender: UIButton) { // 브랜드 버튼 클릭 함수
         let previousBrandIndex = selectedBrandIndex

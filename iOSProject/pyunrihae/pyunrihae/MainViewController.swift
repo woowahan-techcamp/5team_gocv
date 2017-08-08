@@ -45,13 +45,13 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
+        categoryScrollView.backgroundColor = UIColor.white
         addCategoryBtn() // 카테고리 버튼 만들어서 스크롤 뷰에 붙이기
         Button.select(btn: categoryBtns[selectedCategoryIndex]) // 맨 처음 카테고리는 전체 선택된 것으로 나타나게 함
         didPressCategoryBtn(sender: categoryBtns[selectedCategoryIndex])
         reviewImageView.backgroundColor = UIColor.lightGray
         showAllBtn.layer.borderColor = UIColor.lightGray.cgColor
         showAllBtn.layer.borderWidth = 1
-        categoryScrollView.backgroundColor = UIColor.white
     }
 
     override func didReceiveMemoryWarning() {
