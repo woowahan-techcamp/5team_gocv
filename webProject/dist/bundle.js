@@ -76,15 +76,67 @@ var _dummy2 = _interopRequireDefault(_dummy);
 
 __webpack_require__(2);
 
+__webpack_require__(7);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var dummy = new _dummy2.default("testss");
+var dummy = new _dummy2.default("testsdddds");
 var element = document.querySelector('#dummy');
-element.innerHTML = dummy.getValue();
 
-function Test() {
-    return "dummy";
-}
+var dbRefObject = firebase.database().ref().child('event');
+var dbRefList = firebase.database().ref().child('item');
+
+dbRefObject.on('value', function (snapshot) {
+    element.innerHTML = JSON.stringify(snapshot.val(), null, 3);
+});
+
+dbRefList.on('child_added', function (snap) {
+    console.log(snap.val());
+});
+
+// function writeUserData(id, image, brand, timestamp, url) {
+//     firebase.database().ref('item/' + id).set({
+//         brand: brand,
+//         image: image,
+//         timestamp: timestamp,
+//         url: url
+//     });
+// }
+//
+// firebase.database().ref('item/'+"PR0008").set(
+//     {
+//     "allergy" : ["오이"],
+//         "brand" : "CU",
+//         "category" : "간편식사",
+//         "flavor_level" : {
+//         "f1" : 32,
+//             "f2" : 20,
+//             "f3" : 15
+//     },
+//     "grade_avg" : 4,
+//         "grade_count" : 10,
+//         "grade_total" : 40,
+//         "img" : "http://cdn2.bgfretail.com/bgfbrand/files/product/511AC567375D41B2898E4812937002FA.jpg",
+//         "name" : "샐러드스파게티",
+//         "price" : 3000,
+//         "price_level" : {
+//         "p1" : 10,
+//             "p2" : 5,
+//             "p3" : 15
+//     },
+//     "quantity_level" : {
+//         "q1" : 10,
+//             "q2" : 40,
+//             "q3" : 30
+//     },
+//     "recipeList" : ["RE0001","RE0004"],
+//         "reviewList" : ["R0002","R0001"],
+//         "review_count" : 80,
+//         "type" : "샌드위치/햄버거"
+// }
+// );
+
+firebase.database().ref('item/' + "PR0008/allergy").set("감자");
 
 /***/ }),
 /* 1 */
@@ -700,6 +752,23 @@ module.exports = function (css) {
 	return fixedCss;
 };
 
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var config = {
+    apiKey: "AIzaSyAnDViQ2LyXlNzBWO2kWyGnN-Lr22B9sUI",
+    authDomain: "pyeonrehae.firebaseapp.com",
+    databaseURL: "https://pyeonrehae.firebaseio.com",
+    projectId: "pyeonrehae",
+    storageBucket: "pyeonrehae.appspot.com",
+    messagingSenderId: "296270517036"
+};
+firebase.initializeApp(config);
 
 /***/ })
 /******/ ]);
