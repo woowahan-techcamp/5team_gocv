@@ -42,6 +42,9 @@
                                 <state key="normal" title="전체보기 &gt;">
                                     <color key="titleColor" red="0.31372549019607843" green="0.31372549019607843" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="didPressshowAllBtn:" destination="NeN-EZ-CjC" eventType="touchUpInside" id="dpD-Kg-2wj"/>
+                                </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="d0N-c5-gQZ">
                                 <rect key="frame" x="0.0" y="265" width="375" height="160"/>
@@ -270,6 +273,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="brandContentView" destination="7z5-dD-0MX" id="MPm-rB-If6"/>
                         <outlet property="contentView" destination="xwz-zP-dFw" id="KYV-ko-Vk7"/>
                         <outlet property="searchBtn" destination="6SO-8L-3uO" id="tHf-td-reg"/>
                         <outlet property="titleLabel" destination="sl7-hG-gpX" id="xzz-He-NJH"/>
@@ -298,12 +302,21 @@
                     <view key="view" contentMode="scaleToFill" id="SMA-13-OcP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pf9-MT-aaT" customClass="CategoryScrollView" customModule="pyunrihae" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="categoryScrollView" destination="Pf9-MT-aaT" id="Jo8-li-tj2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="26i-zL-YQS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1324" y="2391"/>
+            <point key="canvasLocation" x="-1324" y="2390.5547226386807"/>
         </scene>
         <!--Review View Controller-->
         <scene sceneID="M9W-Bx-XYt">
@@ -316,12 +329,21 @@
                     <view key="view" contentMode="scaleToFill" id="iey-em-iQY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QJs-8j-rmm" customClass="CategoryScrollView" customModule="pyunrihae" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="categoryScrollView" destination="QJs-8j-rmm" id="Ekd-Kr-YJW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ut-F3-mHR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1322" y="3045"/>
+            <point key="canvasLocation" x="-1322.4000000000001" y="3044.5277361319345"/>
         </scene>
         <!--Mypage View Controller-->
         <scene sceneID="PrM-cS-FOo">
