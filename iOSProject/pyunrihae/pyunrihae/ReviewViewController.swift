@@ -13,6 +13,19 @@ class ReviewViewController: UIViewController {
     @IBOutlet weak var reviewNumLabel: UILabel!
     @IBOutlet weak var sortingMethodLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBAction func tabDropDownBtn(_ sender: UIButton) {
+        let alert = UIAlertController(title: "순서 정렬하기", message: "", preferredStyle: .actionSheet)
+        //Create and add the Cancel action
+        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
+            
+        }
+        let orderByUpdate = UIAlertAction(title: "최신순", style: .default, handler: nil)
+        let orderByUsefulNum = UIAlertAction(title: "유용순", style: .destructive, handler: nil)
+        alert.addAction(cancelAction)
+        alert.addAction(orderByUpdate)
+        alert.addAction(orderByUsefulNum)
+        present(alert, animated: true, completion: nil)
+    }
     var selectedCategoryIndex: Int = 0 // 선택된 카테고리 인덱스, 초기값은 0 (전체)
     var categoryBtns = [UIButton]()
     let category = ["전체","도시락","김밥","베이커리","라면","즉석식품","스낵","유제품","음료"]
@@ -73,6 +86,7 @@ extension ReviewViewController: UICollectionViewDataSource { //메인화면에�
             //임의의 별점
             let grade = 3.6
             //
+            cell.gradeLabel.text = String(grade)
             for i in 0..<Int(grade) {
                 let starImage = UIImage(named: "stars.png")
                 let cgImage = starImage?.cgImage
