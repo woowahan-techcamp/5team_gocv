@@ -10,6 +10,9 @@ import UIKit
 
 class RankingViewController: UIViewController {
     @IBOutlet weak var categoryScrollView: UIScrollView!
+    @IBOutlet weak var productNumLabel: UILabel!
+    @IBOutlet weak var sortingMethodLabel: UILabel!
+    @IBOutlet weak var dropDownBtn: UIButton!
     var selectedCategoryIndex: Int = 0 // 선택된 카테고리 인덱스, 초기값은 0 (전체)
     var categoryBtns = [UIButton]()
     let category = ["전체","도시락","김밥","베이커리","라면","즉석식품","스낵","유제품","음료"]
