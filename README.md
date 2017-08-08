@@ -91,7 +91,7 @@ id| string | PR0001 | 상품의 고유번호
 img| string | URL | 상품의 이미지 URL
 name | string | 백종원의 제육덮밥 | 상품의 이름
 price | int | 3900 | 상품의 가격
-brand | array | ["CU", "GS"] | 해당 상품의 브랜드 리스트
+brand | String | "CU","all" | 해당 상품의 브랜드
 event | array | ["1+1", "2+1"] | 해당 상품의 이벤트 목록
 allergy | array | ["당근", "토마토"] | 알레르기에 정보 목록
 category | string | 즉석식품 | 상품의 카테고리(분류) 
@@ -124,6 +124,7 @@ id	| string	| R0001 | 리뷰 고유번호
 image | string | url | 사용자가 올린 사진
 user | string | jude | 유저의 닉네임
 product_key | string | PR0001 | 어떤상품에 리뷰를 달았는지 알려주는 key
+brand | string | CU | 리뷰 단 상품의 브랜드 
 timestamp | timestamp | 2017-08-01 | 해당 리뷰를 남긴 날짜
 grade | int | 4 | 해당 상품의 별점(총점)
 price | int | 2 | 1~5 점수
