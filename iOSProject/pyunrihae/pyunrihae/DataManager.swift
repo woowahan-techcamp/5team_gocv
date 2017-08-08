@@ -12,6 +12,7 @@ import FirebaseDatabase
 
 class DataManager{
     
+    
     // 기본 데이터 레퍼런스
     static var ref : DatabaseReference! = Database.database().reference()
     
@@ -56,5 +57,42 @@ class DataManager{
         productList.sorted(by: { $0.grade_avg > $1.grade_avg})
         // 가져온 상품를 평점 순으로 뿌려준다.
         return productList
+    }
+    
+    // 전체 브랜드 - 전체 카테고리에서 1,2,3위 상품
+//    static func getTop3Product() -> [Product] {
+//        let notiKey = NSNotification.Name(rawValue: "dataGetComplete")
+//        NotificationCenter.default.post(name: notiKey, object: nil)
+//        var productList : [Product] = []
+//        
+//        let localRef = ref.child("product")
+//        let query = localRef.queryOrdered(byChild: "grade_avg").queryLimited(toLast: 3)
+//        
+//        query.observe(DataEventType.value, with: { (snapshot) in
+//            
+//            for childSnapshot in snapshot.children {
+//                let product = Product.init(snapshot: childSnapshot as! DataSnapshot)
+//                productList.append(product)
+//            }
+//        })
+//        return productList
+//    }
+    
+    
+    static func getTop3Product(completion: @escaping ([Product]) -> ()) {
+    
+        var productList : [Product] = []
+        
+        let localRef = ref.child("product")
+        let query = localRef.queryOrdered(byChild: "grade_avg").queryLimited(toLast: 3)
+        
+        query.observe(DataEventType.value, with: { (snapshot) in
+            
+            for childSnapshot in snapshot.children {
+                let product = Product.init(snapshot: childSnapshot as! DataSnapshot)
+                productList.append(product)
+            }
+            completion(productList)
+        })
     }
 }
