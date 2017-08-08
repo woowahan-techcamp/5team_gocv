@@ -15,8 +15,6 @@
 		984395861F32F29A0016B67D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 984395851F32F29A0016B67D /* GoogleService-Info.plist */; };
 		9865E4F61F387C7A00014795 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E4F51F387C7A00014795 /* TabBarViewController.swift */; };
 		9865E4F81F38801B00014795 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E4F71F38801B00014795 /* TabBarView.swift */; };
-		9865E4FA1F39326700014795 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E4F91F39326700014795 /* Event.swift */; };
-		9865E5001F3932D600014795 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E4FF1F3932D600014795 /* DataManager.swift */; };
 		9865E5021F39390100014795 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 9865E5011F39390100014795 /* search.png */; };
 		9865E5081F3943BD00014795 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E5071F3943BD00014795 /* Button.swift */; };
 		9865E50E1F394E4600014795 /* MainRankCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E50D1F394E4600014795 /* MainRankCollectionViewCell.swift */; };
@@ -62,8 +60,6 @@
 		984395851F32F29A0016B67D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9865E4F51F387C7A00014795 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		9865E4F71F38801B00014795 /* TabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
-		9865E4F91F39326700014795 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		9865E4FF1F3932D600014795 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		9865E5011F39390100014795 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
 		9865E5071F3943BD00014795 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		9865E50D1F394E4600014795 /* MainRankCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainRankCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -150,8 +146,6 @@
 		98D819021F32F99500BE2A95 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				9865E4F91F39326700014795 /* Event.swift */,
-				9865E4FF1F3932D600014795 /* DataManager.swift */,
 				9865E5071F3943BD00014795 /* Button.swift */,
 			);
 			name = Model;
@@ -533,14 +527,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				9865E4F61F387C7A00014795 /* TabBarViewController.swift in Sources */,
-				9865E4FA1F39326700014795 /* Event.swift in Sources */,
 				9865E4F81F38801B00014795 /* TabBarView.swift in Sources */,
 				981E932A1F38666E004BE63B /* RankingViewController.swift in Sources */,
 				981E932E1F386681004BE63B /* MypageViewController.swift in Sources */,
 				9865E5081F3943BD00014795 /* Button.swift in Sources */,
 				981E932C1F386677004BE63B /* ReviewViewController.swift in Sources */,
 				98F172EA1F32EDB70044FD0D /* AppDelegate.swift in Sources */,
-				9865E5001F3932D600014795 /* DataManager.swift in Sources */,
 				98C5AACE1F33FAE800610115 /* MainViewController.swift in Sources */,
 				9865E50E1F394E4600014795 /* MainRankCollectionViewCell.swift in Sources */,
 				9865E5101F3957C000014795 /* CategoryScrollView.swift in Sources */,
