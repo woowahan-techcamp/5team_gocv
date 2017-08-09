@@ -29,6 +29,7 @@ class ReviewViewController: UIViewController {
     var selectedCategoryIndex: Int = 0 // 선택된 카테고리 인덱스, 초기값은 0 (전체)
     var categoryBtns = [UIButton]()
     let category = ["전체","도시락","김밥","베이커리","라면","즉석식품","스낵","유제품","음료"]
+    var isLoaded = false
     func addCategoryBtn(){ // 카테고리 버튼 스크롤 뷰에 추가하기
         categoryScrollView.isScrollEnabled = true
         categoryScrollView.contentSize.width = CGFloat(80 * category.count)
@@ -50,10 +51,18 @@ class ReviewViewController: UIViewController {
         selectedCategoryIndex = sender.tag
         categoryBtns[previousCategoryIndex].isSelected = false
         Button.select(btn: sender) // 선택된 버튼에 따라 뷰 보여주기
+        NotificationCenter.default.post(name: NSNotification.Name("showCategory"), object: self, userInfo: ["category" : selectedCategoryIndex])
     }
     func selectCategory(_ notification: Notification){
-        let categoryIndex = notification.userInfo?["category"] as! Int
-        didPressCategoryBtn(sender: categoryBtns[categoryIndex])
+        let previousCategoryIndex = selectedCategoryIndex
+        selectedCategoryIndex = notification.userInfo?["category"] as! Int
+        if isLoaded {
+            categoryBtns[previousCategoryIndex].isSelected = false
+            Button.select(btn: categoryBtns[selectedCategoryIndex])
+        }
+    }
+    func addNotiObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(selectCategory), name: NSNotification.Name("selectCategory"), object: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +72,7 @@ class ReviewViewController: UIViewController {
         addCategoryBtn() // 카테고리 버튼 만들어서 스크롤 뷰에 붙이기
         Button.select(btn: categoryBtns[selectedCategoryIndex]) // 맨 처음 카테고리는 전체 선택된 것으로 나타나게 함
         didPressCategoryBtn(sender: categoryBtns[selectedCategoryIndex])
-        NotificationCenter.default.addObserver(self, selector: #selector(selectCategory), name: NSNotification.Name("selectCategory"), object: nil)
+        isLoaded = true
         // Do any additional setup after loading the view.
     }
 

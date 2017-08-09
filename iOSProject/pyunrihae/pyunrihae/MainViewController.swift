@@ -17,7 +17,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var categoryScrollView: CategoryScrollView!
     
     @IBAction func didPressshowAllBtn(_ sender: UIButton){
-        NotificationCenter.default.post(name: NSNotification.Name("showRanking"), object: self, userInfo: ["category" : selectedCategoryIndex])
+        NotificationCenter.default.post(name: NSNotification.Name("showRanking"), object: self)
     }
     
     var productList : [Product] = []
@@ -61,7 +61,12 @@ class MainViewController: UIViewController {
         Button.select(btn: sender) // 선택된 버튼에 따라 뷰 보여주기
         NotificationCenter.default.post(name: NSNotification.Name("showCategory"), object: self, userInfo: ["category" : selectedCategoryIndex])
     }
-    
+    func selectCategory(_ notification: Notification){
+        let previousCategoryIndex = selectedCategoryIndex
+        selectedCategoryIndex = notification.userInfo?["category"] as! Int
+        categoryBtns[previousCategoryIndex].isSelected = false
+        Button.select(btn: categoryBtns[selectedCategoryIndex])
+    }
     func getProductList(){
         
         var brand = ""
@@ -216,12 +221,11 @@ class MainViewController: UIViewController {
         }
         
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(selectCategory), name: NSNotification.Name("selectCategory"), object: nil)
         categoryScrollView.backgroundColor = UIColor.white
         addCategoryBtn() // 카테고리 버튼 만들어서 스크롤 뷰에 붙이기
         Button.select(btn: categoryBtns[selectedCategoryIndex]) // 맨 처음 카테고리는 전체 선택된 것으로 나타나게 함
