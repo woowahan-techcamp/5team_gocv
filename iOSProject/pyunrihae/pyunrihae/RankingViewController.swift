@@ -12,17 +12,24 @@ class RankingViewController: UIViewController {
     @IBOutlet weak var categoryScrollView: UIScrollView!
     @IBOutlet weak var productNumLabel: UILabel!
     @IBOutlet weak var sortingMethodLabel: UILabel!
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBAction func tabDropDownBtn(_ sender: UIButton) {
         let alert = UIAlertController(title: "순서 정렬하기", message: "", preferredStyle: .actionSheet)
         //Create and add the Cancel action
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
             
         }
-        let orderByUpdate = UIAlertAction(title: "최신순", style: .default, handler: nil)
-        let orderByUsefulNum = UIAlertAction(title: "유용순", style: .destructive, handler: nil)
+        let orderByRanking = UIAlertAction(title: "랭킹순", style: .default) { action -> Void in
+            
+        }
+
+        let orderByPrice = UIAlertAction(title: "낮은 가격순", style: .destructive) { action -> Void in
+            
+        }
+
         alert.addAction(cancelAction)
-        alert.addAction(orderByUpdate)
-        alert.addAction(orderByUsefulNum)
+        alert.addAction(orderByRanking)
+        alert.addAction(orderByPrice)
         present(alert, animated: true, completion: nil)
     }
     var isLoaded = false
@@ -65,6 +72,8 @@ class RankingViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.delegate = self
+        collectionView.dataSource = self
         categoryScrollView.backgroundColor = UIColor.white
         addCategoryBtn() // 카테고리 버튼 만들어서 스크롤 뷰에 붙이기
         Button.select(btn: categoryBtns[selectedCategoryIndex]) // 맨 처음 카테고리는 전체 선택된 것으로 나타나게 함
@@ -78,16 +87,53 @@ class RankingViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+extension RankingViewController: UICollectionViewDataSource { 
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1;
     }
-    */
-
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 100;
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? RankingCollectionViewCell {
+            cell.foodImage.layer.cornerRadius = cell.foodImage.frame.height/2
+            cell.foodImage.clipsToBounds = true
+            //임의로 유저 사진 넣어놨음
+            cell.foodImage.image = UIImage(named: "search.png")
+            cell.foodImage.backgroundColor = UIColor.lightGray
+            //
+            //임의의 별점
+            let grade = 3.6
+            //
+            cell.gradeLabel.text = String(grade)
+            for i in 0..<Int(grade) {
+                let starImage = UIImage(named: "stars.png")
+                let cgImage = starImage?.cgImage
+                let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: 0, y: 0, width: (starImage?.size.width)! / 5, height: starImage!.size.height))!
+                let uiImage = UIImage(cgImage: croppedCGImage)
+                let imageView = UIImageView(image: uiImage)
+                imageView.frame = CGRect(x: i*18, y: 0, width: 18, height: 15)
+                cell.starView.addSubview(imageView)
+            }
+            if grade - Double(Int(grade)) >= 0.5 {
+                let starImage = UIImage(named: "stars.png")
+                let cgImage = starImage?.cgImage
+                let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: (starImage?.size.width)! * 4 / 5, y: 0, width: (starImage?.size.width)!, height: starImage!.size.height))!
+                let uiImage = UIImage(cgImage: croppedCGImage)
+                let imageView = UIImageView(image: uiImage)
+                imageView.frame = CGRect(x: Int(grade)*18 - 3, y: 0, width: 18, height: 15)
+                cell.starView.addSubview(imageView)
+            }
+            Label.makeRoundLabel(label: cell.PriceLevelLabel, color: UIColor.gray)
+            Label.makeRoundLabel(label: cell.QuantityLevelLabel, color: UIColor.gray)
+            Label.makeRoundLabel(label: cell.FlavorLevelLabel, color: UIColor.gray)
+            Label.makeRoundLabel(label: cell.EventLabel, color: UIColor.red)
+            return cell
+        }
+        return RankingCollectionViewCell()
+    }
+}
+extension RankingViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 }

@@ -22,8 +22,14 @@ class ReviewViewController: UIViewController {
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
             
         }
-        let orderByUpdate = UIAlertAction(title: "최신순", style: .default, handler: nil)
-        let orderByUsefulNum = UIAlertAction(title: "유용순", style: .destructive, handler: nil)
+        let orderByUpdate = UIAlertAction(title: "최신순", style: .default) { action -> Void in
+            
+        }
+
+        let orderByUsefulNum = UIAlertAction(title: "유용순", style: .destructive) { action -> Void in
+            
+        }
+
         alert.addAction(cancelAction)
         alert.addAction(orderByUpdate)
         alert.addAction(orderByUsefulNum)
@@ -215,7 +221,6 @@ extension ReviewViewController: UICollectionViewDataSource { //메인화면에�
                 cell.starView.addSubview(imageView)
             }
             cell.reviewView.layer.cornerRadius = 15
-            cell.userImage.clipsToBounds = true
             return cell
         }
         return ReviewCollectionViewCell()
