@@ -156,7 +156,6 @@ class DataManager{
                 }
             }
             
-            reviewList.sort(by: { $0.useful > $1.useful})
             completion(reviewList)
         })
     }
@@ -172,8 +171,6 @@ class DataManager{
                 let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
                 reviewList.append(review)
             }
-            
-            reviewList.sort(by: { $0.useful > $1.useful})
             completion(reviewList)
         })
     }
@@ -190,7 +187,6 @@ class DataManager{
                 reviewList.append(review)
             }
             
-            reviewList.sort(by: { $0.useful > $1.useful})
             completion(reviewList)
         })
     }

@@ -23,11 +23,19 @@ class ReviewViewController: UIViewController {
             
         }
         let orderByUpdate = UIAlertAction(title: "최신순", style: .default) { action -> Void in
-            
+            self.reviewList = self.reviewList.sorted(by: { $0.id < $1.id })
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+                self.sortingMethodLabel.text  = "최신순"
+            }
         }
 
         let orderByUsefulNum = UIAlertAction(title: "유용순", style: .destructive) { action -> Void in
-            
+            self.reviewList = self.reviewList.sorted(by: { $0.useful > $1.useful })
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+                self.sortingMethodLabel.text  = "유용순"
+            }
         }
 
         alert.addAction(cancelAction)
