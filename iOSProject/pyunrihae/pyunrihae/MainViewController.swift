@@ -146,7 +146,7 @@ class MainViewController: UIViewController {
                     let blackLayerView : UIView = UIView()
                     let brandLabel : UILabel = UILabel()
                     let nameLabel : UILabel = UILabel()
-                    let reviewTextView : UITextView = UITextView()
+                    let reviewLabel : UILabel = UILabel()
                     let moreLabel : UILabel = UILabel()
                 
                     myImageView.af_setImage(withURL: url!)
@@ -185,15 +185,15 @@ class MainViewController: UIViewController {
                     style.minimumLineHeight = 16
                     attrString.addAttribute(NSParagraphStyleAttributeName, value: style, range: NSRange(location: 0, length: review.comment.characters.count))
                     attrString.addAttribute(NSForegroundColorAttributeName, value: UIColor.white , range: NSRange(location: 0, length: review.comment.characters.count))
-                    reviewTextView.attributedText = attrString
+                    reviewLabel.attributedText = attrString
                     
-                    reviewTextView.isEditable = false
-                    reviewTextView.frame.size.width = imageViewWidth / 2 - 20
-                    reviewTextView.frame.size.height = imageViewHeight - 40
-                    reviewTextView.font = reviewTextView.font?.withSize(16.0)
-                    reviewTextView.frame.origin.x = xPosition + imageViewWidth / 2 + 10
-                    reviewTextView.frame.origin.y = 20
-                    reviewTextView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
+                    reviewLabel.numberOfLines = 0
+                    reviewLabel.frame.size.width = imageViewWidth / 2 - 20
+                    reviewLabel.frame.size.height = imageViewHeight - 40
+                    reviewLabel.font = reviewLabel.font?.withSize(16.0)
+                    reviewLabel.frame.origin.x = xPosition + imageViewWidth / 2 + 10
+                    reviewLabel.frame.origin.y = 20
+                    reviewLabel.backgroundColor = UIColor.black.withAlphaComponent(0.2)
                     
                     moreLabel.textColor = UIColor.white
                     moreLabel.text = "더보기 >"
@@ -207,7 +207,7 @@ class MainViewController: UIViewController {
                     self.reviewImageView.addSubview(blackLayerView)
                     self.reviewImageView.addSubview(brandLabel)
                     self.reviewImageView.addSubview(nameLabel)
-                    self.reviewImageView.addSubview(reviewTextView)
+                    self.reviewImageView.addSubview(reviewLabel)
                     self.reviewImageView.addSubview(moreLabel)
                    
 
