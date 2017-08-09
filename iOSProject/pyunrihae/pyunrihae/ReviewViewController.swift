@@ -10,6 +10,22 @@ import UIKit
 
 class ReviewViewController: UIViewController {
     @IBOutlet weak var categoryScrollView: UIScrollView!
+    @IBOutlet weak var reviewNumLabel: UILabel!
+    @IBOutlet weak var sortingMethodLabel: UILabel!
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBAction func tabDropDownBtn(_ sender: UIButton) {
+        let alert = UIAlertController(title: "순서 정렬하기", message: "", preferredStyle: .actionSheet)
+        //Create and add the Cancel action
+        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
+            
+        }
+        let orderByUpdate = UIAlertAction(title: "최신순", style: .default, handler: nil)
+        let orderByUsefulNum = UIAlertAction(title: "유용순", style: .destructive, handler: nil)
+        alert.addAction(cancelAction)
+        alert.addAction(orderByUpdate)
+        alert.addAction(orderByUsefulNum)
+        present(alert, animated: true, completion: nil)
+    }
     var selectedCategoryIndex: Int = 0 // 선택된 카테고리 인덱스, 초기값은 0 (전체)
     var categoryBtns = [UIButton]()
     let category = ["전체","도시락","김밥","베이커리","라면","즉석식품","스낵","유제품","음료"]
@@ -37,6 +53,8 @@ class ReviewViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.delegate = self
+        collectionView.dataSource = self
         categoryScrollView.backgroundColor = UIColor.white
         addCategoryBtn() // 카테고리 버튼 만들어서 스크롤 뷰에 붙이기
         Button.select(btn: categoryBtns[selectedCategoryIndex]) // 맨 처음 카테고리는 전체 선택된 것으로 나타나게 함
@@ -49,16 +67,51 @@ class ReviewViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
+extension ReviewViewController: UICollectionViewDataSource { //메인화면에서 1,2,3위 상품 보여주기
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1;
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 100;
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? ReviewCollectionViewCell {
+            cell.userImage.layer.cornerRadius = cell.userImage.frame.height/2
+            cell.userImage.clipsToBounds = true
+            //임의로 유저 사진 넣어놨음
+                cell.userImage.image = UIImage(named: "search.png")
+                cell.userImage.backgroundColor = UIColor.lightGray
+            //
+            //임의의 별점
+            let grade = 3.6
+            //
+            cell.gradeLabel.text = String(grade)
+            for i in 0..<Int(grade) {
+                let starImage = UIImage(named: "stars.png")
+                let cgImage = starImage?.cgImage
+                let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: 0, y: 0, width: (starImage?.size.width)! / 5, height: starImage!.size.height))!
+                let uiImage = UIImage(cgImage: croppedCGImage)
+                let imageView = UIImageView(image: uiImage)
+                imageView.frame = CGRect(x: i*18, y: 0, width: 18, height: 15)
+                cell.starView.addSubview(imageView)
+            }
+            if grade - Double(Int(grade)) >= 0.5 {
+                let starImage = UIImage(named: "stars.png")
+                let cgImage = starImage?.cgImage
+                let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: (starImage?.size.width)! * 4 / 5, y: 0, width: (starImage?.size.width)!, height: starImage!.size.height))!
+                let uiImage = UIImage(cgImage: croppedCGImage)
+                let imageView = UIImageView(image: uiImage)
+                imageView.frame = CGRect(x: Int(grade)*18 - 3, y: 0, width: 18, height: 15)
+                cell.starView.addSubview(imageView)
+            }
+            cell.reviewView.layer.cornerRadius = 15
+            cell.userImage.clipsToBounds = true
+            return cell
+        }
+        return ReviewCollectionViewCell()
+    }
+}
+extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+}
+

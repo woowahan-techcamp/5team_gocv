@@ -12,8 +12,9 @@ class TabBarViewController: UIViewController {
     @IBOutlet var searchBtn : UIButton!
     @IBOutlet var titleLabel : UILabel!
     @IBOutlet var brandBtns : [UIButton]! // 브랜드 메뉴 버튼 4개
-    @IBOutlet var contentView: UIView!
+    @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var brandContentView: UIView!
+    @IBOutlet weak var tabContentView: UIView!
     @IBOutlet var tabBtns : [UIButton]! // 탭 메뉴 버튼 4개
     var mainViewController : UIViewController!
     var rankingViewController : UIViewController!
@@ -63,6 +64,7 @@ class TabBarViewController: UIViewController {
         didPressBrandBtn(brandBtns[selectedBrandIndex])
         Button.select(btn: tabBtns[selectedTabIndex])
         didPressTabBtn(tabBtns[selectedTabIndex])
+        tabContentView.layer.zPosition = 10
         // Do any additional setup after loading the view.
     }
     override func didReceiveMemoryWarning() {
