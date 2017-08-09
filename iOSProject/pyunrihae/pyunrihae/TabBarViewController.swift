@@ -16,7 +16,8 @@ class TabBarViewController: UIViewController {
     @IBOutlet weak var brandContentView: UIView!
     @IBOutlet weak var tabContentView: UIView!
     @IBOutlet var tabBtns : [UIButton]! // 탭 메뉴 버튼 4개
-    var mainViewController : UIViewController!
+//    var mainViewController : UIViewController!
+    var mainViewController : MainViewController!
     var rankingViewController : UIViewController!
     var reviewViewController : UIViewController!
     var mypageViewController : UIViewController!
@@ -50,11 +51,14 @@ class TabBarViewController: UIViewController {
         selectedBrandIndex = sender.tag
         brandBtns[previousBrandIndex].isSelected = false
         Button.select(btn: sender) // 선택된 버튼에 따라 뷰 보여주기
+        mainViewController.selectedBrandIndexFromTab = selectedBrandIndex // 선택된 브랜드 index를 main에 넘겨주기
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        mainViewController = storyboard.instantiateViewController(withIdentifier: "MainViewController")
+        mainViewController = storyboard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
+        mainViewController.selectedBrandIndexFromTab = selectedBrandIndex
         rankingViewController = storyboard.instantiateViewController(withIdentifier: "RankingViewController")
         reviewViewController = storyboard.instantiateViewController(withIdentifier: "ReviewViewController")
         mypageViewController = storyboard.instantiateViewController(withIdentifier: "MypageViewController")
