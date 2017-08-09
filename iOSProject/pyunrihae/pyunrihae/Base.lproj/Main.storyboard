@@ -461,7 +461,7 @@
             </objects>
             <point key="canvasLocation" x="-1324" y="2390.5547226386807"/>
         </scene>
-        <!--Product Detail View Controller-->
+        <!--상품 상세-->
         <scene sceneID="1Yi-Qd-Imp">
             <objects>
                 <viewController id="t3O-Pz-lwz" customClass="ProductDetailViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
@@ -472,9 +472,61 @@
                     <view key="view" contentMode="scaleToFill" id="One-sJ-IMD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b3h-Yw-EFW">
+                                <rect key="frame" x="276" y="572" width="60" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="writing.png"/>
+                                <connections>
+                                    <segue destination="73h-LJ-DL6" kind="show" id="b1X-ep-stY"/>
+                                </connections>
+                            </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l1m-qW-A3G">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iOw-rg-OJK">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="224"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uvv-fh-a5w">
+                                        <rect key="frame" x="0.0" y="368" width="375" height="64"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Qrp-Y5-HDy">
+                                        <rect key="frame" x="0.0" y="440" width="375" height="163"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="gPm-Fe-U45">
+                                            <size key="itemSize" width="50" height="50"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="EM7-WN-BfX">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </view>
+                                            </collectionViewCell>
+                                        </cells>
+                                    </collectionView>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FB7-T8-Etv">
+                                        <rect key="frame" x="0.0" y="232" width="375" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="UoM-Ai-L7n">
+                    <navigationItem key="navigationItem" title="상품 상세" id="UoM-Ai-L7n">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="ksh-ng-z3K">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hva-o8-6eK">
                                 <rect key="frame" x="16" y="13" width="20" height="17"/>
@@ -486,10 +538,31 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="writingReviewBtn" destination="b3h-Yw-EFW" id="m8o-9d-6Hc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sWp-jB-96e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="420" y="2391"/>
+            <point key="canvasLocation" x="276" y="2408.5457271364321"/>
+        </scene>
+        <!--Writing Review View Controller-->
+        <scene sceneID="U4u-zJ-8pO">
+            <objects>
+                <viewController id="73h-LJ-DL6" customClass="WritingReviewViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="70K-Sp-8vz"/>
+                        <viewControllerLayoutGuide type="bottom" id="r9v-QD-yI8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mFM-IA-tQd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dpV-Sp-Uak" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1009" y="2409"/>
         </scene>
         <!--Review View Controller-->
         <scene sceneID="M9W-Bx-XYt">
@@ -1658,6 +1731,7 @@
                                             <outlet property="reviewView" destination="oth-3A-jDp" id="Fsf-X3-W2H"/>
                                             <outlet property="starView" destination="IYe-F8-fjR" id="VrF-pe-RY6"/>
                                             <outlet property="userImage" destination="g70-uV-OQ1" id="qMp-IL-AJl"/>
+                                            <segue destination="9cE-6F-aqE" kind="show" id="yHi-iw-GkD"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -1758,7 +1832,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pub-OH-w9A" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-470" y="2391"/>
+            <point key="canvasLocation" x="-466" y="2409"/>
         </scene>
     </scenes>
     <resources>
@@ -1766,6 +1840,10 @@
         <image name="dropdown.png" width="1920" height="1920"/>
         <image name="right.png" width="1920" height="1920"/>
         <image name="search.png" width="1280" height="1280"/>
+        <image name="writing.png" width="2000" height="2000"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="yHi-iw-GkD"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>

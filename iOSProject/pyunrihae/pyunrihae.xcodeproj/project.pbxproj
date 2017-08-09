@@ -28,6 +28,8 @@
 		9865E52C1F3AF3EE00014795 /* MypageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E52B1F3AF3EE00014795 /* MypageTableViewCell.swift */; };
 		9865E5301F3AFA0300014795 /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E52F1F3AFA0300014795 /* ProductDetailViewController.swift */; };
 		9865E5321F3AFAF500014795 /* bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 9865E5311F3AFAF500014795 /* bottom.png */; };
+		9865E5341F3AFEFE00014795 /* WritingReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E5331F3AFEFE00014795 /* WritingReviewViewController.swift */; };
+		9865E5361F3AFFC500014795 /* writing.png in Resources */ = {isa = PBXBuildFile; fileRef = 9865E5351F3AFFC500014795 /* writing.png */; };
 		98768AA01F39A5D600654C19 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C5AAD71F342C3900610115 /* DataManager.swift */; };
 		98B73F861F39394500E55420 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B73F851F39394500E55420 /* Review.swift */; };
 		98B73F881F394CAB00E55420 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B73F871F394CAB00E55420 /* Product.swift */; };
@@ -85,6 +87,8 @@
 		9865E52B1F3AF3EE00014795 /* MypageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MypageTableViewCell.swift; sourceTree = "<group>"; };
 		9865E52F1F3AFA0300014795 /* ProductDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
 		9865E5311F3AFAF500014795 /* bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottom.png; sourceTree = "<group>"; };
+		9865E5331F3AFEFE00014795 /* WritingReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WritingReviewViewController.swift; sourceTree = "<group>"; };
+		9865E5351F3AFFC500014795 /* writing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = writing.png; sourceTree = "<group>"; };
 		98B73F851F39394500E55420 /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		98B73F871F394CAB00E55420 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		98C5AACD1F33FAE800610115 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -161,6 +165,7 @@
 			children = (
 				98F172F01F32EDB70044FD0D /* Assets.xcassets */,
 				9865E5311F3AFAF500014795 /* bottom.png */,
+				9865E5351F3AFFC500014795 /* writing.png */,
 				9865E5251F3AF2FF00014795 /* right.png */,
 				9865E5171F39C2A000014795 /* stars.png */,
 				9865E5011F39390100014795 /* search.png */,
@@ -192,6 +197,7 @@
 				981E932B1F386677004BE63B /* ReviewViewController.swift */,
 				981E932D1F386681004BE63B /* MypageViewController.swift */,
 				9865E52F1F3AFA0300014795 /* ProductDetailViewController.swift */,
+				9865E5331F3AFEFE00014795 /* WritingReviewViewController.swift */,
 			);
 			name = "View Controller";
 			sourceTree = "<group>";
@@ -399,6 +405,7 @@
 				98F172F41F32EDB70044FD0D /* LaunchScreen.storyboard in Resources */,
 				9865E5261F3AF2FF00014795 /* right.png in Resources */,
 				9865E5181F39C2A000014795 /* stars.png in Resources */,
+				9865E5361F3AFFC500014795 /* writing.png in Resources */,
 				9865E5321F3AFAF500014795 /* bottom.png in Resources */,
 				984395861F32F29A0016B67D /* GoogleService-Info.plist in Resources */,
 				98F172F11F32EDB70044FD0D /* Assets.xcassets in Resources */,
@@ -574,6 +581,7 @@
 				9865E5081F3943BD00014795 /* Button.swift in Sources */,
 				9865E5221F3AD8BE00014795 /* RankingCollectionViewCell.swift in Sources */,
 				9865E5241F3AE04C00014795 /* Label.swift in Sources */,
+				9865E5341F3AFEFE00014795 /* WritingReviewViewController.swift in Sources */,
 				98B73F881F394CAB00E55420 /* Product.swift in Sources */,
 				98B73F861F39394500E55420 /* Review.swift in Sources */,
 				9865E5161F39AD8100014795 /* ReviewCollectionViewCell.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  ProductDetailViewController.swift
+//  WritingReviewViewController.swift
 //  pyunrihae
 //
 //  Created by woowabrothers on 2017. 8. 9..
@@ -8,15 +8,11 @@
 
 import UIKit
 
-class ProductDetailViewController: UIViewController {
-    @IBOutlet weak var writingReviewBtn: UIButton!
+class WritingReviewViewController: UIViewController {
 
-    @IBAction func closeNavViewBtn(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        writingReviewBtn.layer.zPosition = 10
+
         // Do any additional setup after loading the view.
     }
 
