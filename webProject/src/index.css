@@ -1,0 +1,410 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin:  0;
+}
+
+ul{
+    list-style-type: none;
+    position: absolute;
+
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+.wrapper{
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    height: 2000px;
+
+}
+
+.fixTab-wrapper{
+    background: #ff471b;
+    opacity: 0.95;
+    width: 100%;
+    height: 60px;
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 100;
+}
+
+.fixTab-logo{
+    width: 10%;
+    height: 60px;
+    line-height: 60px;
+    margin-left:50px;
+    color: white;
+    margin-right: 50px;
+    font-size: 30px;
+    text-align: center;
+    float: left
+}
+
+.fixTab-tab{
+    display: block;
+    width: 5%;
+    color: white;
+    margin-top: 10px;
+    height: 30px;
+    float: left;
+    line-height: 60px;
+}
+
+.fixTab-tab-name{
+    text-align: center;
+    font-size: 15px;
+    width: 50px;
+    height: 45px;
+    line-height: 55px;
+}
+
+.fixTab-tab-hover{
+    background-color: white;
+    width: 50px;
+    height: 5px;
+    transition: height 0.2s linear;
+}
+
+
+.fixTab-search-wrapper{
+    display: block;
+    margin-top: 10px;
+    margin-left: 8%;
+    height: 50px;
+    width: 40%;
+    float: left;
+}
+
+
+.fixTab-search-brand, .fixTab-search-category, .fixTab-search-word, .fixTab-search-button{
+    float: left;
+    color: #191919;
+    border: solid #ff4832 2px ;
+    font-size: 13px;
+    line-height: 30px;
+    font-weight: 500;
+    text-align: center;
+    margin: 1%;
+    border-radius: 10px;
+    background-color: #fff7f3;
+}
+.fixTab-search-brand:hover, .fixTab-search-category:hover, .fixTab-search-word:hover, .fixTab-search-button:hover {
+    background-color: #ffb14b;
+    border: solid #ffb14b 2px ;
+}
+
+.fixTab-search-brand{
+    width: 25%;
+}
+
+.fixTab-search-brand-dropdown, .fixTab-search-category-dropdown{
+    width: 100%;
+    display: none;
+}
+.fixTab-search-brand-element, .fixTab-search-category-element{
+    background: #ffffff;
+    width:100%;
+    top:0;
+    left: 0;
+    position: relative;
+}
+
+.fixTab-search-brand-element:hover, .fixTab-search-category-element:hover{
+    background: #fff1a6;
+}
+
+
+
+.fixTab-search-category{
+    width: 25%;
+}
+
+
+.fixTab-search-word{
+    width: 30%;
+}
+
+.fixTab-search-button{
+    width: 30px;
+    line-height: 30px;
+    text-align: center;
+    height: 35px;
+    border: solid white 2px ;
+    margin: 1%;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.fixTab-profile-wrapper{
+    display: block;
+    margin-left: 10%;
+    height: 50px;
+    width: 15%;
+    float: left;
+
+}
+
+.fixTab-profile-image, .fixTab-profile-id, .fixTab-profile-button{
+    position: fixed;
+    top: 10px;
+    font-size: 15px;
+    color: white;
+}
+
+.fixTab-profile-image{
+    right: 175px;
+
+}
+
+
+.fixTab-profile-id{
+    right: 100px;
+    line-height: 50px;
+
+}
+
+.fixTab-profile-button{
+    right: 65px;
+    background-color: whitesmoke;
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
+    margin-top: 13px;
+    border-radius: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*carousel*/
+
+.carousel-wrapper{
+
+}
+
+.carousel-background{
+    width: 100%;
+    height: 800px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-image: url("/image/ex.png");
+    background-color: #000000;
+    filter: brightness(60%);
+}
+
+
+.carousel-navi{
+    position: absolute;
+    top: 80px;
+    text-align: center;
+    float: left;
+    width: 100%;
+    margin-top: 300px;
+    z-index: 80;
+}
+
+
+.carousel-rightButton, .carousel-leftButton{
+    margin: auto;
+    background-image: url("/image/arrow_right.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 50px;
+    height: 50px;
+}
+
+.carousel-rightButton:hover, .carousel-leftButton:hover{
+    filter: brightness(120%);
+}
+
+.carousel-rightButton{
+    background-image: url("/image/arrow_right.png");
+    float: right;
+    margin-right: 5%;
+}
+
+.carousel-leftButton{
+    background-image: url("/image/arrow_left.png");
+    float: left;
+    margin-left: 5%;
+
+}
+
+
+
+.carousel-review{
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel-review-navi{
+    top:300px;
+    position: absolute;
+    height: 350px;
+}
+
+.carousel-review-element{
+    width: 10%;
+    float: left;
+
+}
+
+.carousel-review-element-wrapper{
+    min-width: 600px;
+    position: relative;
+    left: 200px;
+    background-color: #e2dad7;
+    width: 40%;
+    height: 350px;
+    opacity: 0.9;
+    /*box-shadow: 10px 10px 5px #282828;*/
+}
+
+
+.carousel-review-elementTop{
+    width: 100%;
+    height: 100px;
+    background-color: #9c9c9c;
+
+}
+
+.carousel-review-profile{
+    float: left;
+    width: 80px;
+    margin-top: 10px;
+    height: 80px;
+    margin-left: 8%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url("/image/review_profile.png");
+}
+
+.carousel-review-nic, .carousel-review-date{
+    width: 100%;
+    height: 30px;
+    color: white;
+    text-align: center;
+    line-height: 30px;
+}
+
+.carousel-review-star{
+    float: left;
+    width: 200px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    margin-left: 30px;
+}
+
+.carousel-review-starElement{
+    margin-top: 35px;
+    width:30px;
+    margin-left: 5px;
+    height:30px;
+    float: left;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url("/image/star.png");
+}
+
+
+
+.carousel-review-score{
+    float: left;
+    margin-top: 20px;
+    width: 60px;
+    text-align: center;
+    height: 60px;
+    margin-left: 10px;
+    font-size: 20px;
+    line-height: 60px;
+    color: white;
+    border-radius: 40px;
+    background-color: #ff5039;
+}
+
+.carousel-review-image{
+    float: left;
+    width: 40%;
+    margin-top:30px ;
+    margin-left: 5%;
+    border-radius: 10px;
+    height: 200px;
+    background-color: #000000;
+    overflow: hidden;
+}
+
+.carousel-review-imageEle{
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size:contain;
+    background-position: center;
+    background-image: url("/image/ex.png");
+}
+
+.carousel-review-imageEle:hover {
+    transform: scale(1.2);
+    transition-duration: 1s;
+}
+
+.carousel-review-product{
+    font-size: 20px;
+    font-weight: 500;
+    color: #484848;
+    margin-top: 50px;
+}
+
+.carousel-review-description{
+    width: 100%;
+    margin-top: 30px;
+    font-style: italic;
+
+
+}
+
+.carousel-circleBox{
+    width: 100%;
+    height: 30px;
+    position: absolute;
+    top: 750px;
+    left:40%
+
+}
+
+.carousel-circle-navi{
+    text-align: center;
+}
+
+
+
+.carousel-circle{
+    width: 10px;
+    display:inline-block;
+    margin: 5px;
+    height: 10px;
+    border-radius: 5px;
+    background: #fffeee;
+}
+
+.carousel-circle-selected{
+    border: solid 1px white;
+    background: #ffab38;
+}
