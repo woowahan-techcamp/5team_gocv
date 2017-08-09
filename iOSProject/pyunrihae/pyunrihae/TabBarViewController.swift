@@ -68,8 +68,12 @@ class TabBarViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         mainViewController = storyboard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
         mainViewController.selectedBrandIndexFromTab = selectedBrandIndex
+        
         rankingViewController = storyboard.instantiateViewController(withIdentifier: "RankingViewController") as! RankingViewController
+        
         reviewViewController = storyboard.instantiateViewController(withIdentifier: "ReviewViewController") as! ReviewViewController
+        reviewViewController.selectedBrandIndexFromTab = selectedBrandIndex
+        
         mypageViewController = storyboard.instantiateViewController(withIdentifier: "MypageViewController") as! MypageViewController
         viewControllers = [mainViewController,rankingViewController,reviewViewController,mypageViewController]
         Button.changeColor(btn: searchBtn, color: UIColor.white, imageName: "search.png") //서치 이미지 하얀색 틴트로 바꾸기
