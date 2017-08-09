@@ -16,6 +16,9 @@ class DataManager{
     // 기본 데이터 레퍼런스
     static var ref : DatabaseReference! = Database.database().reference()
     
+    /*
+     * 메인화면
+     */
     
     // 브랜드에 따라 리뷰 가져오고, 그걸 유용순으로 정리하기.
     static func getTop3ReviewByBrand(brand : String, completion: @escaping ([Review]) -> ()) {
@@ -132,4 +135,80 @@ class DataManager{
             completion(productList)
         })
     }
+    
+    /*
+     * 리뷰 화면
+     */
+    
+    // 브랜드와 카테고리가 전체가 아닐 때 리뷰 리스트 받아오기
+    static func getReviewListBy(brand : String, category : String, completion : @escaping ([Review]) -> ()) {
+        var reviewList : [Review] = []
+        let localRef = ref.child("review")
+        let query = localRef.queryOrdered(byChild: "brand").queryEqual(toValue: brand)
+        query.observe(DataEventType.value, with: { (snapshot) in
+            
+            for childSnapshot in snapshot.children {
+                let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
+                
+                if review.category == category {
+                    reviewList.append(review)
+                }
+            }
+            
+            reviewList.sort(by: { $0.useful > $1.useful})
+            completion(reviewList)
+        })
+    }
+    
+    // 카테고리가 전체일때 브랜드로만 리뷰 리스트 받아오기.
+    static func getReviewListBy(brand: String, completion: @escaping ([Review]) ->()) {
+        var reviewList : [Review] = []
+        let localRef = ref.child("review")
+        let query = localRef.queryOrdered(byChild: "brand").queryEqual(toValue: brand)
+        query.observe(DataEventType.value, with: { (snapshot) in
+            
+            for childSnapshot in snapshot.children {
+                let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
+                reviewList.append(review)
+            }
+            
+            reviewList.sort(by: { $0.useful > $1.useful})
+            completion(reviewList)
+        })
+    }
+    
+    // 브랜드가 전체일때 카테고리로만 리뷰 리스트 받아오기.
+    static func getReviewListBy(category: String, completion: @escaping ([Review]) ->()) {
+        var reviewList : [Review] = []
+        let localRef = ref.child("review")
+        let query = localRef.queryOrdered(byChild: "category").queryEqual(toValue: category)
+        query.observe(DataEventType.value, with: { (snapshot) in
+            
+            for childSnapshot in snapshot.children {
+                let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
+                reviewList.append(review)
+            }
+            
+            reviewList.sort(by: { $0.useful > $1.useful})
+            completion(reviewList)
+        })
+    }
+    
+    // 브랜드와 카테고리가 전체일 때 리뷰 리스트 받아오기.
+    static func getReviewList(completion: @escaping ([Review]) ->()) {
+        var reviewList : [Review] = []
+        let localRef = ref.child("review")
+        let query = localRef.queryOrdered(byChild: "useful")
+        
+        query.observe(DataEventType.value, with: { (snapshot) in
+            
+            for childSnapshot in snapshot.children {
+                let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
+                reviewList.append(review)
+            }
+            completion(reviewList)
+        })
+    }
+    
+    
 }
