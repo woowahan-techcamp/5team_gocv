@@ -187,6 +187,7 @@ class MainViewController: UIViewController {
                     attrString.addAttribute(NSForegroundColorAttributeName, value: UIColor.white , range: NSRange(location: 0, length: review.comment.characters.count))
                     reviewTextView.attributedText = attrString
                     
+                    reviewTextView.isEditable = false
                     reviewTextView.frame.size.width = imageViewWidth / 2 - 20
                     reviewTextView.frame.size.height = imageViewHeight - 40
                     reviewTextView.font = reviewTextView.font?.withSize(16.0)
