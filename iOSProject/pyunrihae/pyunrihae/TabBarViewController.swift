@@ -27,6 +27,7 @@ class TabBarViewController: UIViewController {
     let category = ["전체","도시락","김밥","베이커리","라면","즉석식품","스낵","유제품","음료"]
     var categoryIndex = 0
     @IBAction func didPressTabBtn(_ sender: UIButton) { // 탭 버튼 클릭
+        NotificationCenter.default.post(name: NSNotification.Name("selectCategory"), object: self, userInfo: ["category" : categoryIndex])
         let previousIndex = selectedTabIndex // 기존의 탭 뷰 숨기기
         selectedTabIndex = sender.tag
         tabBtns[previousIndex].isSelected = false
@@ -46,7 +47,6 @@ class TabBarViewController: UIViewController {
         } else {
             brandContentView.isHidden = false
         }
-        NotificationCenter.default.post(name: NSNotification.Name("selectCategory"), object: self, userInfo: ["category" : categoryIndex])
     }
     @IBAction func didPressBrandBtn(_ sender: UIButton) { // 브랜드 버튼 클릭 함수
         let previousBrandIndex = selectedBrandIndex
@@ -67,6 +67,8 @@ class TabBarViewController: UIViewController {
         rankingViewController = storyboard.instantiateViewController(withIdentifier: "RankingViewController") as! RankingViewController
         reviewViewController = storyboard.instantiateViewController(withIdentifier: "ReviewViewController") as! ReviewViewController
         mypageViewController = storyboard.instantiateViewController(withIdentifier: "MypageViewController") as! MypageViewController
+        rankingViewController.addNotiObserver()
+        reviewViewController.addNotiObserver() // 옵저버 미리 등록시켜주기
         viewControllers = [mainViewController,rankingViewController,reviewViewController,mypageViewController]
         Button.changeColor(btn: searchBtn, color: UIColor.white, imageName: "search.png") //서치 이미지 하얀색 틴트로 바꾸기
         Button.select(btn: brandBtns[selectedBrandIndex]) // 맨 처음 브랜드는 전체 선택된 것으로 나타나게 함
@@ -74,8 +76,8 @@ class TabBarViewController: UIViewController {
         Button.select(btn: tabBtns[selectedTabIndex])
         didPressTabBtn(tabBtns[selectedTabIndex])
         tabContentView.layer.zPosition = 10
-        NotificationCenter.default.addObserver(self, selector: #selector(showCategory), name: NSNotification.Name("showCategory"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showRanking), name: NSNotification.Name("showRanking"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showCategory), name: NSNotification.Name("showCategory"), object: nil)
         // Do any additional setup after loading the view.
     }
     override func didReceiveMemoryWarning() {
