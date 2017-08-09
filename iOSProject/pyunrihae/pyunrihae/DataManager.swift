@@ -37,8 +37,9 @@ class DataManager{
         return reviewList
     }
     
+    // 브랜드도 카테고리도 전체가 아닐 때
     // 카테고리로 받아와서 클라이언트에서 brand로 filter해주기 , 그리고 점수로 뿌려주기.
-    static func getTop3ProductBy(brand : String, category : String) -> [Product] {
+    static func getTop3ProductBy(brand : String, category : String, completion: @escaping ([Product]) -> ()) {
         var productList : [Product] = []
         
         let localRef = ref.child("product")
@@ -48,37 +49,59 @@ class DataManager{
             
             for childSnapshot in snapshot.children {
                 let product = Product.init(snapshot: childSnapshot as! DataSnapshot)
-                if product.brand == brand {
+                if product.brand == (brand) {
                     productList.append(product)
                 }
             }
         })
-        
-        productList.sorted(by: { $0.grade_avg > $1.grade_avg})
         // 가져온 상품를 평점 순으로 뿌려준다.
-        return productList
+        productList.sorted(by: { $0.grade_avg > $1.grade_avg})
+        
+        completion(productList)
     }
     
-    // 전체 브랜드 - 전체 카테고리에서 1,2,3위 상품
-//    static func getTop3Product() -> [Product] {
-//        let notiKey = NSNotification.Name(rawValue: "dataGetComplete")
-//        NotificationCenter.default.post(name: notiKey, object: nil)
-//        var productList : [Product] = []
-//        
-//        let localRef = ref.child("product")
-//        let query = localRef.queryOrdered(byChild: "grade_avg").queryLimited(toLast: 3)
-//        
-//        query.observe(DataEventType.value, with: { (snapshot) in
-//            
-//            for childSnapshot in snapshot.children {
-//                let product = Product.init(snapshot: childSnapshot as! DataSnapshot)
-//                productList.append(product)
-//            }
-//        })
-//        return productList
-//    }
+    
+    // 브랜드만 달라지고 카테고리는 전체일 때
+    static func getTop3ProductBy(brand : String, completion : @escaping ([Product]) -> ()) {
+        var productList : [Product] = []
+        
+        let localRef = ref.child("product")
+        let query = localRef.queryOrdered(byChild: "brand").queryEqual(toValue: brand)
+        
+        query.observe(DataEventType.value, with: { (snapshot) in
+            
+            for childSnapshot in snapshot.children {
+                let product = Product.init(snapshot: childSnapshot as! DataSnapshot)
+                productList.append(product)
+            }
+            
+            productList.sorted(by: { $0.grade_avg > $1.grade_avg})
+            completion(productList)
+        })
+    }
     
     
+    // 카테고리만 달라지고 브랜드는 전체일 때
+    static func getTop3ProductBy(category: String, completion : @escaping ([Product]) -> ()) {
+        var productList : [Product] = []
+        
+        let localRef = ref.child("product")
+        let query = localRef.queryOrdered(byChild: "category").queryEqual(toValue: category)
+        
+        query.observe(DataEventType.value, with: { (snapshot) in
+            
+            for childSnapshot in snapshot.children {
+                let product = Product.init(snapshot: childSnapshot as! DataSnapshot)
+                
+                productList.append(product)
+            }
+            productList.sorted(by: { $0.grade_avg > $1.grade_avg})
+            completion(productList)
+        })
+    }
+    
+    
+    // 브랜드 + 카테고리 전체일 때
     static func getTop3Product(completion: @escaping ([Product]) -> ()) {
     
         var productList : [Product] = []
