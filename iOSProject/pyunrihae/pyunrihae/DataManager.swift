@@ -27,13 +27,14 @@ class DataManager{
         let localRef = ref.child("review")
         
         if brand == "전체" { // 브랜드 : 전체를 선택한 경우
-            let query = localRef.queryOrdered(byChild: "useful")
+            let query = localRef.queryOrdered(byChild: "useful").queryLimited(toLast: 3)
             query.observe(DataEventType.value, with: { (snapshot) in
                 
                 for childSnapshot in snapshot.children {
                     let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
                     reviewList.append(review)
                 }
+                reviewList = reviewList.sorted(by: { $0.useful > $1.useful })
                 completion(reviewList)
             })
 
@@ -46,7 +47,7 @@ class DataManager{
                     let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
                     reviewList.append(review)
                 }
-                reviewList.sorted(by: { $0.useful > $1.useful })
+                reviewList = reviewList.sorted(by: { $0.useful > $1.useful })
                 // 유용순으로 정렬하기
                 completion(reviewList)
             })
@@ -155,7 +156,6 @@ class DataManager{
                 }
             }
             
-            reviewList.sort(by: { $0.useful > $1.useful})
             completion(reviewList)
         })
     }
@@ -171,8 +171,6 @@ class DataManager{
                 let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
                 reviewList.append(review)
             }
-            
-            reviewList.sort(by: { $0.useful > $1.useful})
             completion(reviewList)
         })
     }
@@ -189,7 +187,6 @@ class DataManager{
                 reviewList.append(review)
             }
             
-            reviewList.sort(by: { $0.useful > $1.useful})
             completion(reviewList)
         })
     }

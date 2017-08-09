@@ -11,6 +11,8 @@ import UIKit
 class ReviewCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var reviewView: UIView!
+    @IBOutlet weak var badLabel: UILabel!
+    @IBOutlet weak var usefulLabel: UILabel!
     @IBOutlet weak var brandLabel: UILabel!
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var reviewContentLabel: UILabel!
