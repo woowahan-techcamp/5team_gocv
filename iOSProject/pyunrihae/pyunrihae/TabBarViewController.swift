@@ -68,8 +68,12 @@ class TabBarViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         mainViewController = storyboard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
         mainViewController.selectedBrandIndexFromTab = selectedBrandIndex
+        
         rankingViewController = storyboard.instantiateViewController(withIdentifier: "RankingViewController") as! RankingViewController
+        
         reviewViewController = storyboard.instantiateViewController(withIdentifier: "ReviewViewController") as! ReviewViewController
+        reviewViewController.selectedBrandIndexFromTab = selectedBrandIndex
+        
         mypageViewController = storyboard.instantiateViewController(withIdentifier: "MypageViewController") as! MypageViewController
         rankingViewController.addNotiObserver()
         reviewViewController.addNotiObserver() // 옵저버 미리 등록시켜주기
