@@ -168,6 +168,8 @@ class ReviewViewController: UIViewController {
         DispatchQueue.main.async{
             if self.reviewList.count > 0 {
                 self.reviewNumLabel.text = self.reviewList.count.description + "개의 리뷰"
+            }else{
+                self.reviewNumLabel.text = "아직 리뷰가 없습니다."
             }
         }
     }
@@ -197,6 +199,8 @@ extension ReviewViewController: UICollectionViewDataSource { //메인화면에�
             cell.productNameLabel.text = review.p_name
             cell.reviewContentLabel.text = review.comment
             cell.userImage.af_setImage(withURL: URL(string: review.p_image)!)
+            cell.badLabel.text = review.bad.description
+            cell.usefulLabel.text = review.useful.description
            
             //임의의 별점
             let grade = 3.6
