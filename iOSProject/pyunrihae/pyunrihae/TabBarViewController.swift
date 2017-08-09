@@ -53,17 +53,21 @@ class TabBarViewController: UIViewController {
         selectedBrandIndex = sender.tag
         brandBtns[previousBrandIndex].isSelected = false
         Button.select(btn: sender) // 선택된 버튼에 따라 뷰 보여주기
+        mainViewController.selectedBrandIndexFromTab = selectedBrandIndex // 선택된 브랜드 index를 main에 넘겨주기
     }
+
     func showRanking(_ notification: Notification){
         didPressTabBtn(tabBtns[1])
     }
     func showCategory(_ notification: Notification){
         categoryIndex = notification.userInfo?["category"] as! Int
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         mainViewController = storyboard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
+        mainViewController.selectedBrandIndexFromTab = selectedBrandIndex
         rankingViewController = storyboard.instantiateViewController(withIdentifier: "RankingViewController") as! RankingViewController
         reviewViewController = storyboard.instantiateViewController(withIdentifier: "ReviewViewController") as! ReviewViewController
         mypageViewController = storyboard.instantiateViewController(withIdentifier: "MypageViewController") as! MypageViewController
@@ -78,6 +82,7 @@ class TabBarViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(showRanking), name: NSNotification.Name("showRanking"), object: nil)
         // Do any additional setup after loading the view.
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
