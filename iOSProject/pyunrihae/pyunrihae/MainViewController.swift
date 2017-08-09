@@ -21,9 +21,11 @@ class MainViewController: UIViewController {
     }
     
     var productList : [Product] = []
+    var reviewList : [Review] = []
     var selectedBrandIndexFromTab : Int = 0 {
         didSet{
             getProductList()
+            setReviewScrollImages()
         }
     }
     var selectedCategoryIndex: Int = 0 { // 선택된 카테고리 인덱스, 초기값은 0 (전체)
@@ -110,6 +112,49 @@ class MainViewController: UIViewController {
         }
     }
     
+    func setReviewScrollImages(){
+        var brand = ""
+        
+        switch selectedBrandIndexFromTab {
+        case 0 : brand = ""
+        case 1 : brand = "gs25"
+        case 2 : brand = "CU"
+        case 3 : brand = "7-eleven"
+        default : break;
+        }
+        
+        DataManager.getTop3ReviewByBrand(brand: brand) { (reviews) in
+            self.reviewList = reviews
+            if self.reviewImageView != nil {
+                let imageViewWidth = self.reviewImageView.frame.size.width;
+                let imageViewHeight = self.reviewImageView.frame.size.height;
+                var xPosition:CGFloat = 0;
+                var scrollViewSize:CGFloat=0;
+                
+                
+                for review in self.reviewList {
+                    let url = URL(string: review.p_image)
+                    let myImageView:UIImageView = UIImageView()
+                    myImageView.af_setImage(withURL: url!)
+                    myImageView.contentMode = .center
+                    
+                    myImageView.frame.size.width = imageViewWidth
+                    myImageView.frame.size.height = imageViewHeight
+                    myImageView.frame.origin.x = xPosition
+//                    myImageView.frame.origin.y = -65
+                    
+                    self.reviewImageView.addSubview(myImageView)
+                    xPosition += self.reviewImageView.frame.size.width
+                    scrollViewSize += imageViewWidth
+                };
+                self.reviewImageView.contentSize = CGSize(width: scrollViewSize, height: 1);
+                
+            }
+            
+        }
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
@@ -120,6 +165,7 @@ class MainViewController: UIViewController {
         Button.select(btn: categoryBtns[selectedCategoryIndex]) // 맨 처음 카테고리는 전체 선택된 것으로 나타나게 함
         didPressCategoryBtn(sender: categoryBtns[selectedCategoryIndex])
         reviewImageView.backgroundColor = UIColor.lightGray
+        reviewImageView.isPagingEnabled = true
         showAllBtn.layer.borderColor = UIColor.lightGray.cgColor
         showAllBtn.layer.borderWidth = 1
         DataManager.getTop3Product() { (products) in

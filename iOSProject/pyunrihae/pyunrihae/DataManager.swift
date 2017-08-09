@@ -18,7 +18,7 @@ class DataManager{
     
     
     // 브랜드에 따라 리뷰 가져오고, 그걸 유용순으로 정리하기.
-    static func getTop3ReviewByBrand(brand : String) -> [Review] {
+    static func getTop3ReviewByBrand(brand : String, completion: @escaping ([Review]) -> ()) {
         var reviewList : [Review]  = []
         
         let localRef = ref.child("review")
@@ -30,11 +30,10 @@ class DataManager{
                 let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
                 reviewList.append(review)
             }
+            reviewList.sorted(by: { $0.useful > $1.useful })
+            // 유용순으로 정렬하기
+            completion(reviewList)
         })
-        
-        reviewList.sorted(by: { $0.useful > $1.useful })
-        // 유용순으로 정렬하기
-        return reviewList
     }
     
     // 브랜드도 카테고리도 전체가 아닐 때
@@ -53,9 +52,6 @@ class DataManager{
                     productList.append(product)
                 }
                 
-                if productList.count >= 3 {
-                    break;
-                }
             }
             // 가져온 상품를 평점 순으로 뿌려준다.
             productList.sorted(by: { $0.grade_avg > $1.grade_avg})
