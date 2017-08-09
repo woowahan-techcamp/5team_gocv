@@ -18,7 +18,7 @@ class Review {
     var p_price : Int // 리뷰한 상품 가격
     var p_id : String // 리뷰가 달린 상품의 key
     var p_name : String // 리뷰한 상품 이름
-    var commmet : String // 리뷰 내용
+    var comment : String // 리뷰 내용
     var timestamp : String // timestamp
     var brand : String // 리뷰한 상품의 브랜드
     var category : String // 리뷰한 상품의 카테고리
@@ -45,7 +45,7 @@ class Review {
         self.useful = 0
         self.bad = 0
         self.p_name = ""
-        self.commmet = ""
+        self.comment = ""
     }
     
     
@@ -65,7 +65,7 @@ class Review {
         self.useful = useful
         self.bad = bad
         self.p_name = p_name
-        self.commmet = comment
+        self.comment = comment
     }
     
     convenience init(snapshot : DataSnapshot){

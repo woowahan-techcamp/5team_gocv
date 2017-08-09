@@ -22,18 +22,33 @@ class DataManager{
         var reviewList : [Review]  = []
         
         let localRef = ref.child("review")
-        let query = localRef.queryOrdered(byChild: "brand").queryEqual(toValue: brand)
         
-        query.observe(DataEventType.value, with: { (snapshot) in
+        if brand == "전체" { // 브랜드 : 전체를 선택한 경우
+            let query = localRef.queryOrdered(byChild: "useful")
+            query.observe(DataEventType.value, with: { (snapshot) in
+                
+                for childSnapshot in snapshot.children {
+                    let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
+                    reviewList.append(review)
+                }
+                completion(reviewList)
+            })
+
+        }else { // 특정 브랜드를 선택한 경우
+            let query = localRef.queryOrdered(byChild: "brand").queryEqual(toValue: brand)
             
-            for childSnapshot in snapshot.children {
-                let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
-                reviewList.append(review)
-            }
-            reviewList.sorted(by: { $0.useful > $1.useful })
-            // 유용순으로 정렬하기
-            completion(reviewList)
-        })
+            query.observe(DataEventType.value, with: { (snapshot) in
+                
+                for childSnapshot in snapshot.children {
+                    let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
+                    reviewList.append(review)
+                }
+                reviewList.sorted(by: { $0.useful > $1.useful })
+                // 유용순으로 정렬하기
+                completion(reviewList)
+            })
+            
+        }
     }
     
     // 브랜드도 카테고리도 전체가 아닐 때

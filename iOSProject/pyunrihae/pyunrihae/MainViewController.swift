@@ -116,7 +116,7 @@ class MainViewController: UIViewController {
         var brand = ""
         
         switch selectedBrandIndexFromTab {
-        case 0 : brand = ""
+        case 0 : brand = "전체"
         case 1 : brand = "gs25"
         case 2 : brand = "CU"
         case 3 : brand = "7-eleven"
@@ -130,24 +130,86 @@ class MainViewController: UIViewController {
                 let imageViewHeight = self.reviewImageView.frame.size.height;
                 var xPosition:CGFloat = 0;
                 var scrollViewSize:CGFloat=0;
-                
+                var cnt = 3
                 
                 for review in self.reviewList {
+                    if cnt <= 0 {
+                        break;
+                    }
                     let url = URL(string: review.p_image)
                     let myImageView:UIImageView = UIImageView()
+                    let blackLayerView : UIView = UIView()
+                    let brandLabel : UILabel = UILabel()
+                    let nameLabel : UILabel = UILabel()
+                    let reviewTextView : UITextView = UITextView()
+                    let moreLabel : UILabel = UILabel()
+                
                     myImageView.af_setImage(withURL: url!)
-                    myImageView.contentMode = .center
+                    myImageView.contentMode = UIViewContentMode.scaleAspectFill
                     
                     myImageView.frame.size.width = imageViewWidth
                     myImageView.frame.size.height = imageViewHeight
                     myImageView.frame.origin.x = xPosition
-//                    myImageView.frame.origin.y = -65
                     
+                    blackLayerView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+                    blackLayerView.frame.size.width = imageViewWidth
+                    blackLayerView.frame.size.height = imageViewHeight
+                    blackLayerView.frame.origin.x = xPosition
+                    
+                    brandLabel.textColor = UIColor.white
+                    brandLabel.text = review.brand
+                    brandLabel.frame.size.width = imageViewWidth
+                    brandLabel.frame.size.height = imageViewHeight
+                    brandLabel.font = UIFont.boldSystemFont(ofSize: 16.0)
+                    brandLabel.frame.origin.x = xPosition + 12
+                    brandLabel.frame.origin.y = 60
+                    
+                    nameLabel.textColor = UIColor.white
+                    nameLabel.text = review.p_name
+                    nameLabel.frame.size.width = imageViewWidth
+                    nameLabel.frame.size.height = imageViewHeight
+                    nameLabel.font = UIFont.boldSystemFont(ofSize: 16.0)
+                    nameLabel.frame.origin.x = xPosition + 12
+                    nameLabel.frame.origin.y = 80
+                    
+                    
+                    // 리뷰를 줄간격을 16 + 글자색 흰색으로 바꾸는 코드
+                    let style = NSMutableParagraphStyle()
+                    let attrString = NSMutableAttributedString(string: review.comment)
+                    style.lineSpacing = 16
+                    style.minimumLineHeight = 16
+                    attrString.addAttribute(NSParagraphStyleAttributeName, value: style, range: NSRange(location: 0, length: review.comment.characters.count))
+                    attrString.addAttribute(NSForegroundColorAttributeName, value: UIColor.white , range: NSRange(location: 0, length: review.comment.characters.count))
+                    reviewTextView.attributedText = attrString
+                    
+                    reviewTextView.frame.size.width = imageViewWidth / 2 - 20
+                    reviewTextView.frame.size.height = imageViewHeight - 40
+                    reviewTextView.font = reviewTextView.font?.withSize(16.0)
+                    reviewTextView.frame.origin.x = xPosition + imageViewWidth / 2 + 10
+                    reviewTextView.frame.origin.y = 20
+                    reviewTextView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
+                    
+                    moreLabel.textColor = UIColor.white
+                    moreLabel.text = "더보기 >"
+                    moreLabel.frame.size.width = imageViewWidth
+                    moreLabel.frame.size.height = imageViewHeight
+                    moreLabel.font = UIFont.boldSystemFont(ofSize: 12.0)
+                    moreLabel.frame.origin.x = xPosition + imageViewWidth - 60
+                    moreLabel.frame.origin.y = 84
+
                     self.reviewImageView.addSubview(myImageView)
-                    xPosition += self.reviewImageView.frame.size.width
+                    self.reviewImageView.addSubview(blackLayerView)
+                    self.reviewImageView.addSubview(brandLabel)
+                    self.reviewImageView.addSubview(nameLabel)
+                    self.reviewImageView.addSubview(reviewTextView)
+                    self.reviewImageView.addSubview(moreLabel)
+                   
+
+                    xPosition += imageViewWidth
                     scrollViewSize += imageViewWidth
+                    cnt = cnt - 1
                 };
-                self.reviewImageView.contentSize = CGSize(width: scrollViewSize, height: 1);
+                self.reviewImageView.contentSize = CGSize(width: scrollViewSize, height: 0.8);
                 
             }
             
