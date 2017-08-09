@@ -49,15 +49,18 @@ class DataManager{
             
             for childSnapshot in snapshot.children {
                 let product = Product.init(snapshot: childSnapshot as! DataSnapshot)
-                if product.brand == (brand) {
+                if product.brand == brand {
                     productList.append(product)
                 }
+                
+                if productList.count >= 3 {
+                    break;
+                }
             }
+            // 가져온 상품를 평점 순으로 뿌려준다.
+            productList.sorted(by: { $0.grade_avg > $1.grade_avg})
+            completion(productList)
         })
-        // 가져온 상품를 평점 순으로 뿌려준다.
-        productList.sorted(by: { $0.grade_avg > $1.grade_avg})
-        
-        completion(productList)
     }
     
     
