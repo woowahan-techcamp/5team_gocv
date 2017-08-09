@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import AlamofireImage
 
 class ReviewViewController: UIViewController {
     @IBOutlet weak var categoryScrollView: UIScrollView!
@@ -100,6 +102,7 @@ class ReviewViewController: UIViewController {
     }
     
     func getReviewList(){
+        
         var brand = ""
         
         switch selectedBrandIndexFromTab {
@@ -117,6 +120,7 @@ class ReviewViewController: UIViewController {
                     self.reviewList = reviews
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
+                        self.setReviewNum()
                     }
                 })
             } else if selectedBrandIndexFromTab == 0 { // 브랜드만 전체일 때
@@ -126,6 +130,7 @@ class ReviewViewController: UIViewController {
                         self.reviewList = reviews
                         DispatchQueue.main.async {
                             self.collectionView.reloadData()
+                            self.setReviewNum()
                         }
                     }
                 }
@@ -135,6 +140,7 @@ class ReviewViewController: UIViewController {
                     self.reviewList = reviews
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
+                        self.setReviewNum()
                     }
                 }
             } else { // 브랜드도 카테고리도 전체가 아닐 때
@@ -143,11 +149,20 @@ class ReviewViewController: UIViewController {
                         self.reviewList = reviews
                         DispatchQueue.main.async {
                             self.collectionView.reloadData()
+                            self.setReviewNum()
                         }
                     }
                 }
             }
             
+        }
+    }
+    
+    func setReviewNum(){
+        DispatchQueue.main.async{
+            if self.reviewList.count > 0 {
+                self.reviewNumLabel.text = self.reviewList.count.description + "개의 리뷰"
+            }
         }
     }
     
@@ -167,14 +182,15 @@ extension ReviewViewController: UICollectionViewDataSource { //메인화면에�
             cell.userImage.layer.cornerRadius = cell.userImage.frame.height/2
             cell.userImage.clipsToBounds = true
             //임의로 유저 사진 넣어놨음
-                cell.userImage.image = UIImage(named: "search.png")
-                cell.userImage.backgroundColor = UIColor.lightGray
+//                cell.userImage.image = UIImage(named: "search.png")
+//                cell.userImage.backgroundColor = UIColor.lightGray
             //
             //TODO 유저가 아니라 음식임.
             
             cell.brandLabel.text = review.brand
             cell.productNameLabel.text = review.p_name
             cell.reviewContentLabel.text = review.comment
+            cell.userImage.af_setImage(withURL: URL(string: review.p_image)!)
            
             //임의의 별점
             let grade = 3.6
