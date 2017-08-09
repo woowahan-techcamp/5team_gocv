@@ -118,7 +118,7 @@
         <!--Tab Bar View Controller-->
         <scene sceneID="g2Z-sH-bSe">
             <objects>
-                <viewController id="09o-sF-lFm" customClass="TabBarViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TabBarViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="09o-sF-lFm" customClass="TabBarViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4eH-je-8dF"/>
                         <viewControllerLayoutGuide type="bottom" id="vEB-Xc-2dd"/>

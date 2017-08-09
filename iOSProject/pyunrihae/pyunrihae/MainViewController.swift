@@ -16,7 +16,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var collectionView : UICollectionView!
     @IBOutlet weak var categoryScrollView: CategoryScrollView!
     @IBAction func didPressshowAllBtn(_ sender: UIButton){
-        
+        NotificationCenter.default.post(name: NSNotification.Name("showRanking"), object: self, userInfo: ["category" : selectedCategoryIndex])
     }
     var productList : [Product] = []
     var selectedCategoryIndex: Int = 0 // 선택된 카테고리 인덱스, 초기값은 0 (전체)
@@ -45,6 +45,7 @@ class MainViewController: UIViewController {
         selectedCategoryIndex = sender.tag
         categoryBtns[previousCategoryIndex].isSelected = false
         Button.select(btn: sender) // 선택된 버튼에 따라 뷰 보여주기
+        NotificationCenter.default.post(name: NSNotification.Name("showCategory"), object: self, userInfo: ["category" : selectedCategoryIndex])
     }
     
     override func viewDidLoad() {

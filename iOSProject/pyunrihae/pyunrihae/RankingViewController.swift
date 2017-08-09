@@ -51,13 +51,17 @@ class RankingViewController: UIViewController {
         categoryBtns[previousCategoryIndex].isSelected = false
         Button.select(btn: sender) // 선택된 버튼에 따라 뷰 보여주기
     }
+    func selectCategory(_ notification: Notification){
+        let categoryIndex = notification.userInfo?["category"] as! Int
+        didPressCategoryBtn(sender: categoryBtns[categoryIndex])
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         categoryScrollView.backgroundColor = UIColor.white
         addCategoryBtn() // 카테고리 버튼 만들어서 스크롤 뷰에 붙이기
         Button.select(btn: categoryBtns[selectedCategoryIndex]) // 맨 처음 카테고리는 전체 선택된 것으로 나타나게 함
         didPressCategoryBtn(sender: categoryBtns[selectedCategoryIndex])
-
+        NotificationCenter.default.addObserver(self, selector: #selector(selectCategory), name: NSNotification.Name("selectCategory"), object: nil)
         // Do any additional setup after loading the view.
         
     }
