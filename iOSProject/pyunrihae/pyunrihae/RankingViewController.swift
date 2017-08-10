@@ -20,11 +20,17 @@ class RankingViewController: UIViewController {
             
         }
         let orderByRanking = UIAlertAction(title: "랭킹순", style: .default) { action -> Void in
-            
+            DispatchQueue.main.async {
+                self.sortingMethodLabel.text  = "랭킹순"
+                self.setRankingListOrder()
+            }
         }
 
         let orderByPrice = UIAlertAction(title: "낮은 가격순", style: .destructive) { action -> Void in
-            
+            DispatchQueue.main.async {
+                self.sortingMethodLabel.text  = "낮은 가격순"
+                self.setRankingListOrder()
+            }
         }
 
         alert.addAction(cancelAction)
@@ -33,7 +39,17 @@ class RankingViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     var isLoaded = false
-    var selectedCategoryIndex: Int = 0 // 선택된 카테고리 인덱스, 초기값은 0 (전체)
+    var selectedBrandIndexFromTab : Int = 0 {
+        didSet{
+            getRankingList()
+        }
+    }
+    var selectedCategoryIndex: Int = 0 { // 선택된 카테고리 인덱스, 초기값은 0 (전체)
+        didSet{
+            getRankingList()
+        }
+    }
+    var productList : [Product] = []
     var categoryBtns = [UIButton]()
     let category = ["전체","도시락","김밥","베이커리","라면","즉석식품","스낵","유제품","음료"]
     func addCategoryBtn(){ // 카테고리 버튼 스크롤 뷰에 추가하기
@@ -87,6 +103,94 @@ class RankingViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    func getRankingList(){
+        
+        var brand = ""
+        
+        switch selectedBrandIndexFromTab {
+        case 0 : brand = ""
+        case 1 : brand = "gs25"
+        case 2 : brand = "CU"
+        case 3 : brand = "7-eleven"
+        default : break;
+        }
+        
+        if collectionView != nil {
+            if selectedBrandIndexFromTab == 0  && selectedCategoryIndex == 0 { // 브랜드 : 전체 , 카테고리 : 전체 일때
+                
+                DataManager.getProductAllInRank()  { (products) in
+                    self.productList = products
+                    DispatchQueue.main.async {
+                        self.setRankingNum()
+                        self.setRankingListOrder()
+                    }
+                }
+            } else if selectedBrandIndexFromTab == 0 { // 브랜드만 전체일 때
+                
+                if categoryBtns.count > 0 {
+                    DataManager.getTopProductBy(category: (categoryBtns[selectedCategoryIndex].titleLabel?.text)!) { (products) in
+                        self.productList = products
+                        DispatchQueue.main.async {
+                            self.setRankingNum()
+                            self.setRankingListOrder()
+                        }
+                    }
+                }
+                
+            } else if selectedCategoryIndex == 0 { // 카테고리만 전체일 때
+                DataManager.getTopProductBy(brand: brand) { (products) in
+                    self.productList = products
+                    DispatchQueue.main.async {
+                        self.setRankingNum()
+                        self.setRankingListOrder()
+                    }
+                }
+            } else { // 브랜드도 카테고리도 전체가 아닐 때
+                if categoryBtns.count > 0 {
+                    DataManager.getTopProductBy(brand: brand, category: (categoryBtns[selectedCategoryIndex].titleLabel?.text)!) { (products) in
+                        self.productList = products
+                        DispatchQueue.main.async {
+                            self.setRankingNum()
+                            self.setRankingListOrder()
+                        }
+                    }
+                }
+            }
+            
+        }
+        
+    }
+    
+    func setRankingNum(){
+        DispatchQueue.main.async{
+            if self.productList.count > 0 {
+                self.productNumLabel.text = self.productList.count.description + "개의 상품"
+            }else{
+                self.productNumLabel.text = "아직 상품이 없습니다."
+            }
+        }
+    }
+    
+       
+    func setRankingListOrder(){
+        
+        if sortingMethodLabel != nil {
+            
+            if sortingMethodLabel.text == "랭킹순"{
+                self.productList = productList.sorted(by: { $0.grade_avg > $1.grade_avg })
+            }else{
+                // 멈출 위험이 있음.
+                self.productList = productList.sorted(by: { Int($0.price)! < Int($1.price)! })
+            }
+            
+            self.collectionView.reloadData()
+        }
+    }
+
+
+    
 }
 
 extension RankingViewController: UICollectionViewDataSource { 
@@ -94,15 +198,20 @@ extension RankingViewController: UICollectionViewDataSource {
         return 1;
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 100;
+        return productList.count;
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? RankingCollectionViewCell {
+            
+            let product = self.productList[indexPath.item]
             cell.foodImage.layer.cornerRadius = cell.foodImage.frame.height/2
             cell.foodImage.clipsToBounds = true
-            //임의로 유저 사진 넣어놨음
-            cell.foodImage.image = UIImage(named: "search.png")
-            cell.foodImage.backgroundColor = UIColor.lightGray
+           
+            cell.foodImage.af_setImage(withURL: URL(string:product.image)!)
+            cell.orderNumLabel.text = (indexPath.item + 1).description
+            cell.brandLabel.text = product.brand
+            cell.PriceLabel.text = product.price.description + "원"
+            cell.productNameLabel.text = product.name
             //
             //임의의 별점
             let grade = 3.6

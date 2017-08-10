@@ -55,6 +55,7 @@ class TabBarViewController: UIViewController {
         Button.select(btn: sender) // 선택된 버튼에 따라 뷰 보여주기
         mainViewController.selectedBrandIndexFromTab = selectedBrandIndex // 선택된 브랜드 index를 main에 넘겨주기
         reviewViewController.selectedBrandIndexFromTab = selectedBrandIndex // 선택된 브랜드 index를 review 에 넘겨주기 
+        rankingViewController.selectedBrandIndexFromTab = selectedBrandIndex // 선택된 브랜드 index를 ranking에 넘겨주기
     }
 
     func showRanking(_ notification: Notification){
@@ -71,6 +72,7 @@ class TabBarViewController: UIViewController {
         mainViewController.selectedBrandIndexFromTab = selectedBrandIndex
         
         rankingViewController = storyboard.instantiateViewController(withIdentifier: "RankingViewController") as! RankingViewController
+        rankingViewController.selectedBrandIndexFromTab = selectedBrandIndex
         
         reviewViewController = storyboard.instantiateViewController(withIdentifier: "ReviewViewController") as! ReviewViewController
         reviewViewController.selectedBrandIndexFromTab = selectedBrandIndex
