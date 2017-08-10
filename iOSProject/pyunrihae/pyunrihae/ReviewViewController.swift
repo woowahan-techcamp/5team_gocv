@@ -23,18 +23,16 @@ class ReviewViewController: UIViewController {
             
         }
         let orderByUpdate = UIAlertAction(title: "최신순", style: .default) { action -> Void in
-            self.reviewList = self.reviewList.sorted(by: { $0.id < $1.id })
             DispatchQueue.main.async {
-                self.collectionView.reloadData()
                 self.sortingMethodLabel.text  = "최신순"
+                self.setReviewListOrder()
             }
         }
 
         let orderByUsefulNum = UIAlertAction(title: "유용순", style: .destructive) { action -> Void in
-            self.reviewList = self.reviewList.sorted(by: { $0.useful > $1.useful })
             DispatchQueue.main.async {
-                self.collectionView.reloadData()
                 self.sortingMethodLabel.text  = "유용순"
+                self.setReviewListOrder()
             }
         }
 
@@ -59,6 +57,7 @@ class ReviewViewController: UIViewController {
     var categoryBtns = [UIButton]()
     let category = ["전체","도시락","김밥","베이커리","라면","즉석식품","스낵","유제품","음료"]
     var isLoaded = false
+    var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
 
     func addCategoryBtn(){ // 카테고리 버튼 스크롤 뷰에 추가하기
         categoryScrollView.isScrollEnabled = true
@@ -108,11 +107,29 @@ class ReviewViewController: UIViewController {
         didPressCategoryBtn(sender: categoryBtns[selectedCategoryIndex])
         isLoaded = true
         // Do any additional setup after loading the view.
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func showActivityIndicatory() {
+        self.actInd.frame = CGRect.init(x: 0.0, y: 0.0, width: 40.0, height: 40.0)
+        self.actInd.center = view.center
+        self.actInd.hidesWhenStopped = true
+        self.actInd.activityIndicatorViewStyle =
+            UIActivityIndicatorViewStyle.gray
+        view.addSubview(actInd)
+        actInd.startAnimating()
+    }
+    
+    func hideActivityIndicatory() {
+        if view.subviews.contains(actInd){
+            actInd.stopAnimating()
+            view.willRemoveSubview(actInd)
+        }
     }
     
     func getReviewList(){
@@ -127,14 +144,16 @@ class ReviewViewController: UIViewController {
         default : break;
         }
         
+        showActivityIndicatory()
         if collectionView != nil {
             if selectedBrandIndexFromTab == 0  && selectedCategoryIndex == 0 { // 브랜드 : 전체 , 카테고리 : 전체 일때
                 
                 DataManager.getReviewList(completion:  { (reviews) in
                     self.reviewList = reviews
                     DispatchQueue.main.async {
-                        self.collectionView.reloadData()
                         self.setReviewNum()
+                        self.setReviewListOrder()
+                        self.hideActivityIndicatory()
                     }
                 })
             } else if selectedBrandIndexFromTab == 0 { // 브랜드만 전체일 때
@@ -143,8 +162,9 @@ class ReviewViewController: UIViewController {
                     DataManager.getReviewListBy(category: (categoryBtns[selectedCategoryIndex].titleLabel?.text)!) { (reviews) in
                         self.reviewList = reviews
                         DispatchQueue.main.async {
-                            self.collectionView.reloadData()
                             self.setReviewNum()
+                            self.setReviewListOrder()
+                            self.hideActivityIndicatory()
                         }
                     }
                 }
@@ -153,8 +173,9 @@ class ReviewViewController: UIViewController {
                 DataManager.getReviewListBy(brand: brand) { (reviews) in
                     self.reviewList = reviews
                     DispatchQueue.main.async {
-                        self.collectionView.reloadData()
                         self.setReviewNum()
+                        self.setReviewListOrder()
+                        self.hideActivityIndicatory()
                     }
                 }
             } else { // 브랜드도 카테고리도 전체가 아닐 때
@@ -162,14 +183,16 @@ class ReviewViewController: UIViewController {
                     DataManager.getReviewListBy(brand: brand, category: (categoryBtns[selectedCategoryIndex].titleLabel?.text!)!) { (reviews) in
                         self.reviewList = reviews
                         DispatchQueue.main.async {
-                            self.collectionView.reloadData()
                             self.setReviewNum()
+                            self.setReviewListOrder()
+                            self.hideActivityIndicatory()
                         }
                     }
                 }
             }
             
         }
+        
     }
     
     func setReviewNum(){
@@ -179,6 +202,20 @@ class ReviewViewController: UIViewController {
             }else{
                 self.reviewNumLabel.text = "아직 리뷰가 없습니다."
             }
+        }
+    }
+    
+    func setReviewListOrder(){
+        
+        if sortingMethodLabel != nil {
+            
+            if sortingMethodLabel.text == "최신순"{
+                self.reviewList = reviewList.sorted(by: { $0.id < $1.id })
+            }else{
+                self.reviewList = reviewList.sorted(by: { $0.useful > $1.useful })
+            }
+            
+            self.collectionView.reloadData()
         }
     }
     
@@ -206,7 +243,7 @@ extension ReviewViewController: UICollectionViewDataSource { //메인화면에�
             cell.brandLabel.text = review.brand
             cell.productNameLabel.text = review.p_name
             cell.reviewContentLabel.text = review.comment
-            cell.userImage.af_setImage(withURL: URL(string: review.p_image)!)
+            cell.userImage.af_setImage(withURL: URL(string: review.user_image)!)
             cell.badLabel.text = review.bad.description
             cell.usefulLabel.text = review.useful.description
            

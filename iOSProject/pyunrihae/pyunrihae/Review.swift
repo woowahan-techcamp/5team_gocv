@@ -28,6 +28,7 @@ class Review {
     var quantity : Int // 양에 대해서 리뷰어가 준 점수 (1~5)
     var useful : Int // 이 리뷰가 유용하다고 평가한 사람 수
     var bad : Int // 이 리뷰가 별로라고 평가한 사람 수
+    var user_image : String // 사용자 프로필 사진
     
     init() {
         self.id = ""
@@ -46,10 +47,11 @@ class Review {
         self.bad = 0
         self.p_name = ""
         self.comment = ""
+        self.user_image = ""
     }
     
     
-    init(id : String, p_image : String, user : String, p_id : String, p_price : Int,timestamp : String, brand : String, category : String, grade : Int, price : Int, flavor : Int, quantity : Int, useful : Int, bad :Int , p_name : String, comment: String){
+    init(id : String, p_image : String, user : String, p_id : String, p_price : Int,timestamp : String, brand : String, category : String, grade : Int, price : Int, flavor : Int, quantity : Int, useful : Int, bad :Int , p_name : String, comment: String, user_image: String){
         self.id = id
         self.p_image = p_image
         self.user = user
@@ -66,6 +68,7 @@ class Review {
         self.bad = bad
         self.p_name = p_name
         self.comment = comment
+        self.user_image = user_image
     }
     
     convenience init(snapshot : DataSnapshot){
@@ -86,7 +89,8 @@ class Review {
         let bad = dict["bad"] as? Int ?? 0
         let p_name = dict["p_name"] as? String ?? ""
         let comment = dict["comment"] as? String ?? ""
+        let user_image = dict["user_image"] as? String ?? ""
         
-        self.init(id: id,p_image : p_image, user: user, p_id: p_id, p_price: p_price, timestamp : timestamp, brand: brand, category: category, grade: grade, price : price, flavor: flavor, quantity : quantity, useful: useful, bad : bad, p_name: p_name, comment: comment)
+        self.init(id: id,p_image : p_image, user: user, p_id: p_id, p_price: p_price, timestamp : timestamp, brand: brand, category: category, grade: grade, price : price, flavor: flavor, quantity : quantity, useful: useful, bad : bad, p_name: p_name, comment: comment, user_image: user_image)
     }
 }
