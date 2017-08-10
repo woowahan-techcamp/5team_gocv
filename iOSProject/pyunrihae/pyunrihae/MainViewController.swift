@@ -90,7 +90,7 @@ class MainViewController: UIViewController {
         } else if selectedBrandIndexFromTab == 0 { // 브랜드만 전체일 때
             
             if categoryBtns.count > 0 {
-                DataManager.getTop3ProductBy(category: (categoryBtns[selectedCategoryIndex].titleLabel?.text)!) { (products) in
+                DataManager.getTopProductBy(category: (categoryBtns[selectedCategoryIndex].titleLabel?.text)!) { (products) in
                     self.productList = products
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
@@ -99,7 +99,7 @@ class MainViewController: UIViewController {
             }
             
         } else if selectedCategoryIndex == 0 { // 카테고리만 전체일 때
-            DataManager.getTop3ProductBy(brand: brand) { (products) in
+            DataManager.getTopProductBy(brand: brand) { (products) in
                 self.productList = products
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
@@ -107,7 +107,7 @@ class MainViewController: UIViewController {
             }
         } else { // 브랜드도 카테고리도 전체가 아닐 때
             if categoryBtns.count > 0 {
-                DataManager.getTop3ProductBy(brand: brand, category: (categoryBtns[selectedCategoryIndex].titleLabel?.text)!) { (products) in
+                DataManager.getTopProductBy(brand: brand, category: (categoryBtns[selectedCategoryIndex].titleLabel?.text)!) { (products) in
                     self.productList = products
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()

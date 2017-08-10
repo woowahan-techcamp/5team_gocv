@@ -57,7 +57,7 @@ class DataManager{
     
     // 브랜드도 카테고리도 전체가 아닐 때
     // 카테고리로 받아와서 클라이언트에서 brand로 filter해주기 , 그리고 점수로 뿌려주기.
-    static func getTop3ProductBy(brand : String, category : String, completion: @escaping ([Product]) -> ()) {
+    static func getTopProductBy(brand : String, category : String, completion: @escaping ([Product]) -> ()) {
         var productList : [Product] = []
         
         let localRef = ref.child("product")
@@ -80,7 +80,7 @@ class DataManager{
     
     
     // 브랜드만 달라지고 카테고리는 전체일 때
-    static func getTop3ProductBy(brand : String, completion : @escaping ([Product]) -> ()) {
+    static func getTopProductBy(brand : String, completion : @escaping ([Product]) -> ()) {
         var productList : [Product] = []
         
         let localRef = ref.child("product")
@@ -100,7 +100,7 @@ class DataManager{
     
     
     // 카테고리만 달라지고 브랜드는 전체일 때
-    static func getTop3ProductBy(category: String, completion : @escaping ([Product]) -> ()) {
+    static func getTopProductBy(category: String, completion : @escaping ([Product]) -> ()) {
         var productList : [Product] = []
         
         let localRef = ref.child("product")
@@ -207,5 +207,21 @@ class DataManager{
         })
     }
     
+    /*
+     * 랭킹화면 : 메인화면 함수 재사용. 전체 브랜드 + 전체 카테고리 일 때 함수만 재작성.
+     */
+    
+    static func getProductAllInRank(completion : @escaping ([Product]) -> ()){
+        var productList : [Product] = []
+        let localRef = ref.child("product")
+        localRef.observe(DataEventType.value, with: { (snapshot) in
+            
+            for childSnapshot in snapshot.children {
+                let product = Product.init(snapshot : childSnapshot as! DataSnapshot)
+                productList.append(product)
+            }
+            completion(productList)
+        })
+    }
     
 }
