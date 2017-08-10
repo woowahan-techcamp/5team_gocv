@@ -10,6 +10,11 @@ import UIKit
 
 class WritingReviewViewController: UIViewController {
 
+    @IBAction func tabBackBtn(_ sender: UIButton) {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+    @IBAction func tabCompleteBtn(_ sender: UIButton) {
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 

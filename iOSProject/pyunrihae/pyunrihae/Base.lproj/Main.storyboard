@@ -473,30 +473,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b3h-Yw-EFW">
-                                <rect key="frame" x="276" y="572" width="60" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button" image="writing.png"/>
-                                <connections>
-                                    <segue destination="73h-LJ-DL6" kind="show" id="b1X-ep-stY"/>
-                                </connections>
-                            </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l1m-qW-A3G">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iOw-rg-OJK">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="224"/>
+                                        <rect key="frame" x="0.0" y="-64" width="375" height="224"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uvv-fh-a5w">
-                                        <rect key="frame" x="0.0" y="368" width="375" height="64"/>
+                                        <rect key="frame" x="0.0" y="304" width="375" height="64"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FB7-T8-Etv">
+                                        <rect key="frame" x="0.0" y="168" width="375" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Qrp-Y5-HDy">
-                                        <rect key="frame" x="0.0" y="440" width="375" height="163"/>
+                                        <rect key="frame" x="0.0" y="376" width="375" height="163"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="gPm-Fe-U45">
@@ -506,7 +503,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="EM7-WN-BfX">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="EM7-WN-BfX" customClass="ProductReviewCollectionViewCell" customModule="pyunrihae" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -516,13 +513,16 @@
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FB7-T8-Etv">
-                                        <rect key="frame" x="0.0" y="232" width="375" height="128"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
                                 </subviews>
                             </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b3h-Yw-EFW">
+                                <rect key="frame" x="276" y="572" width="60" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="writing.png"/>
+                                <connections>
+                                    <segue destination="73h-LJ-DL6" kind="show" id="b1X-ep-stY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -539,6 +539,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="collectionView" destination="Qrp-Y5-HDy" id="DSB-wo-eaE"/>
                         <outlet property="writingReviewBtn" destination="b3h-Yw-EFW" id="m8o-9d-6Hc"/>
                     </connections>
                 </viewController>
@@ -546,7 +547,7 @@
             </objects>
             <point key="canvasLocation" x="276" y="2408.5457271364321"/>
         </scene>
-        <!--Writing Review View Controller-->
+        <!--리뷰 쓰기-->
         <scene sceneID="U4u-zJ-8pO">
             <objects>
                 <viewController id="73h-LJ-DL6" customClass="WritingReviewViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
@@ -559,6 +560,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="리뷰 쓰기" id="IFW-fE-urb">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="j5k-uI-Fja">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qSi-kf-Tx0">
+                                <rect key="frame" x="16" y="12" width="15" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="back.png"/>
+                                <connections>
+                                    <action selector="tabBackBtn:" destination="73h-LJ-DL6" eventType="touchUpInside" id="Ia1-Kc-TaH"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="1uJ-00-cCX">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ISn-IR-yX5">
+                                <rect key="frame" x="276" y="7" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="완료">
+                                    <color key="titleColor" red="0.89019607840000003" green="0.29411764709999999" blue="0.039215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="tabCompleteBtn:" destination="73h-LJ-DL6" eventType="touchUpInside" id="tHO-eU-7cl"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dpV-Sp-Uak" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1781,8 +1806,8 @@
                                 <color key="textColor" red="0.89019607840000003" green="0.29411764709999999" blue="0.039215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZtX-Y0-mGN">
-                                <rect key="frame" x="0.0" y="152" width="375" height="210"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZtX-Y0-mGN">
+                                <rect key="frame" x="0.0" y="152" width="375" height="180"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -1794,13 +1819,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="right.png" translatesAutoresizingMaskIntoConstraints="NO" id="5k6-3Q-LD8">
-                                                    <rect key="frame" x="342" y="24" width="15" height="20"/>
+                                                    <rect key="frame" x="341" y="27" width="10" height="15"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MmP-Ii-veR">
-                                                    <rect key="frame" x="21" y="24" width="283" height="21"/>
+                                                    <rect key="frame" x="27" y="24" width="283" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1844,6 +1869,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="back.png" width="1920" height="1920"/>
         <image name="bottom.png" width="1920" height="1920"/>
         <image name="dropdown.png" width="1920" height="1920"/>
         <image name="right.png" width="1920" height="1920"/>
@@ -1851,7 +1877,7 @@
         <image name="writing.png" width="2000" height="2000"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="yHi-iw-GkD"/>
+        <segue reference="Vaq-lB-3M9"/>
     </inferredMetricsTieBreakers>
-    <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>
