@@ -608,7 +608,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="옥수수 외 2개" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p7a-D5-oY1">
-                                                            <rect key="frame" x="280" y="124" width="77" height="21"/>
+                                                            <rect key="frame" x="267" y="124" width="77" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                             <color key="textColor" red="0.89019607840000003" green="0.29411764709999999" blue="0.039215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -619,6 +619,13 @@
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </view>
+                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="coX-Gl-Ppg">
+                                                            <rect key="frame" x="337" y="119" width="30" height="30"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <state key="normal" title="&gt;">
+                                                                <color key="titleColor" red="0.89019607840000003" green="0.29411764709999999" blue="0.039215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </state>
+                                                        </button>
                                                     </subviews>
                                                 </tableViewCellContentView>
                                                 <connections>
@@ -766,11 +773,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yHM-6Y-gO8">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="1056"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WuU-0d-sPY">
-                                        <rect key="frame" x="0.0" y="392" width="375" height="211"/>
+                                        <rect key="frame" x="0.0" y="392" width="375" height="667"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="roundedRect" placeholder="이 상품에 대해서 느낀점을 솔직하게 적어주세요 :)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6na-DE-4zg">
@@ -778,6 +785,10 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <attributedString key="attributedText"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="endEditing:" destination="73h-LJ-DL6" eventType="editingDidEnd" id="KI2-eu-e7e"/>
+                                                    <action selector="startEditing:" destination="73h-LJ-DL6" eventType="editingDidBegin" id="3bD-XO-T9S"/>
+                                                </connections>
                                             </textField>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sn8-VS-4au">
                                                 <rect key="frame" x="23" y="89" width="100" height="100"/>
@@ -929,13 +940,16 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addedImageView" destination="Sn8-VS-4au" id="JMU-Rk-ERg"/>
                         <outlet property="brandLabel" destination="C0p-OZ-LG5" id="O38-2c-fCD"/>
+                        <outlet property="detailReview" destination="6na-DE-4zg" id="tao-js-DiO"/>
                         <outlet property="flavorLevelView" destination="Z4s-1V-Pws" id="Pnk-7l-acl"/>
                         <outlet property="priceLabel" destination="V8Z-ql-LEG" id="PIp-I1-Orm"/>
                         <outlet property="priceLevelView" destination="EnL-Cj-16h" id="V0F-XB-i2h"/>
                         <outlet property="productImage" destination="0fj-ff-QFC" id="F7J-CA-cwL"/>
                         <outlet property="productNameLabel" destination="gDf-ps-YOV" id="9Yj-7e-NOd"/>
                         <outlet property="quantityLevelView" destination="bfy-dv-Ogx" id="8XA-bE-9Zx"/>
+                        <outlet property="reviewTextView" destination="WuU-0d-sPY" id="ZRY-p3-8XL"/>
                         <outlet property="scrollView" destination="yHM-6Y-gO8" id="SVT-EP-ZKe"/>
                         <outlet property="starView" destination="6H7-dd-xym" id="WEX-Wr-gRr"/>
                     </connections>
@@ -2130,7 +2144,7 @@
                                                             <rect key="frame" x="255" y="110" width="15" height="15"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="유용" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O8w-o5-FtW">
@@ -2316,7 +2330,6 @@
         <image name="writing.png" width="2000" height="2000"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Vaq-lB-3M9"/>
         <segue reference="yHi-iw-GkD"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>

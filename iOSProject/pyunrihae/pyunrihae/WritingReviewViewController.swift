@@ -10,6 +10,25 @@ import UIKit
 
 class WritingReviewViewController: UIViewController {
 
+    @IBAction func startEditing(_ sender: UITextField) {
+        
+        UIView.animate(withDuration: 1.5, delay: 0.0, usingSpringWithDamping: 5.0, initialSpringVelocity: 5.0, options: UIViewAnimationOptions.curveEaseInOut, animations: ({
+            self.scrollView.frame.origin.y -= 389
+        }), completion: nil)
+        
+        addedImageView.isHidden = true
+    }
+    @IBOutlet weak var detailReview: UITextField!
+    
+    @IBOutlet weak var reviewTextView: UIView!
+    @IBAction func endEditing(_ sender: Any) {
+        UIView.animate(withDuration: 1.5, delay: 0.0, usingSpringWithDamping: 5.0, initialSpringVelocity: 5.0, options: UIViewAnimationOptions.curveEaseInOut, animations: ({
+            self.scrollView.frame.origin.y += 389
+        }), completion: nil)
+        
+        addedImageView.isHidden = false
+    }
+    @IBOutlet weak var addedImageView: UIView!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var brandLabel: UILabel!
@@ -25,6 +44,7 @@ class WritingReviewViewController: UIViewController {
         self.navigationController?.popToRootViewController(animated: true)
     }
     @IBOutlet weak var scrollView: UIScrollView!
+    
     let priceLevel = ["비싸다","비싼편","적당","싼편","싸다"]
     let flavorLevel = ["노맛","별로","적당","괜춘","존맛"]
     let quantityLevel = ["창렬","적음","적당","많음","혜자"]
