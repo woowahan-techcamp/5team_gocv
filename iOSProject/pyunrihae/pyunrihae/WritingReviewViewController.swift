@@ -22,6 +22,7 @@ class WritingReviewViewController: UIViewController {
         self.navigationController?.popToRootViewController(animated: true)
     }
     @IBAction func tabCompleteBtn(_ sender: UIButton) {
+        self.navigationController?.popToRootViewController(animated: true)
     }
     @IBOutlet weak var scrollView: UIScrollView!
     let priceLevel = ["비싸다","비싼편","적당","싼편","싸다"]
@@ -109,10 +110,7 @@ class WritingReviewViewController: UIViewController {
         addPriceLevelBtn()
         addFlavorLevelBtn()
         addQuantityLevelBtn()
-        productImage.layer.borderWidth = 0.7
-        productImage.layer.borderColor = UIColor.lightGray.cgColor
-        productImage.layer.cornerRadius = productImage.layer.frame.height/2
-        productImage.clipsToBounds = true
+        Image.makeCircleImage(image: productImage)
         // Do any additional setup after loading the view.
     }
 
