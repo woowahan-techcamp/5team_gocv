@@ -15,6 +15,7 @@ class ProductDetailViewController: UIViewController {
     @IBAction func closeNavViewBtn(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         writingReviewBtn.layer.zPosition = 10

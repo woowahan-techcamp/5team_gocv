@@ -15,6 +15,10 @@ class WritingReviewViewController: UIViewController {
     }
     @IBAction func tabCompleteBtn(_ sender: UIButton) {
     }
+    let priceLevel = ["비싸다","비싼편","적당","싼편","싸다"]
+    let flavorLevel = ["노맛","별로","적당","괜춘","존맛"]
+    let quantityLevel = ["창렬","적음","적당","많음","혜자"]
+    var allergy = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
 
