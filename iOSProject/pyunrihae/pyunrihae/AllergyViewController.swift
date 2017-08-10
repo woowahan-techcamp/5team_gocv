@@ -16,6 +16,8 @@ class AllergyViewController: UIViewController {
         self.navigationController?.popToViewController(writingReviewViewController, animated: true)
     }
     @IBAction func tabCompleteBtn(_ sender: UIButton) {
+        let writingReviewViewController = self.navigationController?.viewControllers[1] as! WritingReviewViewController
+        self.navigationController?.popToViewController(writingReviewViewController, animated: true)
     }
     let allergyList = ["메밀","달걀","우유","콩","밀","게","새우","고등어","돼지고기","소고기","닭고기","복숭아","땅콩","토마토","오징어","호두","조개"] // 임의로 알레르기 리스트를 넣었음
 
