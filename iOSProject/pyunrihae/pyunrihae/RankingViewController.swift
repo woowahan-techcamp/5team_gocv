@@ -51,6 +51,7 @@ class RankingViewController: UIViewController {
     }
     var productList : [Product] = []
     var categoryBtns = [UIButton]()
+    var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
     let category = ["전체","도시락","김밥","베이커리","라면","즉석식품","스낵","유제품","음료"]
     func addCategoryBtn(){ // 카테고리 버튼 스크롤 뷰에 추가하기
         categoryScrollView.isScrollEnabled = true
@@ -104,6 +105,22 @@ class RankingViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func showActivityIndicatory() {
+        self.actInd.frame = CGRect.init(x: 0.0, y: 0.0, width: 40.0, height: 40.0)
+        self.actInd.center = view.center
+        self.actInd.hidesWhenStopped = true
+        self.actInd.activityIndicatorViewStyle =
+            UIActivityIndicatorViewStyle.gray
+        view.addSubview(actInd)
+        actInd.startAnimating()
+    }
+    
+    func hideActivityIndicatory() {
+        if view.subviews.contains(actInd){
+            actInd.stopAnimating()
+            view.willRemoveSubview(actInd)
+        }
+    }
     
     func getRankingList(){
         
@@ -117,6 +134,8 @@ class RankingViewController: UIViewController {
         default : break;
         }
         
+        self.showActivityIndicatory()
+        
         if collectionView != nil {
             if selectedBrandIndexFromTab == 0  && selectedCategoryIndex == 0 { // 브랜드 : 전체 , 카테고리 : 전체 일때
                 
@@ -125,6 +144,7 @@ class RankingViewController: UIViewController {
                     DispatchQueue.main.async {
                         self.setRankingNum()
                         self.setRankingListOrder()
+                        self.hideActivityIndicatory()
                     }
                 }
             } else if selectedBrandIndexFromTab == 0 { // 브랜드만 전체일 때
@@ -135,6 +155,7 @@ class RankingViewController: UIViewController {
                         DispatchQueue.main.async {
                             self.setRankingNum()
                             self.setRankingListOrder()
+                            self.hideActivityIndicatory()
                         }
                     }
                 }
@@ -145,6 +166,7 @@ class RankingViewController: UIViewController {
                     DispatchQueue.main.async {
                         self.setRankingNum()
                         self.setRankingListOrder()
+                        self.hideActivityIndicatory()
                     }
                 }
             } else { // 브랜드도 카테고리도 전체가 아닐 때
@@ -154,6 +176,7 @@ class RankingViewController: UIViewController {
                         DispatchQueue.main.async {
                             self.setRankingNum()
                             self.setRankingListOrder()
+                            self.hideActivityIndicatory()
                         }
                     }
                 }

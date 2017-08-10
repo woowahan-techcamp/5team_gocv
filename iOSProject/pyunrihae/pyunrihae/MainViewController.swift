@@ -34,6 +34,7 @@ class MainViewController: UIViewController {
         }
     }
     
+    var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
     var categoryBtns = [UIButton]()
     let category = ["전체","도시락","김밥","베이커리","라면","즉석식품","스낵","유제품","음료"]
     
@@ -67,6 +68,24 @@ class MainViewController: UIViewController {
         categoryBtns[previousCategoryIndex].isSelected = false
         Button.select(btn: categoryBtns[selectedCategoryIndex])
     }
+    
+    func showActivityIndicatory() {
+        self.actInd.frame = CGRect.init(x: 0.0, y: 0.0, width: 40.0, height: 40.0)
+        self.actInd.center = view.center
+        self.actInd.hidesWhenStopped = true
+        self.actInd.activityIndicatorViewStyle =
+            UIActivityIndicatorViewStyle.gray
+        view.addSubview(actInd)
+        actInd.startAnimating()
+    }
+    
+    func hideActivityIndicatory() {
+        if view.subviews.contains(actInd){
+            actInd.stopAnimating()
+            view.willRemoveSubview(actInd)
+        }
+    }
+    
     func getProductList(){
         
         var brand = ""
@@ -79,12 +98,14 @@ class MainViewController: UIViewController {
         default : break;
         }
         
+        self.showActivityIndicatory()
         if selectedBrandIndexFromTab == 0  && selectedCategoryIndex == 0 { // 브랜드 : 전체 , 카테고리 : 전체 일때
             
             DataManager.getTop3Product() { (products) in
                 self.productList = products
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
+                    self.hideActivityIndicatory()
                 }
             }
         } else if selectedBrandIndexFromTab == 0 { // 브랜드만 전체일 때
@@ -94,6 +115,7 @@ class MainViewController: UIViewController {
                     self.productList = products
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
+                        self.hideActivityIndicatory()
                     }
                 }
             }
@@ -103,6 +125,7 @@ class MainViewController: UIViewController {
                 self.productList = products
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
+                    self.hideActivityIndicatory()
                 }
             }
         } else { // 브랜드도 카테고리도 전체가 아닐 때
@@ -111,6 +134,7 @@ class MainViewController: UIViewController {
                     self.productList = products
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
+                        self.hideActivityIndicatory()
                     }
                 }
             }
@@ -127,7 +151,7 @@ class MainViewController: UIViewController {
         case 3 : brand = "7-eleven"
         default : break;
         }
-        
+        showActivityIndicatory()
         DataManager.getTop3ReviewByBrand(brand: brand) { (reviews) in
             self.reviewList = reviews
             if self.reviewImageView != nil {
@@ -215,6 +239,7 @@ class MainViewController: UIViewController {
                     scrollViewSize += imageViewWidth
                     cnt = cnt - 1
                 };
+                self.hideActivityIndicatory()
                 self.reviewImageView.contentSize = CGSize(width: scrollViewSize, height: 0.8);
                 
             }
