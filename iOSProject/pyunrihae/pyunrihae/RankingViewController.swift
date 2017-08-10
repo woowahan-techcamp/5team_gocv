@@ -212,6 +212,15 @@ extension RankingViewController: UICollectionViewDataSource {
             cell.brandLabel.text = product.brand
             cell.PriceLabel.text = product.price.description + "원"
             cell.productNameLabel.text = product.name
+            
+            
+            if product.event[0].characters.count > 2 {
+                cell.EventLabel.isHidden = false
+                cell.EventLabel.text = product.event[0]
+            }else{
+                cell.EventLabel.isHidden = true
+            }
+            
             //
             //임의의 별점
             let grade = 3.6
