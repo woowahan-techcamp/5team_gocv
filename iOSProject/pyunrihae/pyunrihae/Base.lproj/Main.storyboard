@@ -780,16 +780,6 @@
                                         <rect key="frame" x="0.0" y="392" width="375" height="667"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="roundedRect" placeholder="이 상품에 대해서 느낀점을 솔직하게 적어주세요 :)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6na-DE-4zg">
-                                                <rect key="frame" x="8" y="8" width="359" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <attributedString key="attributedText"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                                <connections>
-                                                    <action selector="endEditing:" destination="73h-LJ-DL6" eventType="editingDidEnd" id="KI2-eu-e7e"/>
-                                                    <action selector="startEditing:" destination="73h-LJ-DL6" eventType="editingDidBegin" id="3bD-XO-T9S"/>
-                                                </connections>
-                                            </textField>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sn8-VS-4au">
                                                 <rect key="frame" x="23" y="89" width="100" height="100"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -805,6 +795,28 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                             </view>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RDR-db-oH2">
+                                                <rect key="frame" x="8" y="8" width="359" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="이 상품에 대해 느낀점을 솔직하게 적어주세요 :)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tpV-Kc-V1G">
+                                                <rect key="frame" x="15" y="13" width="344" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RZM-Oc-Z36">
+                                                <rect key="frame" x="320" y="525" width="25" height="25"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" image="dropdown.png"/>
+                                                <connections>
+                                                    <action selector="tabEndEditingBtn:" destination="73h-LJ-DL6" eventType="touchUpInside" id="PW9-8I-HWf"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
@@ -942,8 +954,9 @@
                     <connections>
                         <outlet property="addedImageView" destination="Sn8-VS-4au" id="JMU-Rk-ERg"/>
                         <outlet property="brandLabel" destination="C0p-OZ-LG5" id="O38-2c-fCD"/>
-                        <outlet property="detailReview" destination="6na-DE-4zg" id="tao-js-DiO"/>
+                        <outlet property="detailReview" destination="RDR-db-oH2" id="dFS-PA-uhw"/>
                         <outlet property="flavorLevelView" destination="Z4s-1V-Pws" id="Pnk-7l-acl"/>
+                        <outlet property="placeholder" destination="tpV-Kc-V1G" id="lmF-iN-8Ph"/>
                         <outlet property="priceLabel" destination="V8Z-ql-LEG" id="PIp-I1-Orm"/>
                         <outlet property="priceLevelView" destination="EnL-Cj-16h" id="V0F-XB-i2h"/>
                         <outlet property="productImage" destination="0fj-ff-QFC" id="F7J-CA-cwL"/>
