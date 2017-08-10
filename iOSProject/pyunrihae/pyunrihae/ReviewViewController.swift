@@ -23,18 +23,16 @@ class ReviewViewController: UIViewController {
             
         }
         let orderByUpdate = UIAlertAction(title: "최신순", style: .default) { action -> Void in
-            self.reviewList = self.reviewList.sorted(by: { $0.id < $1.id })
             DispatchQueue.main.async {
-                self.collectionView.reloadData()
                 self.sortingMethodLabel.text  = "최신순"
+                self.setReviewListOrder()
             }
         }
 
         let orderByUsefulNum = UIAlertAction(title: "유용순", style: .destructive) { action -> Void in
-            self.reviewList = self.reviewList.sorted(by: { $0.useful > $1.useful })
             DispatchQueue.main.async {
-                self.collectionView.reloadData()
                 self.sortingMethodLabel.text  = "유용순"
+                self.setReviewListOrder()
             }
         }
 
@@ -108,6 +106,7 @@ class ReviewViewController: UIViewController {
         didPressCategoryBtn(sender: categoryBtns[selectedCategoryIndex])
         isLoaded = true
         // Do any additional setup after loading the view.
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -133,8 +132,8 @@ class ReviewViewController: UIViewController {
                 DataManager.getReviewList(completion:  { (reviews) in
                     self.reviewList = reviews
                     DispatchQueue.main.async {
-                        self.collectionView.reloadData()
                         self.setReviewNum()
+                        self.setReviewListOrder()
                     }
                 })
             } else if selectedBrandIndexFromTab == 0 { // 브랜드만 전체일 때
@@ -143,8 +142,8 @@ class ReviewViewController: UIViewController {
                     DataManager.getReviewListBy(category: (categoryBtns[selectedCategoryIndex].titleLabel?.text)!) { (reviews) in
                         self.reviewList = reviews
                         DispatchQueue.main.async {
-                            self.collectionView.reloadData()
                             self.setReviewNum()
+                            self.setReviewListOrder()
                         }
                     }
                 }
@@ -153,8 +152,8 @@ class ReviewViewController: UIViewController {
                 DataManager.getReviewListBy(brand: brand) { (reviews) in
                     self.reviewList = reviews
                     DispatchQueue.main.async {
-                        self.collectionView.reloadData()
                         self.setReviewNum()
+                        self.setReviewListOrder()
                     }
                 }
             } else { // 브랜드도 카테고리도 전체가 아닐 때
@@ -162,14 +161,15 @@ class ReviewViewController: UIViewController {
                     DataManager.getReviewListBy(brand: brand, category: (categoryBtns[selectedCategoryIndex].titleLabel?.text!)!) { (reviews) in
                         self.reviewList = reviews
                         DispatchQueue.main.async {
-                            self.collectionView.reloadData()
                             self.setReviewNum()
+                            self.setReviewListOrder()
                         }
                     }
                 }
             }
             
         }
+        
     }
     
     func setReviewNum(){
@@ -179,6 +179,20 @@ class ReviewViewController: UIViewController {
             }else{
                 self.reviewNumLabel.text = "아직 리뷰가 없습니다."
             }
+        }
+    }
+    
+    func setReviewListOrder(){
+        
+        if sortingMethodLabel != nil {
+            
+            if sortingMethodLabel.text == "최신순"{
+                self.reviewList = reviewList.sorted(by: { $0.id < $1.id })
+            }else{
+                self.reviewList = reviewList.sorted(by: { $0.useful > $1.useful })
+            }
+            
+            self.collectionView.reloadData()
         }
     }
     
@@ -206,7 +220,7 @@ extension ReviewViewController: UICollectionViewDataSource { //메인화면에�
             cell.brandLabel.text = review.brand
             cell.productNameLabel.text = review.p_name
             cell.reviewContentLabel.text = review.comment
-            cell.userImage.af_setImage(withURL: URL(string: review.p_image)!)
+            cell.userImage.af_setImage(withURL: URL(string: review.user_image)!)
             cell.badLabel.text = review.bad.description
             cell.usefulLabel.text = review.useful.description
            
