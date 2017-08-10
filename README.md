@@ -122,7 +122,7 @@ key |	type |	example |	description
 ----|------|----------|------------
 id	| string	| R0001 | 리뷰 고유번호
 p_image | string | url | 사용자가 올린 상품 사진
-u_image | string | url | 유저 프로필 사진
+user_image | string | url | 유저 프로필 사진
 user | string | jude | 유저의 닉네임
 p_name | string | 맛좋은 도시락 | 해당 상품의 이름
 p_price | int | 3500 | 해당 상품의 가격
