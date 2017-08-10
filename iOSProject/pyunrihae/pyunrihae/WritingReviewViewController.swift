@@ -10,7 +10,14 @@ import UIKit
 
 class WritingReviewViewController: UIViewController {
 
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var productNameLabel: UILabel!
+    @IBOutlet weak var brandLabel: UILabel!
+    @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var starView: UIView!
+    @IBOutlet weak var priceLevelView: UIView!
+    @IBOutlet weak var flavorLevelView: UIView!
+    @IBOutlet weak var quantityLevelView: UIView!
     @IBAction func tabBackBtn(_ sender: UIButton) {
         self.navigationController?.popToRootViewController(animated: true)
     }
@@ -22,7 +29,10 @@ class WritingReviewViewController: UIViewController {
     let quantityLevel = ["창렬","적음","적당","많음","혜자"]
     var allergy = [String]()
     var starBtns = [UIButton]()
-    func addStarBtn() {
+    var priceLevelBtns = [UIButton]()
+    var flavorLevelBtns = [UIButton]()
+    var quantityLevelBtns = [UIButton]()
+    func addStarBtn() { //별 버튼 뷰에 붙이기
         for i in 0..<5 {
             let starBtn = UIButton()
             starBtn.frame = CGRect(x: i*45, y: 0, width: 25, height: 25)
@@ -33,7 +43,40 @@ class WritingReviewViewController: UIViewController {
             starView.addSubview(starBtn)
         }
     }
-    func didPressStarBtn (sender: UIButton) {
+    func addPriceLevelBtn() { //가격 레벨 버튼 뷰에 붙이기
+        for i in 0..<5 {
+            let priceLevelBtn = UIButton()
+            priceLevelBtn.frame = CGRect(x: i*70, y: 0, width: 50, height: 25)
+            Button.makeNormalBtn(btn: priceLevelBtn, text: priceLevel[i])
+            priceLevelBtn.addTarget(self, action: #selector(didPressPriceLevelBtn), for: UIControlEvents.touchUpInside)
+            priceLevelBtn.tag = i
+            priceLevelBtns.append(priceLevelBtn)
+            priceLevelView.addSubview(priceLevelBtn)
+        }
+    }
+    func addFlavorLevelBtn() { //맛 레벨 버튼 뷰에 붙이기
+        for i in 0..<5 {
+            let flavorLevelBtn = UIButton()
+            flavorLevelBtn.frame = CGRect(x: i*70, y: 0, width: 50, height: 25)
+            Button.makeNormalBtn(btn: flavorLevelBtn, text: flavorLevel[i])
+            flavorLevelBtn.addTarget(self, action: #selector(didPressFlavorLevelBtn), for: UIControlEvents.touchUpInside)
+            flavorLevelBtn.tag = i
+            flavorLevelBtns.append(flavorLevelBtn)
+            flavorLevelView.addSubview(flavorLevelBtn)
+        }
+    }
+    func addQuantityLevelBtn() { //양 레벨 버튼 뷰에 붙이기
+        for i in 0..<5 {
+            let quantityLevelBtn = UIButton()
+            quantityLevelBtn.frame = CGRect(x: i*70, y: 0, width: 50, height: 25)
+            Button.makeNormalBtn(btn: quantityLevelBtn, text: quantityLevel[i])
+            quantityLevelBtn.addTarget(self, action: #selector(didPressQuantityLevelBtn), for: UIControlEvents.touchUpInside)
+            quantityLevelBtn.tag = i
+            quantityLevelBtns.append(quantityLevelBtn)
+            quantityLevelView.addSubview(quantityLevelBtn)
+        }
+    }
+    func didPressStarBtn (sender: UIButton) { //별 버튼 눌렸을 떄 별 색깔 채워주기
         for i in 0...sender.tag {
             Button.changeColor(btn: starBtns[i], color: UIColor.orange, imageName: "star.png")
         }
@@ -41,10 +84,35 @@ class WritingReviewViewController: UIViewController {
             Button.changeColor(btn: starBtns[i], color: UIColor.lightGray, imageName: "star.png")
         }
     }
+    func didPressPriceLevelBtn (sender: UIButton) { // 가격 레벨 버튼 눌렸을 때
+        for i in 0..<5 {
+            Button.makeDeselectedBtn(btn: priceLevelBtns[i])
+        }
+        Button.makeSelectedBtn(btn: sender)
+    }
+    func didPressFlavorLevelBtn (sender: UIButton) { // 맛 레벨 버튼 눌렸을 때
+        for i in 0..<5 {
+            Button.makeDeselectedBtn(btn: flavorLevelBtns[i])
+        }
+        Button.makeSelectedBtn(btn: sender)
+    }
+    func didPressQuantityLevelBtn (sender: UIButton) { // 양 레벨 버튼 눌렸을 때
+        for i in 0..<5 {
+            Button.makeDeselectedBtn(btn: quantityLevelBtns[i])
+        }
+        Button.makeSelectedBtn(btn: sender)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.isScrollEnabled = true
         addStarBtn()
+        addPriceLevelBtn()
+        addFlavorLevelBtn()
+        addQuantityLevelBtn()
+        productImage.layer.borderWidth = 0.7
+        productImage.layer.borderColor = UIColor.lightGray.cgColor
+        productImage.layer.cornerRadius = productImage.layer.frame.height/2
+        productImage.clipsToBounds = true
         // Do any additional setup after loading the view.
     }
 
@@ -53,15 +121,4 @@ class WritingReviewViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
