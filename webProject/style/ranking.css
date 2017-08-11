@@ -1,0 +1,131 @@
+.main-rank-wrapper {
+    /*background-color: blue;*/
+    width: 100%;
+    margin: auto;
+}
+
+.main-rank-header {
+    margin-top: 300px;
+    text-align: center;
+    font-size: 25px;
+}
+
+.main-div-wrapper {
+    margin-top: 15px;
+}
+
+.main-rank-tab-wrapper {
+    margin: 50px auto auto auto;
+    /*background-color: red;*/
+    text-align: center;
+    width: 90%;
+}
+
+.main-rank-tab {
+    display: inline-block;
+    line-height: 40px;
+    text-align: center;
+    width: 10%;
+    border-radius: 3px;
+    background-color: #ffded1;
+}
+
+.main-rank-tab:hover {
+    background-color: #ff5853;
+    color: white;
+}
+
+.main-rank-selectedtab {
+    background-color: #ff5853;
+    color: white;
+}
+
+.main-rank-content {
+    text-align: center;
+    /*background-color: yellow;*/
+    width: 70%;
+    height: 500px;
+    margin: 50px auto auto auto;
+}
+
+.card-main-rank-wrapper {
+    margin: 50px auto auto auto;
+    width: 80%;
+    text-align: center;
+}
+
+.card-main-rank-content {
+    margin-top: 30px;
+    width: 33%;
+    float: left;
+    height: 30%;
+    border-radius: 2%;
+}
+
+.card-main-badge-area1,.card-main-badge-area2,.card-main-badge-area3{
+    position: absolute;
+    /*top: 125px;*/
+    width: 40px;
+    height: 40px;
+    margin-left: 3%;
+    line-height: 40px;
+    color: white;
+    border-radius: 20px;
+}
+
+.card-main-badge-area1 {
+    background-color: gold;
+}
+
+.card-main-badge-area2 {
+    background-color: silver;
+}
+
+.card-main-badge-area3 {
+    background-color: brown;
+}
+
+.card-main-badge {
+    /*margin: auto;
+    vertical-align: middle;
+    text-align: center;*/
+}
+
+.card-rank-image {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    filter: brightness(50%);
+}
+
+.card-rank-image:hover {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    filter: brightness(90%);
+}
+
+.card-main-description {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+#card-main-rank-rating1 {
+    display: inline-block;
+}
+
+#card-main-rank-rating2 {
+    display: inline-block;
+}
+
+#card-main-rank-rating3 {
+    display: inline-block;
+}
+
+.card-main-rank-name {
+    margin-top: 30px;
+}
+
+.card-main-rank-price {
+    margin-top: 10px;
+}

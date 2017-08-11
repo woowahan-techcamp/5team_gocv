@@ -71,10 +71,9 @@ class MainViewController: UIViewController {
     
     func showActivityIndicatory() {
         self.actInd.frame = CGRect.init(x: 0.0, y: 0.0, width: 40.0, height: 40.0)
-        self.actInd.center = view.center
+        self.actInd.center = view.superview?.center ?? view.center
         self.actInd.hidesWhenStopped = true
-        self.actInd.activityIndicatorViewStyle =
-            UIActivityIndicatorViewStyle.gray
+        self.actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
         view.addSubview(actInd)
         actInd.startAnimating()
     }
@@ -227,6 +226,12 @@ class MainViewController: UIViewController {
                     moreLabel.frame.origin.x = xPosition + imageViewWidth - 60
                     moreLabel.frame.origin.y = 84
 
+                    let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+                    
+                    self.reviewImageView.addGestureRecognizer(tap)
+                    
+                    self.reviewImageView.isUserInteractionEnabled = true
+                    
                     self.reviewImageView.addSubview(myImageView)
                     self.reviewImageView.addSubview(blackLayerView)
                     self.reviewImageView.addSubview(brandLabel)
@@ -247,6 +252,11 @@ class MainViewController: UIViewController {
         }
         
     }
+    
+    func handleTap(_ sender: UITapGestureRecognizer) {
+        NotificationCenter.default.post(name: NSNotification.Name("showReview"), object: self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
