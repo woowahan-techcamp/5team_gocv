@@ -1,4 +1,6 @@
 import "./firebaseinit.js"
+import "./ranking.js"
+import "./brand.js"
 import "./index.css"
 
 document.addEventListener('DOMContentLoaded', function (event) {
@@ -68,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
 
     const carousel = new Carousel('reviewNavi','carousel-leftButton',
-        'carousel-rightButton', 10, 'carouselTemp','carouselSec');
+        'carousel-rightButton', 10, 'carousel-template','carouselSec');
     const counter = new Counter(1000);
     counter.setCounter();
 

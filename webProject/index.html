@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
-
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+    <link rel="stylesheet" type="text/css" href="./style/ranking.css">
+    <link rel="stylesheet" type="text/css" href="./style/brand.css">
 </head>
 <body>
 <div class="wrapper">
@@ -673,6 +674,52 @@
 
     </div>
 
+
+    <!--메인 탭 구현-->
+    <div class="main-rank-wrapper">
+        <div class="main-rank-header">
+            <span style="color: red; font-size: 30px">이번 주</span>의 <span style="color: red; font-size: 40px">HOT</span>상품
+            <span>
+                <img style="position:relative; margin-left:10px; top: 10px;width: 50px; height: 50px" src="image/burger.png"/>
+            </span>
+        </div>
+
+        <div class="main-div-wrapper">
+
+            <ul class="main-rank-tab-wrapper">
+                <!-- 도시락 / 김밥 / 베이커리 / 라면 / 스낵 / 유제품 / 음료 / 즉석식품 -->
+                <li class="main-rank-tab main-rank-selectedtab" name="도시락">도시락</li>
+                <li class="main-rank-tab" name="김밥">김밥</li>
+                <li class="main-rank-tab" name="베이커리">베이커리</li>
+                <li class="main-rank-tab" name="라면">라면</li>
+                <li class="main-rank-tab" name="스낵">스낵</li>
+                <li class="main-rank-tab" name="유제품">유제품</li>
+                <li class="main-rank-tab" name="음료">음료</li>
+                <li class="main-rank-tab" name="즉석식품">즉석식품</li>
+            </ul>
+
+
+            <div class="main-rank-content">
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <!--카운터 구현-->
     <div class="counter-wrapper">
         <div class="counter-title">
@@ -725,7 +772,8 @@
 
 </div>
 
-<script id="carouselTemp" type="text/x-handlebars-template">
+<!--template-->
+<script id="carousel-template" type="text/x-handlebars-template">
     <ul style="z-index: 80; position: relative; width:1200%; height: 800px;top:250px; left: -100%;"
         class="carousel-review-navi" id="reviewNavi">
     {{#this}}
@@ -775,12 +823,51 @@
     {{/this }}
     </ul>
 </script>
+<script id="card-ranking-template" type="text/x-handlebars-template">
+    {{#ranking}}
+    <div class="card-main-rank-content">
+        <div class="{{style}}">{{rank}}
+        </div>
+        <img class="card-rank-image" src="{{image}}"/>
 
+        <div class="card-main-description">
+            <div id="{{rating}}">
 
+            </div>
 
+            <div class="card-main-rank-name">상품명 : {{name}}</div>
+            <div class="card-main-rank-price">가격 : {{price}}</div>
+        </div>
+
+    </div>
+    {{/ranking}}
+</script>
+<script id="brand-ranking-template" type="text/x-handlebars-template">
+    {{#this}}
+    <div class="rank-product-type">
+        {{category}}
+    </div>
+    <img class="rank-product-image"
+         src="{{img}}"/>
+    <div class="rank-event-wrapper">
+        {{#each event}}
+        <span class="rank-product-event">{{event_tag}}</span>
+        {{/each}}
+    </div>
+
+    <div class="rank-product-name">{{name}}</div>
+    <div class="rank-product-price">{{price}}</div>
+    <div class="rank-product-rating">{{rank}}</div>
+    {{/this}}
+</script>
+
+<!--외부소스-->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/handlebarsjs/4.0.8/handlebars.min.js"></script>
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
 <script src="plugin/jquery.animateNumber.min.js"></script>
+
+<!--번들-->
 <script src="./dist/bundle.js"></script>
 </body>
 </html>
