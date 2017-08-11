@@ -1,7 +1,7 @@
 .brand-rank-wrapper {
     margin-top: 200px;
     width: 100%;
-    height: 600px;
+    height: 550px;
 }
 
 .brand-rank-arrow {
@@ -52,7 +52,7 @@
 
 .brand-logo-resize {
     margin: 0 auto;
-    height: 100px;
+    height: 150px;
 }
 
 .brand-rank-slide {
@@ -145,4 +145,18 @@
 
 .brand-rank-more:hover{
     filter: brightness(120%);
+}
+
+.brand-event{
+    margin-top: -100px;
+    width: 30%;
+    border-radius: 10px;
+    height: 120px;
+    margin: auto;
+
+    background-color: #ff471b;
+}
+
+.brand-event:hover{
+    filter: brightness(130%);
 }
