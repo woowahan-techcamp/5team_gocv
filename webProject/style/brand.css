@@ -1,0 +1,128 @@
+.brand-rank-wrapper {
+    padding-top: 100px;
+    width: 100%;
+    height: 600px;
+}
+
+.brand-rank-arrow {
+    margin: 0 auto;
+}
+
+.brand-rank-left {
+    font-size: 30px;
+    width: 40px;
+    height: 100px;
+    margin-left: 5%;
+    margin-top: 200px;
+    position: absolute;
+    text-align: center;
+}
+
+.brand-rank-right {
+    font-size: 30px;
+    width: 30px;
+    height: 100px;
+    margin-left: 90%;
+    margin-top: 200px;
+    position: absolute;
+    text-align: center;
+}
+
+.brand-slide-wrapper {
+    margin: 0 auto;
+    height: 500px;
+    width: 80%;
+    clear: none;
+    overflow: hidden;
+}
+
+.brand-slide-logo {
+    text-align: center;
+    width: 100%;
+}
+
+.brand-logo-resize {
+    margin: 0 auto;
+    height: 100px;
+}
+
+.brand-rank-slide {
+    margin: auto;
+    height: 250px;
+    width: 200%;
+    /*transition-duration: 0s;*/
+}
+
+.brand-item-wrapper {
+    display: block;
+    float: left;
+    height: 350px;
+    width: 8%;
+    margin: 10px 25px 10px 35px;
+}
+
+.brand-rank-item {
+    padding-left: 0px;
+}
+
+.rank-product-type {
+    /*position: absolute;*/
+    border-radius: 8px;
+    background-color: yellow;
+    width: 90px;
+    text-align: center;
+}
+
+.rank-product-image {
+    width: 180px;
+    height: 180px;
+}
+
+.rank-product-image:hover {
+    opacity: 0.5;
+}
+
+.rank-event-wrapper {
+    margin-top: 10px;
+    width: 200px;
+}
+
+.rank-product-event {
+    border-radius: 10px;
+    background-color: darkslateblue;
+    color: white;
+    /*margin: auto;*/
+    margin-top: 10px;
+    padding: 5px 15px 5px 15px;
+    width: 33%;
+}
+
+.rank-product-name {
+    font-size: 16px;
+    width: 200px;
+    margin-top: 20px;
+}
+
+.rank-product-price {
+    margin-top: 10px;
+}
+
+.rank-product-rating {
+
+}
+
+.brand-more-link {
+    text-decoration: none;
+    color: black;
+}
+
+.brand-rank-more {
+    display: block;
+    margin: 40px auto;
+    padding: 15px 0 15px;
+    background-color: white;
+    width: 66%;
+    text-align: center;
+    font-size: 15px;
+    border: 1px solid black;
+}
