@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const documentParams = {
+    const obj = getRankingData();
+
+    const gsParams = {
+        brand: 'gs',
         leftBtn: 'gs-left-scroll',
         rightBtn: 'gs-right-scroll',
         // ul
@@ -7,9 +10,30 @@ document.addEventListener('DOMContentLoaded', function () {
         template: 'brand-ranking-template',
         item_wrapper: 'gs-item-wrapper'
     };
-    const obj = getRankingData();
 
-    new BrandRankingPreview(documentParams, obj);
+    const cuParams = {
+        brand: 'cu',
+        leftBtn: 'cu-left-scroll',
+        rightBtn: 'cu-right-scroll',
+        // ul
+        wrapper: '.brand-rank-item',
+        template: 'brand-ranking-template',
+        item_wrapper: 'cu-item-wrapper'
+    };
+
+    const sevenParams = {
+        brand: 'seven',
+        leftBtn: 'seven-left-scroll',
+        rightBtn: 'seven-right-scroll',
+        // ul
+        wrapper: '.brand-rank-item',
+        template: 'brand-ranking-template',
+        item_wrapper: 'seven-item-wrapper'
+    };
+
+    new BrandRankingPreview(gsParams, obj);
+    new BrandRankingPreview(cuParams, obj);
+    new BrandRankingPreview(sevenParams, obj);
 });
 
 function getRankingData() {
@@ -117,6 +141,7 @@ class BrandRankingPreview {
         this.rightBtn = document.getElementById(documentParams.rightBtn);
         // template
         this.template = document.getElementById(documentParams.template).innerHTML;
+        this.brand = documentParams.brand;
 
         // dummy data
         this.rankingData = obj;
@@ -132,24 +157,23 @@ class BrandRankingPreview {
     }
 
     init() {
-        this.setNode(this.rankingData[this.rankingDataKey[0]], 1);
-        this.setNode(this.rankingData[this.rankingDataKey[1]], 1);
-        this.setNode(this.rankingData[this.rankingDataKey[2]], 1);
-        this.setNode(this.rankingData[this.rankingDataKey[3]], 1);
-        this.setNode(this.rankingData[this.rankingDataKey[4]], 1);
+        this.setNode(this.rankingData[this.rankingDataKey[0]], 1, 0);
+        this.setNode(this.rankingData[this.rankingDataKey[1]], 1, 1);
+        this.setNode(this.rankingData[this.rankingDataKey[2]], 1, 2);
+        this.setNode(this.rankingData[this.rankingDataKey[3]], 1, 3);
 
         const array = Array.from(
             document.querySelectorAll(`#${this.item_template}> .brand-item-wrapper`));
 
-        array.forEach(function(element){
+        array.forEach(function (element) {
             element.setAttribute('class', 'brand-item-wrapper brand-item-selected');
         });
+
         this.setLeftScroll();
         this.setRightScroll();
     }
 
-    setNode(object, value){
-        console.log(object);
+    setNode(object, value, params) {
         const element = document.createElement('li');
         element.setAttribute('class', 'brand-item-wrapper');
 
@@ -159,23 +183,33 @@ class BrandRankingPreview {
             const event_tag = Handlebars.escapeExpression(this);
             return new Handlebars.SafeString(event_tag);
         });
+        const id = "brand-item-rating-" + this.brand + params;
+        object['rating'] = id;
 
         element.innerHTML = template(object);
 
-        if(value === 1){
+        if (value === -1) {
             const nextElement = document.getElementById(this.item_template).firstChild;
             document.getElementById(this.item_template).insertBefore(element, nextElement);
-        } else{
+        } else {
             document.getElementById(this.item_template).appendChild(element);
         }
+
+        this.setRatingHandler(id, object.grade);
     }
 
-    removeNode(){
+    setRatingHandler(id, value) {
+        $("#" + id).rateYo({
+            rating: value,
+            readOnly: true
+        });
+    }
+
+    removeNode() {
         const array = Array.from(
             document.querySelectorAll(`#${this.item_template}> .brand-item-selected`));
 
-        array.forEach(function(element){
-            console.log(element);
+        array.forEach(function (element) {
             document.getElementById(this.item_template).removeChild(element);
         }.bind(this));
     }
@@ -186,43 +220,42 @@ class BrandRankingPreview {
             this.leftBtn.disabled = true;
             const template = document.getElementById(this.item_template).parentNode;
 
-            this.query = this.query - 5;
-            for(let x = this.query - 1; x > this.query -6; x--){
+            this.query = this.query - 4;
+            for (let x = this.query - 1; x > this.query - 5; x--) {
                 let nextQuery;
-                if(x < 0){
+                if (x < 0) {
                     nextQuery = this.rankingDataSize + x;
-                }else if(x >= this.rankingDataSize){
+                } else if (x >= this.rankingDataSize) {
                     nextQuery = x - this.rankingDataSize;
-                }else{
+                } else {
                     nextQuery = x;
                 }
-                this.setNode(this.rankingData[this.rankingDataKey[nextQuery]], -1);
+                this.setNode(this.rankingData[this.rankingDataKey[nextQuery]], -1, nextQuery);
             }
 
-            if(this.query < 0){
+            if (this.query < 0) {
                 this.query += this.rankingDataSize;
             }
 
             this.index++;
 
-            template.style.transitionDuration = '0.5s';
-            template.style.marginLeft = '-50%';
-            template.style.transform = 'translateX(-50%)';
+            template.style.transitionDuration = '0.4s';
+            template.style.marginLeft = '-1200px';
+            template.style.transform = 'translateX(1200px)';
 
-            setTimeout(function() {
+            setTimeout(function () {
                 that.removeNode();
                 template.style.transitionDuration = '0s';
-
-                const array = Array.from(document.querySelectorAll(`#${this.item_template} > .brand-item-wrapper`));
-                array.forEach(function(element){
-                    element.setAttribute('class', 'brand-item-wrapper brand-item-selected');
-                });
-
                 template.style.margin = 'auto';
                 template.style.transform = 'translateX(0px)';
 
+                const array = Array.from(document.querySelectorAll(`#${this.item_template} > .brand-item-wrapper`));
+                array.forEach(function (element) {
+                    element.setAttribute('class', 'brand-item-wrapper brand-item-selected');
+                });
+
                 that.leftBtn.disabled = false;
-            }, 500);
+            }, 400);
         }.bind(this));
     }
 
@@ -232,34 +265,31 @@ class BrandRankingPreview {
             this.rightBtn.disabled = true;
             const template = document.getElementById(this.item_template).parentNode;
 
-            for(let x = 0; x < 5; x++){
-                this.setNode(this.rankingData[this.rankingDataKey[this.query]], 1);
+            for (let x = 0; x < 4; x++) {
+                this.setNode(this.rankingData[this.rankingDataKey[this.query]], 1, this.query);
                 this.query++;
-                if(this.query === this.rankingDataSize){
+                if (this.query === this.rankingDataSize) {
                     this.query = 0;
                 }
             }
 
             this.index++;
 
-            template.style.transitionDuration = '0.5s';
-            template.style.transform = 'translateX(50%)';
+            template.style.transitionDuration = '0.4s';
+            template.style.transform = 'translateX(-1200px)';
 
-            setTimeout(function() {
+            setTimeout(function () {
                 that.removeNode();
                 template.style.transitionDuration = '0s';
-                // template.style.transform = 'none';
+                template.style.transform = 'none';
 
                 const array = Array.from(document.querySelectorAll(`#${this.item_template} > .brand-item-wrapper`));
-                array.forEach(function(element){
+                array.forEach(function (element) {
                     element.setAttribute('class', 'brand-item-wrapper brand-item-selected');
                 });
 
-                template.style.margin = 'auto';
-                template.style.transform = 'translateX(0px)';
-
                 that.rightBtn.disabled = false;
-            }.bind(that), 500);
+            }.bind(that), 400);
         }.bind(this));
     }
 }
