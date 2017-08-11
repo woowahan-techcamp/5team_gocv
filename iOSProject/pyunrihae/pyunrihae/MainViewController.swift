@@ -226,6 +226,12 @@ class MainViewController: UIViewController {
                     moreLabel.frame.origin.x = xPosition + imageViewWidth - 60
                     moreLabel.frame.origin.y = 84
 
+                    let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+                    
+                    self.reviewImageView.addGestureRecognizer(tap)
+                    
+                    self. reviewImageView.isUserInteractionEnabled = true
+                    
                     self.reviewImageView.addSubview(myImageView)
                     self.reviewImageView.addSubview(blackLayerView)
                     self.reviewImageView.addSubview(brandLabel)
@@ -246,6 +252,11 @@ class MainViewController: UIViewController {
         }
         
     }
+    
+    func handleTap(_ sender: UITapGestureRecognizer) {
+        NotificationCenter.default.post(name: NSNotification.Name("showReview"), object: self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self

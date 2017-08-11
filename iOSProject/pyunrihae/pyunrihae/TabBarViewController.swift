@@ -64,6 +64,9 @@ class TabBarViewController: UIViewController {
     func showCategory(_ notification: Notification){
         categoryIndex = notification.userInfo?["category"] as! Int
     }
+    func showReview(_ notification: Notification){
+        didPressTabBtn(tabBtns[2])
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,6 +91,7 @@ class TabBarViewController: UIViewController {
         tabContentView.layer.zPosition = 10
         NotificationCenter.default.addObserver(self, selector: #selector(showRanking), name: NSNotification.Name("showRanking"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showCategory), name: NSNotification.Name("showCategory"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showReview), name: NSNotification.Name("showReview"), object: nil)
         // Do any additional setup after loading the view.
     }
     
