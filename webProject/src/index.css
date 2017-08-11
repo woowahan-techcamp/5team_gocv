@@ -259,7 +259,7 @@ a{
     background-repeat: no-repeat;
     background-color: #191919;
     background-image: url("/image/bg.png");
-    filter: blur(0px) brightness(50%);
+    filter: blur(0px) brightness(20%);
 
 }
 

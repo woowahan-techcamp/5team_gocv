@@ -677,14 +677,16 @@
 
     <!--메인 탭 구현-->
     <div class="main-rank-wrapper">
-        <div class="main-rank-header">
-            <span style="color: red; font-size: 30px; font-weight: 600">이번 주</span>의 <span   style="font-weight: 600; color: red; font-size: 40px">HOT</span>상품
-            <span>
-                <img style="position:relative; margin-left:10px; top: 10px;width: 50px; height: 50px" src="image/burger.png"/>
-            </span>
-        </div>
+
 
         <div class="main-div-wrapper">
+
+            <div class="main-rank-header">
+                <span style="color: red; font-size: 30px; font-weight: 600">이번 주</span>의 <span   style="font-weight: 600; color: red; font-size: 40px">HOT</span>상품
+                <span>
+                <img style="position:relative; margin-left:10px; top: 10px;width: 50px; height: 50px" src="image/burger.png"/>
+                </span>
+            </div>
 
             <ul class="main-rank-tab-wrapper">
                 <!-- 도시락 / 김밥 / 베이커리 / 라면 / 스낵 / 유제품 / 음료 / 즉석식품 -->
@@ -731,6 +733,7 @@
         <div class="brand-rank-more">GS25 랭킹 전체 보기</div>
     </a>
     </div>
+    <!--<div style="text-align: center"><a href=""><img class="brand-event" src="image/gs_event.png"></a></div>-->
     <!--cu-->
     <div class="brand-rank-wrapper">
         <div class="brand-rank-arrow">
@@ -752,6 +755,7 @@
             <div class="brand-rank-more">CU 랭킹 전체 보기</div>
         </a>
     </div>
+    <!--<div style="text-align: center"><a href="http://cu.bgfretail.com/event/plus.do?category=event&depth2=1&sf=N"><img class="brand-event" src="image/cu_event.png"></a></div>-->
 
     <!--세븐일레븐-->
     <div class="brand-rank-wrapper">
@@ -774,14 +778,12 @@
             <div class="brand-rank-more">7ELEVEN 랭킹 전체 보기</div>
         </a>
     </div>
+    <!--<div style="text-align: center"><a href="http://www.7-eleven.co.kr/event/eventList.asp"><img class="brand-event" src="image/seven_event.png"></a></div>-->
 
 
 
 
-
-
-
-    <!--카운터 구현--> 
+        <!--카운터 구현-->
     <div class="counter-wrapper">
         <div class="counter-title">
             <span class="highlight" style="font-size: 30px">편의점 리뷰</span>
@@ -859,7 +861,7 @@
                             <li class="carousel-review-starElement"></li>
                             <li class="carousel-review-starElement"></li>
                             <li class="carousel-review-starElement"></li>
-                            <li class="carousel-review-starElement"></li>
+                            <li style="display:none" class="carousel-review-starElement"></li>
                         </ul>
                     </div>
                     <div class="carousel-review-score">
