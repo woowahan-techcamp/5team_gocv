@@ -794,14 +794,6 @@
                                                 <color key="textColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RZM-Oc-Z36">
-                                                <rect key="frame" x="320" y="525" width="25" height="25"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" image="dropdown.png"/>
-                                                <connections>
-                                                    <action selector="tabEndEditingBtn:" destination="73h-LJ-DL6" eventType="touchUpInside" id="PW9-8I-HWf"/>
-                                                </connections>
-                                            </button>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sn8-VS-4au">
                                                 <rect key="frame" x="15" y="79" width="100" height="100"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -821,6 +813,14 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                             </view>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RZM-Oc-Z36">
+                                                <rect key="frame" x="322" y="28" width="20" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" image="dropdown.png"/>
+                                                <connections>
+                                                    <action selector="tabEndEditingBtn:" destination="73h-LJ-DL6" eventType="touchUpInside" id="PW9-8I-HWf"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
@@ -960,6 +960,7 @@
                         <outlet property="addedImageView" destination="Sn8-VS-4au" id="JMU-Rk-ERg"/>
                         <outlet property="brandLabel" destination="C0p-OZ-LG5" id="O38-2c-fCD"/>
                         <outlet property="detailReview" destination="RDR-db-oH2" id="dFS-PA-uhw"/>
+                        <outlet property="endEditingBtn" destination="RZM-Oc-Z36" id="hqT-iJ-hdo"/>
                         <outlet property="flavorLevelView" destination="Z4s-1V-Pws" id="Pnk-7l-acl"/>
                         <outlet property="placeholder" destination="tpV-Kc-V1G" id="lmF-iN-8Ph"/>
                         <outlet property="priceLabel" destination="V8Z-ql-LEG" id="PIp-I1-Orm"/>
