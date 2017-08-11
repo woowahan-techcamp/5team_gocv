@@ -240,8 +240,8 @@ class BrandRankingPreview {
             this.index++;
 
             template.style.transitionDuration = '0.4s';
-            template.style.marginLeft = '-1200px';
-            template.style.transform = 'translateX(1200px)';
+            template.style.marginLeft = '-880px';
+            template.style.transform = 'translateX(880px)';
 
             setTimeout(function () {
                 that.removeNode();
@@ -276,7 +276,7 @@ class BrandRankingPreview {
             this.index++;
 
             template.style.transitionDuration = '0.4s';
-            template.style.transform = 'translateX(-1200px)';
+            template.style.transform = 'translateX(-880px)';
 
             setTimeout(function () {
                 that.removeNode();
