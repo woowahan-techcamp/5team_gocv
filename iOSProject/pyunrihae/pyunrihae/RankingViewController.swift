@@ -109,8 +109,7 @@ class RankingViewController: UIViewController {
         self.actInd.frame = CGRect.init(x: 0.0, y: 0.0, width: 40.0, height: 40.0)
         self.actInd.center = view.center
         self.actInd.hidesWhenStopped = true
-        self.actInd.activityIndicatorViewStyle =
-            UIActivityIndicatorViewStyle.gray
+        self.actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
         view.addSubview(actInd)
         actInd.startAnimating()
     }
@@ -244,10 +243,13 @@ extension RankingViewController: UICollectionViewDataSource {
                 cell.EventLabel.isHidden = true
             }
             
-            //
-            //임의의 별점
+            for sub in cell.starView.subviews {
+                sub.removeFromSuperview()
+            }
+            
+//            let grade = product.grade_avg
             let grade = 3.6
-            //
+
             cell.gradeLabel.text = String(grade)
             for i in 0..<Int(grade) {
                 let starImage = UIImage(named: "stars.png")
