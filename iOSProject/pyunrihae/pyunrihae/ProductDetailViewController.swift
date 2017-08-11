@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class ProductDetailViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
@@ -20,15 +21,26 @@ class ProductDetailViewController: UIViewController {
     var productGrade = 4.6 //임의로 넣어놧음
     var userGrade = 3 //임의로 넣어놨음
     
+    func showProduct(_ notification: Notification) { // 넘어온 product 정보 받아서 화면 구성
+        let product = notification.userInfo?["product"] as! Product
+        Alamofire.request(product.image).responseImage { response in
+            if let image = response.result.value {
+                SelectedProduct.foodImage = image
+            }
+        }
+        SelectedProduct.brandName = product.brand
+        SelectedProduct.foodName = product.name
+    }
+    func addNotiObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(showProduct), name: NSNotification.Name("showProduct"), object: nil)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         writingReviewBtn.layer.zPosition = 10
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsSelection = false
-        // Do any additional setup after loading the view.
     }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -54,6 +66,9 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                 Label.makeRoundLabel(label: cell.eventLabel, color: UIColor.red)
                 cell.eventLabel.textColor = UIColor.red
                 Image.makeCircleImage(image: cell.foodImage)
+                cell.foodImage.image = SelectedProduct.foodImage
+                cell.brandLabel.text = SelectedProduct.brandName
+                cell.foodNameLabel.text = SelectedProduct.foodName
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath) as! ProductDetailInfoTableViewCell

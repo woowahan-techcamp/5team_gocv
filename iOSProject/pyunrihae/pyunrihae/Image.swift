@@ -11,8 +11,6 @@ import UIKit
 
 class Image {
     static func makeCircleImage (image: UIImageView) {
-        image.layer.borderWidth = 0.7
-        image.layer.borderColor = UIColor.lightGray.cgColor
         image.layer.cornerRadius = image.layer.frame.height/2
         image.clipsToBounds = true
     }
