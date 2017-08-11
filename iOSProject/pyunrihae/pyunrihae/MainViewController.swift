@@ -230,7 +230,7 @@ class MainViewController: UIViewController {
                     
                     self.reviewImageView.addGestureRecognizer(tap)
                     
-                    self. reviewImageView.isUserInteractionEnabled = true
+                    self.reviewImageView.isUserInteractionEnabled = true
                     
                     self.reviewImageView.addSubview(myImageView)
                     self.reviewImageView.addSubview(blackLayerView)
