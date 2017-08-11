@@ -2,6 +2,8 @@ import "./firebaseinit.js"
 import "./ranking.js"
 import "./brand.js"
 import "./index.css"
+import "../style/brand.css"
+import "../style/ranking.css"
 
 document.addEventListener('DOMContentLoaded', function (event) {
     console.log('DOM fully loaded and parsed');
