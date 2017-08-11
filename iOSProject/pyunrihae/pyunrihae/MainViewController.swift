@@ -71,10 +71,9 @@ class MainViewController: UIViewController {
     
     func showActivityIndicatory() {
         self.actInd.frame = CGRect.init(x: 0.0, y: 0.0, width: 40.0, height: 40.0)
-        self.actInd.center = view.center
+        self.actInd.center = view.superview?.center ?? view.center
         self.actInd.hidesWhenStopped = true
-        self.actInd.activityIndicatorViewStyle =
-            UIActivityIndicatorViewStyle.gray
+        self.actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
         view.addSubview(actInd)
         actInd.startAnimating()
     }
