@@ -10,6 +10,10 @@ import UIKit
 
 class WritingReviewViewController: UIViewController {
 
+    @IBOutlet weak var reviewTextView: UIView!
+    @IBOutlet weak var detailReview: UITextView!
+    @IBOutlet weak var placeholder: UILabel!
+    @IBOutlet weak var addedImageView: UIView!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var brandLabel: UILabel!
@@ -18,6 +22,19 @@ class WritingReviewViewController: UIViewController {
     @IBOutlet weak var priceLevelView: UIView!
     @IBOutlet weak var flavorLevelView: UIView!
     @IBOutlet weak var quantityLevelView: UIView!
+    
+    
+    
+    @IBAction func tabEndEditingBtn(_ sender: UIButton) {
+        UIView.animate(withDuration: 1.5, delay: 0.0, usingSpringWithDamping: 5.0, initialSpringVelocity: 5.0, options: UIViewAnimationOptions.curveEaseInOut, animations: ({
+            self.scrollView.frame.origin.y += 389
+        }), completion: nil)
+        
+        addedImageView.isHidden = false
+        var frameRect = detailReview.frame
+        frameRect.size.height = 30
+        detailReview.frame = frameRect
+    }
     @IBAction func tabBackBtn(_ sender: UIButton) {
         self.navigationController?.popToRootViewController(animated: true)
     }
@@ -25,6 +42,7 @@ class WritingReviewViewController: UIViewController {
         self.navigationController?.popToRootViewController(animated: true)
     }
     @IBOutlet weak var scrollView: UIScrollView!
+    
     let priceLevel = ["비싸다","비싼편","적당","싼편","싸다"]
     let flavorLevel = ["노맛","별로","적당","괜춘","존맛"]
     let quantityLevel = ["창렬","적음","적당","많음","혜자"]
@@ -111,6 +129,12 @@ class WritingReviewViewController: UIViewController {
         addFlavorLevelBtn()
         addQuantityLevelBtn()
         Image.makeCircleImage(image: productImage)
+        detailReview.layer.borderWidth = 0.7
+        detailReview.layer.borderColor = UIColor.lightGray.cgColor
+        detailReview.layer.cornerRadius = 5
+        detailReview.clipsToBounds = true
+        detailReview.delegate = self
+        
         // Do any additional setup after loading the view.
     }
 
@@ -120,3 +144,28 @@ class WritingReviewViewController: UIViewController {
     }
     
 }
+
+extension WritingReviewViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        UIView.animate(withDuration: 1.5, delay: 0.0, usingSpringWithDamping: 5.0, initialSpringVelocity: 5.0, options: UIViewAnimationOptions.curveEaseInOut, animations: ({
+            self.scrollView.frame.origin.y -= 389
+        }), completion: nil)
+        
+        addedImageView.isHidden = true
+        var frameRect = detailReview.frame
+        frameRect.size.height = 550
+        detailReview.frame = frameRect
+        placeholder.isHidden = true
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        UIView.animate(withDuration: 1.5, delay: 0.0, usingSpringWithDamping: 5.0, initialSpringVelocity: 5.0, options: UIViewAnimationOptions.curveEaseInOut, animations: ({
+            self.scrollView.frame.origin.y += 389
+        }), completion: nil)
+        
+        addedImageView.isHidden = false
+        var frameRect = detailReview.frame
+        frameRect.size.height = 30
+        detailReview.frame = frameRect
+    }
+}
+
