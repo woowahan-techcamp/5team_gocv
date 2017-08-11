@@ -16,6 +16,7 @@ class WritingReviewViewController: UIViewController {
     @IBOutlet weak var addedImageView: UIView!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var productNameLabel: UILabel!
+    @IBOutlet weak var addImageBtn: UIButton!
     @IBOutlet weak var brandLabel: UILabel!
     @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var starView: UIView!
@@ -23,17 +24,8 @@ class WritingReviewViewController: UIViewController {
     @IBOutlet weak var flavorLevelView: UIView!
     @IBOutlet weak var quantityLevelView: UIView!
     
-    
-    
     @IBAction func tabEndEditingBtn(_ sender: UIButton) {
-        UIView.animate(withDuration: 1.5, delay: 0.0, usingSpringWithDamping: 5.0, initialSpringVelocity: 5.0, options: UIViewAnimationOptions.curveEaseInOut, animations: ({
-            self.scrollView.frame.origin.y += 389
-        }), completion: nil)
-        
-        addedImageView.isHidden = false
-        var frameRect = detailReview.frame
-        frameRect.size.height = 30
-        detailReview.frame = frameRect
+        detailReview.resignFirstResponder()
     }
     @IBAction func tabBackBtn(_ sender: UIButton) {
         self.navigationController?.popToRootViewController(animated: true)
@@ -121,8 +113,21 @@ class WritingReviewViewController: UIViewController {
         }
         Button.makeSelectedBtn(btn: sender)
     }
+    func chooseImage(_ notification: Notification) { // 선택된 이미지 보여주기
+        let image = notification.userInfo?["image"] as! UIImage
+        let imageView = UIImageView(image: image)
+        imageView.frame = CGRect(origin: CGPoint(x: 0 ,y: 0), size: addedImageView.frame.size)
+        imageView.layer.cornerRadius = 7
+        imageView.clipsToBounds = true
+        addedImageView.addSubview(imageView)
+        addImageBtn.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        addImageBtn.layer.cornerRadius = 7
+        addImageBtn.clipsToBounds = true
+        addImageBtn.setTitle("사진 변경", for: .normal)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        addImageBtn.layer.zPosition = 10
         scrollView.isScrollEnabled = true
         addStarBtn()
         addPriceLevelBtn()
@@ -134,7 +139,7 @@ class WritingReviewViewController: UIViewController {
         detailReview.layer.cornerRadius = 5
         detailReview.clipsToBounds = true
         detailReview.delegate = self
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(chooseImage), name: NSNotification.Name("chooseImage"), object: nil)
         // Do any additional setup after loading the view.
     }
 
@@ -166,6 +171,9 @@ extension WritingReviewViewController: UITextViewDelegate {
         var frameRect = detailReview.frame
         frameRect.size.height = 30
         detailReview.frame = frameRect
+        if detailReview.text == "" {
+            placeholder.isHidden = false
+        }
     }
 }
 

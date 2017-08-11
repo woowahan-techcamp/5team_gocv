@@ -5,98 +5,145 @@
     <title>Title</title>
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
 
-    <link rel="stylesheet" href="./style/slider.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+    <link rel="stylesheet" type="text/css" href="./style/ranking.css">
+    <link rel="stylesheet" type="text/css" href="./style/brand.css">
 </head>
 <body>
 
-  <div class="mid-main-rv-wrapper">
-    <div class="mid-main-rv-header">
-      이번주의 핫!한 리뷰
+  <div class="main-rank-wrapper">
+    <div class="main-rank-header">
+        이번주의 핫!한 상품
     </div>
 
-    <div class="mid-main-div-wrapper">
-      <ul class="mid-main-rv-tab">
-          <!-- 도시락 / 김밥 / 베이커리 / 라면 / 스낵 / 유제품 / 음료 / 즉석식품 -->
-          <li class="main-rv-tab main-rv-selectedtab">도시락</li>
-          <li class="main-rv-tab">김밥</li>
-          <li class="main-rv-tab">베이커리</li>
-          <li class="main-rv-tab">라면</li>
-          <li class="main-rv-tab">스낵</li>
-          <li class="main-rv-tab">유제품</li>
-          <li class="main-rv-tab">음료</li>
-          <li class="main-rv-tab">즉석식품</li>
-      </ul>
+    <div class="main-div-wrapper">
+        <ul class="main-rank-tab-wrapper">
+            <!-- 도시락 / 김밥 / 베이커리 / 라면 / 스낵 / 유제품 / 음료 / 즉석식품 -->
+            <li class="main-rank-tab main-rank-selectedtab" name="도시락">도시락</li>
+            <li class="main-rank-tab" name="김밥">김밥</li>
+            <li class="main-rank-tab" name="베이커리">베이커리</li>
+            <li class="main-rank-tab" name="라면">라면</li>
+            <li class="main-rank-tab" name="스낵">스낵</li>
+            <li class="main-rank-tab" name="유제품">유제품</li>
+            <li class="main-rank-tab" name="음료">음료</li>
+            <li class="main-rank-tab" name="즉석식품">즉석식품</li>
+        </ul>
 
-      <div class="main-rv-content">
-        <div class="card-main-rv-content">
-              <div class="card-main-badge-area">
-                1
-              </div>
-              <img class="card-rv-image"
-              src="https://cdn.bmf.kr/_data/product/HBDFA/2c6e3768dcb019d037b24072cc3f7179.jpg"/>
-              <div class="card-main-description">
-                <div class="card-main-rv-rating">별별별별</div>
+        <div class="main-rank-content">
 
-                <div class="card-main-rv-name">이름</div>
-                <div class="card-main-rv-price">가격</div>
-              </div>
-        </div>
-
-        <div class="card-main-rv-content">
-              <div class="card-main-badge-area">
-                2
-              </div>
-              <img class="card-rv-image"
-              src="https://cdn.bmf.kr/_data/product/HBDFA/2c6e3768dcb019d037b24072cc3f7179.jpg"/>
-              <div class="card-main-description">
-                <div class="card-main-rv-rating">별별별별</div>
-
-                <div class="card-main-rv-name">이름</div>
-                <div class="card-main-rv-price">가격</div>
-              </div>
 
         </div>
 
-        <div class="card-main-rv-content">
-              <div class="card-main-badge-area">
-                3
-              </div>
-              <img class="card-rv-image"
-              src="https://cdn.bmf.kr/_data/product/HBDFA/2c6e3768dcb019d037b24072cc3f7179.jpg"/>
-              <div class="card-main-description">
-                <div class="card-main-rv-rating">별별별별</div>
+    </div>
+</div>
 
-                <div class="card-main-rv-name">이름</div>
-                <div class="card-main-rv-price">가격</div>
-              </div>
+<<div class="brand-rank-wrapper">
+    <div class="brand-rank-arrow">
+        <button class="brand-rank-left" id="gs-left-scroll"><</button>
+        <button class="brand-rank-right" id="gs-right-scroll">></button>
+    </div>
 
+    <div class="brand-slide-wrapper">
+        <div class="brand-slide-logo">
+            <img class="brand-logo-resize" src="http://www.dprinting.biz/bbs_sun/files/logo/logo_201205081408391.jpg"/>
         </div>
 
-      </div>
+        <div class="brand-rank-slide">
+            <ul class="brand-rank-item" id="gs-item-wrapper">
+            </ul>
+        </div>
+    </div>
+    <a class="brand-more-link" href="#">
+        <div class="brand-rank-more">GS25 랭킹 전체 보기</div>
+    </a>
+</div>
+
+<div class="brand-rank-wrapper">
+    <div class="brand-rank-arrow">
+        <button class="brand-rank-left" id="cu-left-scroll"><</button>
+        <button class="brand-rank-right" id="cu-right-scroll">></button>
+    </div>
+
+    <div class="brand-slide-wrapper">
+        <div class="brand-slide-logo">
+            <img class="brand-logo-resize" src="http://cu.bgfretail.com/images/facebook.jpg"/>
+        </div>
+
+        <div class="brand-rank-slide">
+            <ul class="brand-rank-item" id="cu-item-wrapper">
+            </ul>
+        </div>
+    </div>
+    <a class="brand-more-link" href="#">
+        <div class="brand-rank-more">CU 랭킹 전체 보기</div>
+    </a>
+</div>
+
+<div class="brand-rank-wrapper">
+    <div class="brand-rank-arrow">
+        <button class="brand-rank-left" id="seven-left-scroll"><</button>
+        <button class="brand-rank-right" id="seven-right-scroll">></button>
+    </div>
+
+    <div class="brand-slide-wrapper">
+        <div class="brand-slide-logo">
+            <img class="brand-logo-resize" src="http://tmembership.tworld.co.kr/img_pl/poc/201609/img_1474678281621.png"/>
+        </div>
+
+        <div class="brand-rank-slide">
+            <ul class="brand-rank-item" id="seven-item-wrapper">
+            </ul>
+        </div>
+    </div>
+    <a class="brand-more-link" href="#">
+        <div class="brand-rank-more">7ELEVEN 랭킹 전체 보기</div>
+    </a>
+</div>
+
+<script id="card-ranking-template" type="text/x-handlebars-template">
+    {{#ranking}}
+    <div class="card-main-rank-content">
+        <div class="{{style}}">{{rank}}
+        </div>
+        <img class="card-rank-image" src="{{image}}"/>
+
+        <div class="card-main-description">
+            <div id="{{rating}}">
+
+            </div>
+
+            <div class="card-main-rank-name">상품명 : {{name}}</div>
+            <div class="card-main-rank-price">가격 : {{price}}</div>
+        </div>
 
     </div>
-  </div>
+    {{/ranking}}
+</script>
 
 
-  <script id="card-template" type="text/x-handlebars-template">
-    {{#review}}
-    <div class="card-main-rv-content">
-
-          <img class="card-rv-image" src="{{image}}"/>
-          <div class="card-main-description">
-            <div class="card-main-rv-rating">평점 : {{grade}}</div>
-
-            <div class="card-main-rv-name">상품명 : {{name}}</div>
-            <div class="card-main-rv-price">가격 : {{price}}</div>
-          </div>
-
+<script id="brand-ranking-template" type="text/x-handlebars-template">
+    {{#this}}
+    <div class="rank-product-type">
+        {{category}}
     </div>
-    {{/review}}
-  </script>
+    <img class="rank-product-image"
+         src="{{img}}"/>
+    <div class="rank-event-wrapper">
+        {{#each event}}
+        <span class="rank-product-event">{{event_tag}}</span>
+        {{/each}}
+    </div>
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/handlebarsjs/4.0.8/handlebars.min.js"></script>
-  <script src="./src/slider.js"></script>
+    <div class="rank-product-name">{{name}}</div>
+    <div class="rank-product-price">{{price}}</div>
+    <div class="rank-product-rating">{{rank}}</div>
+    {{/this}}
+</script>
 
-    <script src="./dist/bundle.js"></script>
+<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/handlebarsjs/4.0.8/handlebars.min.js"></script>
+<script type="text/javascript" src="./src/brand.js"></script>
+<script type="text/javascript" src="./src/ranking.js"></script>
 </body>
 </html>
