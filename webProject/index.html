@@ -4,40 +4,714 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
     <link rel="stylesheet" type="text/css" href="./style/ranking.css">
     <link rel="stylesheet" type="text/css" href="./style/brand.css">
 </head>
 <body>
+<div class="wrapper">
 
-  <div class="main-rank-wrapper">
-    <div class="main-rank-header">
-        이번주의 핫!한 상품
-    </div>
+    <!--메인 상단 탭 구현 -->
+    <div class="fixTab-wrapper">
+        <a href="#">
+            <div class="fixTab-logo"> 편리해</div>
+        </a>
+        <div class="fixTab-tab">
+            <a href="#">
+                <div class="fixTab-tab-name">랭킹</div>
+            </a>
+            <div class="fixTab-tab-hover"></div>
+        </div>
+        <div class="fixTab-tab">
+            <a href="#">
+                <div class="fixTab-tab-name">리뷰</div>
+            </a>
+            <div class="fixTab-tab-hover"></div>
+        </div>
 
-    <div class="main-div-wrapper">
-        <ul class="main-rank-tab-wrapper">
-            <!-- 도시락 / 김밥 / 베이커리 / 라면 / 스낵 / 유제품 / 음료 / 즉석식품 -->
-            <li class="main-rank-tab main-rank-selectedtab" name="도시락">도시락</li>
-            <li class="main-rank-tab" name="김밥">김밥</li>
-            <li class="main-rank-tab" name="베이커리">베이커리</li>
-            <li class="main-rank-tab" name="라면">라면</li>
-            <li class="main-rank-tab" name="스낵">스낵</li>
-            <li class="main-rank-tab" name="유제품">유제품</li>
-            <li class="main-rank-tab" name="음료">음료</li>
-            <li class="main-rank-tab" name="즉석식품">즉석식품</li>
-        </ul>
 
-        <div class="main-rank-content">
+        <!--검색창-->
+        <div class="fixTab-search-wrapper">
+            <a href="#">
+                <div class="fixTab-search-brand"><span>브랜드</span>
+                    <ul class="fixTab-search-brand-dropdown">
+                        <li class="fixTab-search-brand-element">GS25</li>
+                        <li class="fixTab-search-brand-element">7ELEVEN</li>
+                        <li class="fixTab-search-brand-element">CU</li>
+                        <li style="color:#d82c20" class="fixTab-search-brand-element">전체</li>
+                    </ul>
 
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="fixTab-search-category"><span>카테고리</span>
+                    <ul class="fixTab-search-category-dropdown">
+                        <li class="fixTab-search-category-element">도시락</li>
+                        <li class="fixTab-search-category-element">김밥</li>
+                        <li class="fixTab-search-category-element">베이커리</li>
+                        <li class="fixTab-search-category-element">라면</li>
+                        <li class="fixTab-search-category-element">스낵</li>
+                        <li class="fixTab-search-category-element">유제품</li>
+                        <li class="fixTab-search-category-element">음료</li>
+                        <li class="fixTab-search-category-element">즉석식품</li>
+                        <li style="color:#d82c20" class="fixTab-search-category-element">전체 </li>
+                    </ul>
+                </div>
+            </a>
+            <a href="#">
+                <div>
+                    <form>
+                        <input class="fixTab-search-word" type="text" name="product" value="상품명을 입력하세요">
+                    </form>
+                </div>
+            </a>
+            <a href="#">
+                <div class="fixTab-search-button"><img style="margin-top:5px; width: 20px; height: 20px"
+                                                       src="image/search.png"></div>
+            </a>
+        </div>
+
+        <!--프로필 창-->
+        <div class="fixTab-profile-wrapper">
+            <div class="fixTab-profile-image">
+                <img style="opacity: 1; width: 30px; height: 30px"
+                     src="image/profile.png">
+            </div>
+            <a href="#"><div class="fixTab-profile-id">tong9433
+                <ul  class="fixTab-profile-dropdown">
+                    <li class="fixTab-profile-element">내 정보</li>
+                    <li class="fixTab-profile-element">로그아웃</li>
+                </ul>
+            </div></a>
+            <div class="fixTab-profile-button">
+                <img style="opacity: 1; width: 13px; height: 7px"
+                     src="image/arrow_down.png">
+            </div>
 
         </div>
 
+        <div class="fixTab-bottom">
+        </div>
     </div>
-</div>
 
-<<div class="brand-rank-wrapper">
+    <!--carousel 구현-->
+    <div class="carousel-wrapper">
+
+        <div class="carousel-review" id="carouselSec">
+            <!--<ul style="z-index: 80; position: relative; width:1200%; height: 800px;top:250px; left: -100%;" class="carousel-review-navi" id="reviewNavi">-->
+                <!--<li class="carousel-review-element">-->
+                    <!--<div class="carousel-review-element-wrapper">-->
+                        <!--<div class="carousel-review-elementTop">-->
+                            <!--<div class="carousel-review-profile">-->
+                            <!--</div>-->
+                            <!--<div style="margin-top:20px;float:left; width:25%">-->
+                                <!--<div class="carousel-review-nic">-->
+                                    <!--tong9433-9-->
+                                <!--</div>-->
+                                <!--<div class="carousel-review-date">-->
+                                    <!--2017-08-12-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                            <!--<div class="carousel-review-star">-->
+                                <!--<ul>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                            <!--<div class="carousel-review-score">-->
+                                <!--<span style="font-weight: 700;">4.5</span>-->
+                                <!--<span style="font-size: 12px">점</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div>-->
+                            <!--<div class="carousel-review-image">-->
+                                <!--<div class="carousel-review-imageEle">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div style="float: left; width:45%; margin-left: 5%">-->
+                                <!--<div class="carousel-review-product">백종원제육도시락</div>-->
+                                <!--<div class="carousel-review-description">"너무맛있어요..감동 너무맛있어요..감동-->
+                                    <!--너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동-->
+                                    <!--너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동"-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <!--<li class="carousel-review-element" name="0">-->
+                    <!--<div class="carousel-review-element-wrapper">-->
+                        <!--<div class="carousel-review-elementTop">-->
+                            <!--<div class="carousel-review-profile">-->
+                            <!--</div>-->
+                            <!--<div style="margin-top:20px;float:left; width:25%">-->
+                                <!--<div class="carousel-review-nic">-->
+                                    <!--tong9433-0-->
+                                <!--</div>-->
+                                <!--<div class="carousel-review-date">-->
+                                    <!--2017-08-12-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                            <!--<div class="carousel-review-star">-->
+                                <!--<ul>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                            <!--<div class="carousel-review-score">-->
+                                <!--<span style="font-weight: 700;">4.5</span>-->
+                                <!--<span style="font-size: 12px">점</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div>-->
+                            <!--<div class="carousel-review-image">-->
+                                <!--<div class="carousel-review-imageEle">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div style="float: left; width:45%; margin-left: 5%">-->
+                                <!--<div class="carousel-review-product">백종원제육도시락</div>-->
+                                <!--<div class="carousel-review-description">"너무맛있어요..감동 너무맛있어요..감동-->
+                                    <!--너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동-->
+                                    <!--너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동"-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <!--<li class="carousel-review-element" name="1">-->
+                    <!--<div class="carousel-review-element-wrapper">-->
+                        <!--<div class="carousel-review-elementTop">-->
+                            <!--<div class="carousel-review-profile">-->
+                            <!--</div>-->
+                            <!--<div style="margin-top:20px;float:left; width:25%">-->
+                                <!--<div class="carousel-review-nic">-->
+                                    <!--tong9433-1-->
+                                <!--</div>-->
+                                <!--<div class="carousel-review-date">-->
+                                    <!--2017-08-12-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                            <!--<div class="carousel-review-star">-->
+                                <!--<ul>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                            <!--<div class="carousel-review-score">-->
+                                <!--<span style="font-weight: 700;">4.5</span>-->
+                                <!--<span style="font-size: 12px">점</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div>-->
+                            <!--<div class="carousel-review-image">-->
+                                <!--<div class="carousel-review-imageEle">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div style="float: left; width:45%; margin-left: 5%">-->
+                                <!--<div class="carousel-review-product">백종원제육도시락</div>-->
+                                <!--<div class="carousel-review-description">"너무맛있어요..감동 너무맛있어요..감동-->
+                                    <!--너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동-->
+                                    <!--너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동"-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <!--<li class="carousel-review-element" name="2">-->
+                    <!--<div class="carousel-review-element-wrapper">-->
+                        <!--<div class="carousel-review-elementTop">-->
+                            <!--<div class="carousel-review-profile">-->
+                            <!--</div>-->
+                            <!--<div style="margin-top:20px;float:left; width:25%">-->
+                                <!--<div class="carousel-review-nic">-->
+                                    <!--tong9433-2-->
+                                <!--</div>-->
+                                <!--<div class="carousel-review-date">-->
+                                    <!--2017-08-12-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                            <!--<div class="carousel-review-star">-->
+                                <!--<ul>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                            <!--<div class="carousel-review-score">-->
+                                <!--<span style="font-weight: 700;">4.5</span>-->
+                                <!--<span style="font-size: 12px">점</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div>-->
+                            <!--<div class="carousel-review-image">-->
+                                <!--<div class="carousel-review-imageEle">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div style="float: left; width:45%; margin-left: 5%">-->
+                                <!--<div class="carousel-review-product">백종원제육도시락</div>-->
+                                <!--<div class="carousel-review-description">"너무맛있어요..감동 너무맛있어요..감동-->
+                                    <!--너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동-->
+                                    <!--너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동"-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <!--<li class="carousel-review-element" name="3">-->
+                    <!--<div class="carousel-review-element-wrapper">-->
+                        <!--<div class="carousel-review-elementTop">-->
+                            <!--<div class="carousel-review-profile">-->
+                            <!--</div>-->
+                            <!--<div style="margin-top:20px;float:left; width:25%">-->
+                                <!--<div class="carousel-review-nic">-->
+                                    <!--tong9433-3-->
+                                <!--</div>-->
+                                <!--<div class="carousel-review-date">-->
+                                    <!--2017-08-12-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                            <!--<div class="carousel-review-star">-->
+                                <!--<ul>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                            <!--<div class="carousel-review-score">-->
+                                <!--<span style="font-weight: 700;">4.5</span>-->
+                                <!--<span style="font-size: 12px">점</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div>-->
+                            <!--<div class="carousel-review-image">-->
+                                <!--<div class="carousel-review-imageEle">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div style="float: left; width:45%; margin-left: 5%">-->
+                                <!--<div class="carousel-review-product">백종원제육도시락</div>-->
+                                <!--<div class="carousel-review-description">"너무맛있어요..감동 너무맛있어요..감동-->
+                                    <!--너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동-->
+                                    <!--너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동"-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <!--<li class="carousel-review-element" name="4">-->
+                    <!--<div class="carousel-review-element-wrapper">-->
+                        <!--<div class="carousel-review-elementTop">-->
+                            <!--<div class="carousel-review-profile">-->
+                            <!--</div>-->
+                            <!--<div style="margin-top:20px;float:left; width:25%">-->
+                                <!--<div class="carousel-review-nic">-->
+                                    <!--tong9433-4-->
+                                <!--</div>-->
+                                <!--<div class="carousel-review-date">-->
+                                    <!--2017-08-12-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                            <!--<div class="carousel-review-star">-->
+                                <!--<ul>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                            <!--<div class="carousel-review-score">-->
+                                <!--<span style="font-weight: 700;">4.5</span>-->
+                                <!--<span style="font-size: 12px">점</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div>-->
+                            <!--<div class="carousel-review-image">-->
+                                <!--<div class="carousel-review-imageEle">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div style="float: left; width:45%; margin-left: 5%">-->
+                                <!--<div class="carousel-review-product">백종원제육도시락</div>-->
+                                <!--<div class="carousel-review-description">"너무맛있어요..감동 너무맛있어요..감동-->
+                                    <!--너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동-->
+                                    <!--너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동"-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <!--<li class="carousel-review-element" name="5">-->
+                    <!--<div class="carousel-review-element-wrapper">-->
+                        <!--<div class="carousel-review-elementTop">-->
+                            <!--<div class="carousel-review-profile">-->
+                            <!--</div>-->
+                            <!--<div style="margin-top:20px;float:left; width:25%">-->
+                                <!--<div class="carousel-review-nic">-->
+                                    <!--tong9433-5-->
+                                <!--</div>-->
+                                <!--<div class="carousel-review-date">-->
+                                    <!--2017-08-12-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                            <!--<div class="carousel-review-star">-->
+                                <!--<ul>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                            <!--<div class="carousel-review-score">-->
+                                <!--<span style="font-weight: 700;">4.5</span>-->
+                                <!--<span style="font-size: 12px">점</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div>-->
+                            <!--<div class="carousel-review-image">-->
+                                <!--<div class="carousel-review-imageEle">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div style="float: left; width:45%; margin-left: 5%">-->
+                                <!--<div class="carousel-review-product">백종원제육도시락</div>-->
+                                <!--<div class="carousel-review-description">"너무맛있어요..감동 너무맛있어요..감동-->
+                                    <!--너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동-->
+                                    <!--너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동"-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <!--<li class="carousel-review-element" name="6">-->
+                    <!--<div class="carousel-review-element-wrapper">-->
+                        <!--<div class="carousel-review-elementTop">-->
+                            <!--<div class="carousel-review-profile">-->
+                            <!--</div>-->
+                            <!--<div style="margin-top:20px;float:left; width:25%">-->
+                                <!--<div class="carousel-review-nic">-->
+                                    <!--tong9433-6-->
+                                <!--</div>-->
+                                <!--<div class="carousel-review-date">-->
+                                    <!--2017-08-12-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                            <!--<div class="carousel-review-star">-->
+                                <!--<ul>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                            <!--<div class="carousel-review-score">-->
+                                <!--<span style="font-weight: 700;">4.5</span>-->
+                                <!--<span style="font-size: 12px">점</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div>-->
+                            <!--<div class="carousel-review-image">-->
+                                <!--<div class="carousel-review-imageEle">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div style="float: left; width:45%; margin-left: 5%">-->
+                                <!--<div class="carousel-review-product">백종원제육도시락</div>-->
+                                <!--<div class="carousel-review-description">"너무맛있어요..감동 너무맛있어요..감동-->
+                                    <!--너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동-->
+                                    <!--너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동"-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <!--<li class="carousel-review-element" name="7">-->
+                    <!--<div class="carousel-review-element-wrapper">-->
+                        <!--<div class="carousel-review-elementTop">-->
+                            <!--<div class="carousel-review-profile">-->
+                            <!--</div>-->
+                            <!--<div style="margin-top:20px;float:left; width:25%">-->
+                                <!--<div class="carousel-review-nic">-->
+                                    <!--tong9433-7-->
+                                <!--</div>-->
+                                <!--<div class="carousel-review-date">-->
+                                    <!--2017-08-12-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                            <!--<div class="carousel-review-star">-->
+                                <!--<ul>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                            <!--<div class="carousel-review-score">-->
+                                <!--<span style="font-weight: 700;">4.5</span>-->
+                                <!--<span style="font-size: 12px">점</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div>-->
+                            <!--<div class="carousel-review-image">-->
+                                <!--<div class="carousel-review-imageEle">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div style="float: left; width:45%; margin-left: 5%">-->
+                                <!--<div class="carousel-review-product">백종원제육도시락</div>-->
+                                <!--<div class="carousel-review-description">"너무맛있어요..감동 너무맛있어요..감동-->
+                                    <!--너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동-->
+                                    <!--너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동"-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <!--<li class="carousel-review-element" name="8">-->
+                    <!--<div class="carousel-review-element-wrapper">-->
+                        <!--<div class="carousel-review-elementTop">-->
+                            <!--<div class="carousel-review-profile">-->
+                            <!--</div>-->
+                            <!--<div style="margin-top:20px;float:left; width:25%">-->
+                                <!--<div class="carousel-review-nic">-->
+                                    <!--tong9433-8-->
+                                <!--</div>-->
+                                <!--<div class="carousel-review-date">-->
+                                    <!--2017-08-12-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                            <!--<div class="carousel-review-star">-->
+                                <!--<ul>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                            <!--<div class="carousel-review-score">-->
+                                <!--<span style="font-weight: 700;">4.5</span>-->
+                                <!--<span style="font-size: 12px">점</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div>-->
+                            <!--<div class="carousel-review-image">-->
+                                <!--<div class="carousel-review-imageEle">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div style="float: left; width:45%; margin-left: 5%">-->
+                                <!--<div class="carousel-review-product">백종원제육도시락</div>-->
+                                <!--<div class="carousel-review-description">"너무맛있어요..감동 너무맛있어요..감동-->
+                                    <!--너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동-->
+                                    <!--너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동"-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <!--<li class="carousel-review-element" name="9">-->
+                    <!--<div class="carousel-review-element-wrapper">-->
+                        <!--<div class="carousel-review-elementTop">-->
+                            <!--<div class="carousel-review-profile">-->
+                            <!--</div>-->
+                            <!--<div style="margin-top:20px;float:left; width:25%">-->
+                                <!--<div class="carousel-review-nic">-->
+                                    <!--tong9433-9-->
+                                <!--</div>-->
+                                <!--<div class="carousel-review-date">-->
+                                    <!--2017-08-12-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                            <!--<div class="carousel-review-star">-->
+                                <!--<ul>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                            <!--<div class="carousel-review-score">-->
+                                <!--<span style="font-weight: 700;">4.5</span>-->
+                                <!--<span style="font-size: 12px">점</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div>-->
+                            <!--<div class="carousel-review-image">-->
+                                <!--<div class="carousel-review-imageEle">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div style="float: left; width:45%; margin-left: 5%">-->
+                                <!--<div class="carousel-review-product">백종원제육도시락</div>-->
+                                <!--<div class="carousel-review-description">"너무맛있어요..감동 너무맛있어요..감동-->
+                                    <!--너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동-->
+                                    <!--너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동"-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <!--<li class="carousel-review-element" name="0">-->
+                    <!--<div class="carousel-review-element-wrapper">-->
+                        <!--<div class="carousel-review-elementTop">-->
+                            <!--<div class="carousel-review-profile">-->
+                            <!--</div>-->
+                            <!--<div style="margin-top:20px;float:left; width:25%">-->
+                                <!--<div class="carousel-review-nic">-->
+                                    <!--tong9433-0-->
+                                <!--</div>-->
+                                <!--<div class="carousel-review-date">-->
+                                    <!--2017-08-12-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                            <!--<div class="carousel-review-star">-->
+                                <!--<ul>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                    <!--<li class="carousel-review-starElement"></li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                            <!--<div class="carousel-review-score">-->
+                                <!--<span style="font-weight: 700;">4.5</span>-->
+                                <!--<span style="font-size: 12px">점</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div>-->
+                            <!--<div class="carousel-review-image">-->
+                                <!--<div class="carousel-review-imageEle">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div style="float: left; width:45%; margin-left: 5%">-->
+                                <!--<div class="carousel-review-product">백종원제육도시락</div>-->
+                                <!--<div class="carousel-review-description">"너무맛있어요..감동 너무맛있어요..감동-->
+                                    <!--너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동-->
+                                    <!--너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동너무맛있어요..감동"-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</li>-->
+            <!--</ul>-->
+        </div>
+
+        <div class="carousel-background">
+
+        </div>
+        <div class="carousel-navi">
+            <a href="#">
+                <div class="carousel-leftButton" id="carousel-leftButton"></div>
+            </a>
+            <a href="#">
+                <div class="carousel-rightButton" id="carousel-rightButton"></div>
+            </a>
+        </div>
+
+
+
+        <!--carousel 원형 모음 구현-->
+        <div class="carousel-circleBox">
+            <ul class="carousel-circle-navi" id="circleBox">
+                <a href="#">
+                    <li class="carousel-circle carousel-circle-selected" name="0"></li>
+                </a>
+                <a href="#">
+                    <li class="carousel-circle" name="1"></li>
+                </a>
+                <a href="#">
+                    <li class="carousel-circle" name="2"></li>
+                </a>
+                <a href="#">
+                    <li class="carousel-circle" name="3"></li>
+                </a>
+                <a href="#">
+                    <li class="carousel-circle" name="4"></li>
+                </a>
+                <a href="#">
+                    <li class="carousel-circle" name="5"></li>
+                </a>
+                <a href="#">
+                    <li class="carousel-circle" name="6"></li>
+                </a>
+                <a href="#">
+                    <li class="carousel-circle" name="7"></li>
+                </a>
+                <a href="#">
+                    <li class="carousel-circle" name="8"></li>
+                </a>
+                <a href="#">
+                    <li class="carousel-circle" name="9"></li>
+                </a>
+            </ul>
+        </div>
+
+        <!--blur 처리 자르기-->
+        <div style="width: 100%; height: 20px; background-color: white; margin-top: -10px; position: relative; z-index: 95"></div>
+
+    </div>
+
+
+    <!--메인 탭 구현-->
+    <div class="main-rank-wrapper">
+        <div class="main-rank-header">
+            <span style="color: red; font-size: 30px; font-weight: 600">이번 주</span>의 <span   style="font-weight: 600; color: red; font-size: 40px">HOT</span>상품
+            <span>
+                <img style="position:relative; margin-left:10px; top: 10px;width: 50px; height: 50px" src="image/burger.png"/>
+            </span>
+        </div>
+
+        <div class="main-div-wrapper">
+
+            <ul class="main-rank-tab-wrapper">
+                <!-- 도시락 / 김밥 / 베이커리 / 라면 / 스낵 / 유제품 / 음료 / 즉석식품 -->
+                <li class="main-rank-tab main-rank-selectedtab" name="도시락">도시락</li>
+                <li class="main-rank-tab" name="김밥">김밥</li>
+                <li class="main-rank-tab" name="베이커리">베이커리</li>
+                <li class="main-rank-tab" name="라면">라면</li>
+                <li class="main-rank-tab" name="스낵">스낵</li>
+                <li class="main-rank-tab" name="유제품">유제품</li>
+                <li class="main-rank-tab" name="음료">음료</li>
+                <li class="main-rank-tab" name="즉석식품">즉석식품</li>
+            </ul>
+
+
+            <div class="main-rank-content">
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <!--브랜드별 랭킹 구현-->
+
+    <!--gs-->
+    <div class="brand-rank-wrapper">
     <div class="brand-rank-arrow">
         <button class="brand-rank-left" id="gs-left-scroll"><</button>
         <button class="brand-rank-right" id="gs-right-scroll">></button>
@@ -56,50 +730,159 @@
     <a class="brand-more-link" href="#">
         <div class="brand-rank-more">GS25 랭킹 전체 보기</div>
     </a>
+    </div>
+    <!--cu-->
+    <div class="brand-rank-wrapper">
+        <div class="brand-rank-arrow">
+            <button class="brand-rank-left" id="cu-left-scroll"><</button>
+            <button class="brand-rank-right" id="cu-right-scroll">></button>
+        </div>
+
+        <div class="brand-slide-wrapper">
+            <div class="brand-slide-logo">
+                <img class="brand-logo-resize" src="http://cu.bgfretail.com/images/facebook.jpg"/>
+            </div>
+
+            <div class="brand-rank-slide">
+                <ul class="brand-rank-item" id="cu-item-wrapper">
+                </ul>
+            </div>
+        </div>
+        <a class="brand-more-link" href="#">
+            <div class="brand-rank-more">CU 랭킹 전체 보기</div>
+        </a>
+    </div>
+    <!--세븐일레븐-->
+    <div class="brand-rank-wrapper">
+        <div class="brand-rank-arrow">
+            <button class="brand-rank-left" id="seven-left-scroll"><</button>
+            <button class="brand-rank-right" id="seven-right-scroll">></button>
+        </div>
+
+        <div class="brand-slide-wrapper">
+            <div class="brand-slide-logo">
+                <img class="brand-logo-resize" src="http://tmembership.tworld.co.kr/img_pl/poc/201609/img_1474678281621.png"/>
+            </div>
+
+            <div class="brand-rank-slide">
+                <ul class="brand-rank-item" id="seven-item-wrapper">
+                </ul>
+            </div>
+        </div>
+        <a class="brand-more-link" href="#">
+            <div class="brand-rank-more">7ELEVEN 랭킹 전체 보기</div>
+        </a>
+    </div>
+
+
+
+
+
+
+
+    <!--카운터 구현--> 
+    <div class="counter-wrapper">
+        <div class="counter-title">
+            <span class="highlight" style="font-size: 30px">편의점 리뷰</span>
+            로 좀 더 맛있는 음식을 즐기세요</div>
+        <div class="counter-subTitle"> 편의점 리뷰, 지금 바로
+            <span class="highlight" style="font-size: 25px">등록하세요</span></div>
+        <div class="counter-element-wrapper">
+            <div class="counter-element">
+                <div class="counter-element-icon">
+                    <img class="icon" src="image/product_icon.png"/>
+                </div>
+                <div class="counter-element-count" id="counter1">4200</div>
+                <div class="counter-element-title">편의점 총 <span class="highlight">상품정보</span>
+                    개수 </div>
+            </div>
+            <div class="counter-element">
+                <div class="counter-element-icon">
+                    <img class="icon" src="image/allReview_icon.png"/>
+                </div>
+                <div class="counter-element-count" id="counter2">3203</div>
+                <div class="counter-element-title">총 <span class="highlight">누적 리뷰</span> 개수 </div>
+            </div>
+            <div class="counter-element">
+                <div class="counter-element-icon">
+                    <img class="icon" src="image/review_icon.png"/>
+                </div>
+                <div class="counter-element-count" id="counter3">23</div>
+                <div class="counter-element-title">오늘의 <span class="highlight">등록된 리뷰 </span>개수 </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!--하단부 구현-->
+    <div class="bottom-wrapper">
+        <div class="fixTab-logo" style="margin-top: 15px; color: #858585">Pyenrihae</div>
+        <div style="margin-right: 30px">
+            <a href="https://www.naver.com"><div class="bottom-tweet"></div></a>
+            <a href="https://www.naver.com"><div class="bottom-facebook"></div></a>
+        </div>
+        <div class="bottom-copyright">(주)편리해 사업자번호 (123-123) Copyright © 2017 by RideBus. Inc. All rights reserved
+        <div class="bottom-service">편리해 서비스 이용약관 |
+            <span class="highlight" style="color: #282828;font-weight: 600"> 개인정보 취급방침</span></div>
+        </div>
+
+    </div>
+
 </div>
 
-<div class="brand-rank-wrapper">
-    <div class="brand-rank-arrow">
-        <button class="brand-rank-left" id="cu-left-scroll"><</button>
-        <button class="brand-rank-right" id="cu-right-scroll">></button>
-    </div>
+<!--template-->
+<script id="carousel-template" type="text/x-handlebars-template">
+    <ul style="z-index: 80; position: relative; width:1200%; height: 800px;top:250px; left: -100%;"
+        class="carousel-review-navi" id="reviewNavi">
+    {{#this}}
+        <li class="carousel-review-element">
+            <div class="carousel-review-element-wrapper">
+                <div class="carousel-review-elementTop">
+                    <div class="carousel-review-profile">
+                        <img class="carousel-review-profile" src="{{user_image}}"/>
+                    </div>
+                    <div style="margin-top:20px;float:left; width:25%">
+                        <div class="carousel-review-nic">
+                            {{user}}
+                        </div>
+                        <div class="carousel-review-date">
+                            {{timestamp}}
+                        </div>
+                    </div>
 
-    <div class="brand-slide-wrapper">
-        <div class="brand-slide-logo">
-            <img class="brand-logo-resize" src="http://cu.bgfretail.com/images/facebook.jpg"/>
-        </div>
-
-        <div class="brand-rank-slide">
-            <ul class="brand-rank-item" id="cu-item-wrapper">
-            </ul>
-        </div>
-    </div>
-    <a class="brand-more-link" href="#">
-        <div class="brand-rank-more">CU 랭킹 전체 보기</div>
-    </a>
-</div>
-
-<div class="brand-rank-wrapper">
-    <div class="brand-rank-arrow">
-        <button class="brand-rank-left" id="seven-left-scroll"><</button>
-        <button class="brand-rank-right" id="seven-right-scroll">></button>
-    </div>
-
-    <div class="brand-slide-wrapper">
-        <div class="brand-slide-logo">
-            <img class="brand-logo-resize" src="http://tmembership.tworld.co.kr/img_pl/poc/201609/img_1474678281621.png"/>
-        </div>
-
-        <div class="brand-rank-slide">
-            <ul class="brand-rank-item" id="seven-item-wrapper">
-            </ul>
-        </div>
-    </div>
-    <a class="brand-more-link" href="#">
-        <div class="brand-rank-more">7ELEVEN 랭킹 전체 보기</div>
-    </a>
-</div>
-
+                    <div class="carousel-review-star">
+                        <ul>
+                            <li class="carousel-review-starElement"></li>
+                            <li class="carousel-review-starElement"></li>
+                            <li class="carousel-review-starElement"></li>
+                            <li class="carousel-review-starElement"></li>
+                            <li class="carousel-review-starElement"></li>
+                        </ul>
+                    </div>
+                    <div class="carousel-review-score">
+                        <span style="font-weight: 700;">{{grade}}</span>
+                        <span style="font-size: 12px">점</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="carousel-review-image">
+                        <div class="carousel-review-imageEle">
+                            <img class="carousel-review-imageEle" src="{{p_image}}"/>
+                        </div>
+                    </div>
+                    <div style="float: left; width:45%; margin-left: 5%">
+                        <div class="carousel-review-product">{{p_name}}</div>
+                        <div class="carousel-review-description">{{comment}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    {{/this }}
+    </ul>
+</script>
 <script id="card-ranking-template" type="text/x-handlebars-template">
     {{#ranking}}
     <div class="card-main-rank-content">
@@ -119,8 +902,6 @@
     </div>
     {{/ranking}}
 </script>
-
-
 <script id="brand-ranking-template" type="text/x-handlebars-template">
     {{#this}}
     <div class="rank-product-type">
@@ -140,10 +921,13 @@
     {{/this}}
 </script>
 
+<!--외부소스-->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/handlebarsjs/4.0.8/handlebars.min.js"></script>
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/handlebarsjs/4.0.8/handlebars.min.js"></script>
-<script type="text/javascript" src="./src/brand.js"></script>
-<script type="text/javascript" src="./src/ranking.js"></script>
+<script src="plugin/jquery.animateNumber.min.js"></script>
+
+<!--번들-->
+<script src="./dist/bundle.js"></script>
 </body>
 </html>

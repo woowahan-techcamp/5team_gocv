@@ -5,7 +5,9 @@
 }
 
 .main-rank-header {
+    margin-top: 300px;
     text-align: center;
+    font-size: 25px;
 }
 
 .main-div-wrapper {
@@ -13,7 +15,7 @@
 }
 
 .main-rank-tab-wrapper {
-    margin: auto;
+    margin: 50px auto auto auto;
     /*background-color: red;*/
     text-align: center;
     width: 90%;
@@ -24,30 +26,31 @@
     line-height: 40px;
     text-align: center;
     width: 10%;
-    background-color: darkgray;
+    border-radius: 3px;
+    background-color: #ffded1;
 }
 
 .main-rank-tab:hover {
-    background-color: black;
+    background-color: #ff5853;
     color: white;
 }
 
 .main-rank-selectedtab {
-    background-color: black;
+    background-color: #ff5853;
     color: white;
 }
 
 .main-rank-content {
     text-align: center;
     /*background-color: yellow;*/
-    width: 80%;
+    width: 70%;
     height: 500px;
-    margin: 10px auto auto auto;
+    margin: 50px auto auto auto;
 }
 
 .card-main-rank-wrapper {
-    margin: auto;
-    width: 90%;
+    margin: 50px auto auto auto;
+    width: 80%;
     text-align: center;
 }
 
@@ -59,37 +62,27 @@
     border-radius: 2%;
 }
 
-.card-main-badge-area1 {
+.card-main-badge-area1,.card-main-badge-area2,.card-main-badge-area3{
     position: absolute;
     /*top: 125px;*/
     width: 40px;
     height: 40px;
-    margin-left: 5%;
-    background-color: purple;
+    margin-left: 3%;
     line-height: 40px;
     color: white;
+    border-radius: 20px;
+}
+
+.card-main-badge-area1 {
+    background-color: gold;
 }
 
 .card-main-badge-area2 {
-    position: absolute;
-    /*top: 125px;*/
-    width: 40px;
-    height: 40px;
-    margin-left: 5%;
-    background-color: red;
-    line-height: 40px;
-    color: white;
+    background-color: silver;
 }
 
 .card-main-badge-area3 {
-    position: absolute;
-    /*top: 125px;*/
-    width: 40px;
-    height: 40px;
-    margin-left: 5%;
-    background-color: blue;
-    line-height: 40px;
-    color: white;
+    background-color: brown;
 }
 
 .card-main-badge {
@@ -100,8 +93,16 @@
 
 .card-rank-image {
     border-radius: 50%;
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
+    filter: brightness(50%);
+}
+
+.card-rank-image:hover {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    filter: brightness(90%);
 }
 
 .card-main-description {
@@ -122,7 +123,7 @@
 }
 
 .card-main-rank-name {
-    margin-top: 10px;
+    margin-top: 30px;
 }
 
 .card-main-rank-price {
