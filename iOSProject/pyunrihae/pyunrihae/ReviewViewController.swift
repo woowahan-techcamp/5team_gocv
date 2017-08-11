@@ -234,23 +234,22 @@ extension ReviewViewController: UICollectionViewDataSource { //메인화면에�
             let review = reviewList[indexPath.item]
             cell.userImage.layer.cornerRadius = cell.userImage.frame.height/2
             cell.userImage.clipsToBounds = true
-            //임의로 유저 사진 넣어놨음
-//                cell.userImage.image = UIImage(named: "search.png")
-//                cell.userImage.backgroundColor = UIColor.lightGray
-            //
-            //TODO 유저가 아니라 음식임.
-            
+            cell.userImage.af_setImage(withURL: URL(string: review.user_image)!)
             cell.brandLabel.text = review.brand
             cell.productNameLabel.text = review.p_name
             cell.reviewContentLabel.text = review.comment
-            cell.userImage.af_setImage(withURL: URL(string: review.user_image)!)
             cell.badLabel.text = review.bad.description
             cell.usefulLabel.text = review.useful.description
            
+            for sub in cell.starView.subviews {
+                sub.removeFromSuperview()
+            }
+            
             //임의의 별점
-            let grade = 3.6
+            let grade = Double(review.grade)
             //
             cell.gradeLabel.text = String(grade)
+            
             for i in 0..<Int(grade) {
                 let starImage = UIImage(named: "stars.png")
                 let cgImage = starImage?.cgImage
