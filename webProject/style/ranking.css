@@ -26,6 +26,7 @@
     line-height: 40px;
     text-align: center;
     width: 10%;
+    border-radius: 3px;
     background-color: #ffded1;
 }
 
@@ -94,7 +95,14 @@
     border-radius: 50%;
     width: 200px;
     height: 200px;
-    border: solid 20x #ffac94;
+    filter: brightness(50%);
+}
+
+.card-rank-image:hover {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    filter: brightness(90%);
 }
 
 .card-main-description {

@@ -678,7 +678,7 @@
     <!--메인 탭 구현-->
     <div class="main-rank-wrapper">
         <div class="main-rank-header">
-            <span style="color: red; font-size: 30px">이번 주</span>의 <span style="color: red; font-size: 40px">HOT</span>상품
+            <span style="color: red; font-size: 30px; font-weight: 600">이번 주</span>의 <span   style="font-weight: 600; color: red; font-size: 40px">HOT</span>상품
             <span>
                 <img style="position:relative; margin-left:10px; top: 10px;width: 50px; height: 50px" src="image/burger.png"/>
             </span>
@@ -708,11 +708,71 @@
 
 
 
+    <!--브랜드별 랭킹 구현-->
 
+    <!--gs-->
+    <div class="brand-rank-wrapper">
+    <div class="brand-rank-arrow">
+        <button class="brand-rank-left" id="gs-left-scroll"><</button>
+        <button class="brand-rank-right" id="gs-right-scroll">></button>
+    </div>
 
+    <div class="brand-slide-wrapper">
+        <div class="brand-slide-logo">
+            <img class="brand-logo-resize" src="http://www.dprinting.biz/bbs_sun/files/logo/logo_201205081408391.jpg"/>
+        </div>
 
+        <div class="brand-rank-slide">
+            <ul class="brand-rank-item" id="gs-item-wrapper">
+            </ul>
+        </div>
+    </div>
+    <a class="brand-more-link" href="#">
+        <div class="brand-rank-more">GS25 랭킹 전체 보기</div>
+    </a>
+    </div>
+    <!--cu-->
+    <div class="brand-rank-wrapper">
+        <div class="brand-rank-arrow">
+            <button class="brand-rank-left" id="cu-left-scroll"><</button>
+            <button class="brand-rank-right" id="cu-right-scroll">></button>
+        </div>
 
+        <div class="brand-slide-wrapper">
+            <div class="brand-slide-logo">
+                <img class="brand-logo-resize" src="http://cu.bgfretail.com/images/facebook.jpg"/>
+            </div>
 
+            <div class="brand-rank-slide">
+                <ul class="brand-rank-item" id="cu-item-wrapper">
+                </ul>
+            </div>
+        </div>
+        <a class="brand-more-link" href="#">
+            <div class="brand-rank-more">CU 랭킹 전체 보기</div>
+        </a>
+    </div>
+    <!--세븐일레븐-->
+    <div class="brand-rank-wrapper">
+        <div class="brand-rank-arrow">
+            <button class="brand-rank-left" id="seven-left-scroll"><</button>
+            <button class="brand-rank-right" id="seven-right-scroll">></button>
+        </div>
+
+        <div class="brand-slide-wrapper">
+            <div class="brand-slide-logo">
+                <img class="brand-logo-resize" src="http://tmembership.tworld.co.kr/img_pl/poc/201609/img_1474678281621.png"/>
+            </div>
+
+            <div class="brand-rank-slide">
+                <ul class="brand-rank-item" id="seven-item-wrapper">
+                </ul>
+            </div>
+        </div>
+        <a class="brand-more-link" href="#">
+            <div class="brand-rank-more">7ELEVEN 랭킹 전체 보기</div>
+        </a>
+    </div>
 
 
 

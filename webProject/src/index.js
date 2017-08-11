@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
     const carousel = new Carousel('reviewNavi','carousel-leftButton',
         'carousel-rightButton', 10, 'carousel-template','carouselSec');
-    const counter = new Counter(1000);
+    const counter = new Counter(3000);
     counter.setCounter();
 
 
