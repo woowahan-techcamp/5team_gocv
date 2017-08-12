@@ -19,7 +19,6 @@ class ProductDetailViewController: UIViewController {
     }
     var orderBy = "최신순"
     var productGrade = 4.6 //임의로 넣어놧음
-    var userGrade = 3 //임의로 넣어놨음
     
     func showProduct(_ notification: Notification) { // 넘어온 product 정보 받아서 화면 구성
         let product = notification.userInfo?["product"] as! Product
@@ -79,6 +78,7 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                     } else {
                         cell.eventLabel.isHidden = true
                     }
+                    
                     Alamofire.request(product.image).responseImage { response in
                         if let image = response.result.value {
                             SelectedProduct.foodImage = image
@@ -126,29 +126,25 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                     cell.usefulNumLabel.text = String(reviewList[row].useful)
                     cell.detailReviewLabel.text = reviewList[row].comment
                     cell.userNameLabel.text = reviewList[row].user
-                    self.productGrade = Double(reviewList[row].grade)
-                    Alamofire.request(reviewList[row].user_image).responseImage { response in
-                        if let image = response.result.value {
-                            cell.userImage.image = image
-                        }
+                    cell.userImage.af_setImage(withURL: URL(string: reviewList[row].user_image)!)
+                    cell.uploadedFoodImage.af_setImage(withURL: URL(string: reviewList[row].p_image)!)
+                    
+                    for sub in cell.starView.subviews {
+                        sub.removeFromSuperview()
                     }
-                    Alamofire.request(reviewList[row].p_image).responseImage { response in
-                        if let image = response.result.value {
-                            cell.uploadedFoodImage.image = image
-                        }
+                    
+                    // 리뷰어 각각의 별점
+                    for i in 0..<Int(reviewList[row].grade) {
+                        let starImage = UIImage(named: "stars.png")
+                        let cgImage = starImage?.cgImage
+                        let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: 0, y: 0, width: (starImage?.size.width)! / 5, height: starImage!.size.height))!
+                        let uiImage = UIImage(cgImage: croppedCGImage)
+                        let imageView = UIImageView(image: uiImage)
+                        imageView.frame = CGRect(x: i*18, y: 0, width: 18, height: 15)
+                        cell.starView.addSubview(imageView)
                     }
                 }
-
-                // 리뷰어 각각의 별점
-                for i in 0..<Int(productGrade) {
-                    let starImage = UIImage(named: "stars.png")
-                    let cgImage = starImage?.cgImage
-                    let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: 0, y: 0, width: (starImage?.size.width)! / 5, height: starImage!.size.height))!
-                    let uiImage = UIImage(cgImage: croppedCGImage)
-                    let imageView = UIImageView(image: uiImage)
-                    imageView.frame = CGRect(x: i*18, y: 0, width: 18, height: 15)
-                    cell.starView.addSubview(imageView)
-                }
+                
             } else {
                 cell.isHidden = true
             }
