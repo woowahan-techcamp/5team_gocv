@@ -10,7 +10,8 @@ import Foundation
 import UIKit
 
 class SelectedProduct {
-    static var foodImage = UIImage()
+    static var foodId = ""
     static var foodName = ""
     static var brandName = ""
+    static var price = ""
 }

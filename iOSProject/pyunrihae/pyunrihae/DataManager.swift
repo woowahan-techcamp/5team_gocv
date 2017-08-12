@@ -210,4 +210,20 @@ class DataManager{
         })
     }
     
+    // 상품 id로 상품 가져오기
+    
+    static func getProductById(id: String, completion : @escaping (Product) -> ()) {
+        let localRef = ref.child("product")
+        let query = localRef.queryOrdered(byChild: "id").queryEqual(toValue: id)
+        
+        query.observe(DataEventType.value, with: { (snapshot) in
+            var product = Product()
+            for childSnapshot in snapshot.children {
+                product = Product.init(snapshot: childSnapshot as! DataSnapshot)
+            }
+            completion(product)
+        })
+    }
+
+    
 }

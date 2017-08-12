@@ -23,16 +23,19 @@ class ProductDetailViewController: UIViewController {
     
     func showProduct(_ notification: Notification) { // 넘어온 product 정보 받아서 화면 구성
         let product = notification.userInfo?["product"] as! Product
-        Alamofire.request(product.image).responseImage { response in
-            if let image = response.result.value {
-                SelectedProduct.foodImage = image
-            }
-        }
+        SelectedProduct.foodId = product.id
         SelectedProduct.brandName = product.brand
         SelectedProduct.foodName = product.name
     }
+    func showReviewProduct(_ notification: Notification) { // 넘어온 product 정보 받아서 화면 구성
+        let product = notification.userInfo?["product"] as! Review
+        SelectedProduct.foodId = product.p_id
+        SelectedProduct.brandName = product.brand
+        SelectedProduct.foodName = product.p_name
+    }
     func addNotiObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(showProduct), name: NSNotification.Name("showProduct"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showReviewProduct), name: NSNotification.Name("showReviewProduct"), object: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +69,13 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                 Label.makeRoundLabel(label: cell.eventLabel, color: UIColor.red)
                 cell.eventLabel.textColor = UIColor.red
                 Image.makeCircleImage(image: cell.foodImage)
-                cell.foodImage.image = SelectedProduct.foodImage
+                DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
+                    Alamofire.request(product.image).responseImage { response in
+                        if let image = response.result.value {
+                            cell.foodImage.image = image
+                        }
+                    }
+                }
                 cell.brandLabel.text = SelectedProduct.brandName
                 cell.foodNameLabel.text = SelectedProduct.foodName
                 return cell

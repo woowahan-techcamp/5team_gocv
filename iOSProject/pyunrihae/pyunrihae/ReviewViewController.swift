@@ -273,6 +273,14 @@ extension ReviewViewController: UICollectionViewDataSource { //메인화면에�
         }
         return ReviewCollectionViewCell()
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! ReviewCollectionViewCell
+        let indexRow = self.collectionView!.indexPath(for: cell)?.row
+        if reviewList.count > 0 {
+            let product = reviewList[indexRow!]
+            NotificationCenter.default.post(name: NSNotification.Name("showReviewProduct"), object: self, userInfo: ["product" : product])
+        }
+    }
 }
 extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 }

@@ -212,13 +212,13 @@
 			isa = PBXGroup;
 			children = (
 				9865E5071F3943BD00014795 /* Button.swift */,
-				9865E5591F3D837200014795 /* SelectedProduct.swift */,
 				9865E54D1F3C576D00014795 /* Image.swift */,
 				9865E5231F3AE04C00014795 /* Label.swift */,
 				9865E5511F3D34E700014795 /* Photo.swift */,
-				98C5AAD71F342C3900610115 /* DataManager.swift */,
-				98B73F851F39394500E55420 /* Review.swift */,
 				98B73F871F394CAB00E55420 /* Product.swift */,
+				9865E5591F3D837200014795 /* SelectedProduct.swift */,
+				98B73F851F39394500E55420 /* Review.swift */,
+				98C5AAD71F342C3900610115 /* DataManager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
