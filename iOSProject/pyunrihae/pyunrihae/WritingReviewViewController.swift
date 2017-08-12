@@ -136,12 +136,17 @@ class WritingReviewViewController: UIViewController {
         addFlavorLevelBtn()
         addQuantityLevelBtn()
         Image.makeCircleImage(image: productImage)
+        productNameLabel.text = SelectedProduct.foodName
+        brandLabel.text = SelectedProduct.brandName
+        priceLabel.text = SelectedProduct.price + "원"
+        productImage.image = SelectedProduct.foodImage
         detailReview.layer.borderWidth = 0.7
         detailReview.layer.borderColor = UIColor.lightGray.cgColor
         detailReview.layer.cornerRadius = 5
         detailReview.clipsToBounds = true
         detailReview.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(chooseImage), name: NSNotification.Name("chooseImage"), object: nil)
+        
         // Do any additional setup after loading the view.
     }
 
