@@ -347,6 +347,14 @@ extension MainViewController: UICollectionViewDataSource { //메인화면에서 
         
         return MainRankCollectionViewCell()
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! MainRankCollectionViewCell
+        let indexRow = self.collectionView!.indexPath(for: cell)?.row
+        if productList.count > 0 {
+            let product = productList[indexRow!]
+            NotificationCenter.default.post(name: NSNotification.Name("showProduct"), object: self, userInfo: ["product" : product])
+        }
+    }
 }
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 }

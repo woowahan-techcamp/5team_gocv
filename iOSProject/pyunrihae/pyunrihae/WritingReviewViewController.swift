@@ -10,6 +10,7 @@ import UIKit
 
 class WritingReviewViewController: UIViewController {
 
+    @IBOutlet weak var endEditingBtn: UIButton!
     @IBOutlet weak var reviewTextView: UIView!
     @IBOutlet weak var detailReview: UITextView!
     @IBOutlet weak var placeholder: UILabel!
@@ -127,6 +128,7 @@ class WritingReviewViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        endEditingBtn.isHidden = true
         addImageBtn.layer.zPosition = 10
         scrollView.isScrollEnabled = true
         addStarBtn()
@@ -134,12 +136,17 @@ class WritingReviewViewController: UIViewController {
         addFlavorLevelBtn()
         addQuantityLevelBtn()
         Image.makeCircleImage(image: productImage)
+        productNameLabel.text = SelectedProduct.foodName
+        brandLabel.text = SelectedProduct.brandName
+        priceLabel.text = SelectedProduct.price + "원"
+        productImage.image = SelectedProduct.foodImage
         detailReview.layer.borderWidth = 0.7
         detailReview.layer.borderColor = UIColor.lightGray.cgColor
         detailReview.layer.cornerRadius = 5
         detailReview.clipsToBounds = true
         detailReview.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(chooseImage), name: NSNotification.Name("chooseImage"), object: nil)
+        
         // Do any additional setup after loading the view.
     }
 
@@ -152,21 +159,22 @@ class WritingReviewViewController: UIViewController {
 
 extension WritingReviewViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        UIView.animate(withDuration: 1.5, delay: 0.0, usingSpringWithDamping: 5.0, initialSpringVelocity: 5.0, options: UIViewAnimationOptions.curveEaseInOut, animations: ({
+        
+        UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 3.0, initialSpringVelocity: 3.0, options: UIViewAnimationOptions.curveEaseInOut, animations: ({
             self.scrollView.frame.origin.y -= 389
+            self.detailReview.frame.size.height += 520
         }), completion: nil)
         
+        endEditingBtn.isHidden = false
         addedImageView.isHidden = true
-        var frameRect = detailReview.frame
-        frameRect.size.height = 550
-        detailReview.frame = frameRect
         placeholder.isHidden = true
     }
     func textViewDidEndEditing(_ textView: UITextView) {
-        UIView.animate(withDuration: 1.5, delay: 0.0, usingSpringWithDamping: 5.0, initialSpringVelocity: 5.0, options: UIViewAnimationOptions.curveEaseInOut, animations: ({
+        UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 3.0, initialSpringVelocity: 3.0, options: UIViewAnimationOptions.curveEaseInOut, animations: ({
             self.scrollView.frame.origin.y += 389
         }), completion: nil)
         
+        endEditingBtn.isHidden = true
         addedImageView.isHidden = false
         var frameRect = detailReview.frame
         frameRect.size.height = 30

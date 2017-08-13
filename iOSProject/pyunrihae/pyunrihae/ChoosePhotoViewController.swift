@@ -29,7 +29,9 @@ class ChoosePhotoViewController: UIViewController {
         collectionView.delegate = self
         collectionView.allowsSelection = true
         images = Photo().getPhotos()
-        selectedImage.image = images[0]
+        if images.count != 0 {
+            selectedImage.image = images[0]
+        }
         collectionView.frame = CGRect(x: 0 ,y: selectedImage.frame.height + 10, width: (collectionView.superview?.frame.width)!, height: CGFloat(images.count) * (collectionView.superview?.frame.width)! / 4)
         // Do any additional setup after loading the view.
     }

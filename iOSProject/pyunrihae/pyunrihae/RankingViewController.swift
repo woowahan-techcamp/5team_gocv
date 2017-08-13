@@ -25,7 +25,6 @@ class RankingViewController: UIViewController {
                 self.setRankingListOrder()
             }
         }
-
         let orderByPrice = UIAlertAction(title: "낮은 가격순", style: .destructive) { action -> Void in
             DispatchQueue.main.async {
                 self.sortingMethodLabel.text  = "낮은 가격순"
@@ -276,6 +275,14 @@ extension RankingViewController: UICollectionViewDataSource {
             return cell
         }
         return RankingCollectionViewCell()
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! RankingCollectionViewCell
+        let indexRow = self.collectionView!.indexPath(for: cell)?.row
+        if productList.count > 0 {
+            let product = productList[indexRow!]
+            NotificationCenter.default.post(name: NSNotification.Name("showProduct"), object: self, userInfo: ["product" : product])
+        }
     }
 }
 extension RankingViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {

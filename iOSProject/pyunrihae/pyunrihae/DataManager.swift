@@ -193,6 +193,20 @@ class DataManager{
         })
     }
     
+    // 상품 아이디로 리뷰 리스트 받아오기.
+    static func getReviewListBy(id: String, completion: @escaping ([Review]) ->()) {
+        let localRef = ref.child("review")
+        let query = localRef.queryOrdered(byChild: "p_id").queryEqual(toValue: id)
+        query.observe(DataEventType.value, with: { (snapshot) in
+            var reviewList : [Review] = []
+            for childSnapshot in snapshot.children {
+                let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
+                reviewList.append(review)
+            }
+            completion(reviewList)
+        })
+    }
+    
     /*
      * 랭킹화면 : 메인화면 함수 재사용. 전체 브랜드 + 전체 카테고리 일 때 함수만 재작성.
      */
@@ -209,5 +223,21 @@ class DataManager{
             completion(productList)
         })
     }
+    
+    // 상품 id로 상품 가져오기
+    
+    static func getProductById(id: String, completion : @escaping (Product) -> ()) {
+        let localRef = ref.child("product")
+        let query = localRef.queryOrdered(byChild: "id").queryEqual(toValue: id)
+        
+        query.observe(DataEventType.value, with: { (snapshot) in
+            var product = Product()
+            for childSnapshot in snapshot.children {
+                product = Product.init(snapshot: childSnapshot as! DataSnapshot)
+            }
+            completion(product)
+        })
+    }
+
     
 }

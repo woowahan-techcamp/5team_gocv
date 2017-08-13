@@ -20,6 +20,7 @@ class TabBarViewController: UIViewController {
     var rankingViewController : RankingViewController!
     var reviewViewController : ReviewViewController!
     var mypageViewController : MypageViewController!
+    var productDetailViewController : ProductDetailViewController!
     var viewControllers : [UIViewController]! // 탭에 따른 뷰 컨트롤러
     var selectedTabIndex: Int = 0 // 선택된 뷰 컨트롤러 인덱스, 초기값은 0
     var selectedBrandIndex: Int = 0 // 선택된 브랜드 인덱스, 초기값은 0 (전체)
@@ -80,6 +81,8 @@ class TabBarViewController: UIViewController {
         reviewViewController.selectedBrandIndexFromTab = selectedBrandIndex
         
         mypageViewController = storyboard.instantiateViewController(withIdentifier: "MypageViewController") as! MypageViewController
+        productDetailViewController = storyboard.instantiateViewController(withIdentifier: "ProductDetailViewController") as! ProductDetailViewController
+        productDetailViewController.addNotiObserver()
         rankingViewController.addNotiObserver()
         reviewViewController.addNotiObserver() // 옵저버 미리 등록시켜주기
         viewControllers = [mainViewController,rankingViewController,reviewViewController,mypageViewController]

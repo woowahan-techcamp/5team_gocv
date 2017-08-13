@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class ProductDetailViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
@@ -18,17 +19,34 @@ class ProductDetailViewController: UIViewController {
     }
     var orderBy = "최신순"
     var productGrade = 4.6 //임의로 넣어놧음
-    var userGrade = 3 //임의로 넣어놨음
     
+    func showProduct(_ notification: Notification) { // 넘어온 product 정보 받아서 화면 구성
+        let product = notification.userInfo?["product"] as! Product
+        SelectedProduct.foodId = product.id
+        SelectedProduct.brandName = product.brand
+        SelectedProduct.foodName = product.name
+        SelectedProduct.price = product.price
+        SelectedProduct.reviewCount = 12 // product.review_count
+    }
+    func showReviewProduct(_ notification: Notification) { // 넘어온 product 정보 받아서 화면 구성
+        let product = notification.userInfo?["product"] as! Review
+        SelectedProduct.foodId = product.p_id
+        SelectedProduct.brandName = product.brand
+        SelectedProduct.foodName = product.p_name
+        SelectedProduct.price = String(product.p_price)
+        SelectedProduct.reviewCount = 12 // product.review_count
+    }
+    func addNotiObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(showProduct), name: NSNotification.Name("showProduct"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showReviewProduct), name: NSNotification.Name("showReviewProduct"), object: nil)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         writingReviewBtn.layer.zPosition = 10
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsSelection = false
-        // Do any additional setup after loading the view.
     }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -44,7 +62,7 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
         if section == 0 {
             return 2
         } else {
-            return 5 // 리뷰 수+2로 리턴해야 함
+            return SelectedProduct.reviewCount + 2 // 리뷰 수+2로 리턴해야 함
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -54,6 +72,23 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                 Label.makeRoundLabel(label: cell.eventLabel, color: UIColor.red)
                 cell.eventLabel.textColor = UIColor.red
                 Image.makeCircleImage(image: cell.foodImage)
+                DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
+                    if product.event.count > 0 && product.event[0] != "\r" { //이벤트 데이터 베이스 수정 필요
+                        cell.eventLabel.text = product.event[0]
+                    } else {
+                        cell.eventLabel.isHidden = true
+                    }
+                    
+                    Alamofire.request(product.image).responseImage { response in
+                        if let image = response.result.value {
+                            SelectedProduct.foodImage = image
+                            cell.foodImage.image = image
+                        }
+                    }
+                }
+                cell.priceLabel.text = SelectedProduct.price + "원"
+                cell.brandLabel.text = SelectedProduct.brandName
+                cell.foodNameLabel.text = SelectedProduct.foodName
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath) as! ProductDetailInfoTableViewCell
@@ -84,16 +119,32 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
             if indexPath.row > 1 {
                 cell.isHidden = false
                 Image.makeCircleImage(image: cell.userImage)
-                // 리뷰어 각각의 별점
-                for i in 0..<Int(productGrade) {
-                    let starImage = UIImage(named: "stars.png")
-                    let cgImage = starImage?.cgImage
-                    let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: 0, y: 0, width: (starImage?.size.width)! / 5, height: starImage!.size.height))!
-                    let uiImage = UIImage(cgImage: croppedCGImage)
-                    let imageView = UIImageView(image: uiImage)
-                    imageView.frame = CGRect(x: i*18, y: 0, width: 18, height: 15)
-                    cell.starView.addSubview(imageView)
+                cell.reviewBoxView.layer.cornerRadius = 10
+                let row = indexPath.row - 2
+                DataManager.getReviewListBy(id: "PR2663") { (reviewList) in // id 이후에 p_id로 바꿀 것
+                    cell.badNumLabel.text = String(reviewList[row].bad)
+                    cell.usefulNumLabel.text = String(reviewList[row].useful)
+                    cell.detailReviewLabel.text = reviewList[row].comment
+                    cell.userNameLabel.text = reviewList[row].user
+                    cell.userImage.af_setImage(withURL: URL(string: reviewList[row].user_image)!)
+                    cell.uploadedFoodImage.af_setImage(withURL: URL(string: reviewList[row].p_image)!)
+                    
+                    for sub in cell.starView.subviews {
+                        sub.removeFromSuperview()
+                    }
+                    
+                    // 리뷰어 각각의 별점
+                    for i in 0..<Int(reviewList[row].grade) {
+                        let starImage = UIImage(named: "stars.png")
+                        let cgImage = starImage?.cgImage
+                        let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: 0, y: 0, width: (starImage?.size.width)! / 5, height: starImage!.size.height))!
+                        let uiImage = UIImage(cgImage: croppedCGImage)
+                        let imageView = UIImageView(image: uiImage)
+                        imageView.frame = CGRect(x: i*18, y: 0, width: 18, height: 15)
+                        cell.starView.addSubview(imageView)
+                    }
                 }
+                
             } else {
                 cell.isHidden = true
             }

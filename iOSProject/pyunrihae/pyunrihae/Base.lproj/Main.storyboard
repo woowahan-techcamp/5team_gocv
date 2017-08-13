@@ -470,7 +470,7 @@
         <!--상품 상세-->
         <scene sceneID="1Yi-Qd-Imp">
             <objects>
-                <viewController id="t3O-Pz-lwz" customClass="ProductDetailViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProductDetailViewController" id="t3O-Pz-lwz" customClass="ProductDetailViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iGX-N6-Qxt"/>
                         <viewControllerLayoutGuide type="bottom" id="FHL-9w-PA7"/>
@@ -495,7 +495,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="186.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="check.png" translatesAutoresizingMaskIntoConstraints="NO" id="rn1-fA-lAu">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rn1-fA-lAu">
                                                             <rect key="frame" x="142" y="19" width="90" height="90"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </imageView>
@@ -644,7 +644,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="231.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star.png" translatesAutoresizingMaskIntoConstraints="NO" id="NAm-hh-li3">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NAm-hh-li3">
                                                             <rect key="frame" x="8" y="19" width="60" height="60"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </imageView>
@@ -653,7 +653,7 @@
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="태양" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RFO-gL-gM2">
-                                                                    <rect key="frame" x="8" y="8" width="156" height="21"/>
+                                                                    <rect key="frame" x="11" y="8" width="156" height="21"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                                     <color key="textColor" red="0.89019607840000003" green="0.29411764709999999" blue="0.039215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -689,18 +689,18 @@
                                                                     <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="search.png" translatesAutoresizingMaskIntoConstraints="NO" id="rAP-sV-p0m">
-                                                                    <rect key="frame" x="8" y="62" width="61" height="58"/>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rAP-sV-p0m">
+                                                                    <rect key="frame" x="11" y="62" width="61" height="58"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="24K-cN-721">
-                                                                    <rect key="frame" x="9" y="128" width="263" height="67"/>
+                                                                    <rect key="frame" x="11" y="128" width="261" height="67"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <attributedString key="attributedText">
-                                                                        <fragment content="맛있네요">
+                                                                        <fragment content="맛있어요">
                                                                             <attributes>
-                                                                                <font key="NSFont" size="13" name=".AppleSDGothicNeoI-Regular"/>
-                                                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                                <font key="NSFont" size="13" name="NanumGothic"/>
+                                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                             </attributes>
                                                                         </fragment>
                                                                     </attributedString>
@@ -717,10 +717,14 @@
                                                     </subviews>
                                                 </tableViewCellContentView>
                                                 <connections>
+                                                    <outlet property="badNumLabel" destination="XR2-3w-pJ8" id="MKO-9w-haq"/>
                                                     <outlet property="detailReviewLabel" destination="24K-cN-721" id="vaN-6C-VER"/>
+                                                    <outlet property="reviewBoxView" destination="Gt7-gt-hp8" id="AEw-RG-UqY"/>
                                                     <outlet property="starView" destination="rjv-PP-Ke1" id="Sjf-Ha-icc"/>
                                                     <outlet property="uploadedFoodImage" destination="rAP-sV-p0m" id="tPo-WR-Pf7"/>
+                                                    <outlet property="usefulNumLabel" destination="FHO-Hv-hIx" id="4tF-wN-rFz"/>
                                                     <outlet property="userImage" destination="NAm-hh-li3" id="hGF-Cg-VFn"/>
+                                                    <outlet property="userNameLabel" destination="RFO-gL-gM2" id="mRL-CD-4Oj"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -777,7 +781,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WuU-0d-sPY">
-                                        <rect key="frame" x="0.0" y="392" width="375" height="667"/>
+                                        <rect key="frame" x="0.0" y="409" width="375" height="650"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RDR-db-oH2">
@@ -795,7 +799,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RZM-Oc-Z36">
-                                                <rect key="frame" x="320" y="525" width="25" height="25"/>
+                                                <rect key="frame" x="322" y="28" width="20" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" image="dropdown.png"/>
                                                 <connections>
@@ -803,7 +807,7 @@
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sn8-VS-4au">
-                                                <rect key="frame" x="15" y="79" width="100" height="100"/>
+                                                <rect key="frame" x="15" y="71" width="100" height="100"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ne4-fX-uQf">
@@ -825,104 +829,104 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ajC-Sd-Fay">
-                                        <rect key="frame" x="0.0" y="1" width="375" height="389"/>
+                                        <rect key="frame" x="0.0" y="-5" width="375" height="410"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="GS25" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C0p-OZ-LG5">
-                                                <rect key="frame" x="107" y="13" width="46" height="21"/>
+                                                <rect key="frame" x="107" y="32" width="174" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                 <color key="textColor" red="0.89019607840000003" green="0.29411764709999999" blue="0.039215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="옥수수 치즈 탕면" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDf-ps-YOV">
-                                                <rect key="frame" x="107" y="37" width="243" height="21"/>
+                                                <rect key="frame" x="107" y="56" width="243" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1800원" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V8Z-ql-LEG">
-                                                <rect key="frame" x="107" y="62" width="174" height="21"/>
+                                                <rect key="frame" x="107" y="81" width="174" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="평점" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1by-We-uKz">
-                                                <rect key="frame" x="25" y="107" width="30" height="21"/>
+                                                <rect key="frame" x="25" y="126" width="30" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="가격" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ucv-Zz-Y32">
-                                                <rect key="frame" x="25" y="146" width="30" height="21"/>
+                                                <rect key="frame" x="25" y="165" width="30" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="맛" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1lF-sd-HT2">
-                                                <rect key="frame" x="25" y="213" width="24" height="21"/>
+                                                <rect key="frame" x="25" y="232" width="24" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="알레르기" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hvF-6h-JcQ">
-                                                <rect key="frame" x="21" y="352" width="59" height="21"/>
+                                                <rect key="frame" x="21" y="371" width="59" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="알레르기 성분을 선택해주세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GES-Rp-Sm5">
-                                                <rect key="frame" x="89" y="352" width="205" height="21"/>
+                                                <rect key="frame" x="89" y="371" width="205" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6H7-dd-xym">
-                                                <rect key="frame" x="89" y="104" width="240" height="31"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            </view>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="search.png" translatesAutoresizingMaskIntoConstraints="NO" id="0fj-ff-QFC">
-                                                <rect key="frame" x="13" y="12" width="80" height="80"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0fj-ff-QFC">
+                                                <rect key="frame" x="21" y="31" width="70" height="70"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="양" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JxK-kH-Ccc">
-                                                <rect key="frame" x="25" y="280" width="15" height="21"/>
+                                                <rect key="frame" x="25" y="299" width="15" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bfy-dv-Ogx">
-                                                <rect key="frame" x="21" y="306" width="327" height="30"/>
+                                                <rect key="frame" x="21" y="326" width="327" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EnL-Cj-16h">
-                                                <rect key="frame" x="21" y="172" width="327" height="30"/>
+                                                <rect key="frame" x="21" y="192" width="327" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z4s-1V-Pws">
-                                                <rect key="frame" x="21" y="239" width="327" height="30"/>
+                                                <rect key="frame" x="21" y="259" width="327" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cu7-zs-1oo">
-                                                <rect key="frame" x="323" y="350" width="25" height="25"/>
+                                                <rect key="frame" x="323" y="371" width="25" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" image="plus.png"/>
                                                 <connections>
                                                     <segue destination="noX-w8-BKx" kind="show" id="0rC-8m-7nT"/>
                                                 </connections>
                                             </button>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6H7-dd-xym">
+                                                <rect key="frame" x="89" y="123" width="240" height="31"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
@@ -960,6 +964,7 @@
                         <outlet property="addedImageView" destination="Sn8-VS-4au" id="JMU-Rk-ERg"/>
                         <outlet property="brandLabel" destination="C0p-OZ-LG5" id="O38-2c-fCD"/>
                         <outlet property="detailReview" destination="RDR-db-oH2" id="dFS-PA-uhw"/>
+                        <outlet property="endEditingBtn" destination="RZM-Oc-Z36" id="hqT-iJ-hdo"/>
                         <outlet property="flavorLevelView" destination="Z4s-1V-Pws" id="Pnk-7l-acl"/>
                         <outlet property="placeholder" destination="tpV-Kc-V1G" id="lmF-iN-8Ph"/>
                         <outlet property="priceLabel" destination="V8Z-ql-LEG" id="PIp-I1-Orm"/>
@@ -1165,7 +1170,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </scrollView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="153,000개의 리뷰" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ymw-Ko-s1I">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0개의 리뷰" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ymw-Ko-s1I">
                                 <rect key="frame" x="15" y="60" width="150" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -1227,1024 +1232,11 @@
                                                             <rect key="frame" x="11" y="54" width="247" height="72"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <attributedString key="attributedText">
-                                                                <fragment content="편의점">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="도시락은">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="그야말로">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="전성기를">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="맞이했다">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=". ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="언제">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="어디서든">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="쉽게">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="구매하고">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="먹을">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="수">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="있을">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="뿐만">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="아니라">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" 1">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="인">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="가구">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="증가와">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="저가형">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="도시락을">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="추구하는">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="직장인들로">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="인해">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="그">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="성장세가">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="무섭게">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="치솟고">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="있다">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=". ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="이에">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="각">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="편의점">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="업체에서는">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="소비자들의">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="기대에">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="부응하기">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="위해">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="다양한">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="종류의">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="가성비">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="좋은">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="도시락을">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="개발하기">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="위해">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="노력하고">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="있다">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=". ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="이전에">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="볼">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="수">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="없었던">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="소면을">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="활용한">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="도시락부터">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="각">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="지역">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="특산품을">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="활용한">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="도시락">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=", ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="집밥">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="못지않은">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="찬합">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="도시락">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="그리고">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="보양">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="식재료로">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="꼽히는">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="장어">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=", ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="전복을">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="활용한">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="도시락까지">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="그">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="종류가">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="무궁무진하다">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=". ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="어떤">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="도시락을">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="구매할지">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="우리를">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="행복한">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="고민에">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="빠지게">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="할">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="새롭게">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="출시된">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="도시락은">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="무엇이">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="있는지">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=" ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="들여다보자">
-                                                                    <attributes>
-                                                                        <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content=". ">
-                                                                    <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="15"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
+                                                                <fragment>
+                                                                    <mutableString key="content">편의점 도시락은 그야말로 전성기를 맞이했다. 언제 어디서든 쉽게 구매하고 먹을 수 있을 뿐만 아니라 1인 가구 증가와 저가형 도시락을 추구하는 직장인들로 인해 그 성장세가 무섭게 치솟고 있다. 이에 각 편의점 업체에서는 소비자들의 기대에 부응하기 위해 다양한 종류의 가성비 좋은 도시락을 개발하기 위해 노력하고 있다. 이전에 볼 수 없었던 소면을 활용한 도시락부터 각 지역 특산품을 활용한 도시락, 집밥 못지않은 찬합 도시락 그리고 보양 식재료로 꼽히는 장어, 전복을 활용한 도시락까지 그 종류가 무궁무진하다. 어떤 도시락을 구매할지 우리를 행복한 고민에 빠지게 할 새롭게 출시된 도시락은 무엇이 있는지 들여다보자. </mutableString>
+                                                                    <attributes>
+                                                                        <font key="NSFont" size="13" name="NanumGothic"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                     </attributes>
                                                                 </fragment>
                                                             </attributedString>
@@ -2436,7 +1428,6 @@
         <image name="plus.png" width="640" height="640"/>
         <image name="right.png" width="1920" height="1920"/>
         <image name="search.png" width="1280" height="1280"/>
-        <image name="star.png" width="512" height="512"/>
         <image name="writing.png" width="2000" height="2000"/>
     </resources>
     <inferredMetricsTieBreakers>

@@ -9,6 +9,10 @@
 import UIKit
 
 class ProductReviewTableViewCell: UITableViewCell {
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var badNumLabel: UILabel!
+    @IBOutlet weak var usefulNumLabel: UILabel!
+    @IBOutlet weak var reviewBoxView: UIView!
     @IBOutlet weak var starView: UIView!
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var uploadedFoodImage: UIImageView!
