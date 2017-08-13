@@ -142,6 +142,7 @@ class BrandRankingPreview {
         // template
         this.template = document.getElementById(documentParams.template).innerHTML;
         this.brand = documentParams.brand;
+        this.translateValue = 0;
 
         // dummy data
         this.rankingData = obj;
@@ -169,8 +170,11 @@ class BrandRankingPreview {
             element.setAttribute('class', 'brand-item-wrapper brand-item-selected');
         });
 
+
         this.setLeftScroll();
         this.setRightScroll();
+
+
     }
 
     setNode(object, value, params) {
@@ -215,7 +219,20 @@ class BrandRankingPreview {
     }
 
     setLeftScroll() {
+
         this.leftBtn.addEventListener('click', function () {
+
+            //화면 크기변화에 따른 값 조절
+            const mq = window.matchMedia( "(min-width: 780px)" );
+
+            if (mq.matches) {
+                this.translateValue = '880px';
+            } else {
+                this.translateValue = '220px';
+            }
+
+
+
             const that = this;
             this.leftBtn.disabled = true;
             const template = document.getElementById(this.item_template).parentNode;
@@ -240,8 +257,8 @@ class BrandRankingPreview {
             this.index++;
 
             template.style.transitionDuration = '0.4s';
-            template.style.marginLeft = '-880px';
-            template.style.transform = 'translateX(880px)';
+            template.style.marginLeft = '-'+this.translateValue;
+            template.style.transform = 'translateX('+this.translateValue+')';
 
             setTimeout(function () {
                 that.removeNode();
@@ -260,7 +277,19 @@ class BrandRankingPreview {
     }
 
     setRightScroll() {
+
+
         this.rightBtn.addEventListener('click', function () {
+
+            //화면 크기변화에 따른 값 조절
+            const mq = window.matchMedia( "(min-width: 780px)" );
+
+            if (mq.matches) {
+                this.translateValue = '880px';
+            } else {
+                this.translateValue = '220px';
+            }
+
             const that = this;
             this.rightBtn.disabled = true;
             const template = document.getElementById(this.item_template).parentNode;
@@ -276,7 +305,7 @@ class BrandRankingPreview {
             this.index++;
 
             template.style.transitionDuration = '0.4s';
-            template.style.transform = 'translateX(-880px)';
+            template.style.transform = 'translateX(-'+this.translateValue+')';
 
             setTimeout(function () {
                 that.removeNode();

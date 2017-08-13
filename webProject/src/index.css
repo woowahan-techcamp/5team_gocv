@@ -6,9 +6,6 @@
 
 
 
-
-
-
 ul{
     list-style-type: none;
 
@@ -883,7 +880,8 @@ a{
     }
 
     .counter-element-icon{
-        width: 33%;
+        width: 100px;
+        height: 100px;
         background-size: auto;
         margin: auto;
     }

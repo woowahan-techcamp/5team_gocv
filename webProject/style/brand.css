@@ -15,7 +15,7 @@
     width: 40px;
     height: 100px;
     float: left;
-    margin-left: 200px;
+    margin-left: 5%;
     text-align: center;
     position: relative;
     background-repeat: no-repeat;
@@ -29,7 +29,7 @@
     height: 100px;
     float: right;
     position: relative;
-    margin-right: 200px;
+    margin-right: 5%px;
     text-align: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -161,7 +161,165 @@
     filter: brightness(130%);
 }
 
+
+
+
+
 @media( max-width: 780px ) {
+    .brand-rank-wrapper {
+        margin-top: 200px;
+        width: 100%;
+        height: 550px;
+    }
+
+    .brand-rank-arrow {
+        position: relative;
+        top: 300px;
+        margin: 0 auto;
+    }
+
+    .brand-rank-left {
+        font-size: 30px;
+        width: 40px;
+        height: 100px;
+        float: left;
+        margin-left: 5%;
+        text-align: center;
+        position: relative;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-image: url("/image/arrow_left.png");
+    }
+
+    .brand-rank-right {
+        font-size: 30px;
+        width: 40px;
+        height: 100px;
+        float: right;
+        position: relative;
+        margin-right: 5%;
+        text-align: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-image: url("/image/arrow_right.png");
+    }
+
+    .brand-slide-wrapper {;
+        text-align: center;
+        margin: 0 auto;
+        height: 450px;
+        width: 220px;
+        clear: none;
+        overflow: hidden;
+    }
+
+    .brand-slide-logo {
+        width: 100%;
+    }
+
+    .brand-logo-resize {
+        margin: 0 auto;
+        width: 100%;
+        height: 150px;
+    }
+
+    .brand-rank-slide {
+        margin: auto;
+        height: 250px;
+        width: 200%;
+        /*transition-duration: 0s;*/
+    }
+
+    .brand-item-wrapper {
+        display: inline-block;
+        float: left;
+        height: 350px;
+        width: 200px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .brand-rank-item {
+        text-align: center;
+        margin: auto;
+    }
+
+    .rank-product-type {
+        /*position: absolute;*/
+        border-radius: 8px;
+        background-color: #faffc7;
+        width: 90px;
+        height: 30px;
+        line-height: 30px;
+        margin-left: 20px;
+        text-align: center;
+    }
+
+    .rank-product-image {
+        width: 180px;
+        height: 180px;
+    }
+
+    .rank-product-image:hover {
+        opacity: 0.5;
+    }
+
+    .rank-event-wrapper {
+        margin-top: 10px;
+        width: 200px;
+    }
+
+    .rank-product-event {
+        border-radius: 10px;
+        background-color: darkslateblue;
+        color: white;
+        /*margin: auto;*/
+        margin-top: 10px;
+        padding: 5px 15px 5px 15px;
+        width: 33%;
+    }
+
+    .rank-product-name {
+        font-size: 16px;
+        width: 200px;
+        margin-top: 20px;
+    }
+
+    .rank-product-price {
+        margin-top: 10px;
+    }
+
+    .rank-product-rating {
+
+    }
+
+    .brand-more-link {
+        text-decoration: none;
+        color: black;
+    }
+
+    .brand-rank-more {
+        display: block;
+        margin: 10px auto;
+        color: white;
+        height: 30px;
+        line-height: 30px;
+        background-color: #ff9285;
+        width: 40%;
+        text-align: center;
+        font-size: 15px;
+        border-radius: 5px;
+    }
+
+    .brand-event{
+        margin-top: -100px;
+        width: 30%;
+        border-radius: 10px;
+        height: 120px;
+        margin: auto;
+
+        background-color: #ff471b;
+    }
 
 
 
