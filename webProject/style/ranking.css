@@ -174,7 +174,6 @@
     }
 
     .main-rank-content {
-;
         text-align: center;
         width: 70%;
         height: 1000px;
@@ -188,79 +187,11 @@
     }
 
     .card-main-rank-content {
-        margin-top: 100px;
+        margin-top: 80px;
         width: 100%;
         float: left;
         height: 30%;
         border-radius: 2%;
-    }
-
-    .card-main-badge-area1,.card-main-badge-area2,.card-main-badge-area3{
-        position: absolute;
-        /*top: 125px;*/
-        width: 40px;
-        height: 40px;
-        margin-left: 3%;
-        line-height: 40px;
-        color: white;
-        border-radius: 20px;
-    }
-
-    .card-main-badge-area1 {
-        background-color: gold;
-    }
-
-    .card-main-badge-area2 {
-        background-color: silver;
-    }
-
-    .card-main-badge-area3 {
-        background-color: brown;
-    }
-
-    .card-main-badge {
-        /*margin: auto;
-        vertical-align: middle;
-        text-align: center;*/
-    }
-
-    .card-rank-image {
-        border-radius: 50%;
-        width: 200px;
-        height: 200px;
-        filter: brightness(50%);
-    }
-
-    .card-rank-image:hover {
-        border-radius: 50%;
-        width: 200px;
-        height: 200px;
-        filter: brightness(90%);
-    }
-
-    .card-main-description {
-        margin-top: 20px;
-        font-weight: bold;
-    }
-
-    #card-main-rank-rating1 {
-        display: inline-block;
-    }
-
-    #card-main-rank-rating2 {
-        display: inline-block;
-    }
-
-    #card-main-rank-rating3 {
-        display: inline-block;
-    }
-
-    .card-main-rank-name {
-        margin-top: 30px;
-    }
-
-    .card-main-rank-price {
-        margin-top: 10px;
     }
 
 

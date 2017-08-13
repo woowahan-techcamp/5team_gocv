@@ -550,6 +550,7 @@ a{
 .counter-element-title{
     color: white;
     width: 100%;
+    min-width: 200px;
     text-align: center;
     margin-top: 10px;
     font-size: 20px;
@@ -671,7 +672,7 @@ a{
     }
 
 
-    .fixTab-search-brand, .fixTab-search-category, .fixTab-search-word, {
+    .fixTab-search-brand, .fixTab-search-category, .fixTab-search-word{
         position: relative;
         float: left;
         color: #191919;
@@ -843,7 +844,72 @@ a{
         color: #212121;
     }
 
+    /*counter*/
+    .counter-wrapper{
+        margin-top: 400px;
+        width: 100%;
+        height: 550px;
+        background-image: url("/image/counter_bg.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .counter-title, .counter-subTitle{
+        text-align: center;
+        width: 100%;
+        height: 30px;
+        line-height: 30px;
+        font-size: 25px;
+        color: white;
+    }
+
+    .counter-title{
+        padding-top: 80px;
+        font-size: 17px;
+    }
+
+    .counter-subTitle{
+        padding-top: 40px;
+        font-size: 17px;
+    }
+
+
+    .counter-element{
+        margin: auto;
+        float: left;
+        width: 33%;
+        margin-left: 0%;
+        height: 300px;
+    }
+
+    .counter-element-icon{
+        width: 33%;
+        background-size: auto;
+        margin: auto;
+    }
+
+
+    .icon{
+        margin: auto;
+        width: 100%;
+        height: 100%;
+    }
+
+    .counter-element-title{
+        color: white;
+        width: 100%;
+        text-align: center;
+        margin-top: 10px;
+        font-size: 17px;
+        min-width: 0px;
+    }
 
 
 
+
+    /*bottom*/
+    .bottom-wrapper{
+        margin-top: 300px;
+        height: 270px;
+    }
 }
