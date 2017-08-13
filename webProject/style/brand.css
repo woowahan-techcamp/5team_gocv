@@ -160,3 +160,10 @@
 .brand-event:hover{
     filter: brightness(130%);
 }
+
+@media( max-width: 780px ) {
+
+
+
+
+}

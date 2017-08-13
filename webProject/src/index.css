@@ -605,7 +605,7 @@ a{
 }
 
 /*반응형*/
-@media( max-width: 700px ){
+@media( max-width: 780px ){
 
     .fixTab-logo{
         width: 100%;
