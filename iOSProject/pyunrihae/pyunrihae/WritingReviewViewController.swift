@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class WritingReviewViewController: UIViewController {
 
@@ -31,12 +32,17 @@ class WritingReviewViewController: UIViewController {
     }
     @IBAction func tabBackBtn(_ sender: UIButton) {
         self.navigationController?.popToRootViewController(animated: true)
-        Review.allergyList = []
+        SelectedAllergy.allergyList = []
     }
     @IBAction func tabCompleteBtn(_ sender: UIButton) {
+        let user_image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQh3QnWlH0HMsLC6-ZNQD2ZAA0hcipgx09OuUm2cS0hiIeW-RWX"
+        let p_image = "http://image.hankookilbo.com/i.aspx?Guid=168c62cc358146b38936949e82bd4833&Month=DirectUpload&size=640"
         if checkGrade && checkPriceLevel && checkFlavorLevel && checkQuantityLevel {
-            self.navigationController?.popToRootViewController(animated: true)
-            Review.allergyList = []
+            SelectedAllergy.allergyList = []
+            DataManager.writeReview(brand: SelectedProduct.brandName, category: SelectedProduct.category, grade: grade, priceLevel: priceLevel, flavorLevel: flavorLevel, quantityLevel: quantityLevel, allergy: allergy, review: detailReview.text, user: "test", user_image: user_image, p_id: SelectedProduct.foodId, p_image: p_image, p_name: SelectedProduct.foodName){
+                self.navigationController?.popToRootViewController(animated: true)
+                NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
+            }
         } else {
             let alert = UIAlertController(title: "리뷰를 완성해주세요!", message: "\r별점 및 상세 평점을 모두 채워주세요 :)", preferredStyle: .alert)
             //Create and add the Cancel action
@@ -46,7 +52,7 @@ class WritingReviewViewController: UIViewController {
         }
     }
     @IBOutlet weak var scrollView: UIScrollView!
-    
+    var reviewImage = UIImage()
     var checkGrade = false
     var checkPriceLevel = false
     var checkFlavorLevel = false
@@ -114,6 +120,7 @@ class WritingReviewViewController: UIViewController {
         for i in (sender.tag + 1)..<5 {
             Button.changeColor(btn: starBtns[i], color: UIColor.lightGray, imageName: "star.png")
         }
+        grade = sender.tag + 1
         checkGrade = true
     }
     func didPressPriceLevelBtn (sender: UIButton) { // 가격 레벨 버튼 눌렸을 때
@@ -121,6 +128,7 @@ class WritingReviewViewController: UIViewController {
             Button.makeDeselectedBtn(btn: priceLevelBtns[i])
         }
         Button.makeSelectedBtn(btn: sender)
+        priceLevel = sender.tag + 1
         checkPriceLevel = true
     }
     func didPressFlavorLevelBtn (sender: UIButton) { // 맛 레벨 버튼 눌렸을 때
@@ -128,6 +136,7 @@ class WritingReviewViewController: UIViewController {
             Button.makeDeselectedBtn(btn: flavorLevelBtns[i])
         }
         Button.makeSelectedBtn(btn: sender)
+        flavorLevel = sender.tag + 1
         checkFlavorLevel = true
     }
     func didPressQuantityLevelBtn (sender: UIButton) { // 양 레벨 버튼 눌렸을 때
@@ -135,11 +144,12 @@ class WritingReviewViewController: UIViewController {
             Button.makeDeselectedBtn(btn: quantityLevelBtns[i])
         }
         Button.makeSelectedBtn(btn: sender)
+        quantityLevel = sender.tag + 1
         checkQuantityLevel = true
     }
     func chooseImage(_ notification: Notification) { // 선택된 이미지 보여주기
-        let image = notification.userInfo?["image"] as! UIImage
-        let imageView = UIImageView(image: image)
+        reviewImage = notification.userInfo?["image"] as! UIImage
+        let imageView = UIImageView(image: reviewImage)
         imageView.frame = CGRect(origin: CGPoint(x: 0 ,y: 0), size: addedImageView.frame.size)
         imageView.layer.cornerRadius = 7
         imageView.clipsToBounds = true
@@ -151,7 +161,7 @@ class WritingReviewViewController: UIViewController {
     }
      func showAllergyList(_ notification: Notification) { // 선택된 알레르기 성분 보여주기
         allergy = notification.userInfo?["allergy"] as! [String]
-        Review.allergyList = allergy
+        SelectedAllergy.allergyList = allergy
         let allergyNum = allergy.count
         if allergyNum == 0 {
             allergyListLabel.text = "알레르기 성분을 선택해주세요."
@@ -197,7 +207,7 @@ extension WritingReviewViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         
         UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 3.0, initialSpringVelocity: 3.0, options: UIViewAnimationOptions.curveEaseInOut, animations: ({
-            self.scrollView.frame.origin.y -= 389
+            self.scrollView.frame.origin.y -= 395
             self.detailReview.frame.size.height += 520
         }), completion: nil)
         
@@ -207,7 +217,7 @@ extension WritingReviewViewController: UITextViewDelegate {
     }
     func textViewDidEndEditing(_ textView: UITextView) {
         UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 3.0, initialSpringVelocity: 3.0, options: UIViewAnimationOptions.curveEaseInOut, animations: ({
-            self.scrollView.frame.origin.y += 389
+            self.scrollView.frame.origin.y += 395
         }), completion: nil)
         
         endEditingBtn.isHidden = true

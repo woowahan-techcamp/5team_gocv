@@ -25,7 +25,7 @@ class AllergyViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        selectedAllergy = Review.allergyList
+        selectedAllergy = SelectedAllergy.allergyList
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsMultipleSelection = true

@@ -29,7 +29,6 @@ class Review {
     var useful : Int // 이 리뷰가 유용하다고 평가한 사람 수
     var bad : Int // 이 리뷰가 별로라고 평가한 사람 수
     var user_image : String // 사용자 프로필 사진
-    static var allergyList = [String]()
     
     init() {
         self.id = ""
