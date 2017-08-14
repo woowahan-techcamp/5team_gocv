@@ -58,16 +58,20 @@ open class YNSearchViewController: UIViewController, UITextFieldDelegate {
         UIView.animate(withDuration: 0.3, animations: {
             self.ynSearchView.ynSearchMainView.alpha = 1
             self.ynSearchTextfieldView.cancelButton.alpha = 0
+            self.ynSearchTextfieldView.searchButton.alpha = 0
             self.ynSearchView.ynSearchListView.alpha = 0
         }) { (true) in
             self.ynSearchView.ynSearchMainView.isHidden = false
             self.ynSearchView.ynSearchListView.isHidden = true
             self.ynSearchTextfieldView.cancelButton.isHidden = true
+            self.ynSearchTextfieldView.searchButton.isHidden = true
+
             
         }
     }
     
     open func ynSearchTextfieldsearchButtonClicked() {
+        
         self.ynSearchView.ynSearchListView.ynSearchTextFieldText = self.ynSearchTextfieldView.ynSearchTextField.text
     }
     
