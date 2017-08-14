@@ -292,13 +292,13 @@ a{
 .carousel-rightButton{
     background-image: url("/image/arrow_right.png");
     float: right;
-    margin-right: 5%;
+    margin-right: 2%;
 }
 
 .carousel-leftButton{
     background-image: url("/image/arrow_left.png");
     float: left;
-    margin-left: 5%;
+    margin-left: 2%;
 
 }
 
