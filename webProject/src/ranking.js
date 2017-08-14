@@ -1,14 +1,3 @@
-/*const firebase = require('firebase/app');
-
-const config = {
-    apiKey: "AIzaSyAnDViQ2LyXlNzBWO2kWyGnN-Lr22B9sUI",
-    authDomain: "pyeonrehae.firebaseapp.com",
-    databaseURL: "https://pyeonrehae.firebaseio.com",
-    projectId: "pyeonrehae",
-    storageBucket: "pyeonrehae.appspot.com",
-    messagingSenderId: "296270517036"
-};*/
-
 document.addEventListener('DOMContentLoaded', function (event) {
     const documentParams = {
         tab: '.main-rank-tab-wrapper',
@@ -22,64 +11,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
 });
 
-// firebase 통신
-class ReportFirebase {
-    call(func, param) {
-        const obj = {
-            "R0001": {
-                "bad": 3,
-                "brand": "all",
-                "category": "도시락",
-                "flavor": 2,
-                "grade": 3,
-                "image": "http://cdn2.bgfretail.com/bgfbrand/files/product/424DF97A63D4407AB95B557B2140A104.jpg",
-                "price": 3,
-                "product_key": "PR02676",
-                "quantity": 5,
-                "timestamp": "2017-08-06",
-                "useful": 5,
-                "user": "준킴"
-            },
-            "R0002": {
-                "bad": 3,
-                "brand": "CU",
-                "category": "도시락",
-                "flavor": 2,
-                "grade": 4,
-                "image": "https://scontent-icn1-1.cdninstagram.com/t51.2885-15/e35/20633189_1972534939631469_9076556705919139840_n.jpg",
-                "price": 3,
-                "product_key": "PR02677",
-                "quantity": 5,
-                "timestamp": "2017-08-06",
-                "useful": 5,
-                "user": "통통"
-            },
-            "R0003": {
-                "bad": 3,
-                "brand": "CU",
-                "category": "도시락",
-                "flavor": 2,
-                "grade": 3.5,
-                "image": "https://scontent-icn1-1.cdninstagram.com/t51.2885-15/e35/20633189_1972534939631469_9076556705919139840_n.jpg",
-                "price": 3,
-                "product_key": "PR02678",
-                "quantity": 5,
-                "timestamp": "2017-08-06",
-                "useful": 5,
-                "user": "세훈"
-            }
-        };
-        func.setRankingData(obj);
-        // import firebase from 'firebase';
-        /*
-        firebase.database().ref('sample').once('value').then(function (snapshot) {
-            const json = JSON.stringify(snapshot.val(), null, 3);
-            console.log(json);
-        });*/
-
-    }
-}
-
 // main 인기 있는 리뷰 설정
 class MainRankingPreview {
     constructor(documentParams) {
@@ -88,6 +19,8 @@ class MainRankingPreview {
         this.rank_content = document.querySelector(documentParams.content);
         this.selected = documentParams.selected;
         this.check_key = documentParams.check_key;
+        const product = localStorage['product'];
+        this.obj = JSON.parse(product);
 
         this.init();
     }
@@ -108,7 +41,7 @@ class MainRankingPreview {
 
             if (changeSelectedTab.getAttribute('class') == key) {
                 const requestParam = changeSelectedTab.getAttribute('name');
-                this.getRankingData(requestParam);
+                this.queryData(requestParam);
             } else {
                 e.target.classList.remove(selectedClassName);
                 selectedTab.classList.add(selectedClassName);
@@ -117,9 +50,22 @@ class MainRankingPreview {
         }.bind(this));
     }
 
-    getRankingData(param) {
-        const firebase = new ReportFirebase();
-        firebase.call(this, param);
+    queryData(value){
+      const queryObj = [];
+
+      for(const key in this.obj){
+        if(this.obj[key].category === value){
+          queryObj.push(this.obj[key]);
+        }
+      }
+
+      // 일단은 가격순 정렬임
+      queryObj.sort(function(a, b){
+        return (a.price < b.price) ? -1 : (a.price > b.price) ? 1 : 0;
+      });
+
+      const data = queryObj.slice(0, 3);
+      this.setRankingData(data);
     }
 
     setRankingData(data) {
@@ -129,8 +75,8 @@ class MainRankingPreview {
             const val = data[x];
             val["rank"] = i;
             val["style"] = "card-main-badge-area" + i;
-            let grade = val.grade;
-            // this.setRatingHandler(val.grade);
+            // let grade = val.grade;
+            val.grade = 3.6;
 
             val["rating"] = "card-main-rank-rating" + i;
 
@@ -146,7 +92,6 @@ class MainRankingPreview {
     setRatingHandler(value) {
         let i = 1;
         for(const x of value){
-          console.log(x.grade);
             $("#card-main-rank-rating"+i).rateYo({
                 rating: x.grade,
                 readOnly: true

@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const obj = getRankingData();
+    const product = localStorage['product'];
+    const obj = JSON.parse(product);
 
     const gsParams = {
         brand: 'gs',
@@ -30,106 +31,55 @@ document.addEventListener('DOMContentLoaded', function () {
         template: 'brand-ranking-template',
         item_wrapper: 'seven-item-wrapper'
     };
+    
+    const gsObj = brandFilter(obj, 'gs25');
+    const cuObj = brandFilter(obj, 'CU');
+    const sevObj = brandFilter(obj, '7-eleven');
 
-    new BrandRankingPreview(gsParams, obj);
-    new BrandRankingPreview(cuParams, obj);
-    new BrandRankingPreview(sevenParams, obj);
+    new BrandRankingPreview(gsParams, gsObj);
+    new BrandRankingPreview(cuParams, cuObj);
+    new BrandRankingPreview(sevenParams, sevObj);
 });
 
-function getRankingData() {
-    return {
-        PR0001: {
-            brand: 'GS25',
-            category: '도시락',
-            event: ['1+1', 'NEW'],
-            img: "http://sbook.allabout.co.kr/autoalbum/a_mode/webupload/upload_dir/bgfcu/images/image1.jpg",
-            name: '맛있어 도시락',
-            price: 3500,
-            grade: 4.0,
-            id: 'PR0001'
-        },
-        PR0002: {
-            brand: 'GS25',
-            category: '김밥',
-            event: ['1+1'],
-            img: "http://sbook.allabout.co.kr/autoalbum/a_mode/webupload/upload_dir/bgfcu/images/image1.jpg",
-            name: '맛있어 김밥',
-            price: 3500,
-            grade: 3.5,
-            id: 'PR0001'
-        },
-        PR0003: {
-            brand: 'GS25',
-            category: '음료',
-            event: ['1+1'],
-            img: "http://sbook.allabout.co.kr/autoalbum/a_mode/webupload/upload_dir/bgfcu/images/image1.jpg",
-            name: '맛있어 음료',
-            price: 3500,
-            grade: 3.3,
-            id: 'PR0001'
-        },
-        PR0004: {
-            brand: 'GS25',
-            category: '베이커리',
-            event: ['1+1'],
-            img: "http://sbook.allabout.co.kr/autoalbum/a_mode/webupload/upload_dir/bgfcu/images/image1.jpg",
-            name: '맛있어 빵',
-            price: 3500,
-            grade: 4.0,
-            id: 'PR0001'
-        },
-        PR0005: {
-            brand: 'GS25',
-            category: '아이스크림',
-            event: ['1+1'],
-            img: "http://sbook.allabout.co.kr/autoalbum/a_mode/webupload/upload_dir/bgfcu/images/image1.jpg",
-            name: '맛있어 아이스',
-            price: 3500,
-            grade: 4.0,
-            id: 'PR0001'
-        },
-        PR0006: {
-            brand: 'GS25',
-            category: '유제품',
-            event: ['1+1'],
-            img: "http://sbook.allabout.co.kr/autoalbum/a_mode/webupload/upload_dir/bgfcu/images/image1.jpg",
-            name: '맛있어 우유',
-            price: 3500,
-            grade: 4.3,
-            id: 'PR0001'
-        },
-        PR0007: {
-            brand: 'GS25',
-            category: '스낵',
-            event: ['1+1'],
-            img: "http://sbook.allabout.co.kr/autoalbum/a_mode/webupload/upload_dir/bgfcu/images/image1.jpg",
-            name: '맛있어 스낵',
-            price: 3500,
-            grade: 4.0,
-            id: 'PR0001'
-        },
-        PR0008: {
-            brand: 'GS25',
-            category: '라면',
-            event: ['1+1'],
-            img: "http://sbook.allabout.co.kr/autoalbum/a_mode/webupload/upload_dir/bgfcu/images/image1.jpg",
-            name: '맛있어 라면',
-            price: 3500,
-            grade: 3.3,
-            id: 'PR0001'
-        },
-        PR0009: {
-            brand: 'GS25',
-            category: '즉석식품',
-            event: ['1+1', 'NEW'],
-            img: "http://sbook.allabout.co.kr/autoalbum/a_mode/webupload/upload_dir/bgfcu/images/image1.jpg",
-            name: '맛있어 즉석',
-            price: 3500,
-            grade: 3.3,
-            id: 'PR0001'
-        }
+const category = [
+  '도시락', '김밥', '베이커리', '라면', '스낵', '유제품', '음료', '즉석식품'];
 
-    };
+const defaultParam = {
+  brand: "",
+ category: "",
+ event: [],
+ id: "",
+ img:"",
+ name: "",
+ price: ""
+};
+
+function brandFilter(obj, param){
+  const value = [];
+  const finValue = [];
+
+  for(const key in obj){
+    if(obj[key].brand === param){
+      value.push(obj[key]);
+    }
+  }
+
+  for(const x in category){
+    finValue.push(defaultParam);
+  }
+
+  for(const key in value){
+    for(const x in category){
+      if(value[key].category === category[x]){
+        if(!!!finValue[x].price ||
+          finValue[x].price < value[key].price){
+            finValue[x] = value[key];
+        }
+      }
+    }
+  }
+
+  return finValue;
 }
 
 class BrandRankingPreview {
