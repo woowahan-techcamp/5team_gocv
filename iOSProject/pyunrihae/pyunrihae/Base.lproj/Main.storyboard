@@ -9,6 +9,60 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--검색-->
+        <scene sceneID="2QL-aV-Axn">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D9x-sy-QMU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="SearchViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Gh4-QB-xFR" customClass="SearchViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XuD-Ta-4B6"/>
+                        <viewControllerLayoutGuide type="bottom" id="hNY-P8-qZa"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ThY-BL-Hx8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" backIndicatorImage="back.png" translatesAutoresizingMaskIntoConstraints="NO" id="aTT-SI-vlB">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.98477339760000004" green="1" blue="0.97554714320000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <items>
+                                    <navigationItem title="검색" id="os7-ER-j2M">
+                                        <barButtonItem key="leftBarButtonItem" image="back.png" id="W87-SX-xmW">
+                                            <inset key="imageInsets" minX="0.0" minY="40" maxX="80" maxY="40"/>
+                                            <color key="tintColor" red="0.032831761270000002" green="0.1150016192" blue="0.1046763669" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <connections>
+                                                <action selector="onBackBtnPressed:" destination="Gh4-QB-xFR" id="nsU-vp-6G1"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="검색" id="Wsd-Ti-mZm"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="-2116" y="887"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="xtN-fi-hkD">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6J7-mI-Nwa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="ivr-CL-MQp" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="a0R-9B-fNe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Gh4-QB-xFR" kind="relationship" relationship="rootViewController" id="9HF-vZ-gUb"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="-2116" y="1573"/>
+        </scene>
         <!--Main View Controller-->
         <scene sceneID="Igz-cB-Ito">
             <objects>
@@ -114,7 +168,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0kK-as-rNF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1325.5999999999999" y="1662.8185907046477"/>
+            <point key="canvasLocation" x="-708" y="1663"/>
         </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="g2Z-sH-bSe">
@@ -143,6 +197,9 @@
                                         <rect key="frame" x="330" y="25" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="search.png"/>
+                                        <connections>
+                                            <segue destination="ivr-CL-MQp" kind="show" id="hN9-Xq-hSb"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.89019607840000003" green="0.29411764709999999" blue="0.039215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -744,11 +801,11 @@
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="상품 상세" id="UoM-Ai-L7n">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="ksh-ng-z3K">
+                        <barButtonItem key="leftBarButtonItem" image="back.png" style="plain" id="ksh-ng-z3K">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hva-o8-6eK">
                                 <rect key="frame" x="16" y="13" width="20" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="bottom.png"/>
+                                <state key="normal" image="back.png"/>
                                 <connections>
                                     <action selector="closeNavViewBtn:" destination="t3O-Pz-lwz" eventType="touchUpInside" id="m0X-tB-gS2"/>
                                 </connections>
@@ -1233,7 +1290,7 @@
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <attributedString key="attributedText">
                                                                 <fragment>
-                                                                    <mutableString key="content">편의점 도시락은 그야말로 전성기를 맞이했다. 언제 어디서든 쉽게 구매하고 먹을 수 있을 뿐만 아니라 1인 가구 증가와 저가형 도시락을 추구하는 직장인들로 인해 그 성장세가 무섭게 치솟고 있다. 이에 각 편의점 업체에서는 소비자들의 기대에 부응하기 위해 다양한 종류의 가성비 좋은 도시락을 개발하기 위해 노력하고 있다. 이전에 볼 수 없었던 소면을 활용한 도시락부터 각 지역 특산품을 활용한 도시락, 집밥 못지않은 찬합 도시락 그리고 보양 식재료로 꼽히는 장어, 전복을 활용한 도시락까지 그 종류가 무궁무진하다. 어떤 도시락을 구매할지 우리를 행복한 고민에 빠지게 할 새롭게 출시된 도시락은 무엇이 있는지 들여다보자. </mutableString>
+                                                                    <string key="content">편의점 도시락은 그야말로 전성기를 맞이했다. 언제 어디서든 쉽게 구매하고 먹을 수 있을 뿐만 아니라 1인 가구 증가와 저가형 도시락을 추구하는 직장인들로 인해 그 성장세가 무섭게 치솟고 있다. 이에 각 편의점 업체에서는 소비자들의 기대에 부응하기 위해 다양한 종류의 가성비 좋은 도시락을 개발하기 위해 노력하고 있다. 이전에 볼 수 없었던 소면을 활용한 도시락부터 각 지역 특산품을 활용한 도시락, 집밥 못지않은 찬합 도시락 그리고 보양 식재료로 꼽히는 장어, 전복을 활용한 도시락까지 그 종류가 무궁무진하다. 어떤 도시락을 구매할지 우리를 행복한 고민에 빠지게 할 새롭게 출시된 도시락은 무엇이 있는지 들여다보자. </string>
                                                                     <attributes>
                                                                         <font key="NSFont" size="13" name="NanumGothic"/>
                                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
@@ -1404,7 +1461,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Kan-CB-blf">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9cE-6F-aqE" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="mainNavigationController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9cE-6F-aqE" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Fmm-Zd-Qc7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -1421,8 +1478,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="back.png" width="1920" height="1920"/>
-        <image name="bottom.png" width="1920" height="1920"/>
+        <image name="back.png" width="100" height="100"/>
         <image name="check.png" width="2400" height="2400"/>
         <image name="dropdown.png" width="1920" height="1920"/>
         <image name="plus.png" width="640" height="640"/>
@@ -1431,7 +1487,7 @@
         <image name="writing.png" width="2000" height="2000"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="yHi-iw-GkD"/>
+        <segue reference="UYP-Yi-AVc"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>
