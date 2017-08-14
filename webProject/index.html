@@ -62,7 +62,7 @@
             <a href="#">
                 <div>
                     <form>
-                        <input class="fixTab-search-word" type="text" name="product" value="상품명을 입력하세요">
+                        <input class="fixTab-search-word" type="text" name="product" placeholder="상품명을 입력하세요">
                     </form>
                 </div>
             </a>
@@ -373,7 +373,7 @@
     <div class="card-main-rank-content">
         <div class="{{style}}">{{rank}}
         </div>
-        <img class="card-rank-image" src="{{image}}"/>
+        <img class="card-rank-image" src="{{img}}"/>
 
         <div class="card-main-description">
             <div id="{{rating}}">
@@ -402,7 +402,7 @@
 
     <div class="rank-product-name">{{name}}</div>
     <div class="rank-product-price">{{price}}</div>
-    <div class="rank-product-rating">{{rank}}</div>
+    <div id="{{rating}}"></div>
     {{/this}}
 </script>
 
