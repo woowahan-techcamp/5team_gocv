@@ -48,8 +48,25 @@
 		98B73F861F39394500E55420 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B73F851F39394500E55420 /* Review.swift */; };
 		98B73F881F394CAB00E55420 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B73F871F394CAB00E55420 /* Product.swift */; };
 		98C5AACE1F33FAE800610115 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C5AACD1F33FAE800610115 /* MainViewController.swift */; };
+		98D9F2DF1F418DF3009D0E10 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 98D9F2CE1F418DF3009D0E10 /* LICENSE */; };
+		98D9F2E01F418DF3009D0E10 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 98D9F2CF1F418DF3009D0E10 /* README.md */; };
+		98D9F2E11F418DF3009D0E10 /* Objectification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D9F2D11F418DF3009D0E10 /* Objectification.swift */; };
+		98D9F2E21F418DF3009D0E10 /* YNCategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D9F2D21F418DF3009D0E10 /* YNCategoryButton.swift */; };
+		98D9F2E31F418DF3009D0E10 /* YNSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D9F2D31F418DF3009D0E10 /* YNSearch.swift */; };
+		98D9F2E41F418DF3009D0E10 /* YNSearch.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98D9F2D41F418DF3009D0E10 /* YNSearch.xcassets */; };
+		98D9F2E51F418DF3009D0E10 /* YNSearchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D9F2D51F418DF3009D0E10 /* YNSearchDelegate.swift */; };
+		98D9F2E61F418DF3009D0E10 /* YNSearchExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D9F2D61F418DF3009D0E10 /* YNSearchExtension.swift */; };
+		98D9F2E71F418DF3009D0E10 /* YNSearchHistoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D9F2D71F418DF3009D0E10 /* YNSearchHistoryButton.swift */; };
+		98D9F2E81F418DF3009D0E10 /* YNSearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D9F2D81F418DF3009D0E10 /* YNSearchListView.swift */; };
+		98D9F2E91F418DF3009D0E10 /* YNSearchListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D9F2D91F418DF3009D0E10 /* YNSearchListViewCell.swift */; };
+		98D9F2EA1F418DF3009D0E10 /* YNSearchMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D9F2DA1F418DF3009D0E10 /* YNSearchMainView.swift */; };
+		98D9F2EB1F418DF3009D0E10 /* YNSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D9F2DB1F418DF3009D0E10 /* YNSearchModel.swift */; };
+		98D9F2EC1F418DF3009D0E10 /* YNSearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D9F2DC1F418DF3009D0E10 /* YNSearchTextField.swift */; };
+		98D9F2ED1F418DF3009D0E10 /* YNSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D9F2DD1F418DF3009D0E10 /* YNSearchView.swift */; };
+		98D9F2EE1F418DF3009D0E10 /* YNSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D9F2DE1F418DF3009D0E10 /* YNSearchViewController.swift */; };
+		98DED89B1F41729100CC4D63 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DED89A1F41729100CC4D63 /* SearchViewController.swift */; };
+		98DED89C1F41732700CC4D63 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98F172ED1F32EDB70044FD0D /* Main.storyboard */; };
 		98F172EA1F32EDB70044FD0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F172E91F32EDB70044FD0D /* AppDelegate.swift */; };
-		98F172EF1F32EDB70044FD0D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98F172ED1F32EDB70044FD0D /* Main.storyboard */; };
 		98F172F11F32EDB70044FD0D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98F172F01F32EDB70044FD0D /* Assets.xcassets */; };
 		98F172F41F32EDB70044FD0D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98F172F21F32EDB70044FD0D /* LaunchScreen.storyboard */; };
 		98F172FF1F32EDB70044FD0D /* pyunrihaeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F172FE1F32EDB70044FD0D /* pyunrihaeTests.swift */; };
@@ -121,6 +138,23 @@
 		98B73F871F394CAB00E55420 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		98C5AACD1F33FAE800610115 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		98C5AAD71F342C3900610115 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		98D9F2CE1F418DF3009D0E10 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		98D9F2CF1F418DF3009D0E10 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		98D9F2D11F418DF3009D0E10 /* Objectification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Objectification.swift; sourceTree = "<group>"; };
+		98D9F2D21F418DF3009D0E10 /* YNCategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YNCategoryButton.swift; sourceTree = "<group>"; };
+		98D9F2D31F418DF3009D0E10 /* YNSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YNSearch.swift; sourceTree = "<group>"; };
+		98D9F2D41F418DF3009D0E10 /* YNSearch.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YNSearch.xcassets; sourceTree = "<group>"; };
+		98D9F2D51F418DF3009D0E10 /* YNSearchDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YNSearchDelegate.swift; sourceTree = "<group>"; };
+		98D9F2D61F418DF3009D0E10 /* YNSearchExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YNSearchExtension.swift; sourceTree = "<group>"; };
+		98D9F2D71F418DF3009D0E10 /* YNSearchHistoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YNSearchHistoryButton.swift; sourceTree = "<group>"; };
+		98D9F2D81F418DF3009D0E10 /* YNSearchListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YNSearchListView.swift; sourceTree = "<group>"; };
+		98D9F2D91F418DF3009D0E10 /* YNSearchListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YNSearchListViewCell.swift; sourceTree = "<group>"; };
+		98D9F2DA1F418DF3009D0E10 /* YNSearchMainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YNSearchMainView.swift; sourceTree = "<group>"; };
+		98D9F2DB1F418DF3009D0E10 /* YNSearchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YNSearchModel.swift; sourceTree = "<group>"; };
+		98D9F2DC1F418DF3009D0E10 /* YNSearchTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YNSearchTextField.swift; sourceTree = "<group>"; };
+		98D9F2DD1F418DF3009D0E10 /* YNSearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YNSearchView.swift; sourceTree = "<group>"; };
+		98D9F2DE1F418DF3009D0E10 /* YNSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YNSearchViewController.swift; sourceTree = "<group>"; };
+		98DED89A1F41729100CC4D63 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		98F172E61F32EDB70044FD0D /* pyunrihae.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pyunrihae.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98F172E91F32EDB70044FD0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98F172EE1F32EDB70044FD0D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -235,6 +269,7 @@
 				9865E5331F3AFEFE00014795 /* WritingReviewViewController.swift */,
 				9865E54F1F3D333F00014795 /* ChoosePhotoViewController.swift */,
 				9865E53B1F3C0BD500014795 /* AllergyViewController.swift */,
+				98DED89A1F41729100CC4D63 /* SearchViewController.swift */,
 			);
 			name = "View Controller";
 			sourceTree = "<group>";
@@ -274,6 +309,37 @@
 			name = etc;
 			sourceTree = "<group>";
 		};
+		98D9F2CD1F418DF3009D0E10 /* YNSearch */ = {
+			isa = PBXGroup;
+			children = (
+				98D9F2CE1F418DF3009D0E10 /* LICENSE */,
+				98D9F2CF1F418DF3009D0E10 /* README.md */,
+				98D9F2D01F418DF3009D0E10 /* YNSearch */,
+			);
+			path = YNSearch;
+			sourceTree = "<group>";
+		};
+		98D9F2D01F418DF3009D0E10 /* YNSearch */ = {
+			isa = PBXGroup;
+			children = (
+				98D9F2D11F418DF3009D0E10 /* Objectification.swift */,
+				98D9F2D21F418DF3009D0E10 /* YNCategoryButton.swift */,
+				98D9F2D31F418DF3009D0E10 /* YNSearch.swift */,
+				98D9F2D41F418DF3009D0E10 /* YNSearch.xcassets */,
+				98D9F2D51F418DF3009D0E10 /* YNSearchDelegate.swift */,
+				98D9F2D61F418DF3009D0E10 /* YNSearchExtension.swift */,
+				98D9F2D71F418DF3009D0E10 /* YNSearchHistoryButton.swift */,
+				98D9F2D81F418DF3009D0E10 /* YNSearchListView.swift */,
+				98D9F2D91F418DF3009D0E10 /* YNSearchListViewCell.swift */,
+				98D9F2DA1F418DF3009D0E10 /* YNSearchMainView.swift */,
+				98D9F2DB1F418DF3009D0E10 /* YNSearchModel.swift */,
+				98D9F2DC1F418DF3009D0E10 /* YNSearchTextField.swift */,
+				98D9F2DD1F418DF3009D0E10 /* YNSearchView.swift */,
+				98D9F2DE1F418DF3009D0E10 /* YNSearchViewController.swift */,
+			);
+			path = YNSearch;
+			sourceTree = "<group>";
+		};
 		98F172DD1F32EDB70044FD0D = {
 			isa = PBXGroup;
 			children = (
@@ -299,6 +365,7 @@
 		98F172E81F32EDB70044FD0D /* pyunrihae */ = {
 			isa = PBXGroup;
 			children = (
+				98D9F2CD1F418DF3009D0E10 /* YNSearch */,
 				98D819071F32F9C000BE2A95 /* etc */,
 				98D819061F32F9B700BE2A95 /* Storyboard */,
 				98D819041F32F9A500BE2A95 /* View */,
@@ -451,13 +518,15 @@
 				9865E5361F3AFFC500014795 /* writing.png in Resources */,
 				9865E5321F3AFAF500014795 /* bottom.png in Resources */,
 				9865E5421F3C141C00014795 /* plus.png in Resources */,
+				98DED89C1F41732700CC4D63 /* Main.storyboard in Resources */,
 				9865E5401F3C10A400014795 /* check.png in Resources */,
+				98D9F2DF1F418DF3009D0E10 /* LICENSE in Resources */,
+				98D9F2E41F418DF3009D0E10 /* YNSearch.xcassets in Resources */,
 				984395861F32F29A0016B67D /* GoogleService-Info.plist in Resources */,
 				9865E53A1F3BD81E00014795 /* back.png in Resources */,
 				98F172F11F32EDB70044FD0D /* Assets.xcassets in Resources */,
 				9865E5441F3C1D4200014795 /* star.png in Resources */,
 				9865E5141F39A92700014795 /* dropdown.png in Resources */,
-				98F172EF1F32EDB70044FD0D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -620,19 +689,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98D9F2E31F418DF3009D0E10 /* YNSearch.swift in Sources */,
+				98DED89B1F41729100CC4D63 /* SearchViewController.swift in Sources */,
 				9865E4F61F387C7A00014795 /* TabBarViewController.swift in Sources */,
 				9865E52C1F3AF3EE00014795 /* MypageTableViewCell.swift in Sources */,
 				9865E54A1F3C436000014795 /* ProductReviewTableViewCell.swift in Sources */,
+				98D9F2E01F418DF3009D0E10 /* README.md in Sources */,
 				9865E5521F3D34E700014795 /* Photo.swift in Sources */,
 				9865E4F81F38801B00014795 /* TabBarView.swift in Sources */,
+				98D9F2EC1F418DF3009D0E10 /* YNSearchTextField.swift in Sources */,
+				98D9F2E71F418DF3009D0E10 /* YNSearchHistoryButton.swift in Sources */,
 				981E932A1F38666E004BE63B /* RankingViewController.swift in Sources */,
+				98D9F2EE1F418DF3009D0E10 /* YNSearchViewController.swift in Sources */,
 				9865E53C1F3C0BD500014795 /* AllergyViewController.swift in Sources */,
 				981E932E1F386681004BE63B /* MypageViewController.swift in Sources */,
 				9865E5081F3943BD00014795 /* Button.swift in Sources */,
+				98D9F2E61F418DF3009D0E10 /* YNSearchExtension.swift in Sources */,
+				98D9F2EA1F418DF3009D0E10 /* YNSearchMainView.swift in Sources */,
 				9865E5221F3AD8BE00014795 /* RankingCollectionViewCell.swift in Sources */,
 				9865E5241F3AE04C00014795 /* Label.swift in Sources */,
 				9865E55A1F3D837200014795 /* SelectedProduct.swift in Sources */,
 				9865E5341F3AFEFE00014795 /* WritingReviewViewController.swift in Sources */,
+				98D9F2E91F418DF3009D0E10 /* YNSearchListViewCell.swift in Sources */,
 				9865E53E1F3C0C1000014795 /* AllergyTableViewCell.swift in Sources */,
 				98B73F881F394CAB00E55420 /* Product.swift in Sources */,
 				98B73F861F39394500E55420 /* Review.swift in Sources */,
@@ -645,10 +723,16 @@
 				9865E50E1F394E4600014795 /* MainRankCollectionViewCell.swift in Sources */,
 				98768AA01F39A5D600654C19 /* DataManager.swift in Sources */,
 				9865E5101F3957C000014795 /* CategoryScrollView.swift in Sources */,
+				98D9F2E21F418DF3009D0E10 /* YNCategoryButton.swift in Sources */,
 				9865E5481F3C435100014795 /* ProductDetailInfoTableViewCell.swift in Sources */,
 				9865E5541F3D351B00014795 /* PhotoCollectionViewCell.swift in Sources */,
+				98D9F2E11F418DF3009D0E10 /* Objectification.swift in Sources */,
 				9865E5501F3D333F00014795 /* ChoosePhotoViewController.swift in Sources */,
+				98D9F2E81F418DF3009D0E10 /* YNSearchListView.swift in Sources */,
 				9865E54E1F3C576D00014795 /* Image.swift in Sources */,
+				98D9F2E51F418DF3009D0E10 /* YNSearchDelegate.swift in Sources */,
+				98D9F2EB1F418DF3009D0E10 /* YNSearchModel.swift in Sources */,
+				98D9F2ED1F418DF3009D0E10 /* YNSearchView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
