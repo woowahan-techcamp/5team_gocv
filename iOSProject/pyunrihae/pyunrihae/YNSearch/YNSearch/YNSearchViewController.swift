@@ -70,6 +70,13 @@ open class YNSearchViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    // 키보드의 return을 눌렀을 때 검색이 되도록 하기
+    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+        textField.resignFirstResponder()
+        ynSearchTextfieldsearchButtonClicked()
+        return true
+    }
+    
     open func ynSearchTextfieldsearchButtonClicked() {
         
         self.ynSearchView.ynSearchListView.ynSearchTextFieldText = self.ynSearchTextfieldView.ynSearchTextField.text
