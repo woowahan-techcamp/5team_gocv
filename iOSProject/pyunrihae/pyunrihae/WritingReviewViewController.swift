@@ -32,10 +32,22 @@ class WritingReviewViewController: UIViewController {
         self.navigationController?.popToRootViewController(animated: true)
     }
     @IBAction func tabCompleteBtn(_ sender: UIButton) {
-        self.navigationController?.popToRootViewController(animated: true)
+        if checkStarGrade && checkPriceLevel && checkFlavorLevel && checkQuantityLevel {
+            self.navigationController?.popToRootViewController(animated: true)
+        } else {
+            let alert = UIAlertController(title: "리뷰를 완성해주세요!", message: "\r별점 및 상세 평점을 모두 채워주세요 :)", preferredStyle: .alert)
+            //Create and add the Cancel action
+            let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+            present(alert, animated: true, completion: nil)
+        }
     }
     @IBOutlet weak var scrollView: UIScrollView!
     
+    var checkStarGrade = false
+    var checkPriceLevel = false
+    var checkFlavorLevel = false
+    var checkQuantityLevel = false
     let priceLevel = ["비싸다","비싼편","적당","싼편","싸다"]
     let flavorLevel = ["노맛","별로","적당","괜춘","존맛"]
     let quantityLevel = ["창렬","적음","적당","많음","혜자"]
