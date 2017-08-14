@@ -1,7 +1,9 @@
 import "./firebaseinit.js"
 import "./ranking.js"
 import "./brand.js"
+import "./productDetail.js"
 import "./index.css"
+import "../style/productDetail.css"
 import "../style/brand.css"
 import "../style/ranking.css"
 
