@@ -919,7 +919,7 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" image="plus.png"/>
                                                 <connections>
-                                                    <segue destination="noX-w8-BKx" kind="show" id="0rC-8m-7nT"/>
+                                                    <segue destination="noX-w8-BKx" kind="show" id="ZAN-L0-Qvz"/>
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6H7-dd-xym">
@@ -962,6 +962,7 @@
                     <connections>
                         <outlet property="addImageBtn" destination="Ne4-fX-uQf" id="4Sh-C0-c2Z"/>
                         <outlet property="addedImageView" destination="Sn8-VS-4au" id="JMU-Rk-ERg"/>
+                        <outlet property="allergyListLabel" destination="GES-Rp-Sm5" id="ukT-Nc-gcX"/>
                         <outlet property="brandLabel" destination="C0p-OZ-LG5" id="O38-2c-fCD"/>
                         <outlet property="detailReview" destination="RDR-db-oH2" id="dFS-PA-uhw"/>
                         <outlet property="endEditingBtn" destination="RZM-Oc-Z36" id="hqT-iJ-hdo"/>

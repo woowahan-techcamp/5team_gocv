@@ -20,6 +20,7 @@ class WritingReviewViewController: UIViewController {
     @IBOutlet weak var addImageBtn: UIButton!
     @IBOutlet weak var brandLabel: UILabel!
     @IBOutlet weak var productImage: UIImageView!
+    @IBOutlet weak var allergyListLabel: UILabel!
     @IBOutlet weak var starView: UIView!
     @IBOutlet weak var priceLevelView: UIView!
     @IBOutlet weak var flavorLevelView: UIView!
@@ -30,10 +31,12 @@ class WritingReviewViewController: UIViewController {
     }
     @IBAction func tabBackBtn(_ sender: UIButton) {
         self.navigationController?.popToRootViewController(animated: true)
+        Review.allergyList = []
     }
     @IBAction func tabCompleteBtn(_ sender: UIButton) {
-        if checkStarGrade && checkPriceLevel && checkFlavorLevel && checkQuantityLevel {
+        if checkGrade && checkPriceLevel && checkFlavorLevel && checkQuantityLevel {
             self.navigationController?.popToRootViewController(animated: true)
+            Review.allergyList = []
         } else {
             let alert = UIAlertController(title: "리뷰를 완성해주세요!", message: "\r별점 및 상세 평점을 모두 채워주세요 :)", preferredStyle: .alert)
             //Create and add the Cancel action
@@ -44,13 +47,17 @@ class WritingReviewViewController: UIViewController {
     }
     @IBOutlet weak var scrollView: UIScrollView!
     
-    var checkStarGrade = false
+    var checkGrade = false
     var checkPriceLevel = false
     var checkFlavorLevel = false
     var checkQuantityLevel = false
-    let priceLevel = ["비싸다","비싼편","적당","싼편","싸다"]
-    let flavorLevel = ["노맛","별로","적당","괜춘","존맛"]
-    let quantityLevel = ["창렬","적음","적당","많음","혜자"]
+    var grade = 0
+    var priceLevel = 0
+    var flavorLevel = 0
+    var quantityLevel = 0
+    let priceLevelList = ["비싸다","비싼편","적당","싼편","싸다"]
+    let flavorLevelList = ["노맛","별로","적당","괜춘","존맛"]
+    let quantityLevelList = ["창렬","적음","적당","많음","혜자"]
     var allergy = [String]()
     var starBtns = [UIButton]()
     var priceLevelBtns = [UIButton]()
@@ -71,7 +78,7 @@ class WritingReviewViewController: UIViewController {
         for i in 0..<5 {
             let priceLevelBtn = UIButton()
             priceLevelBtn.frame = CGRect(x: i*70, y: 0, width: 50, height: 25)
-            Button.makeNormalBtn(btn: priceLevelBtn, text: priceLevel[i])
+            Button.makeNormalBtn(btn: priceLevelBtn, text: priceLevelList[i])
             priceLevelBtn.addTarget(self, action: #selector(didPressPriceLevelBtn), for: UIControlEvents.touchUpInside)
             priceLevelBtn.tag = i
             priceLevelBtns.append(priceLevelBtn)
@@ -82,7 +89,7 @@ class WritingReviewViewController: UIViewController {
         for i in 0..<5 {
             let flavorLevelBtn = UIButton()
             flavorLevelBtn.frame = CGRect(x: i*70, y: 0, width: 50, height: 25)
-            Button.makeNormalBtn(btn: flavorLevelBtn, text: flavorLevel[i])
+            Button.makeNormalBtn(btn: flavorLevelBtn, text: flavorLevelList[i])
             flavorLevelBtn.addTarget(self, action: #selector(didPressFlavorLevelBtn), for: UIControlEvents.touchUpInside)
             flavorLevelBtn.tag = i
             flavorLevelBtns.append(flavorLevelBtn)
@@ -93,7 +100,7 @@ class WritingReviewViewController: UIViewController {
         for i in 0..<5 {
             let quantityLevelBtn = UIButton()
             quantityLevelBtn.frame = CGRect(x: i*70, y: 0, width: 50, height: 25)
-            Button.makeNormalBtn(btn: quantityLevelBtn, text: quantityLevel[i])
+            Button.makeNormalBtn(btn: quantityLevelBtn, text: quantityLevelList[i])
             quantityLevelBtn.addTarget(self, action: #selector(didPressQuantityLevelBtn), for: UIControlEvents.touchUpInside)
             quantityLevelBtn.tag = i
             quantityLevelBtns.append(quantityLevelBtn)
@@ -107,24 +114,28 @@ class WritingReviewViewController: UIViewController {
         for i in (sender.tag + 1)..<5 {
             Button.changeColor(btn: starBtns[i], color: UIColor.lightGray, imageName: "star.png")
         }
+        checkGrade = true
     }
     func didPressPriceLevelBtn (sender: UIButton) { // 가격 레벨 버튼 눌렸을 때
         for i in 0..<5 {
             Button.makeDeselectedBtn(btn: priceLevelBtns[i])
         }
         Button.makeSelectedBtn(btn: sender)
+        checkPriceLevel = true
     }
     func didPressFlavorLevelBtn (sender: UIButton) { // 맛 레벨 버튼 눌렸을 때
         for i in 0..<5 {
             Button.makeDeselectedBtn(btn: flavorLevelBtns[i])
         }
         Button.makeSelectedBtn(btn: sender)
+        checkFlavorLevel = true
     }
     func didPressQuantityLevelBtn (sender: UIButton) { // 양 레벨 버튼 눌렸을 때
         for i in 0..<5 {
             Button.makeDeselectedBtn(btn: quantityLevelBtns[i])
         }
         Button.makeSelectedBtn(btn: sender)
+        checkQuantityLevel = true
     }
     func chooseImage(_ notification: Notification) { // 선택된 이미지 보여주기
         let image = notification.userInfo?["image"] as! UIImage
@@ -137,6 +148,18 @@ class WritingReviewViewController: UIViewController {
         addImageBtn.layer.cornerRadius = 7
         addImageBtn.clipsToBounds = true
         addImageBtn.setTitle("사진 변경", for: .normal)
+    }
+     func showAllergyList(_ notification: Notification) { // 선택된 알레르기 성분 보여주기
+        allergy = notification.userInfo?["allergy"] as! [String]
+        Review.allergyList = allergy
+        let allergyNum = allergy.count
+        if allergyNum == 0 {
+            allergyListLabel.text = "알레르기 성분을 선택해주세요."
+        } else if allergyNum == 1 {
+            allergyListLabel.text = allergy[0]
+        } else {
+            allergyListLabel.text = allergy[0] + " 외 " + String(allergyNum - 1) + "개의 성분"
+        }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -158,6 +181,7 @@ class WritingReviewViewController: UIViewController {
         detailReview.clipsToBounds = true
         detailReview.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(chooseImage), name: NSNotification.Name("chooseImage"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showAllergyList), name: NSNotification.Name("selectAllergy"), object: nil)
         
         // Do any additional setup after loading the view.
     }
