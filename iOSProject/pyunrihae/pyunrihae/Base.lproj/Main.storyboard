@@ -545,7 +545,7 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="dSp-ts-5VZ">
+                                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="dSp-ts-5VZ">
                                                             <rect key="frame" x="177" y="54" width="20" height="20"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </activityIndicatorView>
@@ -556,6 +556,7 @@
                                                     <outlet property="eventLabel" destination="6wE-aO-GMQ" id="X4N-Mr-cdp"/>
                                                     <outlet property="foodImage" destination="rn1-fA-lAu" id="rqm-wB-moW"/>
                                                     <outlet property="foodNameLabel" destination="0MK-5P-nnW" id="5I7-Nf-xwr"/>
+                                                    <outlet property="loading" destination="dSp-ts-5VZ" id="dXi-DV-0YT"/>
                                                     <outlet property="priceLabel" destination="TTH-cm-D1b" id="Mer-Ho-S1u"/>
                                                 </connections>
                                             </tableViewCell>
@@ -718,7 +719,14 @@
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="24K-cN-721">
                                                                     <rect key="frame" x="11" y="128" width="261" height="67"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                    <attributedString key="attributedText"/>
+                                                                    <attributedString key="attributedText">
+                                                                        <fragment content=" ">
+                                                                            <attributes>
+                                                                                <font key="NSFont" size="13" name="NanumGothic"/>
+                                                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                            </attributes>
+                                                                        </fragment>
+                                                                    </attributedString>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rjv-PP-Ke1">
@@ -904,6 +912,11 @@
                                                 <color key="textColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6H7-dd-xym">
+                                                <rect key="frame" x="89" y="123" width="240" height="31"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </view>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0fj-ff-QFC">
                                                 <rect key="frame" x="21" y="31" width="70" height="70"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -938,11 +951,10 @@
                                                     <segue destination="noX-w8-BKx" kind="show" id="ZAN-L0-Qvz"/>
                                                 </connections>
                                             </button>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6H7-dd-xym">
-                                                <rect key="frame" x="89" y="123" width="240" height="31"/>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="g6V-DH-maS">
+                                                <rect key="frame" x="46" y="56" width="20" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            </view>
+                                            </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
@@ -983,6 +995,7 @@
                         <outlet property="detailReview" destination="RDR-db-oH2" id="dFS-PA-uhw"/>
                         <outlet property="endEditingBtn" destination="RZM-Oc-Z36" id="hqT-iJ-hdo"/>
                         <outlet property="flavorLevelView" destination="Z4s-1V-Pws" id="Pnk-7l-acl"/>
+                        <outlet property="loading" destination="g6V-DH-maS" id="hZA-pq-2yq"/>
                         <outlet property="placeholder" destination="tpV-Kc-V1G" id="lmF-iN-8Ph"/>
                         <outlet property="priceLabel" destination="V8Z-ql-LEG" id="PIp-I1-Orm"/>
                         <outlet property="priceLevelView" destination="EnL-Cj-16h" id="V0F-XB-i2h"/>
@@ -1309,7 +1322,7 @@
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
                                                 </view>
-                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="tGl-jM-Xac">
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="tGl-jM-Xac">
                                                     <rect key="frame" x="33" y="34" width="20" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </activityIndicatorView>
@@ -1453,7 +1466,7 @@
         <image name="writing.png" width="2000" height="2000"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Vaq-lB-3M9"/>
+        <segue reference="yHi-iw-GkD"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>

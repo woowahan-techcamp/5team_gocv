@@ -21,18 +21,22 @@ class DataManager{
      */
     
     // 리뷰 쓰기
-    static func writeReview(brand: String, category: String, grade: Int, priceLevel: Int, flavorLevel: Int, quantityLevel: Int, allergy: [String], review: String, user: String,user_image: String, p_id: String, p_image: String, p_name: String, completion: ()->()) {
+    static func writeReview(brand: String, category: String, grade: Int, priceLevel: Int, flavorLevel: Int, quantityLevel: Int, allergy: [String], review: String, user: String,user_image: String, p_id: String, p_image: String, p_name: String, p_price: Int, completion: ()->()) {
+        
+        let format = DateFormatter()
+        format.locale = Locale(identifier: "ko_kr")
+        format.timeZone = TimeZone(abbreviation: "KST")
+        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let today = format.string(from: Date())
         
         let localRef = ref.child("review")
         
-        let update = ["bad": 0, "useful": 0, "user": user, "user_image": user_image, "brand": brand, "category": category, "comment": review, "grade": grade, "price": priceLevel, "flavor": flavorLevel, "quantity": quantityLevel, "p_id": p_id, "p_image": p_image, "p_name": p_name] as [String : Any]
+        let update = ["bad": 0, "useful": 0, "user": user, "user_image": user_image, "brand": brand, "category": category, "comment": review, "grade": grade, "price": priceLevel, "flavor": flavorLevel, "quantity": quantityLevel, "p_id": p_id, "p_image": p_image, "p_name": p_name, "p_price": p_price, "timestamp": today] as [String : Any]
         
         
         localRef.childByAutoId().updateChildValues(update)
 
-        // p_price는 들어갈필요가 있는지?
-        // timestamp 넣어야 함
-        
         
         /*
         let product = ref.child("product").child(p_id)

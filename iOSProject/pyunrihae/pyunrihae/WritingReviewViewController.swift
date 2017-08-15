@@ -11,6 +11,7 @@ import FirebaseDatabase
 
 class WritingReviewViewController: UIViewController {
 
+    @IBOutlet weak var loading: UIActivityIndicatorView!
     @IBOutlet weak var endEditingBtn: UIButton!
     @IBOutlet weak var reviewTextView: UIView!
     @IBOutlet weak var detailReview: UITextView!
@@ -39,7 +40,7 @@ class WritingReviewViewController: UIViewController {
         let p_image = "http://image.hankookilbo.com/i.aspx?Guid=168c62cc358146b38936949e82bd4833&Month=DirectUpload&size=640"
         if checkGrade && checkPriceLevel && checkFlavorLevel && checkQuantityLevel {
             SelectedAllergy.allergyList = []
-            DataManager.writeReview(brand: SelectedProduct.brandName, category: SelectedProduct.category, grade: grade, priceLevel: priceLevel, flavorLevel: flavorLevel, quantityLevel: quantityLevel, allergy: allergy, review: detailReview.text, user: "test", user_image: user_image, p_id: SelectedProduct.foodId, p_image: p_image, p_name: SelectedProduct.foodName){
+            DataManager.writeReview(brand: SelectedProduct.brandName, category: SelectedProduct.category, grade: grade, priceLevel: priceLevel, flavorLevel: flavorLevel, quantityLevel: quantityLevel, allergy: allergy, review: detailReview.text, user: "test", user_image: user_image, p_id: SelectedProduct.foodId, p_image: p_image, p_name: SelectedProduct.foodName, p_price: Int(SelectedProduct.price)!){
                 self.navigationController?.popToRootViewController(animated: true)
                 NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
             }
@@ -184,7 +185,14 @@ class WritingReviewViewController: UIViewController {
         productNameLabel.text = SelectedProduct.foodName
         brandLabel.text = SelectedProduct.brandName
         priceLabel.text = SelectedProduct.price + "원"
-        productImage.image = SelectedProduct.foodImage
+        
+        DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
+            self.productImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
+                self.loading.stopAnimating()
+            })
+            
+        }
+        
         detailReview.layer.borderWidth = 0.7
         detailReview.layer.borderColor = UIColor.lightGray.cgColor
         detailReview.layer.cornerRadius = 5

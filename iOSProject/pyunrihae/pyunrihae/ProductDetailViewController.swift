@@ -102,12 +102,10 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                         cell.eventLabel.isHidden = true
                     }
                     
-                    Alamofire.request(product.image).responseImage { response in
-                        if let image = response.result.value {
-                            SelectedProduct.foodImage = image
-                            cell.foodImage.image = image
-                        }
-                    }
+                    cell.foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
+                        cell.loading.stopAnimating()
+                    })
+                    
                 }
                 cell.priceLabel.text = SelectedProduct.price + "원"
                 cell.brandLabel.text = SelectedProduct.brandName
