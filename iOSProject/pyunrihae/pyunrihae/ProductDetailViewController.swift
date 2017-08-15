@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 
 class ProductDetailViewController: UIViewController {
+    @IBOutlet weak var noReviewView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var writingReviewBtn: UIButton!
 
@@ -49,6 +50,10 @@ class ProductDetailViewController: UIViewController {
         DispatchQueue.main.async {
             DataManager.getReviewListBy(id: SelectedProduct.foodId) { (reviewList) in
                 SelectedProduct.reviewCount = reviewList.count
+                if SelectedProduct.reviewCount > 0 {
+                    self.noReviewView.isHidden = true
+                    self.noReviewView.frame.size.height = 0
+                }
                 self.tableView.reloadData()
             }
         }
