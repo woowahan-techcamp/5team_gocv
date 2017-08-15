@@ -9,6 +9,7 @@
 import UIKit
 
 class ProductReviewTableViewCell: UITableViewCell {
+    @IBOutlet weak var noReviewView: UIView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var badNumLabel: UILabel!
     @IBOutlet weak var usefulNumLabel: UILabel!

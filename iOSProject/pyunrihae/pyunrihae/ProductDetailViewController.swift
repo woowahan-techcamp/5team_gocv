@@ -10,7 +10,6 @@ import UIKit
 import Alamofire
 
 class ProductDetailViewController: UIViewController {
-    @IBOutlet weak var noReviewView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var writingReviewBtn: UIButton!
 
@@ -50,10 +49,6 @@ class ProductDetailViewController: UIViewController {
         DispatchQueue.main.async {
             DataManager.getReviewListBy(id: SelectedProduct.foodId) { (reviewList) in
                 SelectedProduct.reviewCount = reviewList.count
-                if SelectedProduct.reviewCount > 0 {
-                    self.noReviewView.isHidden = true
-                    self.noReviewView.frame.size.height = 0
-                }
                 self.tableView.reloadData()
             }
         }
@@ -85,6 +80,9 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
         if section == 0 {
             return 2
         } else {
+            if SelectedProduct.reviewCount == 0 {
+                return 3
+            }
             return SelectedProduct.reviewCount + 2 // 리뷰 수+2로 리턴해야 함
         }
     }
@@ -145,6 +143,9 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                 Image.makeCircleImage(image: cell.userImage)
                 cell.reviewBoxView.layer.cornerRadius = 10
                 let row = indexPath.row - 2
+                if SelectedProduct.reviewCount != 0 {
+                    cell.noReviewView.isHidden = true
+                }
                 DataManager.getReviewListBy(id: SelectedProduct.foodId) { (reviewList) in
                     if reviewList.count == SelectedProduct.reviewCount && reviewList.count > 0 {
                         cell.badNumLabel.text = String(reviewList[row].bad)
