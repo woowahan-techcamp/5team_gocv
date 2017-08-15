@@ -503,6 +503,13 @@
                                                             <rect key="frame" x="142" y="19" width="90" height="90"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </imageView>
+                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JfI-S8-kUQ">
+                                                            <rect key="frame" x="142" y="19" width="90" height="90"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <connections>
+                                                                <segue destination="VCz-lc-hnn" kind="show" id="fGg-R2-bk1"/>
+                                                            </connections>
+                                                        </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2+1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6wE-aO-GMQ">
                                                             <rect key="frame" x="313" y="121" width="42" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1112,6 +1119,33 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K7I-gl-FM8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="317.60000000000002" y="3182.1589205397304"/>
+        </scene>
+        <!--Big Image View Controller-->
+        <scene sceneID="Jkj-kS-wTC">
+            <objects>
+                <viewController id="VCz-lc-hnn" customClass="BigImageViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zdW-6q-Lt6"/>
+                        <viewControllerLayoutGuide type="bottom" id="AQ8-pT-ejH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Awu-nl-7jT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iv5-gl-6HS">
+                                <rect key="frame" x="45" y="128" width="284" height="411"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <connections>
+                        <outlet property="bigImageView" destination="iv5-gl-6HS" id="e24-YA-8C3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d1Q-s0-vjU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="276" y="1662.8185907046477"/>
         </scene>
         <!--알레르기 성분 선택-->
         <scene sceneID="0Ja-zF-9l9">

@@ -45,6 +45,7 @@
 		9865E5541F3D351B00014795 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E5531F3D351B00014795 /* PhotoCollectionViewCell.swift */; };
 		9865E55A1F3D837200014795 /* SelectedProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E5591F3D837200014795 /* SelectedProduct.swift */; };
 		9865E55C1F417E2000014795 /* SelectedAllergy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E55B1F417E2000014795 /* SelectedAllergy.swift */; };
+		9865E56C1F42E55E00014795 /* BigImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E56B1F42E55E00014795 /* BigImageViewController.swift */; };
 		98768AA01F39A5D600654C19 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C5AAD71F342C3900610115 /* DataManager.swift */; };
 		98B73F861F39394500E55420 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B73F851F39394500E55420 /* Review.swift */; };
 		98B73F881F394CAB00E55420 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B73F871F394CAB00E55420 /* Product.swift */; };
@@ -119,6 +120,7 @@
 		9865E5531F3D351B00014795 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		9865E5591F3D837200014795 /* SelectedProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedProduct.swift; sourceTree = "<group>"; };
 		9865E55B1F417E2000014795 /* SelectedAllergy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedAllergy.swift; sourceTree = "<group>"; };
+		9865E56B1F42E55E00014795 /* BigImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BigImageViewController.swift; sourceTree = "<group>"; };
 		98B73F851F39394500E55420 /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		98B73F871F394CAB00E55420 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		98C5AACD1F33FAE800610115 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 				9865E5331F3AFEFE00014795 /* WritingReviewViewController.swift */,
 				9865E54F1F3D333F00014795 /* ChoosePhotoViewController.swift */,
 				9865E53B1F3C0BD500014795 /* AllergyViewController.swift */,
+				9865E56B1F42E55E00014795 /* BigImageViewController.swift */,
 			);
 			name = "View Controller";
 			sourceTree = "<group>";
@@ -638,6 +641,7 @@
 				9865E55A1F3D837200014795 /* SelectedProduct.swift in Sources */,
 				9865E5341F3AFEFE00014795 /* WritingReviewViewController.swift in Sources */,
 				9865E53E1F3C0C1000014795 /* AllergyTableViewCell.swift in Sources */,
+				9865E56C1F42E55E00014795 /* BigImageViewController.swift in Sources */,
 				98B73F881F394CAB00E55420 /* Product.swift in Sources */,
 				98B73F861F39394500E55420 /* Review.swift in Sources */,
 				9865E5161F39AD8100014795 /* ReviewCollectionViewCell.swift in Sources */,
