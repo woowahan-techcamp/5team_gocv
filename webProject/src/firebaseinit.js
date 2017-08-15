@@ -16,6 +16,10 @@ const storage = localStorage['product'];
 if(!storage){
   firebase.database().ref('product/')
   .once('value').then(function(snapshot) {
-    localStorage['product'] = JSON.stringfy(snapshot.val());
+
+    localStorage['product'] = JSON.stringify(snapshot.val());
+
+      console.log(storage)
   });
 }
+
