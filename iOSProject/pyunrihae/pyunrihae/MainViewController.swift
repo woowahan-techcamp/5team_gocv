@@ -298,13 +298,15 @@ extension MainViewController: UICollectionViewDataSource { //메인화면에서 
         if let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? MainRankCollectionViewCell {
             cell.foodImage.layer.cornerRadius = cell.foodImage.frame.height/2
             cell.foodImage.clipsToBounds = true
-            cell.foodImage.backgroundColor = UIColor.lightGray
             cell.rankLabel.layer.cornerRadius = cell.rankLabel.frame.height/2
             cell.rankLabel.layer.masksToBounds = true
             
             if indexPath.row == 0{
                 if productList.count > 0 {
-                    cell.foodImage.af_setImage(withURL: URL(string: productList[0].image)!)
+                    cell.loading.startAnimating()
+                    cell.foodImage.af_setImage(withURL: URL(string: productList[0].image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
+                        cell.loading.stopAnimating()
+                    })
                     cell.brandLabel.text  = productList[0].brand
                     cell.nameLabel.text = productList[0].name
                 }
@@ -314,12 +316,10 @@ extension MainViewController: UICollectionViewDataSource { //메인화면에서 
                 cell.rankLabel.textColor = UIColor.white
             } else if indexPath.row == 1{
                 if productList.count > 0 {
-                    Alamofire.request(productList[1].image).responseImage { response in
-                        
-                        if let image = response.result.value {
-                            cell.foodImage.image = image
-                        }
-                    }
+                    cell.loading.startAnimating()
+                    cell.foodImage.af_setImage(withURL: URL(string: productList[1].image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
+                        cell.loading.stopAnimating()
+                    })
                     cell.brandLabel.text  = productList[1].brand
                     cell.nameLabel.text = productList[1].name
                 }
@@ -328,12 +328,10 @@ extension MainViewController: UICollectionViewDataSource { //메인화면에서 
                 cell.rankLabel.textColor = UIColor.white
             } else {
                 if productList.count > 0 {
-                    Alamofire.request(productList[2].image).responseImage { response in
-                        
-                        if let image = response.result.value {
-                            cell.foodImage.image = image
-                        }
-                    }
+                    cell.loading.startAnimating()
+                    cell.foodImage.af_setImage(withURL: URL(string: productList[2].image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
+                        cell.loading.stopAnimating()
+                    })
                     cell.brandLabel.text  = productList[2].brand
                     cell.nameLabel.text = productList[2].name
                 }

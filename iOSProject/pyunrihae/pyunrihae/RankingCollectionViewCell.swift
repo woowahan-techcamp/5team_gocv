@@ -20,5 +20,6 @@ class RankingCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var QuantityLevelLabel: UILabel!
     @IBOutlet weak var gradeLabel: UILabel!
     @IBOutlet weak var starView: UIImageView!
+    @IBOutlet weak var loading: UIActivityIndicatorView!
     
 }

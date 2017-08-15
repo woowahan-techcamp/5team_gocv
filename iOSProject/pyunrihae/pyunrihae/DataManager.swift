@@ -20,6 +20,43 @@ class DataManager{
      * 메인화면
      */
     
+    // 리뷰 쓰기
+    static func writeReview(brand: String, category: String, grade: Int, priceLevel: Int, flavorLevel: Int, quantityLevel: Int, allergy: [String], review: String, user: String,user_image: String, p_id: String, p_image: String, p_name: String, p_price: Int, completion: ()->()) {
+        
+        let format = DateFormatter()
+        format.locale = Locale(identifier: "ko_kr")
+        format.timeZone = TimeZone(abbreviation: "KST")
+        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let today = format.string(from: Date())
+        
+        let localRef = ref.child("review")
+        
+        let update = ["bad": 0, "useful": 0, "user": user, "user_image": user_image, "brand": brand, "category": category, "comment": review, "grade": grade, "price": priceLevel, "flavor": flavorLevel, "quantity": quantityLevel, "p_id": p_id, "p_image": p_image, "p_name": p_name, "p_price": p_price, "timestamp": today] as [String : Any]
+        
+        
+        localRef.childByAutoId().updateChildValues(update)
+
+        
+        /*
+        let product = ref.child("product").child(p_id)
+        product.observe(DataEventType.value, with: { (snapshot) in
+            let productInfo = snapshot.value as? [String : Any] ?? [:]
+            var list = [String]()
+            let reviewList = productInfo["reviewList"]
+            if reviewList == nil {
+                list.append(reviewId)
+                ref.child("product/" + p_id + "/reviewList").setValue(list)
+            } else {
+                list = reviewList as! [String]
+                list.append(reviewId)
+                ref.child("product/" + p_id + "/reviewList").setValue(list)
+            }
+            
+        })
+        */
+        completion()
+    }
     // 브랜드에 따라 리뷰 가져오고, 그걸 유용순으로 정리하기.
     static func getTop3ReviewByBrand(brand : String, completion: @escaping ([Review]) -> ()) {
         
