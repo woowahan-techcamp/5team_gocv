@@ -53,6 +53,7 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
     
     
     func ynSearchHistoryButtonClicked(text: String) {
+        // 검색 history가 카테고리와 같으면 카테고리로 보냄
         self.pushViewController(text: text)
         print(text)
     }
@@ -91,6 +92,8 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
     func pushViewController(text:String) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "mainNavigationController") as! UINavigationController
+        
+        let productDetailConroller = vc.viewControllers.first as! ProductDetailViewController
         
         self.present(vc, animated: true, completion: nil)
     }
