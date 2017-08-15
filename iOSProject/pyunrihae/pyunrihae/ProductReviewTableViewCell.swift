@@ -9,6 +9,8 @@
 import UIKit
 
 class ProductReviewTableViewCell: UITableViewCell {
+    @IBOutlet weak var uploadedImageLoading: UIActivityIndicatorView!
+    @IBOutlet weak var userImageLoading: UIActivityIndicatorView!
     @IBOutlet weak var noReviewView: UIView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var badNumLabel: UILabel!

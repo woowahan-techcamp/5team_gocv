@@ -99,7 +99,7 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                     } else {
                         cell.eventLabel.isHidden = true
                     }
-                    
+                    cell.loading.startAnimating()
                     cell.foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
                         cell.loading.stopAnimating()
                     })
@@ -152,8 +152,16 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                         cell.usefulNumLabel.text = String(reviewList[row].useful)
                         cell.detailReviewLabel.text = reviewList[row].comment
                         cell.userNameLabel.text = reviewList[row].user
-                        cell.userImage.af_setImage(withURL: URL(string: reviewList[row].user_image)!)
-                        cell.uploadedFoodImage.af_setImage(withURL: URL(string: reviewList[row].p_image)!)
+                        
+                        cell.userImageLoading.startAnimating()
+                        cell.userImage.af_setImage(withURL: URL(string: reviewList[row].user_image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
+                            cell.userImageLoading.stopAnimating()
+                        })
+
+                        cell.uploadedImageLoading.startAnimating()
+                        cell.uploadedFoodImage.af_setImage(withURL: URL(string: reviewList[row].p_image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
+                        cell.uploadedImageLoading.stopAnimating()
+                        })
                         
                         for sub in cell.starView.subviews {
                             sub.removeFromSuperview()

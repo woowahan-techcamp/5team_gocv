@@ -186,6 +186,7 @@ class WritingReviewViewController: UIViewController {
         brandLabel.text = SelectedProduct.brandName
         priceLabel.text = SelectedProduct.price + "원"
         
+        loading.startAnimating()
         DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
             self.productImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
                 self.loading.stopAnimating()

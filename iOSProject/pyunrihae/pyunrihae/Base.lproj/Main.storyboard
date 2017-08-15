@@ -653,10 +653,6 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="234.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NAm-hh-li3">
-                                                            <rect key="frame" x="11" y="19" width="60" height="60"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        </imageView>
                                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gt7-gt-hp8">
                                                             <rect key="frame" x="79" y="15" width="280" height="203"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -720,9 +716,21 @@
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                                                 </view>
+                                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fjD-nO-iJd">
+                                                                    <rect key="frame" x="31" y="81" width="20" height="20"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                </activityIndicatorView>
                                                             </subviews>
                                                             <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                                         </view>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NAm-hh-li3">
+                                                            <rect key="frame" x="11" y="19" width="60" height="60"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        </imageView>
+                                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="LYt-YA-FDB">
+                                                            <rect key="frame" x="31" y="39" width="20" height="20"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        </activityIndicatorView>
                                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YbJ-pW-FhM">
                                                             <rect key="frame" x="0.0" y="-1" width="375" height="234"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -746,8 +754,10 @@
                                                     <outlet property="reviewBoxView" destination="Gt7-gt-hp8" id="AEw-RG-UqY"/>
                                                     <outlet property="starView" destination="rjv-PP-Ke1" id="Sjf-Ha-icc"/>
                                                     <outlet property="uploadedFoodImage" destination="rAP-sV-p0m" id="tPo-WR-Pf7"/>
+                                                    <outlet property="uploadedImageLoading" destination="fjD-nO-iJd" id="lYE-9W-ODz"/>
                                                     <outlet property="usefulNumLabel" destination="FHO-Hv-hIx" id="4tF-wN-rFz"/>
                                                     <outlet property="userImage" destination="NAm-hh-li3" id="hGF-Cg-VFn"/>
+                                                    <outlet property="userImageLoading" destination="LYt-YA-FDB" id="d2B-G0-ba9"/>
                                                     <outlet property="userNameLabel" destination="RFO-gL-gM2" id="mRL-CD-4Oj"/>
                                                 </connections>
                                             </tableViewCell>
