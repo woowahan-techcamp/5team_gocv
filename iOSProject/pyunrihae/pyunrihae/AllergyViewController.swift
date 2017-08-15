@@ -16,13 +16,16 @@ class AllergyViewController: UIViewController {
         self.navigationController?.popToViewController(writingReviewViewController, animated: true)
     }
     @IBAction func tabCompleteBtn(_ sender: UIButton) {
+        NotificationCenter.default.post(name: NSNotification.Name("selectAllergy"), object: self, userInfo: ["allergy" : selectedAllergy])
         let writingReviewViewController = self.navigationController?.viewControllers[1] as! WritingReviewViewController
         self.navigationController?.popToViewController(writingReviewViewController, animated: true)
     }
+    var selectedAllergy = [String]()
     let allergyList = ["메밀","달걀","우유","콩","밀","게","새우","고등어","돼지고기","소고기","닭고기","복숭아","땅콩","토마토","오징어","호두","조개"] // 임의로 알레르기 리스트를 넣었음
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        selectedAllergy = SelectedAllergy.allergyList
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsMultipleSelection = true
@@ -47,16 +50,29 @@ extension AllergyViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! AllergyTableViewCell
         cell.checkImage.isHidden = true
         cell.allergyListLabel.text = allergyList[indexPath.row]
+        for i in selectedAllergy {
+            if i == allergyList[indexPath.row] {
+                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+                cell.checkImage.isHidden = false
+                break
+            }
+        }
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! AllergyTableViewCell
         cell.checkImage.isHidden = false
+        selectedAllergy.append(cell.allergyListLabel.text!)
     }
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! AllergyTableViewCell
         cell.checkImage.isHidden = true
-    }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        for i in selectedAllergy {
+            if i == cell.allergyListLabel.text {
+                let index = selectedAllergy.index(of: i)
+                selectedAllergy.remove(at: index!)
+                break
+            }
+        }
     }
 }

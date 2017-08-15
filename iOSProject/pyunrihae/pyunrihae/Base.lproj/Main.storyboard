@@ -24,12 +24,6 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ikf-Qp-r0w">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="190"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="ls9-fI-3sj">
-                                        <rect key="frame" x="168" y="155" width="39" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </pageControl>
-                                </subviews>
                             </scrollView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ryG-Uu-J61" customClass="CategoryScrollView" customModule="pyunrihae" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="190" width="375" height="60"/>
@@ -68,7 +62,7 @@
                                                     <rect key="frame" x="15" y="0.0" width="95" height="95"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hz0-6e-kHM">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hz0-6e-kHM">
                                                     <rect key="frame" x="0.0" y="100" width="125" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
@@ -83,18 +77,23 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AK8-HA-2Kf">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AK8-HA-2Kf">
                                                     <rect key="frame" x="7" y="129" width="110" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="xI8-UN-lWR">
+                                                    <rect key="frame" x="52" y="40" width="20" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                         </view>
                                         <connections>
                                             <outlet property="brandLabel" destination="Hz0-6e-kHM" id="T2L-iz-srX"/>
                                             <outlet property="foodImage" destination="XXc-qn-XwL" id="bje-Hd-zT5"/>
+                                            <outlet property="loading" destination="xI8-UN-lWR" id="dkF-h2-bHk"/>
                                             <outlet property="nameLabel" destination="AK8-HA-2Kf" id="Q7z-6t-Ozd"/>
                                             <outlet property="rankLabel" destination="QUM-kf-VNw" id="jJS-1g-Siu"/>
                                             <segue destination="9cE-6F-aqE" kind="show" id="UYP-Yi-AVc"/>
@@ -423,6 +422,10 @@
                                                     <color key="textColor" red="0.89019607840000003" green="0.29411764709999999" blue="0.039215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="nxo-bd-EGt">
+                                                    <rect key="frame" x="94" y="55" width="20" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                         </view>
                                         <connections>
@@ -434,6 +437,7 @@
                                             <outlet property="brandLabel" destination="o0K-rL-XjS" id="DIi-pX-abV"/>
                                             <outlet property="foodImage" destination="q0B-Uv-CQ7" id="whL-9J-LSj"/>
                                             <outlet property="gradeLabel" destination="Zop-Rl-KJb" id="y4Z-3y-vEl"/>
+                                            <outlet property="loading" destination="nxo-bd-EGt" id="bKj-Rz-ZYX"/>
                                             <outlet property="orderNumLabel" destination="5Qe-nm-Vek" id="6BS-6F-eM9"/>
                                             <outlet property="productNameLabel" destination="b7P-Vs-4Ot" id="2ww-xJ-aCK"/>
                                             <outlet property="starView" destination="cly-4C-f2a" id="bF6-kT-7ln"/>
@@ -487,6 +491,20 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <view key="tableFooterView" contentMode="scaleToFill" id="YbJ-pW-FhM">
+                                            <rect key="frame" x="0.0" y="371" width="375" height="234"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="아직 리뷰가 없어요 " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9h8-zP-MPd">
+                                                    <rect key="frame" x="122" y="107" width="131" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="InfoCell" rowHeight="187" id="q04-nb-hTp" customClass="ProductInfoTableViewCell" customModule="pyunrihae" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="375" height="187"/>
@@ -527,6 +545,10 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="dSp-ts-5VZ">
+                                                            <rect key="frame" x="177" y="54" width="20" height="20"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        </activityIndicatorView>
                                                     </subviews>
                                                 </tableViewCellContentView>
                                                 <connections>
@@ -534,6 +556,7 @@
                                                     <outlet property="eventLabel" destination="6wE-aO-GMQ" id="X4N-Mr-cdp"/>
                                                     <outlet property="foodImage" destination="rn1-fA-lAu" id="rqm-wB-moW"/>
                                                     <outlet property="foodNameLabel" destination="0MK-5P-nnW" id="5I7-Nf-xwr"/>
+                                                    <outlet property="loading" destination="dSp-ts-5VZ" id="dXi-DV-0YT"/>
                                                     <outlet property="priceLabel" destination="TTH-cm-D1b" id="Mer-Ho-S1u"/>
                                                 </connections>
                                             </tableViewCell>
@@ -637,11 +660,11 @@
                                                     <outlet property="starView" destination="O34-GD-I7A" id="lS3-vF-xyP"/>
                                                 </connections>
                                             </tableViewCell>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="232" id="dxE-em-sid" customClass="ProductReviewTableViewCell" customModule="pyunrihae" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="369" width="375" height="232"/>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="2" id="dxE-em-sid" customClass="ProductReviewTableViewCell" customModule="pyunrihae" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="369" width="375" height="2"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dxE-em-sid" id="cgg-ac-nMU">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="231.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="1.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NAm-hh-li3">
@@ -652,7 +675,7 @@
                                                             <rect key="frame" x="79" y="15" width="280" height="203"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="태양" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RFO-gL-gM2">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RFO-gL-gM2">
                                                                     <rect key="frame" x="11" y="8" width="156" height="21"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
@@ -697,10 +720,10 @@
                                                                     <rect key="frame" x="11" y="128" width="261" height="67"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <attributedString key="attributedText">
-                                                                        <fragment content="맛있어요">
+                                                                        <fragment content=" ">
                                                                             <attributes>
                                                                                 <font key="NSFont" size="13" name="NanumGothic"/>
-                                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                             </attributes>
                                                                         </fragment>
                                                                     </attributedString>
@@ -756,6 +779,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="noReviewView" destination="YbJ-pW-FhM" id="yeD-yK-ovR"/>
                         <outlet property="tableView" destination="M9H-67-xPN" id="YS1-lZ-1vo"/>
                         <outlet property="writingReviewBtn" destination="b3h-Yw-EFW" id="m8o-9d-6Hc"/>
                     </connections>
@@ -888,6 +912,11 @@
                                                 <color key="textColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6H7-dd-xym">
+                                                <rect key="frame" x="89" y="123" width="240" height="31"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </view>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0fj-ff-QFC">
                                                 <rect key="frame" x="21" y="31" width="70" height="70"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -919,14 +948,13 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" image="plus.png"/>
                                                 <connections>
-                                                    <segue destination="noX-w8-BKx" kind="show" id="0rC-8m-7nT"/>
+                                                    <segue destination="noX-w8-BKx" kind="show" id="ZAN-L0-Qvz"/>
                                                 </connections>
                                             </button>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6H7-dd-xym">
-                                                <rect key="frame" x="89" y="123" width="240" height="31"/>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="g6V-DH-maS">
+                                                <rect key="frame" x="46" y="56" width="20" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            </view>
+                                            </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
@@ -962,10 +990,12 @@
                     <connections>
                         <outlet property="addImageBtn" destination="Ne4-fX-uQf" id="4Sh-C0-c2Z"/>
                         <outlet property="addedImageView" destination="Sn8-VS-4au" id="JMU-Rk-ERg"/>
+                        <outlet property="allergyListLabel" destination="GES-Rp-Sm5" id="ukT-Nc-gcX"/>
                         <outlet property="brandLabel" destination="C0p-OZ-LG5" id="O38-2c-fCD"/>
                         <outlet property="detailReview" destination="RDR-db-oH2" id="dFS-PA-uhw"/>
                         <outlet property="endEditingBtn" destination="RZM-Oc-Z36" id="hqT-iJ-hdo"/>
                         <outlet property="flavorLevelView" destination="Z4s-1V-Pws" id="Pnk-7l-acl"/>
+                        <outlet property="loading" destination="g6V-DH-maS" id="hZA-pq-2yq"/>
                         <outlet property="placeholder" destination="tpV-Kc-V1G" id="lmF-iN-8Ph"/>
                         <outlet property="priceLabel" destination="V8Z-ql-LEG" id="PIp-I1-Orm"/>
                         <outlet property="priceLevelView" destination="EnL-Cj-16h" id="V0F-XB-i2h"/>
@@ -1292,12 +1322,17 @@
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
                                                 </view>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="tGl-jM-Xac">
+                                                    <rect key="frame" x="33" y="34" width="20" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                         </view>
                                         <connections>
                                             <outlet property="badLabel" destination="ME5-ga-qaT" id="XrD-1T-MLg"/>
                                             <outlet property="brandLabel" destination="dkm-wv-gZC" id="xSp-pQ-VJu"/>
                                             <outlet property="gradeLabel" destination="B7u-Mk-brM" id="dXV-lH-ywI"/>
+                                            <outlet property="loading" destination="tGl-jM-Xac" id="CEc-rY-kJR"/>
                                             <outlet property="productNameLabel" destination="WVO-0x-4Gf" id="3WI-aV-Zzd"/>
                                             <outlet property="reviewContentLabel" destination="j0h-Rj-o9e" id="PiP-u9-hgw"/>
                                             <outlet property="reviewView" destination="oth-3A-jDp" id="Fsf-X3-W2H"/>

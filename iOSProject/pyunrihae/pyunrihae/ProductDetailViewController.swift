@@ -10,9 +10,9 @@ import UIKit
 import Alamofire
 
 class ProductDetailViewController: UIViewController {
+    @IBOutlet weak var noReviewView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var writingReviewBtn: UIButton!
-    
 
     @IBAction func closeNavViewBtn(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
@@ -26,15 +26,37 @@ class ProductDetailViewController: UIViewController {
         SelectedProduct.brandName = product.brand
         SelectedProduct.foodName = product.name
         SelectedProduct.price = product.price
-        SelectedProduct.reviewCount = 12 // product.review_count
+        SelectedProduct.category = product.category
+        SelectedProduct.reviewCount = 0
+        DataManager.getReviewListBy(id: product.id) { (reviewList) in
+            SelectedProduct.reviewCount = reviewList.count
+            NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
+        }
     }
     func showReviewProduct(_ notification: Notification) { // 넘어온 product 정보 받아서 화면 구성
         let product = notification.userInfo?["product"] as! Review
         SelectedProduct.foodId = product.p_id
         SelectedProduct.brandName = product.brand
         SelectedProduct.foodName = product.p_name
+        SelectedProduct.category = product.category
         SelectedProduct.price = String(product.p_price)
-        SelectedProduct.reviewCount = 12 // product.review_count
+        SelectedProduct.reviewCount = 0
+        DataManager.getReviewListBy(id: product.p_id) { (reviewList) in
+            SelectedProduct.reviewCount = reviewList.count
+            NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
+        }
+    }
+    func reload() {
+        DispatchQueue.main.async {
+            DataManager.getReviewListBy(id: SelectedProduct.foodId) { (reviewList) in
+                SelectedProduct.reviewCount = reviewList.count
+                if SelectedProduct.reviewCount > 0 {
+                    self.noReviewView.isHidden = true
+                    self.noReviewView.frame.size.height = 0
+                }
+                self.tableView.reloadData()
+            }
+        }
     }
     func addNotiObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(showProduct), name: NSNotification.Name("showProduct"), object: nil)
@@ -46,6 +68,7 @@ class ProductDetailViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsSelection = false
+        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name("complete"), object: nil)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -79,12 +102,10 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                         cell.eventLabel.isHidden = true
                     }
                     
-                    Alamofire.request(product.image).responseImage { response in
-                        if let image = response.result.value {
-                            SelectedProduct.foodImage = image
-                            cell.foodImage.image = image
-                        }
-                    }
+                    cell.foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
+                        cell.loading.stopAnimating()
+                    })
+                    
                 }
                 cell.priceLabel.text = SelectedProduct.price + "원"
                 cell.brandLabel.text = SelectedProduct.brandName
@@ -94,6 +115,9 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath) as! ProductDetailInfoTableViewCell
                 // 제품 별점 보여주기
                 cell.gradeLabel.text = String(productGrade)
+                for sub in cell.starView.subviews {
+                    sub.removeFromSuperview()
+                }
                 for i in 0..<Int(productGrade) {
                     let starImage = UIImage(named: "stars.png")
                     let cgImage = starImage?.cgImage
@@ -121,28 +145,31 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                 Image.makeCircleImage(image: cell.userImage)
                 cell.reviewBoxView.layer.cornerRadius = 10
                 let row = indexPath.row - 2
-                DataManager.getReviewListBy(id: "PR2663") { (reviewList) in // id 이후에 p_id로 바꿀 것
-                    cell.badNumLabel.text = String(reviewList[row].bad)
-                    cell.usefulNumLabel.text = String(reviewList[row].useful)
-                    cell.detailReviewLabel.text = reviewList[row].comment
-                    cell.userNameLabel.text = reviewList[row].user
-                    cell.userImage.af_setImage(withURL: URL(string: reviewList[row].user_image)!)
-                    cell.uploadedFoodImage.af_setImage(withURL: URL(string: reviewList[row].p_image)!)
-                    
-                    for sub in cell.starView.subviews {
-                        sub.removeFromSuperview()
+                DataManager.getReviewListBy(id: SelectedProduct.foodId) { (reviewList) in
+                    if reviewList.count == SelectedProduct.reviewCount && reviewList.count > 0 {
+                        cell.badNumLabel.text = String(reviewList[row].bad)
+                        cell.usefulNumLabel.text = String(reviewList[row].useful)
+                        cell.detailReviewLabel.text = reviewList[row].comment
+                        cell.userNameLabel.text = reviewList[row].user
+                        cell.userImage.af_setImage(withURL: URL(string: reviewList[row].user_image)!)
+                        cell.uploadedFoodImage.af_setImage(withURL: URL(string: reviewList[row].p_image)!)
+                        
+                        for sub in cell.starView.subviews {
+                            sub.removeFromSuperview()
+                        }
+                        
+                        // 리뷰어 각각의 별점
+                        for i in 0..<Int(reviewList[row].grade) {
+                            let starImage = UIImage(named: "stars.png")
+                            let cgImage = starImage?.cgImage
+                            let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: 0, y: 0, width: (starImage?.size.width)! / 5, height: starImage!.size.height))!
+                            let uiImage = UIImage(cgImage: croppedCGImage)
+                            let imageView = UIImageView(image: uiImage)
+                            imageView.frame = CGRect(x: i*18, y: 0, width: 18, height: 15)
+                            cell.starView.addSubview(imageView)
+                        }
                     }
                     
-                    // 리뷰어 각각의 별점
-                    for i in 0..<Int(reviewList[row].grade) {
-                        let starImage = UIImage(named: "stars.png")
-                        let cgImage = starImage?.cgImage
-                        let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: 0, y: 0, width: (starImage?.size.width)! / 5, height: starImage!.size.height))!
-                        let uiImage = UIImage(cgImage: croppedCGImage)
-                        let imageView = UIImageView(image: uiImage)
-                        imageView.frame = CGRect(x: i*18, y: 0, width: 18, height: 15)
-                        cell.starView.addSubview(imageView)
-                    }
                 }
                 
             } else {

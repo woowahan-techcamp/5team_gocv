@@ -234,7 +234,12 @@ extension ReviewViewController: UICollectionViewDataSource { //메인화면에�
             let review = reviewList[indexPath.item]
             cell.userImage.layer.cornerRadius = cell.userImage.frame.height/2
             cell.userImage.clipsToBounds = true
-            cell.userImage.af_setImage(withURL: URL(string: review.user_image)!)
+            
+            cell.loading.startAnimating()
+            cell.userImage.af_setImage(withURL: URL(string: review.user_image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
+                cell.loading.stopAnimating()
+            })
+            
             cell.brandLabel.text = review.brand
             cell.productNameLabel.text = review.p_name
             cell.reviewContentLabel.text = review.comment
