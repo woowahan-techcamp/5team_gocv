@@ -228,7 +228,11 @@ extension RankingViewController: UICollectionViewDataSource {
             cell.foodImage.layer.cornerRadius = cell.foodImage.frame.height/2
             cell.foodImage.clipsToBounds = true
            
-            cell.foodImage.af_setImage(withURL: URL(string:product.image)!)
+            cell.loading.startAnimating()
+            cell.foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
+                cell.loading.stopAnimating()
+            })
+
             cell.orderNumLabel.text = (indexPath.item + 1).description
             cell.brandLabel.text = product.brand
             cell.PriceLabel.text = product.price.description + "원"
