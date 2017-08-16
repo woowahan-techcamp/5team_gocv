@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="ranking.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+</head>
+<body>
+<div class="rank-container">
+    <div class="rank-wrapper">
+        <ul class="rank-category-wrapper">
+            <li class="rank-category-tab selected-rank-category-tab" name="도시락">
+                도시락
+            </li>
+            <li class="rank-category-tab" name="김밥">
+                김밥
+            </li>
+            <li class="rank-category-tab" name="베이커리">
+                베이커리
+            </li>
+            <li class="rank-category-tab" name="라면">
+                라면
+            </li>
+            <li class="rank-category-tab" name="스낵">
+                스낵
+            </li>
+            <li class="rank-category-tab" name="유제품">
+                유제품
+            </li>
+            <li class="rank-category-tab" name="음료">
+                음료
+            </li>
+            <li class="rank-category-tab" name="즉석식품">
+                즉석식품
+            </li>
+        </ul>
+    </div>
+
+    <div class="rank-query-wrapper">
+        <ul class="rank-query-type-wrapper">
+            <li class="rank-query-tab selected-rank-query-tab" name="grade">평점순</li>
+            <li class="rank-query-tab" name="review">리뷰순</li>
+            <li class="rank-query-tab" name="row">낮은가격순</li>
+        </ul>
+    </div>
+
+    <div class="rank-brand-type-wrapper">
+        <ul class="rank-brand-type">
+            <li class="rank-brand-type-tab selected-rank-brand-type-tab" name="all">전체</li>
+            <li class="rank-brand-type-tab" name="gs25">GS25</li>
+            <li class="rank-brand-type-tab" name="cu">CU</li>
+            <li class="rank-brand-type-tab" name="seven">7ELEVEN</li>
+        </ul>
+    </div>
+
+    <div class="ranking-item-list-wrapper">
+
+    </div>
+</div>
+
+<script id="rank-card-template" type="text/x-handlebars-template">
+    {{#this}}
+    <div class="rank-card-content">
+        <img class="rank-card-image"
+             src="{{img}}"/>
+
+        <div class="rank-card-description">
+            <div class="rank-card-rating">
+                <div id="{{rating}}">
+                </div>
+            </div>
+
+            <div class="rank-card-name">상품명 : {{name}}</div>
+            <div class="rank-card-price">가격 : {{price}} 원</div>
+            <div class="rank-card-review">리뷰 : {{review}} 개</div>
+        </div>
+    </div>
+    {{/this}}
+</script>
+
+<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/handlebarsjs/4.0.8/handlebars.min.js"></script>
+<script type="text/javascript" src="ranking.js"></script>
+</body>
+</html>
