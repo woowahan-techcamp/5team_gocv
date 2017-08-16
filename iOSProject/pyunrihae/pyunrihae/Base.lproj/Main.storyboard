@@ -88,17 +88,6 @@
                                 <rect key="frame" x="0.0" y="240" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IqH-r8-0lP">
-                                <rect key="frame" x="10" y="488" width="355" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="전체보기 &gt;">
-                                    <color key="titleColor" red="0.31372549019607843" green="0.31372549019607843" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="didPressshowAllBtn:" destination="NeN-EZ-CjC" eventType="touchUpInside" id="dpD-Kg-2wj"/>
-                                </connections>
-                            </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="d0N-c5-gQZ">
                                 <rect key="frame" x="0.0" y="299" width="375" height="169"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -162,13 +151,12 @@
                                 </cells>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" red="0.98958333333333337" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="categoryScrollView" destination="ryG-Uu-J61" id="jCb-Q5-3Vr"/>
                         <outlet property="collectionView" destination="d0N-c5-gQZ" id="cpx-hO-ZUG"/>
                         <outlet property="reviewImageView" destination="ikf-Qp-r0w" id="sUI-VC-EqM"/>
-                        <outlet property="showAllBtn" destination="IqH-r8-0lP" id="btt-ah-Rq5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0kK-as-rNF" userLabel="First Responder" sceneMemberID="firstResponder"/>

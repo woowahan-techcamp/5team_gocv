@@ -11,15 +11,12 @@ import AlamofireImage
 import Alamofire
 
 class MainViewController: UIViewController {
-    @IBOutlet weak var showAllBtn: UIButton!
+
     @IBOutlet weak var reviewImageView: UIScrollView!
     @IBOutlet weak var collectionView : UICollectionView!
     @IBOutlet weak var categoryScrollView: CategoryScrollView!
     
-    @IBAction func didPressshowAllBtn(_ sender: UIButton){
-        NotificationCenter.default.post(name: NSNotification.Name("showRanking"), object: self)
-    }
-    
+
     var productList : [Product] = []
     var reviewList : [Review] = []
     var selectedBrandIndexFromTab : Int = 0 {
@@ -187,7 +184,7 @@ class MainViewController: UIViewController {
                     myImageView.frame.size.height = imageViewHeight
                     myImageView.frame.origin.x = xPosition
                     
-                    blackLayerView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+                    blackLayerView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
                     blackLayerView.frame.size.width = imageViewWidth
                     blackLayerView.frame.size.height = imageViewHeight
                     blackLayerView.frame.origin.x = xPosition
@@ -335,8 +332,7 @@ class MainViewController: UIViewController {
         didPressCategoryBtn(sender: categoryBtns[selectedCategoryIndex])
         reviewImageView.backgroundColor = UIColor.lightGray
         reviewImageView.isPagingEnabled = true
-        showAllBtn.layer.borderColor = UIColor.lightGray.cgColor
-        showAllBtn.layer.borderWidth = 1
+
         DataManager.getTop3Product() { (products) in
             self.productList = products
             DispatchQueue.main.async {
