@@ -86,7 +86,6 @@ class TabBarViewController: UIViewController {
         rankingViewController.addNotiObserver()
         reviewViewController.addNotiObserver() // 옵저버 미리 등록시켜주기
         viewControllers = [mainViewController,rankingViewController,reviewViewController,mypageViewController]
-        Button.changeColor(btn: searchBtn, color: UIColor.white, imageName: "search.png") //서치 이미지 하얀색 틴트로 바꾸기
         Button.select(btn: brandBtns[selectedBrandIndex]) // 맨 처음 브랜드는 전체 선택된 것으로 나타나게 함
         didPressBrandBtn(brandBtns[selectedBrandIndex])
         Button.select(btn: tabBtns[selectedTabIndex])
