@@ -10,7 +10,6 @@ import UIKit
 import Alamofire
 
 class ProductDetailViewController: UIViewController {
-    @IBOutlet weak var noReviewView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var writingReviewBtn: UIButton!
 
@@ -23,10 +22,6 @@ class ProductDetailViewController: UIViewController {
     func showProduct(_ notification: Notification) { // 넘어온 product 정보 받아서 화면 구성
         let product = notification.userInfo?["product"] as! Product
         SelectedProduct.foodId = product.id
-        SelectedProduct.brandName = product.brand
-        SelectedProduct.foodName = product.name
-        SelectedProduct.price = product.price
-        SelectedProduct.category = product.category
         SelectedProduct.reviewCount = 0
         DataManager.getReviewListBy(id: product.id) { (reviewList) in
             SelectedProduct.reviewCount = reviewList.count
@@ -36,10 +31,6 @@ class ProductDetailViewController: UIViewController {
     func showReviewProduct(_ notification: Notification) { // 넘어온 product 정보 받아서 화면 구성
         let product = notification.userInfo?["product"] as! Review
         SelectedProduct.foodId = product.p_id
-        SelectedProduct.brandName = product.brand
-        SelectedProduct.foodName = product.p_name
-        SelectedProduct.category = product.category
-        SelectedProduct.price = String(product.p_price)
         SelectedProduct.reviewCount = 0
         DataManager.getReviewListBy(id: product.p_id) { (reviewList) in
             SelectedProduct.reviewCount = reviewList.count
@@ -50,10 +41,6 @@ class ProductDetailViewController: UIViewController {
         DispatchQueue.main.async {
             DataManager.getReviewListBy(id: SelectedProduct.foodId) { (reviewList) in
                 SelectedProduct.reviewCount = reviewList.count
-                if SelectedProduct.reviewCount > 0 {
-                    self.noReviewView.isHidden = true
-                    self.noReviewView.frame.size.height = 0
-                }
                 self.tableView.reloadData()
             }
         }
@@ -85,6 +72,9 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
         if section == 0 {
             return 2
         } else {
+            if SelectedProduct.reviewCount == 0 {
+                return 3
+            }
             return SelectedProduct.reviewCount + 2 // 리뷰 수+2로 리턴해야 함
         }
     }
@@ -96,20 +86,20 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                 cell.eventLabel.textColor = UIColor.red
                 Image.makeCircleImage(image: cell.foodImage)
                 DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
+                    cell.priceLabel.text = product.price + "원"
+                    cell.brandLabel.text = product.brand
+                    cell.foodNameLabel.text = product.name
                     if product.event.count > 0 && product.event[0] != "\r" { //이벤트 데이터 베이스 수정 필요
                         cell.eventLabel.text = product.event[0]
                     } else {
                         cell.eventLabel.isHidden = true
                     }
-                    
+                    cell.loading.startAnimating()
                     cell.foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
                         cell.loading.stopAnimating()
                     })
                     
                 }
-                cell.priceLabel.text = SelectedProduct.price + "원"
-                cell.brandLabel.text = SelectedProduct.brandName
-                cell.foodNameLabel.text = SelectedProduct.foodName
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath) as! ProductDetailInfoTableViewCell
@@ -145,14 +135,29 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                 Image.makeCircleImage(image: cell.userImage)
                 cell.reviewBoxView.layer.cornerRadius = 10
                 let row = indexPath.row - 2
+                if SelectedProduct.reviewCount != 0 {
+                    cell.noReviewView.isHidden = true
+                }
                 DataManager.getReviewListBy(id: SelectedProduct.foodId) { (reviewList) in
                     if reviewList.count == SelectedProduct.reviewCount && reviewList.count > 0 {
                         cell.badNumLabel.text = String(reviewList[row].bad)
                         cell.usefulNumLabel.text = String(reviewList[row].useful)
                         cell.detailReviewLabel.text = reviewList[row].comment
                         cell.userNameLabel.text = reviewList[row].user
-                        cell.userImage.af_setImage(withURL: URL(string: reviewList[row].user_image)!)
-                        cell.uploadedFoodImage.af_setImage(withURL: URL(string: reviewList[row].p_image)!)
+                        
+                        cell.userImageLoading.startAnimating()
+                        cell.userImage.af_setImage(withURL: URL(string: reviewList[row].user_image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
+                            cell.userImageLoading.stopAnimating()
+                        })
+                        
+                        if reviewList[row].p_image != "" {
+                            cell.uploadedImageLoading.startAnimating()
+                            cell.uploadedFoodImage.af_setImage(withURL: URL(string: reviewList[row].p_image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
+                                cell.uploadedImageLoading.stopAnimating()
+                            })
+                        } else {
+                            cell.uploadedFoodImage.isHidden = true
+                        }
                         
                         for sub in cell.starView.subviews {
                             sub.removeFromSuperview()

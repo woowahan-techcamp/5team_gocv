@@ -37,12 +37,13 @@ class WritingReviewViewController: UIViewController {
     }
     @IBAction func tabCompleteBtn(_ sender: UIButton) {
         let user_image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQh3QnWlH0HMsLC6-ZNQD2ZAA0hcipgx09OuUm2cS0hiIeW-RWX"
-        let p_image = "http://image.hankookilbo.com/i.aspx?Guid=168c62cc358146b38936949e82bd4833&Month=DirectUpload&size=640"
         if checkGrade && checkPriceLevel && checkFlavorLevel && checkQuantityLevel {
             SelectedAllergy.allergyList = []
-            DataManager.writeReview(brand: SelectedProduct.brandName, category: SelectedProduct.category, grade: grade, priceLevel: priceLevel, flavorLevel: flavorLevel, quantityLevel: quantityLevel, allergy: allergy, review: detailReview.text, user: "test", user_image: user_image, p_id: SelectedProduct.foodId, p_image: p_image, p_name: SelectedProduct.foodName, p_price: Int(SelectedProduct.price)!){
-                self.navigationController?.popToRootViewController(animated: true)
-                NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
+            DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
+                DataManager.writeReview(brand: product.name, category: product.category, grade: self.grade, priceLevel: self.priceLevel, flavorLevel: self.flavorLevel, quantityLevel: self.quantityLevel, allergy: self.allergy, review: self.detailReview.text, user: "test", user_image: user_image, p_id: product.id, p_image: self.reviewImage, p_name: product.name, p_price: Int(product.price)!){
+                    self.navigationController?.popToRootViewController(animated: true)
+                    NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
+                }
             }
         } else {
             let alert = UIAlertController(title: "리뷰를 완성해주세요!", message: "\r별점 및 상세 평점을 모두 채워주세요 :)", preferredStyle: .alert)
@@ -182,15 +183,15 @@ class WritingReviewViewController: UIViewController {
         addFlavorLevelBtn()
         addQuantityLevelBtn()
         Image.makeCircleImage(image: productImage)
-        productNameLabel.text = SelectedProduct.foodName
-        brandLabel.text = SelectedProduct.brandName
-        priceLabel.text = SelectedProduct.price + "원"
         
+        loading.startAnimating()
         DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
+            self.productNameLabel.text = product.name
+            self.brandLabel.text = product.brand
+            self.priceLabel.text = product.price + "원"
             self.productImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
                 self.loading.stopAnimating()
             })
-            
         }
         
         detailReview.layer.borderWidth = 0.7
