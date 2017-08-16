@@ -48,6 +48,7 @@
 		98B73F861F39394500E55420 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B73F851F39394500E55420 /* Review.swift */; };
 		98B73F881F394CAB00E55420 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B73F871F394CAB00E55420 /* Product.swift */; };
 		98C5AACE1F33FAE800610115 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C5AACD1F33FAE800610115 /* MainViewController.swift */; };
+		98D5690C1F444DB1002693E9 /* WaitingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D5690B1F444DB1002693E9 /* WaitingViewController.swift */; };
 		98D9F2DF1F418DF3009D0E10 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 98D9F2CE1F418DF3009D0E10 /* LICENSE */; };
 		98D9F2E01F418DF3009D0E10 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 98D9F2CF1F418DF3009D0E10 /* README.md */; };
 		98D9F2E11F418DF3009D0E10 /* Objectification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D9F2D11F418DF3009D0E10 /* Objectification.swift */; };
@@ -165,6 +166,7 @@
 		98B73F871F394CAB00E55420 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		98C5AACD1F33FAE800610115 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		98C5AAD71F342C3900610115 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		98D5690B1F444DB1002693E9 /* WaitingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingViewController.swift; sourceTree = "<group>"; };
 		98D9F2CE1F418DF3009D0E10 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		98D9F2CF1F418DF3009D0E10 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		98D9F2D11F418DF3009D0E10 /* Objectification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Objectification.swift; sourceTree = "<group>"; };
@@ -339,6 +341,7 @@
 		98D819031F32F99C00BE2A95 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
+				98D5690B1F444DB1002693E9 /* WaitingViewController.swift */,
 				9865E4F51F387C7A00014795 /* TabBarViewController.swift */,
 				98C5AACD1F33FAE800610115 /* MainViewController.swift */,
 				981E93291F38666E004BE63B /* RankingViewController.swift */,
@@ -814,6 +817,7 @@
 				98D9F2E61F418DF3009D0E10 /* YNSearchExtension.swift in Sources */,
 				98D9F2EA1F418DF3009D0E10 /* YNSearchMainView.swift in Sources */,
 				9865E5221F3AD8BE00014795 /* RankingCollectionViewCell.swift in Sources */,
+				98D5690C1F444DB1002693E9 /* WaitingViewController.swift in Sources */,
 				9865E5241F3AE04C00014795 /* Label.swift in Sources */,
 				9865E55A1F3D837200014795 /* SelectedProduct.swift in Sources */,
 				9865E5341F3AFEFE00014795 /* WritingReviewViewController.swift in Sources */,
