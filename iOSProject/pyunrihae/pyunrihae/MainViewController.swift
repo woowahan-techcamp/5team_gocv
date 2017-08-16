@@ -359,42 +359,42 @@ extension MainViewController: UICollectionViewDataSource { //메인화면에서 
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? MainRankCollectionViewCell {
-//            cell.foodImage.layer.cornerRadius = cell.foodImage.frame.height/2
-//            cell.foodImage.clipsToBounds = true
-//            cell.rankLabel.layer.cornerRadius = cell.rankLabel.frame.height/2
-//            cell.rankLabel.layer.masksToBounds = true
+
+
             
-            if indexPath.row == 0{
-                if productList.count > 0 {
-                    cell.loading.startAnimating()
-                    cell.foodImage.af_setImage(withURL: URL(string: productList[0].image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
-                        cell.loading.stopAnimating()
-                    })
-                    cell.brandLabel.text  = productList[0].brand
-                    cell.nameLabel.text = productList[0].name
+            if (productList.count > 2) && (indexPath.item < 3) {
+                cell.loading.startAnimating()
+                cell.foodImage.af_setImage(withURL: URL(string: productList[indexPath.item].image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
+                    cell.loading.stopAnimating()
+                })
+                
+                for sub in cell.brandLabel.subviews {
+                    sub.removeFromSuperview()
                 }
                 
-                cell.rankLabel.text = "1"
-            } else if indexPath.row == 1{
-                if productList.count > 0 {
-                    cell.loading.startAnimating()
-                    cell.foodImage.af_setImage(withURL: URL(string: productList[1].image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
-                        cell.loading.stopAnimating()
-                    })
-                    cell.brandLabel.text  = productList[1].brand
-                    cell.nameLabel.text = productList[1].name
+                let imageview : UIImageView = UIImageView()
+                switch (productList[indexPath.item].brand) {
+                case "gs25":
+                    imageview.image = #imageLiteral(resourceName: "logo_gs25.png")
+                    imageview.frame.size.width = 35;
+                    imageview.frame.size.height = 15;
+                    imageview.center = CGPoint.init(x: cell.brandLabel.frame.size.width  / 2, y: cell.brandLabel.frame.size.height / 2);
+                case "7-eleven":
+                    imageview.image = #imageLiteral(resourceName: "logo_7eleven.png")
+                    imageview.frame.size.width = 66;
+                    imageview.frame.size.height = 12;
+                    imageview.center = CGPoint.init(x: cell.brandLabel.frame.size.width  / 2, y: cell.brandLabel.frame.size.height / 2);
+                case "CU":
+                    imageview.image = #imageLiteral(resourceName: "logo_cu.png")
+                    imageview.frame.size.width = 32;
+                    imageview.frame.size.height = 14;
+                    imageview.center = CGPoint.init(x: cell.brandLabel.frame.size.width  / 2, y: cell.brandLabel.frame.size.height / 2);
+                default : break;
                 }
-                cell.rankLabel.text = "2"
-            } else {
-                if productList.count > 0 {
-                    cell.loading.startAnimating()
-                    cell.foodImage.af_setImage(withURL: URL(string: productList[2].image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
-                        cell.loading.stopAnimating()
-                    })
-                    cell.brandLabel.text  = productList[2].brand
-                    cell.nameLabel.text = productList[2].name
-                }
-                cell.rankLabel.text = "3"
+                
+                cell.brandLabel.addSubview(imageview)
+                cell.nameLabel.text = productList[indexPath.item].name
+                cell.rankLabel.text = (indexPath.item + 1).description
             }
             
             return cell
@@ -402,6 +402,7 @@ extension MainViewController: UICollectionViewDataSource { //메인화면에서 
         
         return MainRankCollectionViewCell()
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let cell = sender as! MainRankCollectionViewCell
         let indexRow = self.collectionView!.indexPath(for: cell)?.row
