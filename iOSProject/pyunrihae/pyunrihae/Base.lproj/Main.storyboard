@@ -1286,10 +1286,10 @@
             </objects>
             <point key="canvasLocation" x="1727.2" y="2405.8470764617691"/>
         </scene>
-        <!--로그인 Scene-->
+        <!--로그인회원가입-->
         <scene sceneID="rrK-yl-amE">
             <objects>
-                <viewController storyboardIdentifier="LoginViewController" title="로그인 Scene" id="diG-g8-7uo" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginSignUpViewController" title="로그인회원가입" id="diG-g8-7uo" customClass="LoginSignUpViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hRG-id-eRT"/>
                         <viewControllerLayoutGuide type="bottom" id="jaf-Jk-sNQ"/>
@@ -1297,12 +1297,36 @@
                     <view key="view" contentMode="scaleToFill" id="QAN-AJ-ueM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="EY0-lI-LAh">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OJX-5H-CNK">
+                                <rect key="frame" x="28" y="535" width="320" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="ic_emailsignup.png"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Egl-G9-nsF">
+                                <rect key="frame" x="28" y="602" width="320" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="ic_login.png"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6QF-Ys-NgG">
+                                <rect key="frame" x="16" y="24" width="32" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="ic_close.png"/>
+                                <connections>
+                                    <action selector="onTouchCloseButton:" destination="diG-g8-7uo" eventType="touchUpInside" id="LOR-PN-N5z"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mKy-Dt-uHw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2116" y="2939"/>
+            <point key="canvasLocation" x="-2116" y="2938.3808095952027"/>
         </scene>
         <!--Review View Controller-->
         <scene sceneID="M9W-Bx-XYt">
@@ -1510,7 +1534,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZtX-Y0-mGN">
-                                <rect key="frame" x="0.0" y="152" width="375" height="180"/>
+                                <rect key="frame" x="0.0" y="152" width="375" height="326"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -1540,6 +1564,7 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <sections/>
                             </tableView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="search.png" translatesAutoresizingMaskIntoConstraints="NO" id="UZ3-IR-ABc">
                                 <rect key="frame" x="49" y="48" width="57" height="57"/>
@@ -1577,10 +1602,14 @@
     </scenes>
     <resources>
         <image name="back.png" width="100" height="100"/>
+        <image name="bg_login.png" width="750" height="1334"/>
         <image name="check.png" width="2400" height="2400"/>
         <image name="dropdown.png" width="1920" height="1920"/>
+        <image name="ic_close.png" width="44" height="42"/>
+        <image name="ic_emailsignup.png" width="640" height="100"/>
         <image name="ic_home.png" width="44" height="74"/>
         <image name="ic_home_selected.png" width="44" height="74"/>
+        <image name="ic_login.png" width="640" height="100"/>
         <image name="ic_my.png" width="86" height="70"/>
         <image name="ic_my_selected.png" width="86" height="70"/>
         <image name="ic_ranking.png" width="46" height="74"/>

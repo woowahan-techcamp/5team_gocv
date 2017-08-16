@@ -89,6 +89,13 @@
 		98F8659B1F4407A700C2F333 /* ic_ranking.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F865931F4407A700C2F333 /* ic_ranking.png */; };
 		98F8659C1F4407A700C2F333 /* ic_review_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F865941F4407A700C2F333 /* ic_review_selected.png */; };
 		98F8659D1F4407A700C2F333 /* ic_review.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F865951F4407A700C2F333 /* ic_review.png */; };
+		98F865A11F442A3000C2F333 /* ic_login.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F8659E1F442A3000C2F333 /* ic_login.png */; };
+		98F865A21F442A3000C2F333 /* ic_emailsignup.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F8659F1F442A3000C2F333 /* ic_emailsignup.png */; };
+		98F865A31F442A3000C2F333 /* bg_login.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F865A01F442A3000C2F333 /* bg_login.png */; };
+		98F865A51F442B3800C2F333 /* LoginSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F865A41F442B3800C2F333 /* LoginSignUpViewController.swift */; };
+		98F865A71F442EE100C2F333 /* ic_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F865A61F442EE100C2F333 /* ic_close.png */; };
+		98F865A91F442F8700C2F333 /* ic_mail.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F865A81F442F8700C2F333 /* ic_mail.png */; };
+		98F865AB1F442F8B00C2F333 /* ic_password.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F865AA1F442F8B00C2F333 /* ic_password.png */; };
 		9C668EF8CEE8D438D3632CC9 /* Pods_pyunrihaeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1319BEB880E29049AC8F0515 /* Pods_pyunrihaeTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -203,6 +210,13 @@
 		98F865931F4407A700C2F333 /* ic_ranking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_ranking.png; sourceTree = "<group>"; };
 		98F865941F4407A700C2F333 /* ic_review_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_review_selected.png; sourceTree = "<group>"; };
 		98F865951F4407A700C2F333 /* ic_review.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_review.png; sourceTree = "<group>"; };
+		98F8659E1F442A3000C2F333 /* ic_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_login.png; sourceTree = "<group>"; };
+		98F8659F1F442A3000C2F333 /* ic_emailsignup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_emailsignup.png; sourceTree = "<group>"; };
+		98F865A01F442A3000C2F333 /* bg_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_login.png; sourceTree = "<group>"; };
+		98F865A41F442B3800C2F333 /* LoginSignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginSignUpViewController.swift; sourceTree = "<group>"; };
+		98F865A61F442EE100C2F333 /* ic_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_close.png; sourceTree = "<group>"; };
+		98F865A81F442F8700C2F333 /* ic_mail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_mail.png; sourceTree = "<group>"; };
+		98F865AA1F442F8B00C2F333 /* ic_password.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_password.png; sourceTree = "<group>"; };
 		C9D07E3D80B114A5E56DAC60 /* Pods-pyunrihaeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pyunrihaeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pyunrihaeTests/Pods-pyunrihaeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EF44EF9D49A783BEA8DDF20D /* Pods-pyunrihaeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pyunrihaeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-pyunrihaeTests/Pods-pyunrihaeTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -261,6 +275,10 @@
 		98D819011F32F97D00BE2A95 /* Asset */ = {
 			isa = PBXGroup;
 			children = (
+				98F8659E1F442A3000C2F333 /* ic_login.png */,
+				98F8659F1F442A3000C2F333 /* ic_emailsignup.png */,
+				98F865A61F442EE100C2F333 /* ic_close.png */,
+				98F865A01F442A3000C2F333 /* bg_login.png */,
 				98F172F01F32EDB70044FD0D /* Assets.xcassets */,
 				9865E5431F3C1D4200014795 /* star.png */,
 				9865E5391F3BD81E00014795 /* back.png */,
@@ -271,6 +289,8 @@
 				98F8657F1F43FB1A00C2F333 /* star2.png */,
 				98F865881F44021000C2F333 /* logo_cu.png */,
 				98F865891F44021000C2F333 /* logo_7eleven.png */,
+				98F865AA1F442F8B00C2F333 /* ic_password.png */,
+				98F865A81F442F8700C2F333 /* ic_mail.png */,
 				98F8658A1F44021000C2F333 /* logo_gs25.png */,
 				98F8658E1F4407A700C2F333 /* ic_home_selected.png */,
 				98F8658F1F4407A700C2F333 /* ic_home.png */,
@@ -324,6 +344,7 @@
 				9865E53B1F3C0BD500014795 /* AllergyViewController.swift */,
 				9865E56B1F42E55E00014795 /* BigImageViewController.swift */,
 				98DED89A1F41729100CC4D63 /* SearchViewController.swift */,
+				98F865A41F442B3800C2F333 /* LoginSignUpViewController.swift */,
 			);
 			name = "View Controller";
 			sourceTree = "<group>";
@@ -577,9 +598,11 @@
 				98F8659A1F4407A700C2F333 /* ic_ranking_selected.png in Resources */,
 				98F865851F43FB1A00C2F333 /* star3.png in Resources */,
 				98F8658D1F44021000C2F333 /* logo_gs25.png in Resources */,
+				98F865A11F442A3000C2F333 /* ic_login.png in Resources */,
 				98F865971F4407A700C2F333 /* ic_home.png in Resources */,
 				9865E5421F3C141C00014795 /* plus.png in Resources */,
 				98DED89C1F41732700CC4D63 /* Main.storyboard in Resources */,
+				98F865A31F442A3000C2F333 /* bg_login.png in Resources */,
 				9865E5401F3C10A400014795 /* check.png in Resources */,
 				98F865861F43FB1A00C2F333 /* star4.png in Resources */,
 				98D9F2DF1F418DF3009D0E10 /* LICENSE in Resources */,
@@ -587,6 +610,8 @@
 				98F865871F43FB1A00C2F333 /* star5.png in Resources */,
 				98D9F2E41F418DF3009D0E10 /* YNSearch.xcassets in Resources */,
 				984395861F32F29A0016B67D /* GoogleService-Info.plist in Resources */,
+				98F865AB1F442F8B00C2F333 /* ic_password.png in Resources */,
+				98F865A71F442EE100C2F333 /* ic_close.png in Resources */,
 				98F8659B1F4407A700C2F333 /* ic_ranking.png in Resources */,
 				98F865981F4407A700C2F333 /* ic_my_selected.png in Resources */,
 				9865E53A1F3BD81E00014795 /* back.png in Resources */,
@@ -596,6 +621,8 @@
 				9865E5441F3C1D4200014795 /* star.png in Resources */,
 				98F8659D1F4407A700C2F333 /* ic_review.png in Resources */,
 				98F865831F43FB1A00C2F333 /* star1.png in Resources */,
+				98F865A21F442A3000C2F333 /* ic_emailsignup.png in Resources */,
+				98F865A91F442F8700C2F333 /* ic_mail.png in Resources */,
 				9865E5141F39A92700014795 /* dropdown.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -759,6 +786,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98F865A51F442B3800C2F333 /* LoginSignUpViewController.swift in Sources */,
 				98D9F2E31F418DF3009D0E10 /* YNSearch.swift in Sources */,
 				98DED89B1F41729100CC4D63 /* SearchViewController.swift in Sources */,
 				9865E4F61F387C7A00014795 /* TabBarViewController.swift in Sources */,
