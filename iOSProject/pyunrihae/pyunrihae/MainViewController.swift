@@ -43,10 +43,11 @@ class MainViewController: UIViewController {
         categoryScrollView.contentSize.width = CGFloat(80 * category.count)
         for index in 0..<category.count {
             let categoryBtn = UIButton(frame: CGRect(x: 80 * index, y: 10, width: 80, height: 40))
+            let color = UIColor(red: CGFloat(102.0 / 255.0), green: CGFloat(102.0 / 255.0),  blue: CGFloat(102.0 / 255.0), alpha: CGFloat(1.0))
             categoryBtn.setTitle(category[index], for: .normal) // 카테고리 버튼 텍스트
-            categoryBtn.setTitleColor(UIColor.darkGray, for: .normal) // 카테고리 버튼 텍스트 색깔
+            categoryBtn.setTitleColor(color, for: .normal) // 카테고리 버튼 텍스트 색깔
             categoryBtn.contentHorizontalAlignment = .center // 카테고리 버튼 중앙정렬
-            categoryBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15) // 카테고리 버튼 폰트 크기 15
+            categoryBtn.titleLabel?.font = categoryBtn.titleLabel?.font.withSize(13) // 카테고리 버튼 폰트 크기 13
             categoryBtn.tag = index // 버튼 태그 생성해주기
             categoryBtns.append(categoryBtn)
             categoryBtn.addTarget(self, action: #selector(didPressCategoryBtn), for: UIControlEvents.touchUpInside)
@@ -296,10 +297,10 @@ extension MainViewController: UICollectionViewDataSource { //메인화면에서 
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? MainRankCollectionViewCell {
-            cell.foodImage.layer.cornerRadius = cell.foodImage.frame.height/2
-            cell.foodImage.clipsToBounds = true
-            cell.rankLabel.layer.cornerRadius = cell.rankLabel.frame.height/2
-            cell.rankLabel.layer.masksToBounds = true
+//            cell.foodImage.layer.cornerRadius = cell.foodImage.frame.height/2
+//            cell.foodImage.clipsToBounds = true
+//            cell.rankLabel.layer.cornerRadius = cell.rankLabel.frame.height/2
+//            cell.rankLabel.layer.masksToBounds = true
             
             if indexPath.row == 0{
                 if productList.count > 0 {
@@ -311,9 +312,7 @@ extension MainViewController: UICollectionViewDataSource { //메인화면에서 
                     cell.nameLabel.text = productList[0].name
                 }
                 
-                cell.rankLabel.text = "1위"
-                cell.rankLabel.backgroundColor = UIColor.orange
-                cell.rankLabel.textColor = UIColor.white
+                cell.rankLabel.text = "1"
             } else if indexPath.row == 1{
                 if productList.count > 0 {
                     cell.loading.startAnimating()
@@ -323,9 +322,7 @@ extension MainViewController: UICollectionViewDataSource { //메인화면에서 
                     cell.brandLabel.text  = productList[1].brand
                     cell.nameLabel.text = productList[1].name
                 }
-                cell.rankLabel.text = "2위"
-                cell.rankLabel.backgroundColor = UIColor.lightGray
-                cell.rankLabel.textColor = UIColor.white
+                cell.rankLabel.text = "2"
             } else {
                 if productList.count > 0 {
                     cell.loading.startAnimating()
@@ -335,9 +332,7 @@ extension MainViewController: UICollectionViewDataSource { //메인화면에서 
                     cell.brandLabel.text  = productList[2].brand
                     cell.nameLabel.text = productList[2].name
                 }
-                cell.rankLabel.text = "3위"
-                cell.rankLabel.backgroundColor = UIColor.brown
-                cell.rankLabel.textColor = UIColor.white
+                cell.rankLabel.text = "3"
             }
             
             return cell

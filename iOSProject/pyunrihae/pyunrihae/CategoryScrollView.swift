@@ -12,8 +12,8 @@ class CategoryScrollView: UIScrollView {
 
     override func draw(_ rect: CGRect) {
         let color = UIColor(red: CGFloat(Float(0x90) / 255.0), green: CGFloat(Float(0x90) / 255.0),  blue: CGFloat(Float(0x90) / 255.0), alpha: CGFloat(Float(0.5)))
-        self.layer.borderColor = color.cgColor
-        self.layer.borderWidth = 0.5
+//        self.layer.borderColor = color.cgColor
+//        self.layer.borderWidth = 0.5
         
     }
 
