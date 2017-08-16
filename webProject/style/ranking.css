@@ -2,20 +2,26 @@
     /*background-color: blue;*/
     width: 100%;
     margin: auto;
+    margin-top: 200px;
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
 }
 
 .main-rank-header {
-    margin-top: 300px;
+    position: relative;
+    top:100px;
     text-align: center;
+    line-height: 100px;
+    height: 100px;
     font-size: 25px;
 }
 
 .main-div-wrapper {
-    margin-top: 15px;
+
+    margin-top: 100px;
 }
 
 .main-rank-tab-wrapper {
-    margin: 50px auto auto auto;
+    margin: 100px auto auto auto;
     /*background-color: red;*/
     text-align: center;
     width: 90%;
@@ -128,4 +134,66 @@
 
 .card-main-rank-price {
     margin-top: 10px;
+}
+
+@media( max-width: 780px ) {
+    .main-rank-wrapper {
+        width: 100%;
+        height: 1700px;
+        margin: auto;
+        margin-top: 200px;
+        background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+    }
+
+    .main-rank-header {
+        position: relative;
+        top:100px;
+        text-align: center;
+        line-height: 100px;
+        height: 100px;
+        font-size: 25px;
+    }
+
+
+    .main-rank-tab-wrapper {
+        margin: 100px auto auto auto;
+        /*background-color: red;*/
+        text-align: center;
+        width: 90%;
+    }
+
+    .main-rank-tab {
+        margin-top: 10px;
+        width: 20%;
+    }
+
+
+    .main-rank-selectedtab {
+        background-color: #ff5853;
+        color: white;
+    }
+
+    .main-rank-content {
+        text-align: center;
+        width: 70%;
+        height: 1000px;
+        margin: 50px auto auto auto;
+    }
+
+    .card-main-rank-wrapper {
+        margin: 30px auto auto auto;
+        width: 100%;
+        text-align: center;
+    }
+
+    .card-main-rank-content {
+        margin-top: 80px;
+        width: 100%;
+        float: left;
+        height: 30%;
+        border-radius: 2%;
+    }
+
+
+
 }
