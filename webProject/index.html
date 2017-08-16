@@ -97,7 +97,7 @@
 </div>
 
 <!--메인 페이지-->
-<div style="" class="main-wrapper">
+<div style="display:none" class="main-wrapper">
 
     <!--carousel 구현-->
     <div class="carousel-wrapper">
@@ -373,12 +373,331 @@
             </div>
         </div>
 
-        <div style="top:-150px;" class="line"></div>
+        <div style="height: 0px">
+            <div class="popup-reviewCount"><img
+                    style="width: 2%; filter: brightness(50%); margin-top: 20px; margin-left: 5px"
+                    src="image/review_icon.png"> 소비자 리뷰 ( 305 )
+            </div>
 
-        <div style="position:relative; top:-70px; margin-left:5%; color: gray; font-size: 20px">
-            소비자 리뷰
+            <a href="#"><div class="popup-reviewFilter"></div></a>
+            <a href="#"><div class="popup-reviewWrite"></div></a>
         </div>
-        <div style="top:-50px;" class="line"></div>
+
+        <div class="line"></div>
+
+
+
+
+
+        <div style="display: none" class="popup-newReviewWrapper">
+            <div class="popup-newReviewWrapper-top">
+                <div class="popup-newReview-product"> 상품 리뷰 쓰기  </div>
+                <div class="popup-newReview-cancel"></div>
+            </div>
+            <div class="popup-newReviewWrapper-mid">
+                <div class="popup-newReview-image">
+                    <div class="popup-newReview-imageEle"></div>
+                    <div class="popup-popup-newReview-imageAdd">이미지 추가 </div>
+                </div>
+                <div class="popup-newReview-scoreWrapper">
+                    <div class="popup-newReview-star">별</div>
+                    <div class="popup-newReview-star2">
+                        <div id="popupStar"></div>
+                    </div>
+                    <div class="popup-newReview-price">가격</div>
+                    <div class="popup-newReview-price2">
+                        <ul class="newReview-list">
+                            <li name="1" class="newReview-element">비싸다</li>
+                            <li name="2" class="newReview-element">비싼편</li>
+                            <li name="3" class="newReview-element">적당</li>
+                            <li name="4" class="newReview-element">싼편</li>
+                            <li name="5" class="newReview-element">싸다</li>
+                        </ul>
+                    </div>
+
+                    <div class="popup-newReview-flavor">맛</div>
+                    <div class="popup-newReview-flavor2">
+                        <ul class="newReview-list">
+                            <li name="1" class="newReview-element">노맛</li>
+                            <li name="2" class="newReview-element">별로</li>
+                            <li name="3" class="newReview-element">적당</li>
+                            <li name="4" class="newReview-element">괜춘</li>
+                            <li name="5" class="newReview-element">존맛</li>
+                        </ul>
+                    </div>
+                    <div class="popup-newReview-quantity">양</div>
+                    <div class="popup-newReview-quantity2">
+                        <ul class="newReview-list">
+                            <li name="1" class="newReview-element">창렬</li>
+                            <li name="2" class="newReview-element">적음</li>
+                            <li name="3" class="newReview-element">적당</li>
+                            <li name="4" class="newReview-element">많음</li>
+                            <li name="5" class="newReview-element">혜자 </li>
+                        </ul>
+                    </div>
+                </div>
+                <input class="popup-newReview-comment" type="text" value="부담없이 리뷰를 작성하세요!"/>
+            </div>
+            <div class="popup-newReviewWrapper-bottom">
+                <div class="popup-newReview-addAllegy">알레르기 성분 추가</div>
+                <div class="popup-newReview-completeBtn">등록</div>
+            </div>
+
+        </div>
+
+
+        <div class="popup-reviewWrapper">
+            <ul class="popup-reviewWrapperList">
+                <li class="popup-review">
+                    <div class="popup-review-top">
+                        <div class="popup-review-profile"></div>
+                        <div class="popup-review-nameTime">
+                            <div style="font-size: 12px" class="popup-review-time"> 2017-08-14</div>
+                            <div class="popup-review-name"> 통통</div>
+                        </div>
+                        <div style="height: 80px" class="carousel-review-star">
+                            <ul>
+                                <li class="carousel-review-starElement popup-review-star"></li>
+                                <li class="carousel-review-starElement popup-review-star"></li>
+                                <li class="carousel-review-starElement popup-review-star"></li>
+                                <li class="carousel-review-starElement popup-review-star"></li>
+                                <li style="display:none" class="carousel-review-starElement popup-review-star"></li>
+                            </ul>
+                        </div>
+                        <div class="popup-review-eval">
+
+                            <div style="float:right; width: 130px">
+                                <div>
+                                    <div class="popup-review-good">유용해요</div>
+                                    <div class="popup-review-good2">120</div>
+                                </div>
+                                <div>
+                                    <div class="popup-review-bad"> 별로에요</div>
+                                    <div class="popup-review-bad2"> 50</div>
+                                </div>
+                            </div>
+
+                            <div class="popup-review-pfq">
+
+
+                                <div class="popup-review-pfq-q">
+                                    <div class="popup-review-pfq-top">양</div>
+                                    <div class="popup-review-pfq-bottom">적당</div>
+                                </div>
+                                <div class="popup-review-pfq-f">
+                                    <div class="popup-review-pfq-top">맛</div>
+                                    <div class="popup-review-pfq-bottom">존맛</div>
+                                </div>
+                                <div class="popup-review-pfq-p">
+                                    <div class="popup-review-pfq-top">가격</div>
+                                    <div class="popup-review-pfq-bottom">비쌈</div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="popup-review-bottom">
+                        <div class="popup-review-image"></div>
+                        <div class="popup-review-comment"> 사용자 코멘트.. 사용자 코멘트.. 사용자 코멘트..사용자 코멘트
+                            사용자 코멘트.. 사용자 코멘트.. 사용자 코멘트..사용자 코멘
+                            사용자 코멘트.. 사용자 코멘트.. 사용자 코멘트..사용자 코멘
+                            사용자 코멘트.. 사용자 코멘트.. 사용자 코멘트..사용자 코멘
+                            사용자 코멘트.. 사용자 코멘트.. 사용자 코멘트..사용자 코멘
+                            사용자 코멘트.. 사용자 코멘트.. 사용자 코멘트..사용자 코멘
+                        </div>
+                    </div>
+
+                </li>
+                </li>
+                <li class="popup-review">
+                    <div class="popup-review-top">
+                        <div class="popup-review-profile"></div>
+                        <div class="popup-review-nameTime">
+                            <div style="font-size: 12px" class="popup-review-time"> 2017-08-14</div>
+                            <div class="popup-review-name"> 통통</div>
+                        </div>
+                        <div style="height: 80px" class="carousel-review-star">
+                            <ul>
+                                <li class="carousel-review-starElement popup-review-star"></li>
+                                <li class="carousel-review-starElement popup-review-star"></li>
+                                <li class="carousel-review-starElement popup-review-star"></li>
+                                <li class="carousel-review-starElement popup-review-star"></li>
+                                <li style="display:none" class="carousel-review-starElement popup-review-star"></li>
+                            </ul>
+                        </div>
+                        <div class="popup-review-eval">
+
+                            <div style="float:right; width: 130px">
+                                <div>
+                                    <div class="popup-review-good">유용해요</div>
+                                    <div class="popup-review-good2">120</div>
+                                </div>
+                                <div>
+                                    <div class="popup-review-bad"> 별로에요</div>
+                                    <div class="popup-review-bad2"> 50</div>
+                                </div>
+                            </div>
+
+                            <div class="popup-review-pfq">
+
+
+                                <div class="popup-review-pfq-q">
+                                    <div class="popup-review-pfq-top">양</div>
+                                    <div class="popup-review-pfq-bottom">적당</div>
+                                </div>
+                                <div class="popup-review-pfq-f">
+                                    <div class="popup-review-pfq-top">맛</div>
+                                    <div class="popup-review-pfq-bottom">존맛</div>
+                                </div>
+                                <div class="popup-review-pfq-p">
+                                    <div class="popup-review-pfq-top">가격</div>
+                                    <div class="popup-review-pfq-bottom">비쌈</div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="popup-review-bottom">
+                        <div class="popup-review-image"></div>
+                        <div class="popup-review-comment"> 사용자 코멘트.. 사용자 코멘트.. 사용자 코멘트..사용자 코멘트
+                            사용자 코멘트.. 사용자 코멘트.. 사용자 코멘트..사용자 코멘
+                            사용자 코멘트.. 사용자 코멘트.. 사용자 코멘트..사용자 코멘
+                            사용자 코멘트.. 사용자 코멘트.. 사용자 코멘트..사용자 코멘
+                            사용자 코멘트.. 사용자 코멘트.. 사용자 코멘트..사용자 코멘
+                            사용자 코멘트.. 사용자 코멘트.. 사용자 코멘트..사용자 코멘
+                        </div>
+                    </div>
+
+                </li>
+                </li>
+                <li class="popup-review">
+                    <div class="popup-review-top">
+                        <div class="popup-review-profile"></div>
+                        <div class="popup-review-nameTime">
+                            <div style="font-size: 12px" class="popup-review-time"> 2017-08-14</div>
+                            <div class="popup-review-name"> 통통</div>
+                        </div>
+                        <div style="height: 80px" class="carousel-review-star">
+                            <ul>
+                                <li class="carousel-review-starElement popup-review-star"></li>
+                                <li class="carousel-review-starElement popup-review-star"></li>
+                                <li class="carousel-review-starElement popup-review-star"></li>
+                                <li class="carousel-review-starElement popup-review-star"></li>
+                                <li style="display:none" class="carousel-review-starElement popup-review-star"></li>
+                            </ul>
+                        </div>
+                        <div class="popup-review-eval">
+
+                            <div style="float:right; width: 130px">
+                                <div>
+                                    <div class="popup-review-good">유용해요</div>
+                                    <div class="popup-review-good2">120</div>
+                                </div>
+                                <div>
+                                    <div class="popup-review-bad"> 별로에요</div>
+                                    <div class="popup-review-bad2"> 50</div>
+                                </div>
+                            </div>
+
+                            <div class="popup-review-pfq">
+
+
+                                <div class="popup-review-pfq-q">
+                                    <div class="popup-review-pfq-top">양</div>
+                                    <div class="popup-review-pfq-bottom">적당</div>
+                                </div>
+                                <div class="popup-review-pfq-f">
+                                    <div class="popup-review-pfq-top">맛</div>
+                                    <div class="popup-review-pfq-bottom">존맛</div>
+                                </div>
+                                <div class="popup-review-pfq-p">
+                                    <div class="popup-review-pfq-top">가격</div>
+                                    <div class="popup-review-pfq-bottom">비쌈</div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="popup-review-bottom">
+                        <div class="popup-review-image"></div>
+                        <div class="popup-review-comment"> 사용자 코멘트.. 사용자 코멘트.. 사용자 코멘트..사용자 코멘트
+                            사용자 코멘트.. 사용자 코멘트.. 사용자 코멘트..사용자 코멘
+                            사용자 코멘트.. 사용자 코멘트.. 사용자 코멘트..사용자 코멘
+                            사용자 코멘트.. 사용자 코멘트.. 사용자 코멘트..사용자 코멘
+                            사용자 코멘트.. 사용자 코멘트.. 사용자 코멘트..사용자 코멘
+                            사용자 코멘트.. 사용자 코멘트.. 사용자 코멘트..사용자 코멘
+                        </div>
+                    </div>
+
+                </li>
+                </li>
+                <li class="popup-review">
+                    <div class="popup-review-top">
+                        <div class="popup-review-profile"></div>
+                        <div class="popup-review-nameTime">
+                            <div style="font-size: 12px" class="popup-review-time"> 2017-08-14</div>
+                            <div class="popup-review-name"> 통통</div>
+                        </div>
+                        <div style="height: 80px" class="carousel-review-star">
+                            <ul>
+                                <li class="carousel-review-starElement popup-review-star"></li>
+                                <li class="carousel-review-starElement popup-review-star"></li>
+                                <li class="carousel-review-starElement popup-review-star"></li>
+                                <li class="carousel-review-starElement popup-review-star"></li>
+                                <li style="display:none" class="carousel-review-starElement popup-review-star"></li>
+                            </ul>
+                        </div>
+                        <div class="popup-review-eval">
+
+                            <div style="float:right; width: 130px">
+                                <div>
+                                    <div class="popup-review-good">유용해요</div>
+                                    <div class="popup-review-good2">120</div>
+                                </div>
+                                <div>
+                                    <div class="popup-review-bad"> 별로에요</div>
+                                    <div class="popup-review-bad2"> 50</div>
+                                </div>
+                            </div>
+
+                            <div class="popup-review-pfq">
+
+
+                                <div class="popup-review-pfq-q">
+                                    <div class="popup-review-pfq-top">양</div>
+                                    <div class="popup-review-pfq-bottom">적당</div>
+                                </div>
+                                <div class="popup-review-pfq-f">
+                                    <div class="popup-review-pfq-top">맛</div>
+                                    <div class="popup-review-pfq-bottom">존맛</div>
+                                </div>
+                                <div class="popup-review-pfq-p">
+                                    <div class="popup-review-pfq-top">가격</div>
+                                    <div class="popup-review-pfq-bottom">비쌈</div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="popup-review-bottom">
+                        <div class="popup-review-image"></div>
+                        <div class="popup-review-comment"> 사용자 코멘트.. 사용자 코멘트.. 사용자 코멘트..사용자 코멘트
+                            사용자 코멘트.. 사용자 코멘트.. 사용자 코멘트..사용자 코멘
+                            사용자 코멘트.. 사용자 코멘트.. 사용자 코멘트..사용자 코멘
+                            사용자 코멘트.. 사용자 코멘트.. 사용자 코멘트..사용자 코멘
+                            사용자 코멘트.. 사용자 코멘트.. 사용자 코멘트..사용자 코멘
+                            사용자 코멘트.. 사용자 코멘트.. 사용자 코멘트..사용자 코멘
+                        </div>
+                    </div>
+
+                </li>
+                </li>
+            </ul>
+        </div>
 
 
     </div>
