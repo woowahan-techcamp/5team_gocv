@@ -53,8 +53,7 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
     
     
     func ynSearchHistoryButtonClicked(text: String) {
-        // 검색 history가 카테고리와 같으면 카테고리로 보냄
-        self.pushViewController(text: text)
+        // 어떤식으로 구현되야할지 다시 이야기 해야함
     }
     
     func ynCategoryButtonClicked(text: String) {
@@ -62,7 +61,7 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
     }
     
     func ynSearchListViewClicked(key: String) {
-        // 어떤식으로 구현되야할지 다시 이야기 해야함
+        self.pushViewController(text: key)
     }
     
     func ynSearchListViewClicked(object: Any) {

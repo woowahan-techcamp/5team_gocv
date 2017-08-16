@@ -21,7 +21,6 @@ class DataManager{
      * 메인화면
      */
     
-    
     // 리뷰 쓰기
     static func writeReview(brand: String, category: String, grade: Int, priceLevel: Int, flavorLevel: Int, quantityLevel: Int, allergy: [String], review: String, user: String,user_image: String, p_id: String, p_image: UIImage, p_name: String, p_price: Int, completion: ()->()) {
         
@@ -40,25 +39,28 @@ class DataManager{
         // Create a storage reference from our storage service
         let storageRef = storage.reference(forURL: "gs://pyeonrehae.appspot.com")
         let imagesRef = storageRef.child(id.description() + ".png")
-        var update = ["bad": 0, "useful": 0, "user": user, "user_image": user_image, "brand": brand, "category": category, "comment": review, "grade": grade, "price": priceLevel, "flavor": flavorLevel, "quantity": quantityLevel, "p_id": p_id, "p_name": p_name, "p_price": p_price, "timestamp": today] as [String : Any]
-        
+        var update = ["bad": 0, "useful": 0, "user": user, "user_image": user_image, "brand": brand, "category": category, "comment": review, "grade": grade, "price": priceLevel, "flavor": flavorLevel, "quantity": quantityLevel, "p_image": "", "p_id": p_id, "p_name": p_name, "p_price": p_price, "timestamp": today] as [String : Any]
+        id.updateChildValues(update)
         if let data = UIImagePNGRepresentation(p_image) {
             imagesRef.putData(data, metadata: nil, completion: {
                 (metadata, error) in
                 if error != nil {
-                    update["p_image"] = imgURL
-                    id.updateChildValues(update)
                     print(error!)
                 } else {
                     imagesRef.downloadURL { (URL, error) -> Void in // 업로드된 이미지 url 받아오기
-                        if (error != nil) { // 없으면 ""로 저장
-                            update["p_image"] = imgURL
-                            id.updateChildValues(update)
+                        if error != nil { // 없으면 ""로 저장
                             print(error!)
                         } else {
                             imgURL = (URL?.description)! // 있으면 해당 url로 저장
                             update["p_image"] = imgURL
-                            id.updateChildValues(update)
+                            id.updateChildValues(update){ (error, data) -> Void in
+                                if error != nil{
+                                    print(error!)
+                                }
+                                else{
+                                    NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
+                                }
+                            }
                         }
                     }
                 }
