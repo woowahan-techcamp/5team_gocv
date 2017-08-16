@@ -72,6 +72,11 @@
 		98F172F41F32EDB70044FD0D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98F172F21F32EDB70044FD0D /* LaunchScreen.storyboard */; };
 		98F172FF1F32EDB70044FD0D /* pyunrihaeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F172FE1F32EDB70044FD0D /* pyunrihaeTests.swift */; };
 		98F1730A1F32EDB70044FD0D /* pyunrihaeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F173091F32EDB70044FD0D /* pyunrihaeUITests.swift */; };
+		98F865791F43E1E700C2F333 /* star1.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F865741F43E1E700C2F333 /* star1.png */; };
+		98F8657A1F43E1E700C2F333 /* star2.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F865751F43E1E700C2F333 /* star2.png */; };
+		98F8657B1F43E1E700C2F333 /* star3.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F865761F43E1E700C2F333 /* star3.png */; };
+		98F8657C1F43E1E700C2F333 /* star4.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F865771F43E1E700C2F333 /* star4.png */; };
+		98F8657D1F43E1E700C2F333 /* star5.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F865781F43E1E700C2F333 /* star5.png */; };
 		9C668EF8CEE8D438D3632CC9 /* Pods_pyunrihaeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1319BEB880E29049AC8F0515 /* Pods_pyunrihaeTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -169,6 +174,11 @@
 		98F173051F32EDB70044FD0D /* pyunrihaeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pyunrihaeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		98F173091F32EDB70044FD0D /* pyunrihaeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pyunrihaeUITests.swift; sourceTree = "<group>"; };
 		98F1730B1F32EDB80044FD0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		98F865741F43E1E700C2F333 /* star1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star1.png; sourceTree = "<group>"; };
+		98F865751F43E1E700C2F333 /* star2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star2.png; sourceTree = "<group>"; };
+		98F865761F43E1E700C2F333 /* star3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star3.png; sourceTree = "<group>"; };
+		98F865771F43E1E700C2F333 /* star4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star4.png; sourceTree = "<group>"; };
+		98F865781F43E1E700C2F333 /* star5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star5.png; sourceTree = "<group>"; };
 		C9D07E3D80B114A5E56DAC60 /* Pods-pyunrihaeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pyunrihaeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pyunrihaeTests/Pods-pyunrihaeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EF44EF9D49A783BEA8DDF20D /* Pods-pyunrihaeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pyunrihaeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-pyunrihaeTests/Pods-pyunrihaeTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -229,6 +239,11 @@
 			children = (
 				98F172F01F32EDB70044FD0D /* Assets.xcassets */,
 				9865E5431F3C1D4200014795 /* star.png */,
+				98F865741F43E1E700C2F333 /* star1.png */,
+				98F865751F43E1E700C2F333 /* star2.png */,
+				98F865761F43E1E700C2F333 /* star3.png */,
+				98F865771F43E1E700C2F333 /* star4.png */,
+				98F865781F43E1E700C2F333 /* star5.png */,
 				9865E5391F3BD81E00014795 /* back.png */,
 				9865E5411F3C141C00014795 /* plus.png */,
 				9865E53F1F3C10A400014795 /* check.png */,
@@ -520,15 +535,20 @@
 				9865E5181F39C2A000014795 /* stars.png in Resources */,
 				9865E5361F3AFFC500014795 /* writing.png in Resources */,
 				9865E5321F3AFAF500014795 /* bottom.png in Resources */,
+				98F8657B1F43E1E700C2F333 /* star3.png in Resources */,
 				9865E5421F3C141C00014795 /* plus.png in Resources */,
 				98DED89C1F41732700CC4D63 /* Main.storyboard in Resources */,
 				9865E5401F3C10A400014795 /* check.png in Resources */,
+				98F8657C1F43E1E700C2F333 /* star4.png in Resources */,
 				98D9F2DF1F418DF3009D0E10 /* LICENSE in Resources */,
+				98F8657A1F43E1E700C2F333 /* star2.png in Resources */,
+				98F8657D1F43E1E700C2F333 /* star5.png in Resources */,
 				98D9F2E41F418DF3009D0E10 /* YNSearch.xcassets in Resources */,
 				984395861F32F29A0016B67D /* GoogleService-Info.plist in Resources */,
 				9865E53A1F3BD81E00014795 /* back.png in Resources */,
 				98F172F11F32EDB70044FD0D /* Assets.xcassets in Resources */,
 				9865E5441F3C1D4200014795 /* star.png in Resources */,
+				98F865791F43E1E700C2F333 /* star1.png in Resources */,
 				9865E5141F39A92700014795 /* dropdown.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
