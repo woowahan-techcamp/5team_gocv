@@ -8,9 +8,78 @@
 
 import UIKit
 import FirebaseDatabase
+import Fusuma
 
-class WritingReviewViewController: UIViewController {
+class WritingReviewViewController: UIViewController, FusumaDelegate{
 
+    
+    @IBAction func addImageBtn(_ sender: UIButton) {
+        let fusuma = FusumaViewController()
+        
+        fusuma.delegate = self
+        fusuma.cropHeightRatio = 0.7
+        fusuma.defaultMode = .library
+        fusuma.allowMultipleSelection = false
+        fusumaSavesImage = false
+        
+        self.present(fusuma, animated: true, completion: nil)
+    
+    }
+    
+    // MARK: FusumaDelegate Protocol
+    func fusumaImageSelected(_ image: UIImage, source: FusumaMode) {
+
+        let imageView = UIImageView()
+        imageView.image = image
+        imageView.frame = CGRect(origin: CGPoint(x: 0 ,y: 0), size: addedImageView.frame.size)
+        imageView.layer.cornerRadius = 7
+        imageView.clipsToBounds = true
+        addedImageView.addSubview(imageView)
+        addImageBtn.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        addImageBtn.layer.cornerRadius = 7
+        addImageBtn.clipsToBounds = true
+        addImageBtn.setTitle("사진 변경", for: .normal)
+    }
+    
+    func fusumaMultipleImageSelected(_ images: [UIImage], source: FusumaMode) {
+    }
+    
+    func fusumaImageSelected(_ image: UIImage, source: FusumaMode, metaData: ImageMetadata) {
+    }
+    
+    func fusumaVideoCompleted(withFileURL fileURL: URL) {
+    }
+    
+    func fusumaDismissedWithImage(_ image: UIImage, source: FusumaMode) {
+    }
+    
+    func fusumaCameraRollUnauthorized() {
+        
+        let alert = UIAlertController(title: "Access Requested",
+                                      message: "Saving image needs to access your photo album",
+                                      preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Settings", style: .default) { (action) -> Void in
+            
+            if let url = URL(string:UIApplicationOpenSettingsURLString) {
+        
+                UIApplication.shared.openURL(url)
+            }
+        })
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+            
+        })
+        
+        guard let vc = UIApplication.shared.delegate?.window??.rootViewController,
+            let presented = vc.presentedViewController else {
+                
+                return
+        }
+        
+        presented.present(alert, animated: true, completion: nil)
+    }
+    
     @IBOutlet weak var loading: UIActivityIndicatorView!
     @IBOutlet weak var endEditingBtn: UIButton!
     @IBOutlet weak var reviewTextView: UIView!
@@ -175,6 +244,7 @@ class WritingReviewViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         endEditingBtn.isHidden = true
         addImageBtn.layer.zPosition = 10
         scrollView.isScrollEnabled = true

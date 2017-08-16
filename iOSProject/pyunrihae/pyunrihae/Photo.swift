@@ -16,6 +16,7 @@ class Photo{
         
         var images = [UIImage]()
         let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
         let allPhotos = PHAsset.fetchAssets(with: .image, options: fetchOptions)
         let options = PHImageRequestOptions()
         
@@ -26,10 +27,11 @@ class Photo{
         let manager = PHImageManager.default()
         for i in 0..<allPhotos.count {
             let asset = allPhotos.object(at: i)
-            imageSize.width = CGFloat(asset.pixelWidth)
-            imageSize.height = CGFloat(asset.pixelHeight)
-            manager.requestImage(for: asset, targetSize: imageSize, contentMode: .aspectFit, options: options, resultHandler: {(result, info) in
-                images.append(result!)
+            manager.requestImage(for: asset, targetSize: PHImageManagerMaximumSize,
+                contentMode: .aspectFit, options: options, resultHandler: {(result, info) in
+                    if let image = result {
+                        images.append(image)
+                    }
             })
         }
         

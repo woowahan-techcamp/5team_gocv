@@ -40,7 +40,6 @@
 		9865E5481F3C435100014795 /* ProductDetailInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E5471F3C435100014795 /* ProductDetailInfoTableViewCell.swift */; };
 		9865E54A1F3C436000014795 /* ProductReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E5491F3C436000014795 /* ProductReviewTableViewCell.swift */; };
 		9865E54E1F3C576D00014795 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E54D1F3C576D00014795 /* Image.swift */; };
-		9865E5501F3D333F00014795 /* ChoosePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E54F1F3D333F00014795 /* ChoosePhotoViewController.swift */; };
 		9865E5521F3D34E700014795 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E5511F3D34E700014795 /* Photo.swift */; };
 		9865E5541F3D351B00014795 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E5531F3D351B00014795 /* PhotoCollectionViewCell.swift */; };
 		9865E55A1F3D837200014795 /* SelectedProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E5591F3D837200014795 /* SelectedProduct.swift */; };
@@ -148,7 +147,6 @@
 		9865E5471F3C435100014795 /* ProductDetailInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailInfoTableViewCell.swift; sourceTree = "<group>"; };
 		9865E5491F3C436000014795 /* ProductReviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductReviewTableViewCell.swift; sourceTree = "<group>"; };
 		9865E54D1F3C576D00014795 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
-		9865E54F1F3D333F00014795 /* ChoosePhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoosePhotoViewController.swift; sourceTree = "<group>"; };
 		9865E5511F3D34E700014795 /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		9865E5531F3D351B00014795 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		9865E5591F3D837200014795 /* SelectedProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedProduct.swift; sourceTree = "<group>"; };
@@ -320,7 +318,6 @@
 				981E932D1F386681004BE63B /* MypageViewController.swift */,
 				9865E52F1F3AFA0300014795 /* ProductDetailViewController.swift */,
 				9865E5331F3AFEFE00014795 /* WritingReviewViewController.swift */,
-				9865E54F1F3D333F00014795 /* ChoosePhotoViewController.swift */,
 				9865E53B1F3C0BD500014795 /* AllergyViewController.swift */,
 				9865E56B1F42E55E00014795 /* BigImageViewController.swift */,
 				98DED89A1F41729100CC4D63 /* SearchViewController.swift */,
@@ -799,7 +796,6 @@
 				9865E5481F3C435100014795 /* ProductDetailInfoTableViewCell.swift in Sources */,
 				9865E5541F3D351B00014795 /* PhotoCollectionViewCell.swift in Sources */,
 				98D9F2E11F418DF3009D0E10 /* Objectification.swift in Sources */,
-				9865E5501F3D333F00014795 /* ChoosePhotoViewController.swift in Sources */,
 				98D9F2E81F418DF3009D0E10 /* YNSearchListView.swift in Sources */,
 				9865E54E1F3C576D00014795 /* Image.swift in Sources */,
 				98D9F2E51F418DF3009D0E10 /* YNSearchDelegate.swift in Sources */,
