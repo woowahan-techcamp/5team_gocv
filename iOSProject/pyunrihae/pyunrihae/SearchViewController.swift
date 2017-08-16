@@ -58,12 +58,11 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
     }
     
     func ynCategoryButtonClicked(text: String) {
-        self.pushViewController(text: text)
+        // 어떤식으로 구현되야할지 다시 이야기 해야함
     }
     
     func ynSearchListViewClicked(key: String) {
-        self.pushViewController(text: key)
-        print(key)
+        // 어떤식으로 구현되야할지 다시 이야기 해야함
     }
     
     func ynSearchListViewClicked(object: Any) {
@@ -89,9 +88,14 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
     
     func pushViewController(text:String) {
         SelectedProduct.foodId = text
+        SelectedProduct.reviewCount = 0
+        DataManager.getReviewListBy(id: text) { (reviewList) in
+            SelectedProduct.reviewCount = reviewList.count
+            NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
+        }
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "mainNavigationController") as! UINavigationController
-        let productDetailConroller = vc.viewControllers.first as! ProductDetailViewController
+        _ = vc.viewControllers.first as! ProductDetailViewController
         self.present(vc, animated: true, completion: nil)
     }
 }

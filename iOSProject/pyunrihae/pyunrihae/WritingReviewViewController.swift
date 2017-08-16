@@ -37,11 +37,10 @@ class WritingReviewViewController: UIViewController {
     }
     @IBAction func tabCompleteBtn(_ sender: UIButton) {
         let user_image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQh3QnWlH0HMsLC6-ZNQD2ZAA0hcipgx09OuUm2cS0hiIeW-RWX"
-        let p_image = "http://image.hankookilbo.com/i.aspx?Guid=168c62cc358146b38936949e82bd4833&Month=DirectUpload&size=640"
         if checkGrade && checkPriceLevel && checkFlavorLevel && checkQuantityLevel {
             SelectedAllergy.allergyList = []
             DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
-                DataManager.writeReview(brand: product.name, category: product.category, grade: self.grade, priceLevel: self.priceLevel, flavorLevel: self.flavorLevel, quantityLevel: self.quantityLevel, allergy: self.allergy, review: self.detailReview.text, user: "test", user_image: user_image, p_id: product.id, p_image: p_image, p_name: product.name, p_price: Int(product.price)!){
+                DataManager.writeReview(brand: product.name, category: product.category, grade: self.grade, priceLevel: self.priceLevel, flavorLevel: self.flavorLevel, quantityLevel: self.quantityLevel, allergy: self.allergy, review: self.detailReview.text, user: "test", user_image: user_image, p_id: product.id, p_image: self.reviewImage, p_name: product.name, p_price: Int(product.price)!){
                     self.navigationController?.popToRootViewController(animated: true)
                     NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
                 }
