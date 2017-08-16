@@ -55,21 +55,17 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
     func ynSearchHistoryButtonClicked(text: String) {
         // 검색 history가 카테고리와 같으면 카테고리로 보냄
         self.pushViewController(text: text)
-        print(text)
     }
     
     func ynCategoryButtonClicked(text: String) {
-        self.pushViewController(text: text)
-        print(text)
+        // 어떤식으로 구현되야할지 다시 이야기 해야함
     }
     
     func ynSearchListViewClicked(key: String) {
-        self.pushViewController(text: key)
-        print(key)
+        // 어떤식으로 구현되야할지 다시 이야기 해야함
     }
     
     func ynSearchListViewClicked(object: Any) {
-        print(object)
     }
     
     func ynSearchListView(_ ynSearchListView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -83,18 +79,23 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
     
     func ynSearchListView(_ ynSearchListView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let ynmodel = self.ynSearchView.ynSearchListView.searchResultDatabase[indexPath.row] as? YNSearchModel, let key = ynmodel.key {
-            self.ynSearchView.ynSearchListView.ynSearchListViewDelegate?.ynSearchListViewClicked(key: key)
+            let id = ynmodel.id!
+            self.ynSearchView.ynSearchListView.ynSearchListViewDelegate?.ynSearchListViewClicked(key: id)
             self.ynSearchView.ynSearchListView.ynSearchListViewDelegate?.ynSearchListViewClicked(object: self.ynSearchView.ynSearchListView.database[indexPath.row])
             self.ynSearchView.ynSearchListView.ynSearch.appendSearchHistories(value: key)
         }
     }
     
     func pushViewController(text:String) {
+        SelectedProduct.foodId = text
+        SelectedProduct.reviewCount = 0
+        DataManager.getReviewListBy(id: text) { (reviewList) in
+            SelectedProduct.reviewCount = reviewList.count
+            NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
+        }
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "mainNavigationController") as! UINavigationController
-        
-        let productDetailConroller = vc.viewControllers.first as! ProductDetailViewController
-        
+        _ = vc.viewControllers.first as! ProductDetailViewController
         self.present(vc, animated: true, completion: nil)
     }
 }
