@@ -12,7 +12,6 @@
         <!--검색-->
         <scene sceneID="2QL-aV-Axn">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="D9x-sy-QMU" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="SearchViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Gh4-QB-xFR" customClass="SearchViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XuD-Ta-4B6"/>
@@ -44,15 +43,15 @@
                     </view>
                     <navigationItem key="navigationItem" title="검색" id="Wsd-Ti-mZm"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D9x-sy-QMU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2116" y="887"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xtN-fi-hkD">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6J7-mI-Nwa" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="ivr-CL-MQp" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="a0R-9B-fNe">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="a0R-9B-fNe">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -60,6 +59,7 @@
                         <segue destination="Gh4-QB-xFR" kind="relationship" relationship="rootViewController" id="9HF-vZ-gUb"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6J7-mI-Nwa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2116" y="1573"/>
         </scene>
@@ -1483,10 +1483,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="search.png" translatesAutoresizingMaskIntoConstraints="NO" id="UZ3-IR-ABc">
-                                <rect key="frame" x="16" y="0.0" width="130" height="130"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="준키미 |" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4pP-oC-oPW">
                                 <rect key="frame" x="166" y="48" width="193" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1526,6 +1522,10 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="search.png" translatesAutoresizingMaskIntoConstraints="NO" id="UZ3-IR-ABc">
+                                <rect key="frame" x="49" y="48" width="57" height="57"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>

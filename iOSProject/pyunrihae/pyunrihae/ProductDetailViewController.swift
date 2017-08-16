@@ -22,10 +22,6 @@ class ProductDetailViewController: UIViewController {
     func showProduct(_ notification: Notification) { // 넘어온 product 정보 받아서 화면 구성
         let product = notification.userInfo?["product"] as! Product
         SelectedProduct.foodId = product.id
-        SelectedProduct.brandName = product.brand
-        SelectedProduct.foodName = product.name
-        SelectedProduct.price = product.price
-        SelectedProduct.category = product.category
         SelectedProduct.reviewCount = 0
         DataManager.getReviewListBy(id: product.id) { (reviewList) in
             SelectedProduct.reviewCount = reviewList.count
@@ -35,10 +31,6 @@ class ProductDetailViewController: UIViewController {
     func showReviewProduct(_ notification: Notification) { // 넘어온 product 정보 받아서 화면 구성
         let product = notification.userInfo?["product"] as! Review
         SelectedProduct.foodId = product.p_id
-        SelectedProduct.brandName = product.brand
-        SelectedProduct.foodName = product.p_name
-        SelectedProduct.category = product.category
-        SelectedProduct.price = String(product.p_price)
         SelectedProduct.reviewCount = 0
         DataManager.getReviewListBy(id: product.p_id) { (reviewList) in
             SelectedProduct.reviewCount = reviewList.count
@@ -94,6 +86,9 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                 cell.eventLabel.textColor = UIColor.red
                 Image.makeCircleImage(image: cell.foodImage)
                 DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
+                    cell.priceLabel.text = product.price + "원"
+                    cell.brandLabel.text = product.brand
+                    cell.foodNameLabel.text = product.name
                     if product.event.count > 0 && product.event[0] != "\r" { //이벤트 데이터 베이스 수정 필요
                         cell.eventLabel.text = product.event[0]
                     } else {
@@ -105,9 +100,6 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                     })
                     
                 }
-                cell.priceLabel.text = SelectedProduct.price + "원"
-                cell.brandLabel.text = SelectedProduct.brandName
-                cell.foodNameLabel.text = SelectedProduct.foodName
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath) as! ProductDetailInfoTableViewCell

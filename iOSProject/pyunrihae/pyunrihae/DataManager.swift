@@ -262,7 +262,6 @@ class DataManager{
     }
     
     // 상품 id로 상품 가져오기
-    
     static func getProductById(id: String, completion : @escaping (Product) -> ()) {
         let localRef = ref.child("product")
         let query = localRef.queryOrdered(byChild: "id").queryEqual(toValue: id)
@@ -275,6 +274,7 @@ class DataManager{
             completion(product)
         })
     }
-
+    
+    
     
 }
