@@ -175,7 +175,7 @@ class MainViewController: UIViewController {
                     let hotReviewLabel : UILabel = UILabel()
                     let selectedCountLabel : UILabel = UILabel()
                     let totalCountLabel : UILabel = UILabel()
-                    var starImageView : UIImageView = UIImageView()
+                    let starImageView : UIImageView = UIImageView()
                 
                     myImageView.af_setImage(withURL: url!)
                     myImageView.contentMode = UIViewContentMode.scaleAspectFill
