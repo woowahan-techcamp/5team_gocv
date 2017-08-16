@@ -40,7 +40,6 @@
 		9865E5481F3C435100014795 /* ProductDetailInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E5471F3C435100014795 /* ProductDetailInfoTableViewCell.swift */; };
 		9865E54A1F3C436000014795 /* ProductReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E5491F3C436000014795 /* ProductReviewTableViewCell.swift */; };
 		9865E54E1F3C576D00014795 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E54D1F3C576D00014795 /* Image.swift */; };
-		9865E5521F3D34E700014795 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E5511F3D34E700014795 /* Photo.swift */; };
 		9865E5541F3D351B00014795 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E5531F3D351B00014795 /* PhotoCollectionViewCell.swift */; };
 		9865E55A1F3D837200014795 /* SelectedProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E5591F3D837200014795 /* SelectedProduct.swift */; };
 		9865E55C1F417E2000014795 /* SelectedAllergy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E55B1F417E2000014795 /* SelectedAllergy.swift */; };
@@ -88,6 +87,17 @@
 		98F8659B1F4407A700C2F333 /* ic_ranking.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F865931F4407A700C2F333 /* ic_ranking.png */; };
 		98F8659C1F4407A700C2F333 /* ic_review_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F865941F4407A700C2F333 /* ic_review_selected.png */; };
 		98F8659D1F4407A700C2F333 /* ic_review.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F865951F4407A700C2F333 /* ic_review.png */; };
+		98F865A11F442A3000C2F333 /* ic_login.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F8659E1F442A3000C2F333 /* ic_login.png */; };
+		98F865A21F442A3000C2F333 /* ic_emailsignup.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F8659F1F442A3000C2F333 /* ic_emailsignup.png */; };
+		98F865A31F442A3000C2F333 /* bg_login.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F865A01F442A3000C2F333 /* bg_login.png */; };
+		98F865A51F442B3800C2F333 /* LoginSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F865A41F442B3800C2F333 /* LoginSignUpViewController.swift */; };
+		98F865A71F442EE100C2F333 /* ic_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F865A61F442EE100C2F333 /* ic_close.png */; };
+		98F865A91F442F8700C2F333 /* ic_mail.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F865A81F442F8700C2F333 /* ic_mail.png */; };
+		98F865AB1F442F8B00C2F333 /* ic_password.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F865AA1F442F8B00C2F333 /* ic_password.png */; };
+		98F865AD1F44317C00C2F333 /* ic_close_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F865AC1F44317C00C2F333 /* ic_close_gray.png */; };
+		98F865B01F44340E00C2F333 /* ic_complete_enabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F865AE1F44340E00C2F333 /* ic_complete_enabled.png */; };
+		98F865B11F44340E00C2F333 /* ic_complete.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F865AF1F44340E00C2F333 /* ic_complete.png */; };
+		98F865B31F4434F800C2F333 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F865B21F4434F800C2F333 /* SignupViewController.swift */; };
 		9C668EF8CEE8D438D3632CC9 /* Pods_pyunrihaeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1319BEB880E29049AC8F0515 /* Pods_pyunrihaeTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -147,7 +157,6 @@
 		9865E5471F3C435100014795 /* ProductDetailInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailInfoTableViewCell.swift; sourceTree = "<group>"; };
 		9865E5491F3C436000014795 /* ProductReviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductReviewTableViewCell.swift; sourceTree = "<group>"; };
 		9865E54D1F3C576D00014795 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
-		9865E5511F3D34E700014795 /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		9865E5531F3D351B00014795 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		9865E5591F3D837200014795 /* SelectedProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedProduct.swift; sourceTree = "<group>"; };
 		9865E55B1F417E2000014795 /* SelectedAllergy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedAllergy.swift; sourceTree = "<group>"; };
@@ -201,6 +210,17 @@
 		98F865931F4407A700C2F333 /* ic_ranking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_ranking.png; sourceTree = "<group>"; };
 		98F865941F4407A700C2F333 /* ic_review_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_review_selected.png; sourceTree = "<group>"; };
 		98F865951F4407A700C2F333 /* ic_review.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_review.png; sourceTree = "<group>"; };
+		98F8659E1F442A3000C2F333 /* ic_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_login.png; sourceTree = "<group>"; };
+		98F8659F1F442A3000C2F333 /* ic_emailsignup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_emailsignup.png; sourceTree = "<group>"; };
+		98F865A01F442A3000C2F333 /* bg_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_login.png; sourceTree = "<group>"; };
+		98F865A41F442B3800C2F333 /* LoginSignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginSignUpViewController.swift; sourceTree = "<group>"; };
+		98F865A61F442EE100C2F333 /* ic_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_close.png; sourceTree = "<group>"; };
+		98F865A81F442F8700C2F333 /* ic_mail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_mail.png; sourceTree = "<group>"; };
+		98F865AA1F442F8B00C2F333 /* ic_password.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_password.png; sourceTree = "<group>"; };
+		98F865AC1F44317C00C2F333 /* ic_close_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_close_gray.png; sourceTree = "<group>"; };
+		98F865AE1F44340E00C2F333 /* ic_complete_enabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_complete_enabled.png; sourceTree = "<group>"; };
+		98F865AF1F44340E00C2F333 /* ic_complete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_complete.png; sourceTree = "<group>"; };
+		98F865B21F4434F800C2F333 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		C9D07E3D80B114A5E56DAC60 /* Pods-pyunrihaeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pyunrihaeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pyunrihaeTests/Pods-pyunrihaeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EF44EF9D49A783BEA8DDF20D /* Pods-pyunrihaeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pyunrihaeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-pyunrihaeTests/Pods-pyunrihaeTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -259,16 +279,25 @@
 		98D819011F32F97D00BE2A95 /* Asset */ = {
 			isa = PBXGroup;
 			children = (
+				98F8659E1F442A3000C2F333 /* ic_login.png */,
+				98F8659F1F442A3000C2F333 /* ic_emailsignup.png */,
+				98F865A61F442EE100C2F333 /* ic_close.png */,
+				98F865A01F442A3000C2F333 /* bg_login.png */,
 				98F172F01F32EDB70044FD0D /* Assets.xcassets */,
 				9865E5431F3C1D4200014795 /* star.png */,
 				9865E5391F3BD81E00014795 /* back.png */,
 				9865E5411F3C141C00014795 /* plus.png */,
 				9865E53F1F3C10A400014795 /* check.png */,
 				9865E5311F3AFAF500014795 /* bottom.png */,
+				98F865AE1F44340E00C2F333 /* ic_complete_enabled.png */,
+				98F865AF1F44340E00C2F333 /* ic_complete.png */,
 				98F8657E1F43FB1A00C2F333 /* star1.png */,
+				98F865AC1F44317C00C2F333 /* ic_close_gray.png */,
 				98F8657F1F43FB1A00C2F333 /* star2.png */,
 				98F865881F44021000C2F333 /* logo_cu.png */,
 				98F865891F44021000C2F333 /* logo_7eleven.png */,
+				98F865AA1F442F8B00C2F333 /* ic_password.png */,
+				98F865A81F442F8700C2F333 /* ic_mail.png */,
 				98F8658A1F44021000C2F333 /* logo_gs25.png */,
 				98F8658E1F4407A700C2F333 /* ic_home_selected.png */,
 				98F8658F1F4407A700C2F333 /* ic_home.png */,
@@ -298,7 +327,6 @@
 				9865E54D1F3C576D00014795 /* Image.swift */,
 				9865E5071F3943BD00014795 /* Button.swift */,
 				9865E5231F3AE04C00014795 /* Label.swift */,
-				9865E5511F3D34E700014795 /* Photo.swift */,
 				98B73F851F39394500E55420 /* Review.swift */,
 				98B73F871F394CAB00E55420 /* Product.swift */,
 				9865E5591F3D837200014795 /* SelectedProduct.swift */,
@@ -321,6 +349,8 @@
 				9865E53B1F3C0BD500014795 /* AllergyViewController.swift */,
 				9865E56B1F42E55E00014795 /* BigImageViewController.swift */,
 				98DED89A1F41729100CC4D63 /* SearchViewController.swift */,
+				98F865A41F442B3800C2F333 /* LoginSignUpViewController.swift */,
+				98F865B21F4434F800C2F333 /* SignupViewController.swift */,
 			);
 			name = "View Controller";
 			sourceTree = "<group>";
@@ -574,25 +604,34 @@
 				98F8659A1F4407A700C2F333 /* ic_ranking_selected.png in Resources */,
 				98F865851F43FB1A00C2F333 /* star3.png in Resources */,
 				98F8658D1F44021000C2F333 /* logo_gs25.png in Resources */,
+				98F865A11F442A3000C2F333 /* ic_login.png in Resources */,
 				98F865971F4407A700C2F333 /* ic_home.png in Resources */,
 				9865E5421F3C141C00014795 /* plus.png in Resources */,
 				98DED89C1F41732700CC4D63 /* Main.storyboard in Resources */,
+				98F865A31F442A3000C2F333 /* bg_login.png in Resources */,
 				9865E5401F3C10A400014795 /* check.png in Resources */,
 				98F865861F43FB1A00C2F333 /* star4.png in Resources */,
+				98F865B11F44340E00C2F333 /* ic_complete.png in Resources */,
 				98D9F2DF1F418DF3009D0E10 /* LICENSE in Resources */,
 				98F865841F43FB1A00C2F333 /* star2.png in Resources */,
 				98F865871F43FB1A00C2F333 /* star5.png in Resources */,
 				98D9F2E41F418DF3009D0E10 /* YNSearch.xcassets in Resources */,
 				984395861F32F29A0016B67D /* GoogleService-Info.plist in Resources */,
+				98F865AB1F442F8B00C2F333 /* ic_password.png in Resources */,
+				98F865A71F442EE100C2F333 /* ic_close.png in Resources */,
 				98F8659B1F4407A700C2F333 /* ic_ranking.png in Resources */,
 				98F865981F4407A700C2F333 /* ic_my_selected.png in Resources */,
 				9865E53A1F3BD81E00014795 /* back.png in Resources */,
 				98F865961F4407A700C2F333 /* ic_home_selected.png in Resources */,
 				98F172F11F32EDB70044FD0D /* Assets.xcassets in Resources */,
 				98F8659C1F4407A700C2F333 /* ic_review_selected.png in Resources */,
+				98F865B01F44340E00C2F333 /* ic_complete_enabled.png in Resources */,
 				9865E5441F3C1D4200014795 /* star.png in Resources */,
 				98F8659D1F4407A700C2F333 /* ic_review.png in Resources */,
 				98F865831F43FB1A00C2F333 /* star1.png in Resources */,
+				98F865AD1F44317C00C2F333 /* ic_close_gray.png in Resources */,
+				98F865A21F442A3000C2F333 /* ic_emailsignup.png in Resources */,
+				98F865A91F442F8700C2F333 /* ic_mail.png in Resources */,
 				9865E5141F39A92700014795 /* dropdown.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -756,13 +795,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98F865A51F442B3800C2F333 /* LoginSignUpViewController.swift in Sources */,
 				98D9F2E31F418DF3009D0E10 /* YNSearch.swift in Sources */,
 				98DED89B1F41729100CC4D63 /* SearchViewController.swift in Sources */,
 				9865E4F61F387C7A00014795 /* TabBarViewController.swift in Sources */,
 				9865E52C1F3AF3EE00014795 /* MypageTableViewCell.swift in Sources */,
 				9865E54A1F3C436000014795 /* ProductReviewTableViewCell.swift in Sources */,
 				98D9F2E01F418DF3009D0E10 /* README.md in Sources */,
-				9865E5521F3D34E700014795 /* Photo.swift in Sources */,
 				9865E4F81F38801B00014795 /* TabBarView.swift in Sources */,
 				98D9F2EC1F418DF3009D0E10 /* YNSearchTextField.swift in Sources */,
 				98D9F2E71F418DF3009D0E10 /* YNSearchHistoryButton.swift in Sources */,
@@ -796,6 +835,7 @@
 				9865E5481F3C435100014795 /* ProductDetailInfoTableViewCell.swift in Sources */,
 				9865E5541F3D351B00014795 /* PhotoCollectionViewCell.swift in Sources */,
 				98D9F2E11F418DF3009D0E10 /* Objectification.swift in Sources */,
+				98F865B31F4434F800C2F333 /* SignupViewController.swift in Sources */,
 				98D9F2E81F418DF3009D0E10 /* YNSearchListView.swift in Sources */,
 				9865E54E1F3C576D00014795 /* Image.swift in Sources */,
 				98D9F2E51F418DF3009D0E10 /* YNSearchDelegate.swift in Sources */,
