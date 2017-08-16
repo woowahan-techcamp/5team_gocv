@@ -1,0 +1,191 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    z-index: 120;
+    opacity: 0;
+}
+
+.overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.popup-wrapper {
+    max-height: 100vh;
+    overflow: auto;
+    margin: 70px auto;
+    height: 1000px;
+    background: #fff;
+    border-radius: 5px;
+    width: 80%;
+    position: relative;
+    z-index: 120;
+}
+
+
+.popup .content {
+    max-height: 100%;
+    overflow: auto;
+}
+
+.popup-reviewImage{
+    background-image: url("/image/ex.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    background-color: black;
+    background-position: center;
+    height: 500px;
+    filter: brightness(80%);
+}
+
+.popup-productImage{
+    position: relative;
+    top: -100px;
+    left: 5%;
+    width: 20%;
+    height: 250px;
+    background-color: white;
+    background-size: contain;
+    background-position: center;
+    background-image: url("http://cdn2.bgfretail.com/bgfbrand/files/product/8801105000283.jpg");
+    background-repeat: no-repeat;
+    border: solid 3px #e7e7e7;
+    border-radius: 10px;
+}
+
+.popup-productWrapper{
+    width: 40%;
+    position: relative;
+    top: -330px;
+    left: 28%;
+}
+.popup-productName{
+    margin-top: 50px;
+    color: #3a3a3a;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.popup-productPrice,.popup-productBrand,.popup-productPrice2,.popup-productBrand2,.popup-productScore,.popup-productScore2{
+    float: left;
+    font-size: 15px;
+    margin-top: 20px;
+    width: 50%;
+    color: darkgrey;
+}
+
+.popup-productPrice2,.popup-productBrand2,.popup-productScore2{
+    font-size: 20px;
+    color: #5f5f5f;
+    font-weight: 700;
+}
+
+.popup-productScore{
+    margin-top: 50px;
+}
+
+.popup-productScore2{
+    font-size: 25px;
+    color:white;
+    margin-left: -10px;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;;
+    border-radius: 40px;
+    background-color: #ffc225;
+}
+
+.popup-productCount{
+    font-size: 20px;
+    text-align: left;
+}
+
+.popup-productCount>div:nth-child(1){
+    font-size: 13px;
+    color: #eaeaea;
+}
+
+.popup-productCount>div:nth-child(2){
+    color: #fff8cc;
+    margin-top: 5px;
+    font-size: 25px;
+}
+
+.popup-ratingChart{
+    width: 35%;
+    position: relative;
+    top: -330px;
+    left: 60%;
+    height: 200px;
+}
+
+#ratingChart{
+    position: relative;
+    top: -150px;
+}
+
+
+.line{
+    position: relative;
+    height: 2px;
+    background-color: #e7e7e7;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.popup-reviewScoreWrapper{
+    padding-left: 1%;
+    padding-right: 1%;
+    position: relative;
+    top: -200px;
+    width: 88%;
+    margin: auto;
+    height: 290px;
+    border-radius: 20px;
+    background-color: #e7e7e7;
+}
+
+.popup-reviewScore, .popup-reviewAllergy{
+    background-color: #ffc225;
+    color: white;
+    width: 40%;
+    margin: auto;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 10px;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 15px;
+}
+
+.popup-reviewChart{
+    width: 100%;
+    margin-top: 50px;
+    height: 300px;
+}
+
+.popup-reviewScoreElement{
+    width: 23%;
+    margin: 20px 1% 15px 1%;
+    border-radius: 10px;
+    height: 250px;
+    float: left;
+    background-color: white;
+}
+
+.popup-reviewAllergy2{
+    width: 100%;
+    height: 200px;
+    line-height: 200px;
+    text-align: center;
+    font-size: 20px;
+
+}

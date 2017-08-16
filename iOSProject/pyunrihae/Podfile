@@ -8,8 +8,10 @@ target 'pyunrihae' do
   # Pods for pyunrihae
   pod 'Firebase/Core'
   pod 'Firebase/Database'
+  pod 'Firebase/Storage'
   pod 'Alamofire', '~> 4.4'
   pod 'AlamofireImage', '~> 3.1'
+  pod 'NVActivityIndicatorView'
   target 'pyunrihaeTests' do
     inherit! :search_paths
     # Pods for testing

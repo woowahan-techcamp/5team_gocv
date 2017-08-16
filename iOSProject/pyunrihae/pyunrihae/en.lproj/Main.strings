@@ -1,0 +1,237 @@
+
+/* Class = "UILabel"; text = "옥수수 치즈 탕면"; ObjectID = "0MK-5P-nnW"; */
+"0MK-5P-nnW.text" = "옥수수 치즈 탕면";
+
+/* Class = "UILabel"; text = "평점"; ObjectID = "1by-We-uKz"; */
+"1by-We-uKz.text" = "평점";
+
+/* Class = "UILabel"; text = "맛"; ObjectID = "1lF-sd-HT2"; */
+"1lF-sd-HT2.text" = "맛";
+
+/* Class = "UILabel"; text = "준키미 |"; ObjectID = "4pP-oC-oPW"; */
+"4pP-oC-oPW.text" = "준키미 |";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "5Qe-nm-Vek"; */
+"5Qe-nm-Vek.text" = "1";
+
+/* Class = "UILabel"; text = "2+1"; ObjectID = "6wE-aO-GMQ"; */
+"6wE-aO-GMQ.text" = "2+1";
+
+/* Class = "UILabel"; text = "오이"; ObjectID = "8dZ-2F-UcX"; */
+"8dZ-2F-UcX.text" = "오이";
+
+/* Class = "UILabel"; text = "GS25"; ObjectID = "9Pw-03-jM2"; */
+"9Pw-03-jM2.text" = "GS25";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "AK8-HA-2Kf"; */
+"AK8-HA-2Kf.text" = "Label";
+
+/* Class = "UILabel"; text = "4.0"; ObjectID = "B7u-Mk-brM"; */
+"B7u-Mk-brM.text" = "4.0";
+
+/* Class = "UILabel"; text = "평점"; ObjectID = "BRW-gA-aWd"; */
+"BRW-gA-aWd.text" = "평점";
+
+/* Class = "UILabel"; text = "GS25"; ObjectID = "C0p-OZ-LG5"; */
+"C0p-OZ-LG5.text" = "GS25";
+
+/* Class = "UILabel"; text = "존맛"; ObjectID = "D3A-qB-grp"; */
+"D3A-qB-grp.text" = "존맛";
+
+/* Class = "UILabel"; text = "양"; ObjectID = "D9K-Pc-FZp"; */
+"D9K-Pc-FZp.text" = "양";
+
+/* Class = "UILabel"; text = "알레르기 성분"; ObjectID = "EIo-b3-feh"; */
+"EIo-b3-feh.text" = "알레르기 성분";
+
+/* Class = "UILabel"; text = "11"; ObjectID = "FHO-Hv-hIx"; */
+"FHO-Hv-hIx.text" = "11";
+
+/* Class = "UILabel"; text = "알레르기 성분을 선택해주세요."; ObjectID = "GES-Rp-Sm5"; */
+"GES-Rp-Sm5.text" = "알레르기 성분을 선택해주세요.";
+
+/* Class = "UINavigationItem"; title = "알레르기 성분 선택"; ObjectID = "HOX-Gg-ysw"; */
+"HOX-Gg-ysw.title" = "알레르기 성분 선택";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Hz0-6e-kHM"; */
+"Hz0-6e-kHM.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "리뷰 쓰기"; ObjectID = "IFW-fE-urb"; */
+"IFW-fE-urb.title" = "리뷰 쓰기";
+
+/* Class = "UILabel"; text = "___"; ObjectID = "ILA-6R-yMQ"; */
+"ILA-6R-yMQ.text" = "___";
+
+/* Class = "UIButton"; normalTitle = "완료"; ObjectID = "ISn-IR-yX5"; */
+"ISn-IR-yX5.normalTitle" = "완료";
+
+/* Class = "UIButton"; normalTitle = "전체보기 >"; ObjectID = "IqH-r8-0lP"; */
+"IqH-r8-0lP.normalTitle" = "전체보기 >";
+
+/* Class = "UILabel"; text = "1+1"; ObjectID = "JvE-m9-zGk"; */
+"JvE-m9-zGk.text" = "1+1";
+
+/* Class = "UILabel"; text = "양"; ObjectID = "JxK-kH-Ccc"; */
+"JxK-kH-Ccc.text" = "양";
+
+/* Class = "UILabel"; text = "143"; ObjectID = "LJI-XV-1eO"; */
+"LJI-XV-1eO.text" = "143";
+
+/* Class = "UIButton"; normalTitle = "랭킹"; ObjectID = "M9s-DA-6sE"; */
+"M9s-DA-6sE.normalTitle" = "랭킹";
+
+/* Class = "UILabel"; text = "23"; ObjectID = "ME5-ga-qaT"; */
+"ME5-ga-qaT.text" = "23";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "MmP-Ii-veR"; */
+"MmP-Ii-veR.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "더보기"; ObjectID = "Nck-FO-rTW"; */
+"Nck-FO-rTW.normalTitle" = "더보기";
+
+/* Class = "UIButton"; normalTitle = "사진추가 +"; ObjectID = "Ne4-fX-uQf"; */
+"Ne4-fX-uQf.normalTitle" = "사진추가 +";
+
+/* Class = "UILabel"; text = "유용"; ObjectID = "O8w-o5-FtW"; */
+"O8w-o5-FtW.text" = "유용";
+
+/* Class = "UILabel"; text = "적당"; ObjectID = "PLx-iE-b3f"; */
+"PLx-iE-b3f.text" = "적당";
+
+/* Class = "UILabel"; text = "적당"; ObjectID = "Px1-gv-3Q7"; */
+"Px1-gv-3Q7.text" = "적당";
+
+/* Class = "UIButton"; normalTitle = "전체"; ObjectID = "QPq-Wv-wVk"; */
+"QPq-Wv-wVk.normalTitle" = "전체";
+
+/* Class = "UILabel"; text = "1위"; ObjectID = "QUM-kf-VNw"; */
+"QUM-kf-VNw.text" = "1위";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Qp6-Vt-IPM"; */
+"Qp6-Vt-IPM.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "가격"; ObjectID = "Qq6-OC-Ey9"; */
+"Qq6-OC-Ey9.text" = "가격";
+
+/* Class = "UILabel"; text = "태양"; ObjectID = "RFO-gL-gM2"; */
+"RFO-gL-gM2.text" = "태양";
+
+/* Class = "UILabel"; text = "1800원"; ObjectID = "TTH-cm-D1b"; */
+"TTH-cm-D1b.text" = "1800원";
+
+/* Class = "UILabel"; text = "별로"; ObjectID = "Ti4-fB-XXt"; */
+"Ti4-fB-XXt.text" = "별로";
+
+/* Class = "UILabel"; text = "가격"; ObjectID = "Ucv-Zz-Y32"; */
+"Ucv-Zz-Y32.text" = "가격";
+
+/* Class = "UINavigationItem"; title = "상품 상세"; ObjectID = "UoM-Ai-L7n"; */
+"UoM-Ai-L7n.title" = "상품 상세";
+
+/* Class = "UILabel"; text = "1800원"; ObjectID = "V8Z-ql-LEG"; */
+"V8Z-ql-LEG.text" = "1800원";
+
+/* Class = "UILabel"; text = "보글보글보글 혜리 도시락"; ObjectID = "WVO-0x-4Gf"; */
+"WVO-0x-4Gf.text" = "보글보글보글 혜리 도시락";
+
+/* Class = "UILabel"; text = "적당"; ObjectID = "Wgy-sd-NF0"; */
+"Wgy-sd-NF0.text" = "적당";
+
+/* Class = "UILabel"; text = "8"; ObjectID = "XR2-3w-pJ8"; */
+"XR2-3w-pJ8.text" = "8";
+
+/* Class = "UIButton"; normalTitle = "홈"; ObjectID = "ZHO-OX-gDV"; */
+"ZHO-OX-gDV.normalTitle" = "홈";
+
+/* Class = "UILabel"; text = "4.0"; ObjectID = "Zop-Rl-KJb"; */
+"Zop-Rl-KJb.text" = "4.0";
+
+/* Class = "UIButton"; normalTitle = "완료"; ObjectID = "a4j-b8-E40"; */
+"a4j-b8-E40.normalTitle" = "완료";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "b3h-Yw-EFW"; */
+"b3h-Yw-EFW.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "엄청나게 이름이 긴 도시락임"; ObjectID = "b7P-Vs-4Ot"; */
+"b7P-Vs-4Ot.text" = "엄청나게 이름이 긴 도시락임";
+
+/* Class = "UILabel"; text = "3,721개의 상품"; ObjectID = "cla-a0-Ott"; */
+"cla-a0-Ott.text" = "3,721개의 상품";
+
+/* Class = "UIButton"; normalTitle = ">"; ObjectID = "coX-Gl-Ppg"; */
+"coX-Gl-Ppg.normalTitle" = ">";
+
+/* Class = "UILabel"; text = "7-eleven"; ObjectID = "dkm-wv-gZC"; */
+"dkm-wv-gZC.text" = "7-eleven";
+
+/* Class = "UILabel"; text = "옥수수 치즈 탕면"; ObjectID = "gDf-ps-YOV"; */
+"gDf-ps-YOV.text" = "옥수수 치즈 탕면";
+
+/* Class = "UIButton"; normalTitle = "유용해요"; ObjectID = "gFF-ZF-YNJ"; */
+"gFF-ZF-YNJ.normalTitle" = "유용해요";
+
+/* Class = "UIButton"; normalTitle = "별로에요"; ObjectID = "gf1-UE-MlU"; */
+"gf1-UE-MlU.normalTitle" = "별로에요";
+
+/* Class = "UILabel"; text = "최신순"; ObjectID = "hBo-cO-050"; */
+"hBo-cO-050.text" = "최신순";
+
+/* Class = "UILabel"; text = "알레르기"; ObjectID = "hvF-6h-JcQ"; */
+"hvF-6h-JcQ.text" = "알레르기";
+
+/* Class = "UILabel"; text = "낮은 가격순  "; ObjectID = "jvd-Ow-dMT"; */
+"jvd-Ow-dMT.text" = "낮은 가격순  ";
+
+/* Class = "UIButton"; normalTitle = "CU"; ObjectID = "kA1-L4-lso"; */
+"kA1-L4-lso.normalTitle" = "CU";
+
+/* Class = "UIButton"; normalTitle = "리뷰"; ObjectID = "mqF-cM-DmD"; */
+"mqF-cM-DmD.normalTitle" = "리뷰";
+
+/* Class = "UIButton"; normalTitle = "7-eleven"; ObjectID = "n3j-tv-o2T"; */
+"n3j-tv-o2T.normalTitle" = "7-eleven";
+
+/* Class = "UIButton"; normalTitle = "완료"; ObjectID = "ntL-j2-WNs"; */
+"ntL-j2-WNs.normalTitle" = "완료";
+
+/* Class = "UILabel"; text = "창렬"; ObjectID = "nuP-SV-grC"; */
+"nuP-SV-grC.text" = "창렬";
+
+/* Class = "UILabel"; text = "7-eleven"; ObjectID = "o0K-rL-XjS"; */
+"o0K-rL-XjS.text" = "7-eleven";
+
+/* Class = "UILabel"; text = "적당"; ObjectID = "oPQ-f2-TDP"; */
+"oPQ-f2-TDP.text" = "적당";
+
+/* Class = "UILabel"; text = "4.31"; ObjectID = "orv-4S-YX2"; */
+"orv-4S-YX2.text" = "4.31";
+
+/* Class = "UILabel"; text = "옥수수 외 2개"; ObjectID = "p7a-D5-oY1"; */
+"p7a-D5-oY1.text" = "옥수수 외 2개";
+
+/* Class = "UINavigationItem"; title = "갤러리"; ObjectID = "qu3-OJ-xVV"; */
+"qu3-OJ-xVV.title" = "갤러리";
+
+/* Class = "UIButton"; normalTitle = "asd"; ObjectID = "r2h-k7-Q1j"; */
+"r2h-k7-Q1j.normalTitle" = "asd";
+
+/* Class = "UILabel"; text = "편리해"; ObjectID = "sl7-hG-gpX"; */
+"sl7-hG-gpX.text" = "편리해";
+
+/* Class = "UILabel"; text = "맛"; ObjectID = "sus-Zi-hSx"; */
+"sus-Zi-hSx.text" = "맛";
+
+/* Class = "UILabel"; text = "이 상품에 대해 느낀점을 솔직하게 적어주세요 :)"; ObjectID = "tpV-Kc-V1G"; */
+"tpV-Kc-V1G.text" = "이 상품에 대해 느낀점을 솔직하게 적어주세요 :)";
+
+/* Class = "UIButton"; normalTitle = "GS25"; ObjectID = "u5E-Uv-SOO"; */
+"u5E-Uv-SOO.normalTitle" = "GS25";
+
+/* Class = "UILabel"; text = "4200원"; ObjectID = "yK6-Sy-hLu"; */
+"yK6-Sy-hLu.text" = "4200원";
+
+/* Class = "UILabel"; text = "0개의 리뷰"; ObjectID = "ymw-Ko-s1I"; */
+"ymw-Ko-s1I.text" = "0개의 리뷰";
+
+/* Class = "UILabel"; text = ">"; ObjectID = "zp0-Hj-Ozj"; */
+"zp0-Hj-Ozj.text" = ">";

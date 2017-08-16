@@ -18,5 +18,6 @@ class ReviewCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var reviewContentLabel: UILabel!
     @IBOutlet weak var starView: UIView!
     @IBOutlet weak var gradeLabel: UILabel!
+    @IBOutlet weak var loading: UIActivityIndicatorView!
     
 }
