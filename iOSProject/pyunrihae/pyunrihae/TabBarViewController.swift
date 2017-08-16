@@ -45,6 +45,7 @@ class TabBarViewController: UIViewController {
         titleLabel.text = titleName[selectedTabIndex]
         if selectedTabIndex == 3 {
             brandContentView.isHidden = true
+            vc.view.frame.origin.y -= 40
         } else {
             brandContentView.isHidden = false
         }

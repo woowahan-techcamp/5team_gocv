@@ -70,7 +70,6 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
         }
         
         pushViewControllerFromProductName(text : text)
-  
     }
     
     

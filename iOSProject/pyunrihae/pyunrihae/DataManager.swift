@@ -21,7 +21,6 @@ class DataManager{
      * 메인화면
      */
     
-    
     // 브랜드에 따라 리뷰 가져오고, 그걸 유용순으로 정리하기.
     static func getTop3ReviewByBrand(brand : String, completion: @escaping ([Review]) -> ()) {
         
