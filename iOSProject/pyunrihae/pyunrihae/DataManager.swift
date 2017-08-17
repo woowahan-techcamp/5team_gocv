@@ -198,7 +198,7 @@ class DataManager{
     static func getReviewListBy(id: String, completion: @escaping ([Review]) ->()) {
         let localRef = ref.child("review")
         let query = localRef.queryOrdered(byChild: "p_id").queryEqual(toValue: id)
-        query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+        query.observe(DataEventType.value, with: { (snapshot) in
             var reviewList : [Review] = []
             for childSnapshot in snapshot.children {
                 let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
@@ -227,14 +227,9 @@ class DataManager{
     
     // 상품 id로 상품 가져오기
     static func getProductById(id: String, completion : @escaping (Product) -> ()) {
-        let localRef = ref.child("product")
-        let query = localRef.queryOrdered(byChild: "id").queryEqual(toValue: id)
-        
-        query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
-            var product = Product()
-            for childSnapshot in snapshot.children {
-                product = Product.init(snapshot: childSnapshot as! DataSnapshot)
-            }
+        let localRef = ref.child("product").child(id)
+        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            let product = Product.init(snapshot: snapshot)
             completion(product)
         })
     }
@@ -424,12 +419,50 @@ class DataManager{
             update["p_image"] = imgURL
             id.updateChildValues(update)
         }
+        
+        let productRef = ref.child("product").child(p_id)
+        productRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            let postDict = snapshot.value as? [String : AnyObject] ?? [:]
+            var update = [String: Any]()
+            var review_count = 1
+            if postDict["review_count"] != nil {
+                if let total = postDict["review_count"] as? Int {
+                    review_count += total
+                    update["review_count"] = review_count
+                }
+            } else {
+                update["review_count"] = review_count
+            }
+            
+            if postDict["reviewList"] != nil {
+                if var reviewList = postDict["reviewList"] as? [String] {
+                    var exist = false
+                    for i in 0..<reviewList.count {
+                        if reviewList[i] == autoId {
+                            exist = true
+                        }
+                    }
+                    if !exist {
+                        reviewList.append(autoId)
+                    }
+                    update["reviewList"] = reviewList
+                }
+            } else {
+                var reviewList = [String]()
+                reviewList.append(autoId)
+                update["reviewList"] = reviewList
+            }
+            productRef.updateChildValues(update)
+            
+        })
+        
         completion()
     }
     
     /*
      * 검색 화면
      */
+    
     
     // 상품 이름으로 상품아이디 가져오기 (겹치는 게 있을 시 처음 것)
     static func getProductId(from: String, completion : @escaping (String) -> ()){

@@ -250,7 +250,9 @@ extension RankingViewController: UICollectionViewDataSource {
             }
             
 //            let grade = product.grade_avg
-            let grade = 3.6
+            let numberOfPlaces = 2.0
+            let multiplier = pow(10.0, numberOfPlaces)
+            let grade = round(Double(product.grade_avg) * multiplier) / multiplier
 
             cell.gradeLabel.text = String(grade)
             for i in 0..<Int(grade) {

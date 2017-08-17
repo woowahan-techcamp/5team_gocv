@@ -114,14 +114,18 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath) as! ProductInfoTableViewCell
-                Label.makeRoundLabel(label: cell.eventLabel, color: UIColor.red)
-                cell.eventLabel.textColor = UIColor.red
                 DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
                     cell.priceLabel.text = product.price + "원"
                     cell.brandLabel.text = product.brand
                     cell.foodNameLabel.text = product.name
+                    let numberOfPlaces = 2.0
+                    let multiplier = pow(10.0, numberOfPlaces)
+                    self.productGrade = round(Double(product.grade_avg) * multiplier) / multiplier
+                    
                     if product.event.count > 0 && product.event[0] != "\r" { //이벤트 데이터 베이스 수정 필요
                         cell.eventLabel.text = product.event[0]
+                        Label.makeRoundLabel(label: cell.eventLabel, color: UIColor.red)
+                        cell.eventLabel.textColor = UIColor.red
                     } else {
                         cell.eventLabel.isHidden = true
                     }
@@ -131,7 +135,6 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                         cell.foodImageBtn.setBackgroundImage(foodImage.image, for: .normal)
                         cell.loading.stopAnimating()
                     })
-                    
                 }
                 return cell
             } else {
