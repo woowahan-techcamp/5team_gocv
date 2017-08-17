@@ -22,4 +22,22 @@ class Validator {
         let passwordTest = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z\\d+]{6,}")
         return passwordTest.evaluate(with: password)
     }
+    
+    static func isSamePassWord(password: String, confirmPassword : String) -> Bool {
+        if password == confirmPassword {
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    static func isValidSign(email : String, password: String, confirmPassword : String) -> Bool {
+        if isValidEmail(email:email) && isValidPassWord(password: password) && isSamePassWord(password: password, confirmPassword: confirmPassword){
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    //TODO 현재 user모델에 있는 이메일인지도 확인해야함.
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SignupViewController: UIViewController {
 
@@ -19,10 +20,14 @@ class SignupViewController: UIViewController {
     @IBOutlet weak var passwordAlertLabel: UILabel!
     @IBOutlet weak var passwordConfirmAlertLabel: UILabel!
 
+    @IBOutlet weak var alertView: UILabel!
     @IBAction func onCancelBtnPressed(_ sender: Any) {
         navigationController?.popViewController(animated: true)
+        dismissKeyboard()
         dismiss(animated: true, completion: nil)
     }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
@@ -46,6 +51,7 @@ class SignupViewController: UIViewController {
         }else{
             emailAlertLabel.isHidden = false
         }
+        isValidSignup()
     }
     
     @IBAction func onPasswordTextChanged(_ sender: Any) {
@@ -54,9 +60,50 @@ class SignupViewController: UIViewController {
         }else{
             passwordAlertLabel.isHidden = false
         }
+        isValidSignup()
     }
     
     @IBAction func onPasswordConfirmTextChanged(_ sender: Any) {
+        if Validator.isSamePassWord(password: passWordTextField.text!, confirmPassword: passWordConfirmTextField.text!){
+            passwordConfirmAlertLabel.isHidden = true
+        }else{
+            passwordConfirmAlertLabel.isHidden = false
+        }
+        isValidSignup()
+    }
+    
+    func isValidSignup(){
+        if Validator.isValidSign(email: emailTextField.text!,password: passWordTextField.text!, confirmPassword: passWordConfirmTextField.text!) {
+           completeBtn.isEnabled = true
+        }else{
+            completeBtn.isEnabled = false
+        }
+    }
+   
+    @IBAction func signUp(_ sender: Any) {
+        if completeBtn.isEnabled {
+            // 회원가입 과정을 다 통과하면 user 만듦
+            dismissKeyboard()
+            Auth.auth().createUser(withEmail: emailTextField.text!, password: passWordTextField.text!) { (user, error) in
+                
+                if error == nil {
+                    self.dismiss(animated: true, completion: nil)
+                }else{
+                    self.alertView.text = "회원가입에 실패했습니다."
+                    UIView.animate(withDuration: 0.1,  animations: {
+                        self.alertView.alpha = 1
+                    }, completion: { (bool) in
+                        if bool {
+                            UIView.animate(withDuration: 2.0, animations: {
+                                self.alertView.alpha = 0
+                            })
+                        }
+                    })
+                }
+            }
+        }else{
+            
+        }
     }
 
     /*
