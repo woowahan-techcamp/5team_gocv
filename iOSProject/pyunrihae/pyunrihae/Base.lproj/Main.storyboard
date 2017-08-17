@@ -180,13 +180,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="XtW-0x-rFt">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_login2.png" translatesAutoresizingMaskIntoConstraints="NO" id="XtW-0x-rFt">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sg8-ra-PZU">
+                                <rect key="frame" x="82" y="225" width="212" height="190"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_pyunrihae.png" translatesAutoresizingMaskIntoConstraints="NO" id="82f-Lb-xk7">
+                                        <rect key="frame" x="0.0" y="0.0" width="212" height="190"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <connections>
+                        <outlet property="pyunrihaeImage" destination="Sg8-ra-PZU" id="gSC-Pi-96N"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9aP-4D-MLN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1635,6 +1648,7 @@
     <resources>
         <image name="back.png" width="100" height="100"/>
         <image name="bg_login.png" width="750" height="1334"/>
+        <image name="bg_login2.png" width="750" height="1334"/>
         <image name="check.png" width="2400" height="2400"/>
         <image name="dropdown.png" width="1920" height="1920"/>
         <image name="ic_close.png" width="44" height="42"/>
@@ -1649,6 +1663,7 @@
         <image name="ic_my.png" width="86" height="70"/>
         <image name="ic_my_selected.png" width="86" height="70"/>
         <image name="ic_password.png" width="100" height="100"/>
+        <image name="ic_pyunrihae.png" width="424" height="380"/>
         <image name="ic_ranking.png" width="46" height="74"/>
         <image name="ic_ranking_selected.png" width="46" height="74"/>
         <image name="ic_review.png" width="42" height="68"/>
@@ -1659,7 +1674,7 @@
         <image name="writing.png" width="2000" height="2000"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="UYP-Yi-AVc"/>
+        <segue reference="Vaq-lB-3M9"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>
