@@ -1250,7 +1250,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WlH-VF-hHo">
-                                <rect key="frame" x="16" y="32" width="32" height="32"/>
+                                <rect key="frame" x="16" y="32" width="22" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="ic_close_gray.png"/>
                                 <connections>
@@ -1277,6 +1277,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="onEmailTextChanged:" destination="KQa-R2-kWD" eventType="editingChanged" id="lNH-re-Khx"/>
+                                </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_mail.png" translatesAutoresizingMaskIntoConstraints="NO" id="vQS-eu-BK0">
                                 <rect key="frame" x="29" y="190" width="30" height="30"/>
@@ -1288,6 +1291,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="onPasswordTextChanged:" destination="KQa-R2-kWD" eventType="editingChanged" id="R8z-bP-hJf"/>
+                                </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_password.png" translatesAutoresizingMaskIntoConstraints="NO" id="d67-Ed-YNF">
                                 <rect key="frame" x="29" y="270" width="30" height="30"/>
@@ -1299,6 +1305,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="onPasswordConfirmTextChanged:" destination="KQa-R2-kWD" eventType="editingChanged" id="K7Y-64-pbj"/>
+                                </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_password.png" translatesAutoresizingMaskIntoConstraints="NO" id="ESb-dX-0ZU">
                                 <rect key="frame" x="29" y="352" width="30" height="30"/>
@@ -1310,14 +1319,38 @@
                                 <state key="normal" backgroundImage="ic_complete.png"/>
                                 <state key="selected" backgroundImage="ic_complete_enabled.png"/>
                             </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="형식에 맞는 이메일이 아닙니다." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tms-GL-vTT">
+                                <rect key="frame" x="71" y="228" width="210" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="1" green="0.47061997649999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" 비밀번호는 6자 이상의 알파벳과 숫자로 이루어져야합니다." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Edi-3U-TWQ">
+                                <rect key="frame" x="69" y="308" width="327" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="1" green="0.47061997649999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="비밀번호와 일치하지 않습니다." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DJb-Gp-tIC">
+                                <rect key="frame" x="69" y="393" width="327" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="1" green="0.47061997649999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="completeBtn" destination="kOV-iw-uH9" id="uK3-lj-iN6"/>
+                        <outlet property="emailAlertLabel" destination="Tms-GL-vTT" id="bId-LH-rXD"/>
                         <outlet property="emailTextField" destination="hAM-RL-TaP" id="0ET-gy-Zaq"/>
                         <outlet property="passWordConfirmTextField" destination="4Rl-PH-Rad" id="N0M-as-yy3"/>
                         <outlet property="passWordTextField" destination="f8l-HB-luF" id="7Us-Uf-FNH"/>
+                        <outlet property="passwordAlertLabel" destination="Edi-3U-TWQ" id="uwD-EL-31k"/>
+                        <outlet property="passwordConfirmAlertLabel" destination="DJb-Gp-tIC" id="RFW-cA-kCZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rdY-Pg-Ibw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1354,7 +1387,7 @@
                                 <state key="normal" backgroundImage="ic_login.png"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6QF-Ys-NgG">
-                                <rect key="frame" x="16" y="24" width="32" height="32"/>
+                                <rect key="frame" x="16" y="24" width="22" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="ic_close.png"/>
                                 <connections>

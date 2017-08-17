@@ -47,6 +47,7 @@
 		98768AA01F39A5D600654C19 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C5AAD71F342C3900610115 /* DataManager.swift */; };
 		98B73F861F39394500E55420 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B73F851F39394500E55420 /* Review.swift */; };
 		98B73F881F394CAB00E55420 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B73F871F394CAB00E55420 /* Product.swift */; };
+		98B82EDC1F45352A001C63A4 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B82EDB1F45352A001C63A4 /* Validator.swift */; };
 		98C5AACE1F33FAE800610115 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C5AACD1F33FAE800610115 /* MainViewController.swift */; };
 		98D5690C1F444DB1002693E9 /* WaitingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D5690B1F444DB1002693E9 /* WaitingViewController.swift */; };
 		98D839081F452DF200CDF699 /* bg_login2.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D839071F452DF200CDF699 /* bg_login2.png */; };
@@ -166,6 +167,7 @@
 		9865E56B1F42E55E00014795 /* BigImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BigImageViewController.swift; sourceTree = "<group>"; };
 		98B73F851F39394500E55420 /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		98B73F871F394CAB00E55420 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		98B82EDB1F45352A001C63A4 /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		98C5AACD1F33FAE800610115 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		98C5AAD71F342C3900610115 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		98D5690B1F444DB1002693E9 /* WaitingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingViewController.swift; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 				9865E5591F3D837200014795 /* SelectedProduct.swift */,
 				9865E55B1F417E2000014795 /* SelectedAllergy.swift */,
 				98C5AAD71F342C3900610115 /* DataManager.swift */,
+				98B82EDB1F45352A001C63A4 /* Validator.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -822,6 +825,7 @@
 				9865E53C1F3C0BD500014795 /* AllergyViewController.swift in Sources */,
 				981E932E1F386681004BE63B /* MypageViewController.swift in Sources */,
 				9865E5081F3943BD00014795 /* Button.swift in Sources */,
+				98B82EDC1F45352A001C63A4 /* Validator.swift in Sources */,
 				98D9F2E61F418DF3009D0E10 /* YNSearchExtension.swift in Sources */,
 				98D9F2EA1F418DF3009D0E10 /* YNSearchMainView.swift in Sources */,
 				9865E5221F3AD8BE00014795 /* RankingCollectionViewCell.swift in Sources */,
