@@ -16,8 +16,11 @@ class ProductDetailViewController: UIViewController {
     @IBAction func closeNavViewBtn(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
+    let priceLevelList = ["비싸다","비싼편","적당","싼편","싸다"]
+    let flavorLevelList = ["노맛","별로","적당","괜춘","존맛"]
+    let quantityLevelList = ["창렬","적음","적당","많음","혜자"]
     var orderBy = "최신순"
-    var productGrade = 4.6 //임의로 넣어놧음
+    var productGrade = 0.0 //임의로 넣어놧음
     var usefulBtns = [UIButton]()
     var badBtns = [UIButton]()
     var usefulLabels = [UILabel]()
@@ -118,9 +121,6 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                     cell.priceLabel.text = product.price + "원"
                     cell.brandLabel.text = product.brand
                     cell.foodNameLabel.text = product.name
-                    let numberOfPlaces = 2.0
-                    let multiplier = pow(10.0, numberOfPlaces)
-                    self.productGrade = round(Double(product.grade_avg) * multiplier) / multiplier
                     
                     if product.event.count > 0 && product.event[0] != "\r" { //이벤트 데이터 베이스 수정 필요
                         cell.eventLabel.text = product.event[0]
@@ -140,27 +140,81 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath) as! ProductDetailInfoTableViewCell
                 // 제품 별점 보여주기
-                cell.gradeLabel.text = String(productGrade)
-                for sub in cell.starView.subviews {
-                    sub.removeFromSuperview()
-                }
-                for i in 0..<Int(productGrade) {
-                    let starImage = UIImage(named: "stars.png")
-                    let cgImage = starImage?.cgImage
-                    let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: 0, y: 0, width: (starImage?.size.width)! / 5, height: starImage!.size.height))!
-                    let uiImage = UIImage(cgImage: croppedCGImage)
-                    let imageView = UIImageView(image: uiImage)
-                    imageView.frame = CGRect(x: i*18, y: 0, width: 18, height: 15)
-                    cell.starView.addSubview(imageView)
-                }
-                if productGrade - Double(Int(productGrade)) >= 0.5 {
-                    let starImage = UIImage(named: "stars.png")
-                    let cgImage = starImage?.cgImage
-                    let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: (starImage?.size.width)! * 4 / 5, y: 0, width: (starImage?.size.width)!, height: starImage!.size.height))!
-                    let uiImage = UIImage(cgImage: croppedCGImage)
-                    let imageView = UIImageView(image: uiImage)
-                    imageView.frame = CGRect(x: Int(productGrade)*18 - 3, y: 0, width: 18, height: 15)
-                    cell.starView.addSubview(imageView)
+                DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
+                    let numberOfPlaces = 2.0
+                    let multiplier = pow(10.0, numberOfPlaces)
+                    self.productGrade = round(Double(product.grade_avg) * multiplier) / multiplier
+                    cell.gradeLabel.text = String(self.productGrade)
+                    for sub in cell.starView.subviews {
+                        sub.removeFromSuperview()
+                    }
+                    var space = 0
+                    if self.productGrade - Double(Int(self.productGrade)) >= 0.5 {
+                        let starImage = UIImage(named: "stars.png")
+                        let cgImage = starImage?.cgImage
+                        let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: (starImage?.size.width)! * 4 / 5, y: 0, width: (starImage?.size.width)!, height: starImage!.size.height))!
+                        let uiImage = UIImage(cgImage: croppedCGImage)
+                        let imageView = UIImageView(image: uiImage)
+                        space = (4 - Int(self.productGrade)) * 15
+                        
+                        imageView.frame = CGRect(x: Int(self.productGrade)*18 - 3 + space, y: 0, width: 18, height: 15)
+                        cell.starView.addSubview(imageView)
+                    } else{
+                        space = (5 - Int(self.productGrade)) * 15
+                    }
+                    for i in 0..<Int(self.productGrade) {
+                        let starImage = UIImage(named: "stars.png")
+                        let cgImage = starImage?.cgImage
+                        let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: 0, y: 0, width: (starImage?.size.width)! / 5, height: starImage!.size.height))!
+                        let uiImage = UIImage(cgImage: croppedCGImage)
+                        let imageView = UIImageView(image: uiImage)
+                        imageView.frame = CGRect(x: i*18 + space, y: 0, width: 18, height: 15)
+                        cell.starView.addSubview(imageView)
+                    }
+                    let allergyList = product.allergy
+                    if allergyList.count != 0 {
+                        let allergy = allergyList[0]
+                        if allergyList.count == 1 {
+                            cell.allergyBtn.isEnabled = false
+                            cell.allergyBtn.setTitle(allergy, for: .normal)
+                        } else {
+                            cell.allergyBtn.isEnabled = true
+                            let count = allergyList.count - 1
+                            cell.allergyBtn.setTitle(allergy + "외 " + count.description + "개의 성분 >", for: .normal)
+                        }
+                    } else {
+                        cell.allergyBtn.isEnabled = false
+                        cell.allergyBtn.setTitle("알레르기 정보가 없습니다!", for: .normal)
+                    }
+                    let priceLevelDict = product.price_level
+                    let flavorLevelDict = product.flavor_level
+                    let quantityLevelDict = product.quantity_level
+                    var maxPriceLevel = 3
+                    var maxFlavorLevel = 3
+                    var maxQuantityLevel = 3
+                    var maxPriceNum = 0
+                    var maxFlavorNum = 0
+                    var maxQuantityNum = 0
+                    for i in 1...5 {
+                        let p = "p" + i.description
+                        let f = "f" + i.description
+                        let q = "q" + i.description
+                        if priceLevelDict[p]! > maxPriceNum {
+                            maxPriceLevel = i
+                            maxPriceNum = priceLevelDict[p]!
+                        }
+                        if flavorLevelDict[f]! > maxFlavorNum {
+                            maxFlavorLevel = i
+                            maxFlavorNum = flavorLevelDict[f]!
+                        }
+                        if quantityLevelDict[q]! > maxQuantityNum {
+                            maxQuantityLevel = i
+                            maxQuantityNum = quantityLevelDict[q]!
+                        }
+                     }
+                    cell.priceLevelLabel.text = self.priceLevelList[maxPriceLevel - 1]
+                    cell.flavorLevelLabel.text = self.flavorLevelList[maxFlavorLevel - 1]
+                    cell.quantityLevelLabel.text = self.quantityLevelList[maxQuantityLevel - 1]
                 }
                 return cell
             }
