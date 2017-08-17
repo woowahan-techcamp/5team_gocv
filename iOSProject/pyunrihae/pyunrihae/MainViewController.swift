@@ -11,15 +11,12 @@ import AlamofireImage
 import Alamofire
 
 class MainViewController: UIViewController {
-    @IBOutlet weak var showAllBtn: UIButton!
+
     @IBOutlet weak var reviewImageView: UIScrollView!
     @IBOutlet weak var collectionView : UICollectionView!
     @IBOutlet weak var categoryScrollView: CategoryScrollView!
     
-    @IBAction func didPressshowAllBtn(_ sender: UIButton){
-        NotificationCenter.default.post(name: NSNotification.Name("showRanking"), object: self)
-    }
-    
+
     var productList : [Product] = []
     var reviewList : [Review] = []
     var selectedBrandIndexFromTab : Int = 0 {
@@ -40,13 +37,14 @@ class MainViewController: UIViewController {
     
     func addCategoryBtn(){ // 카테고리 버튼 스크롤 뷰에 추가하기
         categoryScrollView.isScrollEnabled = true
-        categoryScrollView.contentSize.width = CGFloat(80 * category.count)
+        categoryScrollView.contentSize.width = CGFloat(64 * category.count)
         for index in 0..<category.count {
-            let categoryBtn = UIButton(frame: CGRect(x: 80 * index, y: 10, width: 80, height: 40))
+            let categoryBtn = UIButton(frame: CGRect(x: 64 * index, y: 5, width: 64, height: 32))
+            let color = UIColor(red: CGFloat(102.0 / 255.0), green: CGFloat(102.0 / 255.0),  blue: CGFloat(102.0 / 255.0), alpha: CGFloat(1.0))
             categoryBtn.setTitle(category[index], for: .normal) // 카테고리 버튼 텍스트
-            categoryBtn.setTitleColor(UIColor.darkGray, for: .normal) // 카테고리 버튼 텍스트 색깔
+            categoryBtn.setTitleColor(color, for: .normal) // 카테고리 버튼 텍스트 색깔
             categoryBtn.contentHorizontalAlignment = .center // 카테고리 버튼 중앙정렬
-            categoryBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15) // 카테고리 버튼 폰트 크기 15
+            categoryBtn.titleLabel?.font = categoryBtn.titleLabel?.font.withSize(13) // 카테고리 버튼 폰트 크기 13
             categoryBtn.tag = index // 버튼 태그 생성해주기
             categoryBtns.append(categoryBtn)
             categoryBtn.addTarget(self, action: #selector(didPressCategoryBtn), for: UIControlEvents.touchUpInside)
@@ -158,19 +156,26 @@ class MainViewController: UIViewController {
                 let imageViewHeight = self.reviewImageView.frame.size.height;
                 var xPosition:CGFloat = 0;
                 var scrollViewSize:CGFloat=0;
-                var cnt = 3
+                var cnt = 0
+                let scrollViewImageNum = 3
                 
                 for review in self.reviewList {
-                    if cnt <= 0 {
+                    if cnt >= scrollViewImageNum {
                         break;
                     }
+                    
                     let url = URL(string: review.p_image)
                     let myImageView:UIImageView = UIImageView()
                     let blackLayerView : UIView = UIView()
+                    let barLabel : UILabel = UILabel()
                     let brandLabel : UILabel = UILabel()
                     let nameLabel : UILabel = UILabel()
                     let reviewLabel : UILabel = UILabel()
                     let moreLabel : UILabel = UILabel()
+                    let hotReviewLabel : UILabel = UILabel()
+                    let selectedCountLabel : UILabel = UILabel()
+                    let totalCountLabel : UILabel = UILabel()
+                    let starImageView : UIImageView = UIImageView()
                 
                     myImageView.af_setImage(withURL: url!)
                     myImageView.contentMode = UIViewContentMode.scaleAspectFill
@@ -179,53 +184,107 @@ class MainViewController: UIViewController {
                     myImageView.frame.size.height = imageViewHeight
                     myImageView.frame.origin.x = xPosition
                     
-                    blackLayerView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+                    blackLayerView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
                     blackLayerView.frame.size.width = imageViewWidth
                     blackLayerView.frame.size.height = imageViewHeight
                     blackLayerView.frame.origin.x = xPosition
                     
-                    brandLabel.textColor = UIColor.white
+                    barLabel.text  = "|"
+                    barLabel.textColor = UIColor.white.withAlphaComponent(0.4)
+                    barLabel.frame.origin.x = 209 + scrollViewSize
+                    barLabel.frame.origin.y = 201
+                    barLabel.frame.size.width = 4
+                    barLabel.frame.size.height = 10
+                    
+                    brandLabel.textColor = UIColor.white.withAlphaComponent(0.6)
                     brandLabel.text = review.brand
-                    brandLabel.frame.size.width = imageViewWidth
-                    brandLabel.frame.size.height = imageViewHeight
-                    brandLabel.font = UIFont.boldSystemFont(ofSize: 16.0)
-                    brandLabel.frame.origin.x = xPosition + 12
-                    brandLabel.frame.origin.y = 60
+                    brandLabel.frame.size.width = 54
+                    brandLabel.frame.size.height = 20
+                    brandLabel.font = brandLabel.font.withSize(12)
+                    brandLabel.frame.origin.x = 220 + scrollViewSize
+                    brandLabel.frame.origin.y = 196
                     
                     nameLabel.textColor = UIColor.white
                     nameLabel.text = review.p_name
                     nameLabel.frame.size.width = imageViewWidth
-                    nameLabel.frame.size.height = imageViewHeight
-                    nameLabel.font = UIFont.boldSystemFont(ofSize: 16.0)
-                    nameLabel.frame.origin.x = xPosition + 12
+                    nameLabel.frame.size.height = 28
+                    nameLabel.font = nameLabel.font.withSize(22)
+                    nameLabel.frame.origin.x = scrollViewSize
                     nameLabel.frame.origin.y = 80
+                    nameLabel.textAlignment = .center
                     
+                    hotReviewLabel.frame.origin.x = 156 + scrollViewSize
+                    hotReviewLabel.frame.origin.y = 32
+                    hotReviewLabel.backgroundColor = UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(Float(1)))
+                    hotReviewLabel.frame.size.width = 64
+                    hotReviewLabel.frame.size.height = 27
+                    hotReviewLabel.text = "핫 리뷰"
+                    hotReviewLabel.font = UIFont.boldSystemFont(ofSize: 12)
+                    hotReviewLabel.textColor = UIColor.white
+                    hotReviewLabel.textAlignment = .center
+                    hotReviewLabel.layer.cornerRadius = 14
+                    hotReviewLabel.layer.masksToBounds = true
+                    hotReviewLabel.clipsToBounds = true
                     
                     // 리뷰를 줄간격을 16 + 글자색 흰색으로 바꾸는 코드
                     let style = NSMutableParagraphStyle()
                     let attrString = NSMutableAttributedString(string: review.comment)
-                    style.lineSpacing = 16
-                    style.minimumLineHeight = 16
+                    style.minimumLineHeight = 20
                     attrString.addAttribute(NSParagraphStyleAttributeName, value: style, range: NSRange(location: 0, length: review.comment.characters.count))
                     attrString.addAttribute(NSForegroundColorAttributeName, value: UIColor.white , range: NSRange(location: 0, length: review.comment.characters.count))
                     reviewLabel.attributedText = attrString
                     
                     reviewLabel.numberOfLines = 0
-                    reviewLabel.frame.size.width = imageViewWidth / 2 - 20
-                    reviewLabel.frame.size.height = imageViewHeight - 40
-                    reviewLabel.font = reviewLabel.font?.withSize(16.0)
-                    reviewLabel.frame.origin.x = xPosition + imageViewWidth / 2 + 10
-                    reviewLabel.frame.origin.y = 20
-                    reviewLabel.backgroundColor = UIColor.black.withAlphaComponent(0.2)
+                    reviewLabel.frame.size.width = 216
+                    reviewLabel.frame.size.height = 60
+                    reviewLabel.font = reviewLabel.font?.withSize(14.0)
+                    reviewLabel.frame.origin.x = 80 + scrollViewSize
+                    reviewLabel.frame.origin.y = 115
+                    reviewLabel.textAlignment = .center
+                    reviewLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
                     
-                    moreLabel.textColor = UIColor.white
-                    moreLabel.text = "더보기 >"
-                    moreLabel.frame.size.width = imageViewWidth
-                    moreLabel.frame.size.height = imageViewHeight
-                    moreLabel.font = UIFont.boldSystemFont(ofSize: 12.0)
-                    moreLabel.frame.origin.x = xPosition + imageViewWidth - 60
-                    moreLabel.frame.origin.y = 84
-
+                    moreLabel.textColor = UIColor.white.withAlphaComponent(0.6)
+                    let attributedText = NSMutableAttributedString(string: "자세히")
+                    attributedText.addAttribute(NSUnderlineStyleAttributeName , value: NSUnderlineStyle.styleSingle.rawValue, range: NSRange(location: 0, length: "자세히".characters.count))
+                    moreLabel.attributedText = attributedText
+                    moreLabel.frame.size.width = 32
+                    moreLabel.frame.size.height = 20
+                    moreLabel.font = moreLabel.font.withSize(12)
+                    moreLabel.frame.origin.x = 329 + scrollViewSize
+                    moreLabel.frame.origin.y = 196
+                    
+                    selectedCountLabel.frame.origin.x = 334 + scrollViewSize
+                    selectedCountLabel.frame.origin.y = 32
+                    selectedCountLabel.font = UIFont.boldSystemFont(ofSize: 12)
+                    selectedCountLabel.text = (cnt + 1).description
+                    selectedCountLabel.frame.size.width = 9
+                    selectedCountLabel.frame.size.height = 15
+                    selectedCountLabel.textColor = UIColor.white
+                    
+                    totalCountLabel.frame.origin.x = 344 + scrollViewSize
+                    totalCountLabel.frame.origin.y = 32
+                    totalCountLabel.frame.size.width = 20
+                    totalCountLabel.frame.size.height = 16
+                    totalCountLabel.font = totalCountLabel.font.withSize(12)
+                    totalCountLabel.textColor = UIColor.white.withAlphaComponent(0.6)
+                    totalCountLabel.text = "/ " + scrollViewImageNum.description
+                    
+                    starImageView.frame.origin.x = 128 + scrollViewSize
+                    starImageView.frame.origin.y = 200
+                    starImageView.frame.size.width = 72
+                    starImageView.frame.size.height = 12
+                
+                    
+                    switch(review.grade) {
+                    case 1 : starImageView.image = #imageLiteral(resourceName: "star1.png");
+                    case 2: starImageView.image = #imageLiteral(resourceName: "star2.png");
+                    case 3 : starImageView.image = #imageLiteral(resourceName: "star3.png");
+                    case 4 : starImageView.image = #imageLiteral(resourceName: "star4.png");
+                    case 5 : starImageView.image = #imageLiteral(resourceName: "star5.png");
+                    default : starImageView.image = #imageLiteral(resourceName: "star3.png");
+                    }
+                    
+                    
                     let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
                     
                     self.reviewImageView.addGestureRecognizer(tap)
@@ -234,15 +293,20 @@ class MainViewController: UIViewController {
                     
                     self.reviewImageView.addSubview(myImageView)
                     self.reviewImageView.addSubview(blackLayerView)
+                    self.reviewImageView.addSubview(barLabel)
                     self.reviewImageView.addSubview(brandLabel)
                     self.reviewImageView.addSubview(nameLabel)
                     self.reviewImageView.addSubview(reviewLabel)
                     self.reviewImageView.addSubview(moreLabel)
+                    self.reviewImageView.addSubview(hotReviewLabel)
+                    self.reviewImageView.addSubview(selectedCountLabel)
+                    self.reviewImageView.addSubview(totalCountLabel)
+                    self.reviewImageView.addSubview(starImageView)
                    
 
                     xPosition += imageViewWidth
                     scrollViewSize += imageViewWidth
-                    cnt = cnt - 1
+                    cnt = cnt + 1
                 };
                 self.hideActivityIndicatory()
                 self.reviewImageView.contentSize = CGSize(width: scrollViewSize, height: 0.8);
@@ -268,8 +332,7 @@ class MainViewController: UIViewController {
         didPressCategoryBtn(sender: categoryBtns[selectedCategoryIndex])
         reviewImageView.backgroundColor = UIColor.lightGray
         reviewImageView.isPagingEnabled = true
-        showAllBtn.layer.borderColor = UIColor.lightGray.cgColor
-        showAllBtn.layer.borderWidth = 1
+
         DataManager.getTop3Product() { (products) in
             self.productList = products
             DispatchQueue.main.async {
@@ -296,48 +359,42 @@ extension MainViewController: UICollectionViewDataSource { //메인화면에서 
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? MainRankCollectionViewCell {
-            cell.foodImage.layer.cornerRadius = cell.foodImage.frame.height/2
-            cell.foodImage.clipsToBounds = true
-            cell.rankLabel.layer.cornerRadius = cell.rankLabel.frame.height/2
-            cell.rankLabel.layer.masksToBounds = true
+
+
             
-            if indexPath.row == 0{
-                if productList.count > 0 {
-                    cell.loading.startAnimating()
-                    cell.foodImage.af_setImage(withURL: URL(string: productList[0].image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
-                        cell.loading.stopAnimating()
-                    })
-                    cell.brandLabel.text  = productList[0].brand
-                    cell.nameLabel.text = productList[0].name
+            if (productList.count > 2) && (indexPath.item < 3) {
+                cell.loading.startAnimating()
+                cell.foodImage.af_setImage(withURL: URL(string: productList[indexPath.item].image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
+                    cell.loading.stopAnimating()
+                })
+                
+                for sub in cell.brandLabel.subviews {
+                    sub.removeFromSuperview()
                 }
                 
-                cell.rankLabel.text = "1위"
-                cell.rankLabel.backgroundColor = UIColor.orange
-                cell.rankLabel.textColor = UIColor.white
-            } else if indexPath.row == 1{
-                if productList.count > 0 {
-                    cell.loading.startAnimating()
-                    cell.foodImage.af_setImage(withURL: URL(string: productList[1].image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
-                        cell.loading.stopAnimating()
-                    })
-                    cell.brandLabel.text  = productList[1].brand
-                    cell.nameLabel.text = productList[1].name
+                let imageview : UIImageView = UIImageView()
+                switch (productList[indexPath.item].brand) {
+                case "gs25":
+                    imageview.image = #imageLiteral(resourceName: "logo_gs25.png")
+                    imageview.frame.size.width = 35;
+                    imageview.frame.size.height = 15;
+                    imageview.center = CGPoint.init(x: cell.brandLabel.frame.size.width  / 2, y: cell.brandLabel.frame.size.height / 2);
+                case "7-eleven":
+                    imageview.image = #imageLiteral(resourceName: "logo_7eleven.png")
+                    imageview.frame.size.width = 66;
+                    imageview.frame.size.height = 12;
+                    imageview.center = CGPoint.init(x: cell.brandLabel.frame.size.width  / 2, y: cell.brandLabel.frame.size.height / 2);
+                case "CU":
+                    imageview.image = #imageLiteral(resourceName: "logo_cu.png")
+                    imageview.frame.size.width = 32;
+                    imageview.frame.size.height = 14;
+                    imageview.center = CGPoint.init(x: cell.brandLabel.frame.size.width  / 2, y: cell.brandLabel.frame.size.height / 2);
+                default : break;
                 }
-                cell.rankLabel.text = "2위"
-                cell.rankLabel.backgroundColor = UIColor.lightGray
-                cell.rankLabel.textColor = UIColor.white
-            } else {
-                if productList.count > 0 {
-                    cell.loading.startAnimating()
-                    cell.foodImage.af_setImage(withURL: URL(string: productList[2].image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
-                        cell.loading.stopAnimating()
-                    })
-                    cell.brandLabel.text  = productList[2].brand
-                    cell.nameLabel.text = productList[2].name
-                }
-                cell.rankLabel.text = "3위"
-                cell.rankLabel.backgroundColor = UIColor.brown
-                cell.rankLabel.textColor = UIColor.white
+                
+                cell.brandLabel.addSubview(imageview)
+                cell.nameLabel.text = productList[indexPath.item].name
+                cell.rankLabel.text = (indexPath.item + 1).description
             }
             
             return cell
@@ -345,6 +402,7 @@ extension MainViewController: UICollectionViewDataSource { //메인화면에서 
         
         return MainRankCollectionViewCell()
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let cell = sender as! MainRankCollectionViewCell
         let indexRow = self.collectionView!.indexPath(for: cell)?.row

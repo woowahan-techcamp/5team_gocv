@@ -18,16 +18,22 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let demoCategories = ["도시락", "김밥", "베이커리", "라면","즉석식품","스낵","음료"]
+        let demoCategories = ["도시락","김밥","베이커리","라면","즉석식품","스낵","유제품","음료"]
         
         let ynSearch = YNSearch()
+        let historyList = ynSearch.getSearchHistories()
         ynSearch.setCategories(value: demoCategories)
+        ynSearch.setSearchHistories(value: historyList!)
         
+
         self.ynSearchinit()
         
         self.delegate = self
         
+        self.ynSearchView.ynSearchMainView.redrawSearchHistoryButtons()
+        
         var db : [YNSearchModel] = []
+        
         DataManager.getProductAllInRank()  { (products) in
             
             for product in products {
@@ -54,15 +60,25 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
     
     func ynSearchHistoryButtonClicked(text: String) {
         // 검색 history가 카테고리와 같으면 카테고리로 보냄
-        self.pushViewController(text: text)
+        
+        let demoCategories = ["도시락","김밥","베이커리","라면","즉석식품","스낵","유제품","음료"]
+        
+        for category in demoCategories {
+            if text == category {
+                pushRankingController(text: text)
+            }
+        }
+        
+        pushViewControllerFromProductName(text : text)
     }
     
+    
     func ynCategoryButtonClicked(text: String) {
-        // 어떤식으로 구현되야할지 다시 이야기 해야함
+       pushRankingController(text: text)
     }
     
     func ynSearchListViewClicked(key: String) {
-        // 어떤식으로 구현되야할지 다시 이야기 해야함
+        self.pushViewController(text: key)
     }
     
     func ynSearchListViewClicked(object: Any) {
@@ -95,7 +111,40 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
         }
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "mainNavigationController") as! UINavigationController
-        _ = vc.viewControllers.first as! ProductDetailViewController
         self.present(vc, animated: true, completion: nil)
+    }
+    
+    func pushRankingController(text : String) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
+        switch (text){
+        case "도시락" : vc.categoryIndex = 1
+        case "김밥" : vc.categoryIndex = 2
+        case "베이커리" : vc.categoryIndex = 3
+        case "라면": vc.categoryIndex = 4
+        case "즉석식품" : vc.categoryIndex = 5
+        case "스낵" : vc.categoryIndex = 6
+        case "유제품" : vc.categoryIndex = 7
+        case "음료" : vc.categoryIndex = 8
+        default : vc.categoryIndex = 0
+        }
+        
+        vc.selectedTabIndex = 1
+        self.present(vc, animated: true, completion : nil )
+    }
+    
+    func pushViewControllerFromProductName(text : String) {
+        DataManager.getProductId(from: text) { (productId) in
+            SelectedProduct.foodId = productId
+            SelectedProduct.reviewCount = 0
+            DataManager.getReviewListBy(id: text) { (reviewList) in
+                SelectedProduct.reviewCount = reviewList.count
+                NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
+            }
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "mainNavigationController") as! UINavigationController
+            self.present(vc, animated: true, completion: nil)
+        }
     }
 }

@@ -9,6 +9,7 @@ target 'pyunrihae' do
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
+  pod 'Fusuma'
   pod 'Alamofire', '~> 4.4'
   pod 'AlamofireImage', '~> 3.1'
   pod 'NVActivityIndicatorView'

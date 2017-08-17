@@ -21,52 +21,6 @@ class DataManager{
      * 메인화면
      */
     
-    
-    // 리뷰 쓰기
-    static func writeReview(brand: String, category: String, grade: Int, priceLevel: Int, flavorLevel: Int, quantityLevel: Int, allergy: [String], review: String, user: String,user_image: String, p_id: String, p_image: UIImage, p_name: String, p_price: Int, completion: ()->()) {
-        
-        let format = DateFormatter()
-        format.locale = Locale(identifier: "ko_kr")
-        format.timeZone = TimeZone(abbreviation: "KST")
-        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
-        let today = format.string(from: Date())
-        var imgURL = ""
-        
-        let localRef = ref.child("review")
-        let id = localRef.childByAutoId()
-        let storage = Storage.storage()
-        
-        // Create a storage reference from our storage service
-        let storageRef = storage.reference(forURL: "gs://pyeonrehae.appspot.com")
-        let imagesRef = storageRef.child(id.description() + ".png")
-        var update = ["bad": 0, "useful": 0, "user": user, "user_image": user_image, "brand": brand, "category": category, "comment": review, "grade": grade, "price": priceLevel, "flavor": flavorLevel, "quantity": quantityLevel, "p_id": p_id, "p_name": p_name, "p_price": p_price, "timestamp": today] as [String : Any]
-        
-        if let data = UIImagePNGRepresentation(p_image) {
-            imagesRef.putData(data, metadata: nil, completion: {
-                (metadata, error) in
-                if error != nil {
-                    update["p_image"] = imgURL
-                    id.updateChildValues(update)
-                    print(error!)
-                } else {
-                    imagesRef.downloadURL { (URL, error) -> Void in // 업로드된 이미지 url 받아오기
-                        if (error != nil) { // 없으면 ""로 저장
-                            update["p_image"] = imgURL
-                            id.updateChildValues(update)
-                            print(error!)
-                        } else {
-                            imgURL = (URL?.description)! // 있으면 해당 url로 저장
-                            update["p_image"] = imgURL
-                            id.updateChildValues(update)
-                        }
-                    }
-                }
-            })
-        }
-        completion()
-    }
-    
     // 브랜드에 따라 리뷰 가져오고, 그걸 유용순으로 정리하기.
     static func getTop3ReviewByBrand(brand : String, completion: @escaping ([Review]) -> ()) {
         
@@ -284,7 +238,98 @@ class DataManager{
             completion(product)
         })
     }
+    /*
+     *  상품 상세 화면
+     */
+    
+    static func tabUsefulBtn(id: String) {
+        let localRef = ref.child("review").child(id)
+        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            let postDict = snapshot.value as? [String : AnyObject] ?? [:]
+            if var useful = postDict["useful"] as? Int {
+                useful += 1
+                localRef.updateChildValues(["useful": useful])
+            }
+        })
+    }
+    static func tabBadBtn(id: String) {
+        let localRef = ref.child("review").child(id)
+        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            let postDict = snapshot.value as? [String : AnyObject] ?? [:]
+            if var bad = postDict["bad"] as? Int {
+                bad += 1
+                localRef.updateChildValues(["bad": bad])
+            }
+        })
+    }
+    
+    /*
+     *  리뷰 쓰기 화면
+     */
     
     
+    // 리뷰 쓰기
+    static func writeReview(brand: String, category: String, grade: Int, priceLevel: Int, flavorLevel: Int, quantityLevel: Int, allergy: [String], review: String, user: String,user_image: String, p_id: String, p_image: UIImage, p_name: String, p_price: Int, completion: ()->()) {
+        
+        let format = DateFormatter()
+        format.locale = Locale(identifier: "ko_kr")
+        format.timeZone = TimeZone(abbreviation: "KST")
+        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let today = format.string(from: Date())
+        var imgURL = ""
+        
+        let localRef = ref.child("review")
+        let id = localRef.childByAutoId()
+        let storage = Storage.storage()
+        
+        var autoId = id.description()
+        var components = autoId.components(separatedBy: "review/")
+        autoId = components[1]
+        
+        // Create a storage reference from our storage service
+        let storageRef = storage.reference(forURL: "gs://pyeonrehae.appspot.com")
+        let imagesRef = storageRef.child("images/" + autoId + ".png")
+        var update = ["bad": 0, "useful": 0, "user": user, "user_image": user_image, "brand": brand, "category": category, "comment": review, "grade": grade, "price": priceLevel, "flavor": flavorLevel, "quantity": quantityLevel, "p_id": p_id, "p_name": p_name, "p_price": p_price, "timestamp": today, "id": autoId] as [String : Any]
+        
+        if let data = UIImagePNGRepresentation(p_image) {
+            imagesRef.putData(data, metadata: nil, completion: {
+                (metadata, error) in
+                if error != nil {
+                    update["p_image"] = imgURL
+                    id.updateChildValues(update)
+                } else {
+                    imagesRef.downloadURL { (URL, error) -> Void in // 업로드된 이미지 url 받아오기
+                        if (error != nil) { // 없으면 ""로 저장
+                            update["p_image"] = imgURL
+                            id.updateChildValues(update)
+                        } else {
+                            imgURL = (URL?.description)! // 있으면 해당 url로 저장
+                            update["p_image"] = imgURL
+                            id.updateChildValues(update)
+                        }
+                    }
+                }
+            })
+        }
+        completion()
+    }
     
+    /*
+     * 검색 화면
+     */
+    
+    // 상품 이름으로 상품아이디 가져오기 (겹치는 게 있을 시 처음 것)
+    static func getProductId(from: String, completion : @escaping (String) -> ()){
+        let localRef = ref.child("product")
+        let query = localRef.queryOrdered(byChild: "name").queryEqual(toValue: from)
+        
+        query.observe(DataEventType.value, with: { (snapshot) in
+            var product = Product()
+            for childSnapshot in snapshot.children {
+                product = Product.init(snapshot: childSnapshot as! DataSnapshot)
+            }
+            completion(product.id)
+        })
+    }
 }
