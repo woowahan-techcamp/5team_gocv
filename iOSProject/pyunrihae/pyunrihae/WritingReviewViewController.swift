@@ -61,11 +61,6 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
                                       preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Settings", style: .default) { (action) -> Void in
-            
-            if let url = URL(string:UIApplicationOpenSettingsURLString) {
-        
-                UIApplication.shared.openURL(url)
-            }
         })
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
@@ -110,11 +105,17 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
         if checkGrade && checkPriceLevel && checkFlavorLevel && checkQuantityLevel {
             SelectedAllergy.allergyList = []
             DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
+                DataManager.updateProductInfo(p_id: product.id, grade: self.grade, priceLevel: self.priceLevel, flavorLevel: self.flavorLevel, quantityLevel: self.quantityLevel, allergy: self.allergy)
+            }
+            
+            DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
                 DataManager.writeReview(brand: product.name, category: product.category, grade: self.grade, priceLevel: self.priceLevel, flavorLevel: self.flavorLevel, quantityLevel: self.quantityLevel, allergy: self.allergy, review: self.detailReview.text, user: "test", user_image: user_image, p_id: product.id, p_image: self.reviewImage, p_name: product.name, p_price: Int(product.price)!){
                     self.navigationController?.popToRootViewController(animated: true)
                     NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
                 }
             }
+ 
+ 
         } else {
             let alert = UIAlertController(title: "리뷰를 완성해주세요!", message: "\r별점 및 상세 평점을 모두 채워주세요 :)", preferredStyle: .alert)
             //Create and add the Cancel action

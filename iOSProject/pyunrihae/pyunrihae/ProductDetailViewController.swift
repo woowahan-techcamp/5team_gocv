@@ -186,7 +186,6 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                         cell.usefulNumLabel.text = String(reviewList[row].useful)
                         cell.detailReviewLabel.text = reviewList[row].comment
                         cell.userNameLabel.text = reviewList[row].user
-                        
                         cell.userImageLoading.startAnimating()
                         cell.userImage.af_setImage(withURL: URL(string: reviewList[row].user_image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
                             cell.userImageLoading.stopAnimating()
