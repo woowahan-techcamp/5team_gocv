@@ -39,5 +39,13 @@ class Validator {
         }
     }
     
+    static func isValidLogin(email : String, password: String) -> Bool {
+        if isValidEmail(email:email) && isValidPassWord(password: password){
+            return true
+        }else{
+            return false
+        }
+    }
+    
     //TODO 현재 user모델에 있는 이메일인지도 확인해야함.
 }

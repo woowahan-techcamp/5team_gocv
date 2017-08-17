@@ -48,7 +48,13 @@
 		98B73F861F39394500E55420 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B73F851F39394500E55420 /* Review.swift */; };
 		98B73F881F394CAB00E55420 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B73F871F394CAB00E55420 /* Product.swift */; };
 		98B82EDC1F45352A001C63A4 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B82EDB1F45352A001C63A4 /* Validator.swift */; };
+		98B82EDE1F45748D001C63A4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B82EDD1F45748D001C63A4 /* User.swift */; };
 		98C5AACE1F33FAE800610115 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C5AACD1F33FAE800610115 /* MainViewController.swift */; };
+		98CBA0B61F458AFC003D0370 /* ic_user.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CBA0B51F458AFC003D0370 /* ic_user.png */; };
+		98CBA0B81F458BA8003D0370 /* back_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CBA0B71F458BA8003D0370 /* back_right.png */; };
+		98CBA0BA1F458DC1003D0370 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CBA0B91F458DC1003D0370 /* LoginViewController.swift */; };
+		98CBA0BD1F458E87003D0370 /* ic_login_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CBA0BB1F458E87003D0370 /* ic_login_disabled.png */; };
+		98CBA0BE1F458E87003D0370 /* ic_login_enabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CBA0BC1F458E87003D0370 /* ic_login_enabled.png */; };
 		98D5690C1F444DB1002693E9 /* WaitingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D5690B1F444DB1002693E9 /* WaitingViewController.swift */; };
 		98D839081F452DF200CDF699 /* bg_login2.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D839071F452DF200CDF699 /* bg_login2.png */; };
 		98D8390A1F452E6200CDF699 /* ic_pyunrihae.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D839091F452E6200CDF699 /* ic_pyunrihae.png */; };
@@ -168,8 +174,14 @@
 		98B73F851F39394500E55420 /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		98B73F871F394CAB00E55420 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		98B82EDB1F45352A001C63A4 /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
+		98B82EDD1F45748D001C63A4 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		98C5AACD1F33FAE800610115 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		98C5AAD71F342C3900610115 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		98CBA0B51F458AFC003D0370 /* ic_user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_user.png; sourceTree = "<group>"; };
+		98CBA0B71F458BA8003D0370 /* back_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_right.png; sourceTree = "<group>"; };
+		98CBA0B91F458DC1003D0370 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		98CBA0BB1F458E87003D0370 /* ic_login_disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_login_disabled.png; sourceTree = "<group>"; };
+		98CBA0BC1F458E87003D0370 /* ic_login_enabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_login_enabled.png; sourceTree = "<group>"; };
 		98D5690B1F444DB1002693E9 /* WaitingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingViewController.swift; sourceTree = "<group>"; };
 		98D839071F452DF200CDF699 /* bg_login2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_login2.png; sourceTree = "<group>"; };
 		98D839091F452E6200CDF699 /* ic_pyunrihae.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_pyunrihae.png; sourceTree = "<group>"; };
@@ -287,14 +299,18 @@
 		98D819011F32F97D00BE2A95 /* Asset */ = {
 			isa = PBXGroup;
 			children = (
+				98CBA0B51F458AFC003D0370 /* ic_user.png */,
 				98D839071F452DF200CDF699 /* bg_login2.png */,
 				98F8659E1F442A3000C2F333 /* ic_login.png */,
 				98F8659F1F442A3000C2F333 /* ic_emailsignup.png */,
 				98F865A61F442EE100C2F333 /* ic_close.png */,
+				98CBA0BB1F458E87003D0370 /* ic_login_disabled.png */,
+				98CBA0BC1F458E87003D0370 /* ic_login_enabled.png */,
 				98F865A01F442A3000C2F333 /* bg_login.png */,
 				98F172F01F32EDB70044FD0D /* Assets.xcassets */,
 				9865E5431F3C1D4200014795 /* star.png */,
 				9865E5391F3BD81E00014795 /* back.png */,
+				98CBA0B71F458BA8003D0370 /* back_right.png */,
 				9865E5411F3C141C00014795 /* plus.png */,
 				98D839091F452E6200CDF699 /* ic_pyunrihae.png */,
 				9865E53F1F3C10A400014795 /* check.png */,
@@ -343,6 +359,7 @@
 				9865E55B1F417E2000014795 /* SelectedAllergy.swift */,
 				98C5AAD71F342C3900610115 /* DataManager.swift */,
 				98B82EDB1F45352A001C63A4 /* Validator.swift */,
+				98B82EDD1F45748D001C63A4 /* User.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -363,6 +380,7 @@
 				98DED89A1F41729100CC4D63 /* SearchViewController.swift */,
 				98F865A41F442B3800C2F333 /* LoginSignUpViewController.swift */,
 				98F865B21F4434F800C2F333 /* SignupViewController.swift */,
+				98CBA0B91F458DC1003D0370 /* LoginViewController.swift */,
 			);
 			name = "View Controller";
 			sourceTree = "<group>";
@@ -616,6 +634,7 @@
 				9865E5321F3AFAF500014795 /* bottom.png in Resources */,
 				98F8659A1F4407A700C2F333 /* ic_ranking_selected.png in Resources */,
 				98F865851F43FB1A00C2F333 /* star3.png in Resources */,
+				98CBA0BE1F458E87003D0370 /* ic_login_enabled.png in Resources */,
 				98F8658D1F44021000C2F333 /* logo_gs25.png in Resources */,
 				98F865A11F442A3000C2F333 /* ic_login.png in Resources */,
 				98F865971F4407A700C2F333 /* ic_home.png in Resources */,
@@ -624,14 +643,17 @@
 				98F865A31F442A3000C2F333 /* bg_login.png in Resources */,
 				9865E5401F3C10A400014795 /* check.png in Resources */,
 				98F865861F43FB1A00C2F333 /* star4.png in Resources */,
+				98CBA0B61F458AFC003D0370 /* ic_user.png in Resources */,
 				98F865B11F44340E00C2F333 /* ic_complete.png in Resources */,
 				98D9F2DF1F418DF3009D0E10 /* LICENSE in Resources */,
+				98CBA0BD1F458E87003D0370 /* ic_login_disabled.png in Resources */,
 				98F865841F43FB1A00C2F333 /* star2.png in Resources */,
 				98F865871F43FB1A00C2F333 /* star5.png in Resources */,
 				98D9F2E41F418DF3009D0E10 /* YNSearch.xcassets in Resources */,
 				984395861F32F29A0016B67D /* GoogleService-Info.plist in Resources */,
 				98F865AB1F442F8B00C2F333 /* ic_password.png in Resources */,
 				98F865A71F442EE100C2F333 /* ic_close.png in Resources */,
+				98CBA0B81F458BA8003D0370 /* back_right.png in Resources */,
 				98F8659B1F4407A700C2F333 /* ic_ranking.png in Resources */,
 				98F865981F4407A700C2F333 /* ic_my_selected.png in Resources */,
 				9865E53A1F3BD81E00014795 /* back.png in Resources */,
@@ -847,9 +869,11 @@
 				9865E50E1F394E4600014795 /* MainRankCollectionViewCell.swift in Sources */,
 				98768AA01F39A5D600654C19 /* DataManager.swift in Sources */,
 				9865E5101F3957C000014795 /* CategoryScrollView.swift in Sources */,
+				98CBA0BA1F458DC1003D0370 /* LoginViewController.swift in Sources */,
 				98D9F2E21F418DF3009D0E10 /* YNCategoryButton.swift in Sources */,
 				9865E5481F3C435100014795 /* ProductDetailInfoTableViewCell.swift in Sources */,
 				9865E5541F3D351B00014795 /* PhotoCollectionViewCell.swift in Sources */,
+				98B82EDE1F45748D001C63A4 /* User.swift in Sources */,
 				98D9F2E11F418DF3009D0E10 /* Objectification.swift in Sources */,
 				98F865B31F4434F800C2F333 /* SignupViewController.swift in Sources */,
 				98D9F2E81F418DF3009D0E10 /* YNSearchListView.swift in Sources */,

@@ -87,17 +87,27 @@ class SignupViewController: UIViewController {
             Auth.auth().createUser(withEmail: emailTextField.text!, password: passWordTextField.text!) { (user, error) in
                 
                 if error == nil {
-                    self.dismiss(animated: true, completion: nil)
-                }else{
-                    self.alertView.text = "회원가입에 실패했습니다."
-                    UIView.animate(withDuration: 0.1,  animations: {
-                        self.alertView.alpha = 1
-                    }, completion: { (bool) in
-                        if bool {
+                    let user_instance = User.init(id: (user?.uid)!, email: (user?.email)!)
+                    DataManager.saveUser(user: user_instance)
+                    
+                    Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.passWordTextField.text!) { (user, error) in
+                        if error != nil {
+                            self.alertView.text = "로그인에 실패했습니다."
+                            self.alertView.alpha = 1
                             UIView.animate(withDuration: 2.0, animations: {
                                 self.alertView.alpha = 0
                             })
                         }
+                    }
+                    
+                    self.dismiss(animated: true, completion: {
+                        NotificationCenter.default.post(name: NSNotification.Name("userLogined"), object: nil)
+                    })
+                }else{
+                    self.alertView.text = "회원가입에 실패했습니다."
+                    self.alertView.alpha = 1
+                    UIView.animate(withDuration: 2.0, animations: {
+                        self.alertView.alpha = 0
                     })
                 }
             }
