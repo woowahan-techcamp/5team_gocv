@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
     profileDrop.addEventListener("mouseover",function(){
         const dropdown = document.querySelector((".fixTab-profile-dropdown"));
         if(dropdown.style.display === "block"){
-
         }else{
             dropdown.style.display = "block";
         }
@@ -35,7 +34,40 @@ document.addEventListener('DOMContentLoaded', function (event) {
     const counter = new Counter(3000);
     counter.setCounter();
 
+
+    //모달 리뷰 필터 드롭다운
+    const reviewFilterDrop = new Dropdown("click",".popup-reviewFilter",".popup-reviewFilter-dropdown");
+
 });
+
+
+class Dropdown{
+    constructor(event,button,drop){
+        this.event = event;
+        this.button = button;
+        this.drop = drop;
+        this.init();
+    }
+
+    init(){
+        this.button = document.querySelector(this.button);
+        this.drop = document.querySelector(this.drop);
+        this.setEvent();
+    }
+
+    setEvent(){
+        this.button.addEventListener(this.event,function(){
+            if(this.drop.style.display === "block"){
+                this.drop.style.display = "none";
+            }else{
+                this.drop.style.display = "block";
+            }
+        }.bind(this));
+    }
+
+
+}
+
 
 
 class Util {
@@ -182,45 +214,30 @@ class Carousel {
 //메인 상단 고정 탭
 class SearchTab{
     constructor(searchParams){
+        this.searchParams = searchParams;
+
         this.brandDrop = document.querySelector(searchParams.brand);
         this.brandNavi = document.querySelector(searchParams.brand_dropdown);
         this.categoryDrop = document.querySelector(searchParams.category);
         this.categoryNavi = document.querySelector(searchParams.category_drowndown);
-
         this.inputText = document.querySelector(searchParams.text);
         this.searchButton = document.querySelector(searchParams.button);
-
+        this.fixTabNavi = document.querySelector("#fixTabNavi")
         this.init();
     }
 
     init(){
         this.dropdownEvent();
+        this.setTabClickEvent()
     }
 
     dropdownEvent(){
-        this.brandDrop.addEventListener("click",function () {
-            const dropdown = document.querySelector((".fixTab-search-brand-dropdown"));
-
-            if(dropdown.style.display === "block"){
-                dropdown.style.display = "none";
-            }else{
-                dropdown.style.display = "block";
-            }
-        });
+        const brandDrop = new Dropdown("click",this.searchParams.brand,this.searchParams.brand_dropdown);
+        const categoryDrop = new Dropdown("click",this.searchParams.category,this.searchParams.category_drowndown);
 
         this.brandNavi.addEventListener("click",function (event) {
             this.brandDrop.firstChild.innerText = event.toElement.innerText;
         }.bind(this));
-
-        this.categoryDrop.addEventListener("click",function () {
-            const dropdown = document.querySelector((".fixTab-search-category-dropdown"));
-
-            if(dropdown.style.display === "block"){
-                dropdown.style.display = "none";
-            }else{
-                dropdown.style.display = "block";
-            }
-        });
 
         this.categoryNavi.addEventListener("click",function (event) {
             this.categoryDrop.firstChild.innerText = event.toElement.innerText;
@@ -298,6 +315,29 @@ class SearchTab{
         }
 
         console.log(value);
+    }
+
+    setTabClickEvent(){
+        this.fixTabNavi.addEventListener('click', function (e) {
+            const selectedTab = document.getElementsByClassName("fixTab-select")[0];
+
+            selectedTab.classList.remove("fixTab-select");
+            e.target.classList.add("fixTab-select");
+
+            const text = document.getElementsByClassName("fixTab-select")[0].innerHTML;
+
+            if (text === "편리해") {
+                document.querySelector(".main-wrapper").style.display = "";
+                document.querySelector(".rank-container").style.display = "none";
+            } else if(text === "랭킹"){
+                document.querySelector(".main-wrapper").style.display = "none";
+                document.querySelector(".rank-container").style.display = "";
+            } else if(text === "리뷰"){
+                document.querySelector(".main-wrapper").style.display = "none";
+                document.querySelector(".rank-container").style.display = "none";
+            }
+
+        }.bind(this));
     }
 
 }

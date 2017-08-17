@@ -61,7 +61,9 @@
 
 <script id="rank-card-template" type="text/x-handlebars-template">
     {{#this}}
-    <div class="rank-card-content">
+    <div class="rank-card-content" name="{{id}}">
+        <div class="{{style}}">{{rank}}
+        </div>
         <img class="rank-card-image"
              src="{{img}}"/>
 

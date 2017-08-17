@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
         template: 'brand-ranking-template',
         item_wrapper: 'seven-item-wrapper'
     };
-    
+
     const gsObj = brandFilter(obj, 'gs25');
     const cuObj = brandFilter(obj, 'CU');
     const sevObj = brandFilter(obj, '7-eleven');
@@ -130,6 +130,7 @@ class BrandRankingPreview {
     setNode(object, value, params) {
         const element = document.createElement('li');
         element.setAttribute('class', 'brand-item-wrapper');
+        element.setAttribute('name', object.id)
 
         const template = Handlebars.compile(this.template);
 

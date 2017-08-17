@@ -20,7 +20,7 @@ class ProductReviewTableViewCell: UITableViewCell {
     @IBOutlet weak var reviewBoxView: UIView!
     @IBOutlet weak var starView: UIView!
     @IBOutlet weak var userImage: UIImageView!
-    @IBOutlet weak var uploadedFoodImage: UIImageView!
+    @IBOutlet weak var uploadedFoodImageBtn: UIButton!
     @IBOutlet weak var detailReviewLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()

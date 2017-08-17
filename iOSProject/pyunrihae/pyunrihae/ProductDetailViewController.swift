@@ -84,7 +84,16 @@ class ProductDetailViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is BigImageViewController {
+            let destination =  segue.destination as? BigImageViewController
+            if let button = sender as? UIButton{
+                if let image = button.backgroundImage(for: .normal) {
+                    destination?.image = image
+                }
+            }
+        }
+    }
 }
 
 extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegate {
@@ -107,7 +116,6 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                 let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath) as! ProductInfoTableViewCell
                 Label.makeRoundLabel(label: cell.eventLabel, color: UIColor.red)
                 cell.eventLabel.textColor = UIColor.red
-                Image.makeCircleImage(image: cell.foodImage)
                 DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
                     cell.priceLabel.text = product.price + "원"
                     cell.brandLabel.text = product.brand
@@ -118,7 +126,9 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                         cell.eventLabel.isHidden = true
                     }
                     cell.loading.startAnimating()
-                    cell.foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
+                    let foodImage = UIImageView()
+                    foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), completion:{ image in
+                        cell.foodImageBtn.setBackgroundImage(foodImage.image, for: .normal)
                         cell.loading.stopAnimating()
                     })
                     
@@ -176,7 +186,6 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                         cell.usefulNumLabel.text = String(reviewList[row].useful)
                         cell.detailReviewLabel.text = reviewList[row].comment
                         cell.userNameLabel.text = reviewList[row].user
-                        
                         cell.userImageLoading.startAnimating()
                         cell.userImage.af_setImage(withURL: URL(string: reviewList[row].user_image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
                             cell.userImageLoading.stopAnimating()
@@ -184,11 +193,13 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                         
                         if reviewList[row].p_image != "" {
                             cell.uploadedImageLoading.startAnimating()
-                            cell.uploadedFoodImage.af_setImage(withURL: URL(string: reviewList[row].p_image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
+                            let imageView = UIImageView()
+                            imageView.af_setImage(withURL: URL(string: reviewList[row].p_image)!, placeholderImage: UIImage(), completion:{ image in
+                                cell.uploadedFoodImageBtn.setBackgroundImage(imageView.image, for: .normal)
                                 cell.uploadedImageLoading.stopAnimating()
                             })
                         } else {
-                            cell.uploadedFoodImage.isHidden = true
+                            cell.uploadedFoodImageBtn.isHidden = true
                         }
                         
                         for sub in cell.starView.subviews {

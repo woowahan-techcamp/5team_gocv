@@ -598,10 +598,6 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="186.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rn1-fA-lAu">
-                                                            <rect key="frame" x="142" y="19" width="90" height="90"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        </imageView>
                                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JfI-S8-kUQ">
                                                             <rect key="frame" x="142" y="19" width="90" height="90"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -646,7 +642,7 @@
                                                 <connections>
                                                     <outlet property="brandLabel" destination="9Pw-03-jM2" id="sAB-m0-tno"/>
                                                     <outlet property="eventLabel" destination="6wE-aO-GMQ" id="X4N-Mr-cdp"/>
-                                                    <outlet property="foodImage" destination="rn1-fA-lAu" id="rqm-wB-moW"/>
+                                                    <outlet property="foodImageBtn" destination="JfI-S8-kUQ" id="dJb-YH-AOd"/>
                                                     <outlet property="foodNameLabel" destination="0MK-5P-nnW" id="5I7-Nf-xwr"/>
                                                     <outlet property="loading" destination="dSp-ts-5VZ" id="dXi-DV-0YT"/>
                                                     <outlet property="priceLabel" destination="TTH-cm-D1b" id="Mer-Ho-S1u"/>
@@ -800,10 +796,6 @@
                                                                     <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rAP-sV-p0m">
-                                                                    <rect key="frame" x="11" y="62" width="61" height="58"/>
-                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="24K-cN-721">
                                                                     <rect key="frame" x="11" y="128" width="261" height="67"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -826,6 +818,13 @@
                                                                     <rect key="frame" x="31" y="81" width="20" height="20"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 </activityIndicatorView>
+                                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TYR-vB-XLO">
+                                                                    <rect key="frame" x="11" y="62" width="61" height="58"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <connections>
+                                                                        <segue destination="VCz-lc-hnn" kind="show" id="XUi-E4-09J"/>
+                                                                    </connections>
+                                                                </button>
                                                             </subviews>
                                                             <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                                         </view>
@@ -860,7 +859,7 @@
                                                     <outlet property="noReviewView" destination="YbJ-pW-FhM" id="YwJ-Iw-d4B"/>
                                                     <outlet property="reviewBoxView" destination="Gt7-gt-hp8" id="AEw-RG-UqY"/>
                                                     <outlet property="starView" destination="rjv-PP-Ke1" id="Sjf-Ha-icc"/>
-                                                    <outlet property="uploadedFoodImage" destination="rAP-sV-p0m" id="tPo-WR-Pf7"/>
+                                                    <outlet property="uploadedFoodImageBtn" destination="TYR-vB-XLO" id="U64-bY-btP"/>
                                                     <outlet property="uploadedImageLoading" destination="fjD-nO-iJd" id="lYE-9W-ODz"/>
                                                     <outlet property="usefulBtn" destination="gFF-ZF-YNJ" id="xQT-hT-zY5"/>
                                                     <outlet property="usefulNumLabel" destination="FHO-Hv-hIx" id="4tF-wN-rFz"/>
@@ -1721,6 +1720,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Vaq-lB-3M9"/>
+        <segue reference="fGg-R2-bk1"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>
