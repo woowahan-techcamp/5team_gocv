@@ -1,4 +1,5 @@
 
+
 //chart.js를 이용하여 차트를 만드는 클래스
 class MakeChart{
     constructor(feature, label, data, id, color, hoverColor ){
@@ -228,3 +229,4 @@ const quantityChart=new MakeChart('bar',["창렬", "", "적당", "", "헤자"],[
 const makeReview = new Review("popupStar", ".newReview-list");
 
 const reviewImageUpLoad = new ImageUpLoad('reviewImageInput','imagePreview');
+
