@@ -477,4 +477,16 @@ class DataManager{
             completion(product.id)
         })
     }
+    
+    /*
+     *  회원가입 화면
+     */
+    
+    // Firebase Auth의 user를 UserModel로 가져와서 넣기
+    static func saveUser(user: User) {
+        let localRef = ref.child("user")
+        localRef.child(user.id).setValue(["id": user.id, "email" : user.email,  "review_like_list": user.review_like_list, "product_like_list" : user.product_like_list, "wish_product_list": user.wish_product_list])
+    }
+    
+    
 }

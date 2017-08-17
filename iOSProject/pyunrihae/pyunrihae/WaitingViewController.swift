@@ -10,8 +10,10 @@ import UIKit
 
 class WaitingViewController: UIViewController {
 
+    @IBOutlet weak var pyunrihaeImage: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        animateView()
         DataManager.getTop3Product() { (products) in
             DispatchQueue.main.async {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -27,6 +29,12 @@ class WaitingViewController: UIViewController {
             }
         }
         // Do any additional setup after loading the view.
+    }
+    
+    func animateView(){
+        UIView.animate(withDuration: 1,delay: 0.5, animations: {
+            self.pyunrihaeImage.frame.origin.y = 48
+        })
     }
 
     override func didReceiveMemoryWarning() {
