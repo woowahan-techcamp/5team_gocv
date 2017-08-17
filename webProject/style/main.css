@@ -26,7 +26,7 @@
 }
 
 .fixTab-logo{
-    width: 10%;
+    width: 5%;
     height: 60px;
     font-weight: 600;
     line-height: 60px;
@@ -39,14 +39,22 @@
 }
 
 .fixTab-tab{
+    margin-left: 10px;
     display: block;
-    width: 5%;
     color: #282828;
-    margin-top: 10px;
-    height: 30px;
+    height: 60px;
     float: left;
-    line-height: 60px;
+    line-height: 70px;
+    text-align: center;
+    font-size: 15px;
+    width: 50px;
 }
+
+.fixTab-logo:hover, .fixTab-tab:hover, .fixTab-select{
+    border-bottom: solid 5px red;
+}
+
+
 
 .fixTab-tab-name{
     text-align: center;

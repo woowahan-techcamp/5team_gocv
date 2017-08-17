@@ -11,6 +11,7 @@
     visibility: visible;
     z-index: 120;
     opacity: 1;
+    display: none;
 }
 
 .overlay:target {

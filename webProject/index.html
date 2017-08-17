@@ -13,20 +13,13 @@
 <!--상단 고정 탭 구현 -->
 <div class="fixTab-wrapper">
     <a href="#">
-        <div class="fixTab-logo"> 편리해</div>
+        <ul id="fixTabNavi">
+            <li class="fixTab-logo fixTab-select">편리해</li>
+            <li class="fixTab-tab">랭킹</li>
+            <li class="fixTab-tab">리뷰</li>
+        </ul>
     </a>
-    <div class="fixTab-tab">
-        <a href="#">
-            <div class="fixTab-tab-name">랭킹</div>
-        </a>
-        <div class="fixTab-tab-hover"></div>
-    </div>
-    <div class="fixTab-tab">
-        <a href="#">
-            <div class="fixTab-tab-name">리뷰</div>
-        </a>
-        <div class="fixTab-tab-hover"></div>
-    </div>
+
 
 
     <!--검색창-->
@@ -97,7 +90,7 @@
 </div>
 
 <!--메인 페이지-->
-<div style="display:none" class="main-wrapper">
+<div style="" class="main-wrapper">
 
     <!--carousel 구현-->
     <div class="carousel-wrapper">
@@ -321,6 +314,61 @@
 
 </div>
 
+<!--랭크페이지-->
+<div style="display: none" class="rank-container">
+    <div class="rank-wrapper">
+        <ul class="rank-category-wrapper">
+            <li class="rank-category-tab selected-rank-category-tab" name="도시락">
+                도시락
+            </li>
+            <li class="rank-category-tab" name="김밥">
+                김밥
+            </li>
+            <li class="rank-category-tab" name="베이커리">
+                베이커리
+            </li>
+            <li class="rank-category-tab" name="라면">
+                라면
+            </li>
+            <li class="rank-category-tab" name="스낵">
+                스낵
+            </li>
+            <li class="rank-category-tab" name="유제품">
+                유제품
+            </li>
+            <li class="rank-category-tab" name="음료">
+                음료
+            </li>
+            <li class="rank-category-tab" name="즉석식품">
+                즉석식품
+            </li>
+        </ul>
+    </div>
+
+    <div class="rank-query-wrapper">
+        <ul class="rank-query-type-wrapper">
+            <li class="rank-query-tab selected-rank-query-tab" name="grade">평점순</li>
+            <li class="rank-query-tab" name="review">리뷰순</li>
+            <li class="rank-query-tab" name="row">낮은가격순</li>
+        </ul>
+    </div>
+
+    <div class="rank-brand-type-wrapper">
+        <ul class="rank-brand-type">
+            <li class="rank-brand-type-tab selected-rank-brand-type-tab" name="all">전체</li>
+            <li class="rank-brand-type-tab" name="gs25">GS25</li>
+            <li class="rank-brand-type-tab" name="cu">CU</li>
+            <li class="rank-brand-type-tab" name="seven">7ELEVEN</li>
+        </ul>
+    </div>
+
+    <div class="ranking-item-list-wrapper">
+
+    </div>
+</div>
+
+
+
 <!--상품 상세페이지 모달창-->
 <div id="popup" class="overlay">
     <div class="popup-wrapper">
@@ -398,7 +446,9 @@
         <div style="display: none" class="popup-newReviewWrapper">
             <div class="popup-newReviewWrapper-top">
                 <div class="popup-newReview-product"> 상품 리뷰 쓰기</div>
+                <a href="#">
                 <div class="popup-newReview-cancel"></div>
+                </a>
             </div>
             <div class="popup-newReviewWrapper-mid">
                 <div class="popup-newReview-image">
@@ -445,8 +495,8 @@
                 <input class="popup-newReview-comment" type="text" value="부담없이 리뷰를 작성하세요!"/>
             </div>
             <div class="popup-newReviewWrapper-bottom">
-                <div class="popup-newReview-addAllegy">알레르기 성분 추가</div>
-                <div class="popup-newReview-completeBtn"></div>
+                <a href="#"> <div class="popup-newReview-addAllegy">알레르기 성분 추가</div></a>
+                <a href="#"><div class="popup-newReview-completeBtn"></div></a>
             </div>
 
         </div>
@@ -526,6 +576,25 @@
 
 
 <!--template-->
+<script id="rank-card-template" type="text/x-handlebars-template">
+    {{#this}}
+    <div class="rank-card-content" name="{{id}}">
+        <img class="rank-card-image"
+             src="{{img}}"/>
+
+        <div class="rank-card-description">
+            <div class="rank-card-rating">
+                <div id="{{rating}}">
+                </div>
+            </div>
+
+            <div class="rank-card-name">상품명 : {{name}}</div>
+            <div class="rank-card-price">가격 : {{price}} 원</div>
+            <div class="rank-card-review">리뷰 : {{review}} 개</div>
+        </div>
+    </div>
+    {{/this}}
+</script>
 <script id="popupImgTemplate" type="text/x-handlebars-template">
     <div class="popSubImgBox">
         {{#detail_section}}
