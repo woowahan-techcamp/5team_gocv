@@ -193,7 +193,7 @@ class MainViewController: UIViewController {
                     barLabel.text  = "|"
                     barLabel.textColor = UIColor.white.withAlphaComponent(0.4)
                     barLabel.frame.origin.x = 102 + scrollViewSize
-                    barLabel.frame.origin.y = 170
+                    barLabel.frame.origin.y = 172
                     barLabel.frame.size.width = 4
                     barLabel.frame.size.height = 10
                     
@@ -203,7 +203,7 @@ class MainViewController: UIViewController {
                     brandLabel.frame.size.height = 20
                     brandLabel.font = brandLabel.font.withSize(12)
                     brandLabel.frame.origin.x = 113 + scrollViewSize
-                    brandLabel.frame.origin.y = 170
+                    brandLabel.frame.origin.y = 167
                     
                     nameLabel.textColor = UIColor.white
                     nameLabel.text = review.p_name
@@ -252,7 +252,7 @@ class MainViewController: UIViewController {
                     moreLabel.frame.size.height = 20
                     moreLabel.font = moreLabel.font.withSize(12)
                     moreLabel.frame.origin.x = 324 + scrollViewSize
-                    moreLabel.frame.origin.y = 170
+                    moreLabel.frame.origin.y = 167
                     
                     selectedCountLabel.frame.origin.x = 334 + scrollViewSize
                     selectedCountLabel.frame.origin.y = 32
