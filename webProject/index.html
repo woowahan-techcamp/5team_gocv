@@ -379,25 +379,26 @@
                     src="image/review_icon.png"> 소비자 리뷰 ( 305 )
             </div>
 
-            <a href="#"><div class="popup-reviewFilter"></div></a>
-            <a href="#"><div class="popup-reviewWrite"></div></a>
+            <a href="#">
+                <div class="popup-reviewFilter"></div>
+            </a>
+            <a href="#">
+                <div class="popup-reviewWrite"></div>
+            </a>
         </div>
 
         <div class="line"></div>
 
 
-
-
-
         <div style="display: none" class="popup-newReviewWrapper">
             <div class="popup-newReviewWrapper-top">
-                <div class="popup-newReview-product"> 상품 리뷰 쓰기  </div>
+                <div class="popup-newReview-product"> 상품 리뷰 쓰기</div>
                 <div class="popup-newReview-cancel"></div>
             </div>
             <div class="popup-newReviewWrapper-mid">
                 <div class="popup-newReview-image">
-                    <div class="popup-newReview-imageEle"></div>
-                    <div class="popup-popup-newReview-imageAdd">이미지 추가 </div>
+                    <img class="popup-newReview-imageEle" id="imagePreview"/>
+                    <input style="font-size: 12px;  width:100%" type="file" id="reviewImageInput"/>
                 </div>
                 <div class="popup-newReview-scoreWrapper">
                     <div class="popup-newReview-star">별</div>
@@ -432,7 +433,7 @@
                             <li name="2" class="newReview-element">적음</li>
                             <li name="3" class="newReview-element">적당</li>
                             <li name="4" class="newReview-element">많음</li>
-                            <li name="5" class="newReview-element">혜자 </li>
+                            <li name="5" class="newReview-element">혜자</li>
                         </ul>
                     </div>
                 </div>
@@ -440,7 +441,7 @@
             </div>
             <div class="popup-newReviewWrapper-bottom">
                 <div class="popup-newReview-addAllegy">알레르기 성분 추가</div>
-                <div class="popup-newReview-completeBtn">등록</div>
+                <div class="popup-newReview-completeBtn"></div>
             </div>
 
         </div>
