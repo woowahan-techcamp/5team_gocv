@@ -10,15 +10,12 @@ import UIKit
 
 class BigImageViewController: UIViewController {
 
-    @IBOutlet weak var bigImageView: UIImageView!
+    @IBOutlet weak var bigImageView = UIImageView()
+    var image = UIImage()
     override func viewDidLoad() {
         super.viewDidLoad()
-        DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
-            self.bigImageView.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
-            })
-            
-        }
-        bigImageView.contentMode = .scaleAspectFit
+        bigImageView?.contentMode = .scaleAspectFit
+        bigImageView?.image = image
         // Do any additional setup after loading the view.
     }
 
