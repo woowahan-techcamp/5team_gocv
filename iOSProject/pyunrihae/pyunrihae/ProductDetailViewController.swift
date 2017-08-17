@@ -18,7 +18,25 @@ class ProductDetailViewController: UIViewController {
     }
     var orderBy = "최신순"
     var productGrade = 4.6 //임의로 넣어놧음
-    
+    var usefulBtns = [UIButton]()
+    var badBtns = [UIButton]()
+    var usefulLabels = [UILabel]()
+    var badLabels = [UILabel]()
+    var reviewIdList = [String]()
+    func didPressUsefulBtn(sender: UIButton) { //유용해요 버튼 누르기
+        let index = sender.tag
+        DataManager.tabUsefulBtn(id: reviewIdList[index])
+        var useful = Int(usefulLabels[index].text!)
+        useful = useful! + 1
+        usefulLabels[index].text = String(describing: useful!)
+    }
+    func didPressBadBtn(sender: UIButton) { //별로에요 버튼 누르기
+        let index = sender.tag
+        DataManager.tabBadBtn(id: reviewIdList[index])
+        var bad = Int(badLabels[index].text!)
+        bad = bad! + 1
+        badLabels[index].text = String(describing: bad!)
+    }
     func showProduct(_ notification: Notification) { // 넘어온 product 정보 받아서 화면 구성
         let product = notification.userInfo?["product"] as! Product
         SelectedProduct.foodId = product.id
@@ -41,6 +59,11 @@ class ProductDetailViewController: UIViewController {
         DispatchQueue.main.async {
             DataManager.getReviewListBy(id: SelectedProduct.foodId) { (reviewList) in
                 SelectedProduct.reviewCount = reviewList.count
+                self.usefulBtns = []
+                self.badBtns = []
+                self.usefulLabels = []
+                self.badLabels = []
+                self.reviewIdList = []
                 self.tableView.reloadData()
             }
         }
@@ -140,6 +163,15 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                 }
                 DataManager.getReviewListBy(id: SelectedProduct.foodId) { (reviewList) in
                     if reviewList.count == SelectedProduct.reviewCount && reviewList.count > 0 {
+                        cell.usefulBtn.tag = row
+                        cell.badBtn.tag = row
+                        self.usefulBtns.append(cell.usefulBtn)
+                        self.badBtns.append(cell.badBtn)
+                        self.reviewIdList.append(reviewList[row].id)
+                        self.usefulLabels.append(cell.usefulNumLabel)
+                        self.badLabels.append(cell.badNumLabel)
+                        cell.usefulBtn.addTarget(self, action: #selector(self.didPressUsefulBtn), for: UIControlEvents.touchUpInside)
+                        cell.badBtn.addTarget(self, action: #selector(self.didPressBadBtn), for: UIControlEvents.touchUpInside)
                         cell.badNumLabel.text = String(reviewList[row].bad)
                         cell.usefulNumLabel.text = String(reviewList[row].useful)
                         cell.detailReviewLabel.text = reviewList[row].comment

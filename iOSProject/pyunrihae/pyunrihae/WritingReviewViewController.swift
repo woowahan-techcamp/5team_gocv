@@ -30,7 +30,8 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
     func fusumaImageSelected(_ image: UIImage, source: FusumaMode) {
 
         let imageView = UIImageView()
-        imageView.image = image
+        reviewImage = image
+        imageView.image = reviewImage
         imageView.frame = CGRect(origin: CGPoint(x: 0 ,y: 0), size: addedImageView.frame.size)
         imageView.layer.cornerRadius = 7
         imageView.clipsToBounds = true
