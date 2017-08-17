@@ -12,14 +12,21 @@ firebase.initializeApp(config);
 console.log('Firebase Caching');
 
 const storage = localStorage['product'];
+const storage2 = localStorage['review'];
 
-if(!storage){
-  firebase.database().ref('product/')
-  .once('value').then(function(snapshot) {
+firebase.database().ref('product/')
+    .once('value').then(function (snapshot) {
 
     localStorage['product'] = JSON.stringify(snapshot.val());
 
-      console.log(storage)
-  });
-}
+});
+
+
+
+firebase.database().ref('review/')
+    .once('value').then(function (snapshot) {
+
+    localStorage['review'] = JSON.stringify(snapshot.val());
+
+});
 

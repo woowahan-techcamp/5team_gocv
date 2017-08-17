@@ -1,5 +1,4 @@
 
-
 .overlay {
     position: fixed;
     top: 0;
@@ -8,10 +7,9 @@
     right: 0;
     background: rgba(0, 0, 0, 0.7);
     transition: opacity 500ms;
-    visibility: visible;
     z-index: 120;
-    opacity: 1;
-    display: none;
+    visibility: hidden;
+    opacity: 0;
 }
 
 .overlay:target {
@@ -32,6 +30,26 @@
     z-index: 120;
 }
 
+.popup-close{
+    position: fixed;
+    top:10%;
+    right:12%;
+    width: 30px;
+    border-radius: 15px;
+    background-image: url("/image/cancel.png");
+    background-size: 70%;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.8;
+    height: 30px;
+    background-color: #cacaca;
+    z-index: 130;
+}
+
+.popup-close:hover{
+    opacity: 1;
+
+}
 
 .popup .content {
     max-height: 100%;
@@ -203,6 +221,7 @@
 }
 
 .popup-reviewFilter, .popup-reviewWrite{
+    cursor: pointer;
     margin-top: -20px;
     float: right;
     font-size: 12px;
@@ -264,21 +283,25 @@
 .popup-reviewWrapper, .popup-newReviewWrapper{
     width: 90%;
     margin: 20px auto auto auto;
-    background-color: #fff6f2;
-    border-radius: 10px;
 
 }
 
 .popup-reviewWrapperList{
     padding-top: 10px;
     width: 100%;
-
+    margin-bottom: 200px;
 }
 .popup-review{
-    margin: 50px auto auto auto;
-    width: 95%;
-    border-bottom: dashed 1px #bbbbbb;
-    height: 300px;
+    background-color: #fff6f2;
+    border-radius: 10px;
+    padding-top: 5px;
+    margin-top: 50px;
+    width: 100%;
+    height: 320px;
+}
+
+.overflow-y-hidden{
+    overflow-y: hidden;
 }
 
 .popup-review-profile{
@@ -317,6 +340,7 @@
 }
 
 .popup-review-top{
+    margin-top: 30px;
     width: 100%;
 }
 
@@ -325,12 +349,13 @@
     background-color: white;
     float: left;
     margin-left: 2%;
-    width: 98%;
+    width: 96%;
     height: 150px;
     border-radius: 10px;
 }
 
 .popup-review-good, .popup-review-bad{
+    cursor:pointer;
     float: left;
     width: 80px;
     border-top-left-radius: 5px;
@@ -348,7 +373,7 @@
 
 .popup-review-good2, .popup-review-bad2{
     float: left;
-    width: 50px;
+    width: 30px;
     background-color: #ffffff;
     text-align: center;
     color: #000000;
