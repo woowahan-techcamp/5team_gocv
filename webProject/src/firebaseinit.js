@@ -23,3 +23,10 @@ if(!storage){
   });
 }
 
+const value = {
+  brand: 'all',
+  category: '전체',
+  keyword: ''
+};
+
+localStorage['search_keyword'] = JSON.stringify(value);
