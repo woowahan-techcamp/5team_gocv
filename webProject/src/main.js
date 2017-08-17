@@ -220,14 +220,15 @@ class SearchTab{
         this.brandNavi = document.querySelector(searchParams.brand_dropdown);
         this.categoryDrop = document.querySelector(searchParams.category);
         this.categoryNavi = document.querySelector(searchParams.category_drowndown);
-
         this.inputText = document.querySelector(searchParams.text);
         this.searchButton = document.querySelector(searchParams.button);
+        this.fixTabNavi = document.querySelector("#fixTabNavi")
         this.init();
     }
 
     init(){
         this.dropdownEvent();
+        this.setTabClickEvent()
     }
 
     dropdownEvent(){
@@ -314,6 +315,29 @@ class SearchTab{
         }
 
         console.log(value);
+    }
+
+    setTabClickEvent(){
+        this.fixTabNavi.addEventListener('click', function (e) {
+            const selectedTab = document.getElementsByClassName("fixTab-select")[0];
+
+            selectedTab.classList.remove("fixTab-select");
+            e.target.classList.add("fixTab-select");
+
+            const text = document.getElementsByClassName("fixTab-select")[0].innerHTML;
+
+            if (text === "편리해") {
+                document.querySelector(".main-wrapper").style.display = "";
+                document.querySelector(".rank-container").style.display = "none";
+            } else if(text === "랭킹"){
+                document.querySelector(".main-wrapper").style.display = "none";
+                document.querySelector(".rank-container").style.display = "";
+            } else if(text === "리뷰"){
+                document.querySelector(".main-wrapper").style.display = "none";
+                document.querySelector(".rank-container").style.display = "none";
+            }
+
+        }.bind(this));
     }
 
 }
