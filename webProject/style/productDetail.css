@@ -11,6 +11,7 @@
     visibility: visible;
     z-index: 120;
     opacity: 1;
+    display: none;
 }
 
 .overlay:target {
@@ -215,6 +216,31 @@
     border-radius: 5px;
 }
 
+.popup-reviewFilter-dropdown{
+    display: none;
+    width: 100%;
+}
+.popup-reviewFilter-element{
+    background: #eeeeee;
+    height: 30px;
+    text-align: 30px;
+    font-size: 12px;
+    border-radius: 5px;
+    border: solid 1px white;
+    width:100%;
+    top:0;
+    z-index: 110;
+    left: 0;
+    position: relative;
+    color: #191919;
+}
+
+.popup-reviewFilter-element:hover{
+    background: #ffb769;
+    color: #ffffff;
+}
+
+
 .popup-reviewWrite{
     margin-right: 10px;
     background-image: url("/image/write_icon.png");
@@ -282,9 +308,6 @@
     color: #646464;
 }
 
-.popup-review-good, .popup-review-bad{
-}
-
 .popup-review-star{
     margin-top: 25px;
 }
@@ -317,6 +340,10 @@
     color: white;
     margin-top: 5px;
     font-size: 12px;
+}
+
+.popup-review-good:hover, .popup-review-bad:hover {
+    filter: brightness(120%);
 }
 
 .popup-review-good2, .popup-review-bad2{
