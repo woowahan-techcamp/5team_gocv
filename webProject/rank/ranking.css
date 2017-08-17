@@ -104,3 +104,27 @@
     width: 180px;
     height: 180px;
 }
+
+/* 중복되는 css */
+.card-main-badge-area1,.card-main-badge-area2,.card-main-badge-area3{
+    position: absolute;
+    /*top: 125px;*/
+    width: 40px;
+    height: 40px;
+    margin-left: 3%;
+    line-height: 40px;
+    color: white;
+    border-radius: 20px;
+}
+
+.card-main-badge-area1 {
+    background-color: gold;
+}
+
+.card-main-badge-area2 {
+    background-color: silver;
+}
+
+.card-main-badge-area3 {
+    background-color: brown;
+}
