@@ -37,6 +37,9 @@ class RankingViewController: UIViewController {
         alert.addAction(orderByPrice)
         present(alert, animated: true, completion: nil)
     }
+    let priceLevelList = ["비싸다","비싼편","적당","싼편","싸다"]
+    let flavorLevelList = ["노맛","별로","적당","괜춘","존맛"]
+    let quantityLevelList = ["창렬","적음","적당","많음","혜자"]
     var isLoaded = false
     var selectedBrandIndexFromTab : Int = 0 {
         didSet{
@@ -228,9 +231,15 @@ extension RankingViewController: UICollectionViewDataSource {
             cell.foodImage.clipsToBounds = true
            
             cell.loading.startAnimating()
-            cell.foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
-                cell.loading.stopAnimating()
-            })
+            
+            if product.image != "" {
+                cell.foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
+                    cell.loading.stopAnimating()
+                })
+            }else{
+                cell.foodImage.image = #imageLiteral(resourceName: "ic_default.png")
+            }
+           
 
             cell.orderNumLabel.text = (indexPath.item + 1).description
             cell.brandLabel.text = product.brand
@@ -250,13 +259,15 @@ extension RankingViewController: UICollectionViewDataSource {
             }
             
 //            let grade = product.grade_avg
-            let grade = 3.6
+            let numberOfPlaces = 2.0
+            let multiplier = pow(10.0, numberOfPlaces)
+            let grade = round(Double(product.grade_avg) * multiplier) / multiplier
 
             cell.gradeLabel.text = String(grade)
             for i in 0..<Int(grade) {
                 let starImage = UIImage(named: "stars.png")
                 let cgImage = starImage?.cgImage
-                let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: 0, y: 0, width: (starImage?.size.width)! / 5, height: starImage!.size.height))!
+                let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: 0, y: 10, width: (starImage?.size.width)! / 5, height: starImage!.size.height))!
                 let uiImage = UIImage(cgImage: croppedCGImage)
                 let imageView = UIImageView(image: uiImage)
                 imageView.frame = CGRect(x: i*18, y: 0, width: 18, height: 15)
@@ -265,7 +276,7 @@ extension RankingViewController: UICollectionViewDataSource {
             if grade - Double(Int(grade)) >= 0.5 {
                 let starImage = UIImage(named: "stars.png")
                 let cgImage = starImage?.cgImage
-                let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: (starImage?.size.width)! * 4 / 5, y: 0, width: (starImage?.size.width)!, height: starImage!.size.height))!
+                let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: (starImage?.size.width)! * 4 / 5, y: 10, width: (starImage?.size.width)!, height: starImage!.size.height))!
                 let uiImage = UIImage(cgImage: croppedCGImage)
                 let imageView = UIImageView(image: uiImage)
                 imageView.frame = CGRect(x: Int(grade)*18 - 3, y: 0, width: 18, height: 15)
@@ -274,7 +285,37 @@ extension RankingViewController: UICollectionViewDataSource {
             Label.makeRoundLabel(label: cell.PriceLevelLabel, color: UIColor.gray)
             Label.makeRoundLabel(label: cell.QuantityLevelLabel, color: UIColor.gray)
             Label.makeRoundLabel(label: cell.FlavorLevelLabel, color: UIColor.gray)
-            Label.makeRoundLabel(label: cell.EventLabel, color: UIColor.red)
+            Label.makeRoundLabel(label: cell.EventLabel, color: UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(1.0)))
+            let priceLevelDict = product.price_level
+            let flavorLevelDict = product.flavor_level
+            let quantityLevelDict = product.quantity_level
+            var maxPriceLevel = 3
+            var maxFlavorLevel = 3
+            var maxQuantityLevel = 3
+            var maxPriceNum = 0
+            var maxFlavorNum = 0
+            var maxQuantityNum = 0
+            for i in 1...5 {
+                let p = "p" + i.description
+                let f = "f" + i.description
+                let q = "q" + i.description
+                if priceLevelDict[p]! > maxPriceNum {
+                    maxPriceLevel = i
+                    maxPriceNum = priceLevelDict[p]!
+                }
+                if flavorLevelDict[f]! > maxFlavorNum {
+                    maxFlavorLevel = i
+                    maxFlavorNum = flavorLevelDict[f]!
+                }
+                if quantityLevelDict[q]! > maxQuantityNum {
+                    maxQuantityLevel = i
+                    maxQuantityNum = quantityLevelDict[q]!
+                }
+            }
+            cell.PriceLevelLabel.text = self.priceLevelList[maxPriceLevel - 1]
+            cell.FlavorLevelLabel.text = self.flavorLevelList[maxFlavorLevel - 1]
+            cell.QuantityLevelLabel.text = self.quantityLevelList[maxQuantityLevel - 1]
+            
             return cell
         }
         return RankingCollectionViewCell()

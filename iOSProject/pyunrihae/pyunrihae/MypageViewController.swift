@@ -12,6 +12,7 @@ class MypageViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var alertLabel: UILabel!
     
     var labelList = ["닉네임 수정","내가 찜한 상품","편리해 정보","회원가입 / 로그인"]
     var currentUser = User()
@@ -43,7 +44,6 @@ class MypageViewController: UIViewController {
                 self.labelList[3] = "로그아웃"
                 self.tableView.reloadData()
             }
-            
         }else{
             DispatchQueue.main.async{
                 self.emailLabel.text = "로그인을 해주세요."
@@ -51,6 +51,25 @@ class MypageViewController: UIViewController {
                 self.tableView.reloadData()
             }
         }
+    }
+    
+    func showAlertIfLogined(bool : Bool){
+        
+        // TODO 회원가입이나 로그인 시 로그인 되었습니다 뜨도록 하기. 그때는 제대로 안뜸.
+        alertLabel.alpha = 1.0
+        if bool {
+            alertLabel.text = "로그인 되었습니다."
+            UIView.animate(withDuration: 3) {
+                self.alertLabel.alpha = 0
+            }
+        }else{
+            alertLabel.text = "로그아웃 되었습니다."
+            UIView.animate(withDuration: 2) {
+                self.alertLabel.alpha = 0
+            }
+        }
+        
+       
     }
 }
 
@@ -73,18 +92,36 @@ extension MypageViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if labelList[3] == "회원가입 / 로그인" {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "LoginSignUpViewController") as! LoginSignUpViewController
-            self.present(vc, animated: true, completion: nil)
-        }else{
-            let firebaseAuth = Auth.auth()
-            do {
-                try firebaseAuth.signOut()
-                self.currentUser = User()
-                self.setLogined()
-            } catch let signOutError as NSError {
-                print ("Error signing out: %@", signOutError)
+        if indexPath.row == 3 {
+            if labelList[3] == "회원가입 / 로그인" {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyboard.instantiateViewController(withIdentifier: "LoginSignUpViewController") as! LoginSignUpViewController
+                self.present(vc, animated: true, completion: nil)
+            } else{ // 로그아웃 시키기
+                
+                let alertController = UIAlertController(title: "알림", message: "정말 로그아웃 하시겠어요?", preferredStyle: UIAlertControllerStyle.alert)
+                
+                let DestructiveAction = UIAlertAction(title: "취소", style: UIAlertActionStyle.destructive) { (result : UIAlertAction) -> Void in
+                    alertController.dismiss(animated: false, completion: nil)
+                }
+                
+                let okAction = UIAlertAction(title: "로그아웃", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                    let firebaseAuth = Auth.auth()
+                    do {
+                        try firebaseAuth.signOut()
+                        self.currentUser = User()
+                        self.setLogined()
+                        self.showAlertIfLogined(bool: false)
+                    } catch let signOutError as NSError {
+                        print ("Error signing out: %@", signOutError)
+                    }
+                }
+                
+                alertController.addAction(DestructiveAction)
+                
+                alertController.addAction(okAction)
+                
+                self.present(alertController, animated: true, completion: nil)
             }
         }
     }
