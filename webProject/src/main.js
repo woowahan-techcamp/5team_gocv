@@ -418,13 +418,16 @@ class MakeChart{
 //review의 이벤트를 만들고 리뷰를 생성하는 클래스
 class Review {
 
-    constructor(id, navi) {
+    constructor(id, navi,product) {
         this.id = id;
         this.value = 0;
+        this.product = product;
         this.comment = "";
         this.data = [0, 0, 0, 0, ""];
         this.navi = navi;
         this.init()
+
+        console.log(this.product)
 
     }
 
@@ -544,6 +547,76 @@ class Review {
         this.data[4] = document.querySelector('.popup-newReview-comment').value;
         console.log(this.data)
         this.setOnOff();
+        const database = firebase.database();
+
+        const reviewId = "R0012"
+
+        database.ref('review/'+reviewId).set({
+            "bad" : 0,
+            "brand" : this.product.brand,
+            "category" : this.product.category,
+            "comment" : this.data[4],
+            "flavor" : this.data[2],
+            "grade" : this.data[0],
+            "id" : reviewId,
+            "p_id" : this.product.id,
+            "p_image" : this.product.img,
+            "p_name" : this.product.name,
+            "p_price" : this.product.price,
+            "price" : this.data[1],
+            "quantity" : this.data[3],
+            "timestamp" : "2017-08-17 18:09:40",
+            "useful" : 0,
+            "user" : "tongtong",
+            "user_image" : "http://item.kakaocdn.net/dw/4407092.title.png"
+        });
+
+
+        //상품 리뷰리스트에 리뷰 번호 추가
+        this.product.reviewList.push(reviewId);
+        this.product.grade_count+= 1;
+        this.product.review_count+= 1;
+        this.product.grade_total+= this.data[0];
+        this.product.grade_avg=this.product.grade_total/this.product.grade_count;
+        this.product.grade_data["g"+this.data[0]]+= 1;
+        this.product.price_level["p"+this.data[1]]+= 1;
+        this.product.flavor_level["f"+this.data[2]]+= 1;
+        this.product.quantity_level["q"+this.data[3]]+= 1;
+
+
+        
+        //업데이트 반영된 product 삽입
+        database.ref('product/'+this.product.id).set(this.product);
+
+        firebase.database().ref('product/')
+            .once('value').then(function (snapshot) {
+
+            localStorage['product'] = JSON.stringify(snapshot.val());
+        });
+
+
+        firebase.database().ref('review/')
+            .once('value').then(function (snapshot) {
+            localStorage['review'] = JSON.stringify(snapshot.val());
+
+            const util = new Util();
+            const product = localStorage['product'];
+            const obj = JSON.parse(product);
+
+            const review = localStorage['review'];
+            const obj2 = JSON.parse(review);
+
+            const reviewArr = [];
+            obj[this.product.id].reviewList.forEach(function (e) {
+                reviewArr.push(obj2[e])
+            });
+
+            const template2 = document.querySelector("#review-template").innerHTML;
+            const sec2 = document.querySelector("#popupReview");
+            util.template(reviewArr,template2,sec2);
+        }.bind(this));
+
+
     }
 
 }
@@ -585,6 +658,12 @@ class UpLoadImage{
 
 function loadDetailProduct(event) {
 
+    $("body").css("overflow", "hidden");
+
+
+
+
+
     const product = localStorage['product'];
     const obj = JSON.parse(product);
 
@@ -598,8 +677,7 @@ function loadDetailProduct(event) {
     const util = new Util();
 
     // const value = obj[grade_total]/obj[grade_count];
-    const value=4.3;
-    obj[id].grade= value;
+
 
     util.template(obj[id],template,sec);
 
@@ -644,13 +722,20 @@ function loadDetailProduct(event) {
 
 
     //rateyo.js를 사용하기 위한 별이 들어갈 DOM의 id, 전체 리뷰 Wrapper 클래스명
-    const makeReview = new Review("popupStar", ".newReview-list");
+    const makeReview = new Review("popupStar", ".newReview-list",obj[id]);
     const reviewImageUpLoad = new UpLoadImage('reviewImageInput','imagePreview');
 
     //모달 리뷰 필터 드롭다운
     const reviewFilterDrop = new Dropdown("click",".popup-reviewFilter",".popup-reviewFilter-dropdown");
 
+
+    console.log(document.querySelector(".popup-close"))
+    document.querySelector(".popup-close").addEventListener("click",function(){
+        $("body").css("overflow", "visible");
+    });
 }
+
+
 
 //이런식으로 해야 웹팩에서 function을 html onclick으로 사용가
 window.loadDetailProduct = loadDetailProduct;

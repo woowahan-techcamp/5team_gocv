@@ -20,7 +20,7 @@
 .popup-wrapper {
     min-width: 800px;
     max-height: 90vh;
-    overflow: auto;
+    overflow: scroll;
     margin: 70px auto;
     background: #fff;
     border-radius: 5px;
@@ -578,6 +578,7 @@
 }
 
 .popup-newReview-addAllegy{
+    cursor: pointer;
     float: left;
     width: 130px;
     background-color: #b4b4b4;
@@ -591,6 +592,7 @@
 }
 
 .popup-newReview-completeBtn{
+    cursor: pointer;
     background-image: url("/image/write_icon.png");
     background-repeat: no-repeat;
     background-size: 30%;
