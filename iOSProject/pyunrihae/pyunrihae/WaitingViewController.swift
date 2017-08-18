@@ -13,13 +13,15 @@ class WaitingViewController: UIViewController {
     @IBOutlet weak var pyunrihaeImage: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         animateView()
+        
         DataManager.getTop3Product() { (products) in
             DispatchQueue.main.async {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let tabBar = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
                 let transition: CATransition = CATransition()
-                transition.duration = 0.5
+                transition.duration = 1.5
                 transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
                 transition.type = kCATransitionReveal
                 transition.subtype = kCATransitionFade
@@ -33,7 +35,13 @@ class WaitingViewController: UIViewController {
     
     func animateView(){
         UIView.animate(withDuration: 1,delay: 0.5, animations: {
-            self.pyunrihaeImage.frame.origin.y = 48
+            self.pyunrihaeImage.alpha -= 1
+        }, completion: { (complete:Bool) in
+             if complete == true{
+                UIView.animate(withDuration: 1,delay: 0.5, animations: {
+                    self.pyunrihaeImage.alpha += 1
+                }
+            )}
         })
     }
 
