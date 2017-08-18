@@ -511,8 +511,21 @@ class DataManager{
     // Firebase Auth의 user를 UserModel로 가져와서 넣기
     static func saveUser(user: User) {
         let localRef = ref.child("user")
-        localRef.child(user.id).setValue(["id": user.id, "email" : user.email,  "review_like_list": user.review_like_list, "product_like_list" : user.product_like_list, "wish_product_list": user.wish_product_list])
+        localRef.child(user.id).setValue(["id": user.id, "email" : user.email, "nickname" : user.nickname,  "review_like_list": user.review_like_list, "product_like_list" : user.product_like_list, "wish_product_list": user.wish_product_list])
     }
     
+    /*
+     * 마이페이지 화면
+     */
     
+    // uid로 User 불러오기.
+    static func getUserFromUID(uid : String, completion: @escaping (User) -> ()){
+        let localRef = ref.child("user").child(uid)
+        
+        localRef.observe(.value, with: { (snapshot) in
+            var user = User()
+            user = User.init(snapshot: snapshot as! DataSnapshot)
+            completion(user)
+        })
+    }
 }

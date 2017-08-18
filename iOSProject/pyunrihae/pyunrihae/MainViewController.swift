@@ -15,6 +15,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var reviewImageView: UIScrollView!
     @IBOutlet weak var collectionView : UICollectionView!
     @IBOutlet weak var categoryScrollView: CategoryScrollView!
+    @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     
 
     var productList : [Product] = []
@@ -148,7 +149,8 @@ class MainViewController: UIViewController {
         case 3 : brand = "7-eleven"
         default : break;
         }
-        showActivityIndicatory()
+//        showActivityIndicatory()
+        indicatorView.startAnimating()
         DataManager.getTop3ReviewByBrand(brand: brand) { (reviews) in
             self.reviewList = reviews
             if self.reviewImageView != nil {
@@ -181,6 +183,8 @@ class MainViewController: UIViewController {
                     // 기본이미지 있어야함
                     if url != nil {
                         myImageView.af_setImage(withURL: url!)
+                    }else{
+                        myImageView.af_setImage(withURL: URL(string: "https://firebasestorage.googleapis.com/v0/b/pyeonrehae.appspot.com/o/ic_background_default.png?alt=media&token=09d05950-5f8a-4a73-95b3-a74faee4cad3")!)
                     }
                     myImageView.contentMode = UIViewContentMode.scaleAspectFill
                     
@@ -311,12 +315,13 @@ class MainViewController: UIViewController {
                     scrollViewSize += imageViewWidth
                     cnt = cnt + 1
                 };
-                self.hideActivityIndicatory()
+                self.indicatorView.stopAnimating()
                 self.reviewImageView.contentSize = CGSize(width: scrollViewSize, height: 0.8);
                 
             }
             NotificationCenter.default.post(name: NSNotification.Name("doneLoading"), object: self)
         }
+        
         
     }
     
