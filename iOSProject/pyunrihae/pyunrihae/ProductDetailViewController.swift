@@ -91,6 +91,11 @@ class ProductDetailViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        let titleAttributes = [
+            NSFontAttributeName: UIFont.boldSystemFont(ofSize: 16)
+        ]
+        
+        self.navigationController?.navigationBar.titleTextAttributes = titleAttributes
         uploadingView.isHidden = true
         writingReviewBtn.layer.zPosition = 10
         tableView.delegate = self

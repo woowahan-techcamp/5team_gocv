@@ -146,8 +146,10 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
     func addStarBtn() { //별 버튼 뷰에 붙이기
         for i in 0..<5 {
             let starBtn = UIButton()
-            starBtn.frame = CGRect(x: i*45, y: 0, width: 25, height: 25)
-            Button.changeColor(btn: starBtn, color: UIColor.lightGray, imageName: "star.png")
+            let startImg = UIImage(named: "ic_star.png")
+            starBtn.frame = CGRect(x: i*45, y: 0, width: 24, height: 24)
+            starBtn.setImage(startImg, for: .normal)
+//            Button.changeColor(btn: starBtn, color: UIColor.lightGray, imageName: "ic_star.png")
             starBtn.addTarget(self, action: #selector(didPressStarBtn), for: UIControlEvents.touchUpInside)
             starBtn.tag = i
             starBtns.append(starBtn)
@@ -189,10 +191,14 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
     }
     func didPressStarBtn (sender: UIButton) { //별 버튼 눌렸을 떄 별 색깔 채워주기
         for i in 0...sender.tag {
-            Button.changeColor(btn: starBtns[i], color: UIColor.orange, imageName: "star.png")
+            let startImg = UIImage(named: "ic_star_filled.png")
+            starBtns[i].setImage(startImg, for: .normal)
+//            Button.changeColor(btn: starBtns[i], color: UIColor.orange, imageName: "star.png")
         }
         for i in (sender.tag + 1)..<5 {
-            Button.changeColor(btn: starBtns[i], color: UIColor.lightGray, imageName: "star.png")
+            let startImg = UIImage(named: "ic_star.png")
+            starBtns[i].setImage(startImg, for: .normal)
+//            Button.changeColor(btn: starBtns[i], color: UIColor.lightGray, imageName: "star.png")
         }
         grade = sender.tag + 1
         checkGrade = true
