@@ -77,6 +77,10 @@ class RankingViewPage {
           const storage = localStorage['search_keyword'];
           const value = JSON.parse(storage);
 
+          const brand = this.getBrandName(value.brand);
+          value['brand'] = brand;
+          console.log(value);
+
           this.flag = true;
           this.searchObject = value;
           this.setDefaultRankingData();
@@ -178,11 +182,14 @@ class RankingViewPage {
     getBrandName(params){
       switch (params) {
         case 'gs25':
+        case 'GS25':
           return 'gs25';
         case 'cu':
+        case 'CU':
           return 'CU';
         case 'seven':
-          return '7-eleven'
+        case '7ELEVEN':
+          return '7-eleven';
         default:
           return 'all';
       }
@@ -250,6 +257,8 @@ class RankingViewPage {
 
     setSorting(params) {
       const queryObj = [];
+      let sortObj = [];
+
       if(!!params){
         this.searchObject.sort = params
       }else{
@@ -266,26 +275,72 @@ class RankingViewPage {
       }
 
       switch (params) {
+
         case 'review':
-          queryObj.sort(function(a, b){
-            return (a.review < b.review) ? -1 : (a.review > b.review) ? 1 : 0;
-          });
+          sortObj = this.setReviewSort(queryObj);
 
           break;
         case 'row':
-          queryObj.sort(function(a, b){
-            return (a.price < b.price) ? -1 : (a.price > b.price) ? 1 : 0;
-          });
+          sortObj = this.setRowPriceSort(queryObj);
 
           break;
         default:
-          queryObj.sort(function(a, b){
-            return (a.grade < b.grade) ? -1 : (a.grade > b.grade) ? 1 : 0;
-          });
+          sortObj = this.setGradeSort(queryObj);
+          break;
       }
 
-      this.arrayObj = queryObj;
+      this.arrayObj = sortObj;
       this.setDefaultRankingData();
+    }
+
+    setRowPriceSort(array){
+      array.sort(function(a, b){
+        const beforePrice = parseInt(a.price);
+        const afterPrice = parseInt(b.price);
+
+        if (beforePrice > afterPrice) {
+          return 1;
+        } else if (beforePrice < afterPrice) {
+          return -1;
+        } else{
+          return 0;
+        }
+      });
+
+      return array;
+    }
+
+    setReviewSort(array){
+      array.sort(function(a, b){
+        const beforeReview = parseInt(a.review_count);
+        const afterReview = parseInt(b.review_count);
+        if (beforeReview < afterReview) {
+          return 1;
+        } else if (beforeReview > afterReview) {
+          return -1;
+        } else{
+          return 0;
+        }
+      });
+
+      return array;
+    }
+
+    setGradeSort(array){
+      array.sort(function(a, b){
+        const beforeGrade = parseFloat(a.grade_avg);
+        const afterGrade = parseFloat(b.grade_avg);
+
+        if (beforeGrade < afterGrade) {
+          return 1;
+        } else if (beforeGrade > afterGrade) {
+          return -1;
+        } else{
+          return 0;
+        }
+      });
+
+      return array;
     }
 
     reloadEvent() {
@@ -358,9 +413,9 @@ class RankingViewPage {
                 value["rank"] = rank;
                 value["style"] = "card-main-badge-area" + rank;
               }
-                value["rating"] = "card-main-rank-rating" + i;
 
-                resultValue.push(value);
+              value["rating"] = "card-rank-rating" + i;
+              resultValue.push(value);
             }
         }
         // this.arrayObj = resultValue;
@@ -373,9 +428,12 @@ class RankingViewPage {
     setRatingHandler(value) {
         let i = this.start;
         for (const x of value) {
-            $("#card-main-rank-rating" + i).rateYo({
-                rating: x.grade,
-                readOnly: true
+            $("#card-rank-rating" + i).rateYo({
+                rating: x.grade_avg,
+                readOnly: true,
+                spacing: "10px",
+                normalFill: "#e2dbd6",
+                ratedFill: "#ffcf4d"
             });
             i++;
         }

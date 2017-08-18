@@ -59,13 +59,27 @@ class MainRankingPreview {
         }
       }
 
-      // 일단은 가격순 정렬임
-      queryObj.sort(function(a, b){
-        return (a.price < b.price) ? -1 : (a.price > b.price) ? 1 : 0;
+      const sortObj = this.setGradeSort(queryObj);
+
+      const data = sortObj.slice(0, 3);
+      this.setRankingData(data);
+    }
+
+    setGradeSort(array){
+      array.sort(function(a, b){
+        const beforeGrade = parseFloat(a.grade_avg);
+        const afterGrade = parseFloat(b.grade_avg);
+
+        if (beforeGrade < afterGrade) {
+          return 1;
+        } else if (beforeGrade > afterGrade) {
+          return -1;
+        } else{
+          return 0;
+        }
       });
 
-      const data = queryObj.slice(0, 3);
-      this.setRankingData(data);
+      return array;
     }
 
     setRankingData(data) {
@@ -75,9 +89,6 @@ class MainRankingPreview {
             const val = data[x];
             val["rank"] = i;
             val["style"] = "card-main-badge-area" + i;
-            // let grade = val.grade;
-            val.grade = 3.6;
-
             val["rating"] = "card-main-rank-rating" + i;
 
             value.push(val);
@@ -93,7 +104,7 @@ class MainRankingPreview {
         let i = 1;
         for(const x of value){
             $("#card-main-rank-rating"+i).rateYo({
-                rating: x.grade,
+                rating: x.grade_avg,
                 readOnly: true,
                 spacing: "10px",
                 normalFill: "#e2dbd6",
