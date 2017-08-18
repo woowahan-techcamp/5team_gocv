@@ -67,6 +67,7 @@
 
 .rank-query-tab{
     cursor: pointer;
+    text-align: center;
     display: inline-block;
     width: 100px;
     color: grey;
@@ -79,6 +80,7 @@
 
 .rank-brand-type-wrapper{
     margin-left: 20px;
+    margin-bottom: 50px;
     height: 40px;
 }
 

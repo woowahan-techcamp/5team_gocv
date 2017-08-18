@@ -47,7 +47,7 @@
         </div>
         <div>
             <form>
-                <input class="fixTab-search-word" type="text" name="product" value="상품명을 입력하세요">
+                <input class="fixTab-search-word" type="text" name="product" placeholder="상품명을 입력하세요">
             </form>
         </div>
         <div class="fixTab-search-button"><img style="margin-top:5px; width: 20px; height: 20px"
@@ -309,7 +309,7 @@
 <div style="display: none;" class="rank-container">
     <div class="rank-wrapper">
         <ul class="rank-category-wrapper">
-            <li  style="background-image:url('image/lunchbox.png')" class="rank-category-tab selected-rank-category-tab" name="전체">
+            <li  style="background-image:url('image/all.png')" class="rank-category-tab selected-rank-category-tab" name="전체">
                 전체
             </li>
             <li style="background-image:url('image/lunchbox.png')" class="rank-category-tab" name="도시락">
@@ -369,6 +369,8 @@
 <script id="rank-card-template" type="text/x-handlebars-template">
     {{#this}}
     <div class="rank-card-content">
+      <!--<div class="{{style}}">{{rank}}
+      </div>-->
         <a href="#popup">
             <img class="rank-card-image"
                  src="{{img}}" name="{{id}}" onclick="loadDetailProduct(this)"/>
@@ -381,7 +383,7 @@
 
             <div class="rank-card-name">상품명 : {{name}}</div>
             <div class="rank-card-price">가격 : {{price}} 원</div>
-            <div class="rank-card-review">리뷰 : {{review}} 개</div>
+            <div class="rank-card-review">리뷰 : {{review_count}} 개</div>
         </div>
     </div>
     {{/this}}
@@ -451,7 +453,7 @@
         <div class="{{style}}">{{rank}}
         </div>
         <a href="#popup">
-            <img class="card-rank-image" src="{{img}}" name="{{id}}" onclick="loadDetailProduct(this)"/>
+            <img class="card-rank-image" src="{{img}}" name="{{id}}" onerror="this.onerror=null;this.src='./image/not_found.gif';" onclick="loadDetailProduct(this)"/>
         </a>
         <div class="card-main-description">
             <div id="{{rating}}">
@@ -471,7 +473,7 @@
         {{category}}
     </div>
     <a href="#popup">
-        <img class="rank-product-image" src="{{img}}" name="{{id}}" onclick="loadDetailProduct(this)"/>
+        <img class="rank-product-image" src="{{img}}" onerror="this.onerror=null;this.src='./image/not_found.gif';" name="{{id}}" onclick="loadDetailProduct(this)"/>
     </a>
     <div style="width:50px; margin-bottom:20px" id="{{rating}}"></div>
     <div class="rank-event-wrapper">
@@ -502,7 +504,7 @@
             <div class="popup-productBrand">브랜드</div>
             <div class="popup-productBrand2">{{brand}}</div>
             <div class="popup-productScore">총 평점</div>
-            <div class="popup-productScore2">{{grade_avg}}</div>
+            <div class="popup-productScore2">{{grade_avg}}<span style="font-size:12px"> /5점</span></div>
         </div>
         <div class="popup-ratingChart">
             <canvas id="ratingChart"></canvas>
@@ -607,7 +609,7 @@
                         </ul>
                     </div>
                 </div>
-                <input class="popup-newReview-comment" type="text" value="부담없이 리뷰를 작성하세요!"/>
+                <input class="popup-newReview-comment" type="text" placeholder="부담없이 리뷰를 작성하세요!"/>
             </div>
             <div class="popup-newReviewWrapper-bottom">
                 <div class="popup-newReview-addAllegy">알레르기 성분 추가</div>
@@ -631,7 +633,7 @@
     {{#this}}
     <li class="popup-review">
         <div class="popup-review-top">
-            <div class="popup-review-profile"></div>
+            <img class="popup-review-profile" src="{{user_image}}">
             <div class="popup-review-nameTime">
                 <div style="font-size: 12px" class="popup-review-time"> {{timestamp}}</div>
                 <div class="popup-review-name"> {{user}}</div>
@@ -678,7 +680,7 @@
             </div>
         </div>
         <div class="popup-review-bottom">
-            <div class="popup-review-image"></div>
+            <img class="popup-review-image" src="{{p_image}}">
             <div class="popup-review-comment"> {{comment}}
             </div>
         </div>

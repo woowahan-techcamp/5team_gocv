@@ -444,6 +444,7 @@ class DataManager{
             update["p_image"] = imgURL
             id.updateChildValues(update)
             NotificationCenter.default.post(name: NSNotification.Name("reviewUpload"), object: self)
+            NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
         }
         
         let productRef = ref.child("product").child(p_id)

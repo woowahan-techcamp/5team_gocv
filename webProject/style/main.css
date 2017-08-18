@@ -50,7 +50,7 @@
 }
 
 .fixTab-logo:hover, .fixTab-tab:hover, .fixTab-select{
-    border-bottom: solid 5px ff5f4e;
+    border-bottom: solid 5px #ff5f4e;
 }
 
 
@@ -249,8 +249,8 @@
     height: 100vh;
     background-repeat: no-repeat;
     background-size: cover;
-    background-image: url("/image/ex.jpg");
-    filter: blur(0px) brightness(40%);
+    background-image: url("/image/ex.png");
+    filter: blur(0px) brightness(70%);
 
 }
 
@@ -320,7 +320,7 @@
     background-color: #ffffff;
     width: 40%;
     height: 350px;
-    opacity: 0.9;
+    opacity: 0.95;
     border-radius: 10px;
     /*box-shadow: 10px 10px 5px #282828;*/
 }

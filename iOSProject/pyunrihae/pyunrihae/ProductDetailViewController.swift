@@ -283,6 +283,13 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                                 cell.uploadedImageLoading.stopAnimating()
                             })
                         } else {
+                            if cell.detailReviewLabel.text == "" {
+                                cell.detailReviewLabel.isHidden = true
+                                cell.reviewBoxView.frame.size.height = 90
+                            }else {
+                                cell.reviewBoxView.frame.size.height = 120
+                                cell.detailReviewLabel.frame.origin.y = 50
+                            }
                             cell.uploadedFoodImageBtn.isHidden = true
                         }
                         

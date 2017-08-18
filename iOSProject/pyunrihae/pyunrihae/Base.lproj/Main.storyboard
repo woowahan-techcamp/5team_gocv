@@ -1789,6 +1789,7 @@
                         <outlet property="emailLabel" destination="4pP-oC-oPW" id="Yel-gI-YSY"/>
                         <outlet property="nickNameLabel" destination="HBX-4g-kUR" id="fT0-eJ-TVZ"/>
                         <outlet property="tableView" destination="ZtX-Y0-mGN" id="zGF-2O-iWd"/>
+                        <outlet property="userImage" destination="UZ3-IR-ABc" id="3wp-Lc-Zvt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jlV-RO-HwI" userLabel="First Responder" sceneMemberID="firstResponder"/>

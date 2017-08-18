@@ -31,6 +31,7 @@
 }
 
 .popup-close{
+    cursor: pointer;
     position: fixed;
     top:10%;
     right:12%;
@@ -57,7 +58,7 @@
 }
 
 .popup-reviewImage{
-    background-image: url("/image/ex.png");
+    background-image: url("/image/ex2.png");
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
@@ -281,6 +282,7 @@
 }
 
 .popup-reviewWrapper, .popup-newReviewWrapper{
+    cursor: pointer;
     width: 90%;
     margin: 20px auto auto auto;
 
@@ -311,7 +313,6 @@
     height: 80px;
     border-radius: 40px;
     background-size: contain;
-    background-image: url("/image/profile.png");
 }
 
 .popup-review-nameTime, .popup-review-eval{
@@ -396,8 +397,6 @@
 
 .popup-review-image{
     float: left;
-    background-color: #ff471b;
-    background-image: url("/image/bg.png");
     background-size: contain;
     border-radius: 10px;
     width: 150px;
