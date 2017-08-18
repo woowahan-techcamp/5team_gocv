@@ -72,7 +72,7 @@ function brandFilter(obj, param){
     for(const x in category){
       if(value[key].category === category[x]){
         if(!!!finValue[x].price ||
-          finValue[x].price < value[key].price){
+          finValue[x].grade_avg < value[key].grade_avg){
             finValue[x] = value[key];
         }
       }
@@ -150,7 +150,7 @@ class BrandRankingPreview {
             document.getElementById(this.item_template).appendChild(element);
         }
 
-        this.setRatingHandler(id, object.grade);
+        this.setRatingHandler(id, object.grade_avg);
     }
 
     setRatingHandler(id, value) {

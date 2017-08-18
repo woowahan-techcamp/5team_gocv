@@ -13,15 +13,13 @@ console.log('Firebase Caching');
 
 const storage = localStorage['product'];
 
-if(!storage){
-  firebase.database().ref('product/')
+
+firebase.database().ref('product/')
   .once('value').then(function(snapshot) {
 
-    localStorage['product'] = JSON.stringify(snapshot.val());
+  localStorage['product'] = JSON.stringify(snapshot.val());
+});
 
-      console.log(storage)
-  });
-}
 
 const value = {
   brand: 'all',
