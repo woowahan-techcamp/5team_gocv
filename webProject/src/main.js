@@ -384,7 +384,6 @@ class Review {
         this.navi = navi;
         this.init()
 
-
     }
 
     init() {
