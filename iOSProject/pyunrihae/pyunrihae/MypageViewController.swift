@@ -73,18 +73,20 @@ extension MypageViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if labelList[3] == "회원가입 / 로그인" {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "LoginSignUpViewController") as! LoginSignUpViewController
-            self.present(vc, animated: true, completion: nil)
-        } else{
-            let firebaseAuth = Auth.auth()
-            do {
-                try firebaseAuth.signOut()
-                self.currentUser = User()
-                self.setLogined()
-            } catch let signOutError as NSError {
-                print ("Error signing out: %@", signOutError)
+        if indexPath.row == 3 {
+            if labelList[3] == "회원가입 / 로그인" {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyboard.instantiateViewController(withIdentifier: "LoginSignUpViewController") as! LoginSignUpViewController
+                self.present(vc, animated: true, completion: nil)
+            } else{
+                let firebaseAuth = Auth.auth()
+                do {
+                    try firebaseAuth.signOut()
+                    self.currentUser = User()
+                    self.setLogined()
+                } catch let signOutError as NSError {
+                    print ("Error signing out: %@", signOutError)
+                }
             }
         }
     }
