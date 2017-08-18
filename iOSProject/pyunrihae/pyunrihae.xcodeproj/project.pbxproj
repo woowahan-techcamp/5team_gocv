@@ -63,8 +63,8 @@
 		98CBA0CD1F468536003D0370 /* ic_like_filled.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CBA0CB1F468536003D0370 /* ic_like_filled.png */; };
 		98CBA0CE1F468536003D0370 /* ic_like.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CBA0CC1F468536003D0370 /* ic_like.png */; };
 		98CBA0D01F469E6C003D0370 /* ic_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CBA0CF1F469E6B003D0370 /* ic_default.png */; };
-		98D5690C1F444DB1002693E9 /* WaitingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D5690B1F444DB1002693E9 /* WaitingViewController.swift */; };
 		98D569101F45B340002693E9 /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D5690F1F45B340002693E9 /* heart.png */; };
+		98D569121F46ABC7002693E9 /* user_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D569111F46ABC7002693E9 /* user_default.png */; };
 		98D839081F452DF200CDF699 /* bg_login2.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D839071F452DF200CDF699 /* bg_login2.png */; };
 		98D8390A1F452E6200CDF699 /* ic_pyunrihae.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D839091F452E6200CDF699 /* ic_pyunrihae.png */; };
 		98D9F2DF1F418DF3009D0E10 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 98D9F2CE1F418DF3009D0E10 /* LICENSE */; };
@@ -199,8 +199,8 @@
 		98CBA0CB1F468536003D0370 /* ic_like_filled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_like_filled.png; sourceTree = "<group>"; };
 		98CBA0CC1F468536003D0370 /* ic_like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_like.png; sourceTree = "<group>"; };
 		98CBA0CF1F469E6B003D0370 /* ic_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_default.png; sourceTree = "<group>"; };
-		98D5690B1F444DB1002693E9 /* WaitingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingViewController.swift; sourceTree = "<group>"; };
 		98D5690F1F45B340002693E9 /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
+		98D569111F46ABC7002693E9 /* user_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_default.png; sourceTree = "<group>"; };
 		98D839071F452DF200CDF699 /* bg_login2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_login2.png; sourceTree = "<group>"; };
 		98D839091F452E6200CDF699 /* ic_pyunrihae.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_pyunrihae.png; sourceTree = "<group>"; };
 		98D9F2CE1F418DF3009D0E10 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -347,6 +347,7 @@
 				98F8657E1F43FB1A00C2F333 /* star1.png */,
 				98F865AC1F44317C00C2F333 /* ic_close_gray.png */,
 				98F8657F1F43FB1A00C2F333 /* star2.png */,
+				98D569111F46ABC7002693E9 /* user_default.png */,
 				98F865881F44021000C2F333 /* logo_cu.png */,
 				98F865891F44021000C2F333 /* logo_7eleven.png */,
 				98F865AA1F442F8B00C2F333 /* ic_password.png */,
@@ -700,6 +701,7 @@
 				98CBA0C91F468196003D0370 /* ic_star_filled.png in Resources */,
 				98F8659D1F4407A700C2F333 /* ic_review.png in Resources */,
 				98F865831F43FB1A00C2F333 /* star1.png in Resources */,
+				98D569121F46ABC7002693E9 /* user_default.png in Resources */,
 				98F865AD1F44317C00C2F333 /* ic_close_gray.png in Resources */,
 				98F865A21F442A3000C2F333 /* ic_emailsignup.png in Resources */,
 				98F865A91F442F8700C2F333 /* ic_mail.png in Resources */,

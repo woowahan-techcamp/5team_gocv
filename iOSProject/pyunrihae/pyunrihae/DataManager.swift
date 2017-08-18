@@ -198,7 +198,7 @@ class DataManager{
     static func getReviewListBy(id: String, completion: @escaping ([Review]) ->()) {
         let localRef = ref.child("review")
         let query = localRef.queryOrdered(byChild: "p_id").queryEqual(toValue: id)
-        query.observe(DataEventType.value, with: { (snapshot) in
+        query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             var reviewList : [Review] = []
             for childSnapshot in snapshot.children {
                 let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
@@ -422,17 +422,20 @@ class DataManager{
                     update["p_image"] = imgURL
                     id.updateChildValues(update)
                     NotificationCenter.default.post(name: NSNotification.Name("reviewUpload"), object: self)
+                    NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
                 } else {
                     imagesRef.downloadURL { (URL, error) -> Void in // 업로드된 이미지 url 받아오기
                         if (error != nil) { // 없으면 ""로 저장
                             update["p_image"] = imgURL
                             id.updateChildValues(update)
                             NotificationCenter.default.post(name: NSNotification.Name("reviewUpload"), object: self)
+                            NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
                         } else {
                             imgURL = (URL?.description)! // 있으면 해당 url로 저장
                             update["p_image"] = imgURL
                             id.updateChildValues(update)
                             NotificationCenter.default.post(name: NSNotification.Name("reviewUpload"), object: self)
+                            NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
                         }
                     }
                 }

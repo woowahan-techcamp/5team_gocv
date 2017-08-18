@@ -250,6 +250,12 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                 if SelectedProduct.reviewCount != 0 {
                     cell.noReviewView.isHidden = true
                 }
+                cell.userNameLabel.text = ""
+                cell.detailReviewLabel.text = ""
+                cell.usefulNumLabel.text = "0"
+                cell.badNumLabel.text = "0"
+                cell.userImage.image = UIImage(named: "user_default.png")
+                cell.uploadedFoodImageBtn.setBackgroundImage(UIImage(), for: .normal)
                 DataManager.getReviewListBy(id: SelectedProduct.foodId) { (reviewList) in
                     if reviewList.count == SelectedProduct.reviewCount && reviewList.count > 0 {
                         self.usefulBtns.append(cell.usefulBtn)
@@ -269,11 +275,9 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                         cell.userImage.af_setImage(withURL: URL(string: reviewList[row].user_image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
                             cell.userImageLoading.stopAnimating()
                         })
-                        
                         if reviewList[row].p_image != "" {
                             cell.uploadedImageLoading.startAnimating()
                             let imageView = UIImageView()
-                            cell.uploadedFoodImageBtn.setBackgroundImage(UIImage(), for: .normal)
                             imageView.af_setImage(withURL: URL(string: reviewList[row].p_image)!, placeholderImage: UIImage(), completion:{ image in
                                 cell.uploadedFoodImageBtn.setBackgroundImage(imageView.image, for: .normal)
                                 cell.uploadedImageLoading.stopAnimating()
