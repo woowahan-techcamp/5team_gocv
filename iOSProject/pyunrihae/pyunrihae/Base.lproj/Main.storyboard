@@ -876,7 +876,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b3h-Yw-EFW">
                                 <rect key="frame" x="299" y="587" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button" image="writing.png"/>
+                                <state key="normal" title="Button" image="ic_review_write.png"/>
                                 <connections>
                                     <segue destination="73h-LJ-DL6" kind="show" id="b1X-ep-stY"/>
                                 </connections>
@@ -1814,10 +1814,10 @@
         <image name="ic_ranking_selected.png" width="46" height="74"/>
         <image name="ic_review.png" width="42" height="68"/>
         <image name="ic_review_selected.png" width="42" height="68"/>
+        <image name="ic_review_write.png" width="120" height="120"/>
         <image name="ic_user.png" width="200" height="200"/>
         <image name="plus.png" width="640" height="640"/>
         <image name="search" width="15" height="15"/>
-        <image name="writing.png" width="2000" height="2000"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Vaq-lB-3M9"/>
