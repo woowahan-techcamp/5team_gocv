@@ -17,11 +17,26 @@ document.addEventListener('DOMContentLoaded', function () {
         content: '.ranking-item-list-wrapper'
     };
 
-    new RankingViewPage(rankingParams);
+    const searchParams = getSearchParams();
+
+    new RankingViewPage(rankingParams, searchParams);
 });
 
+function getSearchParams(){
+  const getObject = JSON.parse(localStorage['search_keyword']);
+
+  const searchParams = {};
+
+  searchParams.brand = getObject.brand;
+  searchParams.category = getObject.category;
+  searchParams.sort = 'grade';
+  searchParams.keyword = getObject.keyword;
+
+  return searchParams;
+}
+
 class RankingViewPage {
-    constructor(rankingParams) {
+    constructor(rankingParams, searchParams) {
         // sort
         this.sort_rank_tab = document.querySelector(rankingParams.sort_tab);
         this.selected_sort_rank_tab = rankingParams.selected_sort;
@@ -37,11 +52,10 @@ class RankingViewPage {
         this.selected_category_rank_tab = rankingParams.selected_category;
         this.category_key = rankingParams.category_check_key;
 
-        // window height
-        this.height = 800;
+        this.searchObject = searchParams;
+        this.arrayObj = this.getArrayObject();
 
-        const product = localStorage['product'];
-        this.obj = JSON.parse(product);
+        this.flag = true;
 
         this.template = document.querySelector(rankingParams.template).innerHTML;
         this.rank_content = document.querySelector(rankingParams.content);
@@ -50,11 +64,54 @@ class RankingViewPage {
     }
 
     init() {
-        this.setDefaultRankingData(this.obj);
+        this.setDefaultRankingData();
+        this.setClickEvent();
         this.sortEvent(this.selected_sort_rank_tab, this.sort_key);
         this.brandEvent(this.selected_brand_rank_tab, this.brand_key);
         this.categoryEvent(this.selected_category_rank_tab, this.category_key);
         this.reloadEvent();
+    }
+
+    setClickEvent(){
+      document.querySelector('.fixTab-search-button').addEventListener('click', function() {
+          const storage = localStorage['search_keyword'];
+          const value = JSON.parse(storage);
+
+          this.flag = true;
+          this.searchObject = value;
+          this.setDefaultRankingData();
+      }.bind(this));
+
+      document.querySelector("#fixTabNavi").addEventListener('click', function() {
+        const selectedTab = document.getElementsByClassName("fixTab-select")[0];
+
+        const text = document.getElementsByClassName("fixTab-select")[0].innerHTML;
+
+        if(text === "랭킹"){
+          const value = {
+            brand: 'all',
+            category: '전체',
+            sort: 'grade',
+            keyword: ''
+          };
+
+          this.flag = true;
+          this.searchObject = value;
+          this.setDefaultRankingData();
+        }
+      }.bind(this));
+    }
+
+    getArrayObject(){
+      const product = localStorage['product'];
+      const obj = JSON.parse(product);
+      const queryObj = [];
+
+      for(const key in obj){
+        queryObj.push(obj[key]);
+      }
+
+      return queryObj;
     }
 
     sortEvent(selectedClassName, key) {
@@ -67,11 +124,12 @@ class RankingViewPage {
             const changeSelectedTab = document.getElementsByClassName(selectedClassName)[0];
 
             if (changeSelectedTab.getAttribute('class') == key) {
-                const requestParam = changeSelectedTab.getAttribute('name');
-                this.setSorting(requestParam);
+              this.flag = true;
+              const requestParam = changeSelectedTab.getAttribute('name');
+              this.setSorting(requestParam);
             } else {
-                e.target.classList.remove(selectedClassName);
-                selectedTab.classList.add(selectedClassName);
+              e.target.classList.remove(selectedClassName);
+              selectedTab.classList.add(selectedClassName);
             }
         }.bind(this));
     }
@@ -86,106 +144,148 @@ class RankingViewPage {
             const changeSelectedTab = document.getElementsByClassName(selectedClassName)[0];
 
             if (changeSelectedTab.getAttribute('class') == key) {
-                const requestParam = changeSelectedTab.getAttribute('name');
-                this.setBrandSort(requestParam);
+              this.flag = true;
+              const requestParam = changeSelectedTab.getAttribute('name');
+              this.setBrandSort(requestParam);
             } else {
-                e.target.classList.remove(selectedClassName);
-                selectedTab.classList.add(selectedClassName);
+              e.target.classList.remove(selectedClassName);
+              selectedTab.classList.add(selectedClassName);
             }
         }.bind(this));
     }
 
     categoryEvent(selectedClassName, key){
         this.category_rank_tab.addEventListener('click', function(e){
-            const selectedTab = document.getElementsByClassName(selectedClassName)[0];
 
-            selectedTab.classList.remove(selectedClassName);
-            e.target.classList.add(selectedClassName);
+          const selectedTab = document.getElementsByClassName(selectedClassName)[0];
 
-            const changeSelectedTab = document.getElementsByClassName(selectedClassName)[0];
+          selectedTab.classList.remove(selectedClassName);
+          e.target.classList.add(selectedClassName);
 
-            if (changeSelectedTab.getAttribute('class') == key) {
-                const requestParam = changeSelectedTab.getAttribute('name');
-                this.setCategorySort(requestParam);
-            } else {
-                e.target.classList.remove(selectedClassName);
-                selectedTab.classList.add(selectedClassName);
-            }
+          const changeSelectedTab = document.getElementsByClassName(selectedClassName)[0];
+
+          if (changeSelectedTab.getAttribute('class') == key) {
+            this.flag = true;
+            const requestParam = changeSelectedTab.getAttribute('name');
+            this.setCategorySort(requestParam);
+          } else {
+            e.target.classList.remove(selectedClassName);
+            selectedTab.classList.add(selectedClassName);
+          }
         }.bind(this));
     }
 
     getBrandName(params){
-        switch (params) {
-            case 'gs25':
-                return 'gs25';
-            case 'cu':
-                return 'CU';
-            case 'seven':
-                return '7-eleven'
-            default:
-                return 'all';
-        }
+      switch (params) {
+        case 'gs25':
+          return 'gs25';
+        case 'cu':
+          return 'CU';
+        case 'seven':
+          return '7-eleven'
+        default:
+          return 'all';
+      }
     }
 
     setBrandSort(params){
-        const brandName = this.getBrandName(params);
+      let brandName;
+      if(!!params){
+        brandName = this.getBrandName(params);
+        this.searchObject.brand = brandName;
+      }else{
+        params = this.searchObject.brand;
+        brandName = params;
+      }
 
-        const product = localStorage['product'];
-        this.obj = JSON.parse(product);
+      this.arrayObj = this.getArrayObject();
 
-        const queryObj = [];
+      let queryObj = [];
 
-        for(const key in this.obj){
-            if(this.obj[key].brand === brandName){
-                queryObj.push(this.obj[key]);
-            }
+      if(this.searchObject.brand != 'all'){
+        for(const key in this.arrayObj){
+          if(this.arrayObj[key].brand === brandName){
+            queryObj.push(this.arrayObj[key]);
+          }
         }
+      }else{
+        queryObj = this.getArrayObject();
+      }
 
-        this.obj = queryObj;
-        this.setDefaultRankingData(queryObj);
+      this.arrayObj = queryObj;
+
+      if(this.flag){
+        this.flag = false;
+        this.setCategorySort();
+        this.setSorting();
+      }
+
+      this.setDefaultRankingData();
     }
 
     setCategorySort(param){
-        const queryObj = [];
+      const queryObj = [];
+      if(!!param){
+        this.searchObject.category = param;
+      }else{
+        param = this.searchObject.category;
+      }
 
-        for(const key in this.obj){
-            if(this.obj[key].category === param){
-                queryObj.push(this.obj[key]);
-            }
+      if(this.flag){
+        this.flag = false;
+        this.setBrandSort();
+      }
+
+      for(const key in this.arrayObj){
+        if(param === "전체"){
+          queryObj.push(this.arrayObj[key]);
+        }else if(this.arrayObj[key].category === param){
+          queryObj.push(this.arrayObj[key]);
         }
+      }
 
-        this.setDefaultRankingData(queryObj);
+      this.arrayObj = queryObj;
+      this.setDefaultRankingData();
     }
 
     setSorting(params) {
-        const queryObj = [];
+      const queryObj = [];
+      if(!!params){
+        this.searchObject.sort = params
+      }else{
+        params = this.searchObject.sort;
+      }
 
-        for(const key in this.obj){
-            queryObj.push(this.obj[key]);
-        }
+      for(const key in this.arrayObj){
+        queryObj.push(this.arrayObj[key]);
+      }
 
-        switch (params) {
-            case 'review':
-                queryObj.sort(function(a, b){
-                    return (a.review < b.review) ? -1 : (a.review > b.review) ? 1 : 0;
-                });
+      if(this.flag){
+        this.flag = false;
+        this.setBrandSort();
+      }
 
-                break;
-            case 'row':
-                queryObj.sort(function(a, b){
-                    return (a.price < b.price) ? -1 : (a.price > b.price) ? 1 : 0;
-                });
+      switch (params) {
+        case 'review':
+          queryObj.sort(function(a, b){
+            return (a.review < b.review) ? -1 : (a.review > b.review) ? 1 : 0;
+          });
 
-                break;
-            default:
-                queryObj.sort(function(a, b){
-                    return (a.grade < b.grade) ? -1 : (a.grade > b.grade) ? 1 : 0;
-                });
+          break;
+        case 'row':
+          queryObj.sort(function(a, b){
+            return (a.price < b.price) ? -1 : (a.price > b.price) ? 1 : 0;
+          });
 
-                break;
-        }
+          break;
+        default:
+          queryObj.sort(function(a, b){
+            return (a.grade < b.grade) ? -1 : (a.grade > b.grade) ? 1 : 0;
+          });
+      }
 
-        this.setDefaultRankingData(queryObj);
+      this.arrayObj = queryObj;
+      this.setDefaultRankingData();
     }
 
     reloadEvent() {
@@ -197,18 +297,18 @@ class RankingViewPage {
                 that.start += 12;
                 that.end += 12;
                 that.height += 1000;
-                that.setRankingData(that.obj);
+                that.setRankingData();
             }
         });
     }
 
-    setRankingData(data) {
+    setRankingData() {
         const resultValue = [];
         const element = document.createElement('div');
 
         for (let i = this.start; i < this.end; i++) {
-            const key = Object.keys(data)[i];
-            const value = data[key];
+            const key = Object.keys(this.arrayObj)[i];
+            const value = this.arrayObj[key];
             if (!!value) {
                 value["rating"] = "card-main-rank-rating" + i;
 
@@ -224,23 +324,46 @@ class RankingViewPage {
         }
     }
 
-    setDefaultRankingData(data) {
+    setSearchKeyword(){
+      const value = [];
+
+      for(const key in this.arrayObj){
+        if((this.arrayObj[key].name).match(this.searchObject.keyword)){
+          value.push(this.arrayObj[key]);
+        }
+      }
+      this.arrayObj = value;
+
+      return value;
+    }
+
+    setDefaultRankingData() {
         this.start = 0;
         this.end = 12;
+        this.height = 800;
+
+        if(this.flag){
+          this.setBrandSort();
+        }
+
+        const data = (!!this.searchObject.keyword) ? this.setSearchKeyword() : this.arrayObj;
 
         const resultValue = [];
         for (let i = this.start; i < this.end; i++) {
             const key = Object.keys(data)[i];
             const value = data[key];
             if (!!value) {
-                // value["rank"] = i;
-                // value["style"] = "card-main-badge-area" + i;
-
+              if(i < 3){
+                const rank = (i+1).toString();
+                value["rank"] = rank;
+                value["style"] = "card-main-badge-area" + rank;
+              }
                 value["rating"] = "card-main-rank-rating" + i;
 
                 resultValue.push(value);
             }
         }
+        // this.arrayObj = resultValue;
 
         const template = Handlebars.compile(this.template);
         this.rank_content.innerHTML = template(resultValue);
