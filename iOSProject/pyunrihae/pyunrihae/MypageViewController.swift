@@ -13,16 +13,17 @@ class MypageViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var alertLabel: UILabel!
+    @IBOutlet weak var nickNameLabel: UILabel!
     
     var labelList = ["닉네임 수정","내가 찜한 상품","편리해 정보","회원가입 / 로그인"]
     var currentUser = User()
     override func viewDidLoad() {
-        NotificationCenter.default.addObserver(self, selector: #selector(setLogined), name: NSNotification.Name("userLogined"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(checkUserLogin), name: NSNotification.Name("userLogined"), object: nil)
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
         // Do any additional setup after loading the view.
-        setLogined()
+        checkUserLogin()
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,20 +33,39 @@ class MypageViewController: UIViewController {
     
     func checkUserLogin(){
         if Auth.auth().currentUser != nil {
-            currentUser = User.init(id: (Auth.auth().currentUser?.uid)! , email: (Auth.auth().currentUser?.email)!)
+            DataManager.getUserFromUID(uid: (Auth.auth().currentUser?.uid)!, completion: { (user) in
+                self.currentUser = user
+                
+                if user.email != "" {
+                    DispatchQueue.main.async{
+                        self.nickNameLabel.text = self.currentUser.nickname
+                        self.emailLabel.text = self.currentUser.email
+                        self.labelList[3] = "로그아웃"
+                        self.tableView.reloadData()
+                    }
+                }else{
+                    DispatchQueue.main.async{
+                        self.nickNameLabel.text = "로그인을 해주세요."
+                        self.emailLabel.text = "로그인을 해주세요."
+                        self.labelList[3] = "회원가입 / 로그인"
+                        self.tableView.reloadData()
+                    }
+                }
+            })
         }
     }
     
     func setLogined(){
-        checkUserLogin()
         if currentUser.email != "" {
             DispatchQueue.main.async{
+                self.nickNameLabel.text = self.currentUser.nickname
                 self.emailLabel.text = self.currentUser.email
                 self.labelList[3] = "로그아웃"
                 self.tableView.reloadData()
             }
         }else{
             DispatchQueue.main.async{
+                self.nickNameLabel.text = "로그인을 해주세요."
                 self.emailLabel.text = "로그인을 해주세요."
                 self.labelList[3] = "회원가입 / 로그인"
                 self.tableView.reloadData()

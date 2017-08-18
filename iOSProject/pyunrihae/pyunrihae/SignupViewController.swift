@@ -15,6 +15,7 @@ class SignupViewController: UIViewController {
     @IBOutlet weak var passWordTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var completeBtn: UIButton!
+    @IBOutlet weak var nicknameTextField: UITextField!
     
     @IBOutlet weak var emailAlertLabel: UILabel!
     @IBOutlet weak var passwordAlertLabel: UILabel!
@@ -73,7 +74,7 @@ class SignupViewController: UIViewController {
     }
     
     func isValidSignup(){
-        if Validator.isValidSign(email: emailTextField.text!,password: passWordTextField.text!, confirmPassword: passWordConfirmTextField.text!) {
+        if Validator.isValidSign(email: emailTextField.text!,password: passWordTextField.text!, confirmPassword: passWordConfirmTextField.text!) && (nicknameTextField.text?.characters.count)! > 0 {
            completeBtn.isEnabled = true
         }else{
             completeBtn.isEnabled = false
@@ -87,7 +88,7 @@ class SignupViewController: UIViewController {
             Auth.auth().createUser(withEmail: emailTextField.text!, password: passWordTextField.text!) { (user, error) in
                 
                 if error == nil {
-                    let user_instance = User.init(id: (user?.uid)!, email: (user?.email)!)
+                    let user_instance = User.init(id: (user?.uid)!, email: (user?.email)!, nickname: self.nicknameTextField.text!)
                     DataManager.saveUser(user: user_instance)
                     
                     Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.passWordTextField.text!) { (user, error) in
@@ -97,12 +98,12 @@ class SignupViewController: UIViewController {
                             UIView.animate(withDuration: 2.0, animations: {
                                 self.alertView.alpha = 0
                             })
+                        }else{
+                            self.dismiss(animated: true, completion: {
+                                NotificationCenter.default.post(name: NSNotification.Name("userLogined"), object: nil)
+                            })
                         }
                     }
-                    
-                    self.dismiss(animated: true, completion: {
-                        NotificationCenter.default.post(name: NSNotification.Name("userLogined"), object: nil)
-                    })
                 }else{
                     self.alertView.text = "회원가입에 실패했습니다."
                     self.alertView.alpha = 1

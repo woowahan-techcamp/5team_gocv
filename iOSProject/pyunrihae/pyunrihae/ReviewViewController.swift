@@ -206,11 +206,25 @@ class ReviewViewController: UIViewController {
     }
     
     func setReviewListOrder(){
+       
         
         if sortingMethodLabel != nil {
             
+            
+            let format = DateFormatter()
+            format.locale = Locale(identifier: "ko_kr")
+            format.timeZone = TimeZone(abbreviation: "KST")
+            format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            
+            
             if sortingMethodLabel.text == "최신순"{
-                self.reviewList = reviewList.sorted(by: { $0.id < $1.id })
+                self.reviewList = reviewList.sorted(by: { (review1, review2) in
+                    if format.date(from: review1.timestamp) != nil && format.date(from: review2.timestamp) != nil {
+                         return format.date(from: review1.timestamp)! > format.date(from: review2.timestamp)!
+                    }else{
+                        return review1.id > review2.id
+                    }
+                })
             }else{
                 self.reviewList = reviewList.sorted(by: { $0.useful > $1.useful })
             }

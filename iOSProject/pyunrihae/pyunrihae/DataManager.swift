@@ -26,6 +26,7 @@ class DataManager{
         
         let localRef = ref.child("review")
         
+        
         if brand == "전체" { // 브랜드 : 전체를 선택한 경우
             let query = localRef.queryOrdered(byChild: "useful").queryLimited(toLast: 3)
             query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
@@ -60,7 +61,6 @@ class DataManager{
     static func getTopProductBy(brand : String, category : String, completion: @escaping ([Product]) -> ()) {
         let localRef = ref.child("product")
         let query = localRef.queryOrdered(byChild: "category").queryEqual(toValue: category)
-        
         query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             var productList : [Product] = []
             for childSnapshot in snapshot.children {
@@ -198,7 +198,7 @@ class DataManager{
     static func getReviewListBy(id: String, completion: @escaping ([Review]) ->()) {
         let localRef = ref.child("review")
         let query = localRef.queryOrdered(byChild: "p_id").queryEqual(toValue: id)
-        query.observe(DataEventType.value, with: { (snapshot) in
+        query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             var reviewList : [Review] = []
             for childSnapshot in snapshot.children {
                 let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
@@ -214,6 +214,7 @@ class DataManager{
     
     static func getProductAllInRank(completion : @escaping ([Product]) -> ()){
         let localRef = ref.child("product")
+        
         localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             var productList : [Product] = []
             for childSnapshot in snapshot.children {
@@ -315,8 +316,26 @@ class DataManager{
             } else {
                 update["allergy"] = allergy
             }
+            var level = "g" + grade.description
+            if postDict["grade_data"] != nil {
+                if var grade_data = postDict["grade_data"] as? [String: Int] {
+                    if var num = grade_data[level] {
+                        num += 1
+                        grade_data[level] = num
+                        update["grade_data"] = grade_data
+                    } else {
+                        grade_data[level] = 1
+                        update["grade_data"] = grade_data
+                    }
+                }
+            } else {
+                var grade_data = ["g1": 0, "g2": 0, "g3": 0, "g4": 0, "g5": 0]
+                grade_data[level] = 1
+                update["grade_data"] = grade_data
+            }
             
-            var level = "p" + priceLevel.description
+            
+            level = "p" + priceLevel.description
             if postDict["price_level"] != nil {
                 if var price_level = postDict["price_level"] as? [String: Int] {
                     if var num = price_level[level] {
@@ -403,17 +422,20 @@ class DataManager{
                     update["p_image"] = imgURL
                     id.updateChildValues(update)
                     NotificationCenter.default.post(name: NSNotification.Name("reviewUpload"), object: self)
+                    NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
                 } else {
                     imagesRef.downloadURL { (URL, error) -> Void in // 업로드된 이미지 url 받아오기
                         if (error != nil) { // 없으면 ""로 저장
                             update["p_image"] = imgURL
                             id.updateChildValues(update)
                             NotificationCenter.default.post(name: NSNotification.Name("reviewUpload"), object: self)
+                            NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
                         } else {
                             imgURL = (URL?.description)! // 있으면 해당 url로 저장
                             update["p_image"] = imgURL
                             id.updateChildValues(update)
                             NotificationCenter.default.post(name: NSNotification.Name("reviewUpload"), object: self)
+                            NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
                         }
                     }
                 }
@@ -489,8 +511,21 @@ class DataManager{
     // Firebase Auth의 user를 UserModel로 가져와서 넣기
     static func saveUser(user: User) {
         let localRef = ref.child("user")
-        localRef.child(user.id).setValue(["id": user.id, "email" : user.email,  "review_like_list": user.review_like_list, "product_like_list" : user.product_like_list, "wish_product_list": user.wish_product_list])
+        localRef.child(user.id).setValue(["id": user.id, "email" : user.email, "nickname" : user.nickname,  "review_like_list": user.review_like_list, "product_like_list" : user.product_like_list, "wish_product_list": user.wish_product_list])
     }
     
+    /*
+     * 마이페이지 화면
+     */
     
+    // uid로 User 불러오기.
+    static func getUserFromUID(uid : String, completion: @escaping (User) -> ()){
+        let localRef = ref.child("user").child(uid)
+        
+        localRef.observe(.value, with: { (snapshot) in
+            var user = User()
+            user = User.init(snapshot: snapshot as! DataSnapshot)
+            completion(user)
+        })
+    }
 }
