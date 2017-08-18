@@ -10,6 +10,7 @@ import UIKit
 import FirebaseAuth
 class MypageViewController: UIViewController {
 
+    @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var alertLabel: UILabel!
@@ -35,9 +36,9 @@ class MypageViewController: UIViewController {
         if Auth.auth().currentUser != nil {
             DataManager.getUserFromUID(uid: (Auth.auth().currentUser?.uid)!, completion: { (user) in
                 self.currentUser = user
-                
                 if user.email != "" {
                     DispatchQueue.main.async{
+                        self.userImage.image = UIImage(named: "user_default.png")
                         self.nickNameLabel.text = self.currentUser.nickname
                         self.emailLabel.text = self.currentUser.email
                         self.labelList[3] = "로그아웃"
@@ -65,6 +66,7 @@ class MypageViewController: UIViewController {
             }
         }else{
             DispatchQueue.main.async{
+                self.userImage.image = UIImage(named: "ic_user.png")
                 self.nickNameLabel.text = "로그인을 해주세요."
                 self.emailLabel.text = "로그인을 해주세요."
                 self.labelList[3] = "회원가입 / 로그인"
