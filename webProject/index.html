@@ -369,6 +369,8 @@
 <script id="rank-card-template" type="text/x-handlebars-template">
     {{#this}}
     <div class="rank-card-content">
+      <!--<div class="{{style}}">{{rank}}
+      </div>-->
         <a href="#popup">
             <img class="rank-card-image"
                  src="{{img}}" name="{{id}}" onclick="loadDetailProduct(this)"/>
@@ -381,7 +383,7 @@
 
             <div class="rank-card-name">상품명 : {{name}}</div>
             <div class="rank-card-price">가격 : {{price}} 원</div>
-            <div class="rank-card-review">리뷰 : {{review}} 개</div>
+            <div class="rank-card-review">리뷰 : {{review_count}} 개</div>
         </div>
     </div>
     {{/this}}
@@ -451,7 +453,7 @@
         <div class="{{style}}">{{rank}}
         </div>
         <a href="#popup">
-            <img class="card-rank-image" src="{{img}}" name="{{id}}" onclick="loadDetailProduct(this)"/>
+            <img class="card-rank-image" src="{{img}}" name="{{id}}" onerror="this.onerror=null;this.src='./image/not_found.gif';" onclick="loadDetailProduct(this)"/>
         </a>
         <div class="card-main-description">
             <div id="{{rating}}">
@@ -471,7 +473,7 @@
         {{category}}
     </div>
     <a href="#popup">
-        <img class="rank-product-image" src="{{img}}" name="{{id}}" onclick="loadDetailProduct(this)"/>
+        <img class="rank-product-image" src="{{img}}" onerror="this.onerror=null;this.src='./image/not_found.gif';" name="{{id}}" onclick="loadDetailProduct(this)"/>
     </a>
     <div style="width:50px; margin-bottom:20px" id="{{rating}}"></div>
     <div class="rank-event-wrapper">

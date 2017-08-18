@@ -364,19 +364,19 @@ class RankingViewPage {
         for (let i = this.start; i < this.end; i++) {
             const key = Object.keys(this.arrayObj)[i];
             const value = this.arrayObj[key];
+
             if (!!value) {
-                value["rating"] = "card-main-rank-rating" + i;
+                value["rating"] = "card-rank-rating" + i;
 
                 resultValue.push(value);
-
-                const template = Handlebars.compile(this.template);
-                element.innerHTML = template(resultValue);
-
-                this.rank_content.appendChild(element);
-
-                this.setRatingHandler(resultValue);
-            }
+              }
         }
+        const template = Handlebars.compile(this.template);
+        element.innerHTML = template(resultValue);
+
+        this.rank_content.appendChild(element);
+
+        this.setRatingHandler(resultValue);
     }
 
     setSearchKeyword(){
