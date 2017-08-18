@@ -9,6 +9,8 @@
 import UIKit
 
 class TabBarViewController: UIViewController {
+    @IBOutlet weak var waitingImage: UIImageView!
+    @IBOutlet weak var pyunrihaeImage: UIImageView!
     @IBOutlet var searchBtn : UIButton!
     @IBOutlet var titleLabel : UILabel!
     @IBOutlet var brandBtns : [UIButton]! // 브랜드 메뉴 버튼 4개
@@ -69,9 +71,33 @@ class TabBarViewController: UIViewController {
     func showReview(_ notification: Notification){
         didPressTabBtn(tabBtns[2])
     }
-    
+    func animateView(){
+        UIView.animate(withDuration: 1,delay: 0.5, animations: {
+            self.pyunrihaeImage.alpha -= 1
+        }, completion: { (complete:Bool) in
+            if complete == true{
+                UIView.animate(withDuration: 1,delay: 0.5, animations: {
+                    self.pyunrihaeImage.alpha += 1
+                }
+                )}
+        })
+    }
+    func doneLoading() {
+        UIView.animate(withDuration: 1.5,delay: 0.5, animations: {
+            self.pyunrihaeImage.frame.origin.x -= 375
+            self.waitingImage.frame.origin.x -= 375
+        }, completion: { (complete:Bool) in
+            if complete == true{
+                self.waitingImage.isHidden = true
+                self.pyunrihaeImage.isHidden = true
+            }
+        })
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        waitingImage.layer.zPosition = 10
+        pyunrihaeImage.layer.zPosition = 20
+        animateView()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         mainViewController = storyboard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
         mainViewController.selectedBrandIndexFromTab = selectedBrandIndex
@@ -95,6 +121,7 @@ class TabBarViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(showRanking), name: NSNotification.Name("showRanking"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showCategory), name: NSNotification.Name("showCategory"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showReview), name: NSNotification.Name("showReview"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(doneLoading), name: NSNotification.Name("doneLoading"), object: nil)
         // Do any additional setup after loading the view.
     }
     

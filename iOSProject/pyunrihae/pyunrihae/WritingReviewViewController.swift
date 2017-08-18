@@ -101,7 +101,7 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
         SelectedAllergy.allergyList = []
     }
     @IBAction func tabCompleteBtn(_ sender: UIButton) {
-        let user_image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQh3QnWlH0HMsLC6-ZNQD2ZAA0hcipgx09OuUm2cS0hiIeW-RWX"
+        let user_image = "http://item.kakaocdn.net/dw/4407092.title.png"
         if checkGrade && checkPriceLevel && checkFlavorLevel && checkQuantityLevel {
             SelectedAllergy.allergyList = []
             DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
@@ -109,8 +109,9 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
             }
             
             DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
-                DataManager.writeReview(brand: product.name, category: product.category, grade: self.grade, priceLevel: self.priceLevel, flavorLevel: self.flavorLevel, quantityLevel: self.quantityLevel, allergy: self.allergy, review: self.detailReview.text, user: "test", user_image: user_image, p_id: product.id, p_image: self.reviewImage, p_name: product.name, p_price: Int(product.price)!){
+                DataManager.writeReview(brand: product.brand, category: product.category, grade: self.grade, priceLevel: self.priceLevel, flavorLevel: self.flavorLevel, quantityLevel: self.quantityLevel, allergy: self.allergy, review: self.detailReview.text, user: "우아한 형제들", user_image: user_image, p_id: product.id, p_image: self.reviewImage, p_name: product.name, p_price: Int(product.price)!){
                     self.navigationController?.popToRootViewController(animated: true)
+                    NotificationCenter.default.post(name: NSNotification.Name("startUploading"), object: self)
                     NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
                 }
             }

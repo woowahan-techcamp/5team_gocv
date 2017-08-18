@@ -77,7 +77,7 @@ extension MypageViewController: UITableViewDataSource, UITableViewDelegate {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "LoginSignUpViewController") as! LoginSignUpViewController
             self.present(vc, animated: true, completion: nil)
-        }else{
+        } else{
             let firebaseAuth = Auth.auth()
             do {
                 try firebaseAuth.signOut()

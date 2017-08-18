@@ -10,9 +10,9 @@ import UIKit
 
 class ProductDetailInfoTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var allergyBtn: UIButton!
     @IBOutlet weak var starView: UIView!
     @IBOutlet weak var gradeLabel: UILabel!
-    @IBOutlet weak var allergyLabel: UILabel!
     @IBOutlet weak var quantityLevelLabel: UILabel!
     @IBOutlet weak var flavorLevelLabel: UILabel!
     @IBOutlet weak var priceLevelLabel: UILabel!

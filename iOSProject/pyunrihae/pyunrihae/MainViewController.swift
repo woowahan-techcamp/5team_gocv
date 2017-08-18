@@ -312,7 +312,7 @@ class MainViewController: UIViewController {
                 self.reviewImageView.contentSize = CGSize(width: scrollViewSize, height: 0.8);
                 
             }
-            
+            NotificationCenter.default.post(name: NSNotification.Name("doneLoading"), object: self)
         }
         
     }
