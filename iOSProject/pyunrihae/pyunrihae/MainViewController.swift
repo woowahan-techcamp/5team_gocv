@@ -178,14 +178,17 @@ class MainViewController: UIViewController {
                     let starImageView : UIImageView = UIImageView()
                 
                     
-                    myImageView.af_setImage(withURL: url!)
+                    // 기본이미지 있어야함
+                    if url != nil {
+                        myImageView.af_setImage(withURL: url!)
+                    }
                     myImageView.contentMode = UIViewContentMode.scaleAspectFill
                     
                     myImageView.frame.size.width = imageViewWidth
                     myImageView.frame.size.height = imageViewHeight
                     myImageView.frame.origin.x = xPosition
                     
-                    blackLayerView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+                    blackLayerView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
                     blackLayerView.frame.size.width = imageViewWidth
                     blackLayerView.frame.size.height = imageViewHeight
                     blackLayerView.frame.origin.x = xPosition
