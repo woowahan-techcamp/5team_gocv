@@ -231,9 +231,15 @@ extension RankingViewController: UICollectionViewDataSource {
             cell.foodImage.clipsToBounds = true
            
             cell.loading.startAnimating()
-            cell.foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
-                cell.loading.stopAnimating()
-            })
+            
+            if product.image != "" {
+                cell.foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
+                    cell.loading.stopAnimating()
+                })
+            }else{
+                cell.foodImage.image = #imageLiteral(resourceName: "ic_default.png")
+            }
+           
 
             cell.orderNumLabel.text = (indexPath.item + 1).description
             cell.brandLabel.text = product.brand
