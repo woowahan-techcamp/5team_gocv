@@ -55,7 +55,6 @@
 		98CBA0BA1F458DC1003D0370 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CBA0B91F458DC1003D0370 /* LoginViewController.swift */; };
 		98CBA0BD1F458E87003D0370 /* ic_login_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CBA0BB1F458E87003D0370 /* ic_login_disabled.png */; };
 		98CBA0BE1F458E87003D0370 /* ic_login_enabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CBA0BC1F458E87003D0370 /* ic_login_enabled.png */; };
-		98D5690C1F444DB1002693E9 /* WaitingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D5690B1F444DB1002693E9 /* WaitingViewController.swift */; };
 		98D569101F45B340002693E9 /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D5690F1F45B340002693E9 /* heart.png */; };
 		98D839081F452DF200CDF699 /* bg_login2.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D839071F452DF200CDF699 /* bg_login2.png */; };
 		98D8390A1F452E6200CDF699 /* ic_pyunrihae.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D839091F452E6200CDF699 /* ic_pyunrihae.png */; };
@@ -183,7 +182,6 @@
 		98CBA0B91F458DC1003D0370 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		98CBA0BB1F458E87003D0370 /* ic_login_disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_login_disabled.png; sourceTree = "<group>"; };
 		98CBA0BC1F458E87003D0370 /* ic_login_enabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_login_enabled.png; sourceTree = "<group>"; };
-		98D5690B1F444DB1002693E9 /* WaitingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingViewController.swift; sourceTree = "<group>"; };
 		98D5690F1F45B340002693E9 /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
 		98D839071F452DF200CDF699 /* bg_login2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_login2.png; sourceTree = "<group>"; };
 		98D839091F452E6200CDF699 /* ic_pyunrihae.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_pyunrihae.png; sourceTree = "<group>"; };
@@ -370,7 +368,6 @@
 		98D819031F32F99C00BE2A95 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
-				98D5690B1F444DB1002693E9 /* WaitingViewController.swift */,
 				9865E4F51F387C7A00014795 /* TabBarViewController.swift */,
 				98C5AACD1F33FAE800610115 /* MainViewController.swift */,
 				981E93291F38666E004BE63B /* RankingViewController.swift */,
@@ -855,7 +852,6 @@
 				98D9F2E61F418DF3009D0E10 /* YNSearchExtension.swift in Sources */,
 				98D9F2EA1F418DF3009D0E10 /* YNSearchMainView.swift in Sources */,
 				9865E5221F3AD8BE00014795 /* RankingCollectionViewCell.swift in Sources */,
-				98D5690C1F444DB1002693E9 /* WaitingViewController.swift in Sources */,
 				9865E5241F3AE04C00014795 /* Label.swift in Sources */,
 				9865E55A1F3D837200014795 /* SelectedProduct.swift in Sources */,
 				9865E5341F3AFEFE00014795 /* WritingReviewViewController.swift in Sources */,
