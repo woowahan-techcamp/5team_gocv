@@ -17,14 +17,30 @@ document.addEventListener('DOMContentLoaded', function () {
         content: '.ranking-item-list-wrapper'
     };
 
-    const searchParams = {
-      brand: 'all',
-      category: '도시락',
-      sort: 'grade'
-    };
+    const searchParams = getSearchParams();
 
     new RankingViewPage(rankingParams, searchParams);
 });
+
+function getSearchParams(){
+  const getObject = JSON.parse(localStorage['search_keyword']);
+  /*const getObject = {
+      brand: 'all',
+      category: '전체',
+      keyword: ''
+  };*/
+  console.log(getObject);
+  const searchParams = {};
+
+  searchParams.brand = getObject.brand;
+  searchParams.category = getObject.category;
+  searchParams.sort = 'grade';
+  searchParams.keyword = getObject.keyword;
+
+  console.log(searchParams);
+
+  return searchParams;
+}
 
 class RankingViewPage {
     constructor(rankingParams, searchParams) {
@@ -199,7 +215,9 @@ class RankingViewPage {
       }
 
       for(const key in this.arrayObj){
-        if(this.arrayObj[key].category === param){
+        if(param === "전체"){
+          queryObj.push(this.arrayObj[key]);
+        }else if(this.arrayObj[key].category === param){
           queryObj.push(this.arrayObj[key]);
         }
       }
@@ -284,6 +302,17 @@ class RankingViewPage {
         }
     }
 
+    setSearchKeyword(){
+      const value = [];
+
+      for(const key in this.arrayObj){
+        if((this.arrayObj[key].name).match(this.searchObject.keyword)){
+          value.push(this.arrayObj[key]);
+        }
+      }
+      return value;
+    }
+
     setDefaultRankingData() {
         this.start = 0;
         this.end = 12;
@@ -293,7 +322,7 @@ class RankingViewPage {
           this.setBrandSort();
         }
 
-        const data = this.arrayObj;
+        const data = (!!this.searchObject.keyword) ? this.setSearchKeyword() : this.arrayObj;
 
         const resultValue = [];
         for (let i = this.start; i < this.end; i++) {

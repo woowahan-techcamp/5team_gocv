@@ -243,11 +243,10 @@ class SearchTab{
         }.bind(this));
 
         this.searchButton.addEventListener("click",function(){
-            if(this.inputText.value === ''){
-                console.log('검색어 입력 하셈;;');
-            }else{
-                this.setQuery();
-            }
+            this.setQuery();
+
+            document.querySelector(".main-wrapper").style.display = "none";
+            document.querySelector(".rank-container").style.display = "";
         }.bind(this));
     }
 
@@ -255,65 +254,17 @@ class SearchTab{
         const queryBrand = this.brandDrop.firstChild.innerText;
         const queryCategory = this.categoryDrop.firstChild.innerText;
 
-        let brand;
-        switch (queryBrand) {
-            case 'GS25':
-                brand = 'gs25';
-                break;
-            case '7ELEVEN':
-                brand = '7-eleven'
-                break;
-            case 'CU':
-                brand = 'CU';
-                break;
-            default:
-                brand = '';
-                break;
-        }
-
-        const category = (queryCategory === '카테고리') ? '' : queryCategory;
+        const brand = (queryBrand === '브랜드') ? 'all' : queryBrand;
+        const category = (queryCategory === '카테고리') ? '전체' : queryCategory;
         const text = this.inputText.value;
 
-        const product = localStorage['product'];
-        const object = JSON.parse(product);
+        const value = {
+          brand: brand,
+          category: category,
+          keyword: text
+        };
 
-        this.setFilterSearchData(brand, category, text, object);
-    }
-
-    setFilterSearchData(brand, category, text, object){
-        const value = [];
-        console.log(brand, category, text);
-        for(const key in object){
-            if(brand === ''){
-                if(category === ''){
-                    if((object[key].name).match(text)){
-                        value.push(object[key]);
-                    }
-                } else{
-                    if(object[key].category === category){
-                        if((object[key].name).match(text)){
-                            value.push(object[key]);
-                        }
-                    }
-                }
-            } else{
-                if(object[key].brand === brand){
-                    if(category === ''){
-                        if((object[key].name).match(text)){
-                            value.push(object[key]);
-                        }
-                    } else{
-                        if(object[key].category === category){
-                            if((object[key].name).match(text)){
-                                value.push(object[key]);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        console.log(value);
+        localStorage['search_keyword'] = JSON.stringify(value);
     }
 
     setTabClickEvent(){
@@ -331,6 +282,14 @@ class SearchTab{
             } else if(text === "랭킹"){
                 document.querySelector(".main-wrapper").style.display = "none";
                 document.querySelector(".rank-container").style.display = "";
+
+                const value = {
+                  brand: 'all',
+                  category: '전체',
+                  keyword: ''
+                };
+
+                localStorage['search_keyword'] = JSON.stringify(value);
             } else if(text === "리뷰"){
                 document.querySelector(".main-wrapper").style.display = "none";
                 document.querySelector(".rank-container").style.display = "none";
