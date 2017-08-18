@@ -71,7 +71,7 @@ class DataManager{
                 
             }
             // 가져온 상품를 평점 순으로 뿌려준다.
-            productList.sorted(by: { $0.grade_avg > $1.grade_avg})
+            productList = productList.sorted(by: { $0.grade_avg > $1.grade_avg})
             completion(productList)
         })
     }
@@ -89,7 +89,7 @@ class DataManager{
                 productList.append(product)
             }
             
-            productList.sorted(by: { $0.grade_avg > $1.grade_avg})
+            productList = productList.sorted(by: { $0.grade_avg > $1.grade_avg})
             completion(productList)
         })
     }
@@ -107,7 +107,7 @@ class DataManager{
                 
                 productList.append(product)
             }
-            productList.sorted(by: { $0.grade_avg > $1.grade_avg})
+            productList = productList.sorted(by: { $0.grade_avg > $1.grade_avg})
             completion(productList)
         })
     }

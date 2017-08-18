@@ -91,6 +91,11 @@ class ProductDetailViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        let titleAttributes = [
+            NSFontAttributeName: UIFont.boldSystemFont(ofSize: 16)
+        ]
+        
+        self.navigationController?.navigationBar.titleTextAttributes = titleAttributes
         uploadingView.isHidden = true
         writingReviewBtn.layer.zPosition = 10
         tableView.delegate = self
@@ -141,8 +146,8 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                     
                     if product.event.count > 0 && product.event[0] != "\r" { //이벤트 데이터 베이스 수정 필요
                         cell.eventLabel.text = product.event[0]
-                        Label.makeRoundLabel(label: cell.eventLabel, color: UIColor.red)
-                        cell.eventLabel.textColor = UIColor.red
+                        Label.makeRoundLabel(label: cell.eventLabel, color: UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(1.0)))
+                        cell.eventLabel.textColor = UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(1.0))
                     } else {
                         cell.eventLabel.isHidden = true
                     }
