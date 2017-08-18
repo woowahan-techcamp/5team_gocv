@@ -231,9 +231,15 @@ extension RankingViewController: UICollectionViewDataSource {
             cell.foodImage.clipsToBounds = true
            
             cell.loading.startAnimating()
-            cell.foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
-                cell.loading.stopAnimating()
-            })
+            
+            if product.image != "" {
+                cell.foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
+                    cell.loading.stopAnimating()
+                })
+            }else{
+                cell.foodImage.image = #imageLiteral(resourceName: "ic_default.png")
+            }
+           
 
             cell.orderNumLabel.text = (indexPath.item + 1).description
             cell.brandLabel.text = product.brand
@@ -279,7 +285,7 @@ extension RankingViewController: UICollectionViewDataSource {
             Label.makeRoundLabel(label: cell.PriceLevelLabel, color: UIColor.gray)
             Label.makeRoundLabel(label: cell.QuantityLevelLabel, color: UIColor.gray)
             Label.makeRoundLabel(label: cell.FlavorLevelLabel, color: UIColor.gray)
-            Label.makeRoundLabel(label: cell.EventLabel, color: UIColor.red)
+            Label.makeRoundLabel(label: cell.EventLabel, color: UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(1.0)))
             let priceLevelDict = product.price_level
             let flavorLevelDict = product.flavor_level
             let quantityLevelDict = product.quantity_level
