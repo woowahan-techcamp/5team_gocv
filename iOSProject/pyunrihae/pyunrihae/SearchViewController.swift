@@ -23,7 +23,11 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
         let ynSearch = YNSearch()
         let historyList = ynSearch.getSearchHistories()
         ynSearch.setCategories(value: demoCategories)
-        ynSearch.setSearchHistories(value: historyList!)
+        
+        if historyList != nil {
+           ynSearch.setSearchHistories(value: historyList!)
+        }
+        
         
 
         self.ynSearchinit()
