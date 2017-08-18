@@ -665,7 +665,6 @@ function loadDetailProduct(event) {
 
     const reviewArr = [];
 
-
     if(!!obj[id].reviewList) {
         obj[id].reviewList.forEach(function (e) {
             reviewArr.push(obj2[e])
