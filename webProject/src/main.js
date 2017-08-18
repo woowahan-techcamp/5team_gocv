@@ -55,7 +55,6 @@ class Dropdown{
 
     setEvent(){
         this.button.addEventListener(this.event,function(){
-            console.log(this.drop.style.display)
 
             if(this.drop.style.display === "block"){
                 this.drop.style.display = "none";
@@ -119,7 +118,6 @@ class Carousel {
 
     changeIndex(value) {
         this.index += value;
-        console.log(this.index);
     }
 
     setDurationZero(){
@@ -138,7 +136,6 @@ class Carousel {
         this.reviewNavi.style.left = "-" + left + "%";
 
         if(this.index === this.count){
-            console.log("sisi");
 
             this.index = 0;
             setTimeout(function () {
@@ -187,22 +184,23 @@ class Carousel {
     setData(data){
         this.data = data;
 
+        const fakeArr = [];
 
-        const arr = []
-        arr.push(this.data["R0010"]);
 
-        for(let i = 1 ;i<=10;i++){
-            if(i>=10&&i<100){
-                arr.push(this.data["R00"+i]);
-            }else{
-                arr.push(this.data["R000"+i]);
-            }
+        Object.keys(this.data).forEach(function (e) {
+            fakeArr.push(this.data[e])
+        }.bind(this));
+
+        const arr =[];
+        arr.push(fakeArr[9]);
+
+        for(let i = 0 ;i<=9;i++){
+            arr.push(fakeArr[i]);
         }
-        arr.push(this.data["R0001"]);
+        arr.push(fakeArr[0]);
 
 
         const util = new Util();
-        console.log(arr);
 
         util.template(arr,this.template,this.sec);
         this.reviewNavi = document.getElementById(this.reviewNavi);
@@ -386,7 +384,6 @@ class Review {
         this.navi = navi;
         this.init()
 
-        console.log(this.product)
 
     }
 
@@ -443,7 +440,6 @@ class Review {
 
         //price 레이팅
         naviArr[0].addEventListener("click", function (e) {
-            console.log(e);
             if (e.srcElement.nodeName === "LI") {
                 const removeArr = document.getElementsByClassName("newReview-element-price-select");
                 if (removeArr.length !== 0) {
@@ -504,11 +500,10 @@ class Review {
 
     setMakeReview() {
         this.data[4] = document.querySelector('.popup-newReview-comment').value;
-        console.log(this.data)
         this.setOnOff();
         const database = firebase.database();
 
-        const reviewId = "R0012"
+        const reviewId = database.ref().child('review').push().key;
 
         database.ref('review/'+reviewId).set({
             "bad" : 0,
@@ -519,12 +514,12 @@ class Review {
             "grade" : this.data[0],
             "id" : reviewId,
             "p_id" : this.product.id,
-            "p_image" : this.product.img,
+            "p_image" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEWH62itb0PDp85-GO1o97E4dUlfKijz368Na6TRKAWePkraUID3x1qyFZ",
             "p_name" : this.product.name,
             "p_price" : this.product.price,
             "price" : this.data[1],
             "quantity" : this.data[3],
-            "timestamp" : "2017-08-17 18:09:40",
+            "timestamp" : timestamp(),
             "useful" : 0,
             "user" : "tongtong",
             "user_image" : "http://item.kakaocdn.net/dw/4407092.title.png"
@@ -532,7 +527,13 @@ class Review {
 
 
         //상품 리뷰리스트에 리뷰 번호 추가
-        this.product.reviewList.push(reviewId);
+        if(!!this.product.reviewList){
+            this.product.reviewList.push(reviewId);
+        }else{
+            this.product.reviewList=[];
+            this.product.reviewList.push(reviewId);
+        }
+
         this.product.grade_count+= 1;
         this.product.review_count+= 1;
         this.product.grade_total+= this.data[0];
@@ -543,13 +544,12 @@ class Review {
         this.product.quantity_level["q"+this.data[3]]+= 1;
 
 
-        
+
         //업데이트 반영된 product 삽입
         database.ref('product/'+this.product.id).set(this.product);
 
         firebase.database().ref('product/')
             .once('value').then(function (snapshot) {
-
             localStorage['product'] = JSON.stringify(snapshot.val());
         });
 
@@ -620,16 +620,13 @@ function loadDetailProduct(event) {
     $("body").css("overflow", "hidden");
 
 
-
-
-
+    //데이터 받아오기
     const product = localStorage['product'];
     const obj = JSON.parse(product);
-
     const review = localStorage['review'];
     const obj2 = JSON.parse(review);
 
-
+    //상품의 id 값받기 각종 초기 설정
     const id = event.getAttribute("name");
     const template = document.querySelector("#popup-template").innerHTML;
     const sec = document.querySelector("#popup");
@@ -637,6 +634,8 @@ function loadDetailProduct(event) {
 
     // const value = obj[grade_total]/obj[grade_count];
 
+    //grade_avg 평점이 소수점 둘째자리까지만 표시
+    obj[id].grade_avg = obj[id].grade_avg.toFixed(2);
 
     util.template(obj[id],template,sec);
 
@@ -667,17 +666,15 @@ function loadDetailProduct(event) {
 
     const reviewArr = [];
 
-    obj[id].reviewList.forEach(function (e) {
-        reviewArr.push(obj2[e])
-    });
+    if(!!obj[id].reviewList) {
+        obj[id].reviewList.forEach(function (e) {
+            reviewArr.push(obj2[e])
+        });
+        const template2 = document.querySelector("#review-template").innerHTML;
+        const sec2 = document.querySelector("#popupReview");
 
-    console.log(reviewArr);
-
-    const template2 = document.querySelector("#review-template").innerHTML;
-    const sec2 = document.querySelector("#popupReview");
-
-    util.template(reviewArr,template2,sec2);
-
+        util.template(reviewArr, template2, sec2);
+    }
 
 
     //rateyo.js를 사용하기 위한 별이 들어갈 DOM의 id, 전체 리뷰 Wrapper 클래스명
@@ -687,14 +684,41 @@ function loadDetailProduct(event) {
     //모달 리뷰 필터 드롭다운
     const reviewFilterDrop = new Dropdown("click",".popup-reviewFilter",".popup-reviewFilter-dropdown");
 
-
-    console.log(document.querySelector(".popup-close"))
     document.querySelector(".popup-close").addEventListener("click",function(){
         $("body").css("overflow", "visible");
     });
 }
 
+function timestamp() {
+    var d = new Date();
+    var curr_date = d.getDate();
+    var curr_month = d.getMonth() + 1; //Months are zero based
+    var curr_year = d.getFullYear();
+    var curr_hour = d.getHours();
+    var curr_minute = d.getMinutes();
+    var curr_second = d.getSeconds();
 
+    if(curr_month<10){
+        curr_month="0"+curr_month;
+    }
+
+    if(curr_hour<10){
+        curr_hour="0"+curr_hour;
+    }
+
+    if(curr_minute<10){
+        curr_minute="0"+curr_minute;
+
+    }
+
+    if(curr_second<10){
+        curr_second="0"+curr_second;
+
+    }
+
+    return curr_year + "-" + curr_month + "-" + curr_date+" "+
+        curr_hour+":"+curr_minute+":"+curr_second;
+}
 
 //이런식으로 해야 웹팩에서 function을 html onclick으로 사용가
 window.loadDetailProduct = loadDetailProduct;

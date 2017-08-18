@@ -9,19 +9,14 @@ var config = {
 
 firebase.initializeApp(config);
 
-console.log('Firebase Caching');
-
 const storage = localStorage['product'];
 const storage2 = localStorage['review'];
 
 firebase.database().ref('product/')
     .once('value').then(function (snapshot) {
 
-    localStorage['product'] = JSON.stringify(snapshot.val());
-
+  localStorage['product'] = JSON.stringify(snapshot.val());
 });
-
-
 
 firebase.database().ref('review/')
     .once('value').then(function (snapshot) {
