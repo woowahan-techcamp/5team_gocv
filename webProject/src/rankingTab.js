@@ -430,7 +430,10 @@ class RankingViewPage {
         for (const x of value) {
             $("#card-rank-rating" + i).rateYo({
                 rating: x.grade_avg,
-                readOnly: true
+                readOnly: true,
+                spacing: "10px",
+                normalFill: "#e2dbd6",
+                ratedFill: "#ffcf4d"
             });
             i++;
         }

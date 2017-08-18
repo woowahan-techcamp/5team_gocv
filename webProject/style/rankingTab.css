@@ -7,49 +7,78 @@
 
 .rank-wrapper{
     margin: auto;
-    background-color: black;
+    /*background-size: cover;*/
+    /*background-repeat: no-repeat;*/
+    /*background-image: url("/image/counter_bg.jpg");*/
+    /*background-position: center;*/
+    background-color: #ff5f4e;
     text-align: center;
     width: 100%;
-    height: 180px;
+    height: 140px;
 }
 
 .rank-category-wrapper{
     margin: 40px auto;
 }
 
-.rank-category-tab{
+.rank-category-tab {
+    background-size: 30%;
+    background-position: top;
+    background-position-y: 30px;
+    background-repeat: no-repeat;
     display: inline-block;
-    line-height: 40px;
+    line-height: 220px;
     text-align: center;
     width: 10%;
     color: white;
+    cursor: pointer;
+    height: 140px;
+    filter:brightness(80%);
+
 }
 
-.selected-rank-category-tab{
-    background-color: blue;
+.img-category{
+    width: 50%;
+    margin-left: 25%;
+    margin-top: 20px;
+    margin-right: 25%;
+    height: 100px;
+}
+
+
+.selected-rank-category-tab, .rank-category-tab:hover{
+    filter: brightness(140%);
+    font-size: 20px;
+    height: 140px;
 }
 
 .rank-query-wrapper{
+    margin-top: 30px;
     height: 50px;
 }
 
 .rank-query-type-wrapper{
-    width: 500px;
+    text-align: right;
+    width: 100%;
     float: right;
     margin: 25px auto;
+    padding-right: 10%;
 }
 
 .rank-query-tab{
+    cursor: pointer;
     display: inline-block;
     width: 100px;
+    color: grey;
 }
 
 .selected-rank-query-tab{
-    color: blue;
+    color: #ff2321;
     font-weight: bold;
 }
 
 .rank-brand-type-wrapper{
+    margin-left: 20px;
     height: 50px;
 }
 
@@ -60,6 +89,8 @@
 }
 
 .rank-brand-type-tab{
+    cursor: pointer;
+    border-radius: 5px;
     display: inline-block;
     line-height: 40px;
     text-align: center;
@@ -68,18 +99,19 @@
 }
 
 .selected-rank-brand-type-tab{
-    background-color: blue;
+    background-color: #ff5f4e;
+    color: white;
 }
 
 .ranking-item-list-wrapper{
+    width: 100%;
     /*height: 100%;*/
 }
 
 .rank-card-content{
     height: 400px;
     text-align: center;
-    margin: 2%;
-    width: 20%;
+    width: 25%;
     float: left;
 }
 
