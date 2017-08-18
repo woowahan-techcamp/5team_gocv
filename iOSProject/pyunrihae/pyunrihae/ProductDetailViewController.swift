@@ -74,7 +74,7 @@ class ProductDetailViewController: UIViewController {
     }
     func reviewUpload() {
         UIView.animate(withDuration: 1.5,delay: 0.5, animations: {
-            self.uploadingView.frame.origin.x -= 70
+            self.uploadingView.frame.origin.y -= 70
         }, completion: { (complete:Bool) in
             if complete == true{
                 self.uploadingView.isHidden = true
@@ -247,8 +247,6 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                 }
                 DataManager.getReviewListBy(id: SelectedProduct.foodId) { (reviewList) in
                     if reviewList.count == SelectedProduct.reviewCount && reviewList.count > 0 {
-                        cell.usefulBtn.tag = row
-                        cell.badBtn.tag = row
                         self.usefulBtns.append(cell.usefulBtn)
                         self.badBtns.append(cell.badBtn)
                         self.reviewIdList.append(reviewList[row].id)
@@ -261,6 +259,8 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                         cell.detailReviewLabel.text = reviewList[row].comment
                         cell.userNameLabel.text = reviewList[row].user
                         cell.userImageLoading.startAnimating()
+                        cell.usefulBtn.tag = self.usefulBtns.count - 1
+                        cell.badBtn.tag = self.badBtns.count - 1
                         cell.userImage.af_setImage(withURL: URL(string: reviewList[row].user_image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
                             cell.userImageLoading.stopAnimating()
                         })
@@ -268,6 +268,7 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                         if reviewList[row].p_image != "" {
                             cell.uploadedImageLoading.startAnimating()
                             let imageView = UIImageView()
+                            cell.uploadedFoodImageBtn.setBackgroundImage(UIImage(), for: .normal)
                             imageView.af_setImage(withURL: URL(string: reviewList[row].p_image)!, placeholderImage: UIImage(), completion:{ image in
                                 cell.uploadedFoodImageBtn.setBackgroundImage(imageView.image, for: .normal)
                                 cell.uploadedImageLoading.stopAnimating()

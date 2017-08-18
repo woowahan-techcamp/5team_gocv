@@ -177,8 +177,9 @@ class MainViewController: UIViewController {
                     let totalCountLabel : UILabel = UILabel()
                     let starImageView : UIImageView = UIImageView()
                 
-                    
-                    myImageView.af_setImage(withURL: url!)
+                    if review.p_image != "" {
+                       myImageView.af_setImage(withURL: url!)
+                    }
                     myImageView.contentMode = UIViewContentMode.scaleAspectFill
                     
                     myImageView.frame.size.width = imageViewWidth
