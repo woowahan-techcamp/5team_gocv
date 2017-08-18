@@ -77,6 +77,10 @@ class RankingViewPage {
           const storage = localStorage['search_keyword'];
           const value = JSON.parse(storage);
 
+          const brand = this.getBrandName(value.brand);
+          value['brand'] = brand;
+          console.log(value);
+
           this.flag = true;
           this.searchObject = value;
           this.setDefaultRankingData();
@@ -178,11 +182,14 @@ class RankingViewPage {
     getBrandName(params){
       switch (params) {
         case 'gs25':
+        case 'GS25':
           return 'gs25';
         case 'cu':
+        case 'CU':
           return 'CU';
         case 'seven':
-          return '7-eleven'
+        case '7ELEVEN':
+          return '7-eleven';
         default:
           return 'all';
       }
