@@ -584,7 +584,7 @@ class Review {
         this.product.quantity_level["q"+this.data[3]]+= 1;
 
 
-        
+
         //업데이트 반영된 product 삽입
         database.ref('product/'+this.product.id).set(this.product);
 
