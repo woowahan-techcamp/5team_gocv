@@ -9,8 +9,6 @@ var config = {
 
 firebase.initializeApp(config);
 
-console.log('Firebase Caching');
-
 const storage = localStorage['product'];
 const storage2 = localStorage['review'];
 

@@ -55,7 +55,6 @@ class Dropdown{
 
     setEvent(){
         this.button.addEventListener(this.event,function(){
-            console.log(this.drop.style.display)
 
             if(this.drop.style.display === "block"){
                 this.drop.style.display = "none";
@@ -119,7 +118,6 @@ class Carousel {
 
     changeIndex(value) {
         this.index += value;
-        console.log(this.index);
     }
 
     setDurationZero(){
@@ -138,7 +136,6 @@ class Carousel {
         this.reviewNavi.style.left = "-" + left + "%";
 
         if(this.index === this.count){
-            console.log("sisi");
 
             this.index = 0;
             setTimeout(function () {
@@ -202,7 +199,6 @@ class Carousel {
 
 
         const util = new Util();
-        console.log(arr);
 
         util.template(arr,this.template,this.sec);
         this.reviewNavi = document.getElementById(this.reviewNavi);
@@ -386,8 +382,6 @@ class Review {
         this.navi = navi;
         this.init()
 
-        console.log(this.product)
-
     }
 
     init() {
@@ -443,7 +437,6 @@ class Review {
 
         //price 레이팅
         naviArr[0].addEventListener("click", function (e) {
-            console.log(e);
             if (e.srcElement.nodeName === "LI") {
                 const removeArr = document.getElementsByClassName("newReview-element-price-select");
                 if (removeArr.length !== 0) {
@@ -504,7 +497,6 @@ class Review {
 
     setMakeReview() {
         this.data[4] = document.querySelector('.popup-newReview-comment').value;
-        console.log(this.data)
         this.setOnOff();
         const database = firebase.database();
 
@@ -543,7 +535,7 @@ class Review {
         this.product.quantity_level["q"+this.data[3]]+= 1;
 
 
-        
+
         //업데이트 반영된 product 삽입
         database.ref('product/'+this.product.id).set(this.product);
 
@@ -671,7 +663,6 @@ function loadDetailProduct(event) {
         reviewArr.push(obj2[e])
     });
 
-    console.log(reviewArr);
 
     const template2 = document.querySelector("#review-template").innerHTML;
     const sec2 = document.querySelector("#popupReview");
@@ -687,8 +678,6 @@ function loadDetailProduct(event) {
     //모달 리뷰 필터 드롭다운
     const reviewFilterDrop = new Dropdown("click",".popup-reviewFilter",".popup-reviewFilter-dropdown");
 
-
-    console.log(document.querySelector(".popup-close"))
     document.querySelector(".popup-close").addEventListener("click",function(){
         $("body").css("overflow", "visible");
     });
