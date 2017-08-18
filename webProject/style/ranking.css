@@ -28,6 +28,7 @@
 }
 
 .main-rank-tab {
+    cursor: pointer;
     display: inline-block;
     line-height: 40px;
     text-align: center;
@@ -156,6 +157,7 @@
 
 
     .main-rank-tab-wrapper {
+        cursor: pointer;
         margin: 100px auto auto auto;
         /*background-color: red;*/
         text-align: center;

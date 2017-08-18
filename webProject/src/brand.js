@@ -156,7 +156,10 @@ class BrandRankingPreview {
     setRatingHandler(id, value) {
         $("#" + id).rateYo({
             rating: value,
-            readOnly: true
+            readOnly: true,
+            spacing: "10px",
+            normalFill: "#e2dbd6",
+            ratedFill: "#ffcf4d"
         });
     }
 
@@ -177,9 +180,9 @@ class BrandRankingPreview {
             const mq = window.matchMedia( "(min-width: 780px)" );
 
             if (mq.matches) {
-                this.translateValue = '880px';
+                this.translateValue = '1200px';
             } else {
-                this.translateValue = '220px';
+                this.translateValue = '300px';
             }
 
 
@@ -236,9 +239,9 @@ class BrandRankingPreview {
             const mq = window.matchMedia( "(min-width: 780px)" );
 
             if (mq.matches) {
-                this.translateValue = '880px';
+                this.translateValue = '1200px';
             } else {
-                this.translateValue = '220px';
+                this.translateValue = '300px';
             }
 
             const that = this;
