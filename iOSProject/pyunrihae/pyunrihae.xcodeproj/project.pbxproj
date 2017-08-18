@@ -360,9 +360,9 @@
 				98B73F871F394CAB00E55420 /* Product.swift */,
 				9865E5591F3D837200014795 /* SelectedProduct.swift */,
 				9865E55B1F417E2000014795 /* SelectedAllergy.swift */,
-				98C5AAD71F342C3900610115 /* DataManager.swift */,
 				98B82EDB1F45352A001C63A4 /* Validator.swift */,
 				98B82EDD1F45748D001C63A4 /* User.swift */,
+				98C5AAD71F342C3900610115 /* DataManager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";

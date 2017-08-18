@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 
 class ProductDetailViewController: UIViewController {
+    @IBOutlet weak var uploadingView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var writingReviewBtn: UIButton!
 
@@ -71,17 +72,33 @@ class ProductDetailViewController: UIViewController {
             }
         }
     }
+    func reviewUpload() {
+        UIView.animate(withDuration: 1.5,delay: 0.5, animations: {
+            self.uploadingView.frame.origin.x -= 70
+        }, completion: { (complete:Bool) in
+            if complete == true{
+                self.uploadingView.isHidden = true
+                self.uploadingView.frame.origin.y += 70
+            }
+        })
+    }
+    func startUploading(){
+        uploadingView.isHidden = false
+    }
     func addNotiObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(showProduct), name: NSNotification.Name("showProduct"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showReviewProduct), name: NSNotification.Name("showReviewProduct"), object: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        uploadingView.isHidden = true
         writingReviewBtn.layer.zPosition = 10
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsSelection = false
         NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name("complete"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reviewUpload), name: NSNotification.Name("reviewUpload"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(startUploading), name: NSNotification.Name("startUploading"), object: nil)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

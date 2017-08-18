@@ -837,6 +837,20 @@
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bon-Ab-VvM">
+                                        <rect key="frame" x="0.0" y="61" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="리뷰가 업로드 중입니다..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kpd-B6-MNv">
+                                                <rect key="frame" x="63" y="12" width="249" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="0.75" colorSpace="calibratedRGB"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -864,7 +878,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="xi4-ZF-g2S">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Maa-qq-U2a">
-                                <rect key="frame" x="339" y="12" width="15" height="15"/>
+                                <rect key="frame" x="344" y="14" width="15" height="15"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="heart.png"/>
                             </button>
@@ -872,6 +886,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="M9H-67-xPN" id="YS1-lZ-1vo"/>
+                        <outlet property="uploadingView" destination="bon-Ab-VvM" id="wFi-yD-T0b"/>
                         <outlet property="writingReviewBtn" destination="b3h-Yw-EFW" id="m8o-9d-6Hc"/>
                     </connections>
                 </viewController>
@@ -1795,7 +1810,7 @@
         <image name="writing.png" width="2000" height="2000"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="yHi-iw-GkD"/>
+        <segue reference="Vaq-lB-3M9"/>
         <segue reference="fGg-R2-bk1"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>

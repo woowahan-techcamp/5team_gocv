@@ -402,15 +402,18 @@ class DataManager{
                 if error != nil {
                     update["p_image"] = imgURL
                     id.updateChildValues(update)
+                    NotificationCenter.default.post(name: NSNotification.Name("reviewUpload"), object: self)
                 } else {
                     imagesRef.downloadURL { (URL, error) -> Void in // 업로드된 이미지 url 받아오기
                         if (error != nil) { // 없으면 ""로 저장
                             update["p_image"] = imgURL
                             id.updateChildValues(update)
+                            NotificationCenter.default.post(name: NSNotification.Name("reviewUpload"), object: self)
                         } else {
                             imgURL = (URL?.description)! // 있으면 해당 url로 저장
                             update["p_image"] = imgURL
                             id.updateChildValues(update)
+                            NotificationCenter.default.post(name: NSNotification.Name("reviewUpload"), object: self)
                         }
                     }
                 }
@@ -418,6 +421,7 @@ class DataManager{
         } else {
             update["p_image"] = imgURL
             id.updateChildValues(update)
+            NotificationCenter.default.post(name: NSNotification.Name("reviewUpload"), object: self)
         }
         
         let productRef = ref.child("product").child(p_id)
