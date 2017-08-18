@@ -250,7 +250,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-image: url("/image/ex.jpg");
-    filter: blur(0px) brightness(40%);
+    filter: blur(0px) brightness(70%);
 
 }
 
@@ -320,7 +320,7 @@
     background-color: #ffffff;
     width: 40%;
     height: 350px;
-    opacity: 0.9;
+    opacity: 0.95;
     border-radius: 10px;
     /*box-shadow: 10px 10px 5px #282828;*/
 }

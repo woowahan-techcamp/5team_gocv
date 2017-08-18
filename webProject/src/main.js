@@ -634,7 +634,7 @@ function loadDetailProduct(event) {
     // const value = obj[grade_total]/obj[grade_count];
 
     //grade_avg 평점이 소수점 둘째자리까지만 표시
-    obj[id].grade_avg = obj[id].grade_avg.toFixed(2);
+    obj[id].grade_avg = obj[id].grade_avg.toFixed(1);
 
     util.template(obj[id],template,sec);
 

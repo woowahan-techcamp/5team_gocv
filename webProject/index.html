@@ -47,7 +47,7 @@
         </div>
         <div>
             <form>
-                <input class="fixTab-search-word" type="text" name="product" value="상품명을 입력하세요">
+                <input class="fixTab-search-word" type="text" name="product" placeholder="상품명을 입력하세요">
             </form>
         </div>
         <div class="fixTab-search-button"><img style="margin-top:5px; width: 20px; height: 20px"
@@ -309,7 +309,7 @@
 <div style="display: none;" class="rank-container">
     <div class="rank-wrapper">
         <ul class="rank-category-wrapper">
-            <li  style="background-image:url('image/lunchbox.png')" class="rank-category-tab selected-rank-category-tab" name="전체">
+            <li  style="background-image:url('image/all.png')" class="rank-category-tab selected-rank-category-tab" name="전체">
                 전체
             </li>
             <li style="background-image:url('image/lunchbox.png')" class="rank-category-tab" name="도시락">
@@ -504,7 +504,7 @@
             <div class="popup-productBrand">브랜드</div>
             <div class="popup-productBrand2">{{brand}}</div>
             <div class="popup-productScore">총 평점</div>
-            <div class="popup-productScore2">{{grade_avg}}</div>
+            <div class="popup-productScore2">{{grade_avg}}<span style="font-size:12px"> /5점</span></div>
         </div>
         <div class="popup-ratingChart">
             <canvas id="ratingChart"></canvas>
@@ -609,7 +609,7 @@
                         </ul>
                     </div>
                 </div>
-                <input class="popup-newReview-comment" type="text" value="부담없이 리뷰를 작성하세요!"/>
+                <input class="popup-newReview-comment" type="text" placeholder="부담없이 리뷰를 작성하세요!"/>
             </div>
             <div class="popup-newReviewWrapper-bottom">
                 <div class="popup-newReview-addAllegy">알레르기 성분 추가</div>
@@ -633,7 +633,7 @@
     {{#this}}
     <li class="popup-review">
         <div class="popup-review-top">
-            <div class="popup-review-profile"></div>
+            <img class="popup-review-profile" src="{{user_image}}">
             <div class="popup-review-nameTime">
                 <div style="font-size: 12px" class="popup-review-time"> {{timestamp}}</div>
                 <div class="popup-review-name"> {{user}}</div>
@@ -680,7 +680,7 @@
             </div>
         </div>
         <div class="popup-review-bottom">
-            <div class="popup-review-image"></div>
+            <img class="popup-review-image" src="{{p_image}}">
             <div class="popup-review-comment"> {{comment}}
             </div>
         </div>

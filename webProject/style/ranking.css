@@ -101,14 +101,13 @@
     border-radius: 50%;
     width: 200px;
     height: 200px;
-    filter: brightness(50%);
 }
 
 .card-rank-image:hover {
     border-radius: 50%;
     width: 200px;
     height: 200px;
-    filter: brightness(90%);
+    filter: brightness(120%);
 }
 
 .card-main-description {
