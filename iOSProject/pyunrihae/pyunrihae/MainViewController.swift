@@ -177,7 +177,11 @@ class MainViewController: UIViewController {
                     let totalCountLabel : UILabel = UILabel()
                     let starImageView : UIImageView = UIImageView()
                 
-                    myImageView.af_setImage(withURL: url!)
+                    
+                    // 기본이미지 있어야함
+                    if url != nil {
+                        myImageView.af_setImage(withURL: url!)
+                    }
                     myImageView.contentMode = UIViewContentMode.scaleAspectFill
                     
                     myImageView.frame.size.width = imageViewWidth
@@ -191,8 +195,8 @@ class MainViewController: UIViewController {
                     
                     barLabel.text  = "|"
                     barLabel.textColor = UIColor.white.withAlphaComponent(0.4)
-                    barLabel.frame.origin.x = 209 + scrollViewSize
-                    barLabel.frame.origin.y = 201
+                    barLabel.frame.origin.x = 102 + scrollViewSize
+                    barLabel.frame.origin.y = 172
                     barLabel.frame.size.width = 4
                     barLabel.frame.size.height = 10
                     
@@ -201,19 +205,19 @@ class MainViewController: UIViewController {
                     brandLabel.frame.size.width = 54
                     brandLabel.frame.size.height = 20
                     brandLabel.font = brandLabel.font.withSize(12)
-                    brandLabel.frame.origin.x = 220 + scrollViewSize
-                    brandLabel.frame.origin.y = 196
+                    brandLabel.frame.origin.x = 113 + scrollViewSize
+                    brandLabel.frame.origin.y = 167
                     
                     nameLabel.textColor = UIColor.white
                     nameLabel.text = review.p_name
                     nameLabel.frame.size.width = imageViewWidth
                     nameLabel.frame.size.height = 28
                     nameLabel.font = nameLabel.font.withSize(22)
-                    nameLabel.frame.origin.x = scrollViewSize
-                    nameLabel.frame.origin.y = 80
-                    nameLabel.textAlignment = .center
+                    nameLabel.frame.origin.x = 20 + scrollViewSize
+                    nameLabel.frame.origin.y = 77
+                    nameLabel.textAlignment = .left
                     
-                    hotReviewLabel.frame.origin.x = 156 + scrollViewSize
+                    hotReviewLabel.frame.origin.x = 20 + scrollViewSize
                     hotReviewLabel.frame.origin.y = 32
                     hotReviewLabel.backgroundColor = UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(Float(1)))
                     hotReviewLabel.frame.size.width = 64
@@ -235,12 +239,12 @@ class MainViewController: UIViewController {
                     reviewLabel.attributedText = attrString
                     
                     reviewLabel.numberOfLines = 0
-                    reviewLabel.frame.size.width = 216
-                    reviewLabel.frame.size.height = 60
+                    reviewLabel.frame.size.width = 316
+                    reviewLabel.frame.size.height = 40
                     reviewLabel.font = reviewLabel.font?.withSize(14.0)
-                    reviewLabel.frame.origin.x = 80 + scrollViewSize
-                    reviewLabel.frame.origin.y = 115
-                    reviewLabel.textAlignment = .center
+                    reviewLabel.frame.origin.x = 20 + scrollViewSize
+                    reviewLabel.frame.origin.y = 111
+                    reviewLabel.textAlignment = .left
                     reviewLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
                     
                     moreLabel.textColor = UIColor.white.withAlphaComponent(0.6)
@@ -250,8 +254,8 @@ class MainViewController: UIViewController {
                     moreLabel.frame.size.width = 32
                     moreLabel.frame.size.height = 20
                     moreLabel.font = moreLabel.font.withSize(12)
-                    moreLabel.frame.origin.x = 329 + scrollViewSize
-                    moreLabel.frame.origin.y = 196
+                    moreLabel.frame.origin.x = 324 + scrollViewSize
+                    moreLabel.frame.origin.y = 167
                     
                     selectedCountLabel.frame.origin.x = 334 + scrollViewSize
                     selectedCountLabel.frame.origin.y = 32
@@ -269,8 +273,8 @@ class MainViewController: UIViewController {
                     totalCountLabel.textColor = UIColor.white.withAlphaComponent(0.6)
                     totalCountLabel.text = "/ " + scrollViewImageNum.description
                     
-                    starImageView.frame.origin.x = 128 + scrollViewSize
-                    starImageView.frame.origin.y = 200
+                    starImageView.frame.origin.x = 22 + scrollViewSize
+                    starImageView.frame.origin.y = 170
                     starImageView.frame.size.width = 72
                     starImageView.frame.size.height = 12
                 
@@ -302,8 +306,7 @@ class MainViewController: UIViewController {
                     self.reviewImageView.addSubview(selectedCountLabel)
                     self.reviewImageView.addSubview(totalCountLabel)
                     self.reviewImageView.addSubview(starImageView)
-                   
-
+                 
                     xPosition += imageViewWidth
                     scrollViewSize += imageViewWidth
                     cnt = cnt + 1
@@ -312,7 +315,7 @@ class MainViewController: UIViewController {
                 self.reviewImageView.contentSize = CGSize(width: scrollViewSize, height: 0.8);
                 
             }
-            
+            NotificationCenter.default.post(name: NSNotification.Name("doneLoading"), object: self)
         }
         
     }

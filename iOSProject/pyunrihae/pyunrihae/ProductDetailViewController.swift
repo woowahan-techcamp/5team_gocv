@@ -10,14 +10,18 @@ import UIKit
 import Alamofire
 
 class ProductDetailViewController: UIViewController {
+    @IBOutlet weak var uploadingView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var writingReviewBtn: UIButton!
 
     @IBAction func closeNavViewBtn(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
+    let priceLevelList = ["비싸다","비싼편","적당","싼편","싸다"]
+    let flavorLevelList = ["노맛","별로","적당","괜춘","존맛"]
+    let quantityLevelList = ["창렬","적음","적당","많음","혜자"]
     var orderBy = "최신순"
-    var productGrade = 4.6 //임의로 넣어놧음
+    var productGrade = 0.0 //임의로 넣어놧음
     var usefulBtns = [UIButton]()
     var badBtns = [UIButton]()
     var usefulLabels = [UILabel]()
@@ -68,23 +72,53 @@ class ProductDetailViewController: UIViewController {
             }
         }
     }
+    func reviewUpload() {
+        UIView.animate(withDuration: 1.5,delay: 0.5, animations: {
+            self.uploadingView.frame.origin.x -= 70
+        }, completion: { (complete:Bool) in
+            if complete == true{
+                self.uploadingView.isHidden = true
+                self.uploadingView.frame.origin.y += 70
+            }
+        })
+    }
+    func startUploading(){
+        uploadingView.isHidden = false
+    }
     func addNotiObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(showProduct), name: NSNotification.Name("showProduct"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showReviewProduct), name: NSNotification.Name("showReviewProduct"), object: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        let titleAttributes = [
+            NSFontAttributeName: UIFont.boldSystemFont(ofSize: 16)
+        ]
+        
+        self.navigationController?.navigationBar.titleTextAttributes = titleAttributes
+        uploadingView.isHidden = true
         writingReviewBtn.layer.zPosition = 10
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsSelection = false
         NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name("complete"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reviewUpload), name: NSNotification.Name("reviewUpload"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(startUploading), name: NSNotification.Name("startUploading"), object: nil)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is BigImageViewController {
+            let destination =  segue.destination as? BigImageViewController
+            if let button = sender as? UIButton{
+                if let image = button.backgroundImage(for: .normal) {
+                    destination?.image = image
+                }
+            }
+        }
+    }
 }
 
 extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegate {
@@ -105,49 +139,104 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath) as! ProductInfoTableViewCell
-                Label.makeRoundLabel(label: cell.eventLabel, color: UIColor.red)
-                cell.eventLabel.textColor = UIColor.red
-                Image.makeCircleImage(image: cell.foodImage)
                 DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
                     cell.priceLabel.text = product.price + "원"
                     cell.brandLabel.text = product.brand
                     cell.foodNameLabel.text = product.name
+                    
                     if product.event.count > 0 && product.event[0] != "\r" { //이벤트 데이터 베이스 수정 필요
                         cell.eventLabel.text = product.event[0]
+                        Label.makeRoundLabel(label: cell.eventLabel, color: UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(1.0)))
+                        cell.eventLabel.textColor = UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(1.0))
                     } else {
                         cell.eventLabel.isHidden = true
                     }
                     cell.loading.startAnimating()
-                    cell.foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
+                    let foodImage = UIImageView()
+                    foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), completion:{ image in
+                        cell.foodImageBtn.setBackgroundImage(foodImage.image, for: .normal)
                         cell.loading.stopAnimating()
                     })
-                    
                 }
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath) as! ProductDetailInfoTableViewCell
                 // 제품 별점 보여주기
-                cell.gradeLabel.text = String(productGrade)
-                for sub in cell.starView.subviews {
-                    sub.removeFromSuperview()
-                }
-                for i in 0..<Int(productGrade) {
-                    let starImage = UIImage(named: "stars.png")
-                    let cgImage = starImage?.cgImage
-                    let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: 0, y: 0, width: (starImage?.size.width)! / 5, height: starImage!.size.height))!
-                    let uiImage = UIImage(cgImage: croppedCGImage)
-                    let imageView = UIImageView(image: uiImage)
-                    imageView.frame = CGRect(x: i*18, y: 0, width: 18, height: 15)
-                    cell.starView.addSubview(imageView)
-                }
-                if productGrade - Double(Int(productGrade)) >= 0.5 {
-                    let starImage = UIImage(named: "stars.png")
-                    let cgImage = starImage?.cgImage
-                    let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: (starImage?.size.width)! * 4 / 5, y: 0, width: (starImage?.size.width)!, height: starImage!.size.height))!
-                    let uiImage = UIImage(cgImage: croppedCGImage)
-                    let imageView = UIImageView(image: uiImage)
-                    imageView.frame = CGRect(x: Int(productGrade)*18 - 3, y: 0, width: 18, height: 15)
-                    cell.starView.addSubview(imageView)
+                DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
+                    let numberOfPlaces = 2.0
+                    let multiplier = pow(10.0, numberOfPlaces)
+                    self.productGrade = round(Double(product.grade_avg) * multiplier) / multiplier
+                    cell.gradeLabel.text = String(self.productGrade)
+                    for sub in cell.starView.subviews {
+                        sub.removeFromSuperview()
+                    }
+                    var space = 0
+                    if self.productGrade - Double(Int(self.productGrade)) >= 0.5 {
+                        let starImage = UIImage(named: "stars.png")
+                        let cgImage = starImage?.cgImage
+                        let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: (starImage?.size.width)! * 4 / 5, y: 0, width: (starImage?.size.width)!, height: starImage!.size.height))!
+                        let uiImage = UIImage(cgImage: croppedCGImage)
+                        let imageView = UIImageView(image: uiImage)
+                        space = (4 - Int(self.productGrade)) * 15
+                        
+                        imageView.frame = CGRect(x: Int(self.productGrade)*18 - 3 + space, y: 0, width: 18, height: 15)
+                        cell.starView.addSubview(imageView)
+                    } else{
+                        space = (5 - Int(self.productGrade)) * 15
+                    }
+                    for i in 0..<Int(self.productGrade) {
+                        let starImage = UIImage(named: "stars.png")
+                        let cgImage = starImage?.cgImage
+                        let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: 0, y: 0, width: (starImage?.size.width)! / 5, height: starImage!.size.height))!
+                        let uiImage = UIImage(cgImage: croppedCGImage)
+                        let imageView = UIImageView(image: uiImage)
+                        imageView.frame = CGRect(x: i*18 + space, y: 0, width: 18, height: 15)
+                        cell.starView.addSubview(imageView)
+                    }
+                    let allergyList = product.allergy
+                    if allergyList.count != 0 {
+                        let allergy = allergyList[0]
+                        if allergyList.count == 1 {
+                            cell.allergyBtn.isEnabled = false
+                            cell.allergyBtn.setTitle(allergy, for: .normal)
+                        } else {
+                            cell.allergyBtn.isEnabled = true
+                            let count = allergyList.count - 1
+                            cell.allergyBtn.setTitle(allergy + "외 " + count.description + "개의 성분 >", for: .normal)
+                        }
+                    } else {
+                        cell.allergyBtn.isEnabled = false
+                        cell.allergyBtn.setTitle("알레르기 정보가 없습니다!", for: .normal)
+                    }
+                    let priceLevelDict = product.price_level
+                    let flavorLevelDict = product.flavor_level
+                    let quantityLevelDict = product.quantity_level
+                    var maxPriceLevel = 3
+                    var maxFlavorLevel = 3
+                    var maxQuantityLevel = 3
+                    var maxPriceNum = 0
+                    var maxFlavorNum = 0
+                    var maxQuantityNum = 0
+                    for i in 1...5 {
+                        let p = "p" + i.description
+                        let f = "f" + i.description
+                        let q = "q" + i.description
+                        if priceLevelDict[p]! > maxPriceNum {
+                            maxPriceLevel = i
+                            maxPriceNum = priceLevelDict[p]!
+                        }
+                        if flavorLevelDict[f]! > maxFlavorNum {
+                            maxFlavorLevel = i
+                            maxFlavorNum = flavorLevelDict[f]!
+                        }
+                        if quantityLevelDict[q]! > maxQuantityNum {
+                            maxQuantityLevel = i
+                            maxQuantityNum = quantityLevelDict[q]!
+                        }
+                     }
+                    cell.priceLevelLabel.text = self.priceLevelList[maxPriceLevel - 1]
+                    cell.flavorLevelLabel.text = self.flavorLevelList[maxFlavorLevel - 1]
+                    cell.quantityLevelLabel.text = self.quantityLevelList[maxQuantityLevel - 1]
                 }
                 return cell
             }
@@ -176,7 +265,6 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                         cell.usefulNumLabel.text = String(reviewList[row].useful)
                         cell.detailReviewLabel.text = reviewList[row].comment
                         cell.userNameLabel.text = reviewList[row].user
-                        
                         cell.userImageLoading.startAnimating()
                         cell.userImage.af_setImage(withURL: URL(string: reviewList[row].user_image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
                             cell.userImageLoading.stopAnimating()
@@ -184,11 +272,13 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                         
                         if reviewList[row].p_image != "" {
                             cell.uploadedImageLoading.startAnimating()
-                            cell.uploadedFoodImage.af_setImage(withURL: URL(string: reviewList[row].p_image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
+                            let imageView = UIImageView()
+                            imageView.af_setImage(withURL: URL(string: reviewList[row].p_image)!, placeholderImage: UIImage(), completion:{ image in
+                                cell.uploadedFoodImageBtn.setBackgroundImage(imageView.image, for: .normal)
                                 cell.uploadedImageLoading.stopAnimating()
                             })
                         } else {
-                            cell.uploadedFoodImage.isHidden = true
+                            cell.uploadedFoodImageBtn.isHidden = true
                         }
                         
                         for sub in cell.starView.subviews {

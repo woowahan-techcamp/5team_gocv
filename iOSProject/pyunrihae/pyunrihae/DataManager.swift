@@ -28,7 +28,7 @@ class DataManager{
         
         if brand == "전체" { // 브랜드 : 전체를 선택한 경우
             let query = localRef.queryOrdered(byChild: "useful").queryLimited(toLast: 3)
-            query.observe(DataEventType.value, with: { (snapshot) in
+            query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
                 var reviewList : [Review]  = []
                 for childSnapshot in snapshot.children {
                     let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
@@ -41,7 +41,7 @@ class DataManager{
         }else { // 특정 브랜드를 선택한 경우
             let query = localRef.queryOrdered(byChild: "brand").queryEqual(toValue: brand)
             
-            query.observe(DataEventType.value, with: { (snapshot) in
+            query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
                 var reviewList : [Review]  = []
                 for childSnapshot in snapshot.children {
                     let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
@@ -61,7 +61,7 @@ class DataManager{
         let localRef = ref.child("product")
         let query = localRef.queryOrdered(byChild: "category").queryEqual(toValue: category)
         
-        query.observe(DataEventType.value, with: { (snapshot) in
+        query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             var productList : [Product] = []
             for childSnapshot in snapshot.children {
                 let product = Product.init(snapshot: childSnapshot as! DataSnapshot)
@@ -71,7 +71,7 @@ class DataManager{
                 
             }
             // 가져온 상품를 평점 순으로 뿌려준다.
-            productList.sorted(by: { $0.grade_avg > $1.grade_avg})
+            productList = productList.sorted(by: { $0.grade_avg > $1.grade_avg})
             completion(productList)
         })
     }
@@ -82,14 +82,14 @@ class DataManager{
         let localRef = ref.child("product")
         let query = localRef.queryOrdered(byChild: "brand").queryEqual(toValue: brand)
         
-        query.observe(DataEventType.value, with: { (snapshot) in
+        query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             var productList : [Product] = []
             for childSnapshot in snapshot.children {
                 let product = Product.init(snapshot: childSnapshot as! DataSnapshot)
                 productList.append(product)
             }
             
-            productList.sorted(by: { $0.grade_avg > $1.grade_avg})
+            productList = productList.sorted(by: { $0.grade_avg > $1.grade_avg})
             completion(productList)
         })
     }
@@ -100,14 +100,14 @@ class DataManager{
         let localRef = ref.child("product")
         let query = localRef.queryOrdered(byChild: "category").queryEqual(toValue: category)
         
-        query.observe(DataEventType.value, with: { (snapshot) in
+        query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             var productList : [Product] = []
             for childSnapshot in snapshot.children {
                 let product = Product.init(snapshot: childSnapshot as! DataSnapshot)
                 
                 productList.append(product)
             }
-            productList.sorted(by: { $0.grade_avg > $1.grade_avg})
+            productList = productList.sorted(by: { $0.grade_avg > $1.grade_avg})
             completion(productList)
         })
     }
@@ -118,7 +118,7 @@ class DataManager{
         let localRef = ref.child("product")
         let query = localRef.queryOrdered(byChild: "grade_avg").queryLimited(toLast: 3)
         
-        query.observe(DataEventType.value, with: { (snapshot) in
+        query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             var productList : [Product] = []
             for childSnapshot in snapshot.children {
                 let product = Product.init(snapshot: childSnapshot as! DataSnapshot)
@@ -136,7 +136,7 @@ class DataManager{
     static func getReviewListBy(brand : String, category : String, completion : @escaping ([Review]) -> ()) {
         let localRef = ref.child("review")
         let query = localRef.queryOrdered(byChild: "brand").queryEqual(toValue: brand)
-        query.observe(DataEventType.value, with: { (snapshot) in
+        query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
              var reviewList : [Review] = []
             for childSnapshot in snapshot.children {
                 let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
@@ -154,7 +154,7 @@ class DataManager{
     static func getReviewListBy(brand: String, completion: @escaping ([Review]) ->()) {
         let localRef = ref.child("review")
         let query = localRef.queryOrdered(byChild: "brand").queryEqual(toValue: brand)
-        query.observe(DataEventType.value, with: { (snapshot) in
+        query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             var reviewList : [Review] = []
             for childSnapshot in snapshot.children {
                 let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
@@ -168,7 +168,7 @@ class DataManager{
     static func getReviewListBy(category: String, completion: @escaping ([Review]) ->()) {
         let localRef = ref.child("review")
         let query = localRef.queryOrdered(byChild: "category").queryEqual(toValue: category)
-        query.observe(DataEventType.value, with: { (snapshot) in
+        query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             var reviewList : [Review] = []
             for childSnapshot in snapshot.children {
                 let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
@@ -184,7 +184,7 @@ class DataManager{
         let localRef = ref.child("review")
         let query = localRef.queryOrdered(byChild: "useful")
         
-        query.observe(DataEventType.value, with: { (snapshot) in
+        query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             var reviewList : [Review] = []
             for childSnapshot in snapshot.children {
                 let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
@@ -214,7 +214,7 @@ class DataManager{
     
     static func getProductAllInRank(completion : @escaping ([Product]) -> ()){
         let localRef = ref.child("product")
-        localRef.observe(DataEventType.value, with: { (snapshot) in
+        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             var productList : [Product] = []
             for childSnapshot in snapshot.children {
                 let product = Product.init(snapshot : childSnapshot as! DataSnapshot)
@@ -227,14 +227,9 @@ class DataManager{
     
     // 상품 id로 상품 가져오기
     static func getProductById(id: String, completion : @escaping (Product) -> ()) {
-        let localRef = ref.child("product")
-        let query = localRef.queryOrdered(byChild: "id").queryEqual(toValue: id)
-        
-        query.observe(DataEventType.value, with: { (snapshot) in
-            var product = Product()
-            for childSnapshot in snapshot.children {
-                product = Product.init(snapshot: childSnapshot as! DataSnapshot)
-            }
+        let localRef = ref.child("product").child(id)
+        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            let product = Product.init(snapshot: snapshot)
             completion(product)
         })
     }
@@ -246,9 +241,11 @@ class DataManager{
         let localRef = ref.child("review").child(id)
         localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             let postDict = snapshot.value as? [String : AnyObject] ?? [:]
-            if var useful = postDict["useful"] as? Int {
-                useful += 1
-                localRef.updateChildValues(["useful": useful])
+            if postDict["useful"] != nil {
+                if var useful = postDict["useful"] as? Int {
+                    useful += 1
+                    localRef.updateChildValues(["useful": useful])
+                }
             }
         })
     }
@@ -256,9 +253,11 @@ class DataManager{
         let localRef = ref.child("review").child(id)
         localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             let postDict = snapshot.value as? [String : AnyObject] ?? [:]
-            if var bad = postDict["bad"] as? Int {
-                bad += 1
-                localRef.updateChildValues(["bad": bad])
+            if postDict["bad"] != nil {
+                if var bad = postDict["bad"] as? Int {
+                    bad += 1
+                    localRef.updateChildValues(["bad": bad])
+                }
             }
         })
     }
@@ -269,8 +268,113 @@ class DataManager{
     
     
     // 리뷰 쓰기
+    static func updateProductInfo(p_id: String, grade: Int, priceLevel: Int, flavorLevel: Int, quantityLevel: Int, allergy: [String]) {
+        let localRef = ref.child("product").child(p_id)
+        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            let postDict = snapshot.value as? [String : AnyObject] ?? [:]
+            var update = [String: Any]()
+            
+            var grade_total = grade
+            var grade_count = 1
+            
+            if postDict["grade_total"] != nil {
+                if let total = postDict["grade_total"] as? Int {
+                    grade_total += total
+                    update["grade_total"] = grade_total
+                }
+            } else {
+                update["grade_total"] = grade_total
+            }
+            if postDict["grade_count"] != nil {
+                if let count = postDict["grade_count"] as? Int {
+                    grade_count += count
+                    update["grade_count"] = grade_count
+                }
+            } else {
+                update["grade_count"] = grade_count
+            }
+            
+            let grade_avg = Float(grade_total) / Float(grade_count)
+            update["grade_avg"] = grade_avg
+            
+            if postDict["allergy"] != nil {
+                if var allergyList = postDict["allergy"] as? [String] {
+                    for i in 0..<allergy.count {
+                        var exist = false
+                        for j in 0..<allergyList.count {
+                            if allergy[i] == allergyList[j] {
+                                exist = true
+                            }
+                        }
+                        if !exist {
+                            allergyList.append(allergy[i])
+                        }
+                    }
+                    update["allergy"] = allergyList
+                }
+            } else {
+                update["allergy"] = allergy
+            }
+            
+            var level = "p" + priceLevel.description
+            if postDict["price_level"] != nil {
+                if var price_level = postDict["price_level"] as? [String: Int] {
+                    if var num = price_level[level] {
+                        num += 1
+                        price_level[level] = num
+                        update["price_level"] = price_level
+                    } else {
+                        price_level[level] = 1
+                        update["price_level"] = price_level
+                    }
+                }
+            } else {
+                var price_level = ["p1": 0, "p2": 0, "p3": 0, "p4": 0, "p5": 0]
+                price_level[level] = 1
+                update["price_level"] = price_level
+            }
+            
+            level = "f" + flavorLevel.description
+            if postDict["flavor_level"] != nil {
+                if var flavor_level = postDict["flavor_level"] as? [String: Int] {
+                    if var num = flavor_level[level] {
+                        num += 1
+                        flavor_level[level] = num
+                        update["flavor_level"] = flavor_level
+                    } else {
+                        flavor_level[level] = 1
+                        update["flavor_level"] = flavor_level
+                    }
+                }
+            } else {
+                var flavor_level = ["f1": 0, "f2": 0, "f3": 0, "f4": 0, "f5": 0]
+                flavor_level[level] = 1
+                update["flavor_level"] = flavor_level
+            }
+            
+            level = "q" + quantityLevel.description
+            if postDict["quantity_level"] != nil {
+                if var quantity_level = postDict["quantity_level"] as? [String: Int] {
+                    if var num = quantity_level[level] {
+                        num += 1
+                        quantity_level[level] = num
+                        update["quantity_level"] = quantity_level
+                    } else {
+                        quantity_level[level] = 1
+                        update["quantity_level"] = quantity_level
+                    }
+                }
+            } else {
+                var quantity_level = ["q1": 0, "q2": 0, "q3": 0, "q4": 0, "q5": 0]
+                quantity_level[level] = 1
+                update["quantity_level"] = quantity_level
+            }
+            localRef.updateChildValues(update)
+        })
+    }
+    
     static func writeReview(brand: String, category: String, grade: Int, priceLevel: Int, flavorLevel: Int, quantityLevel: Int, allergy: [String], review: String, user: String,user_image: String, p_id: String, p_image: UIImage, p_name: String, p_price: Int, completion: ()->()) {
-        
+    
         let format = DateFormatter()
         format.locale = Locale(identifier: "ko_kr")
         format.timeZone = TimeZone(abbreviation: "KST")
@@ -298,20 +402,64 @@ class DataManager{
                 if error != nil {
                     update["p_image"] = imgURL
                     id.updateChildValues(update)
+                    NotificationCenter.default.post(name: NSNotification.Name("reviewUpload"), object: self)
                 } else {
                     imagesRef.downloadURL { (URL, error) -> Void in // 업로드된 이미지 url 받아오기
                         if (error != nil) { // 없으면 ""로 저장
                             update["p_image"] = imgURL
                             id.updateChildValues(update)
+                            NotificationCenter.default.post(name: NSNotification.Name("reviewUpload"), object: self)
                         } else {
                             imgURL = (URL?.description)! // 있으면 해당 url로 저장
                             update["p_image"] = imgURL
                             id.updateChildValues(update)
+                            NotificationCenter.default.post(name: NSNotification.Name("reviewUpload"), object: self)
                         }
                     }
                 }
             })
+        } else {
+            update["p_image"] = imgURL
+            id.updateChildValues(update)
+            NotificationCenter.default.post(name: NSNotification.Name("reviewUpload"), object: self)
         }
+        
+        let productRef = ref.child("product").child(p_id)
+        productRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            let postDict = snapshot.value as? [String : AnyObject] ?? [:]
+            var update = [String: Any]()
+            var review_count = 1
+            if postDict["review_count"] != nil {
+                if let total = postDict["review_count"] as? Int {
+                    review_count += total
+                    update["review_count"] = review_count
+                }
+            } else {
+                update["review_count"] = review_count
+            }
+            
+            if postDict["reviewList"] != nil {
+                if var reviewList = postDict["reviewList"] as? [String] {
+                    var exist = false
+                    for i in 0..<reviewList.count {
+                        if reviewList[i] == autoId {
+                            exist = true
+                        }
+                    }
+                    if !exist {
+                        reviewList.append(autoId)
+                    }
+                    update["reviewList"] = reviewList
+                }
+            } else {
+                var reviewList = [String]()
+                reviewList.append(autoId)
+                update["reviewList"] = reviewList
+            }
+            productRef.updateChildValues(update)
+            
+        })
+        
         completion()
     }
     
@@ -319,12 +467,13 @@ class DataManager{
      * 검색 화면
      */
     
+    
     // 상품 이름으로 상품아이디 가져오기 (겹치는 게 있을 시 처음 것)
     static func getProductId(from: String, completion : @escaping (String) -> ()){
         let localRef = ref.child("product")
         let query = localRef.queryOrdered(byChild: "name").queryEqual(toValue: from)
         
-        query.observe(DataEventType.value, with: { (snapshot) in
+        query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             var product = Product()
             for childSnapshot in snapshot.children {
                 product = Product.init(snapshot: childSnapshot as! DataSnapshot)
@@ -332,4 +481,16 @@ class DataManager{
             completion(product.id)
         })
     }
+    
+    /*
+     *  회원가입 화면
+     */
+    
+    // Firebase Auth의 user를 UserModel로 가져와서 넣기
+    static func saveUser(user: User) {
+        let localRef = ref.child("user")
+        localRef.child(user.id).setValue(["id": user.id, "email" : user.email,  "review_like_list": user.review_like_list, "product_like_list" : user.product_like_list, "wish_product_list": user.wish_product_list])
+    }
+    
+    
 }

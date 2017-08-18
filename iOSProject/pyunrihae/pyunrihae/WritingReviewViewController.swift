@@ -61,11 +61,6 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
                                       preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Settings", style: .default) { (action) -> Void in
-            
-            if let url = URL(string:UIApplicationOpenSettingsURLString) {
-        
-                UIApplication.shared.openURL(url)
-            }
         })
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
@@ -106,15 +101,22 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
         SelectedAllergy.allergyList = []
     }
     @IBAction func tabCompleteBtn(_ sender: UIButton) {
-        let user_image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQh3QnWlH0HMsLC6-ZNQD2ZAA0hcipgx09OuUm2cS0hiIeW-RWX"
+        let user_image = "http://item.kakaocdn.net/dw/4407092.title.png"
         if checkGrade && checkPriceLevel && checkFlavorLevel && checkQuantityLevel {
             SelectedAllergy.allergyList = []
             DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
-                DataManager.writeReview(brand: product.name, category: product.category, grade: self.grade, priceLevel: self.priceLevel, flavorLevel: self.flavorLevel, quantityLevel: self.quantityLevel, allergy: self.allergy, review: self.detailReview.text, user: "test", user_image: user_image, p_id: product.id, p_image: self.reviewImage, p_name: product.name, p_price: Int(product.price)!){
+                DataManager.updateProductInfo(p_id: product.id, grade: self.grade, priceLevel: self.priceLevel, flavorLevel: self.flavorLevel, quantityLevel: self.quantityLevel, allergy: self.allergy)
+            }
+            
+            DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
+                DataManager.writeReview(brand: product.brand, category: product.category, grade: self.grade, priceLevel: self.priceLevel, flavorLevel: self.flavorLevel, quantityLevel: self.quantityLevel, allergy: self.allergy, review: self.detailReview.text, user: "우아한 형제들", user_image: user_image, p_id: product.id, p_image: self.reviewImage, p_name: product.name, p_price: Int(product.price)!){
                     self.navigationController?.popToRootViewController(animated: true)
+                    NotificationCenter.default.post(name: NSNotification.Name("startUploading"), object: self)
                     NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
                 }
             }
+ 
+ 
         } else {
             let alert = UIAlertController(title: "리뷰를 완성해주세요!", message: "\r별점 및 상세 평점을 모두 채워주세요 :)", preferredStyle: .alert)
             //Create and add the Cancel action
@@ -144,8 +146,10 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
     func addStarBtn() { //별 버튼 뷰에 붙이기
         for i in 0..<5 {
             let starBtn = UIButton()
-            starBtn.frame = CGRect(x: i*45, y: 0, width: 25, height: 25)
-            Button.changeColor(btn: starBtn, color: UIColor.lightGray, imageName: "star.png")
+            let startImg = UIImage(named: "ic_star.png")
+            starBtn.frame = CGRect(x: i*45, y: 0, width: 24, height: 24)
+            starBtn.setImage(startImg, for: .normal)
+//            Button.changeColor(btn: starBtn, color: UIColor.lightGray, imageName: "ic_star.png")
             starBtn.addTarget(self, action: #selector(didPressStarBtn), for: UIControlEvents.touchUpInside)
             starBtn.tag = i
             starBtns.append(starBtn)
@@ -187,10 +191,14 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
     }
     func didPressStarBtn (sender: UIButton) { //별 버튼 눌렸을 떄 별 색깔 채워주기
         for i in 0...sender.tag {
-            Button.changeColor(btn: starBtns[i], color: UIColor.orange, imageName: "star.png")
+            let startImg = UIImage(named: "ic_star_filled.png")
+            starBtns[i].setImage(startImg, for: .normal)
+//            Button.changeColor(btn: starBtns[i], color: UIColor.orange, imageName: "star.png")
         }
         for i in (sender.tag + 1)..<5 {
-            Button.changeColor(btn: starBtns[i], color: UIColor.lightGray, imageName: "star.png")
+            let startImg = UIImage(named: "ic_star.png")
+            starBtns[i].setImage(startImg, for: .normal)
+//            Button.changeColor(btn: starBtns[i], color: UIColor.lightGray, imageName: "star.png")
         }
         grade = sender.tag + 1
         checkGrade = true
