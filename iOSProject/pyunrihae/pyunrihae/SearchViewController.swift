@@ -118,20 +118,24 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
+        var categoryIndex = 0
         switch (text){
-        case "도시락" : vc.categoryIndex = 1
-        case "김밥" : vc.categoryIndex = 2
-        case "베이커리" : vc.categoryIndex = 3
-        case "라면": vc.categoryIndex = 4
-        case "즉석식품" : vc.categoryIndex = 5
-        case "스낵" : vc.categoryIndex = 6
-        case "유제품" : vc.categoryIndex = 7
-        case "음료" : vc.categoryIndex = 8
-        default : vc.categoryIndex = 0
+        case "도시락" : categoryIndex = 1
+        case "김밥" : categoryIndex = 2
+        case "베이커리" : categoryIndex = 3
+        case "라면": categoryIndex = 4
+        case "즉석식품" : categoryIndex = 5
+        case "스낵" : categoryIndex = 6
+        case "유제품" : categoryIndex = 7
+        case "음료" : categoryIndex = 8
+        default : categoryIndex = 0
         }
-        
         vc.selectedTabIndex = 1
+        
         self.present(vc, animated: true, completion : nil )
+        vc.pyunrihaeImage.isHidden = true
+        vc.waitingImage.isHidden = true
+        NotificationCenter.default.post(name: NSNotification.Name("selectCategory"), object: self, userInfo: ["category" : categoryIndex])
     }
     
     func pushViewControllerFromProductName(text : String) {

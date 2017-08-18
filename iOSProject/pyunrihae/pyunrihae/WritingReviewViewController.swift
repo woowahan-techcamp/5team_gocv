@@ -112,7 +112,6 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
                 DataManager.writeReview(brand: product.brand, category: product.category, grade: self.grade, priceLevel: self.priceLevel, flavorLevel: self.flavorLevel, quantityLevel: self.quantityLevel, allergy: self.allergy, review: self.detailReview.text, user: "우아한 형제들", user_image: user_image, p_id: product.id, p_image: self.reviewImage, p_name: product.name, p_price: Int(product.price)!){
                     self.navigationController?.popToRootViewController(animated: true)
                     NotificationCenter.default.post(name: NSNotification.Name("startUploading"), object: self)
-                    NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
                 }
             }
  
