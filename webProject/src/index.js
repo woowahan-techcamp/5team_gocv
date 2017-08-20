@@ -4,6 +4,11 @@ import "./brand.js"
 import "./main.js"
 import "./productDetail.js"
 import "./rankingTab.js"
+
+
+
+
+
 import "../style/index.css"
 import "../style/productDetail.css"
 import "../style/brand.css"
