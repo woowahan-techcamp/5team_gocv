@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
     const carousel = new Carousel('reviewNavi','carousel-leftButton',
         'carousel-rightButton', 10, 'carousel-template','carouselSec');
-    const counter = new Counter(3000);
+    const counter = new Counter(800);
     counter.setCounter();
 
 
@@ -382,6 +382,7 @@ class Review {
         this.comment = "";
         this.data = [0, 0, 0, 0, ""];
         this.navi = navi;
+        this.reviewId =""
         this.init()
 
     }
@@ -502,79 +503,101 @@ class Review {
         this.setOnOff();
         const database = firebase.database();
 
-        const reviewId = database.ref().child('review').push().key;
+        this.reviewId = database.ref().child('review').push().key;
 
-        database.ref('review/'+reviewId).set({
-            "bad" : 0,
-            "brand" : this.product.brand,
-            "category" : this.product.category,
-            "comment" : this.data[4],
-            "flavor" : this.data[2],
-            "grade" : this.data[0],
-            "id" : reviewId,
-            "p_id" : this.product.id,
-            "p_image" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEWH62itb0PDp85-GO1o97E4dUlfKijz368Na6TRKAWePkraUID3x1qyFZ",
-            "p_name" : this.product.name,
-            "p_price" : this.product.price,
-            "price" : this.data[1],
-            "quantity" : this.data[3],
-            "timestamp" : timestamp(),
-            "useful" : 0,
-            "user" : "tongtong",
-            "user_image" : "http://item.kakaocdn.net/dw/4407092.title.png"
-        });
+        let file = document.querySelector('#reviewImageInput').files[0];
 
 
-        //상품 리뷰리스트에 리뷰 번호 추가
-        if(!!this.product.reviewList){
-            this.product.reviewList.push(reviewId);
-        }else{
-            this.product.reviewList=[];
-            this.product.reviewList.push(reviewId);
-        }
+        //파일의 확장자를 알 수 있음
+        file.type.split("/")[1];
 
-        this.product.grade_count+= 1;
-        this.product.review_count+= 1;
-        this.product.grade_total+= this.data[0];
-        this.product.grade_avg=this.product.grade_total/this.product.grade_count;
-        this.product.grade_data["g"+this.data[0]]+= 1;
-        this.product.price_level["p"+this.data[1]]+= 1;
-        this.product.flavor_level["f"+this.data[2]]+= 1;
-        this.product.quantity_level["q"+this.data[3]]+= 1;
-
-
-
-        //업데이트 반영된 product 삽입
-        database.ref('product/'+this.product.id).set(this.product);
-
-        firebase.database().ref('product/')
-            .once('value').then(function (snapshot) {
-            localStorage['product'] = JSON.stringify(snapshot.val());
-        });
-
-
-        firebase.database().ref('review/')
-            .once('value').then(function (snapshot) {
-            localStorage['review'] = JSON.stringify(snapshot.val());
-
-            const util = new Util();
-            const product = localStorage['product'];
-            const obj = JSON.parse(product);
-
-            const review = localStorage['review'];
-            const obj2 = JSON.parse(review);
-
-            const reviewArr = [];
-            obj[this.product.id].reviewList.forEach(function (e) {
-                reviewArr.push(obj2[e])
-            });
-
-            const template2 = document.querySelector("#review-template").innerHTML;
-            const sec2 = document.querySelector("#popupReview");
-            util.template(reviewArr,template2,sec2);
+        var storageRef = firebase.storage().ref();
+        var mountainImagesRef = storageRef.child('images/'+this.reviewId+"."+file.type.split("/")[1]);
+        mountainImagesRef.put(file).then(function(snapshot) {
+            console.log('Uploaded a blob or file!');
+            this.updateDb();
         }.bind(this));
 
 
+
+    }
+
+    updateDb(){
+        let file = document.querySelector('#reviewImageInput').files[0];
+        var storageRef = firebase.storage().ref();
+        const database = firebase.database();
+
+        storageRef.child('images/'+this.reviewId+"."+file.type.split("/")[1]).getDownloadURL().then(function(url) {
+            const that = this;
+
+            console.log(url);
+
+            database.ref('review/'+this.reviewId).set({
+                "bad" : 0,
+                "brand" : this.product.brand,
+                "category" : this.product.category,
+                "comment" : this.data[4],
+                "flavor" : this.data[2],
+                "grade" : this.data[0],
+                "id" : this.reviewId,
+                "p_id" : this.product.id,
+                "p_image" : url,
+                "p_name" : this.product.name,
+                "p_price" : this.product.price,
+                "price" : this.data[1],
+                "quantity" : this.data[3],
+                "timestamp" : timestamp(),
+                "useful" : 0,
+                "user" : "tongtong",
+                "user_image" : "http://item.kakaocdn.net/dw/4407092.title.png"
+            });
+
+            //상품 리뷰리스트에 리뷰 번호 추가
+            if(!!this.product.reviewList){
+                this.product.reviewList.push(this.reviewId);
+            }else{
+                this.product.reviewList=[];
+                this.product.reviewList.push(this.reviewId);
+            }
+
+            this.product.grade_count+= 1;
+            this.product.review_count+= 1;
+            this.product.grade_total+= this.data[0];
+            this.product.grade_avg=this.product.grade_total/this.product.grade_count;
+            this.product.grade_data["g"+this.data[0]]+= 1;
+            this.product.price_level["p"+this.data[1]]+= 1;
+            this.product.flavor_level["f"+this.data[2]]+= 1;
+            this.product.quantity_level["q"+this.data[3]]+= 1;
+
+
+            //업데이트 반영된 product 삽입
+            database.ref('product/'+this.product.id).set(this.product);
+            database.ref('product/').once('value').then(function (snapshot) {
+                localStorage['product'] = JSON.stringify(snapshot.val());
+            });
+            database.ref('review/').once('value').then(function (snapshot) {
+                localStorage['review'] = JSON.stringify(snapshot.val());
+
+                const util = new Util();
+                const product = localStorage['product'];
+                const obj = JSON.parse(product);
+
+                const review = localStorage['review'];
+                const obj2 = JSON.parse(review);
+
+                const reviewArr = [];
+                obj[this.product.id].reviewList.forEach(function (e) {
+                    reviewArr.push(obj2[e])
+                });
+
+                const template2 = document.querySelector("#review-template").innerHTML;
+                const sec2 = document.querySelector("#popupReview");
+                util.template(reviewArr,template2,sec2);
+            }.bind(that));
+
+        }.bind(this)).catch(function(error) {
+            console.log(error)
+        });
     }
 
 }
@@ -584,11 +607,11 @@ class UpLoadImage{
     constructor(inputId,imgPreviewId){
         this.inputId = inputId;
         this.imgPreviewId = imgPreviewId
-
         this.init();
     }
 
     init(){
+        this.data;
         document.querySelector("#"+this.inputId).addEventListener("change",function () {
             this.previewFile();
         }.bind(this))
@@ -599,16 +622,17 @@ class UpLoadImage{
         let file = document.querySelector('#'+this.inputId).files[0];
         let reader = new FileReader();
 
-
-
         reader.addEventListener("load", function () {
             preview.src = reader.result;
 
         },false);
 
-        if (file) {
+        if (!file) {
+        } else {
             reader.readAsDataURL(file);
+            console.log(file.type.split("/")[1])
         }
+
 
     }
 

@@ -16,7 +16,7 @@
 }
 
 .main-div-wrapper {
-    margin-top: 100px;
+    margin-top: 150px;
 }
 
 .main-rank-tab-wrapper {
@@ -112,7 +112,6 @@
 
 .card-main-description {
     margin-top: 20px;
-    font-weight: bold;
 }
 
 #card-main-rank-rating1 {
@@ -128,7 +127,6 @@
 }
 
 .card-main-rank-name {
-    margin-top: 30px;
 }
 
 .card-main-rank-price {

@@ -107,6 +107,7 @@ class MainRankingPreview {
                 rating: x.grade_avg,
                 readOnly: true,
                 spacing: "10px",
+                starWidth: "20px",
                 normalFill: "#e2dbd6",
                 ratedFill: "#ffcf4d"
             });
