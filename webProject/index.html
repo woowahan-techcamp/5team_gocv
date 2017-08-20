@@ -368,18 +368,21 @@
       <!--<div class="{{style}}">{{rank}}
       </div>-->
         <a href="#popup">
-            <img class="rank-card-image"
-                 src="{{img}}" name="{{id}}" onclick="loadDetailProduct(this)"/>
+            <div class="rank-card-image" style="background-image:url('{{img}}');
+            background-size:80%" name="{{id}}" onclick="loadDetailProduct(this)">
+            <div class="rank-card-medal {{style}}">{{rank}}</div>
+
+            </div>
         </a>
         <div class="rank-card-description">
             <div class="rank-card-rating">
                 <div id="{{rating}}">
-                </div>
+                   </div>
             </div>
 
-            <div class="rank-card-name">상품명 : {{name}}</div>
-            <div class="rank-card-price">가격 : {{price}} 원</div>
-            <div class="rank-card-review">리뷰 : {{review_count}} 개</div>
+            <div class="rank-card-name">{{name}}</div>
+            <div class="rank-card-price">{{price}} 원</div>
+            <div class="rank-card-review"> 리뷰({{review_count}})</div>
         </div>
     </div>
     {{/this}}

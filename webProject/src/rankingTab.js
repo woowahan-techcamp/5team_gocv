@@ -353,6 +353,7 @@ class RankingViewPage {
                 that.end += 12;
                 that.height += 1000;
                 that.setRankingData();
+                console.log("s")
             }
         });
     }
@@ -366,10 +367,10 @@ class RankingViewPage {
             const value = this.arrayObj[key];
 
             if (!!value) {
+                value["rank"] = (i+1).toString();
                 value["rating"] = "card-rank-rating" + i;
-
                 resultValue.push(value);
-              }
+            }
         }
         const template = Handlebars.compile(this.template);
         element.innerHTML = template(resultValue);
@@ -408,17 +409,13 @@ class RankingViewPage {
             const key = Object.keys(data)[i];
             const value = data[key];
             if (!!value) {
-              if(i < 3){
                 const rank = (i+1).toString();
                 value["rank"] = rank;
-                value["style"] = "card-main-badge-area" + rank;
-              }
-
-              value["rating"] = "card-rank-rating" + i;
-              resultValue.push(value);
+                value["style"] = "rank-card-badge-area" + rank;
+                value["rating"] = "card-rank-rating" + i;
+                resultValue.push(value);
             }
         }
-        // this.arrayObj = resultValue;
 
         const template = Handlebars.compile(this.template);
         this.rank_content.innerHTML = template(resultValue);
@@ -432,6 +429,7 @@ class RankingViewPage {
                 rating: x.grade_avg,
                 readOnly: true,
                 spacing: "10px",
+                starWidth: "20px",
                 normalFill: "#e2dbd6",
                 ratedFill: "#ffcf4d"
             });
