@@ -113,7 +113,7 @@ class Carousel {
         this.rightButton.addEventListener("click",function(){
             this.nextPage();
         }.bind(this));
-        this.getData();
+        this.setData();
     }
 
     changeIndex(value) {
@@ -170,22 +170,17 @@ class Carousel {
         const beforeCircle = document.querySelector(".carousel-circle-selected");
         beforeCircle.setAttribute("class","carousel-circle");
 
-
         const arr = Array.from(document.querySelectorAll(".carousel-circle"));
         arr[this.index].setAttribute("class","carousel-circle carousel-circle-selected");
     }
 
-    getData() {
-        firebase.database().ref('/review').once('value').then(function(snapshot) {
-            this.setData(snapshot.val());
-        }.bind(this));
-    }
 
-    setData(data){
+
+    setData(){
+        const review = localStorage['review'];
+        const data = JSON.parse(review);
         this.data = data;
-
         const fakeArr = [];
-
 
         Object.keys(this.data).forEach(function (e) {
             fakeArr.push(this.data[e])
