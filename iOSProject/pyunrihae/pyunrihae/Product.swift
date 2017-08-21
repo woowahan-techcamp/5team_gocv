@@ -17,7 +17,7 @@ class Product {
     var name : String // 상품 이름 
     var price : String // 상품의 가격
     var brand : String // 해당 상품의 브랜드. 3사 전부인 경우 all. 나머지는 "CU" "GS25" 등
-    var event : [String] // 해당 상품의 이벤트 리스트
+    var event : String // 해당 상품의 첫 이벤트
     var allergy : [String] // 알레르기 정보 목록
     var category : String // 카테고리(중분류)
     var grade_avg : Float // 가중치 공식에 따라 낸 평점 
@@ -36,7 +36,7 @@ class Product {
         self.name = ""
         self.price = ""
         self.brand = ""
-        self.event = []
+        self.event = ""
         self.allergy = []
         self.category = ""
         self.grade_avg  = 0.0
@@ -50,7 +50,7 @@ class Product {
     }
     
     
-    init(id : String, image : String, name : String, price : String, brand: String, event: [String], allergy : [String] , category: String, grade_avg: Float, grade_total: Int, grade_count: Int, price_level: [String: Int] , flavor_level : [String : Int], quantity_level : [String: Int], review_count : Int, reviewList : [String] ) {
+    init(id : String, image : String, name : String, price : String, brand: String, event: String, allergy : [String] , category: String, grade_avg: Float, grade_total: Int, grade_count: Int, price_level: [String: Int] , flavor_level : [String : Int], quantity_level : [String: Int], review_count : Int, reviewList : [String] ) {
         self.id = id
         self.image = image
         self.name = name
@@ -77,7 +77,7 @@ class Product {
         let name = dict["name"] as? String ?? ""
         let price = dict["price"] as? String ?? ""
         let brand = dict["brand"] as? String ?? ""
-        let event = dict["event"] as? [String] ?? []
+        let event = dict["event"] as? String ?? ""
         let allergy = dict["allergy"] as? [String] ?? []
         let category = dict["category"] as? String ?? ""
         let grade_avg = dict["grade_avg"] as? Float ?? 0.0

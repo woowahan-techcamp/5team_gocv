@@ -18,6 +18,8 @@ class MainViewController: UIViewController {
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     
 
+    let appdelegate = UIApplication.shared.delegate as! AppDelegate
+    
     var productList : [Product] = []
     var reviewList : [Review] = []
     var selectedBrandIndexFromTab : Int = 0 {
@@ -90,7 +92,7 @@ class MainViewController: UIViewController {
         
         switch selectedBrandIndexFromTab {
         case 0 : brand = ""
-        case 1 : brand = "gs25"
+        case 1 : brand = "GS25"
         case 2 : brand = "CU"
         case 3 : brand = "7-eleven"
         default : break;
@@ -99,41 +101,58 @@ class MainViewController: UIViewController {
         self.showActivityIndicatory()
         if selectedBrandIndexFromTab == 0  && selectedCategoryIndex == 0 { // 브랜드 : 전체 , 카테고리 : 전체 일때
             
-            DataManager.getTop3Product() { (products) in
-                self.productList = products
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                    self.hideActivityIndicatory()
-                }
-            }
-        } else if selectedBrandIndexFromTab == 0 { // 브랜드만 전체일 때
-            
-            if categoryBtns.count > 0 {
-                DataManager.getTopProductBy(category: (categoryBtns[selectedCategoryIndex].titleLabel?.text)!) { (products) in
+            if self.appdelegate.productList.count > 0 { // global product list가 저장된 후
+                self.productList = self.appdelegate.productList
+            }else{ // global product list가 없다면
+                DataManager.getTop3Product() { (products) in
                     self.productList = products
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
                         self.hideActivityIndicatory()
                     }
+                }
+            }
+           
+        } else if selectedBrandIndexFromTab == 0 { // 브랜드만 전체일 때
+            
+            if categoryBtns.count > 0 {
+            
+                self.productList = []
+                for product in self.appdelegate.productList {
+                    if product.category == categoryBtns[selectedCategoryIndex].titleLabel?.text!{
+                         self.productList.append(product)
+                    }
+                }
+                
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                    self.hideActivityIndicatory()
                 }
             }
             
         } else if selectedCategoryIndex == 0 { // 카테고리만 전체일 때
-            DataManager.getTopProductBy(brand: brand) { (products) in
-                self.productList = products
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                    self.hideActivityIndicatory()
+            self.productList = []
+            for product in self.appdelegate.productList {
+                if product.brand == brand{
+                    self.productList.append(product)
                 }
+            }
+            
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+                self.hideActivityIndicatory()
             }
         } else { // 브랜드도 카테고리도 전체가 아닐 때
             if categoryBtns.count > 0 {
-                DataManager.getTopProductBy(brand: brand, category: (categoryBtns[selectedCategoryIndex].titleLabel?.text)!) { (products) in
-                    self.productList = products
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
-                        self.hideActivityIndicatory()
+                self.productList = []
+                for product in self.appdelegate.productList {
+                    if product.brand == brand && product.category == categoryBtns[selectedCategoryIndex].titleLabel?.text!{
+                        self.productList.append(product)
                     }
+                }
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                    self.hideActivityIndicatory()
                 }
             }
         }
@@ -144,7 +163,7 @@ class MainViewController: UIViewController {
         
         switch selectedBrandIndexFromTab {
         case 0 : brand = "전체"
-        case 1 : brand = "gs25"
+        case 1 : brand = "GS25"
         case 2 : brand = "CU"
         case 3 : brand = "7-eleven"
         default : break;
@@ -382,7 +401,7 @@ extension MainViewController: UICollectionViewDataSource { //메인화면에서 
                 
                 let imageview : UIImageView = UIImageView()
                 switch (productList[indexPath.item].brand) {
-                case "gs25":
+                case "GS25":
                     imageview.image = #imageLiteral(resourceName: "logo_gs25.png")
                     imageview.frame.size.width = 35;
                     imageview.frame.size.height = 15;
