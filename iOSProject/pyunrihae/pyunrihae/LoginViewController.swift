@@ -57,23 +57,21 @@ class LoginViewController: UIViewController {
                         self.alertLabel.alpha = 0
                     })
                 }else{
-                    self.dismiss(animated: true, completion: {
-                        NotificationCenter.default.post(name: NSNotification.Name("userLogined"), object: nil)
-                    })
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    if Auth.auth().currentUser != nil {
+                        DataManager.getUserFromUID(uid: (Auth.auth().currentUser?.uid)!, completion: { (user) in
+                            appDelegate.user = user
+                            self.dismiss(animated: true, completion: {
+                                NotificationCenter.default.post(name: NSNotification.Name("userLogined"), object: nil)
+                            })
+                        })
+                    } else {
+                        appDelegate.user = User()
+                    }
+                    
                     
                 }
             }
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

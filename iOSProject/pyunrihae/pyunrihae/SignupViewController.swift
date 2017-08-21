@@ -100,6 +100,8 @@ class SignupViewController: UIViewController {
                             })
                         }else{
                             self.dismiss(animated: true, completion: {
+                                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                                appDelegate.user? = user_instance
                                 NotificationCenter.default.post(name: NSNotification.Name("userLogined"), object: nil)
                             })
                         }

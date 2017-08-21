@@ -256,18 +256,7 @@ extension RankingViewController: UICollectionViewDataSource {
             cell.productNameLabel.text = product.name
             
             
-//            if product.event.count > 0 {
-//                if product.event[0].characters.count > 2 {
-//                    cell.EventLabel.isHidden = false
-//                    cell.EventLabel.text = product.event[0]
-//                }
-//            }else{
-//                cell.EventLabel.isHidden = true
-//            }
-            
-            product.event = product.event.replacingOccurrences(of: "\r", with: "")
-            
-            if product.event != "" {
+            if product.event != "\r" {
                 cell.EventLabel.isHidden = false
                 cell.EventLabel.text = product.event
 

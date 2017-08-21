@@ -17,7 +17,6 @@ class MypageViewController: UIViewController {
     @IBOutlet weak var nickNameLabel: UILabel!
     
     var labelList = ["닉네임 수정","내가 찜한 상품","편리해 정보","회원가입 / 로그인"]
-    var currentUser = User()
     override func viewDidLoad() {
         NotificationCenter.default.addObserver(self, selector: #selector(checkUserLogin), name: NSNotification.Name("userLogined"), object: nil)
         super.viewDidLoad()
@@ -33,34 +32,29 @@ class MypageViewController: UIViewController {
     }
     
     func checkUserLogin(){
-        if Auth.auth().currentUser != nil {
-            DataManager.getUserFromUID(uid: (Auth.auth().currentUser?.uid)!, completion: { (user) in
-                self.currentUser = user
-                if user.email != "" {
-                    DispatchQueue.main.async{
-                        self.userImage.image = UIImage(named: "user_default.png")
-                        self.nickNameLabel.text = self.currentUser.nickname
-                        self.emailLabel.text = self.currentUser.email
-                        self.labelList[3] = "로그아웃"
-                        self.tableView.reloadData()
-                    }
-                }else{
-                    DispatchQueue.main.async{
-                        self.nickNameLabel.text = "로그인을 해주세요."
-                        self.emailLabel.text = "로그인을 해주세요."
-                        self.labelList[3] = "회원가입 / 로그인"
-                        self.tableView.reloadData()
-                    }
-                }
-            })
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let user = appDelegate.user
+        if user?.email != "" {
+            userImage.image = UIImage(named: "user_default.png")
+            nickNameLabel.text = user?.nickname
+            emailLabel.text = user?.email
+            labelList[3] = "로그아웃"
+            tableView.reloadData()
+        } else {
+            nickNameLabel.text = "로그인을 해주세요."
+            emailLabel.text = "로그인을 해주세요."
+            labelList[3] = "회원가입 / 로그인"
+            tableView.reloadData()
         }
     }
     
     func setLogined(){
-        if currentUser.email != "" {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let currentUser = appDelegate.user
+        if currentUser?.email != "" {
             DispatchQueue.main.async{
-                self.nickNameLabel.text = self.currentUser.nickname
-                self.emailLabel.text = self.currentUser.email
+                self.nickNameLabel.text = currentUser?.nickname
+                self.emailLabel.text = currentUser?.email
                 self.labelList[3] = "로그아웃"
                 self.tableView.reloadData()
             }
@@ -131,7 +125,8 @@ extension MypageViewController: UITableViewDataSource, UITableViewDelegate {
                     let firebaseAuth = Auth.auth()
                     do {
                         try firebaseAuth.signOut()
-                        self.currentUser = User()
+                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                        appDelegate.user = User()
                         self.setLogined()
                         self.showAlertIfLogined(bool: false)
                     } catch let signOutError as NSError {
