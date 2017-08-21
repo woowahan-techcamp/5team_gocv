@@ -13,9 +13,32 @@ class ProductDetailViewController: UIViewController {
     @IBOutlet weak var uploadingView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var writingReviewBtn: UIButton!
+    @IBOutlet weak var alertMessageLabel: UILabel!
 
     @IBAction func closeNavViewBtn(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
+    }
+    @IBOutlet weak var wishBtn: UIButton!
+    @IBAction func tabWishBtn(_ sender: UIButton) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let user = appDelegate.user
+        if user?.email != "" {
+            uploadingView.isHidden = false
+            if wishBtn.backgroundImage(for: .normal) == UIImage(named: "ic_like.png") {
+                alertMessageLabel.text = "위시리스트에 추가되었습니다!"
+                wishBtn.setBackgroundImage(UIImage(named: "ic_like_filled.png"), for: .normal)
+                reviewUpload()
+            } else if wishBtn.backgroundImage(for: .normal) == UIImage(named: "ic_like_filled.png") {
+                alertMessageLabel.text = "위시리스트에서 제거되었습니다."
+                wishBtn.setBackgroundImage(UIImage(named: "ic_like.png"), for: .normal)
+                reviewUpload()
+            }
+            DataManager.updateWishList(id: SelectedProduct.foodId, uid: (user?.id)!)
+        } else {
+            let alert = UIAlertController(title: "로그인 후 이용해주세요!", message: "", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     let priceLevelList = ["비싸다","비싼편","적당","싼편","싸다"]
     let flavorLevelList = ["노맛","별로","적당","괜춘","존맛"]
@@ -73,16 +96,13 @@ class ProductDetailViewController: UIViewController {
         }
     }
     func reviewUpload() {
-        UIView.animate(withDuration: 1.5,delay: 0.5, animations: {
-            self.uploadingView.frame.origin.y -= 70
-        }, completion: { (complete:Bool) in
-            if complete == true{
-                self.uploadingView.isHidden = true
-                self.uploadingView.frame.origin.y += 70
-            }
+        self.uploadingView.alpha = 1
+        UIView.animate(withDuration: 2.0, animations: {
+            self.uploadingView.alpha = 0
         })
     }
     func startUploading(){
+        alertMessageLabel.text = "리뷰 업로드 중입니다..."
         uploadingView.isHidden = false
     }
     func addNotiObserver() {
@@ -91,6 +111,19 @@ class ProductDetailViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let user = appDelegate.user
+        if user?.email != "" {
+            if (user?.wish_product_list.contains(SelectedProduct.foodId))!{
+                wishBtn.setBackgroundImage(UIImage(named: "ic_like_filled.png"), for: .normal)
+            } else {
+                wishBtn.setBackgroundImage(UIImage(named: "ic_like.png"), for: .normal)
+            }
+        } else {
+            wishBtn.setBackgroundImage(UIImage(named: "ic_like.png"), for: .normal)
+        }
+        
+        
         let titleAttributes = [
             NSFontAttributeName: UIFont.boldSystemFont(ofSize: 16)
         ]
@@ -116,6 +149,14 @@ class ProductDetailViewController: UIViewController {
                 if let image = button.backgroundImage(for: .normal) {
                     destination?.image = image
                 }
+            }
+        } else if segue.destination is WritingReviewViewController {
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let user = appDelegate.user
+            if user?.email == "" {
+                let alert = UIAlertController(title: "로그인 후 이용해주세요!", message: "", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }
@@ -143,10 +184,8 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                     cell.priceLabel.text = product.price + "원"
                     cell.brandLabel.text = product.brand
                     cell.foodNameLabel.text = product.name
-                    
-                    product.event = product.event.replacingOccurrences(of: "\r", with: "")
-                    
-                    if product.event != "" {
+               
+                    if product.event != "\r" { 
                         cell.eventLabel.text = product.event
                         Label.makeRoundLabel(label: cell.eventLabel, color: UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(1.0)))
                         cell.eventLabel.textColor = UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(1.0))

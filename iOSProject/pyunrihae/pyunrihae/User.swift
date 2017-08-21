@@ -15,7 +15,7 @@ class User {
     var nickname : String // 닉네임
 //    var password : String  비밀번호는 저장할 수 없음.
     var review_like_list : [String : Int]  // 유용해요 / 별로에요 누른 리뷰id : 숫자 (+1는 유용해요, -1는 별로에요)
-    var product_like_list : [String] // 리뷰를 쓴 상품id 리스트
+    var product_review_list : [String] // 리뷰를 쓴 상품id 리스트
     var wish_product_list : [String] // 즐겨찾기한 상품id 리스트
     
     
@@ -24,21 +24,21 @@ class User {
         email = ""
         nickname = ""
         review_like_list  = [:]
-        product_like_list = []
+        product_review_list = []
         wish_product_list = []
     }
     
-    init(id : String,email: String, nickname: String,review_like_list : [String:Int], product_like_list : [String], wish_product_list : [String]){
+    init(id : String,email: String, nickname: String,review_like_list : [String:Int], product_review_list : [String], wish_product_list : [String]){
         self.id = id
         self.email = email
         self.nickname = nickname
         self.review_like_list = review_like_list
-        self.product_like_list = product_like_list
+        self.product_review_list = product_review_list
         self.wish_product_list = wish_product_list
     }
     
     convenience init(id :String, email: String, nickname: String){
-        self.init(id: id,email: email,nickname : nickname,review_like_list: [:], product_like_list: [], wish_product_list :[])
+        self.init(id: id,email: email,nickname : nickname,review_like_list: [:], product_review_list: [], wish_product_list :[])
     }
     
     convenience init(snapshot : DataSnapshot){
@@ -50,7 +50,7 @@ class User {
         let product_like_list = dict["product_like_list"] as? [String] ?? []
         let wish_product_list = dict["wish_product_list"] as? [String] ?? []
         
-       self.init(id: id,email: email,nickname : nickname,review_like_list: review_like_list, product_like_list: product_like_list, wish_product_list : wish_product_list)
+       self.init(id: id,email: email,nickname : nickname,review_like_list: review_like_list, product_review_list: product_like_list, wish_product_list : wish_product_list)
     }
 
 }

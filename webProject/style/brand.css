@@ -1,16 +1,22 @@
 .brand-rank-wrapper {
     margin-top: 200px;
     width: 100%;
-    height: 550px;
+    height: 300px;
 }
 
 .brand-rank-arrow {
     position: relative;
-    top: 300px;
+    top: 120px;
     margin: 0 auto;
+    filter: brightness(120%);
+}
+
+.brand-rank-left:hover,.brand-rank-right:hover{
+    filter: brightness(80%);
 }
 
 .brand-rank-left {
+    cursor: pointer;
     font-size: 30px;
     width: 40px;
     height: 100px;
@@ -24,6 +30,7 @@
 }
 
 .brand-rank-right {
+    cursor: pointer;
     font-size: 30px;
     width: 40px;
     height: 100px;
@@ -46,8 +53,12 @@
 }
 
 .brand-slide-logo {
+    position: relative;
+    top:-350px;
+    opacity: 0.3;
     text-align: center;
     width: 100%;
+    display: none;
 }
 
 .brand-logo-resize {
@@ -78,22 +89,24 @@
 
 .rank-product-type {
     /*position: absolute;*/
-    border-radius: 8px;
-    background-color: #ffcca5;
+    background-color: #ff5f4e;
     font-size: 14px;
-    width: 90px;
+    color: white;
+    width: 30%;
     height: 30px;
     line-height: 30px;
-    margin-left: 20px;
     text-align: center;
 }
 
 .rank-product-image {
-    background-size: 70%;
     margin-top: 20px;
     margin-bottom: 20px;
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 250px;
+    background-size:  50%;
+    background: url("/image/not_found.gif") no-repeat center;
+    border: solid 2px #ffb3b2;
+
 }
 
 .rank-product-image:hover {
@@ -101,28 +114,34 @@
 }
 
 .rank-event-wrapper {
-    margin-top: 10px;
-    width: 200px;
+    margin-top: 95%;
+    position: relative;
+    float: left;
 }
 
 .rank-product-event {
-    border-radius: 10px;
     background-color: darkslateblue;
     color: white;
-    /*margin: auto;*/
-    margin-top: 10px;
-    padding: 5px 15px 5px 15px;
-    width: 33%;
+    height: 20px;
+    width: 50px;
+    float: left;
+    margin-left: 10px;
+    line-height: 20px;
+    font-size: 12px;
+    /*padding: 5px 15px 5px 15px;*/
 }
 
 .rank-product-name {
+    height: 16px;
+    line-height: 17px;
+    margin-bottom: 10px;
+    overflow: hidden;
     font-size: 16px;
     width: 200px;
-    margin-top: 20px;
 }
 
 .rank-product-price {
-    margin-top: 10px;
+
 }
 
 .rank-product-rating {
@@ -141,10 +160,11 @@
     height: 30px;
     line-height: 30px;
     background-color: #ff9285;
-    width: 40%;
+    width: 30%;
     text-align: center;
     font-size: 15px;
     border-radius: 5px;
+    display: none;
 }
 
 .brand-rank-more:hover{
@@ -269,8 +289,6 @@
     }
 
     .rank-event-wrapper {
-        margin-top: 10px;
-        width: 200px;
     }
 
     .rank-product-event {
@@ -278,9 +296,9 @@
         background-color: darkslateblue;
         color: white;
         /*margin: auto;*/
-        margin-top: 10px;
-        padding: 5px 15px 5px 15px;
+        /*padding: 5px 15px 5px 15px;*/
         width: 33%;
+        font-size: 12px;
     }
 
     .rank-product-name {

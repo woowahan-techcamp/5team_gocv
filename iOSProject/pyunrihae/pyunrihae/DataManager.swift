@@ -10,6 +10,7 @@ import Foundation
 import FirebaseStorage
 import Firebase
 import FirebaseDatabase
+import FirebaseAuth
 
 class DataManager{
     
@@ -54,7 +55,6 @@ class DataManager{
                 // 유용순으로 정렬하기
                 completion(reviewList)
             })
-            
         }
     }
     
@@ -122,7 +122,6 @@ class DataManager{
     static func getTop3Product(completion: @escaping ([Product]) -> ()) {
         let localRef = ref.child("product")
         let query = localRef.queryOrdered(byChild: "grade_avg").queryLimited(toLast: 3)
-        
         query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             var productList : [Product] = []
             for childSnapshot in snapshot.children {
@@ -136,6 +135,8 @@ class DataManager{
     /*
      * 리뷰 화면
      */
+    
+    
     
     // 브랜드와 카테고리가 전체가 아닐 때 리뷰 리스트 받아오기
     static func getReviewListBy(brand : String, category : String, completion : @escaping ([Review]) -> ()) {
@@ -242,6 +243,39 @@ class DataManager{
     /*
      *  상품 상세 화면
      */
+    
+    // 유저 위시리스트 업데이트 하기
+    
+    static func updateWishList(id: String, uid: String) {
+        let localRef = ref.child("user").child(uid)
+        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            let postDict = snapshot.value as? [String : AnyObject] ?? [:]
+            var update = [String: Any]()
+            var wishList = [String]()
+            if postDict["wish_product_list"] != nil {
+                if var list = postDict["wish_product_list"] as? [String] {
+                    if list.contains(id){
+                        let index = list.index(of: id)
+                        list.remove(at: index!)
+                        wishList = list
+                        update["wish_product_list"] = wishList
+                    } else {
+                        list.append(id)
+                        wishList = list
+                        update["wish_product_list"] = wishList
+                    }
+                }
+            } else {
+                wishList.append(id)
+                update["wish_product_list"] = wishList
+            }
+            localRef.updateChildValues(update)
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.user?.wish_product_list = wishList
+        })
+        
+    }
+    
     
     static func tabUsefulBtn(id: String) {
         let localRef = ref.child("review").child(id)
@@ -517,7 +551,7 @@ class DataManager{
     // Firebase Auth의 user를 UserModel로 가져와서 넣기
     static func saveUser(user: User) {
         let localRef = ref.child("user")
-        localRef.child(user.id).setValue(["id": user.id, "email" : user.email, "nickname" : user.nickname,  "review_like_list": user.review_like_list, "product_like_list" : user.product_like_list, "wish_product_list": user.wish_product_list])
+        localRef.child(user.id).setValue(["id": user.id, "email" : user.email, "nickname" : user.nickname,  "review_like_list": user.review_like_list, "product_review_list" : user.product_review_list, "wish_product_list": user.wish_product_list])
     }
     
     /*
@@ -528,9 +562,9 @@ class DataManager{
     static func getUserFromUID(uid : String, completion: @escaping (User) -> ()){
         let localRef = ref.child("user").child(uid)
         
-        localRef.observe(.value, with: { (snapshot) in
+        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             var user = User()
-            user = User.init(snapshot: snapshot as! DataSnapshot)
+            user = User.init(snapshot: snapshot )
             completion(user)
         })
     }
