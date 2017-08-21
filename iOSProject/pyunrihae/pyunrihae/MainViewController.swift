@@ -61,6 +61,15 @@ class MainViewController: UIViewController {
         selectedCategoryIndex = sender.tag
         categoryBtns[previousCategoryIndex].isSelected = false
         Button.select(btn: sender) // 선택된 버튼에 따라 뷰 보여주기
+        UIView.animate(withDuration: 1.0, animations: {
+            if sender.tag == 0 || sender.tag == 1 || sender.tag == 2 {
+                self.categoryScrollView.contentOffset.x = CGFloat(0)
+            } else if sender.tag == 6 || sender.tag == 7 || sender.tag == 8 {
+                self.categoryScrollView.contentOffset.x = CGFloat(6 * 32)
+            } else {
+                self.categoryScrollView.contentOffset.x = CGFloat((sender.tag - 1) * 32)
+            }
+        })
         NotificationCenter.default.post(name: NSNotification.Name("showCategory"), object: self, userInfo: ["category" : selectedCategoryIndex])
     }
     func selectCategory(_ notification: Notification){
@@ -68,6 +77,13 @@ class MainViewController: UIViewController {
         selectedCategoryIndex = notification.userInfo?["category"] as! Int
         categoryBtns[previousCategoryIndex].isSelected = false
         Button.select(btn: categoryBtns[selectedCategoryIndex])
+        if selectedCategoryIndex == 0 || selectedCategoryIndex == 1 || selectedCategoryIndex == 2 {
+            categoryScrollView.contentOffset.x = CGFloat(0)
+        } else if selectedCategoryIndex == 6 || selectedCategoryIndex == 7 || selectedCategoryIndex == 8 {
+            categoryScrollView.contentOffset.x = CGFloat(7 * 32)
+        } else {
+            categoryScrollView.contentOffset.x = CGFloat((selectedCategoryIndex - 1) * 32)
+        }
     }
     
     func showActivityIndicatory() {

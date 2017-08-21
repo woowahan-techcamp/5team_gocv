@@ -96,7 +96,7 @@ class ProductDetailViewController: UIViewController {
         }
     }
     func reviewUpload() {
-        self.uploadingView.alpha = 1
+        uploadingView.alpha = 1
         UIView.animate(withDuration: 2.0, animations: {
             self.uploadingView.alpha = 0
         })
