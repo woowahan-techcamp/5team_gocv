@@ -64,6 +64,7 @@
 		98CBA0CE1F468536003D0370 /* ic_like.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CBA0CC1F468536003D0370 /* ic_like.png */; };
 		98CBA0D01F469E6C003D0370 /* ic_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CBA0CF1F469E6B003D0370 /* ic_default.png */; };
 		98CBA0D21F46AF3B003D0370 /* ic_nickname.png in Resources */ = {isa = PBXBuildFile; fileRef = 98CBA0D11F46AF3B003D0370 /* ic_nickname.png */; };
+		98CBA0D41F4ACA73003D0370 /* UpdateNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CBA0D31F4ACA73003D0370 /* UpdateNicknameViewController.swift */; };
 		98D569121F46ABC7002693E9 /* user_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D569111F46ABC7002693E9 /* user_default.png */; };
 		98D839081F452DF200CDF699 /* bg_login2.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D839071F452DF200CDF699 /* bg_login2.png */; };
 		98D8390A1F452E6200CDF699 /* ic_pyunrihae.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D839091F452E6200CDF699 /* ic_pyunrihae.png */; };
@@ -200,6 +201,7 @@
 		98CBA0CC1F468536003D0370 /* ic_like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_like.png; sourceTree = "<group>"; };
 		98CBA0CF1F469E6B003D0370 /* ic_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_default.png; sourceTree = "<group>"; };
 		98CBA0D11F46AF3B003D0370 /* ic_nickname.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_nickname.png; sourceTree = "<group>"; };
+		98CBA0D31F4ACA73003D0370 /* UpdateNicknameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateNicknameViewController.swift; sourceTree = "<group>"; };
 		98D569111F46ABC7002693E9 /* user_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_default.png; sourceTree = "<group>"; };
 		98D839071F452DF200CDF699 /* bg_login2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_login2.png; sourceTree = "<group>"; };
 		98D839091F452E6200CDF699 /* ic_pyunrihae.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_pyunrihae.png; sourceTree = "<group>"; };
@@ -408,6 +410,7 @@
 				98F865A41F442B3800C2F333 /* LoginSignUpViewController.swift */,
 				98F865B21F4434F800C2F333 /* SignupViewController.swift */,
 				98CBA0B91F458DC1003D0370 /* LoginViewController.swift */,
+				98CBA0D31F4ACA73003D0370 /* UpdateNicknameViewController.swift */,
 			);
 			name = "View Controller";
 			sourceTree = "<group>";
@@ -897,6 +900,7 @@
 				98B73F881F394CAB00E55420 /* Product.swift in Sources */,
 				98B73F861F39394500E55420 /* Review.swift in Sources */,
 				9865E5161F39AD8100014795 /* ReviewCollectionViewCell.swift in Sources */,
+				98CBA0D41F4ACA73003D0370 /* UpdateNicknameViewController.swift in Sources */,
 				9865E5301F3AFA0300014795 /* ProductDetailViewController.swift in Sources */,
 				9865E5461F3C434200014795 /* ProductInfoTableViewCell.swift in Sources */,
 				981E932C1F386677004BE63B /* ReviewViewController.swift in Sources */,

@@ -10,8 +10,9 @@ import UIKit
 
 class MypageTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var rightImage: UIView!
     @IBOutlet weak var mypageListLabel: UILabel!
-    @IBOutlet weak var rightImage: UIImageView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

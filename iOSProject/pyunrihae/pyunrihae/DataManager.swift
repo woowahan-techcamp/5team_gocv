@@ -568,4 +568,12 @@ class DataManager{
             completion(user)
         })
     }
+    
+    // user 닉네임 업데이트하기 
+    
+    static func updateUserNickname(user: User, nickname : String){
+        user.nickname = nickname
+        let localRef = ref.child("user")
+        localRef.child(user.id).child("nickname").setValue(user.nickname)
+    }
 }
