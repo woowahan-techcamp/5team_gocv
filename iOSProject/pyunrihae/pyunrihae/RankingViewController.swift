@@ -149,13 +149,6 @@ class RankingViewController: UIViewController {
                     self.setRankingListOrder()
                     self.hideActivityIndicatory()
                 }
-//                DataManager.getProductAllInRank()  { (products) in
-//                    self.productList = products
-//                    DispatchQueue.main.async {
-//                        self.setRankingNum()
-//                        self.setRankingListOrder()
-//                        self.hideActivityIndicatory()
-//                    }
                 }
             else if selectedBrandIndexFromTab == 0 { // 브랜드만 전체일 때
                 self.productList = []
@@ -170,15 +163,7 @@ class RankingViewController: UIViewController {
                         self.setRankingListOrder()
                         self.hideActivityIndicatory()
                     }
-
-//                    DataManager.getTopProductBy(category: (categoryBtns[selectedCategoryIndex].titleLabel?.text)!) { (products) in
-//                        self.productList = products
-//                        DispatchQueue.main.async {
-//                            self.setRankingNum()
-//                            self.setRankingListOrder()
-//                            self.hideActivityIndicatory()
-//                        }
-//                    }
+                    
                 }
                 
             } else if selectedCategoryIndex == 0 { // 카테고리만 전체일 때
@@ -194,14 +179,6 @@ class RankingViewController: UIViewController {
                     self.hideActivityIndicatory()
                 }
 
-//                DataManager.getTopProductBy(brand: brand) { (products) in
-//                    self.productList = products
-//                    DispatchQueue.main.async {
-//                        self.setRankingNum()
-//                        self.setRankingListOrder()
-//                        self.hideActivityIndicatory()
-//                    }
-//                }
             } else { // 브랜드도 카테고리도 전체가 아닐 때
                 self.productList = []
                 for product in self.appdelegate.productList {
@@ -214,17 +191,6 @@ class RankingViewController: UIViewController {
                     self.setRankingListOrder()
                     self.hideActivityIndicatory()
                 }
-
-//                if categoryBtns.count > 0 {
-//                    DataManager.getTopProductBy(brand: brand, category: (categoryBtns[selectedCategoryIndex].titleLabel?.text)!) { (products) in
-//                        self.productList = products
-//                        DispatchQueue.main.async {
-//                            self.setRankingNum()
-//                            self.setRankingListOrder()
-//                            self.hideActivityIndicatory()
-//                        }
-//                    }
-//                }
             }
         }
         

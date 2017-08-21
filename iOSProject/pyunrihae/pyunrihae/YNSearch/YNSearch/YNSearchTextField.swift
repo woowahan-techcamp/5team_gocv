@@ -30,7 +30,7 @@ open class YNSearchTextField: UITextField {
         
         self.leftView = searchImageViewWrapper
         self.returnKeyType = .search
-        self.placeholder = "원하는 상품을 검색하세요."
+        self.placeholder = "원하는 키워드나 상품을 검색하세요."
         self.font = UIFont.systemFont(ofSize: 14)
     }
 }

@@ -38,9 +38,9 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
         
         var db : [YNSearchModel] = []
         
-        DataManager.getProductAllInRank()  { (products) in
+        let appdelegate = UIApplication.shared.delegate as! AppDelegate
             
-            for product in products {
+            for product in appdelegate.productList {
                 let searchModel  = YNSearchModel.init(key: product.name,id : product.id)
                 db.append(searchModel)
             }
@@ -48,7 +48,6 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
                 self.initData(database: db)
                 self.setYNCategoryButtonType(type: YNCategoryButtonType.border)
             }
-        }
 
     }
     
