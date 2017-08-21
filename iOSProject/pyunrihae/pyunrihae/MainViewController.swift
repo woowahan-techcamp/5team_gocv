@@ -37,6 +37,7 @@ class MainViewController: UIViewController {
     var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
     var categoryBtns = [UIButton]()
     let category = ["전체","도시락","김밥","베이커리","라면","식품","스낵","아이스크림","음료"]
+    var scrollBar = UILabel()
     
     func addCategoryBtn(){ // 카테고리 버튼 스크롤 뷰에 추가하기
         categoryScrollView.isScrollEnabled = true
@@ -53,6 +54,10 @@ class MainViewController: UIViewController {
             categoryBtn.addTarget(self, action: #selector(didPressCategoryBtn), for: UIControlEvents.touchUpInside)
             categoryScrollView.addSubview(categoryBtn)
         }
+        scrollBar.frame = CGRect(x: 15, y: 40, width: 34, height: 2)
+        let color = UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(Float(1)))
+        scrollBar.backgroundColor = color
+        categoryScrollView.addSubview(scrollBar)
         categoryScrollView.showsHorizontalScrollIndicator = false // 스크롤 바 없애기
     }
     
@@ -69,6 +74,7 @@ class MainViewController: UIViewController {
             } else {
                 self.categoryScrollView.contentOffset.x = CGFloat((sender.tag - 1) * 32)
             }
+            self.scrollBar.frame.origin.x = CGFloat(self.selectedCategoryIndex * 64 + 15)
         })
         NotificationCenter.default.post(name: NSNotification.Name("showCategory"), object: self, userInfo: ["category" : selectedCategoryIndex])
     }
@@ -84,6 +90,7 @@ class MainViewController: UIViewController {
         } else {
             categoryScrollView.contentOffset.x = CGFloat((selectedCategoryIndex - 1) * 32)
         }
+        scrollBar.frame.origin.x = CGFloat(selectedCategoryIndex * 64 + 15)
     }
     
     func showActivityIndicatory() {

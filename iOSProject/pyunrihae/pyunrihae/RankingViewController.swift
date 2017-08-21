@@ -56,6 +56,7 @@ class RankingViewController: UIViewController {
     }
     var productList : [Product] = []
     var categoryBtns = [UIButton]()
+    var scrollBar = UILabel()
     var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
     let category = ["전체","도시락","김밥","베이커리","라면","식품","스낵","아이스크림","음료"]
     func addCategoryBtn(){ // 카테고리 버튼 스크롤 뷰에 추가하기
@@ -72,6 +73,10 @@ class RankingViewController: UIViewController {
             categoryBtn.addTarget(self, action: #selector(didPressCategoryBtn), for: UIControlEvents.touchUpInside)
             categoryScrollView.addSubview(categoryBtn)
         }
+        scrollBar.frame = CGRect(x: 15, y: 40, width: 40, height: 2)
+        let color = UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(Float(1)))
+        scrollBar.backgroundColor = color
+        categoryScrollView.addSubview(scrollBar)
         categoryScrollView.showsHorizontalScrollIndicator = false // 스크롤 바 없애기
     }
     func didPressCategoryBtn(sender: UIButton) { // 카테고리 버튼 클릭 함수
@@ -87,6 +92,7 @@ class RankingViewController: UIViewController {
             } else {
                 self.categoryScrollView.contentOffset.x = CGFloat((sender.tag - 1) * 40)
             }
+            self.scrollBar.frame.origin.x = CGFloat(self.selectedCategoryIndex * 70 + 15)
         })
         NotificationCenter.default.post(name: NSNotification.Name("showCategory"), object: self, userInfo: ["category" : selectedCategoryIndex])
     }
@@ -103,6 +109,7 @@ class RankingViewController: UIViewController {
             } else {
                 categoryScrollView.contentOffset.x = CGFloat((selectedCategoryIndex - 1) * 40)
             }
+            scrollBar.frame.origin.x = CGFloat(selectedCategoryIndex * 70 + 15)
         }
     }
     func addNotiObserver() {
