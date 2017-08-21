@@ -87,6 +87,7 @@ extension LikeProductViewController: UITableViewDataSource, UITableViewDelegate 
         if likeProductList.count == 0 {
             cell.productNameLabel.text = "찜한 상품이 없습니다."
             cell.moreImage.isHidden = true
+            cell.productImageView.image = UIImage()
         }else{
             if likeProductList[indexPath.row].image != ""{
                 cell.productImageView.af_setImage(withURL: URL(string: likeProductList[indexPath.row].image)!)
@@ -106,11 +107,15 @@ extension LikeProductViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let product = likeProductList[indexPath.row]
-        NotificationCenter.default.post(name: NSNotification.Name("showProduct"), object: self, userInfo: ["product" : product])
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "mainNavigationController") as! UINavigationController
-        self.present(vc, animated: true, completion: nil)
+        
+        if likeProductList.count > 0 {
+            let product = likeProductList[indexPath.row]
+            NotificationCenter.default.post(name: NSNotification.Name("showProduct"), object: self, userInfo: ["product" : product])
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "mainNavigationController") as! UINavigationController
+            self.present(vc, animated: true, completion: nil)
+            
+        }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     }

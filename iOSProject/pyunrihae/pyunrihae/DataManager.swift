@@ -515,4 +515,36 @@ class DataManager{
         let localRef = ref.child("user")
         localRef.child(user.id).child("nickname").setValue(user.nickname)
     }
+    
+    // user 프로필 사진 업데이트 하기 
+    static func updateUserProfile(user: User, profile : UIImage){
+        
+        let localRef = ref.child("user")
+        
+        let storage = Storage.storage()
+        
+        let storageRef = storage.reference(forURL: "gs://pyeonrehae.appspot.com")
+        let imagesRef = storageRef.child("images/" + user.id + ".png")
+        
+        if let data = UIImagePNGRepresentation(profile) {
+            imagesRef.putData(data, metadata: nil, completion: {
+                (metadata, error) in
+                if error != nil {
+                    // 아무것도 하지 않는다.
+                } else {
+                    imagesRef.downloadURL { (URL, error) -> Void in // 업로드된 이미지 url 받아오기
+                        if (error != nil) { // 없으면 디폴트 이미지로 저장
+                            localRef.child(user.id).child("user_profile").setValue("http://item.kakaocdn.net/dw/4407092.title.png")
+                            user.user_profile = "http://item.kakaocdn.net/dw/4407092.title.png"
+                        } else {
+                            localRef.child(user.id).child("user_profile").setValue((URL?.absoluteString)!)
+                            user.user_profile = (URL?.absoluteString)!
+                        }
+                    }
+                }
+            })
+        } else {
+            // 올린 이미지를 PNG로 바꾸는데 실패하면 아무것도 하지 않는다.
+        }
+    }
 }

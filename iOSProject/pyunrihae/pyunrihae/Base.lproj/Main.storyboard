@@ -1789,8 +1789,8 @@
                                 <rect key="frame" x="349" y="79" width="10" height="15"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_add.png" translatesAutoresizingMaskIntoConstraints="NO" id="r8W-HA-vSp">
-                                <rect key="frame" x="92" y="69" width="18" height="18"/>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_photo_camera" translatesAutoresizingMaskIntoConstraints="NO" id="Hi5-U7-Kbp">
+                                <rect key="frame" x="86" y="112" width="24" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -1801,6 +1801,7 @@
                         <outlet property="emailLabel" destination="4pP-oC-oPW" id="Yel-gI-YSY"/>
                         <outlet property="moreImg" destination="D53-HG-6cu" id="2vZ-3T-XaB"/>
                         <outlet property="nickNameLabel" destination="HBX-4g-kUR" id="fT0-eJ-TVZ"/>
+                        <outlet property="photoEditImage" destination="Hi5-U7-Kbp" id="mRt-EW-y6Z"/>
                         <outlet property="tableView" destination="ZtX-Y0-mGN" id="zGF-2O-iWd"/>
                         <outlet property="userImage" destination="UZ3-IR-ABc" id="3wp-Lc-Zvt"/>
                     </connections>
@@ -2016,6 +2017,7 @@
         <image name="ic_my_selected.png" width="86" height="70"/>
         <image name="ic_nickname.png" width="50" height="50"/>
         <image name="ic_password.png" width="100" height="100"/>
+        <image name="ic_photo_camera" width="36" height="36"/>
         <image name="ic_pyunrihae.png" width="424" height="380"/>
         <image name="ic_ranking.png" width="46" height="74"/>
         <image name="ic_ranking_selected.png" width="46" height="74"/>

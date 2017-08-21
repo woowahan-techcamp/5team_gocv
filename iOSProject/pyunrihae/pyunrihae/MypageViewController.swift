@@ -8,7 +8,10 @@
 
 import UIKit
 import FirebaseAuth
-class MypageViewController: UIViewController {
+import Fusuma
+import AlamofireImage
+
+class MypageViewController: UIViewController, FusumaDelegate{
 
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var tableView: UITableView!
@@ -16,6 +19,7 @@ class MypageViewController: UIViewController {
     @IBOutlet weak var alertLabel: UILabel!
     @IBOutlet weak var nickNameLabel: UILabel!
     @IBOutlet weak var moreImg: UIImageView!
+    @IBOutlet weak var photoEditImage: UIImageView!
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
@@ -29,17 +33,22 @@ class MypageViewController: UIViewController {
         checkUserLogin()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(nicknameTapped))
+        let tapGesture2 = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
         
-        // add it to the image view;
+    
         nickNameLabel.addGestureRecognizer(tapGesture)
-        // make sure imageView can be interacted with by user
         nickNameLabel.isUserInteractionEnabled = true
+        
+        userImage.addGestureRecognizer(tapGesture2)
+        userImage.isUserInteractionEnabled = true
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
     func nicknameTapped(){
         if nickNameLabel.text != "로그인을 해주세요." {
@@ -53,12 +62,32 @@ class MypageViewController: UIViewController {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let user = appDelegate.user
         if user?.email != "" {
-            userImage.image = UIImage(named: "user_default.png")
+            
+            if user?.user_profile != nil {
+//                userImage.af_setImage(withURL: URL(string: (user?.user_profile)!)!)
+//                userImage.image = userImage.image?.af_imageRoundedIntoCircle()
+                
+                let url = URL(string: (user?.user_profile)!)!
+                let placeholderImage = UIImage(named: "ic_user")!
+                
+                let filter = AspectScaledToFillSizeCircleFilter(
+                    size: userImage.frame.size
+                )
+                
+                userImage.af_setImage(
+                    withURL: url,
+                    placeholderImage: placeholderImage,
+                    filter: filter
+                )
+            }else{
+                userImage.image = UIImage(named: "user_default.png")
+            }
             nickNameLabel.text = user?.nickname
             emailLabel.text = user?.email
             labelList[2] = "로그아웃"
             DispatchQueue.main.async {
                 self.moreImg.isHidden = false
+                self.photoEditImage.isHidden = false
             }
             tableView.reloadData()
         } else {
@@ -67,6 +96,7 @@ class MypageViewController: UIViewController {
             labelList[2] = "회원가입 / 로그인"
             DispatchQueue.main.async {
                 self.moreImg.isHidden = true
+                self.photoEditImage.isHidden = true
             }
             tableView.reloadData()
         }
@@ -112,6 +142,69 @@ class MypageViewController: UIViewController {
         
        
     }
+    
+    // 사진선택 (Fusma 관련 함수) 
+    // MARK: FusumaDelegate Protocol
+    
+    func profileTapped(){
+        if appDelegate.user?.email != "" {
+            let fusuma = FusumaViewController()
+            
+            fusuma.delegate = self
+            fusuma.cropHeightRatio = 0.7
+            fusuma.defaultMode = .library
+            fusuma.allowMultipleSelection = false
+            fusumaSavesImage = false
+            
+            self.present(fusuma, animated: true, completion: nil)
+        }
+    }
+
+    
+    func fusumaImageSelected(_ image: UIImage, source: FusumaMode) {
+        
+        if appDelegate.user?.email != "" {
+           userImage.image = image
+           userImage.image = userImage.image?.af_imageRoundedIntoCircle()
+           DataManager.updateUserProfile(user: appDelegate.user!, profile: image)
+        }
+        
+    }
+    
+    func fusumaMultipleImageSelected(_ images: [UIImage], source: FusumaMode) {
+    }
+    
+    func fusumaImageSelected(_ image: UIImage, source: FusumaMode, metaData: ImageMetadata) {
+    }
+    
+    func fusumaVideoCompleted(withFileURL fileURL: URL) {
+    }
+    
+    func fusumaDismissedWithImage(_ image: UIImage, source: FusumaMode) {
+    }
+    
+    func fusumaCameraRollUnauthorized() {
+        
+        let alert = UIAlertController(title: "Access Requested",
+                                      message: "Saving image needs to access your photo album",
+                                      preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Settings", style: .default) { (action) -> Void in
+        })
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+            
+        })
+        
+        guard let vc = UIApplication.shared.delegate?.window??.rootViewController,
+            let presented = vc.presentedViewController else {
+                
+                return
+        }
+        
+        presented.present(alert, animated: true, completion: nil)
+    }
+    
 }
 
 extension MypageViewController: UITableViewDataSource, UITableViewDelegate {
