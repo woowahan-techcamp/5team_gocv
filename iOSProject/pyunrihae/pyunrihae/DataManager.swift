@@ -251,23 +251,29 @@ class DataManager{
         localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             let postDict = snapshot.value as? [String : AnyObject] ?? [:]
             var update = [String: Any]()
+            var wishList = [String]()
             if postDict["wish_product_list"] != nil {
-                if var wishList = postDict["wish_product_list"] as? [String] {
-                    if wishList.contains(id){
-                        let index = wishList.index(of: id)
-                        wishList.remove(at: index!)
+                if var list = postDict["wish_product_list"] as? [String] {
+                    if list.contains(id){
+                        let index = list.index(of: id)
+                        list.remove(at: index!)
+                        wishList = list
                         update["wish_product_list"] = wishList
                     } else {
-                        wishList.append(id)
+                        list.append(id)
+                        wishList = list
                         update["wish_product_list"] = wishList
                     }
                 }
             } else {
-                let wishList = [id]
+                wishList.append(id)
                 update["wish_product_list"] = wishList
             }
             localRef.updateChildValues(update)
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.user?.wish_product_list = wishList
         })
+        
     }
     
     
@@ -545,7 +551,7 @@ class DataManager{
     // Firebase Auth의 user를 UserModel로 가져와서 넣기
     static func saveUser(user: User) {
         let localRef = ref.child("user")
-        localRef.child(user.id).setValue(["id": user.id, "email" : user.email, "nickname" : user.nickname,  "review_like_list": user.review_like_list, "product_like_list" : user.product_like_list, "wish_product_list": user.wish_product_list])
+        localRef.child(user.id).setValue(["id": user.id, "email" : user.email, "nickname" : user.nickname,  "review_like_list": user.review_like_list, "product_review_list" : user.product_review_list, "wish_product_list": user.wish_product_list])
     }
     
     /*
