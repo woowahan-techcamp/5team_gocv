@@ -17,7 +17,7 @@ class Product {
     var name : String // 상품 이름 
     var price : String // 상품의 가격
     var brand : String // 해당 상품의 브랜드. 3사 전부인 경우 all. 나머지는 "CU" "GS25" 등
-    var event : String // 해당 상품의 이벤트 리스트
+    var event : String // 해당 상품의 첫 이벤트
     var allergy : [String] // 알레르기 정보 목록
     var category : String // 카테고리(중분류)
     var grade_avg : Float // 가중치 공식에 따라 낸 평점 

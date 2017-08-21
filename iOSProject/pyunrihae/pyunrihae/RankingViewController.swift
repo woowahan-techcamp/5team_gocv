@@ -37,6 +37,9 @@ class RankingViewController: UIViewController {
         alert.addAction(orderByPrice)
         present(alert, animated: true, completion: nil)
     }
+    
+    let appdelegate = UIApplication.shared.delegate as! AppDelegate
+
     let priceLevelList = ["비싸다","비싼편","적당","싼편","싸다"]
     let flavorLevelList = ["노맛","별로","적당","괜춘","존맛"]
     let quantityLevelList = ["창렬","적음","적당","많음","혜자"]
@@ -129,7 +132,7 @@ class RankingViewController: UIViewController {
         
         switch selectedBrandIndexFromTab {
         case 0 : brand = ""
-        case 1 : brand = "gs25"
+        case 1 : brand = "GS25"
         case 2 : brand = "CU"
         case 3 : brand = "7-eleven"
         default : break;
@@ -139,50 +142,56 @@ class RankingViewController: UIViewController {
         
         if collectionView != nil {
             if selectedBrandIndexFromTab == 0  && selectedCategoryIndex == 0 { // 브랜드 : 전체 , 카테고리 : 전체 일때
-                
-                DataManager.getProductAllInRank()  { (products) in
-                    self.productList = products
+                self.productList = []
+                self.productList = self.appdelegate.productList
+                DispatchQueue.main.async {
+                    self.setRankingNum()
+                    self.setRankingListOrder()
+                    self.hideActivityIndicatory()
+                }
+                }
+            else if selectedBrandIndexFromTab == 0 { // 브랜드만 전체일 때
+                self.productList = []
+                if categoryBtns.count > 0 {
+                    for product in self.appdelegate.productList {
+                        if product.category == categoryBtns[selectedCategoryIndex].titleLabel?.text!{
+                            self.productList.append(product)
+                        }
+                    }
                     DispatchQueue.main.async {
                         self.setRankingNum()
                         self.setRankingListOrder()
                         self.hideActivityIndicatory()
                     }
-                }
-            } else if selectedBrandIndexFromTab == 0 { // 브랜드만 전체일 때
-                
-                if categoryBtns.count > 0 {
-                    DataManager.getTopProductBy(category: (categoryBtns[selectedCategoryIndex].titleLabel?.text)!) { (products) in
-                        self.productList = products
-                        DispatchQueue.main.async {
-                            self.setRankingNum()
-                            self.setRankingListOrder()
-                            self.hideActivityIndicatory()
-                        }
-                    }
+                    
                 }
                 
             } else if selectedCategoryIndex == 0 { // 카테고리만 전체일 때
-                DataManager.getTopProductBy(brand: brand) { (products) in
-                    self.productList = products
-                    DispatchQueue.main.async {
-                        self.setRankingNum()
-                        self.setRankingListOrder()
-                        self.hideActivityIndicatory()
+            self.productList = []
+                for product in self.appdelegate.productList {
+                    if product.brand == brand{
+                        self.productList.append(product)
                     }
                 }
+                DispatchQueue.main.async {
+                    self.setRankingNum()
+                    self.setRankingListOrder()
+                    self.hideActivityIndicatory()
+                }
+
             } else { // 브랜드도 카테고리도 전체가 아닐 때
-                if categoryBtns.count > 0 {
-                    DataManager.getTopProductBy(brand: brand, category: (categoryBtns[selectedCategoryIndex].titleLabel?.text)!) { (products) in
-                        self.productList = products
-                        DispatchQueue.main.async {
-                            self.setRankingNum()
-                            self.setRankingListOrder()
-                            self.hideActivityIndicatory()
-                        }
+                self.productList = []
+                for product in self.appdelegate.productList {
+                    if product.category == categoryBtns[selectedCategoryIndex].titleLabel?.text! && product.brand == brand{
+                        self.productList.append(product)
                     }
+                }
+                DispatchQueue.main.async {
+                    self.setRankingNum()
+                    self.setRankingListOrder()
+                    self.hideActivityIndicatory()
                 }
             }
-            
         }
         
     }
@@ -250,9 +259,11 @@ extension RankingViewController: UICollectionViewDataSource {
             if product.event != "\r" {
                 cell.EventLabel.isHidden = false
                 cell.EventLabel.text = product.event
+
             }else{
                 cell.EventLabel.isHidden = true
             }
+           
             
             for sub in cell.starView.subviews {
                 sub.removeFromSuperview()
@@ -299,15 +310,15 @@ extension RankingViewController: UICollectionViewDataSource {
                 let p = "p" + i.description
                 let f = "f" + i.description
                 let q = "q" + i.description
-                if priceLevelDict[p]! > maxPriceNum {
+                if priceLevelDict.count > 0  && priceLevelDict[p]! > maxPriceNum {
                     maxPriceLevel = i
                     maxPriceNum = priceLevelDict[p]!
                 }
-                if flavorLevelDict[f]! > maxFlavorNum {
+                if  flavorLevelDict.count > 0  && flavorLevelDict[f]! > maxFlavorNum {
                     maxFlavorLevel = i
                     maxFlavorNum = flavorLevelDict[f]!
                 }
-                if quantityLevelDict[q]! > maxQuantityNum {
+                if  quantityLevelDict.count > 0  && quantityLevelDict[q]! > maxQuantityNum {
                     maxQuantityLevel = i
                     maxQuantityNum = quantityLevelDict[q]!
                 }

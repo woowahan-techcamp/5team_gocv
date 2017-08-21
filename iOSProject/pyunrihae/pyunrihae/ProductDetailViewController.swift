@@ -173,14 +173,15 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                     cell.priceLabel.text = product.price + "원"
                     cell.brandLabel.text = product.brand
                     cell.foodNameLabel.text = product.name
-                    
-                    if product.event != "\r" { //이벤트 데이터 베이스 수정 필요
+               
+                    if product.event != "\r" { 
                         cell.eventLabel.text = product.event
                         Label.makeRoundLabel(label: cell.eventLabel, color: UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(1.0)))
                         cell.eventLabel.textColor = UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(1.0))
-                    } else {
+                    }else{
                         cell.eventLabel.isHidden = true
                     }
+
                     cell.loading.startAnimating()
                     let foodImage = UIImageView()
                     foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), completion:{ image in

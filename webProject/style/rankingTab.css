@@ -17,6 +17,13 @@
     height: 140px;
 }
 
+
+
+
+
+
+
+
 .rank-category-wrapper{
     margin: 40px auto;
 }
@@ -67,6 +74,7 @@
 
 .rank-query-tab{
     cursor: pointer;
+    text-align: center;
     display: inline-block;
     width: 100px;
     color: grey;
@@ -79,6 +87,7 @@
 
 .rank-brand-type-wrapper{
     margin-left: 20px;
+    margin-bottom: 50px;
     height: 40px;
 }
 
@@ -114,6 +123,7 @@
     text-align: center;
     width: 25%;
     float: left;
+    margin-bottom: 50px;
 }
 
 .rank-card-rating{
@@ -122,19 +132,55 @@
 
 .rank-card-description {
     margin-top: 20px;
-    font-weight: bold;
 }
 
 .rank-card-name {
-    margin-top: 30px;
-}
-
-.rank-card-price {
     margin-top: 10px;
 }
 
+.rank-card-price {
+    margin-top: 5px;
+}
+
+.rank-card-review{
+    width: 60px;
+    line-height: 25px;
+    margin: 5px auto;
+    height: 25px;
+    background-color: #ffd435;
+    color:white;
+}
+
 .rank-card-image {
-    margin-top: 15px;
-    width: 180px;
-    height: 180px;
+    margin: 15px auto;
+    width: 250px;
+    height: 250px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.rank-card-medal {
+    /*position: absolute;*/
+    background-color: #ffad48;
+    font-size: 14px;
+    color: white;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 3px;
+    font-size: 15px;
+}
+
+.rank-card-badge-area1{
+    background-color: gold;
+
+}
+
+.rank-card-badge-area2{
+    background-color: silver;
+}
+
+.rank-card-badge-area3{
+    background-color: brown;
 }

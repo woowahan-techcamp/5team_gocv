@@ -50,7 +50,7 @@
 }
 
 .fixTab-logo:hover, .fixTab-tab:hover, .fixTab-select{
-    border-bottom: solid 5px ff5f4e;
+    border-bottom: solid 5px #ff5f4e;
 }
 
 
@@ -249,8 +249,8 @@
     height: 100vh;
     background-repeat: no-repeat;
     background-size: cover;
-    background-image: url("/image/ex.jpg");
-    filter: blur(0px) brightness(40%);
+    background-image: url("/image/ex.png");
+    filter: blur(0px) brightness(50%);
 
 }
 
@@ -301,7 +301,7 @@
 }
 
 .carousel-review-navi{
-    top:300px;
+    top:200px;
     position: absolute;
     height: 350px;
 }
@@ -317,19 +317,32 @@
     min-width: 600px;
     position: relative;
     left: 10%;
-    background-color: #ffffff;
-    width: 40%;
-    height: 350px;
-    opacity: 0.9;
-    border-radius: 10px;
+    background-color: #000000;
+    width: 50%;
+    height: 450px;
+    opacity:0.7;
     /*box-shadow: 10px 10px 5px #282828;*/
+}
+
+.carousel-review-element-wrapper:before{
+    content: '';
+    position: absolute;
+    top: 0; left:0; right:0; bottom:0;
+    background: inherit;
+    z-index:-1;
+    filter: blur(100px);
+    -webkit-filter: blur(6px);
+    -moz-filter: blur(6px);
+    -o-filter: blur(6px);
+    /*filter:url(#blur);*/
 }
 
 
 .carousel-review-elementTop{
     width: 100%;
-    height: 100px;
-    background-color: #ffb17f;
+    height: 60px;
+    opacity: 1;
+    background-color: #000000;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 
@@ -377,12 +390,12 @@
 
 
 .carousel-review-score{
-    float: left;
+    float: right;
     margin-top: 20px;
     width: 60px;
     text-align: center;
     height: 60px;
-    margin-left: 50px;
+    margin-right: 20px;
     font-size: 20px;
     line-height: 60px;
     color: white;
@@ -393,10 +406,9 @@
 .carousel-review-image{
     float: left;
     width: 40%;
-    margin-top:30px ;
+    height: 300px;
     margin-left: 5%;
-    border-radius: 10px;
-    height: 200px;
+    border-radius: 5px;
     background-color: #000000;
     overflow: hidden;
 }
@@ -405,10 +417,6 @@
     cursor: pointer;
     width: 100%;
     height: 100%;
-    background-repeat: no-repeat;
-    background-size:contain;
-    background-position: center;
-    background-image: url("/image/ex.png");
 }
 
 .carousel-review-imageEle:hover {
@@ -429,7 +437,7 @@
     overflow: hidden;
     margin-top: 10px;
     line-height:2em;
-    color: #212121;
+    color: #dcdcdc;
 }
 
 .carousel-circleBox{
@@ -467,7 +475,7 @@
 
 
 .counter-wrapper{
-    margin-top: 400px;
+    margin-top: 300px;
     width: 100%;
     height: 550px;
     background-image: url("/image/counter_bg.jpg");
@@ -761,7 +769,7 @@
     .carousel-review-elementTop {
         width: 100%;
         height: 100px;
-        background-color: #ffb17f;
+        background-color: #000000;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
 
@@ -782,7 +790,7 @@
         width: 120%;
         height: 30px;
         margin-left: 5%;
-        color: white;
+        color: #000000;
         text-align: center;
         line-height: 30px;
     }

@@ -29,8 +29,8 @@ class DataManager{
         
         
         if brand == "전체" { // 브랜드 : 전체를 선택한 경우
-            let query = localRef.queryOrdered(byChild: "useful").queryLimited(toLast: 3)
-            query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+//            let query = localRef.queryOrdered(byChild: "useful").queryLimited(toLast: 3)
+            localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
                 var reviewList : [Review]  = []
                 for childSnapshot in snapshot.children {
                     let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
@@ -41,13 +41,15 @@ class DataManager{
             })
 
         }else { // 특정 브랜드를 선택한 경우
-            let query = localRef.queryOrdered(byChild: "brand").queryEqual(toValue: brand)
+//            let query = localRef.queryOrdered(byChild: "brand").queryEqual(toValue: brand)
             
-            query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
                 var reviewList : [Review]  = []
                 for childSnapshot in snapshot.children {
                     let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
-                    reviewList.append(review)
+                    if review.brand == brand {
+                        reviewList.append(review)
+                    }
                 }
                 reviewList = reviewList.sorted(by: { $0.useful > $1.useful })
                 // 유용순으로 정렬하기
@@ -60,12 +62,12 @@ class DataManager{
     // 카테고리로 받아와서 클라이언트에서 brand로 filter해주기 , 그리고 점수로 뿌려주기.
     static func getTopProductBy(brand : String, category : String, completion: @escaping ([Product]) -> ()) {
         let localRef = ref.child("product")
-        let query = localRef.queryOrdered(byChild: "category").queryEqual(toValue: category)
-        query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+//        let query = localRef.queryOrdered(byChild: "category").queryEqual(toValue: category)
+        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             var productList : [Product] = []
             for childSnapshot in snapshot.children {
                 let product = Product.init(snapshot: childSnapshot as! DataSnapshot)
-                if product.brand == brand {
+                if product.brand == brand && product.category == category {
                     productList.append(product)
                 }
                 
@@ -80,13 +82,15 @@ class DataManager{
     // 브랜드만 달라지고 카테고리는 전체일 때
     static func getTopProductBy(brand : String, completion : @escaping ([Product]) -> ()) {
         let localRef = ref.child("product")
-        let query = localRef.queryOrdered(byChild: "brand").queryEqual(toValue: brand)
+//        let query = localRef.queryOrdered(byChild: "brand").queryEqual(toValue: brand)
         
-        query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             var productList : [Product] = []
             for childSnapshot in snapshot.children {
                 let product = Product.init(snapshot: childSnapshot as! DataSnapshot)
-                productList.append(product)
+                if product.brand == brand{
+                    productList.append(product)
+                }
             }
             
             productList = productList.sorted(by: { $0.grade_avg > $1.grade_avg})
@@ -98,14 +102,15 @@ class DataManager{
     // 카테고리만 달라지고 브랜드는 전체일 때
     static func getTopProductBy(category: String, completion : @escaping ([Product]) -> ()) {
         let localRef = ref.child("product")
-        let query = localRef.queryOrdered(byChild: "category").queryEqual(toValue: category)
+//        let query = localRef.queryOrdered(byChild: "category").queryEqual(toValue: category)
         
-        query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             var productList : [Product] = []
             for childSnapshot in snapshot.children {
                 let product = Product.init(snapshot: childSnapshot as! DataSnapshot)
-                
-                productList.append(product)
+                if product.category == category {
+                   productList.append(product)
+                }
             }
             productList = productList.sorted(by: { $0.grade_avg > $1.grade_avg})
             completion(productList)

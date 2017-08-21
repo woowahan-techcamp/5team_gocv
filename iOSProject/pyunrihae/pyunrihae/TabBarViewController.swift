@@ -30,6 +30,8 @@ class TabBarViewController: UIViewController {
     let titleName = ["편리해","랭킹","리뷰","마이페이지"]
     let category = ["전체","도시락","김밥","베이커리","라면","즉석식품","스낵","유제품","음료"]
     var categoryIndex = 0
+    
+    let appdelegate = UIApplication.shared.delegate as! AppDelegate
     @IBAction func didPressTabBtn(_ sender: UIButton) { // 탭 버튼 클릭
         NotificationCenter.default.post(name: NSNotification.Name("selectCategory"), object: self, userInfo: ["category" : categoryIndex])
         let previousIndex = selectedTabIndex // 기존의 탭 뷰 숨기기
@@ -99,6 +101,7 @@ class TabBarViewController: UIViewController {
         waitingImage.layer.zPosition = 10
         pyunrihaeImage.layer.zPosition = 20
         animateView()
+        saveProductListToGlobal()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         mainViewController = storyboard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
         mainViewController.selectedBrandIndexFromTab = selectedBrandIndex
@@ -131,6 +134,12 @@ class TabBarViewController: UIViewController {
             })
         } else {
             appDelegate.user = User()
+        }
+    }
+    
+    func saveProductListToGlobal(){
+        DataManager.getProductAllInRank(){ (products) in
+            self.appdelegate.productList = products.sorted(by: {$0.grade_avg > $1.grade_avg})
         }
     }
     
