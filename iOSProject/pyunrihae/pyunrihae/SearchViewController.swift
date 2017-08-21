@@ -18,7 +18,7 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let demoCategories = ["도시락","김밥","베이커리","라면","즉석식품","스낵","유제품","음료"]
+        let demoCategories = ["도시락","김밥","베이커리","라면","식품","스낵","아이스크림","음료"]
         
         let ynSearch = YNSearch()
         let historyList = ynSearch.getSearchHistories()
@@ -127,13 +127,14 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
         case "김밥" : categoryIndex = 2
         case "베이커리" : categoryIndex = 3
         case "라면": categoryIndex = 4
-        case "즉석식품" : categoryIndex = 5
+        case "식품" : categoryIndex = 5
         case "스낵" : categoryIndex = 6
-        case "유제품" : categoryIndex = 7
+        case "아이스크림" : categoryIndex = 7
         case "음료" : categoryIndex = 8
         default : categoryIndex = 0
         }
         vc.selectedTabIndex = 1
+        vc.categoryIndex = categoryIndex
         
         self.present(vc, animated: true, completion : nil )
         vc.pyunrihaeImage.isHidden = true

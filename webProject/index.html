@@ -82,7 +82,7 @@
 </div>
 
 <!--메인 페이지-->
-<div style="" class="main-wrapper overflow-y-hidden">
+<div style="display: block" class="main-wrapper overflow-y-hidden">
 
     <!--carousel 구현-->
     <div class="carousel-wrapper">
@@ -358,6 +358,79 @@
 
 <!--상품 상세페이지 모달창-->
 <div id="popup" class="overlay">
+</div>
+
+
+<!--로그인 모달창-->
+<div style="display:block" id="sign" class="sign-overlay">
+    <div class="sign-wrapper">
+        <div class="signin-facebook">
+            <img class="icon" src="image/facebook2.png">Facebook 계정으로 로그인</div>
+        <div class="signin-google">
+            <img  class="icon" src="image/google.png"> Google 계정으로 로그인</div>
+
+        <div lass="sign-line"></div>
+        <input class="signin-id" placeholder="이메일 주소"/>
+        <input class="signin-password" placeholder="비밀번호"/>
+
+        <div class="signin-button">로그인 </div>
+        <div id="signinErrorCheck" style="display:none; margin: 0px 30px -10px; color: red; font-size: 12px"></div>
+        <div class="sign-line"></div>
+        <div class="signup-wrapper">
+
+            <div class="signup-text">편리해 계정이 없으신가요?</div>
+            <div id="sign-signupButton" class="signup-button">회원가입</div>
+        </div>
+    </div>
+</div>
+
+<!--회원가입 모달창-->
+<div style="display: none" id="signup" class="sign-overlay">
+    <div class="signup-email-wrapper">
+        <div class="signin-facebook">
+            <img class="icon" src="image/facebook2.png">Facebook 계정으로 로그인
+        </div>
+        <div class="signin-google">
+            <img class="icon" src="image/google.png"> Google 계정으로 로그인
+        </div>
+        <div class="sign-line"></div>
+
+        <div id="signup-singupButton" class="signup-email">
+            이메일로 회원가입
+        </div>
+
+        <div class="sign-line"></div>
+
+        <div class="signup-wrapper">
+            <div class="signup-text">이미 편리해 계정이 있으신가요?</div>
+            <div id="signup-singinButton" class="signup-button">로그인 </div>
+        </div>
+    </div>
+</div>
+
+<!--상세 회원가입 화면-->
+<div style="display: none" id="signupDetail" class="sign-overlay">
+    <div class="signup-detail-wrapper">
+        <div class="signup-detail-title">
+            <img style="margin-left: 80px" src="image/burger.png" class="icon">편리해 회원가입</div>
+        <input id="signupNic" class="signup-detail-input" placeholder="닉네임을 입력해주세요 "/>
+        <input id="signupEmail" class="signup-detail-input" placeholder="pyunrihae@pyunrihae.com"/>
+        <input id="signupPw1" class="signup-detail-input" placeholder="비밀번호를 입력해주세요"/>
+        <input id="signupPw2" class="signup-detail-input" placeholder="비밀번호를 다시 입력해주세요"/>
+        <div id="signupPwCheck" style="display:none; margin:5px 30px; color: red; font-size: 12px">비밀번호가 일치하지 않습니다.</div>
+        <div id="signupPwCheck2" style="display:none; margin:5px 30px; color: red; font-size: 12px">비밀번호는 6자리 이상이어야 합니다.</div>
+        <div id="signupEmailCheck" style="display:none; margin:5px 30px; color: red; font-size: 12px">올바른 이메일 형식이 아닙니다.</div>
+        <div id="signupEmailCheck2" style="display:none; margin:5px 30px; color: red; font-size: 12px">이미 존재하는 이메일입니다</div>
+
+
+        <div id="signupButton" class="signup-detail-button">회원가입</div>
+        <div class="sign-line"></div>
+
+        <div class="signup-wrapper">
+            <div class="signup-text">이미 편리해 계정이 있으신가요?</div>
+            <div id="signupDetail-signinButton" class="signup-button">로그인 </div>
+        </div>
+    </div>
 </div>
 
 

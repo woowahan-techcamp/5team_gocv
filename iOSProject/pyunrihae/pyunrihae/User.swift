@@ -51,10 +51,10 @@ class User {
         let nickname = dict["nickname"] as? String ?? ""
         let user_profile = dict["user_profile"] as? String ?? "http://item.kakaocdn.net/dw/4407092.title.png"
         let review_like_list = dict["review_like_list"] as? [String : Int] ?? [:]
-        let product_like_list = dict["product_like_list"] as? [String] ?? []
+        let product_review_list = dict["product_review_list"] as? [String] ?? []
         let wish_product_list = dict["wish_product_list"] as? [String] ?? []
         
-        self.init(id: id,email: email,nickname : nickname, user_profile : user_profile, review_like_list: review_like_list, product_review_list: product_like_list, wish_product_list : wish_product_list)
+        self.init(id: id,email: email,nickname : nickname, user_profile : user_profile, review_like_list: review_like_list, product_review_list: product_review_list, wish_product_list : wish_product_list)
     }
 
 }

@@ -353,7 +353,6 @@ class RankingViewPage {
                 that.end += 12;
                 that.height += 1000;
                 that.setRankingData();
-                console.log("s")
             }
         });
     }

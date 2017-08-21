@@ -1,0 +1,138 @@
+.sign-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    z-index: 120;
+    visibility: visible;
+    opacity: 1;
+}
+
+.sign-overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.sign-wrapper, .signup-email-wrapper, .signup-detail-wrapper {
+    padding-top: 20px;
+    max-height: 90vh;
+    margin: 200px auto;
+    background: #fff;
+    border-radius: 5px;
+    height: 500px;
+    width: 400px;
+    position: relative;
+    z-index: 120;
+}
+
+.signup-email-wrapper {
+    height: 350px;
+}
+
+.signup-detail-wrapper {
+    height: 600px;
+}
+
+.signin-facebook, .signin-google, .signup-detail-button, .signin-button,
+.signin-id, .signin-password, .signup-email, .signup-detail-input {
+    cursor: pointer;
+    border: solid 1px grey;
+    margin: 20px;
+    width: 360px;
+    height: 50px;
+    border-radius: 5px;
+    line-height: 50px;
+    text-align: center;
+
+}
+
+.signup-email {
+    color: gray;
+    border: solid 1px gray;
+}
+
+.signin-facebook {
+    text-align: left;
+    background-color: #3343b2;
+    color: white;
+}
+
+.signin-google {
+    text-align: left;
+    background-color: #e24a3c;
+    color: white;
+}
+
+.signin-facebook:hover, .signin-google:hover {
+    filter: brightness(120%);
+}
+
+.signin-button, .signup-detail-button {
+    color: #ff6048;
+    border: solid 1px #ff6048;
+}
+
+.signup-detail-title {
+    margin: 20px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 20px;
+    color: #4e4e4e;
+    width: 360px;
+    text-align: left;
+}
+
+.sign-line {
+    width: 360px;
+    margin: 20px;
+    height: 1px;
+    background-color: #eeeeee;
+}
+
+.signup-wrapper {
+    width: 360px;
+    margin: 20px;
+    height: 40px;
+    line-height: 40px;
+}
+
+.signup-button {
+    cursor: pointer;
+    float: right;
+    width: 80px;
+    text-align: center;
+    height: 40px;
+    border-radius: 5px;
+    color: #ff6048;
+    border: solid 1px #ff6048;
+}
+
+.signup-button:hover, .signin-button:hover,.signup-detail-button:hover {
+    background-color: #ff6048;
+    color: white;
+
+}
+
+.signup-text {
+    color: gray;
+    float: left;
+    width: 200px;
+}
+
+.signin-id, .signin-password, .signup-detail-input {
+    margin: 5px 20px 10px 20px;
+    text-align: left;
+    font-size: 15px;
+    padding-left: 20px;
+}
+
+.icon {
+    margin-left: 30px;
+    padding: 10px;
+    float: left;
+    height: 50px;
+    width: 50px;
+}

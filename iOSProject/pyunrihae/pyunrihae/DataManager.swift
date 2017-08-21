@@ -244,7 +244,26 @@ class DataManager{
     /*
      *  리뷰 쓰기 화면
      */
-    
+    static func updateReviewList(id: String, uid: String) {
+        let localRef = ref.child("user").child(uid)
+        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            let postDict = snapshot.value as? [String : AnyObject] ?? [:]
+            var update = [String: Any]()
+            var reviewList = [String]()
+            if postDict["product_review_list"] != nil {
+                if var list = postDict["product_review_list"] as? [String] {
+                    list.append(id)
+                    reviewList = list
+                    update["product_review_list"] = reviewList
+                }
+            } else {
+                reviewList.append(id)
+                update["product_review_list"] = reviewList
+            }
+            localRef.updateChildValues(update)
+        })
+        
+    }
     
     // 리뷰 쓰기
     static func updateProductInfo(p_id: String, grade: Int, priceLevel: Int, flavorLevel: Int, quantityLevel: Int, allergy: [String]) {
@@ -255,6 +274,7 @@ class DataManager{
             
             var grade_total = grade
             var grade_count = 1
+            
             
             if postDict["grade_total"] != nil {
                 if let total = postDict["grade_total"] as? Int {
@@ -294,6 +314,7 @@ class DataManager{
             } else {
                 update["allergy"] = allergy
             }
+            
             var level = "g" + grade.description
             if postDict["grade_data"] != nil {
                 if var grade_data = postDict["grade_data"] as? [String: Int] {

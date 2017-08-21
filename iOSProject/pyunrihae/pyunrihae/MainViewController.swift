@@ -36,7 +36,8 @@ class MainViewController: UIViewController {
     
     var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
     var categoryBtns = [UIButton]()
-    let category = ["전체","도시락","김밥","베이커리","라면","즉석식품","스낵","유제품","음료"]
+    let category = ["전체","도시락","김밥","베이커리","라면","식품","스낵","아이스크림","음료"]
+    var scrollBar = UILabel()
     
     func addCategoryBtn(){ // 카테고리 버튼 스크롤 뷰에 추가하기
         categoryScrollView.isScrollEnabled = true
@@ -53,6 +54,10 @@ class MainViewController: UIViewController {
             categoryBtn.addTarget(self, action: #selector(didPressCategoryBtn), for: UIControlEvents.touchUpInside)
             categoryScrollView.addSubview(categoryBtn)
         }
+        scrollBar.frame = CGRect(x: 15, y: 40, width: 34, height: 2)
+        let color = UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(Float(1)))
+        scrollBar.backgroundColor = color
+        categoryScrollView.addSubview(scrollBar)
         categoryScrollView.showsHorizontalScrollIndicator = false // 스크롤 바 없애기
     }
     
@@ -61,6 +66,16 @@ class MainViewController: UIViewController {
         selectedCategoryIndex = sender.tag
         categoryBtns[previousCategoryIndex].isSelected = false
         Button.select(btn: sender) // 선택된 버튼에 따라 뷰 보여주기
+        UIView.animate(withDuration: 1.0, animations: {
+            if sender.tag == 0 || sender.tag == 1 || sender.tag == 2 {
+                self.categoryScrollView.contentOffset.x = CGFloat(0)
+            } else if sender.tag == 6 || sender.tag == 7 || sender.tag == 8 {
+                self.categoryScrollView.contentOffset.x = CGFloat(6 * 32)
+            } else {
+                self.categoryScrollView.contentOffset.x = CGFloat((sender.tag - 1) * 32)
+            }
+            self.scrollBar.frame.origin.x = CGFloat(self.selectedCategoryIndex * 64 + 15)
+        })
         NotificationCenter.default.post(name: NSNotification.Name("showCategory"), object: self, userInfo: ["category" : selectedCategoryIndex])
     }
     func selectCategory(_ notification: Notification){
@@ -68,6 +83,14 @@ class MainViewController: UIViewController {
         selectedCategoryIndex = notification.userInfo?["category"] as! Int
         categoryBtns[previousCategoryIndex].isSelected = false
         Button.select(btn: categoryBtns[selectedCategoryIndex])
+        if selectedCategoryIndex == 0 || selectedCategoryIndex == 1 || selectedCategoryIndex == 2 {
+            categoryScrollView.contentOffset.x = CGFloat(0)
+        } else if selectedCategoryIndex == 6 || selectedCategoryIndex == 7 || selectedCategoryIndex == 8 {
+            categoryScrollView.contentOffset.x = CGFloat(7 * 32)
+        } else {
+            categoryScrollView.contentOffset.x = CGFloat((selectedCategoryIndex - 1) * 32)
+        }
+        scrollBar.frame.origin.x = CGFloat(selectedCategoryIndex * 64 + 15)
     }
     
     func showActivityIndicatory() {

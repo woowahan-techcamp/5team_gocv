@@ -57,6 +57,9 @@ class Product {
         self.price = price
         self.brand = brand
         self.event = event
+        if event.contains("행사") {
+            self.event = (self.event as NSString).replacingOccurrences(of: "행사", with: "")
+        }
         self.allergy = allergy
         self.category = category
         self.grade_avg  = grade_avg
