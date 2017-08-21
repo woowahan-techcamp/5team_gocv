@@ -8,14 +8,38 @@
 
 import UIKit
 import Alamofire
+import FirebaseAuth
 
 class ProductDetailViewController: UIViewController {
     @IBOutlet weak var uploadingView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var writingReviewBtn: UIButton!
+    @IBOutlet weak var alertMessageLabel: UILabel!
 
     @IBAction func closeNavViewBtn(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
+    }
+    @IBOutlet weak var wishBtn: UIButton!
+    @IBAction func tabWishBtn(_ sender: UIButton) {
+        if Auth.auth().currentUser != nil {
+            DataManager.getUserFromUID(uid: (Auth.auth().currentUser?.uid)!, completion: { (user) in
+                self.uploadingView.isHidden = false
+                if self.wishBtn.backgroundImage(for: .normal) == UIImage(named: "ic_like.png") {
+                    self.alertMessageLabel.text = "위시리스트에 추가되었습니다!"
+                    self.wishBtn.setBackgroundImage(UIImage(named: "ic_like_filled.png"), for: .normal)
+                    self.reviewUpload()
+                } else if self.wishBtn.backgroundImage(for: .normal) == UIImage(named: "ic_like_filled.png") {
+                    self.alertMessageLabel.text = "위시리스트에서 제거되었습니다."
+                    self.wishBtn.setBackgroundImage(UIImage(named: "ic_like.png"), for: .normal)
+                    self.reviewUpload()
+                }
+                DataManager.updateWishList(id: SelectedProduct.foodId, uid: user.id)
+            })
+        } else {
+            let alert = UIAlertController(title: "로그인 후 이용해주세요!", message: "", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     let priceLevelList = ["비싸다","비싼편","적당","싼편","싸다"]
     let flavorLevelList = ["노맛","별로","적당","괜춘","존맛"]
@@ -73,16 +97,13 @@ class ProductDetailViewController: UIViewController {
         }
     }
     func reviewUpload() {
-        UIView.animate(withDuration: 1.5,delay: 0.5, animations: {
-            self.uploadingView.frame.origin.y -= 70
-        }, completion: { (complete:Bool) in
-            if complete == true{
-                self.uploadingView.isHidden = true
-                self.uploadingView.frame.origin.y += 70
-            }
+        self.uploadingView.alpha = 1
+        UIView.animate(withDuration: 2.0, animations: {
+            self.uploadingView.alpha = 0
         })
     }
     func startUploading(){
+        alertMessageLabel.text = "리뷰 업로드 중입니다..."
         uploadingView.isHidden = false
     }
     func addNotiObserver() {
@@ -91,6 +112,9 @@ class ProductDetailViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        wishBtn.setBackgroundImage(UIImage(named: "ic_like.png"), for: .normal)
+        
         let titleAttributes = [
             NSFontAttributeName: UIFont.boldSystemFont(ofSize: 16)
         ]
@@ -116,6 +140,12 @@ class ProductDetailViewController: UIViewController {
                 if let image = button.backgroundImage(for: .normal) {
                     destination?.image = image
                 }
+            }
+        } else if segue.destination is WritingReviewViewController {
+            if Auth.auth().currentUser == nil {
+                let alert = UIAlertController(title: "로그인 후 이용해주세요!", message: "", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }
@@ -144,8 +174,8 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                     cell.brandLabel.text = product.brand
                     cell.foodNameLabel.text = product.name
                     
-                    if product.event.count > 0 && product.event[0] != "\r" { //이벤트 데이터 베이스 수정 필요
-                        cell.eventLabel.text = product.event[0]
+                    if product.event != "\r" { //이벤트 데이터 베이스 수정 필요
+                        cell.eventLabel.text = product.event
                         Label.makeRoundLabel(label: cell.eventLabel, color: UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(1.0)))
                         cell.eventLabel.textColor = UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(1.0))
                     } else {
