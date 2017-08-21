@@ -152,6 +152,9 @@ extension MypageViewController: UITableViewDataSource, UITableViewDelegate {
                 self.present(alertController, animated: true, completion: nil)
             }else{
                 // 내가 찜한 상품 뷰
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyboard.instantiateViewController(withIdentifier: "LikeProductViewController") as! LikeProductViewController
+                self.present(vc, animated: true, completion: nil)
             }
         }
         if indexPath.row == 2 {

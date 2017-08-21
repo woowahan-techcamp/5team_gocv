@@ -879,7 +879,7 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hva-o8-6eK">
                                 <rect key="frame" x="16" y="13" width="20" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="ic_add.png"/>
+                                <state key="normal" image="back.png"/>
                                 <connections>
                                     <action selector="closeNavViewBtn:" destination="t3O-Pz-lwz" eventType="touchUpInside" id="m0X-tB-gS2"/>
                                 </connections>
@@ -1731,7 +1731,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="MypageTableViewCell" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="51" id="6Lg-Vw-iDj" customClass="MypageTableViewCell" customModule="pyunrihae" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="MypageTableViewCell" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" focusStyle="custom" rowHeight="51" id="6Lg-Vw-iDj" customClass="MypageTableViewCell" customModule="pyunrihae" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="12" width="375" height="51"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Lg-Vw-iDj" id="o4B-Aj-hJy">
@@ -1787,6 +1787,10 @@
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="back_right.png" translatesAutoresizingMaskIntoConstraints="NO" id="D53-HG-6cu">
                                 <rect key="frame" x="349" y="79" width="10" height="15"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_add.png" translatesAutoresizingMaskIntoConstraints="NO" id="r8W-HA-vSp">
+                                <rect key="frame" x="92" y="69" width="18" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -1884,7 +1888,7 @@
         <!--찜한 상품 리스트 -->
         <scene sceneID="RFr-9z-ag7">
             <objects>
-                <viewController title="찜한 상품 리스트 " id="wCb-CE-OEE" customClass="LikeProductViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LikeProductViewController" title="찜한 상품 리스트 " useStoryboardIdentifierAsRestorationIdentifier="YES" id="wCb-CE-OEE" customClass="LikeProductViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="PR8-FU-3J0"/>
                         <viewControllerLayoutGuide type="bottom" id="iGb-uU-CQe"/>
@@ -1904,32 +1908,32 @@
                                     <action selector="onTouchCloseButton:" destination="wCb-CE-OEE" eventType="touchUpInside" id="12A-rI-ebF"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9hs-eM-jtV">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="58" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9hs-eM-jtV">
                                 <rect key="frame" x="0.0" y="98" width="375" height="569"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LikeProductTableViewCell" id="gYF-Pu-ctP" customClass="LikeProductTableViewCell" customModule="pyunrihae" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LikeProductTableViewCell" rowHeight="58" id="gYF-Pu-ctP" customClass="LikeProductTableViewCell" customModule="pyunrihae" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gYF-Pu-ctP" id="MPM-Db-dqS">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="57.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vrg-y0-u5C">
-                                                    <rect key="frame" x="21" y="0.0" width="40" height="40"/>
+                                                    <rect key="frame" x="21" y="8" width="44" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="back_right.png" translatesAutoresizingMaskIntoConstraints="NO" id="ioc-sX-ZRs">
+                                                    <rect key="frame" x="343" y="16" width="24" height="24"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YjJ-P4-qQI">
-                                                    <rect key="frame" x="85" y="8" width="264" height="21"/>
+                                                    <rect key="frame" x="81" y="18" width="254" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="back_right.png" translatesAutoresizingMaskIntoConstraints="NO" id="ioc-sX-ZRs">
-                                                    <rect key="frame" x="331" y="9" width="24" height="24"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
@@ -1959,6 +1963,9 @@
                             <constraint firstItem="9hs-eM-jtV" firstAttribute="bottom" secondItem="iGb-uU-CQe" secondAttribute="top" id="wq7-9i-jpz"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="9hs-eM-jtV" id="fdd-xk-Fsc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rAm-CT-KY4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
