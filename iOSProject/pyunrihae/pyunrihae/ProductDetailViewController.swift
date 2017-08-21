@@ -158,6 +158,11 @@ class ProductDetailViewController: UIViewController {
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
+            if (user?.product_review_list.contains(SelectedProduct.foodId))!{
+                let alert = UIAlertController(title: "이미 리뷰한 상품입니다 :)", message: "", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
         }
     }
 }
