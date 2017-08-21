@@ -28,7 +28,7 @@ class TabBarViewController: UIViewController {
     var selectedTabIndex: Int = 0 // 선택된 뷰 컨트롤러 인덱스, 초기값은 0
     var selectedBrandIndex: Int = 0 // 선택된 브랜드 인덱스, 초기값은 0 (전체)
     let titleName = ["편리해","랭킹","리뷰","마이페이지"]
-    let category = ["전체","도시락","김밥","베이커리","라면","즉석식품","스낵","유제품","음료"]
+    let category = ["전체","도시락","김밥","베이커리","라면","식품","스낵","아이스크림","음료"]
     var categoryIndex = 0
     
     let appdelegate = UIApplication.shared.delegate as! AppDelegate

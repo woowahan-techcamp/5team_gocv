@@ -53,17 +53,18 @@ class ReviewViewController: UIViewController {
             getReviewList()
         }
     }
+    var scrollBar = UILabel()
     var reviewList : [Review] = []
     var categoryBtns = [UIButton]()
-    let category = ["전체","도시락","김밥","베이커리","라면","즉석식품","스낵","유제품","음료"]
+    let category = ["전체","도시락","김밥","베이커리","라면","식품","스낵","아이스크림","음료"]
     var isLoaded = false
     var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
 
     func addCategoryBtn(){ // 카테고리 버튼 스크롤 뷰에 추가하기
         categoryScrollView.isScrollEnabled = true
-        categoryScrollView.contentSize.width = CGFloat(80 * category.count)
+        categoryScrollView.contentSize.width = CGFloat(70 * category.count)
         for index in 0..<category.count {
-            let categoryBtn = UIButton(frame: CGRect(x: 80 * index, y: 5, width: 80, height: 40))
+            let categoryBtn = UIButton(frame: CGRect(x: 70 * index, y: 5, width: 70, height: 40))
             categoryBtn.setTitle(category[index], for: .normal) // 카테고리 버튼 텍스트
             categoryBtn.setTitleColor(UIColor.darkGray, for: .normal) // 카테고리 버튼 텍스트 색깔
             categoryBtn.contentHorizontalAlignment = .center // 카테고리 버튼 중앙정렬
@@ -73,14 +74,27 @@ class ReviewViewController: UIViewController {
             categoryBtn.addTarget(self, action: #selector(didPressCategoryBtn), for: UIControlEvents.touchUpInside)
             categoryScrollView.addSubview(categoryBtn)
         }
+        scrollBar.frame = CGRect(x: 15, y: 40, width: 40, height: 2)
+        let color = UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(Float(1)))
+        scrollBar.backgroundColor = color
+        categoryScrollView.addSubview(scrollBar)
         categoryScrollView.showsHorizontalScrollIndicator = false // 스크롤 바 없애기
     }
-    
     func didPressCategoryBtn(sender: UIButton) { // 카테고리 버튼 클릭 함수
         let previousCategoryIndex = selectedCategoryIndex
         selectedCategoryIndex = sender.tag
         categoryBtns[previousCategoryIndex].isSelected = false
         Button.select(btn: sender) // 선택된 버튼에 따라 뷰 보여주기
+        UIView.animate(withDuration: 1.0, animations: {
+            if sender.tag == 0 || sender.tag == 1 || sender.tag == 2 {
+                self.categoryScrollView.contentOffset.x = CGFloat(0)
+            } else if sender.tag == 6 || sender.tag == 7 || sender.tag == 8 {
+                self.categoryScrollView.contentOffset.x = CGFloat(7 * 35)
+            } else {
+                self.categoryScrollView.contentOffset.x = CGFloat((sender.tag - 1) * 40)
+            }
+            self.scrollBar.frame.origin.x = CGFloat(self.selectedCategoryIndex * 70 + 15)
+        })
         NotificationCenter.default.post(name: NSNotification.Name("showCategory"), object: self, userInfo: ["category" : selectedCategoryIndex])
     }
     
@@ -90,6 +104,14 @@ class ReviewViewController: UIViewController {
         if isLoaded {
             categoryBtns[previousCategoryIndex].isSelected = false
             Button.select(btn: categoryBtns[selectedCategoryIndex])
+            if selectedCategoryIndex == 0 || selectedCategoryIndex == 1 || selectedCategoryIndex == 2 {
+                categoryScrollView.contentOffset.x = CGFloat(0)
+            } else if selectedCategoryIndex == 6 || selectedCategoryIndex == 7 || selectedCategoryIndex == 8 {
+                categoryScrollView.contentOffset.x = CGFloat(7 * 35)
+            } else {
+                categoryScrollView.contentOffset.x = CGFloat((selectedCategoryIndex - 1) * 40)
+            }
+            scrollBar.frame.origin.x = CGFloat(selectedCategoryIndex * 70 + 15)
         }
     }
     func addNotiObserver() {

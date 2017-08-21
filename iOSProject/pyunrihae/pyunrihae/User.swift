@@ -47,10 +47,10 @@ class User {
         let email = dict["email"] as? String ?? ""
         let nickname = dict["nickname"] as? String ?? ""
         let review_like_list = dict["review_like_list"] as? [String : Int] ?? [:]
-        let product_like_list = dict["product_like_list"] as? [String] ?? []
+        let product_review_list = dict["product_review_list"] as? [String] ?? []
         let wish_product_list = dict["wish_product_list"] as? [String] ?? []
         
-       self.init(id: id,email: email,nickname : nickname,review_like_list: review_like_list, product_review_list: product_like_list, wish_product_list : wish_product_list)
+       self.init(id: id,email: email,nickname : nickname,review_like_list: review_like_list, product_review_list: product_review_list, wish_product_list : wish_product_list)
     }
 
 }

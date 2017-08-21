@@ -105,18 +105,23 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
         let user_image = "http://item.kakaocdn.net/dw/4407092.title.png"
         if checkGrade && checkPriceLevel && checkFlavorLevel && checkQuantityLevel {
             SelectedAllergy.allergyList = []
-            DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
-                DataManager.updateProductInfo(p_id: product.id, grade: self.grade, priceLevel: self.priceLevel, flavorLevel: self.flavorLevel, quantityLevel: self.quantityLevel, allergy: self.allergy)
-            }
+            self.navigationController?.popToRootViewController(animated: true)
+            NotificationCenter.default.post(name: NSNotification.Name("startUploading"), object: self)
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.user?.product_review_list.append(SelectedProduct.foodId)
+            DataManager.updateReviewList(id: SelectedProduct.foodId, uid: (appDelegate.user?.id)!)
             
             DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
                 DataManager.getUserFromUID(uid: (Auth.auth().currentUser?.uid)!, completion: { (user) in
                     let userNickName =  user.nickname
                     DataManager.writeReview(brand: product.brand, category: product.category, grade: self.grade, priceLevel: self.priceLevel, flavorLevel: self.flavorLevel, quantityLevel: self.quantityLevel, allergy: self.allergy, review: self.detailReview.text, user: userNickName, user_image: user_image, p_id: product.id, p_image: self.reviewImage, p_name: product.name, p_price: Int(product.price)!){
-                        self.navigationController?.popToRootViewController(animated: true)
-                        NotificationCenter.default.post(name: NSNotification.Name("startUploading"), object: self)
                     }
                 })
+            }
+            
+            DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
+                DataManager.updateProductInfo(p_id: product.id, grade: self.grade, priceLevel: self.priceLevel, flavorLevel: self.flavorLevel, quantityLevel: self.quantityLevel, allergy: self.allergy)
             }
  
  
