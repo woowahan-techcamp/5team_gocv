@@ -144,13 +144,16 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                     cell.brandLabel.text = product.brand
                     cell.foodNameLabel.text = product.name
                     
-                    if product.event.count > 0 && product.event[0] != "\r" { //이벤트 데이터 베이스 수정 필요
-                        cell.eventLabel.text = product.event[0]
+                    product.event = product.event.replacingOccurrences(of: "\r", with: "")
+                    
+                    if product.event != "" {
+                        cell.eventLabel.text = product.event
                         Label.makeRoundLabel(label: cell.eventLabel, color: UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(1.0)))
                         cell.eventLabel.textColor = UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(1.0))
-                    } else {
+                    }else{
                         cell.eventLabel.isHidden = true
                     }
+
                     cell.loading.startAnimating()
                     let foodImage = UIImageView()
                     foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), completion:{ image in

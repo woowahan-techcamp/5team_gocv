@@ -182,7 +182,7 @@ class RankingViewController: UIViewController {
             } else { // 브랜드도 카테고리도 전체가 아닐 때
                 self.productList = []
                 for product in self.appdelegate.productList {
-                    if product.category == categoryBtns[selectedCategoryIndex].titleLabel?.text! && product.brand == product.brand{
+                    if product.category == categoryBtns[selectedCategoryIndex].titleLabel?.text! && product.brand == brand{
                         self.productList.append(product)
                     }
                 }
@@ -256,13 +256,23 @@ extension RankingViewController: UICollectionViewDataSource {
             cell.productNameLabel.text = product.name
             
             
-            if product.event.count > 0 {
-                if product.event[0].characters.count > 2 {
-                    cell.EventLabel.isHidden = false
-                    cell.EventLabel.text = product.event[0]
-                }else{
-                    cell.EventLabel.isHidden = true
-                }
+//            if product.event.count > 0 {
+//                if product.event[0].characters.count > 2 {
+//                    cell.EventLabel.isHidden = false
+//                    cell.EventLabel.text = product.event[0]
+//                }
+//            }else{
+//                cell.EventLabel.isHidden = true
+//            }
+            
+            product.event = product.event.replacingOccurrences(of: "\r", with: "")
+            
+            if product.event != "" {
+                cell.EventLabel.isHidden = false
+                cell.EventLabel.text = product.event
+
+            }else{
+                cell.EventLabel.isHidden = true
             }
            
             
