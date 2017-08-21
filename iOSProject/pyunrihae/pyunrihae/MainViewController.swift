@@ -416,7 +416,12 @@ extension MainViewController: UICollectionViewDataSource { //메인화면에서 
                     imageview.frame.size.width = 32;
                     imageview.frame.size.height = 14;
                     imageview.center = CGPoint.init(x: cell.brandLabel.frame.size.width  / 2, y: cell.brandLabel.frame.size.height / 2);
-                default : break;
+                default :
+                    imageview.image = #imageLiteral(resourceName: "ic_common.png")
+                    imageview.frame.size.width = 50;
+                    imageview.frame.size.height = 20;
+                    imageview.center = CGPoint.init(x: cell.brandLabel.frame.size.width  / 2, y: cell.brandLabel.frame.size.height / 2);
+
                 }
                 
                 cell.brandLabel.addSubview(imageview)
