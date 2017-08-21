@@ -17,8 +17,8 @@
 .fixTab-bottom{
     position: fixed;
     width: 100%;
-    background-color: #ff5f4e;
-    height: 2px;
+    background-color: #eeeeee;
+    height: 1px;
     top: 60px;
     z-index: 100;
 
