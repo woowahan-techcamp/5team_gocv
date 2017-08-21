@@ -55,7 +55,7 @@ class ReviewViewController: UIViewController {
     }
     var reviewList : [Review] = []
     var categoryBtns = [UIButton]()
-    let category = ["전체","도시락","김밥","베이커리","라면","즉석식품","스낵","유제품","음료"]
+    let category = ["전체","도시락","김밥","베이커리","라면","식품","스낵","아이스크림","음료"]
     var isLoaded = false
     var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
 

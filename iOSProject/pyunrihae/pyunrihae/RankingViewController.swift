@@ -57,7 +57,7 @@ class RankingViewController: UIViewController {
     var productList : [Product] = []
     var categoryBtns = [UIButton]()
     var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
-    let category = ["전체","도시락","김밥","베이커리","라면","즉석식품","스낵","유제품","음료"]
+    let category = ["전체","도시락","김밥","베이커리","라면","식품","스낵","아이스크림","음료"]
     func addCategoryBtn(){ // 카테고리 버튼 스크롤 뷰에 추가하기
         categoryScrollView.isScrollEnabled = true
         categoryScrollView.contentSize.width = CGFloat(80 * category.count)

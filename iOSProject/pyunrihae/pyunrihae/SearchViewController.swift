@@ -127,9 +127,9 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
         case "김밥" : categoryIndex = 2
         case "베이커리" : categoryIndex = 3
         case "라면": categoryIndex = 4
-        case "즉석식품" : categoryIndex = 5
+        case "식품" : categoryIndex = 5
         case "스낵" : categoryIndex = 6
-        case "유제품" : categoryIndex = 7
+        case "아이스크림" : categoryIndex = 7
         case "음료" : categoryIndex = 8
         default : categoryIndex = 0
         }
