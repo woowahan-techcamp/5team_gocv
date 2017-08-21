@@ -1,0 +1,106 @@
+.review-item-list-wrapper{
+    margin: auto;
+}
+
+.card-main-review-content{
+
+}
+
+.review-card-content{
+    float: left;
+    border: solid 2px #ffb3b2;
+    margin: 15px;
+}
+
+.review-card-image-wrapper{
+    margin: 15px;
+    width: 400px;
+    display: block;
+    position: relative;
+}
+
+.review-card-brand{
+    position: absolute;
+    z-index: 5;
+    width: 80px;
+    height: 50px;
+}
+
+.review-card-date{
+    position: absolute;
+    right: 10px;
+    line-heighst: 1;
+    z-index: 5;
+    color: white;
+}
+
+.review-card-image{
+    display: block;
+    width: 400px;
+    position: relative;
+}
+
+.review-user-image-wrapper{
+    display: block;
+    z-index: 5;
+    margin-top: -75px;
+    width: 400px;
+    text-align: center;
+    position: relative;
+}
+
+.review-user-image{
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+}
+
+.review-card-description{
+    font-weight: bold;
+}
+
+.review-card-rating{
+    display: inline-block;
+}
+
+.review-card-assess{
+  float: right;
+}
+
+.review-card-name{
+    margin-top: 10px;
+}
+
+.review-card-rating{
+
+}
+
+.review-card-review{
+    margin-top: 10px;
+}
+
+.popup-review-good, .popup-review-bad{
+    cursor:pointer;
+    float: left;
+    width: 80px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: #9a80ff;
+    text-align: center;
+    color: white;
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+.popup-review-good2, .popup-review-bad2{
+    float: left;
+    width: 30px;
+    background-color: #ffffff;
+    text-align: center;
+    color: #000000;
+    font-weight: 600;
+    margin-top: 5px;
+    font-size: 12px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
