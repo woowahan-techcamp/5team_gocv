@@ -210,8 +210,9 @@ class DataManager{
             localRef.updateChildValues(update)
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             appDelegate.user?.wish_product_list = wishList
+            NotificationCenter.default.post(name: NSNotification.Name("likeListChanged"), object: nil)
+            
         })
-        
     }
     
     

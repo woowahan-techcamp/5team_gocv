@@ -10,6 +10,7 @@ import UIKit
 
 class LikeProductTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var moreImage: UIImageView!
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var productImageView: UIImageView!
     override func awakeFromNib() {

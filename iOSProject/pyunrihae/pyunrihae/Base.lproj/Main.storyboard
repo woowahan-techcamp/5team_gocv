@@ -1584,7 +1584,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" distribution="fillProportionally" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="r8a-WR-wiP">
-                                                            <rect key="frame" x="10" y="5.9999999999999991" width="189.5" height="16"/>
+                                                            <rect key="frame" x="10" y="6" width="189.5" height="16"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="7-eleven" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dkm-wv-gZC">
@@ -1912,7 +1912,7 @@
                                 <rect key="frame" x="0.0" y="98" width="375" height="569"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LikeProductTableViewCell" rowHeight="58" id="gYF-Pu-ctP" customClass="LikeProductTableViewCell" customModule="pyunrihae" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LikeProductTableViewCell" focusStyle="custom" rowHeight="58" id="gYF-Pu-ctP" customClass="LikeProductTableViewCell" customModule="pyunrihae" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gYF-Pu-ctP" id="MPM-Db-dqS">
@@ -1937,6 +1937,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="moreImage" destination="ioc-sX-ZRs" id="19J-SX-QuT"/>
                                             <outlet property="productImageView" destination="vrg-y0-u5C" id="VSo-4b-8AK"/>
                                             <outlet property="productNameLabel" destination="YjJ-P4-qQI" id="dr5-zO-xFj"/>
                                         </connections>
