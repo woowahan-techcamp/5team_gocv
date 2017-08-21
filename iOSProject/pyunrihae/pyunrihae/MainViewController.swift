@@ -103,6 +103,10 @@ class MainViewController: UIViewController {
             
             if self.appdelegate.productList.count > 0 { // global product list가 저장된 후
                 self.productList = self.appdelegate.productList
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                    self.hideActivityIndicatory()
+                }
             }else{ // global product list가 없다면
                 DataManager.getTop3Product() { (products) in
                     self.productList = products
