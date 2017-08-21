@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D30" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="09o-sF-lFm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D30" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="HaO-aV-VCf">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -1577,7 +1579,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" distribution="fillProportionally" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="r8a-WR-wiP">
-                                                            <rect key="frame" x="10" y="6" width="189.5" height="16"/>
+                                                            <rect key="frame" x="10" y="5.9999999999999991" width="189.5" height="16"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="7-eleven" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dkm-wv-gZC">
@@ -1795,6 +1797,88 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jlV-RO-HwI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1327.2" y="3849.6251874062973"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="BAk-qy-9cF">
+            <objects>
+                <viewController id="HaO-aV-VCf" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4vG-ee-DVR"/>
+                        <viewControllerLayoutGuide type="bottom" id="3iS-yd-gXw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6W6-UD-cXK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IGg-29-dlJ">
+                                <rect key="frame" x="16" y="39" width="22" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="WoA-il-5HD"/>
+                                    <constraint firstAttribute="width" secondItem="IGg-29-dlJ" secondAttribute="height" multiplier="1:1" id="s22-Iv-Sj3"/>
+                                </constraints>
+                                <state key="normal" image="ic_close_gray.png"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="닉네임 수정" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kh1-J0-jjf">
+                                <rect key="frame" x="151" y="40.5" width="73.5" height="19.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="1" green="0.47061997649999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nyV-AG-DaJ">
+                                <rect key="frame" x="23" y="109" width="329" height="74"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="dJL-iS-t6O">
+                                        <rect key="frame" x="10" y="12" width="309" height="50"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_nickname.png" translatesAutoresizingMaskIntoConstraints="NO" id="h5e-3D-tUD">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            </imageView>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="수정할 닉네임을 적어주세요." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SML-aU-rd3">
+                                                <rect key="frame" x="55" y="0.0" width="254" height="50"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="dJL-iS-t6O" firstAttribute="leading" secondItem="nyV-AG-DaJ" secondAttribute="leading" constant="10" id="J7P-Yy-7oV"/>
+                                    <constraint firstAttribute="trailing" secondItem="dJL-iS-t6O" secondAttribute="trailing" constant="10" id="KcU-4H-wIB"/>
+                                    <constraint firstItem="dJL-iS-t6O" firstAttribute="centerX" secondItem="nyV-AG-DaJ" secondAttribute="centerX" id="c7o-sW-uTS"/>
+                                    <constraint firstItem="dJL-iS-t6O" firstAttribute="centerY" secondItem="nyV-AG-DaJ" secondAttribute="centerY" id="jEi-46-SSg"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ed7-RN-tu2">
+                                <rect key="frame" x="43" y="246" width="289" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ed7-RN-tu2" secondAttribute="height" multiplier="32:5" id="GtG-LG-vK8"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="ic_complete_enabled.png"/>
+                                <state key="disabled" backgroundImage="ic_complete.png"/>
+                                <state key="selected" backgroundImage="ic_complete_enabled.png"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="IGg-29-dlJ" firstAttribute="leading" secondItem="6W6-UD-cXK" secondAttribute="leading" constant="16" id="8hF-7J-TuU"/>
+                            <constraint firstItem="nyV-AG-DaJ" firstAttribute="leading" secondItem="6W6-UD-cXK" secondAttribute="leadingMargin" constant="7" id="Dsf-9n-MPe"/>
+                            <constraint firstItem="nyV-AG-DaJ" firstAttribute="centerX" secondItem="6W6-UD-cXK" secondAttribute="centerX" id="Qse-dn-8ae"/>
+                            <constraint firstItem="ed7-RN-tu2" firstAttribute="leading" secondItem="6W6-UD-cXK" secondAttribute="leadingMargin" constant="27" id="Quc-cK-T3m"/>
+                            <constraint firstItem="3iS-yd-gXw" firstAttribute="top" secondItem="ed7-RN-tu2" secondAttribute="bottom" constant="321" id="SXO-LQ-hlR"/>
+                            <constraint firstItem="ed7-RN-tu2" firstAttribute="centerX" secondItem="6W6-UD-cXK" secondAttribute="centerX" id="b83-QG-dYv"/>
+                            <constraint firstItem="Kh1-J0-jjf" firstAttribute="centerX" secondItem="6W6-UD-cXK" secondAttribute="centerX" id="d7b-Q6-Gzb"/>
+                            <constraint firstItem="IGg-29-dlJ" firstAttribute="centerY" secondItem="Kh1-J0-jjf" secondAttribute="centerY" id="fGk-A2-30T"/>
+                            <constraint firstItem="nyV-AG-DaJ" firstAttribute="top" secondItem="IGg-29-dlJ" secondAttribute="bottom" constant="48" id="otb-Y4-Vjm"/>
+                            <constraint firstItem="ed7-RN-tu2" firstAttribute="top" secondItem="nyV-AG-DaJ" secondAttribute="bottom" constant="118" id="qo5-Vd-hTg"/>
+                            <constraint firstItem="IGg-29-dlJ" firstAttribute="top" secondItem="4vG-ee-DVR" secondAttribute="bottom" constant="19" id="rox-Rw-F1A"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rhe-QR-ckg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-498.55072463768118" y="3849.4565217391309"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Kan-CB-blf">
