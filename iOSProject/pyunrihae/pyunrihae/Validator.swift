@@ -47,5 +47,6 @@ class Validator {
         }
     }
     
+
     //TODO 현재 user모델에 있는 이메일인지도 확인해야함.
 }
