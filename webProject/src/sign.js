@@ -207,9 +207,14 @@ class SignIn {
                 });
             })
 
-            const myPage = new MyPage(user.uid);
-
             document.querySelector('#sign').style.display = "none";
+
+            document.querySelector('.fixTab-profile-element').addEventListener("click",function (){
+                const myPage = new MyPage(user.uid);
+
+            });
+
+
         })
     }
 }
@@ -297,7 +302,7 @@ class MyPage {
         const sec2 = document.querySelector("#myPageReviewNavi");
         util.template(wishReviewArr, template2, sec2);
 
-        this.setDeleteButtonEvent();
+        this.setDeleteButtonEvent()
     }
 
     setDeleteButtonEvent() {
@@ -325,10 +330,14 @@ class MyPage {
                     console.log(newWishArr)
 
                     firebase.database().ref('user/' + that.userId + "/wish_product_list").set(newWishArr).then(function () {
-                        console.log("완")
+                        firebase.database().ref('user/')
+                            .once('value').then(function (snapshot) {
+
+                            localStorage['user'] = JSON.stringify(snapshot.val());
+                        });
+
                     });
                 }
-
             }.bind(that));
         }.bind(this));
 
