@@ -356,8 +356,8 @@
 <!--상품 상세페이지 모달창-->
 <div id="popup" class="overlay"></div>
 
-<!--로그인 모달창-->
-<div style="display:block" id="myPage" class="myPage-overlay">
+<!--마이페이지 모달창-->
+<div style="display:none" id="myPage" class="myPage-overlay">
     <div class="myPage-wrapper">
 
         <div class="myPage-profile-wrapper">
@@ -465,6 +465,29 @@
 
 
 
+    </div>
+</div>
+
+<!--로그인 모달창-->
+<div style="display:block" id="sign" class="sign-overlay">
+    <div class="sign-wrapper">
+        <div class="signin-facebook">
+            <img class="icon" src="image/facebook2.png">Facebook 계정으로 로그인</div>
+        <div class="signin-google">
+            <img  class="icon" src="image/google.png"> Google 계정으로 로그인</div>
+
+        <div lass="sign-line"></div>
+        <input class="signin-id" placeholder="이메일 주소" value="tong9433@naver.com"/>
+        <input type="password" class="signin-password" placeholder="비밀번호" value="008055"/>
+
+        <div class="signin-button">로그인 </div>
+        <div id="signinErrorCheck" style="display:none; margin: 0px 30px -10px; color: red; font-size: 12px"></div>
+        <div class="sign-line"></div>
+        <div class="signup-wrapper">
+
+            <div class="signup-text">편리해 계정이 없으신가요?</div>
+            <div id="sign-signupButton" class="signup-button">회원가입</div>
+        </div>
     </div>
 </div>
 
