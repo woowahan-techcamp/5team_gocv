@@ -9,8 +9,6 @@ var config = {
 
 firebase.initializeApp(config);
 
-const storage = localStorage['product'];
-const storage2 = localStorage['review'];
 
 firebase.database().ref('product/')
     .once('value').then(function (snapshot) {
@@ -23,6 +21,12 @@ firebase.database().ref('review/')
 
     localStorage['review'] = JSON.stringify(snapshot.val());
 
+});
+
+firebase.database().ref('user/')
+    .once('value').then(function (snapshot) {
+
+    localStorage['user'] = JSON.stringify(snapshot.val());
 });
 
 const value = {
