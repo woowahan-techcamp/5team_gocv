@@ -104,27 +104,32 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
     @IBAction func tabCompleteBtn(_ sender: UIButton) {
         let user_image = "http://item.kakaocdn.net/dw/4407092.title.png"
         if checkGrade && checkPriceLevel && checkFlavorLevel && checkQuantityLevel {
-            SelectedAllergy.allergyList = []
-            self.navigationController?.popToRootViewController(animated: true)
-            NotificationCenter.default.post(name: NSNotification.Name("startUploading"), object: self)
             
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.user?.product_review_list.append(SelectedProduct.foodId)
-            DataManager.updateReviewList(id: SelectedProduct.foodId, uid: (appDelegate.user?.id)!)
-            
-            DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
-                DataManager.getUserFromUID(uid: (Auth.auth().currentUser?.uid)!, completion: { (user) in
-                    let userNickName =  user.nickname
-                    DataManager.writeReview(brand: product.brand, category: product.category, grade: self.grade, priceLevel: self.priceLevel, flavorLevel: self.flavorLevel, quantityLevel: self.quantityLevel, allergy: self.allergy, review: self.detailReview.text, user: userNickName, user_image: user_image, p_id: product.id, p_image: self.reviewImage, p_name: product.name, p_price: Int(product.price)!){
-                    }
-                })
+            if detailReview.text.characters.count > 500 {
+                let alert = UIAlertController(title: "알림", message: "500자 이내로 리뷰를 작성해주세요!", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            } else {
+                SelectedAllergy.allergyList = []
+                self.navigationController?.popToRootViewController(animated: true)
+                NotificationCenter.default.post(name: NSNotification.Name("startUploading"), object: self)
+                
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                appDelegate.user?.product_review_list.append(SelectedProduct.foodId)
+                DataManager.updateReviewList(id: SelectedProduct.foodId, uid: (appDelegate.user?.id)!)
+                
+                DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
+                    DataManager.getUserFromUID(uid: (Auth.auth().currentUser?.uid)!, completion: { (user) in
+                        let userNickName =  user.nickname
+                        DataManager.writeReview(brand: product.brand, category: product.category, grade: self.grade, priceLevel: self.priceLevel, flavorLevel: self.flavorLevel, quantityLevel: self.quantityLevel, allergy: self.allergy, review: self.detailReview.text, user: userNickName, user_image: user_image, p_id: product.id, p_image: self.reviewImage, p_name: product.name, p_price: Int(product.price)!){
+                        }
+                    })
+                }
+                
+                DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
+                    DataManager.updateProductInfo(p_id: product.id, grade: self.grade, priceLevel: self.priceLevel, flavorLevel: self.flavorLevel, quantityLevel: self.quantityLevel, allergy: self.allergy)
+                }
             }
-            
-            DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
-                DataManager.updateProductInfo(p_id: product.id, grade: self.grade, priceLevel: self.priceLevel, flavorLevel: self.flavorLevel, quantityLevel: self.quantityLevel, allergy: self.allergy)
-            }
- 
- 
         } else {
             let alert = UIAlertController(title: "리뷰를 완성해주세요!", message: "\r별점 및 상세 평점을 모두 채워주세요 :)", preferredStyle: .alert)
             //Create and add the Cancel action

@@ -48,9 +48,6 @@ class ProductDetailViewController: UIViewController {
     var productGrade = 0.0 //임의로 넣어놧음
     var usefulBtns = [UIButton]()
     var badBtns = [UIButton]()
-    var usefulLabels = [UILabel]()
-    var badLabels = [UILabel]()
-    var reviewIdList = [String]()
     var reviewList = [Review]()
     var product = Product()
     let appdelegate = UIApplication.shared.delegate as! AppDelegate
@@ -91,11 +88,9 @@ class ProductDetailViewController: UIViewController {
             DataManager.getReviewListBy(id: SelectedProduct.foodId) { (reviewList) in
                 SelectedProduct.reviewCount = reviewList.count
                 self.reviewList = reviewList
+                self.setReviewListOrder()
                 self.usefulBtns = []
                 self.badBtns = []
-                self.usefulLabels = []
-                self.badLabels = []
-                self.reviewIdList = []
                 self.tableView.reloadData()
             }
         }
@@ -296,6 +291,9 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ProductReviewTableViewCell
             if indexPath.row > 1 {
                 cell.isHidden = false
+                cell.uploadedFoodImageBtn.isHidden = false
+                cell.detailReviewLabel.isHidden = false
+                cell.detailReviewLabel.frame.origin.y = 130
                 Image.makeCircleImage(image: cell.userImage)
                 cell.reviewBoxView.layer.cornerRadius = 10
                 let row = indexPath.row - 2
@@ -309,19 +307,15 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                 cell.userImage.image = UIImage(named: "user_default.png")
                 cell.uploadedFoodImageBtn.setBackgroundImage(UIImage(), for: .normal)
                 
-                
                 if reviewList.count == SelectedProduct.reviewCount && reviewList.count > 0 {
                     usefulBtns.append(cell.usefulBtn)
                     badBtns.append(cell.badBtn)
-                    reviewIdList.append(reviewList[row].id)
-                    usefulLabels.append(cell.usefulNumLabel)
-                    badLabels.append(cell.badNumLabel)
                     cell.reviewId = reviewList[row].id
                     cell.usefulBtn.addTarget(self, action: #selector(self.didPressUsefulBtn), for: UIControlEvents.touchUpInside)
                     cell.badBtn.addTarget(self, action: #selector(self.didPressBadBtn), for: UIControlEvents.touchUpInside)
                     cell.badNumLabel.text = String(reviewList[row].bad)
                     cell.usefulNumLabel.text = String(reviewList[row].useful)
-                    if let userReviewLike = appdelegate.user?.review_like_list[reviewIdList[row]]{
+                    if let userReviewLike = appdelegate.user?.review_like_list[reviewList[row].id]{
                         if userReviewLike == 1 {
                             Button.makeBorder(btn: cell.usefulBtn)
                             Button.deleteBorder(btn: cell.badBtn)
@@ -506,7 +500,7 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
         format.timeZone = TimeZone(abbreviation: "KST")
         format.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
-        if sortingMethodLabel.text == "최신순"{
+        if orderBy == "최신순"{
             self.reviewList = reviewList.sorted(by: { (review1, review2) in
                 if format.date(from: review1.timestamp) != nil && format.date(from: review2.timestamp) != nil {
                     return format.date(from: review1.timestamp)! > format.date(from: review2.timestamp)!
@@ -517,8 +511,11 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
         }else{
             self.reviewList = reviewList.sorted(by: { $0.useful > $1.useful })
         }
-        
-        self.tableView.reloadData()
+        DispatchQueue.main.async {
+            self.usefulBtns = []
+            self.badBtns = []
+            self.tableView.reloadData()
+        }
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
