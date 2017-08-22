@@ -35,4 +35,5 @@ const value = {
   keyword: ''
 };
 
+
 localStorage['search_keyword'] = JSON.stringify(value);

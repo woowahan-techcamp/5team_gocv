@@ -94,14 +94,13 @@ class SignUp{
 
             }).then(function(){
                 const user = firebase.auth().currentUser;
-                console.log("회원가입후 로그인 처")
 
                 database.ref('user/'+user.uid).set({
                     "email" : this.email.value,
                     "id" : user.uid,
                     "nickname" : this.nic.value,
+                    "user_profile" : "https://avatars3.githubusercontent.com/u/22839752?v=4&s=460"
                 }).then(function(){
-                    console.log("db업로드")
 
 
                     //한번 다시 user db 캐시 업데이트
@@ -111,11 +110,11 @@ class SignUp{
 
                         const userStorage = localStorage['user'];
                         const userData = JSON.parse(userStorage);
-
                         const user = firebase.auth().currentUser;
 
                         //프로필 탭 설정
                         document.querySelector(".fixTab-profile-wrapper").style.display = "block"
+                        document.querySelector("#fixTabProfileImg").setAttribute("src",userData[user.uid].user_profile);
                         document.querySelector(".fixTab-profile-id").innerHTML =
                             userData[user.uid].nickname+ "<ul class=\"fixTab-profile-dropdown\">\n" +
                             "                    <li class=\"fixTab-profile-element\">내 정보</li>\n" +
@@ -196,6 +195,7 @@ class SignIn{
             const user = firebase.auth().currentUser;
             //프로필 탭 설정
             document.querySelector(".fixTab-profile-wrapper").style.display = "block"
+            document.querySelector("#fixTabProfileImg").setAttribute("src",userData[user.uid].user_profile);
             document.querySelector(".fixTab-profile-id").innerHTML =
                 userData[user.uid].nickname+ "<ul class=\"fixTab-profile-dropdown\">\n" +
                 "                    <li class=\"fixTab-profile-element\">내 정보</li>\n" +

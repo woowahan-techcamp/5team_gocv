@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
     console.log(user);
 
-   
+
 
 
     const profileDrop = document.querySelector('.fixTab-profile-id');
@@ -384,6 +384,7 @@ class Review {
         this.data = [0, 0, 0, 0, ""];
         this.navi = navi;
         this.reviewId =""
+        this.fileName ="";
         this.init()
 
     }
@@ -500,6 +501,7 @@ class Review {
     }
 
     setMakeReview() {
+
         this.data[4] = document.querySelector('.popup-newReview-comment').value;
         this.setOnOff();
         const database = firebase.database();
@@ -509,29 +511,28 @@ class Review {
         let file = document.querySelector('#reviewImageInput').files[0];
 
 
-        //파일의 확장자를 알 수 있음
-        file.type.split("/")[1];
+        this.fileName='images/' + this.reviewId + "." + file.type.split("/")[1]
 
-        var storageRef = firebase.storage().ref();
-        var mountainImagesRef = storageRef.child('images/'+this.reviewId+"."+file.type.split("/")[1]);
-        mountainImagesRef.put(file).then(function(snapshot) {
+        const storageRef = firebase.storage().ref();
+        const mountainImagesRef = storageRef.child(this.fileName);
+
+        mountainImagesRef.put(file).then(function (snapshot) {
             console.log('Uploaded a blob or file!');
             this.updateDb();
         }.bind(this));
-
-
-
     }
 
     updateDb(){
-        let file = document.querySelector('#reviewImageInput').files[0];
-        var storageRef = firebase.storage().ref();
+        const storageRef = firebase.storage().ref();
         const database = firebase.database();
 
-        storageRef.child('images/'+this.reviewId+"."+file.type.split("/")[1]).getDownloadURL().then(function(url) {
+        storageRef.child(this.fileName).getDownloadURL().then(function(url) {
             const that = this;
 
-            console.log(url);
+            const userStorage = localStorage['user'];
+            const userData = JSON.parse(userStorage);
+            const user = firebase.auth().currentUser;
+
 
             database.ref('review/'+this.reviewId).set({
                 "bad" : 0,
@@ -549,8 +550,8 @@ class Review {
                 "quantity" : this.data[3],
                 "timestamp" : timestamp(),
                 "useful" : 0,
-                "user" : "tongtong",
-                "user_image" : "http://item.kakaocdn.net/dw/4407092.title.png"
+                "user" : userData[user.uid].nickname,
+                "user_image" : userData[user.uid].user_profile,
             });
 
             //상품 리뷰리스트에 리뷰 번호 추가
