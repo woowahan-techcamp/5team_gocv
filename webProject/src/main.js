@@ -376,10 +376,11 @@ class MakeChart{
 //review의 이벤트를 만들고 리뷰를 생성하는 클래스
 class Review {
 
-    constructor(id, navi,product) {
+    constructor(id, navi,product,user) {
         this.id = id;
         this.value = 0;
         this.product = product;
+        this.user =user;
         this.comment = "";
         this.data = [0, 0, 0, 0, ""];
         this.navi = navi;
@@ -530,9 +531,8 @@ class Review {
             const that = this;
 
             const userStorage = localStorage['user'];
-            const userData = JSON.parse(userStorage);
+            this.user = JSON.parse(userStorage);
             const user = firebase.auth().currentUser;
-
 
             database.ref('review/'+this.reviewId).set({
                 "bad" : 0,
@@ -550,9 +550,21 @@ class Review {
                 "quantity" : this.data[3],
                 "timestamp" : timestamp(),
                 "useful" : 0,
-                "user" : userData[user.uid].nickname,
-                "user_image" : userData[user.uid].user_profile,
+                "user" : this.user[user.uid].nickname,
+                "user_image" : this.user[user.uid].user_profile,
             });
+
+
+
+            //해당 유저에 자기가 작성한 리뷰 리스트 넣기
+            if(!!this.user.product_review_list){
+                this.user.product_review_list.push(this.product.id);
+            }else{
+                this.user.product_review_list=[];
+                this.user.product_review_list.push(this.product.id);
+            }
+           database.ref('user/'+user.uid+'/product_review_list').set(this.user.product_review_list);
+
 
             //상품 리뷰리스트에 리뷰 번호 추가
             if(!!this.product.reviewList){
