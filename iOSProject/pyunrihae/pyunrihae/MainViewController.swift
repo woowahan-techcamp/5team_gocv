@@ -270,7 +270,7 @@ class MainViewController: UIViewController {
                 
                 
             }
-            NotificationCenter.default.post(name: NSNotification.Name("doneLoading"), object: self)
+            
         }
         
         

@@ -50,9 +50,15 @@ class UpdateNicknameViewController: UIViewController {
         
         if completeBtn.isEnabled {
             if appdelegate.user != nil {
-                DataManager.updateUserNickname(user: appdelegate.user!, nickname: nickNameTextField.text!)
-                self.dismiss(animated: false, completion: nil)
-                NotificationCenter.default.post(name: NSNotification.Name("userLogined"), object: nil)
+                if (nickNameTextField.text?.characters.count)! > 10 {
+                    let alert = UIAlertController(title: "알림", message: "10자 이내로 닉네임을 설정해주세요!", preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                } else {
+                    DataManager.updateUserNickname(user: appdelegate.user!, nickname: nickNameTextField.text!)
+                    self.dismiss(animated: false, completion: nil)
+                    NotificationCenter.default.post(name: NSNotification.Name("userLogined"), object: nil)
+                }
             }
         }
         
