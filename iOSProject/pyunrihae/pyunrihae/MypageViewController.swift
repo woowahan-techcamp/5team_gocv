@@ -8,15 +8,22 @@
 
 import UIKit
 import FirebaseAuth
-class MypageViewController: UIViewController {
+import Fusuma
+import AlamofireImage
+
+class MypageViewController: UIViewController, FusumaDelegate{
 
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var alertLabel: UILabel!
     @IBOutlet weak var nickNameLabel: UILabel!
+    @IBOutlet weak var moreImg: UIImageView!
+    @IBOutlet weak var photoEditImage: UIImageView!
     
-    var labelList = ["닉네임 수정","내가 찜한 상품","편리해 정보","회원가입 / 로그인"]
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    var labelList = ["내가 찜한 상품","편리해 정보","회원가입 / 로그인"]
     override func viewDidLoad() {
         NotificationCenter.default.addObserver(self, selector: #selector(checkUserLogin), name: NSNotification.Name("userLogined"), object: nil)
         super.viewDidLoad()
@@ -24,6 +31,17 @@ class MypageViewController: UIViewController {
         tableView.dataSource = self
         // Do any additional setup after loading the view.
         checkUserLogin()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(nicknameTapped))
+        let tapGesture2 = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
+        
+    
+        nickNameLabel.addGestureRecognizer(tapGesture)
+        nickNameLabel.isUserInteractionEnabled = true
+        
+        userImage.addGestureRecognizer(tapGesture2)
+        userImage.isUserInteractionEnabled = true
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,22 +49,59 @@ class MypageViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    func nicknameTapped(){
+        if nickNameLabel.text != "로그인을 해주세요." {
+            // 닉네임 수정
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "UpdateNicknameViewController") as! UpdateNicknameViewController
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
     func checkUserLogin(){
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let user = appDelegate.user
         if user?.email != "" {
-            userImage.image = UIImage(named: "user_default.png")
+            
+            if user?.user_profile != nil {
+//                userImage.af_setImage(withURL: URL(string: (user?.user_profile)!)!)
+//                userImage.image = userImage.image?.af_imageRoundedIntoCircle()
+                
+                let url = URL(string: (user?.user_profile)!)!
+                let placeholderImage = UIImage(named: "ic_user")!
+                
+                let filter = AspectScaledToFillSizeCircleFilter(
+                    size: userImage.frame.size
+                )
+                
+                userImage.af_setImage(
+                    withURL: url,
+                    placeholderImage: placeholderImage,
+                    filter: filter
+                )
+            }else{
+                userImage.image = UIImage(named: "user_default.png")
+            }
             nickNameLabel.text = user?.nickname
             emailLabel.text = user?.email
-            labelList[3] = "로그아웃"
+            labelList[2] = "로그아웃"
+            DispatchQueue.main.async {
+                self.moreImg.isHidden = false
+                self.photoEditImage.isHidden = false
+            }
             tableView.reloadData()
         } else {
             nickNameLabel.text = "로그인을 해주세요."
             emailLabel.text = "로그인을 해주세요."
-            labelList[3] = "회원가입 / 로그인"
+            labelList[2] = "회원가입 / 로그인"
+            DispatchQueue.main.async {
+                self.moreImg.isHidden = true
+                self.photoEditImage.isHidden = true
+            }
             tableView.reloadData()
         }
     }
+
     
     func setLogined(){
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -55,7 +110,7 @@ class MypageViewController: UIViewController {
             DispatchQueue.main.async{
                 self.nickNameLabel.text = currentUser?.nickname
                 self.emailLabel.text = currentUser?.email
-                self.labelList[3] = "로그아웃"
+                self.labelList[2] = "로그아웃"
                 self.tableView.reloadData()
             }
         }else{
@@ -63,7 +118,7 @@ class MypageViewController: UIViewController {
                 self.userImage.image = UIImage(named: "ic_user.png")
                 self.nickNameLabel.text = "로그인을 해주세요."
                 self.emailLabel.text = "로그인을 해주세요."
-                self.labelList[3] = "회원가입 / 로그인"
+                self.labelList[2] = "회원가입 / 로그인"
                 self.tableView.reloadData()
             }
         }
@@ -87,6 +142,69 @@ class MypageViewController: UIViewController {
         
        
     }
+    
+    // 사진선택 (Fusma 관련 함수) 
+    // MARK: FusumaDelegate Protocol
+    
+    func profileTapped(){
+        if appDelegate.user?.email != "" {
+            let fusuma = FusumaViewController()
+            
+            fusuma.delegate = self
+            fusuma.cropHeightRatio = 0.7
+            fusuma.defaultMode = .library
+            fusuma.allowMultipleSelection = false
+            fusumaSavesImage = false
+            
+            self.present(fusuma, animated: true, completion: nil)
+        }
+    }
+
+    
+    func fusumaImageSelected(_ image: UIImage, source: FusumaMode) {
+        
+        if appDelegate.user?.email != "" {
+           userImage.image = image
+           userImage.image = userImage.image?.af_imageRoundedIntoCircle()
+           DataManager.updateUserProfile(user: appDelegate.user!, profile: image)
+        }
+        
+    }
+    
+    func fusumaMultipleImageSelected(_ images: [UIImage], source: FusumaMode) {
+    }
+    
+    func fusumaImageSelected(_ image: UIImage, source: FusumaMode, metaData: ImageMetadata) {
+    }
+    
+    func fusumaVideoCompleted(withFileURL fileURL: URL) {
+    }
+    
+    func fusumaDismissedWithImage(_ image: UIImage, source: FusumaMode) {
+    }
+    
+    func fusumaCameraRollUnauthorized() {
+        
+        let alert = UIAlertController(title: "Access Requested",
+                                      message: "Saving image needs to access your photo album",
+                                      preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Settings", style: .default) { (action) -> Void in
+        })
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+            
+        })
+        
+        guard let vc = UIApplication.shared.delegate?.window??.rootViewController,
+            let presented = vc.presentedViewController else {
+                
+                return
+        }
+        
+        presented.present(alert, animated: true, completion: nil)
+    }
+    
 }
 
 extension MypageViewController: UITableViewDataSource, UITableViewDelegate {
@@ -100,16 +218,40 @@ extension MypageViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! MypageTableViewCell
         cell.mypageListLabel.text = labelList[indexPath.row]
-        let image = cell.rightImage.image
-        let tintedImage = image?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        cell.rightImage.image = tintedImage
-        cell.rightImage.tintColor = UIColor.lightGray
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 3 {
-            if labelList[3] == "회원가입 / 로그인" {
+        
+        if indexPath.row == 0 { // 내가 찜한 상품을 눌렀을 때
+            
+            if appDelegate.user?.email == "" { // 로그인 된 상태가 아니면
+                let alertController = UIAlertController(title: "알림", message: "내가 찜한 상품은 로그인 뒤 이용가능합니다.", preferredStyle: UIAlertControllerStyle.alert)
+                
+                let DestructiveAction = UIAlertAction(title: "취소", style: UIAlertActionStyle.destructive) { (result : UIAlertAction) -> Void in
+                    alertController.dismiss(animated: false, completion: nil)
+                }
+                
+                let okAction = UIAlertAction(title: "로그인", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let vc = storyboard.instantiateViewController(withIdentifier: "LoginSignUpViewController") as! LoginSignUpViewController
+                    self.present(vc, animated: true, completion: nil)
+                }
+                
+                alertController.addAction(DestructiveAction)
+                
+                alertController.addAction(okAction)
+                
+                self.present(alertController, animated: true, completion: nil)
+            }else{
+                // 내가 찜한 상품 뷰
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyboard.instantiateViewController(withIdentifier: "LikeProductViewController") as! LikeProductViewController
+                self.present(vc, animated: true, completion: nil)
+            }
+        }
+        if indexPath.row == 2 {
+            if labelList[2] == "회원가입 / 로그인" {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let vc = storyboard.instantiateViewController(withIdentifier: "LoginSignUpViewController") as! LoginSignUpViewController
                 self.present(vc, animated: true, completion: nil)
@@ -125,8 +267,7 @@ extension MypageViewController: UITableViewDataSource, UITableViewDelegate {
                     let firebaseAuth = Auth.auth()
                     do {
                         try firebaseAuth.signOut()
-                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                        appDelegate.user = User()
+                        self.appDelegate.user = User()
                         self.setLogined()
                         self.showAlertIfLogined(bool: false)
                     } catch let signOutError as NSError {

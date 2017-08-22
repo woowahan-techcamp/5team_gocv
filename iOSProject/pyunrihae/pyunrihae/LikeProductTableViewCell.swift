@@ -1,18 +1,18 @@
 //
-//  MypageTableViewCell.swift
+//  LikeProductTableViewCell.swift
 //  pyunrihae
 //
-//  Created by woowabrothers on 2017. 8. 9..
+//  Created by woowabrothers on 2017. 8. 21..
 //  Copyright © 2017년 busride. All rights reserved.
 //
 
 import UIKit
 
-class MypageTableViewCell: UITableViewCell {
+class LikeProductTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var rightImage: UIView!
-    @IBOutlet weak var mypageListLabel: UILabel!
-
+    @IBOutlet weak var moreImage: UIImageView!
+    @IBOutlet weak var productNameLabel: UILabel!
+    @IBOutlet weak var productImageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
