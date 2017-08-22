@@ -41,9 +41,9 @@
                 <li class="fixTab-search-category-element">베이커리</li>
                 <li class="fixTab-search-category-element">라면</li>
                 <li class="fixTab-search-category-element">스낵</li>
-                <li class="fixTab-search-category-element">유제품</li>
+                <li class="fixTab-search-category-element">아이스크림</li>
                 <li class="fixTab-search-category-element">음료</li>
-                <li class="fixTab-search-category-element">즉석식품</li>
+                <li class="fixTab-search-category-element">식품</li>
                 <li style="color:#d82c20" class="fixTab-search-category-element">전체</li>
             </ul>
         </div>
@@ -57,17 +57,14 @@
     </div>
 
     <!--프로필 창-->
-    <div class="fixTab-profile-wrapper">
+    <div style="display: none" class="fixTab-profile-wrapper">
         <div class="fixTab-profile-image">
-            <img style="opacity: 1; width: 30px; height: 30px"
+            <img id="fixTabProfileImg" style="opacity: 1; width: 30px; height: 30px"
                  src="image/profile.png">
         </div>
         <a href="#">
-            <div class="fixTab-profile-id">tong9433
-                <ul class="fixTab-profile-dropdown">
-                    <li class="fixTab-profile-element">내 정보</li>
-                    <li class="fixTab-profile-element">로그아웃</li>
-                </ul>
+            <div class="fixTab-profile-id">
+
             </div>
         </a>
         <div class="fixTab-profile-button">
@@ -153,7 +150,7 @@
         <div class="counter-element-wrapper">
             <div class="counter-element">
                 <div class="counter-element-icon">
-                    <img class="icon" src="image/product_icon.png"/>
+                    <img class="counter-icon" src="image/product_icon.png"/>
                 </div>
                 <div class="counter-element-count" id="counter1">4200</div>
                 <div class="counter-element-title">편의점 총 <span class="highlight">상품정보</span>
@@ -162,14 +159,14 @@
             </div>
             <div class="counter-element">
                 <div class="counter-element-icon">
-                    <img class="icon" src="image/allReview_icon.png"/>
+                    <img class="counter-icon" src="image/allReview_icon.png"/>
                 </div>
                 <div class="counter-element-count" id="counter2">3203</div>
                 <div class="counter-element-title">총 <span class="highlight">누적 리뷰</span> 개수</div>
             </div>
             <div class="counter-element">
                 <div class="counter-element-icon">
-                    <img class="icon" src="image/review_icon.png"/>
+                    <img class="counter-icon" src="image/review_icon.png"/>
                 </div>
                 <div class="counter-element-count" id="counter3">23</div>
                 <div class="counter-element-title">오늘의 <span class="highlight">등록된 리뷰 </span>개수</div>
@@ -360,6 +357,10 @@
 <div id="popup" class="overlay">
 </div>
 
+<!--마이페이지 모달창-->
+<div id="myPage" class="myPage-overlay">
+
+</div>
 
 <!--로그인 모달창-->
 <div style="display:block" id="sign" class="sign-overlay">
@@ -370,8 +371,8 @@
             <img  class="icon" src="image/google.png"> Google 계정으로 로그인</div>
 
         <div lass="sign-line"></div>
-        <input class="signin-id" placeholder="이메일 주소"/>
-        <input class="signin-password" placeholder="비밀번호"/>
+        <input class="signin-id" placeholder="이메일 주소" value="tong9433@naver.com"/>
+        <input type="password" class="signin-password" placeholder="비밀번호" value="008055"/>
 
         <div class="signin-button">로그인 </div>
         <div id="signinErrorCheck" style="display:none; margin: 0px 30px -10px; color: red; font-size: 12px"></div>
@@ -408,15 +409,15 @@
     </div>
 </div>
 
-<!--상세 회원가입 화면-->
+<!--상세 회원가입 모달창-->
 <div style="display: none" id="signupDetail" class="sign-overlay">
     <div class="signup-detail-wrapper">
         <div class="signup-detail-title">
             <img style="margin-left: 80px" src="image/burger.png" class="icon">편리해 회원가입</div>
         <input id="signupNic" class="signup-detail-input" placeholder="닉네임을 입력해주세요 "/>
         <input id="signupEmail" class="signup-detail-input" placeholder="pyunrihae@pyunrihae.com"/>
-        <input id="signupPw1" class="signup-detail-input" placeholder="비밀번호를 입력해주세요"/>
-        <input id="signupPw2" class="signup-detail-input" placeholder="비밀번호를 다시 입력해주세요"/>
+        <input type="password" id="signupPw1" class="signup-detail-input" placeholder="비밀번호를 입력해주세요"/>
+        <input type="password" id="signupPw2" class="signup-detail-input" placeholder="비밀번호를 다시 입력해주세요"/>
         <div id="signupPwCheck" style="display:none; margin:5px 30px; color: red; font-size: 12px">비밀번호가 일치하지 않습니다.</div>
         <div id="signupPwCheck2" style="display:none; margin:5px 30px; color: red; font-size: 12px">비밀번호는 6자리 이상이어야 합니다.</div>
         <div id="signupEmailCheck" style="display:none; margin:5px 30px; color: red; font-size: 12px">올바른 이메일 형식이 아닙니다.</div>
@@ -432,6 +433,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 <!--template-->
@@ -766,6 +769,52 @@
     </li>
     {{/this}}
 
+</script>
+<script id="myPage-template" type="text/x-handlebars-template">
+    <div class="myPage-wrapper">
+        <div class="myPage-profile-wrapper">
+            <a href="#">
+                <div style="margin-right:100px" class="myPage-close"></div>
+            </a>
+            <div style="width:200px; height: 130px; margin: 100px auto">
+                <img src="{{user_profile}}" class="myPage-profile-image" id="profilePreview"/>
+            </div>
+
+            <div style="width:150px; height: 20px; margin: 10px auto">
+                <input type="file" id="profileImageInput"/>
+            </div>
+
+            <div class="myPage-profile-nickname-wrapper">
+                <input class="myPage-profile-nickname-input" placeholder="{{nickname}}">
+                <div class="myPage-profile-nickname">닉네임 바꾸기</div>
+            </div>
+            <div class="myPage-profile-email-title">E-mail 주소 </div>
+            <div class="myPage-profile-email">{{email}}
+            </div>
+        </div>
+
+
+        <div class="myPage-wish-wrapper">
+            <div class="myPage-wish-wrapper-title">
+                <img style="margin-left: 10px" class="icon" src="image/heart.png"> 즐겨찾기 상품 리스트
+            </div>
+
+            <ul id="myPageReviewNavi" class="myPage-wish-element-wrapper">
+            </ul>
+        </div>
+    </div>
+</script>
+<script id="myPage-review-template" type="text/x-handlebars-template">
+    {{#this}}
+    <li class="myPage-wish-element">
+        <img src="{{img}}" class="myPage-wish-element-image">
+        <div style="margin-top:10px;float: left">
+            <div class="myPage-wish-element-name">{{name}}</div>
+            <div class="myPage-wish-element-brand">{{brand}} {{price}}원 </div>
+        </div>
+        <div class="myPage-wish-element-delete" name="{{id}}">삭제</div>
+    </li>
+    {{/this}}
 </script>
 
 

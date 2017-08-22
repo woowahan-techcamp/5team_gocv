@@ -9,8 +9,6 @@ var config = {
 
 firebase.initializeApp(config);
 
-const storage = localStorage['product'];
-const storage2 = localStorage['review'];
 
 firebase.database().ref('product/')
     .once('value').then(function (snapshot) {
@@ -25,10 +23,17 @@ firebase.database().ref('review/')
 
 });
 
+firebase.database().ref('user/')
+    .once('value').then(function (snapshot) {
+
+    localStorage['user'] = JSON.stringify(snapshot.val());
+});
+
 const value = {
   brand: 'all',
   category: '전체',
   keyword: ''
 };
+
 
 localStorage['search_keyword'] = JSON.stringify(value);
