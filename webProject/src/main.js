@@ -10,6 +10,12 @@ document.addEventListener('DOMContentLoaded', function (event) {
     }
 
     new SearchTab(searchParams);
+    const user = firebase.auth().currentUser;
+
+    console.log(user);
+
+   
+
 
     const profileDrop = document.querySelector('.fixTab-profile-id');
 

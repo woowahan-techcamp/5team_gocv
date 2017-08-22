@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
         item_wrapper: 'seven-item-wrapper'
     };
 
-    const gsObj = brandFilter(obj, 'gs25');
+    const gsObj = brandFilter(obj, 'GS25');
     const cuObj = brandFilter(obj, 'CU');
     const sevObj = brandFilter(obj, '7-eleven');
 
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 const category = [
-  '도시락', '김밥', '베이커리', '라면', '스낵', '유제품', '음료', '즉석식품'];
+  '도시락', '김밥', '베이커리', '라면', '스낵', '아이스크림', '음료', '식품'];
 
 const defaultParam = {
   brand: "",
