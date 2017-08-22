@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function (event) {
     const searchParams = {
         brand: '.fixTab-search-brand',
@@ -15,59 +14,56 @@ document.addEventListener('DOMContentLoaded', function (event) {
     console.log(user);
 
 
-
-
     const profileDrop = document.querySelector('.fixTab-profile-id');
 
-    profileDrop.addEventListener("mouseover",function(){
+    profileDrop.addEventListener("mouseover", function () {
         const dropdown = document.querySelector((".fixTab-profile-dropdown"));
-        if(dropdown.style.display === "block"){
-        }else{
+        if (dropdown.style.display === "block") {
+        } else {
             dropdown.style.display = "block";
         }
     });
 
-    profileDrop.addEventListener("mouseout",function(){
+    profileDrop.addEventListener("mouseout", function () {
         const dropdown = document.querySelector((".fixTab-profile-dropdown"));
 
-        if(dropdown.style.display === "block"){
+        if (dropdown.style.display === "block") {
             dropdown.style.display = "none";
         }
     });
 
-    const carousel = new Carousel('reviewNavi','carousel-leftButton',
-        'carousel-rightButton', 10, 'carousel-template','carouselSec');
+    const carousel = new Carousel('reviewNavi', 'carousel-leftButton',
+        'carousel-rightButton', 10, 'carousel-template', 'carouselSec');
     const counter = new Counter(800);
     counter.setCounter();
-
 
 
 });
 
 
-class Dropdown{
-    constructor(event,button,drop){
+class Dropdown {
+    constructor(event, button, drop) {
         this.event = event;
         this.button = button;
         this.drop = drop;
         this.init();
     }
 
-    init(){
+    init() {
         this.button = document.querySelector(this.button);
         this.drop = document.querySelector(this.drop);
         this.setEvent();
     }
 
-    setEvent(){
-        this.button.addEventListener(this.event,function(){
+    setEvent() {
+        this.button.addEventListener(this.event, function () {
 
-            if(this.drop.style.display === "block"){
+            if (this.drop.style.display === "block") {
                 this.drop.style.display = "none";
-            }else{
+            } else {
                 this.drop.style.display = "block";
             }
-        }.bind(this),true);
+        }.bind(this), true);
     }
 
 
@@ -86,7 +82,7 @@ class Util {
         oReq.send();
     }
 
-    template(data,template,section){
+    template(data, template, section) {
         const context = data;
         const tmpl = Handlebars.compile(template);
         section.innerHTML = tmpl(context);
@@ -96,7 +92,7 @@ class Util {
 //main 상단 리뷰 캐러셀
 class Carousel {
 
-    constructor(reviewNavi,leftButton, rightButton, count, template, sec) {
+    constructor(reviewNavi, leftButton, rightButton, count, template, sec) {
         this.reviewNavi = reviewNavi;
         this.leftButton = leftButton;
         this.rightButton = rightButton;
@@ -108,15 +104,15 @@ class Carousel {
         this.init();
     }
 
-    init(){
+    init() {
         this.leftButton = document.getElementById(this.leftButton);
         this.rightButton = document.getElementById(this.rightButton);
         this.template = document.getElementById(this.template).innerHTML;
         this.sec = document.getElementById(this.sec);
-        this.leftButton.addEventListener("click",function(){
+        this.leftButton.addEventListener("click", function () {
             this.beforePage();
         }.bind(this));
-        this.rightButton.addEventListener("click",function(){
+        this.rightButton.addEventListener("click", function () {
             this.nextPage();
         }.bind(this));
         this.setData();
@@ -126,27 +122,27 @@ class Carousel {
         this.index += value;
     }
 
-    setDurationZero(){
-        this.reviewNavi.style.transition="none";
+    setDurationZero() {
+        this.reviewNavi.style.transition = "none";
     }
 
-    setDurationfull(){
-        this.reviewNavi.style.transition="";
-        this.reviewNavi.style.transitionDuration="1s";
+    setDurationfull() {
+        this.reviewNavi.style.transition = "";
+        this.reviewNavi.style.transitionDuration = "1s";
     }
 
-    nextPage(){
+    nextPage() {
         this.setDurationfull();
         this.changeIndex(1);
-        const left = (this.index+1) * 100;
+        const left = (this.index + 1) * 100;
         this.reviewNavi.style.left = "-" + left + "%";
 
-        if(this.index === this.count){
+        if (this.index === this.count) {
 
             this.index = 0;
             setTimeout(function () {
                 this.setDurationZero();
-                this.reviewNavi.style.left="-100%";
+                this.reviewNavi.style.left = "-100%";
             }.bind(this), 1000);
 
         }
@@ -154,35 +150,34 @@ class Carousel {
         this.changeCircle();
     }
 
-    beforePage(){
+    beforePage() {
         this.setDurationfull();
         this.changeIndex(-1);
-        const left = (this.index+1) * 100;
+        const left = (this.index + 1) * 100;
         this.reviewNavi.style.left = "-" + left + "%";
 
 
-        if(this.index === -1){
+        if (this.index === -1) {
             this.index = 9;
             setTimeout(function () {
                 this.setDurationZero();
-                this.reviewNavi.style.left="-1000%";
+                this.reviewNavi.style.left = "-1000%";
             }.bind(this), 1000);
         }
 
         this.changeCircle();
     }
 
-    changeCircle(){
+    changeCircle() {
         const beforeCircle = document.querySelector(".carousel-circle-selected");
-        beforeCircle.setAttribute("class","carousel-circle");
+        beforeCircle.setAttribute("class", "carousel-circle");
 
         const arr = Array.from(document.querySelectorAll(".carousel-circle"));
-        arr[this.index].setAttribute("class","carousel-circle carousel-circle-selected");
+        arr[this.index].setAttribute("class", "carousel-circle carousel-circle-selected");
     }
 
 
-
-    setData(){
+    setData() {
         const review = localStorage['review'];
         const data = JSON.parse(review);
         this.data = data;
@@ -192,10 +187,10 @@ class Carousel {
             fakeArr.push(this.data[e])
         }.bind(this));
 
-        const arr =[];
+        const arr = [];
         arr.push(fakeArr[9]);
 
-        for(let i = 0 ;i<=9;i++){
+        for (let i = 0; i <= 9; i++) {
             arr.push(fakeArr[i]);
         }
         arr.push(fakeArr[0]);
@@ -203,14 +198,14 @@ class Carousel {
 
         const util = new Util();
 
-        util.template(arr,this.template,this.sec);
+        util.template(arr, this.template, this.sec);
         this.reviewNavi = document.getElementById(this.reviewNavi);
     }
 }
 
 //메인 상단 고정 탭
-class SearchTab{
-    constructor(searchParams){
+class SearchTab {
+    constructor(searchParams) {
         this.searchParams = searchParams;
 
         this.brandDrop = document.querySelector(searchParams.brand);
@@ -223,25 +218,25 @@ class SearchTab{
         this.init();
     }
 
-    init(){
+    init() {
         this.dropdownEvent();
         this.setTabClickEvent()
     }
 
-    dropdownEvent(){
-        const brandDrop = new Dropdown("click",this.searchParams.brand,this.searchParams.brand_dropdown);
-        const categoryDrop = new Dropdown("click",this.searchParams.category,this.searchParams.category_drowndown);
+    dropdownEvent() {
+        const brandDrop = new Dropdown("click", this.searchParams.brand, this.searchParams.brand_dropdown);
+        const categoryDrop = new Dropdown("click", this.searchParams.category, this.searchParams.category_drowndown);
 
 
-        this.brandNavi.addEventListener("click",function (event) {
+        this.brandNavi.addEventListener("click", function (event) {
             this.brandDrop.firstChild.innerText = event.toElement.innerText;
         }.bind(this));
 
-        this.categoryNavi.addEventListener("click",function (event) {
+        this.categoryNavi.addEventListener("click", function (event) {
             this.categoryDrop.firstChild.innerText = event.toElement.innerText;
         }.bind(this));
 
-        this.searchButton.addEventListener("click",function(){
+        this.searchButton.addEventListener("click", function () {
             this.setQuery();
 
             document.querySelector(".main-wrapper").style.display = "none";
@@ -249,7 +244,7 @@ class SearchTab{
         }.bind(this));
     }
 
-    setQuery(){
+    setQuery() {
         const queryBrand = this.brandDrop.firstChild.innerText;
         const queryCategory = this.categoryDrop.firstChild.innerText;
 
@@ -258,15 +253,15 @@ class SearchTab{
         const text = this.inputText.value;
 
         const value = {
-          brand: brand,
-          category: category,
-          keyword: text
+            brand: brand,
+            category: category,
+            keyword: text
         };
 
         localStorage['search_keyword'] = JSON.stringify(value);
     }
 
-    setTabClickEvent(){
+    setTabClickEvent() {
         this.fixTabNavi.addEventListener('click', function (e) {
             const selectedTab = document.getElementsByClassName("fixTab-select")[0];
 
@@ -278,18 +273,18 @@ class SearchTab{
             if (text === "편리해") {
                 document.querySelector(".main-wrapper").style.display = "";
                 document.querySelector(".rank-container").style.display = "none";
-            } else if(text === "랭킹"){
+            } else if (text === "랭킹") {
                 document.querySelector(".main-wrapper").style.display = "none";
                 document.querySelector(".rank-container").style.display = "";
 
                 const value = {
-                  brand: 'all',
-                  category: '전체',
-                  keyword: ''
+                    brand: 'all',
+                    category: '전체',
+                    keyword: ''
                 };
 
                 localStorage['search_keyword'] = JSON.stringify(value);
-            } else if(text === "리뷰"){
+            } else if (text === "리뷰") {
                 document.querySelector(".main-wrapper").style.display = "none";
                 document.querySelector(".rank-container").style.display = "none";
             }
@@ -300,20 +295,20 @@ class SearchTab{
 }
 
 //메인 하단 jquery plugin 을 이용한 counter, 매개변수는 스크롤 위치를 의미
-class Counter{
-    constructor(max){
+class Counter {
+    constructor(max) {
         this.max = max;
     }
 
-    setCounter(){
+    setCounter() {
         var max = this.max;
         $(window).scroll(function () {
             var val = $(this).scrollTop();
             var cover = $('.cover');
             if (max < val) {
-                $('#counter1').animateNumber({ number: 4200 },2000);
-                $('#counter2').animateNumber({ number: 3203 },2000);
-                $('#counter3').animateNumber({ number: 23 },2000);
+                $('#counter1').animateNumber({number: 4200}, 2000);
+                $('#counter2').animateNumber({number: 3203}, 2000);
+                $('#counter3').animateNumber({number: 23}, 2000);
                 max = 99999;
             }
         });
@@ -324,18 +319,18 @@ class Counter{
 }
 
 //chart.js를 이용하여 차트를 만드는 클래스
-class MakeChart{
-    constructor(feature, label, data, id, color, hoverColor ){
+class MakeChart {
+    constructor(feature, label, data, id, color, hoverColor) {
         this.feature = feature;
         this.label = label;
         this.data = data;
         this.id = id;
         this.color = color;
-        this.hoverColor =hoverColor;
+        this.hoverColor = hoverColor;
         this.setChart()
     }
 
-    setChart(){
+    setChart() {
         let ctx = document.getElementById(this.id).getContext('2d');
         new Chart(ctx, {
             type: this.feature,
@@ -376,16 +371,16 @@ class MakeChart{
 //review의 이벤트를 만들고 리뷰를 생성하는 클래스
 class Review {
 
-    constructor(id, navi,product,user) {
+    constructor(id, navi, product, user) {
         this.id = id;
         this.value = 0;
         this.product = product;
-        this.user =user;
+        this.user = user;
         this.comment = "";
         this.data = [0, 0, 0, 0, ""];
         this.navi = navi;
-        this.reviewId =""
-        this.fileName ="";
+        this.reviewId = ""
+        this.fileName = "";
         this.init()
 
     }
@@ -512,7 +507,7 @@ class Review {
         let file = document.querySelector('#reviewImageInput').files[0];
 
 
-        this.fileName='images/' + this.reviewId + "." + file.type.split("/")[1]
+        this.fileName = 'images/' + this.reviewId + "." + file.type.split("/")[1]
 
         const storageRef = firebase.storage().ref();
         const mountainImagesRef = storageRef.child(this.fileName);
@@ -523,69 +518,68 @@ class Review {
         }.bind(this));
     }
 
-    updateDb(){
+    updateDb() {
         const storageRef = firebase.storage().ref();
         const database = firebase.database();
 
-        storageRef.child(this.fileName).getDownloadURL().then(function(url) {
+        storageRef.child(this.fileName).getDownloadURL().then(function (url) {
             const that = this;
 
             const userStorage = localStorage['user'];
             this.user = JSON.parse(userStorage);
             const user = firebase.auth().currentUser;
 
-            database.ref('review/'+this.reviewId).set({
-                "bad" : 0,
-                "brand" : this.product.brand,
-                "category" : this.product.category,
-                "comment" : this.data[4],
-                "flavor" : this.data[2],
-                "grade" : this.data[0],
-                "id" : this.reviewId,
-                "p_id" : this.product.id,
-                "p_image" : url,
-                "p_name" : this.product.name,
-                "p_price" : this.product.price,
-                "price" : this.data[1],
-                "quantity" : this.data[3],
-                "timestamp" : timestamp(),
-                "useful" : 0,
-                "user" : this.user[user.uid].nickname,
-                "user_image" : this.user[user.uid].user_profile,
+            database.ref('review/' + this.reviewId).set({
+                "bad": 0,
+                "brand": this.product.brand,
+                "category": this.product.category,
+                "comment": this.data[4],
+                "flavor": this.data[2],
+                "grade": this.data[0],
+                "id": this.reviewId,
+                "p_id": this.product.id,
+                "p_image": url,
+                "p_name": this.product.name,
+                "p_price": this.product.price,
+                "price": this.data[1],
+                "quantity": this.data[3],
+                "timestamp": timestamp(),
+                "useful": 0,
+                "user": this.user[user.uid].nickname,
+                "user_image": this.user[user.uid].user_profile,
             });
 
 
-
             //해당 유저에 자기가 작성한 리뷰 리스트 넣기
-            if(!!this.user.product_review_list){
+            if (!!this.user.product_review_list) {
                 this.user.product_review_list.push(this.product.id);
-            }else{
-                this.user.product_review_list=[];
+            } else {
+                this.user.product_review_list = [];
                 this.user.product_review_list.push(this.product.id);
             }
-           database.ref('user/'+user.uid+'/product_review_list').set(this.user.product_review_list);
+            database.ref('user/' + user.uid + '/product_review_list').set(this.user.product_review_list);
 
 
             //상품 리뷰리스트에 리뷰 번호 추가
-            if(!!this.product.reviewList){
+            if (!!this.product.reviewList) {
                 this.product.reviewList.push(this.reviewId);
-            }else{
-                this.product.reviewList=[];
+            } else {
+                this.product.reviewList = [];
                 this.product.reviewList.push(this.reviewId);
             }
 
-            this.product.grade_count+= 1;
-            this.product.review_count+= 1;
-            this.product.grade_total+= this.data[0];
-            this.product.grade_avg=this.product.grade_total/this.product.grade_count;
-            this.product.grade_data["g"+this.data[0]]+= 1;
-            this.product.price_level["p"+this.data[1]]+= 1;
-            this.product.flavor_level["f"+this.data[2]]+= 1;
-            this.product.quantity_level["q"+this.data[3]]+= 1;
+            this.product.grade_count += 1;
+            this.product.review_count += 1;
+            this.product.grade_total += this.data[0];
+            this.product.grade_avg = this.product.grade_total / this.product.grade_count;
+            this.product.grade_data["g" + this.data[0]] += 1;
+            this.product.price_level["p" + this.data[1]] += 1;
+            this.product.flavor_level["f" + this.data[2]] += 1;
+            this.product.quantity_level["q" + this.data[3]] += 1;
 
 
             //업데이트 반영된 product 삽입
-            database.ref('product/'+this.product.id).set(this.product);
+            database.ref('product/' + this.product.id).set(this.product);
             database.ref('product/').once('value').then(function (snapshot) {
                 localStorage['product'] = JSON.stringify(snapshot.val());
             });
@@ -606,10 +600,10 @@ class Review {
 
                 const template2 = document.querySelector("#review-template").innerHTML;
                 const sec2 = document.querySelector("#popupReview");
-                util.template(reviewArr,template2,sec2);
+                util.template(reviewArr, template2, sec2);
             }.bind(that));
 
-        }.bind(this)).catch(function(error) {
+        }.bind(this)).catch(function (error) {
             console.log(error)
         });
     }
@@ -617,29 +611,29 @@ class Review {
 }
 
 //image 업로드하고 미리보기 만드는 클래스
-class UpLoadImage{
-    constructor(inputId,imgPreviewId){
+class UpLoadImage {
+    constructor(inputId, imgPreviewId) {
         this.inputId = inputId;
         this.imgPreviewId = imgPreviewId
         this.init();
     }
 
-    init(){
+    init() {
         this.data;
-        document.querySelector("#"+this.inputId).addEventListener("change",function () {
+        document.querySelector("#" + this.inputId).addEventListener("change", function () {
             this.previewFile();
         }.bind(this))
     }
 
-    previewFile(){
-        let preview = document.querySelector('#'+this.imgPreviewId);
-        let file = document.querySelector('#'+this.inputId).files[0];
+    previewFile() {
+        let preview = document.querySelector('#' + this.imgPreviewId);
+        let file = document.querySelector('#' + this.inputId).files[0];
         let reader = new FileReader();
 
         reader.addEventListener("load", function () {
             preview.src = reader.result;
 
-        },false);
+        }, false);
 
         if (!file) {
         } else {
@@ -674,36 +668,36 @@ function loadDetailProduct(event) {
     //grade_avg 평점이 소수점 둘째자리까지만 표시
     obj[id].grade_avg = obj[id].grade_avg.toFixed(1);
 
-    util.template(obj[id],template,sec);
+    util.template(obj[id], template, sec);
 
     const gradeData = [];
-    Object.keys(obj[id].grade_data).forEach(function(e){
+    Object.keys(obj[id].grade_data).forEach(function (e) {
         gradeData.push(obj[id].grade_data[e])
     });
 
     const priceData = [];
-    Object.keys(obj[id].price_level).forEach(function(e){
+    Object.keys(obj[id].price_level).forEach(function (e) {
         priceData.push(obj[id].price_level[e])
     });
 
     const flavorData = [];
-    Object.keys(obj[id].flavor_level).forEach(function(e){
+    Object.keys(obj[id].flavor_level).forEach(function (e) {
         flavorData.push(obj[id].flavor_level[e])
     })
 
     const quantityData = [];
-    Object.keys(obj[id].quantity_level).forEach(function(e){
+    Object.keys(obj[id].quantity_level).forEach(function (e) {
         quantityData.push(obj[id].quantity_level[e])
     })
 
-    const ratingChart=new MakeChart('line',["1🌟", "2🌟", "3🌟", "4🌟", "5🌟"],gradeData,'ratingChart','#ffc225','#eeb225');
-    const priceChart=new MakeChart('bar',["비쌈", "", "적당", "", "저렴"],priceData,'priceChart','#ee5563','#9c3740');
-    const flavorChart=new MakeChart('bar',["노맛", "", "적당", "", "존맛"],flavorData,'flavorChart','#ee5563','#9c3740');
-    const quantityChart=new MakeChart('bar',["창렬", "", "적당", "", "헤자"],quantityData,'quantityChart','#ee5563','#9c3740');
+    const ratingChart = new MakeChart('line', ["1🌟", "2🌟", "3🌟", "4🌟", "5🌟"], gradeData, 'ratingChart', '#ffc225', '#eeb225');
+    const priceChart = new MakeChart('bar', ["비쌈", "", "적당", "", "저렴"], priceData, 'priceChart', '#ee5563', '#9c3740');
+    const flavorChart = new MakeChart('bar', ["노맛", "", "적당", "", "존맛"], flavorData, 'flavorChart', '#ee5563', '#9c3740');
+    const quantityChart = new MakeChart('bar', ["창렬", "", "적당", "", "헤자"], quantityData, 'quantityChart', '#ee5563', '#9c3740');
 
     const reviewArr = [];
 
-    if(!!obj[id].reviewList) {
+    if (!!obj[id].reviewList) {
         obj[id].reviewList.forEach(function (e) {
             reviewArr.push(obj2[e])
         });
@@ -715,13 +709,55 @@ function loadDetailProduct(event) {
 
 
     //rateyo.js를 사용하기 위한 별이 들어갈 DOM의 id, 전체 리뷰 Wrapper 클래스명
-    const makeReview = new Review("popupStar", ".newReview-list",obj[id]);
-    const reviewImageUpLoad = new UpLoadImage('reviewImageInput','imagePreview');
+    const makeReview = new Review("popupStar", ".newReview-list", obj[id]);
+    const reviewImageUpLoad = new UpLoadImage('reviewImageInput', 'imagePreview');
 
     //모달 리뷰 필터 드롭다운
-    const reviewFilterDrop = new Dropdown("click",".popup-reviewFilter",".popup-reviewFilter-dropdown");
+    const reviewFilterDrop = new Dropdown("click", ".popup-reviewFilter", ".popup-reviewFilter-dropdown");
 
-    document.querySelector(".popup-close").addEventListener("click",function(){
+
+    document.querySelector("#popupWish").addEventListener("click", function () {
+        document.querySelector("#popupWish").setAttribute("class", "popup-wish popup-wish-select");
+
+        const userStorage = localStorage['user'];
+        const userData = JSON.parse(userStorage);
+        const user = firebase.auth().currentUser;
+        let newWishArr = userData[user.uid].wish_product_list;
+        let double = true;
+
+
+        if(!!newWishArr) {
+            newWishArr.forEach(function (e) {
+                if (e === id) {
+                    double = false;
+                }
+            })
+        }else{
+            newWishArr=[];
+        }
+
+        if (double) {
+            newWishArr.push(id);
+            console.log(newWishArr)
+            console.log(user.uid)
+            console.log('user/' + user.uid + "/wish_product_list")
+            firebase.database().ref('user/' + user.uid + "/wish_product_list").set(newWishArr).then(function(){
+                console.log("ss");
+                firebase.database().ref('user/').once('value').then(function (snapshot) {
+                    localStorage['user'] = JSON.stringify(snapshot.val());
+                    console.log("완료")
+                });
+            });
+
+        }
+
+
+
+
+    })
+
+
+    document.querySelector(".popup-close").addEventListener("click", function () {
         $("body").css("overflow", "visible");
     });
 }
@@ -735,26 +771,26 @@ function timestamp() {
     var curr_minute = d.getMinutes();
     var curr_second = d.getSeconds();
 
-    if(curr_month<10){
-        curr_month="0"+curr_month;
+    if (curr_month < 10) {
+        curr_month = "0" + curr_month;
     }
 
-    if(curr_hour<10){
-        curr_hour="0"+curr_hour;
+    if (curr_hour < 10) {
+        curr_hour = "0" + curr_hour;
     }
 
-    if(curr_minute<10){
-        curr_minute="0"+curr_minute;
-
-    }
-
-    if(curr_second<10){
-        curr_second="0"+curr_second;
+    if (curr_minute < 10) {
+        curr_minute = "0" + curr_minute;
 
     }
 
-    return curr_year + "-" + curr_month + "-" + curr_date+" "+
-        curr_hour+":"+curr_minute+":"+curr_second;
+    if (curr_second < 10) {
+        curr_second = "0" + curr_second;
+
+    }
+
+    return curr_year + "-" + curr_month + "-" + curr_date + " " +
+        curr_hour + ":" + curr_minute + ":" + curr_second;
 }
 
 //이런식으로 해야 웹팩에서 function을 html onclick으로 사용가

@@ -233,6 +233,7 @@
             <div class="brand-rank-more">GS25 랭킹 전체 보기</div>
         </a>
     </div>
+
     <!--cu-->
     <div class="brand-rank-wrapper">
         <div class="brand-rank-arrow">
@@ -572,12 +573,15 @@
         <a href="#">
             <div class="popup-close"></div>
         </a>
+
+
         <div class="popup-reviewImage"></div>
         <div class="popup-productImage" style="background-image:url({{img}})"></div>
         <div class="popup-productWrapper">
             <div class="popup-productCount">
                 <div>누적리뷰 수</div>
                 <div>{{grade_count}} reviews</div>
+                <div id="popupWish" class="popup-wish"></div>
             </div>
             <div class="popup-productName">{{name}}</div>
             <div class="popup-productPrice">가격</div>
@@ -586,6 +590,7 @@
             <div class="popup-productBrand2">{{brand}}</div>
             <div class="popup-productScore">총 평점</div>
             <div class="popup-productScore2">{{grade_avg}}<span style="font-size:12px"> /5점</span></div>
+
         </div>
         <div class="popup-ratingChart">
             <canvas id="ratingChart"></canvas>
