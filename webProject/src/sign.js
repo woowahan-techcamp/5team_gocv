@@ -88,22 +88,58 @@ class SignUp{
 
         }.bind(this)).then(function(){
 
-            console.log("여기로 넘오오지않은?")
             const that=this;
             firebase.auth().signInWithEmailAndPassword(this.email.value, this.pw1.value).catch(function(error) {
                 console.log(error);
 
             }).then(function(){
                 const user = firebase.auth().currentUser;
+                console.log("회원가입후 로그인 처")
 
                 database.ref('user/'+user.uid).set({
                     "email" : this.email.value,
                     "id" : user.uid,
                     "nickname" : this.nic.value,
+                }).then(function(){
+                    console.log("db업로드")
+
+
+                    //한번 다시 user db 캐시 업데이트
+                    firebase.database().ref('user/').once('value').then(function (snapshot) {
+
+                        localStorage['user'] = JSON.stringify(snapshot.val());
+
+                        const userStorage = localStorage['user'];
+                        const userData = JSON.parse(userStorage);
+
+                        const user = firebase.auth().currentUser;
+
+                        //프로필 탭 설정
+                        document.querySelector(".fixTab-profile-wrapper").style.display = "block"
+                        document.querySelector(".fixTab-profile-id").innerHTML =
+                            userData[user.uid].nickname+ "<ul class=\"fixTab-profile-dropdown\">\n" +
+                            "                    <li class=\"fixTab-profile-element\">내 정보</li>\n" +
+                            "                    <li id=\"logout\" class=\"fixTab-profile-element\">로그아웃</li>\n" +
+                            "                </ul>";
+
+                        document.querySelector("#logout").addEventListener("click",function(){
+                            firebase.auth().signOut().then(function() {
+                                document.querySelector(".fixTab-profile-wrapper").style.display = "none"
+                                document.querySelector('#sign').style.display = "block";
+                            }, function(error) {
+                                // An error happened.
+                            });
+                        })
+                    });
+
+
                 });
 
                 alert("가입이 완료되었습니다. 가입한 이메일로 자동로그인 됩니다.");
+
                 document.querySelector('#signupDetail').style.display="none";
+
+
 
             }.bind(that));
         }.bind(this));
@@ -153,6 +189,28 @@ class SignIn{
             return Promise.reject();
         }).then(function() {
             alert("로그인 되었습니다.")
+
+            const userStorage = localStorage['user'];
+            const userData = JSON.parse(userStorage);
+
+            const user = firebase.auth().currentUser;
+            //프로필 탭 설정
+            document.querySelector(".fixTab-profile-wrapper").style.display = "block"
+            document.querySelector(".fixTab-profile-id").innerHTML =
+                userData[user.uid].nickname+ "<ul class=\"fixTab-profile-dropdown\">\n" +
+                "                    <li class=\"fixTab-profile-element\">내 정보</li>\n" +
+                "                    <li id=\"logout\" class=\"fixTab-profile-element\">로그아웃</li>\n" +
+                "                </ul>";
+
+            document.querySelector("#logout").addEventListener("click",function(){
+                firebase.auth().signOut().then(function() {
+                    document.querySelector(".fixTab-profile-wrapper").style.display = "none"
+                    document.querySelector('#sign').style.display = "block";
+                }, function(error) {
+                    // An error happened.
+                });
+            })
+
             document.querySelector('#sign').style.display="none";
         })
     }
