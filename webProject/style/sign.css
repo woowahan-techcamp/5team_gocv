@@ -1,5 +1,5 @@
 /*myPage*/
-.myPage-overlay{
+.myPage-overlay {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -8,8 +8,8 @@
     background: rgba(0, 0, 0, 0.7);
     transition: opacity 500ms;
     z-index: 120;
-    visibility: visible;
-    opacity: 1;
+    visibility: hidden;
+    opacity: 0;
 }
 
 .myPage-overlay:target{
@@ -131,6 +131,7 @@
 }
 
 .myPage-wish-element{
+    border-radius: 5px;
     width: 80%;
     height: 80px;
     margin-left: 10%;
@@ -139,9 +140,12 @@
 }
 
 .myPage-wish-element-image{
+    border-radius: 5px;
     float: left;
-    height: 80px;
-    width:  80px;
+    margin-left: 5px;
+    margin-top: 5px;
+    height: 70px;
+    width:  70px;
     cursor: pointer;
 }
 
@@ -153,13 +157,17 @@
 
 .myPage-wish-element-name, .myPage-wish-element-brand{
     height: 30px;
-    width: 150px;
+    width: 100px;
+    margin-left: 20px;
+    overflow: hidden;
     line-height: 30px;
     text-align: center;
     font-size: 15px;
 }
 
 .myPage-wish-element-delete{
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
     font-size: 13px;
     float: right;
     width: 40px;
@@ -186,6 +194,11 @@
     height: 30px;
     background-color: #cacaca;
     z-index: 130;
+}
+
+.myPage-close:hover{
+    opacity: 1;
+
 }
 
 

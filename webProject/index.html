@@ -79,7 +79,7 @@
 </div>
 
 <!--메인 페이지-->
-<div style="display: none" class="main-wrapper overflow-y-hidden">
+<div style="display: block" class="main-wrapper overflow-y-hidden">
 
     <!--carousel 구현-->
     <div class="carousel-wrapper">
@@ -354,118 +354,12 @@
 </div>
 
 <!--상품 상세페이지 모달창-->
-<div id="popup" class="overlay"></div>
+<div id="popup" class="overlay">
+</div>
 
 <!--마이페이지 모달창-->
-<div style="display:none" id="myPage" class="myPage-overlay">
-    <div class="myPage-wrapper">
+<div id="myPage" class="myPage-overlay">
 
-        <div class="myPage-profile-wrapper">
-            <a href="#">
-                <div style="margin-right:100px" class="myPage-close"></div>
-            </a>
-            <div style="width:200px; height: 130px; margin: 100px auto">
-                <img class="myPage-profile-image" id="profilePreview"/>
-            </div>
-
-            <div style="width:150px; height: 20px; margin: 10px auto">
-                <input type="file" id="profileImageInput"/>
-            </div>
-
-            <div class="myPage-profile-nickname-wrapper">
-                <input class="myPage-profile-nickname-input" placeholder="통통">
-                <div class="myPage-profile-nickname">닉네임 바꾸기</div>
-            </div>
-            <div class="myPage-profile-email-title">E-mail 주소 </div>
-            <div class="myPage-profile-email">tong9433@naver.com
-            </div>
-        </div>
-
-
-        <div class="myPage-wish-wrapper">
-            <div class="myPage-wish-wrapper-title">
-                <img style="margin-left: 10px" class="icon" src="image/heart.png"> 즐겨찾기 상품 리스트
-            </div>
-
-            <ul class="myPage-wish-element-wrapper">
-                <li class="myPage-wish-element">
-                    <img src="image/ex.png" class="myPage-wish-element-image"></img>
-                    <div style="margin-top:10px;float: left">
-                        <div class="myPage-wish-element-name">혜자 도시락</div>
-                        <div class="myPage-wish-element-brand">GS25 </div>
-                    </div>
-                         <div class="myPage-wish-element-delete">삭제</div>
-
-                </li>
-                <li class="myPage-wish-element">
-                    <img src="image/ex.png" class="myPage-wish-element-image"></img>
-                    <div style="margin-top:10px;float: left">
-                        <div class="myPage-wish-element-name">혜자 도시락</div>
-                        <div class="myPage-wish-element-brand">GS25 </div>
-                    </div>
-                    <div class="myPage-wish-element-delete">삭제</div>
-
-                </li>
-                <li class="myPage-wish-element">
-                    <img src="image/ex.png" class="myPage-wish-element-image"></img>
-                    <div style="margin-top:10px;float: left">
-                        <div class="myPage-wish-element-name">혜자 도시락</div>
-                        <div class="myPage-wish-element-brand">GS25 </div>
-                    </div>
-                    <div class="myPage-wish-element-delete">삭제</div>
-
-                </li>
-                <li class="myPage-wish-element">
-                    <img src="image/ex.png" class="myPage-wish-element-image"></img>
-                    <div style="margin-top:10px;float: left">
-                        <div class="myPage-wish-element-name">혜자 도시락</div>
-                        <div class="myPage-wish-element-brand">GS25 </div>
-                    </div>
-                    <div class="myPage-wish-element-delete">삭제</div>
-
-                </li>
-                <li class="myPage-wish-element">
-                    <img src="image/ex.png" class="myPage-wish-element-image"></img>
-                    <div style="margin-top:10px;float: left">
-                        <div class="myPage-wish-element-name">혜자 도시락</div>
-                        <div class="myPage-wish-element-brand">GS25 </div>
-                    </div>
-                    <div class="myPage-wish-element-delete">삭제</div>
-
-                </li>
-                <li class="myPage-wish-element">
-                    <img src="image/ex.png" class="myPage-wish-element-image"></img>
-                    <div style="margin-top:10px;float: left">
-                        <div class="myPage-wish-element-name">혜자 도시락</div>
-                        <div class="myPage-wish-element-brand">GS25 </div>
-                    </div>
-                    <div class="myPage-wish-element-delete">삭제</div>
-
-                </li>
-                <li class="myPage-wish-element">
-                    <img src="image/ex.png" class="myPage-wish-element-image"></img>
-                    <div style="margin-top:10px;float: left">
-                        <div class="myPage-wish-element-name">혜자 도시락</div>
-                        <div class="myPage-wish-element-brand">GS25 </div>
-                    </div>
-                    <div class="myPage-wish-element-delete">삭제</div>
-
-                </li>
-                <li class="myPage-wish-element">
-                    <img src="image/ex.png" class="myPage-wish-element-image"></img>
-                    <div style="margin-top:10px;float: left">
-                        <div class="myPage-wish-element-name">혜자 도시락</div>
-                        <div class="myPage-wish-element-brand">GS25 </div>
-                    </div>
-                    <div class="myPage-wish-element-delete">삭제</div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-    </div>
 </div>
 
 <!--로그인 모달창-->
@@ -676,7 +570,7 @@
 <script id="popup-template" type="text/x-handlebars-template">
     <div class="popup-wrapper">
         <a href="#">
-            <div style="margin-right:100px" class="popup-close"></div>
+            <div class="popup-close"></div>
         </a>
         <div class="popup-reviewImage"></div>
         <div class="popup-productImage" style="background-image:url({{img}})"></div>
@@ -875,6 +769,52 @@
     </li>
     {{/this}}
 
+</script>
+<script id="myPage-template" type="text/x-handlebars-template">
+    <div class="myPage-wrapper">
+        <div class="myPage-profile-wrapper">
+            <a href="#">
+                <div style="margin-right:100px" class="myPage-close"></div>
+            </a>
+            <div style="width:200px; height: 130px; margin: 100px auto">
+                <img src="{{user_profile}}" class="myPage-profile-image" id="profilePreview"/>
+            </div>
+
+            <div style="width:150px; height: 20px; margin: 10px auto">
+                <input type="file" id="profileImageInput"/>
+            </div>
+
+            <div class="myPage-profile-nickname-wrapper">
+                <input class="myPage-profile-nickname-input" placeholder="{{nickname}}">
+                <div class="myPage-profile-nickname">닉네임 바꾸기</div>
+            </div>
+            <div class="myPage-profile-email-title">E-mail 주소 </div>
+            <div class="myPage-profile-email">{{email}}
+            </div>
+        </div>
+
+
+        <div class="myPage-wish-wrapper">
+            <div class="myPage-wish-wrapper-title">
+                <img style="margin-left: 10px" class="icon" src="image/heart.png"> 즐겨찾기 상품 리스트
+            </div>
+
+            <ul id="myPageReviewNavi" class="myPage-wish-element-wrapper">
+            </ul>
+        </div>
+    </div>
+</script>
+<script id="myPage-review-template" type="text/x-handlebars-template">
+    {{#this}}
+    <li class="myPage-wish-element">
+        <img src="{{img}}" class="myPage-wish-element-image">
+        <div style="margin-top:10px;float: left">
+            <div class="myPage-wish-element-name">{{name}}</div>
+            <div class="myPage-wish-element-brand">{{brand}} {{price}}원 </div>
+        </div>
+        <div class="myPage-wish-element-delete" name="{{id}}">삭제</div>
+    </li>
+    {{/this}}
 </script>
 
 
