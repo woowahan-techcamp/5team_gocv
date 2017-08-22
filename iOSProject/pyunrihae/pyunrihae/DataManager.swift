@@ -121,6 +121,19 @@ class DataManager{
     // 브랜드 + 카테고리 전체일 때
     static func getTop3Product(completion: @escaping ([Product]) -> ()) {
         let localRef = ref.child("product")
+        
+        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            var productList : [Product] = []
+            for childSnapshot in snapshot.children {
+                let product = Product.init(snapshot: childSnapshot as! DataSnapshot)
+                productList.append(product)
+                
+            }
+            productList = productList.sorted(by: { $0.grade_avg > $1.grade_avg})
+            completion(productList)
+        })
+    }
+     /*
         let query = localRef.queryOrdered(byChild: "grade_avg").queryLimited(toLast: 3)
         query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             var productList : [Product] = []
@@ -131,6 +144,7 @@ class DataManager{
             completion(productList)
         })
     }
+ */
     
     /*
      * 리뷰 화면

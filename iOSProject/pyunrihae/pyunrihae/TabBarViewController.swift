@@ -127,13 +127,12 @@ class TabBarViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(showReview), name: NSNotification.Name("showReview"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(doneLoading), name: NSNotification.Name("doneLoading"), object: nil)
         // Do any additional setup after loading the view.
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         if Auth.auth().currentUser != nil {
             DataManager.getUserFromUID(uid: (Auth.auth().currentUser?.uid)!, completion: { (user) in
-               appDelegate.user = user
+               self.appdelegate.user = user
             })
         } else {
-            appDelegate.user = User()
+            appdelegate.user = User()
         }
     }
     
