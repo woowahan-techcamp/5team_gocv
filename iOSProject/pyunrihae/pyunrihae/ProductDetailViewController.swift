@@ -10,6 +10,8 @@ import UIKit
 import Alamofire
 
 class ProductDetailViewController: UIViewController {
+   
+    
     @IBOutlet weak var uploadingView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var writingReviewBtn: UIButton!
@@ -189,6 +191,8 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                     cell.priceLabel.text = product.price + "원"
                     cell.brandLabel.text = product.brand
                     cell.foodNameLabel.text = product.name
+                    cell.capacityLabel.text = product.capacity
+                    cell.manufacturerLabel.text = product.manufacturer
                
                     if product.event != "\r" { 
                         cell.eventLabel.text = product.event
@@ -197,7 +201,6 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                     }else{
                         cell.eventLabel.isHidden = true
                     }
-
                     cell.loading.startAnimating()
                     let foodImage = UIImageView()
                     foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), completion:{ image in
@@ -392,6 +395,15 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
             return cell
         }
     }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0{
+            if indexPath.row == 0 {
+                return 187
+            }
+        }
+        return 150
+    }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
         if indexPath.section == 0{
@@ -440,17 +452,19 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
             orderReviewView.addSubview(headerText)
             orderReviewView.layer.backgroundColor = UIColor.white.cgColor
             
+            let width = tableView.frame.size.width
+            
             // 소비자 리뷰 정렬 텍스트
             sortingMethodLabel.text = orderBy
             sortingMethodLabel.textColor = UIColor.darkGray
-            sortingMethodLabel.frame = CGRect(x: 300, y: 10, width: 50, height: 25)
+            sortingMethodLabel.frame = CGRect(x: width - 73, y: 10, width: 50, height: 25)
             sortingMethodLabel.font = UIFont.systemFont(ofSize: 13)
             orderReviewView.addSubview(sortingMethodLabel)
             
             // 소비자 리뷰 정렬 버튼
             let orderBtn = UIButton()
             orderBtn.setImage(UIImage(named: "ic_dropdown.png"), for: .normal)
-            orderBtn.frame = CGRect(x: 340, y: 13, width: 15, height: 15)
+            orderBtn.frame = CGRect(x: width - 33, y: 13, width: 15, height: 15)
             orderBtn.addTarget(self, action: #selector(tabDropDownBtn), for: UIControlEvents.touchUpInside)
             orderReviewView.addSubview(orderBtn)
             
