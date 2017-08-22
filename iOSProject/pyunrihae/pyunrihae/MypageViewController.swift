@@ -249,8 +249,11 @@ extension MypageViewController: UITableViewDataSource, UITableViewDelegate {
                 let vc = storyboard.instantiateViewController(withIdentifier: "LikeProductViewController") as! LikeProductViewController
                 self.present(vc, animated: true, completion: nil)
             }
-        }
-        if indexPath.row == 2 {
+        } else if indexPath.row == 1 {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "PyunrihaeInfoViewController") as! PyunrihaeInfoViewController
+            self.present(vc, animated: true, completion: nil)
+        } else if indexPath.row == 2 {
             if labelList[2] == "회원가입 / 로그인" {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let vc = storyboard.instantiateViewController(withIdentifier: "LoginSignUpViewController") as! LoginSignUpViewController
