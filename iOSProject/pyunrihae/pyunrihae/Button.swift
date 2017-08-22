@@ -42,4 +42,18 @@ class Button{
         btn.setTitleColor(color, for: .normal)
         btn.backgroundColor = UIColor.white
     }
+    static func makeBorder(btn: UIButton) {
+        let color = UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(Float(1)))
+        btn.layer.borderWidth = 0.7
+        btn.layer.borderColor = color.cgColor
+        btn.layer.cornerRadius = btn.layer.frame.height/4
+        btn.clipsToBounds = true
+    }
+    static func deleteBorder(btn: UIButton) {
+        let color = UIColor.lightGray
+        btn.layer.borderWidth = 0.7
+        btn.layer.borderColor = color.cgColor
+        btn.layer.cornerRadius = btn.layer.frame.height/4
+        btn.clipsToBounds = true
+    }
 }

@@ -228,8 +228,60 @@ class DataManager{
             
         })
     }
-    
-    
+    static func updateUsefulReview(id: String, uid: String) { //유용해요
+        let userRef = ref.child("user").child(uid)
+        userRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            let postDict = snapshot.value as? [String : AnyObject] ?? [:]
+            var update = [String: Any]()
+            var reviewLikeList = [String: Int]()
+            if postDict["review_like_list"] != nil {
+                if var list = postDict["review_like_list"] as? [String: Int] {
+                    list[id] = 1
+                    reviewLikeList = list
+                }
+            } else {
+                reviewLikeList[id] = 1
+            }
+            update["review_like_list"] = reviewLikeList
+            userRef.updateChildValues(update)
+        })
+    }
+    static func updateBadReview(id: String, uid: String) { //별로에요
+        let userRef = ref.child("user").child(uid)
+        userRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            let postDict = snapshot.value as? [String : AnyObject] ?? [:]
+            var update = [String: Any]()
+            var reviewLikeList = [String: Int]()
+            if postDict["review_like_list"] != nil {
+                if var list = postDict["review_like_list"] as? [String: Int] {
+                    list[id] = -1
+                    reviewLikeList = list
+                }
+            } else {
+                reviewLikeList[id] = -1
+            }
+            update["review_like_list"] = reviewLikeList
+            userRef.updateChildValues(update)
+        })
+    }
+    static func updateCancleReview(id: String, uid: String) { //유용/별로 취소
+        let userRef = ref.child("user").child(uid)
+        userRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            let postDict = snapshot.value as? [String : AnyObject] ?? [:]
+            var update = [String: Any]()
+            var reviewLikeList = [String: Int]()
+            if postDict["review_like_list"] != nil {
+                if var list = postDict["review_like_list"] as? [String: Int] {
+                    list[id] = 0
+                    reviewLikeList = list
+                }
+            } else {
+                reviewLikeList[id] = 0
+            }
+            update["review_like_list"] = reviewLikeList
+            userRef.updateChildValues(update)
+        })
+    }
     static func tabUsefulBtn(id: String) {
         let localRef = ref.child("review").child(id)
         localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
@@ -242,6 +294,18 @@ class DataManager{
             }
         })
     }
+    static func cancleUsefulBtn(id: String) {
+        let localRef = ref.child("review").child(id)
+        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            let postDict = snapshot.value as? [String : AnyObject] ?? [:]
+            if postDict["useful"] != nil {
+                if var useful = postDict["useful"] as? Int {
+                    useful -= 1
+                    localRef.updateChildValues(["useful": useful])
+                }
+            }
+        })
+    }
     static func tabBadBtn(id: String) {
         let localRef = ref.child("review").child(id)
         localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
@@ -249,6 +313,18 @@ class DataManager{
             if postDict["bad"] != nil {
                 if var bad = postDict["bad"] as? Int {
                     bad += 1
+                    localRef.updateChildValues(["bad": bad])
+                }
+            }
+        })
+    }
+    static func cancleBadBtn(id: String) {
+        let localRef = ref.child("review").child(id)
+        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            let postDict = snapshot.value as? [String : AnyObject] ?? [:]
+            if postDict["bad"] != nil {
+                if var bad = postDict["bad"] as? Int {
+                    bad -= 1
                     localRef.updateChildValues(["bad": bad])
                 }
             }

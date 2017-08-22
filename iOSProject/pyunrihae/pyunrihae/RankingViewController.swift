@@ -14,18 +14,18 @@ class RankingViewController: UIViewController {
     @IBOutlet weak var sortingMethodLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBAction func tabDropDownBtn(_ sender: UIButton) {
-        let alert = UIAlertController(title: "순서 정렬하기", message: "", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "\r순서 정렬하기", message: "", preferredStyle: .actionSheet)
         //Create and add the Cancel action
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
             
         }
-        let orderByRanking = UIAlertAction(title: "랭킹순", style: .default) { action -> Void in
+        let orderByRanking = UIAlertAction(title: "평점순", style: .default) { action -> Void in
             DispatchQueue.main.async {
-                self.sortingMethodLabel.text  = "랭킹순"
+                self.sortingMethodLabel.text  = "평점순"
                 self.setRankingListOrder()
             }
         }
-        let orderByPrice = UIAlertAction(title: "낮은 가격순", style: .destructive) { action -> Void in
+        let orderByPrice = UIAlertAction(title: "낮은 가격순", style: .default) { action -> Void in
             DispatchQueue.main.async {
                 self.sortingMethodLabel.text  = "낮은 가격순"
                 self.setRankingListOrder()
@@ -234,7 +234,7 @@ class RankingViewController: UIViewController {
         
         if sortingMethodLabel != nil {
             
-            if sortingMethodLabel.text == "랭킹순"{
+            if sortingMethodLabel.text == "평점순"{
                 self.productList = productList.sorted(by: { $0.grade_avg > $1.grade_avg })
             }else{
                 // 멈출 위험이 있음.

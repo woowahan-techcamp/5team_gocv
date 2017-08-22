@@ -75,18 +75,22 @@ class TabBarViewController: UIViewController {
         didPressTabBtn(tabBtns[2])
     }
     func animateView(){
-        UIView.animate(withDuration: 1,delay: 0.5, animations: {
+        UIView.animate(withDuration: 1,delay: 1, animations: {
             self.pyunrihaeImage.alpha -= 1
         }, completion: { (complete:Bool) in
             if complete == true{
-                UIView.animate(withDuration: 1,delay: 0.5, animations: {
+                UIView.animate(withDuration: 1,delay: 1, animations: {
                     self.pyunrihaeImage.alpha += 1
-                }
-                )}
+                }, completion: { (complete:Bool) in
+                    if complete == true{
+                        self.doneLoading()
+                    }
+                })
+            }
         })
     }
     func doneLoading() {
-        UIView.animate(withDuration: 1.5,delay: 0.5, animations: {
+        UIView.animate(withDuration: 1.0,delay: 1, animations: {
             self.pyunrihaeImage.frame.origin.x -= 375
             self.waitingImage.frame.origin.x -= 375
         }, completion: { (complete:Bool) in
@@ -100,8 +104,8 @@ class TabBarViewController: UIViewController {
         super.viewDidLoad()
         waitingImage.layer.zPosition = 10
         pyunrihaeImage.layer.zPosition = 20
-        animateView()
         saveProductListToGlobal()
+        animateView()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         mainViewController = storyboard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
         mainViewController.selectedBrandIndexFromTab = selectedBrandIndex
@@ -139,6 +143,7 @@ class TabBarViewController: UIViewController {
     func saveProductListToGlobal(){
         DataManager.getProductAllInRank(){ (products) in
             self.appdelegate.productList = products.sorted(by: {$0.grade_avg > $1.grade_avg})
+            //NotificationCenter.default.post(name: NSNotification.Name("doneLoading"), object: self)
         }
     }
     
