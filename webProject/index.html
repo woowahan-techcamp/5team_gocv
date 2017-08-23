@@ -380,7 +380,7 @@
 </div>
 
 <!--로그인 모달창-->
-<div style="display:none;" id="sign" class="sign-overlay">
+<div style="display:block;" id="sign" class="sign-overlay">
     <div class="sign-wrapper">
         <div class="signin-facebook">
             <img class="icon" src="image/facebook2.png">Facebook 계정으로 로그인
@@ -515,8 +515,8 @@
                         </div>
                     </div>
 
-                    <div class="review-preview-star">
-                        <div id="{{rating}}">
+                    <div class="carousel-review-star">
+                        <div style="margin-top:30px" id="{{rating}}">
                         </div>
                     </div>
 
@@ -872,13 +872,14 @@
 </script>
 <script id="card-review-page-template" type="text/x-handlebars-template">
     {{#this}}
-    <a href="#popup">
+
         <div class="review-card-content" name={{key}} onclick="loadReviewDetail(this)">
             <div class="review-card-image-wrapper">
                 <img class="review-card-brand" src="{{brand_image}}"/>
-                <span class="review-card-date">{{date}}</span>
+                <a href="#popup">
                 <img class="review-card-image" src="{{p_image}}"
-                     onerror="this.onerror=null;this.src='../image/no_image.gif';"/>
+                     onerror="this.onerror=null;this.src='../image/no_image.gif';"/
+                </a>
                 <div class="review-user-image-wrapper">
                     <img class="review-user-image"
                          src="{{user_image}}"/>
@@ -901,17 +902,18 @@
                     </div>
                   </span>
 
-                    <div class="review-card-user-id">평가유저 : {{user}}</div>
+                    <div style="margin-left:10px" class="review-card-user-id">글쓴이 : {{user}}</div>
+                    <div class="review-card-date">{{date}}</div>
 
-                    <div class="review-card-name">상품이름 : {{p_name}}</div>
+                    <div style="margin-left:10px" class="review-card-name">{{p_name}}</div>
 
                     <div class="review-card-review">
-                        리뷰 : {{comment}}
+                        {{comment}}
                     </div>
                 </div>
             </div>
         </div>
-    </a>
+
     {{/this}}
 </script>
 <script id="myPage-template" type="text/x-handlebars-template">
