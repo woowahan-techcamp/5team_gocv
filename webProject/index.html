@@ -487,6 +487,7 @@
     </div>
     {{/this}}
 </script>
+
 <script id="popupImgTemplate" type="text/x-handlebars-template">
     <div class="popSubImgBox">
         {{#detail_section}}
@@ -494,6 +495,7 @@
         {{/detail_section}}
     </div>
 </script>
+
 <script id="carousel-template" type="text/x-handlebars-template">
     <ul style="z-index: 80; position: relative; width:1200%;left: -100%;"
         class="carousel-review-navi" id="reviewNavi">
@@ -547,6 +549,7 @@
         {{/this }}
     </ul>
 </script>
+
 <script id="card-ranking-template" type="text/x-handlebars-template">
     {{#ranking}}
     <div class="card-main-rank-content">
@@ -568,6 +571,7 @@
     </div>
     {{/ranking}}
 </script>
+
 <script id="brand-ranking-template" type="text/x-handlebars-template">
     {{#this}}
 
@@ -594,6 +598,7 @@
     <div class="rank-product-price">{{price}}원</div>
     {{/this}}
 </script>
+
 <script id="popup-template" type="text/x-handlebars-template">
     <div class="popup-wrapper">
         <a href="#">
@@ -658,10 +663,10 @@
                     src="image/review_icon.png"> 소비자 리뷰 ({{grade_count}})
             </div>
 
-            <div class="popup-reviewFilter">&nbsp;
+            <div class="popup-reviewFilter">
                 <ul class="popup-reviewFilter-dropdown">
-                    <li class="popup-reviewFilter-element">최신순</li>
-                    <li class="popup-reviewFilter-element">유용순</li>
+                    <li class="popup-reviewFilter-element selected-popup-reviewFilter-element" name="date">최신순</li>
+                    <li class="popup-reviewFilter-element" name="useful">유용순</li>
                 </ul>
             </div>
 
@@ -741,6 +746,7 @@
 
     </div>
 </script>
+
 <script id="review-template" type="text/x-handlebars-template">
     {{#this}}
     <li class="popup-review">
