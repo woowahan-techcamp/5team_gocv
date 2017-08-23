@@ -66,7 +66,7 @@ open class YNSearchTextFieldView: UIView {
         self.searchButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         self.searchButton.setTitleColor(UIColor.darkGray, for: .normal)
         self.searchButton.setTitleColor(UIColor.darkGray.withAlphaComponent(0.3), for: .highlighted)
-        self.searchButton.setTitle("검색", for: .normal)
+        self.searchButton.setTitle("", for: .normal)
         self.searchButton.isHidden = true
         self.addSubview(self.searchButton)
     }

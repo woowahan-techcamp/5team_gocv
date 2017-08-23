@@ -183,7 +183,7 @@ class RankingViewPage {
       switch (params) {
         case 'gs25':
         case 'GS25':
-          return 'gs25';
+          return 'GS25';
         case 'cu':
         case 'CU':
           return 'CU';

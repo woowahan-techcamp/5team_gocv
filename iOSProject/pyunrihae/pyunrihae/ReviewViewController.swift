@@ -17,7 +17,7 @@ class ReviewViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     @IBAction func tabDropDownBtn(_ sender: UIButton) {
-        let alert = UIAlertController(title: "순서 정렬하기", message: "", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "\r순서 정렬하기", message: "", preferredStyle: .actionSheet)
         //Create and add the Cancel action
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
             
@@ -29,7 +29,7 @@ class ReviewViewController: UIViewController {
             }
         }
 
-        let orderByUsefulNum = UIAlertAction(title: "유용순", style: .destructive) { action -> Void in
+        let orderByUsefulNum = UIAlertAction(title: "유용순", style: .default) { action -> Void in
             DispatchQueue.main.async {
                 self.sortingMethodLabel.text  = "유용순"
                 self.setReviewListOrder()
@@ -160,7 +160,7 @@ class ReviewViewController: UIViewController {
         
         switch selectedBrandIndexFromTab {
         case 0 : brand = ""
-        case 1 : brand = "gs25"
+        case 1 : brand = "GS25"
         case 2 : brand = "CU"
         case 3 : brand = "7-eleven"
         default : break;

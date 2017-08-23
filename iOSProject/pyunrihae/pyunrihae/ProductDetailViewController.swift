@@ -43,28 +43,27 @@ class ProductDetailViewController: UIViewController {
     let priceLevelList = ["비싸다","비싼편","적당","싼편","싸다"]
     let flavorLevelList = ["노맛","별로","적당","괜춘","존맛"]
     let quantityLevelList = ["창렬","적음","적당","많음","혜자"]
+    var sortingMethodLabel = UILabel()
     var orderBy = "최신순"
     var productGrade = 0.0 //임의로 넣어놧음
     var usefulBtns = [UIButton]()
     var badBtns = [UIButton]()
-    var usefulLabels = [UILabel]()
-    var badLabels = [UILabel]()
-    var reviewIdList = [String]()
     var reviewList = [Review]()
     var product = Product()
+    let appdelegate = UIApplication.shared.delegate as! AppDelegate
     func didPressUsefulBtn(sender: UIButton) { //유용해요 버튼 누르기
-        let index = sender.tag
-        DataManager.tabUsefulBtn(id: reviewIdList[index])
-        var useful = Int(usefulLabels[index].text!)
-        useful = useful! + 1
-        usefulLabels[index].text = String(describing: useful!)
+        if appdelegate.user?.email == "" {
+            let alert = UIAlertController(title: "로그인 후 이용해주세요!", message: "", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     func didPressBadBtn(sender: UIButton) { //별로에요 버튼 누르기
-        let index = sender.tag
-        DataManager.tabBadBtn(id: reviewIdList[index])
-        var bad = Int(badLabels[index].text!)
-        bad = bad! + 1
-        badLabels[index].text = String(describing: bad!)
+        if appdelegate.user?.email == "" {
+            let alert = UIAlertController(title: "로그인 후 이용해주세요!", message: "", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     func showProduct(_ notification: Notification) { // 넘어온 product 정보 받아서 화면 구성
         let product = notification.userInfo?["product"] as! Product
@@ -89,11 +88,9 @@ class ProductDetailViewController: UIViewController {
             DataManager.getReviewListBy(id: SelectedProduct.foodId) { (reviewList) in
                 SelectedProduct.reviewCount = reviewList.count
                 self.reviewList = reviewList
+                self.setReviewListOrder()
                 self.usefulBtns = []
                 self.badBtns = []
-                self.usefulLabels = []
-                self.badLabels = []
-                self.reviewIdList = []
                 self.tableView.reloadData()
             }
         }
@@ -294,6 +291,9 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ProductReviewTableViewCell
             if indexPath.row > 1 {
                 cell.isHidden = false
+                cell.uploadedFoodImageBtn.isHidden = false
+                cell.detailReviewLabel.isHidden = false
+                cell.detailReviewLabel.frame.origin.y = 130
                 Image.makeCircleImage(image: cell.userImage)
                 cell.reviewBoxView.layer.cornerRadius = 10
                 let row = indexPath.row - 2
@@ -307,23 +307,42 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                 cell.userImage.image = UIImage(named: "user_default.png")
                 cell.uploadedFoodImageBtn.setBackgroundImage(UIImage(), for: .normal)
                 
-                
                 if reviewList.count == SelectedProduct.reviewCount && reviewList.count > 0 {
                     usefulBtns.append(cell.usefulBtn)
                     badBtns.append(cell.badBtn)
-                    reviewIdList.append(reviewList[row].id)
-                    usefulLabels.append(cell.usefulNumLabel)
-                    badLabels.append(cell.badNumLabel)
+                    cell.reviewId = reviewList[row].id
                     cell.usefulBtn.addTarget(self, action: #selector(self.didPressUsefulBtn), for: UIControlEvents.touchUpInside)
                     cell.badBtn.addTarget(self, action: #selector(self.didPressBadBtn), for: UIControlEvents.touchUpInside)
                     cell.badNumLabel.text = String(reviewList[row].bad)
                     cell.usefulNumLabel.text = String(reviewList[row].useful)
+                    if let userReviewLike = appdelegate.user?.review_like_list[reviewList[row].id]{
+                        if userReviewLike == 1 {
+                            Button.makeBorder(btn: cell.usefulBtn)
+                            Button.deleteBorder(btn: cell.badBtn)
+                            cell.usefulNumLabel.textColor = UIColor.red
+                            cell.badNumLabel.textColor = UIColor.lightGray
+                        } else if userReviewLike == -1 {
+                            Button.makeBorder(btn: cell.badBtn)
+                            Button.deleteBorder(btn: cell.usefulBtn)
+                            cell.usefulNumLabel.textColor = UIColor.lightGray
+                            cell.badNumLabel.textColor = UIColor.red
+                        } else {
+                            Button.deleteBorder(btn: cell.usefulBtn)
+                            Button.deleteBorder(btn: cell.badBtn)
+                            cell.usefulNumLabel.textColor = UIColor.lightGray
+                            cell.badNumLabel.textColor = UIColor.lightGray
+                        }
+                    } else {
+                        Button.deleteBorder(btn: cell.usefulBtn)
+                        Button.deleteBorder(btn: cell.badBtn)
+                        cell.usefulNumLabel.textColor = UIColor.lightGray
+                        cell.badNumLabel.textColor = UIColor.lightGray
+                    }
                     cell.detailReviewLabel.text = reviewList[row].comment
                     
                     let height = Label.heightForView(text: reviewList[row].comment, font: cell.detailReviewLabel.font, width: cell.detailReviewLabel.frame.width)
                     
                     cell.detailReviewLabel.frame.size.height = height
-                    
                     cell.userNameLabel.text = reviewList[row].user
                     cell.userImageLoading.startAnimating()
                     cell.usefulBtn.tag = usefulBtns.count - 1
@@ -422,17 +441,16 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
             orderReviewView.layer.backgroundColor = UIColor.white.cgColor
             
             // 소비자 리뷰 정렬 텍스트
-            let orderLabel = UILabel()
-            orderLabel.text = orderBy
-            orderLabel.textColor = UIColor.darkGray
-            orderLabel.frame = CGRect(x: 300, y: 10, width: 50, height: 25)
-            orderLabel.font = UIFont.systemFont(ofSize: 13)
-            orderReviewView.addSubview(orderLabel)
+            sortingMethodLabel.text = orderBy
+            sortingMethodLabel.textColor = UIColor.darkGray
+            sortingMethodLabel.frame = CGRect(x: 300, y: 10, width: 50, height: 25)
+            sortingMethodLabel.font = UIFont.systemFont(ofSize: 13)
+            orderReviewView.addSubview(sortingMethodLabel)
             
             // 소비자 리뷰 정렬 버튼
             let orderBtn = UIButton()
-            orderBtn.setImage(UIImage(named: "dropdown.png"), for: .normal)
-            orderBtn.frame = CGRect(x: 340, y: 17, width: 15, height: 11)
+            orderBtn.setImage(UIImage(named: "ic_dropdown.png"), for: .normal)
+            orderBtn.frame = CGRect(x: 340, y: 13, width: 15, height: 15)
             orderBtn.addTarget(self, action: #selector(tabDropDownBtn), for: UIControlEvents.touchUpInside)
             orderReviewView.addSubview(orderBtn)
             
@@ -452,23 +470,52 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
         return orderReviewView
     }
     func tabDropDownBtn(_ sender: UIButton) {
-        let alert = UIAlertController(title: "순서 정렬하기", message: "", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "\r순서 정렬하기", message: "", preferredStyle: .actionSheet)
         //Create and add the Cancel action
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
             
         }
         let orderByRanking = UIAlertAction(title: "최신순", style: .default) { action -> Void in
-            
+            DispatchQueue.main.async {
+                self.orderBy  = "최신순"
+                self.setReviewListOrder()
+            }
         }
         
-        let orderByPrice = UIAlertAction(title: "유용순", style: .destructive) { action -> Void in
-            
+        let orderByPrice = UIAlertAction(title: "유용순", style: .default) { action -> Void in
+            DispatchQueue.main.async {
+                self.orderBy  = "유용순"
+                self.setReviewListOrder()
+            }
         }
         
         alert.addAction(cancelAction)
         alert.addAction(orderByRanking)
         alert.addAction(orderByPrice)
         present(alert, animated: true, completion: nil)
+    }
+    func setReviewListOrder(){
+        let format = DateFormatter()
+        format.locale = Locale(identifier: "ko_kr")
+        format.timeZone = TimeZone(abbreviation: "KST")
+        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        if orderBy == "최신순"{
+            self.reviewList = reviewList.sorted(by: { (review1, review2) in
+                if format.date(from: review1.timestamp) != nil && format.date(from: review2.timestamp) != nil {
+                    return format.date(from: review1.timestamp)! > format.date(from: review2.timestamp)!
+                }else{
+                    return review1.id > review2.id
+                }
+            })
+        }else{
+            self.reviewList = reviewList.sorted(by: { $0.useful > $1.useful })
+        }
+        DispatchQueue.main.async {
+            self.usefulBtns = []
+            self.badBtns = []
+            self.tableView.reloadData()
+        }
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
