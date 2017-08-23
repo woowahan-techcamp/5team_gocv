@@ -28,6 +28,8 @@ class Product {
     var quantity_level : [String : Int] // 양의 수치를 표현한 것 
     var review_count : Int // 리뷰 갯수 
     var reviewList : [String] // 가지고 있는 리뷰 아이디의 리스트
+    var capacity : String
+    var manufacturer : String
     
     
     init(){
@@ -47,10 +49,12 @@ class Product {
         self.quantity_level = [:]
         self.review_count = 0
         self.reviewList = []
+        self.capacity = ""
+        self.manufacturer = ""
     }
     
     
-    init(id : String, image : String, name : String, price : String, brand: String, event: String, allergy : [String] , category: String, grade_avg: Float, grade_total: Int, grade_count: Int, price_level: [String: Int] , flavor_level : [String : Int], quantity_level : [String: Int], review_count : Int, reviewList : [String] ) {
+    init(id : String, image : String, name : String, price : String, brand: String, event: String, allergy : [String] , category: String, grade_avg: Float, grade_total: Int, grade_count: Int, price_level: [String: Int] , flavor_level : [String : Int], quantity_level : [String: Int], review_count : Int, reviewList : [String], capacity : String, manufacturer : String ) {
         self.id = id
         self.image = image
         self.name = name
@@ -70,6 +74,8 @@ class Product {
         self.quantity_level = quantity_level
         self.review_count = review_count
         self.reviewList = reviewList
+        self.capacity = capacity
+        self.manufacturer = manufacturer
     }
     
     
@@ -91,7 +97,9 @@ class Product {
         let quantity_level = dict["quantity_level"] as? [String: Int] ?? [:]
         let review_count = dict["review_count"] as? Int ?? 0
         let reviewList = dict["reviewList"] as? [String] ?? []
+        let capacity = dict["capacity"] as? String ?? ""
+        let manufacturer = dict["manufacture"] as? String ?? ""
         
-        self.init(id: id, image: image, name: name, price: price, brand: brand, event: event, allergy: allergy, category: category, grade_avg: grade_avg, grade_total: grade_total, grade_count: grade_count, price_level: price_level, flavor_level: flavor_level, quantity_level: quantity_level, review_count: review_count, reviewList: reviewList)
+        self.init(id: id, image: image, name: name, price: price, brand: brand, event: event, allergy: allergy, category: category, grade_avg: grade_avg, grade_total: grade_total, grade_count: grade_count, price_level: price_level, flavor_level: flavor_level, quantity_level: quantity_level, review_count: review_count, reviewList: reviewList, capacity: capacity, manufacturer: manufacturer)
     }
 }

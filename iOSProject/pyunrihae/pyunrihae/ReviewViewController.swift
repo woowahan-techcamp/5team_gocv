@@ -14,7 +14,7 @@ class ReviewViewController: UIViewController {
     @IBOutlet weak var categoryScrollView: UIScrollView!
     @IBOutlet weak var reviewNumLabel: UILabel!
     @IBOutlet weak var sortingMethodLabel: UILabel!
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var tableView: UITableView!
     
     @IBAction func tabDropDownBtn(_ sender: UIButton) {
         let alert = UIAlertController(title: "\r순서 정렬하기", message: "", preferredStyle: .actionSheet)
@@ -120,9 +120,9 @@ class ReviewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.isScrollEnabled = true
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.isScrollEnabled = true
         categoryScrollView.backgroundColor = UIColor.white
         addCategoryBtn() // 카테고리 버튼 만들어서 스크롤 뷰에 붙이기
         Button.select(btn: categoryBtns[selectedCategoryIndex]) // 맨 처음 카테고리는 전체 선택된 것으로 나타나게 함
@@ -167,7 +167,7 @@ class ReviewViewController: UIViewController {
         }
         
         showActivityIndicatory()
-        if collectionView != nil {
+        if tableView != nil {
             if selectedBrandIndexFromTab == 0  && selectedCategoryIndex == 0 { // 브랜드 : 전체 , 카테고리 : 전체 일때
                 
                 DataManager.getReviewList(completion:  { (reviews) in
@@ -251,21 +251,21 @@ class ReviewViewController: UIViewController {
                 self.reviewList = reviewList.sorted(by: { $0.useful > $1.useful })
             }
             
-            self.collectionView.reloadData()
+            self.tableView.reloadData()
         }
     }
     
 }
 
-extension ReviewViewController: UICollectionViewDataSource { //메인화면에서 1,2,3위 상품 보여주기
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //메인화면에서 1,2,3위 상품 보여주기
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1;
     }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return reviewList.count;
     }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? ReviewCollectionViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell =  tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? ReviewTableViewCell {
             
             let review = reviewList[indexPath.item]
             cell.userImage.layer.cornerRadius = cell.userImage.frame.height/2
@@ -312,17 +312,17 @@ extension ReviewViewController: UICollectionViewDataSource { //메인화면에�
             cell.reviewView.layer.cornerRadius = 15
             return cell
         }
-        return ReviewCollectionViewCell()
+        return ReviewTableViewCell()
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let cell = sender as! ReviewCollectionViewCell
-        let indexRow = self.collectionView!.indexPath(for: cell)?.row
+        let cell = sender as! ReviewTableViewCell
+        let indexRow = self.tableView!.indexPath(for: cell)?.row
         if reviewList.count > 0 {
             let product = reviewList[indexRow!]
             NotificationCenter.default.post(name: NSNotification.Name("showReviewProduct"), object: self, userInfo: ["product" : product])
         }
     }
 }
-extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-}
-

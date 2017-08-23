@@ -59,7 +59,7 @@
     <!--프로필 창-->
     <div style="display: none" class="fixTab-profile-wrapper">
         <div class="fixTab-profile-image">
-            <img style="opacity: 1; width: 30px; height: 30px"
+            <img id="fixTabProfileImg" style="opacity: 1; width: 30px; height: 30px"
                  src="image/profile.png">
         </div>
         <a href="#">
@@ -190,15 +190,15 @@
             </div>
 
             <ul class="main-rank-tab-wrapper">
-                <!-- 도시락 / 김밥 / 베이커리 / 라면 / 스낵 / 유제품 / 음료 / 즉석식품 -->
+                <!-- 도시락 / 김밥 / 베이커리 / 라면 / 스낵 / 아이ㅡ크림 / 음료 / 식품 -->
                 <li class="main-rank-tab main-rank-selectedtab" name="도시락">도시락</li>
                 <li class="main-rank-tab" name="김밥">김밥</li>
                 <li class="main-rank-tab" name="베이커리">베이커리</li>
                 <li class="main-rank-tab" name="라면">라면</li>
                 <li class="main-rank-tab" name="스낵">스낵</li>
-                <li class="main-rank-tab" name="유제품">유제품</li>
+                <li class="main-rank-tab" name="아이스크림">아이스크림</li>
                 <li class="main-rank-tab" name="음료">음료</li>
-                <li class="main-rank-tab" name="즉석식품">즉석식품</li>
+                <li class="main-rank-tab" name="식품">식품</li>
             </ul>
 
 
@@ -233,6 +233,7 @@
             <div class="brand-rank-more">GS25 랭킹 전체 보기</div>
         </a>
     </div>
+
     <!--cu-->
     <div class="brand-rank-wrapper">
         <div class="brand-rank-arrow">
@@ -320,14 +321,14 @@
             <li style="background-image:url('image/snack.png')" class="rank-category-tab" name="스낵">
                 스낵
             </li>
-            <li style="background-image:url('image/milk.png')" class="rank-category-tab" name="유제품">
-                유제품
+            <li style="background-image:url('image/milk.png')" class="rank-category-tab" name="아이스크림">
+                아이스크림
             </li>
             <li style="background-image:url('image/bottle.png')" class="rank-category-tab" name="음료">
                 음료
             </li>
-            <li style="background-image:url('image/instant.png')" class="rank-category-tab" name="즉석식품">
-                즉석식품
+            <li style="background-image:url('image/instant.png')" class="rank-category-tab" name="식품">
+                식품
             </li>
         </ul>
     </div>
@@ -357,6 +358,10 @@
 <div id="popup" class="overlay">
 </div>
 
+<!--마이페이지 모달창-->
+<div id="myPage" class="myPage-overlay">
+
+</div>
 
 <!--로그인 모달창-->
 <div style="display:block" id="sign" class="sign-overlay">
@@ -367,8 +372,8 @@
             <img  class="icon" src="image/google.png"> Google 계정으로 로그인</div>
 
         <div lass="sign-line"></div>
-        <input class="signin-id" placeholder="이메일 주소"/>
-        <input type="password" class="signin-password" placeholder="비밀번호"/>
+        <input class="signin-id" placeholder="이메일 주소" value="tong9433@naver.com"/>
+        <input type="password" class="signin-password" placeholder="비밀번호" value="008055"/>
 
         <div class="signin-button">로그인 </div>
         <div id="signinErrorCheck" style="display:none; margin: 0px 30px -10px; color: red; font-size: 12px"></div>
@@ -405,7 +410,7 @@
     </div>
 </div>
 
-<!--상세 회원가입 화면-->
+<!--상세 회원가입 모달창-->
 <div style="display: none" id="signupDetail" class="sign-overlay">
     <div class="signup-detail-wrapper">
         <div class="signup-detail-title">
@@ -430,6 +435,12 @@
     </div>
 </div>
 
+<!--로딩 스피너-->
+<div style="display: none" id="loading" class="spinner">
+    <div class="bounce1"></div>
+    <div class="bounce2"></div>
+    <div class="bounce3"></div>
+</div>
 
 <!--template-->
 <script id="rank-card-template" type="text/x-handlebars-template">
@@ -566,12 +577,15 @@
         <a href="#">
             <div class="popup-close"></div>
         </a>
+
+
         <div class="popup-reviewImage"></div>
         <div class="popup-productImage" style="background-image:url({{img}})"></div>
         <div class="popup-productWrapper">
             <div class="popup-productCount">
                 <div>누적리뷰 수</div>
                 <div>{{grade_count}} reviews</div>
+                <div id="popupWish" class="popup-wish"></div>
             </div>
             <div class="popup-productName">{{name}}</div>
             <div class="popup-productPrice">가격</div>
@@ -580,6 +594,7 @@
             <div class="popup-productBrand2">{{brand}}</div>
             <div class="popup-productScore">총 평점</div>
             <div class="popup-productScore2">{{grade_avg}}<span style="font-size:12px"> /5점</span></div>
+
         </div>
         <div class="popup-ratingChart">
             <canvas id="ratingChart"></canvas>
@@ -763,6 +778,51 @@
     </li>
     {{/this}}
 
+</script>
+<script id="myPage-template" type="text/x-handlebars-template">
+    <div class="myPage-wrapper">
+        <div class="myPage-profile-wrapper">
+            <a href="#">
+                <div style="margin-right:100px" class="myPage-close"></div>
+            </a>
+            <div style="width:200px; height: 130px; margin: 100px auto">
+                <img src="{{user_profile}}" class="myPage-profile-image" id="profilePreview"/>
+            </div>
+
+            <div style="width:150px; height: 20px; margin: 10px auto">
+                <input type="file" id="profileImageInput"/>
+            </div>
+
+            <div class="myPage-profile-nickname-wrapper">
+                <input class="myPage-profile-nickname-input" placeholder="{{nickname}}">
+                <div class="myPage-profile-nickname">닉네임 바꾸기</div>
+            </div>
+            <div class="myPage-profile-email-title">E-mail 주소 </div>
+            <div class="myPage-profile-email">{{email}}</div>
+        </div>
+
+
+        <div class="myPage-wish-wrapper">
+            <div class="myPage-wish-wrapper-title">
+                <img style="margin-left: 10px" class="icon" src="image/heart.png"> 즐겨찾기 상품 리스트
+            </div>
+
+            <ul id="myPageReviewNavi" class="myPage-wish-element-wrapper">
+            </ul>
+        </div>
+    </div>
+</script>
+<script id="myPage-review-template" type="text/x-handlebars-template">
+    {{#this}}
+    <li class="myPage-wish-element">
+        <img name={{id}} onclick="loadDetailProduct()" src="{{img}}" class="myPage-wish-element-image">
+        <div style="margin-top:10px;float: left">
+            <div class="myPage-wish-element-name">{{name}}</div>
+            <div class="myPage-wish-element-brand">{{brand}} </div>
+        </div>
+        <div class="myPage-wish-element-delete" name="{{id}}">삭제</div>
+    </li>
+    {{/this}}
 </script>
 
 
