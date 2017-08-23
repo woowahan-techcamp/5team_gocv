@@ -446,12 +446,12 @@ class MyPage {
 
             firebase.database().ref('user/').once('value').then(function (snapshot) {
                 localStorage['user'] = JSON.stringify(snapshot.val());
-            });
 
-            setTimeout(function(){
+
                 that.setProfileTab();
                 document.querySelector('#loading').style.display = "none";
-            }.bind(that),1000)
+
+            }.bind(that));
 
         }.bind(this))
 
@@ -470,6 +470,7 @@ class MyPage {
 
             firebase.database().ref('user/').once('value').then(function (snapshot) {
                 localStorage['user'] = JSON.stringify(snapshot.val());
+
                 that.setProfileTab();
                 document.querySelector('#loading').style.display = "none";
             }.bind(that));
@@ -481,11 +482,13 @@ class MyPage {
     }
 
     setProfileTab(){
+        const userStorage = localStorage['user'];
+        this.userData = JSON.parse(userStorage);
         //프로필 탭 설정
         document.querySelector(".fixTab-profile-wrapper").style.display = "block"
-        document.querySelector("#fixTabProfileImg").setAttribute("src", this.userData[user.uid].user_profile);
+        document.querySelector("#fixTabProfileImg").setAttribute("src", this.userData[this.userId].user_profile);
         document.querySelector(".fixTab-profile-id").innerHTML =
-            this.userData[this.userId   ].nickname + "<ul class=\"fixTab-profile-dropdown\">\n" +
+            this.userData[this.userId].nickname + "<ul class=\"fixTab-profile-dropdown\">\n" +
             "                     <a href=\"#myPage\"><li class=\"fixTab-profile-element\">내 정보</li></a>\n" +
             "                    <li id=\"logout\" class=\"fixTab-profile-element\">로그아웃</li>\n" +
             "                </ul>";
