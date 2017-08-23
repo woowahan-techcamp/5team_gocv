@@ -39,7 +39,45 @@ class MainViewController: UIViewController {
     let category = ["전체","도시락","김밥","베이커리","라면","식품","스낵","아이스크림","음료"]
     var scrollBar = UILabel()
     
-    func addCategoryBtn(){ // 카테고리 버튼 스크롤 뷰에 추가하기
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        reviewScrollView.translatesAutoresizingMaskIntoConstraints = true
+        reviewScrollView.frame.size.width = view.frame.size.width
+        collectionView.translatesAutoresizingMaskIntoConstraints = true
+        collectionView.frame.size.width = view.frame.size.width
+        categoryScrollView.translatesAutoresizingMaskIntoConstraints = true
+        categoryScrollView.frame.size.width = view.frame.size.width
+        NotificationCenter.default.addObserver(self, selector: #selector(selectCategory), name: NSNotification.Name("selectCategory"), object: nil)
+        categoryScrollView.backgroundColor = UIColor.white
+        addCategoryBtn() // 카테고리 버튼 만들어서 스크롤 뷰에 붙이기
+        Button.select(btn: categoryBtns[selectedCategoryIndex]) // 맨 처음 카테고리는 전체 선택된 것으로 나타나게 함
+        didPressCategoryBtn(sender: categoryBtns[selectedCategoryIndex])
+        reviewScrollView.backgroundColor = UIColor.lightGray
+        reviewScrollView.isPagingEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        
+        self.reviewScrollView.addGestureRecognizer(tap)
+        
+        self.reviewScrollView.isUserInteractionEnabled = true
+        
+        DataManager.getTop3Product() { (products) in
+            self.productList = products
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+        
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    // 카테고리 버튼 스크롤 뷰에 추가하기
+    func addCategoryBtn(){
         categoryScrollView.isScrollEnabled = true
         categoryScrollView.contentSize.width = CGFloat(64 * category.count)
         for index in 0..<category.count {
@@ -61,7 +99,8 @@ class MainViewController: UIViewController {
         categoryScrollView.showsHorizontalScrollIndicator = false // 스크롤 바 없애기
     }
     
-    func didPressCategoryBtn(sender: UIButton) { // 카테고리 버튼 클릭 함수
+    // 카테고리 버튼 클릭 이벤트 함수
+    func didPressCategoryBtn(sender: UIButton) {
         let previousCategoryIndex = selectedCategoryIndex
         selectedCategoryIndex = sender.tag
         categoryBtns[previousCategoryIndex].isSelected = false
@@ -78,6 +117,8 @@ class MainViewController: UIViewController {
         })
         NotificationCenter.default.post(name: NSNotification.Name("showCategory"), object: self, userInfo: ["category" : selectedCategoryIndex])
     }
+    
+    // 카테고리를 선택했을 때 함수
     func selectCategory(_ notification: Notification){
         let previousCategoryIndex = selectedCategoryIndex
         selectedCategoryIndex = notification.userInfo?["category"] as! Int
@@ -93,6 +134,7 @@ class MainViewController: UIViewController {
         scrollBar.frame.origin.x = CGFloat(selectedCategoryIndex * 64 + 15)
     }
     
+    // 로딩 인디케이터 보이는 함수 DEPRECATED
     func showActivityIndicatory() {
         self.actInd.frame = CGRect.init(x: 0.0, y: 0.0, width: 40.0, height: 40.0)
         self.actInd.center = view.superview?.center ?? view.center
@@ -102,6 +144,7 @@ class MainViewController: UIViewController {
         actInd.startAnimating()
     }
     
+    // 로딩 인디케이터 숨기는 함수 DEPRECATED
     func hideActivityIndicatory() {
         if view.subviews.contains(actInd){
             actInd.stopAnimating()
@@ -109,6 +152,7 @@ class MainViewController: UIViewController {
         }
     }
     
+    // productList를 받아오는 함수
     func getProductList(){
         
         var brand = ""
@@ -185,6 +229,7 @@ class MainViewController: UIViewController {
         }
     }
     
+    // 리뷰의 스크롤 이미지를 가져오는 함수
     func setReviewScrollImages(){
         var brand = ""
         
@@ -205,7 +250,7 @@ class MainViewController: UIViewController {
                 var scrollViewSize:CGFloat=0;
                 var cnt = 0
                 let scrollViewImageNum = 3
-                self.reviewScrollView.contentSize = CGSize(width: imageViewWidth*CGFloat(self.reviewList.count), height: imageViewHeight);
+                self.reviewScrollView.contentSize = CGSize(width: imageViewWidth*CGFloat(3), height: imageViewHeight);
 
                 for review in self.reviewList {
                     if cnt >= scrollViewImageNum {
@@ -276,41 +321,23 @@ class MainViewController: UIViewController {
         
     }
     
+    // 리뷰 스크롤을 눌렀을 때 전환하는 함수
     func handleTap(_ sender: UITapGestureRecognizer) {
         NotificationCenter.default.post(name: NSNotification.Name("showReview"), object: self)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        NotificationCenter.default.addObserver(self, selector: #selector(selectCategory), name: NSNotification.Name("selectCategory"), object: nil)
-        categoryScrollView.backgroundColor = UIColor.white
-        addCategoryBtn() // 카테고리 버튼 만들어서 스크롤 뷰에 붙이기
-        Button.select(btn: categoryBtns[selectedCategoryIndex]) // 맨 처음 카테고리는 전체 선택된 것으로 나타나게 함
-        didPressCategoryBtn(sender: categoryBtns[selectedCategoryIndex])
-        reviewScrollView.backgroundColor = UIColor.lightGray
-        reviewScrollView.isPagingEnabled = true
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+    // 변할때
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        reviewScrollView.translatesAutoresizingMaskIntoConstraints = true
+        reviewScrollView.frame.size.width = size.width
+        collectionView.translatesAutoresizingMaskIntoConstraints = true
+        collectionView.frame.size.width = size.width
+        categoryScrollView.translatesAutoresizingMaskIntoConstraints = true
+        categoryScrollView.frame.size.width = size.width
         
-        self.reviewScrollView.addGestureRecognizer(tap)
-        
-        self.reviewScrollView.isUserInteractionEnabled = true
-
-        DataManager.getTop3Product() { (products) in
-            self.productList = products
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-        }
-        
+        collectionView.reloadData()
+        setReviewScrollImages()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     
 }
 
@@ -319,14 +346,23 @@ extension MainViewController: UICollectionViewDataSource { //메인화면에서 
         return 1;
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3;
+        if collectionView.bounds.width < 375 {
+            return 2;
+        }else if collectionView.bounds.width < 414{
+            return 3;
+        }else if collectionView.bounds.width < 667{
+            return 4;
+        }else{
+            return 5;
+        }
     }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? MainRankCollectionViewCell {
 
 
             
-            if (productList.count > 2) && (indexPath.item < 3) {
+            if (productList.count > 2) && (indexPath.item < 5) {
                 cell.loading.startAnimating()
                 cell.foodImage.af_setImage(withURL: URL(string: productList[indexPath.item].image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
                     cell.loading.stopAnimating()
@@ -382,4 +418,11 @@ extension MainViewController: UICollectionViewDataSource { //메인화면에서 
     }
 }
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//            let cellsAcross: CGFloat = 3
+//            let spaceBetweenCells: CGFloat = 4
+//            let dim = (collectionView.bounds.width - (cellsAcross - 1) * spaceBetweenCells) / cellsAcross
+//            return CGSize(width: dim, height: dim / 105 * 168)
+//    }
 }
