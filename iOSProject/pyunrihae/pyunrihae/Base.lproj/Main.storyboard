@@ -1375,6 +1375,75 @@
             </objects>
             <point key="canvasLocation" x="275.36231884057975" y="2408.1521739130435"/>
         </scene>
+        <!--Product Allergy View Controller-->
+        <scene sceneID="nC9-Tt-QG8">
+            <objects>
+                <viewController storyboardIdentifier="ProductAllergyViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HPT-ct-njI" customClass="ProductAllergyViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="766-fA-00p"/>
+                        <viewControllerLayoutGuide type="bottom" id="foU-ZA-cgm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="LXp-5p-b6c">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ec5-Fj-2aU">
+                                <rect key="frame" x="0.0" y="72" width="375" height="595"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="allergyCell" editingAccessoryType="disclosureIndicator" focusStyle="custom" id="QCy-Py-Pn8">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QCy-Py-Pn8" id="bgr-cq-3Hx">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WIw-sK-xFc">
+                                <rect key="frame" x="16" y="36" width="22" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="KrB-UK-euJ"/>
+                                    <constraint firstAttribute="width" secondItem="WIw-sK-xFc" secondAttribute="height" multiplier="1:1" id="wsS-82-LNo"/>
+                                    <constraint firstAttribute="width" constant="22" id="xik-Bs-fX0"/>
+                                </constraints>
+                                <state key="normal" image="ic_close_gray.png"/>
+                                <connections>
+                                    <action selector="onTouchCloseBtn:" destination="HPT-ct-njI" eventType="touchUpInside" id="Dyk-Rm-Zcb"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="알레르기 유발 성분" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQA-NU-eaK">
+                                <rect key="frame" x="128" y="36" width="120" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="4Vo-Lt-7uX"/>
+                                    <constraint firstAttribute="width" constant="119.5" id="WWg-UI-6jD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="1" green="0.47061997649999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="WIw-sK-xFc" firstAttribute="leading" secondItem="LXp-5p-b6c" secondAttribute="leadingMargin" id="2bs-go-tos"/>
+                            <constraint firstItem="MQA-NU-eaK" firstAttribute="centerX" secondItem="LXp-5p-b6c" secondAttribute="centerX" id="3ks-q4-EMo"/>
+                            <constraint firstItem="MQA-NU-eaK" firstAttribute="top" secondItem="766-fA-00p" secondAttribute="bottom" constant="16" id="CsO-dH-8ol"/>
+                            <constraint firstItem="ec5-Fj-2aU" firstAttribute="leading" secondItem="LXp-5p-b6c" secondAttribute="leading" id="NyX-zt-aQR"/>
+                            <constraint firstAttribute="trailing" secondItem="ec5-Fj-2aU" secondAttribute="trailing" id="QJG-ic-ahW"/>
+                            <constraint firstItem="MQA-NU-eaK" firstAttribute="top" secondItem="WIw-sK-xFc" secondAttribute="top" id="UjQ-xS-3Bw"/>
+                            <constraint firstItem="foU-ZA-cgm" firstAttribute="top" secondItem="ec5-Fj-2aU" secondAttribute="bottom" id="eLn-xL-Feu"/>
+                            <constraint firstItem="ec5-Fj-2aU" firstAttribute="top" secondItem="MQA-NU-eaK" secondAttribute="bottom" constant="16" id="fvu-Mk-tFb"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="ec5-Fj-2aU" id="rCJ-g3-Hfu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h3F-UO-lJA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="276" y="3097.6011994003002"/>
+        </scene>
         <!--리뷰 쓰기-->
         <scene sceneID="U4u-zJ-8pO">
             <objects>
