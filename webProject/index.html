@@ -59,7 +59,7 @@
     <!--프로필 창-->
     <div style="display: none" class="fixTab-profile-wrapper">
         <div class="fixTab-profile-image">
-            <img id="fixTabProfileImg" style="opacity: 1; width: 30px; height: 30px"
+            <img id="fixTabProfileImg" style="border-radius:15px;opacity: 1; width: 30px; height: 30px"
                  src="image/profile.png">
         </div>
         <a href="#">
@@ -815,7 +815,9 @@
 <script id="myPage-review-template" type="text/x-handlebars-template">
     {{#this}}
     <li class="myPage-wish-element">
-        <img name={{id}} onclick="loadDetailProduct()" src="{{img}}" class="myPage-wish-element-image">
+        <a href="#popup">
+        <img name={{id}} onclick="loadDetailProduct(this)" src="{{img}}" class="myPage-wish-element-image">
+        </a>
         <div style="margin-top:10px;float: left">
             <div class="myPage-wish-element-name">{{name}}</div>
             <div class="myPage-wish-element-brand">{{brand}} </div>

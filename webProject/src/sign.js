@@ -136,7 +136,7 @@ class SignUp {
                             });
                         })
 
-                        document.querySelector('.fixTab-profile-element').addEventListener("click",function (){
+                        document.querySelector('.fixTab-profile-element').addEventListener("click", function () {
                             const myPage = new MyPage(user.uid);
 
                         });
@@ -147,7 +147,6 @@ class SignUp {
 
 
                 document.querySelector('#signupDetail').style.display = "none";
-
 
 
             }.bind(that));
@@ -228,7 +227,7 @@ class SignIn {
 
             document.querySelector('#sign').style.display = "none";
 
-            document.querySelector('.fixTab-profile-element').addEventListener("click",function (){
+            document.querySelector('.fixTab-profile-element').addEventListener("click", function () {
                 const myPage = new MyPage(user.uid);
 
             });
@@ -291,11 +290,55 @@ class Util {
     }
 }
 
+//일단 중복해서 쓰기
+class UpLoadImage {
+    constructor(inputId, imgPreviewId) {
+        this.inputId = inputId;
+        this.imgPreviewId = imgPreviewId
+        this.init();
+    }
+
+    init() {
+        const inputBtn = document.querySelector("#" + this.inputId);
+        const previewBtn = document.querySelector("#" + this.imgPreviewId);
+
+        inputBtn.style.display = "none"
+
+        inputBtn.addEventListener("change", function () {
+            this.previewFile();
+        }.bind(this));
+
+        previewBtn.addEventListener("click", function () {
+            inputBtn.click();
+        })
+
+    }
+
+    previewFile() {
+        let preview = document.querySelector('#' + this.imgPreviewId);
+        let file = document.querySelector('#' + this.inputId).files[0];
+        let reader = new FileReader();
+
+        reader.addEventListener("load", function () {
+            preview.src = reader.result;
+
+        }, false);
+
+        if (!file) {
+        } else {
+            reader.readAsDataURL(file);
+        }
+
+
+    }
+
+}
+
 class MyPage {
     constructor(userId) {
         this.userId = userId;
         this.setData();
-        this.setUploadProfile()
+        this.setUploadProfile();
     }
 
     setData() {
@@ -312,10 +355,11 @@ class MyPage {
 
         const wishReviewArr = [];
 
-        userData[this.userId].wish_product_list.forEach(function (e) {
-            wishReviewArr.push(productData[e]);
-        });
-
+        if(!!userData[this.userId].wish_product_list){
+            userData[this.userId].wish_product_list.forEach(function (e) {
+                wishReviewArr.push(productData[e]);
+            });
+        }
 
         const template2 = document.querySelector("#myPage-review-template").innerHTML;
         const sec2 = document.querySelector("#myPageReviewNavi");
@@ -328,29 +372,24 @@ class MyPage {
         document.querySelector("#myPageReviewNavi").addEventListener("click", function (e) {
             const that = this;
 
-
-
             firebase.database().ref('user/').once('value').then(function (snapshot) {
-                document.querySelector('#loading').style.display = "block";
                 localStorage['user'] = JSON.stringify(snapshot.val());
                 const userStorage = localStorage['user'];
                 const userData = JSON.parse(userStorage);
 
-
                 if (e.target.classList.contains("myPage-wish-element-delete")) {
+                    document.querySelector('#loading').style.display = "block";
+
                     e.target.parentElement.style.display = "none";
+
                     const id = e.target.getAttribute("name");
                     const newWishArr = [];
-
-                    console.log(id)
 
                     userData[that.userId].wish_product_list.forEach(function (e) {
                         if (e !== id) {
                             newWishArr.push(e);
                         }
-                    })
-
-                    console.log(newWishArr)
+                    });
 
                     firebase.database().ref('user/' + that.userId + "/wish_product_list").set(newWishArr).then(function () {
                         firebase.database().ref('user/')
@@ -363,56 +402,54 @@ class MyPage {
                 }
             }.bind(that));
         }.bind(this));
+    }
+
+    setUploadProfile() {
+        const uploadProfile = new UpLoadImage("profileImageInput", "profilePreview");
+
+        document.querySelector('#profileImageInput').addEventListener("change",function(){
+            document.querySelector('#loading').style.display = "block";
+
+
+            const that=this;
+
+            let file = document.querySelector('#profileImageInput').files[0];
+
+            this.fileName = 'user/' + this.userId + "." + file.type.split("/")[1]
+
+            const storageRef = firebase.storage().ref();
+            const mountainImagesRef = storageRef.child(this.fileName);
+
+            mountainImagesRef.put(file).then(function () {
+                this.updateDb();
+            }.bind(that));
+
+        }.bind(this))
+
 
     }
 
-    setUploadProfile(){
-        const uploadProfile = new UpLoadImage("profileImageInput","profilePreview")
-    }
+    updateDb() {
+        const storageRef = firebase.storage().ref();
+        const database = firebase.database();
 
-}
+        storageRef.child(this.fileName).getDownloadURL().then(function (url) {
+            const that = this;
+            const userStorage = localStorage['user'];
+            this.user = JSON.parse(userStorage);
+            const user = firebase.auth().currentUser;
 
-//일단 중복해서 쓰기
-class UpLoadImage {
-    constructor(inputId, imgPreviewId) {
-        this.inputId = inputId;
-        this.imgPreviewId = imgPreviewId
-        this.init();
-    }
+            database.ref('user/' + this.userId+'/user_profile').set(url);
 
-    init() {
-        const inputBtn =  document.querySelector("#" + this.inputId);
-        const previewBtn = document.querySelector("#" + this.imgPreviewId);
+            firebase.database().ref('user/').once('value').then(function (snapshot) {
+                localStorage['user'] = JSON.stringify(snapshot.val());
+                document.querySelector('#loading').style.display = "none";
+            });
 
-        inputBtn.style.display = "none"
-
-        inputBtn.addEventListener("change", function () {
-            this.previewFile();
-        }.bind(this));
-
-        previewBtn.addEventListener("click",function () {
-            inputBtn.click();
-        })
-
-    }
-
-    previewFile(){
-        let preview = document.querySelector('#' + this.imgPreviewId);
-        let file = document.querySelector('#' + this.inputId).files[0];
-        let reader = new FileReader();
-
-        reader.addEventListener("load", function () {
-            preview.src = reader.result;
-
-        }, false);
-
-        if (!file) {
-        } else {
-            reader.readAsDataURL(file);
-            console.log(file.type.split("/")[1])
-        }
-
-
+        }.bind(this)).catch(function (error) {
+            console.log(error);
+            document.querySelector('#loading').style.display = "none"
+        });
     }
 
 }
