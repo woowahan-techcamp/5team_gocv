@@ -624,13 +624,22 @@ class UpLoadImage {
     }
 
     init() {
-        this.data;
-        document.querySelector("#" + this.inputId).addEventListener("change", function () {
+        const inputBtn =  document.querySelector("#" + this.inputId);
+        const previewBtn = document.querySelector("#" + this.imgPreviewId);
+
+        inputBtn.style.display = "none"
+
+        inputBtn.addEventListener("change", function () {
             this.previewFile();
-        }.bind(this))
+        }.bind(this));
+
+        previewBtn.addEventListener("click",function () {
+            inputBtn.click();
+        })
+
     }
 
-    previewFile() {
+    previewFile(){
         let preview = document.querySelector('#' + this.imgPreviewId);
         let file = document.querySelector('#' + this.inputId).files[0];
         let reader = new FileReader();

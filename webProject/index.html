@@ -815,7 +815,7 @@
 <script id="myPage-review-template" type="text/x-handlebars-template">
     {{#this}}
     <li class="myPage-wish-element">
-        <img src="{{img}}" class="myPage-wish-element-image">
+        <img name={{id}} onclick="loadDetailProduct()" src="{{img}}" class="myPage-wish-element-image">
         <div style="margin-top:10px;float: left">
             <div class="myPage-wish-element-name">{{name}}</div>
             <div class="myPage-wish-element-brand">{{brand}} </div>

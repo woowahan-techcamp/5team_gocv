@@ -123,7 +123,7 @@ class SignUp {
                         document.querySelector("#fixTabProfileImg").setAttribute("src", userData[user.uid].user_profile);
                         document.querySelector(".fixTab-profile-id").innerHTML =
                             userData[user.uid].nickname + "<ul class=\"fixTab-profile-dropdown\">\n" +
-                            "                    <li class=\"fixTab-profile-element\">내 정보</li>\n" +
+                            "                    <a href=\"#myPage\"><li class=\"fixTab-profile-element\">내 정보</li></a>\n" +
                             "                    <li id=\"logout\" class=\"fixTab-profile-element\">로그아웃</li>\n" +
                             "                </ul>";
 
@@ -135,6 +135,11 @@ class SignUp {
                                 // An error happened.
                             });
                         })
+
+                        document.querySelector('.fixTab-profile-element').addEventListener("click",function (){
+                            const myPage = new MyPage(user.uid);
+
+                        });
                     });
 
 
@@ -142,6 +147,7 @@ class SignUp {
 
 
                 document.querySelector('#signupDetail').style.display = "none";
+
 
 
             }.bind(that));
@@ -285,11 +291,11 @@ class Util {
     }
 }
 
-
 class MyPage {
     constructor(userId) {
         this.userId = userId;
         this.setData();
+        this.setUploadProfile()
     }
 
     setData() {
@@ -321,10 +327,11 @@ class MyPage {
     setDeleteButtonEvent() {
         document.querySelector("#myPageReviewNavi").addEventListener("click", function (e) {
             const that = this;
-            document.querySelector('#loading').style.display = "block";
+
 
 
             firebase.database().ref('user/').once('value').then(function (snapshot) {
+                document.querySelector('#loading').style.display = "block";
                 localStorage['user'] = JSON.stringify(snapshot.val());
                 const userStorage = localStorage['user'];
                 const userData = JSON.parse(userStorage);
@@ -359,7 +366,57 @@ class MyPage {
 
     }
 
+    setUploadProfile(){
+        const uploadProfile = new UpLoadImage("profileImageInput","profilePreview")
+    }
+
 }
+
+//일단 중복해서 쓰기
+class UpLoadImage {
+    constructor(inputId, imgPreviewId) {
+        this.inputId = inputId;
+        this.imgPreviewId = imgPreviewId
+        this.init();
+    }
+
+    init() {
+        const inputBtn =  document.querySelector("#" + this.inputId);
+        const previewBtn = document.querySelector("#" + this.imgPreviewId);
+
+        inputBtn.style.display = "none"
+
+        inputBtn.addEventListener("change", function () {
+            this.previewFile();
+        }.bind(this));
+
+        previewBtn.addEventListener("click",function () {
+            inputBtn.click();
+        })
+
+    }
+
+    previewFile(){
+        let preview = document.querySelector('#' + this.imgPreviewId);
+        let file = document.querySelector('#' + this.inputId).files[0];
+        let reader = new FileReader();
+
+        reader.addEventListener("load", function () {
+            preview.src = reader.result;
+
+        }, false);
+
+        if (!file) {
+        } else {
+            reader.readAsDataURL(file);
+            console.log(file.type.split("/")[1])
+        }
+
+
+    }
+
+}
+
 
 const signUp = new SignUp();
 const signIn = new SignIn();
