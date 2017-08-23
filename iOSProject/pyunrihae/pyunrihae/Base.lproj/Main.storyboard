@@ -2556,9 +2556,12 @@
                                     <constraint firstAttribute="width" constant="10" id="5AB-YS-xke"/>
                                 </constraints>
                             </imageView>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_photo_camera" translatesAutoresizingMaskIntoConstraints="NO" id="Hi5-U7-Kbp">
-                                <rect key="frame" x="86" y="112" width="24" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_photo_edit.png" translatesAutoresizingMaskIntoConstraints="NO" id="Hi5-U7-Kbp">
+                                <rect key="frame" x="86" y="109" width="24" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="24" id="9fY-Vz-Gnu"/>
+                                    <constraint firstAttribute="height" constant="24" id="ndO-s2-Bi1"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2566,11 +2569,13 @@
                             <constraint firstAttribute="trailing" secondItem="ZtX-Y0-mGN" secondAttribute="trailing" id="0H3-5x-45H"/>
                             <constraint firstItem="UZ3-IR-ABc" firstAttribute="leading" secondItem="dSc-ef-0Mz" secondAttribute="leadingMargin" constant="14" id="4Le-RF-3ch"/>
                             <constraint firstItem="UZ3-IR-ABc" firstAttribute="top" secondItem="Q4s-xC-KOb" secondAttribute="bottom" constant="21" id="6Me-YM-UVE"/>
+                            <constraint firstItem="Hi5-U7-Kbp" firstAttribute="trailing" secondItem="UZ3-IR-ABc" secondAttribute="trailing" id="7ML-9r-3YI"/>
                             <constraint firstItem="HBX-4g-kUR" firstAttribute="leading" secondItem="UZ3-IR-ABc" secondAttribute="trailing" constant="38" id="B9t-Yb-RGu"/>
                             <constraint firstItem="Q4s-xC-KOb" firstAttribute="leading" secondItem="dSc-ef-0Mz" secondAttribute="leading" id="MGh-sy-fD3"/>
                             <constraint firstItem="D53-HG-6cu" firstAttribute="centerY" secondItem="HBX-4g-kUR" secondAttribute="centerY" id="MlI-fs-ERJ"/>
                             <constraint firstAttribute="trailing" secondItem="Q4s-xC-KOb" secondAttribute="trailing" id="PVz-YG-2Lw"/>
                             <constraint firstItem="4pP-oC-oPW" firstAttribute="top" secondItem="HBX-4g-kUR" secondAttribute="bottom" id="Sdg-pN-Op6"/>
+                            <constraint firstItem="Hi5-U7-Kbp" firstAttribute="bottom" secondItem="UZ3-IR-ABc" secondAttribute="bottom" constant="8" id="SkA-pQ-Lzg"/>
                             <constraint firstItem="4pP-oC-oPW" firstAttribute="leading" secondItem="HBX-4g-kUR" secondAttribute="leading" id="UKD-5y-Lo5"/>
                             <constraint firstItem="Q4s-xC-KOb" firstAttribute="top" secondItem="dSc-ef-0Mz" secondAttribute="top" id="Ue4-bj-XRZ"/>
                             <constraint firstItem="D53-HG-6cu" firstAttribute="leading" secondItem="HBX-4g-kUR" secondAttribute="trailing" constant="4" id="nP0-7c-zG4"/>
@@ -2950,7 +2955,7 @@
         <image name="ic_my_selected.png" width="86" height="70"/>
         <image name="ic_nickname.png" width="50" height="50"/>
         <image name="ic_password.png" width="100" height="100"/>
-        <image name="ic_photo_camera" width="36" height="36"/>
+        <image name="ic_photo_edit.png" width="106" height="106"/>
         <image name="ic_pyunrihae.png" width="424" height="380"/>
         <image name="ic_ranking.png" width="46" height="74"/>
         <image name="ic_ranking_selected.png" width="46" height="74"/>
