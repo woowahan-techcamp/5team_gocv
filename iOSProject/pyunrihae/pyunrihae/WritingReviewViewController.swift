@@ -13,7 +13,6 @@ import FirebaseAuth
 
 class WritingReviewViewController: UIViewController, FusumaDelegate{
 
-    
     @IBAction func addImageBtn(_ sender: UIButton) {
         let fusuma = FusumaViewController()
         
@@ -78,7 +77,6 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
     }
     
     @IBOutlet weak var loading: UIActivityIndicatorView!
-    @IBOutlet weak var endEditingBtn: UIButton!
     @IBOutlet weak var reviewTextView: UIView!
     @IBOutlet weak var detailReview: UITextView!
     @IBOutlet weak var placeholder: UILabel!
@@ -94,9 +92,6 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
     @IBOutlet weak var flavorLevelView: UIView!
     @IBOutlet weak var quantityLevelView: UIView!
     
-    @IBAction func tabEndEditingBtn(_ sender: UIButton) {
-        detailReview.resignFirstResponder()
-    }
     @IBAction func tabBackBtn(_ sender: UIButton) {
         self.navigationController?.popToRootViewController(animated: true)
         SelectedAllergy.allergyList = []
@@ -170,9 +165,10 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
         }
     }
     func addPriceLevelBtn() { //가격 레벨 버튼 뷰에 붙이기
+        let width = Int((self.view?.frame.size.width)!)
         for i in 0..<5 {
             let priceLevelBtn = UIButton()
-            priceLevelBtn.frame = CGRect(x: i*70, y: 0, width: 50, height: 25)
+            priceLevelBtn.frame = CGRect(x: (i * width / 15 * 2) + (width / 15 * i), y: 0, width: width / 7, height: 25)
             Button.makeNormalBtn(btn: priceLevelBtn, text: priceLevelList[i])
             priceLevelBtn.addTarget(self, action: #selector(didPressPriceLevelBtn), for: UIControlEvents.touchUpInside)
             priceLevelBtn.tag = i
@@ -181,9 +177,10 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
         }
     }
     func addFlavorLevelBtn() { //맛 레벨 버튼 뷰에 붙이기
+        let width = Int((self.view?.frame.size.width)!)
         for i in 0..<5 {
             let flavorLevelBtn = UIButton()
-            flavorLevelBtn.frame = CGRect(x: i*70, y: 0, width: 50, height: 25)
+            flavorLevelBtn.frame = CGRect(x: (i * width / 15 * 2) + (width / 15 * i), y: 0, width: width / 7, height: 25)
             Button.makeNormalBtn(btn: flavorLevelBtn, text: flavorLevelList[i])
             flavorLevelBtn.addTarget(self, action: #selector(didPressFlavorLevelBtn), for: UIControlEvents.touchUpInside)
             flavorLevelBtn.tag = i
@@ -192,9 +189,10 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
         }
     }
     func addQuantityLevelBtn() { //양 레벨 버튼 뷰에 붙이기
+        let width = Int((self.view?.frame.size.width)!)
         for i in 0..<5 {
             let quantityLevelBtn = UIButton()
-            quantityLevelBtn.frame = CGRect(x: i*70, y: 0, width: 50, height: 25)
+            quantityLevelBtn.frame = CGRect(x: (i * width / 15 * 2) + (width / 15 * i), y: 0, width: width / 7, height: 25)
             Button.makeNormalBtn(btn: quantityLevelBtn, text: quantityLevelList[i])
             quantityLevelBtn.addTarget(self, action: #selector(didPressQuantityLevelBtn), for: UIControlEvents.touchUpInside)
             quantityLevelBtn.tag = i
@@ -264,10 +262,34 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
             allergyListLabel.text = allergy[0] + " 외 " + String(allergyNum - 1) + "개의 성분"
         }
     }
+    func addDoneButtonOnKeyboard()
+    {
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        doneToolbar.barStyle = UIBarStyle.blackTranslucent
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(WritingReviewViewController.doneButtonAction))
+        
+        let items = NSMutableArray()
+        items.add(flexSpace)
+        items.add(done)
+        
+        doneToolbar.items = items as? [UIBarButtonItem]
+        doneToolbar.sizeToFit()
+        
+        self.detailReview.inputAccessoryView = doneToolbar
+        
+    }
+    
+    func doneButtonAction()
+    {
+        self.detailReview.resignFirstResponder()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        endEditingBtn.isHidden = true
+        self.addDoneButtonOnKeyboard()
+        
         addImageBtn.layer.zPosition = 10
         scrollView.isScrollEnabled = true
         addStarBtn()
@@ -306,22 +328,19 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
 
 extension WritingReviewViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        
         UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 3.0, initialSpringVelocity: 3.0, options: UIViewAnimationOptions.curveEaseInOut, animations: ({
-            self.scrollView.frame.origin.y -= 395
-            self.detailReview.frame.size.height += 520
+            self.scrollView.frame.origin.y = self.scrollView.contentOffset.y - 350
+            self.detailReview.frame.size.height = UIScreen.main.bounds.size.height * 3 / 11
         }), completion: nil)
         
-        endEditingBtn.isHidden = false
         addedImageView.isHidden = true
         placeholder.isHidden = true
     }
     func textViewDidEndEditing(_ textView: UITextView) {
         UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 3.0, initialSpringVelocity: 3.0, options: UIViewAnimationOptions.curveEaseInOut, animations: ({
-            self.scrollView.frame.origin.y += 395
+            self.scrollView.frame.origin.y = 0
         }), completion: nil)
         
-        endEditingBtn.isHidden = true
         addedImageView.isHidden = false
         var frameRect = detailReview.frame
         frameRect.size.height = 30

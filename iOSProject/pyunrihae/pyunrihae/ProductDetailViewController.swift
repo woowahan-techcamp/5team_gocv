@@ -187,6 +187,7 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath) as! ProductInfoTableViewCell
+                cell.frame.size.width = tableView.frame.size.width
                 DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
                     cell.priceLabel.text = product.price + "원"
                     cell.brandLabel.text = product.brand
@@ -293,6 +294,8 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ProductReviewTableViewCell
             if indexPath.row > 1 {
+                cell.usefulView.layer.zPosition = 10
+                cell.badView.layer.zPosition = 10
                 cell.isHidden = false
                 cell.uploadedFoodImageBtn.isHidden = false
                 cell.detailReviewLabel.isHidden = false
@@ -419,6 +422,7 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
             if indexPath.row == 0 || indexPath.row == 1 {
                 return 0
             } else {
+                var returnHeight : CGFloat = 0.0
                 if reviewList.count > 0 {
                     let row = indexPath.row - 2
                     let font =  UIFont(name: "AppleSDGothicNeo-Thin", size: 13)
@@ -426,20 +430,21 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                     let height = Label.heightForView(text: reviewList[row].comment, font: font!, width: width)
                     if reviewList[row].p_image != "" {
                         if reviewList[row].comment == "" {
-                            return 180 // 사진만 있는 경우
+                            returnHeight = 180 // 사진만 있는 경우
                         }else {
-                            return height + 170 // 사진과 글 모두 있는 경우
+                            returnHeight = height + 170 // 사진과 글 모두 있는 경우
                         }
                     } else {
                         if reviewList[row].comment == "" {
-                            return 120 // 둘다 없는 경우
+                            returnHeight = 120 // 둘다 없는 경우
                         }else {
-                            return height + 120 // 글만 있는 경우
+                            returnHeight = height + 120 // 글만 있는 경우
                         }
                     }
                 } else {
-                    return 205
+                    returnHeight = 205
                 }
+                return returnHeight
             }
         }
     }
@@ -454,19 +459,19 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
             orderReviewView.addSubview(headerText)
             orderReviewView.layer.backgroundColor = UIColor.white.cgColor
             
-            let width = tableView.frame.size.width
+            let width = tableView.superview?.frame.size.width
             
             // 소비자 리뷰 정렬 텍스트
             sortingMethodLabel.text = orderBy
             sortingMethodLabel.textColor = UIColor.darkGray
-            sortingMethodLabel.frame = CGRect(x: width - 73, y: 10, width: 50, height: 25)
+            sortingMethodLabel.frame = CGRect(x: width! - 73, y: 10, width: 50, height: 25)
             sortingMethodLabel.font = UIFont.systemFont(ofSize: 13)
             orderReviewView.addSubview(sortingMethodLabel)
             
             // 소비자 리뷰 정렬 버튼
             let orderBtn = UIButton()
             orderBtn.setImage(UIImage(named: "ic_dropdown.png"), for: .normal)
-            orderBtn.frame = CGRect(x: width - 33, y: 13, width: 15, height: 15)
+            orderBtn.frame = CGRect(x: width! - 33, y: 13, width: 15, height: 15)
             orderBtn.addTarget(self, action: #selector(tabDropDownBtn), for: UIControlEvents.touchUpInside)
             orderReviewView.addSubview(orderBtn)
             
@@ -475,12 +480,12 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
             
             let topBorder = UILabel()
             topBorder.layer.backgroundColor = color.cgColor
-            topBorder.frame = CGRect(x: 10, y: 0, width: 355, height: 1)
+            topBorder.frame = CGRect(x: 10, y: 0, width: width! - 20, height: 1)
             orderReviewView.addSubview(topBorder)
             
             let bottomBorder = UILabel()
             bottomBorder.layer.backgroundColor = color.cgColor
-            bottomBorder.frame = CGRect(x: 10, y: 44, width: 355, height: 1)
+            bottomBorder.frame = CGRect(x: 10, y: 44, width: width! - 20, height: 1)
             orderReviewView.addSubview(bottomBorder)
         }
         return orderReviewView

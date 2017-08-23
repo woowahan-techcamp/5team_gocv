@@ -9,6 +9,8 @@
 import UIKit
 
 class ProductReviewTableViewCell: UITableViewCell {
+    @IBOutlet weak var usefulView: UIView!
+    @IBOutlet weak var badView: UIView!
     @IBOutlet weak var commentTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var usefulBtn: UIButton!
     @IBOutlet weak var badBtn: UIButton!
