@@ -231,7 +231,11 @@ class Carousel {
         for(const x of value){
             console.log(i);
             $('#carousel-rank-rating' + i).rateYo({
-               rating: x.grade
+               rating: x.grade,
+                spacing: "10px",
+                starWidth: "20px",
+                normalFill: "#e2dbd6",
+                ratedFill: "#ffcf4d"
             });
             i++;
         }
@@ -335,20 +339,56 @@ class SearchTab {
 class Counter {
     constructor(max) {
         this.max = max;
+        this.counter1 = 0;
+        this.counter2 = 0;
+        this.counter3 = 0;
+        this.setData();
+
+
     }
 
     setCounter() {
         let max = this.max;
+
+
         $(window).scroll(function () {
             const val = $(this).scrollTop();
             const cover = $('.cover');
             if (max < val) {
-                $('#counter1').animateNumber({number: 4200}, 2000);
-                $('#counter2').animateNumber({number: 3203}, 2000);
-                $('#counter3').animateNumber({number: 23}, 2000);
+
+                $('#counter1').animateNumber({number: this.counter1}, 2000);
+                $('#counter2').animateNumber({number: this.counter2}, 2000);
+                $('#counter3').animateNumber({number: this.counter3}, 2000);
                 max = 99999;
             }
-        });
+        }.bind(this));
+
+    }
+
+    setData(){
+        const productStorage = localStorage['product'];
+        const productData = JSON.parse(productStorage);
+
+        const reviewStorage = localStorage['review'];
+        const reviewData = JSON.parse(reviewStorage);
+
+        const prodcutCount =Object.keys(productData).length;
+        const reviewCount = Object.keys(reviewData).length;
+        let todayReviewCount = 0;
+
+        Object.keys(reviewData).forEach(function(e){
+            if(timestamp().split(" ")[0]===reviewData[e].timestamp.split(" ")[0]){
+                todayReviewCount+= 1;
+            }
+        })
+
+
+        this.counter1=parseInt(prodcutCount);
+        this.counter2=parseInt(reviewCount);
+        this.counter3=parseInt(todayReviewCount);
+
+
+
 
     }
 }
@@ -1041,6 +1081,7 @@ function loadReviewDetail(event) {
         starWidth: "20px",
         normalFill: "#e2dbd6",
         ratedFill: "#ffcf4d"
+
     });
 
     document.querySelector(".popup-newReview-cancel").addEventListener("click", function () {
