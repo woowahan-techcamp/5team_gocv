@@ -373,6 +373,7 @@
 }
 
 .popup-review-bottom{
+    overflow: auto;
     margin-top: 10px;
     background-color: white;
     float: left;

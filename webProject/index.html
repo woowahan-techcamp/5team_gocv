@@ -57,7 +57,7 @@
     </div>
 
     <!--프로필 창-->
-    <div style="display: none" class="fixTab-profile-wrapper">
+    <div style="display: block" class="fixTab-profile-wrapper">
         <div class="fixTab-profile-image">
             <img id="fixTabProfileImg" style="border-radius:15px;opacity: 1; width: 30px; height: 30px"
                  src="image/profile.png">
@@ -79,7 +79,7 @@
 </div>
 
 <!--메인 페이지-->
-<div style="display: block" class="main-wrapper overflow-y-hidden">
+<div style="display: none" class="main-wrapper overflow-y-hidden">
 
     <!--carousel 구현-->
     <div class="carousel-wrapper">
@@ -354,7 +354,8 @@
     </div>
 </div>
 
-<div style="display: none;" class="review-container">
+<!--리뷰 탭 페이지-->
+<div style="display: block;" class="review-container">
     <div class="review-wrapper">
 
     </div>
@@ -380,7 +381,7 @@
 </div>
 
 <!--로그인 모달창-->
-<div style="display:none;" id="sign" class="sign-overlay">
+<div style="display:block;" id="sign" class="sign-overlay">
     <div class="sign-wrapper">
         <div class="signin-facebook">
             <img class="icon" src="image/facebook2.png">Facebook 계정으로 로그인
@@ -791,8 +792,8 @@
 
             </div>
         </div>
+        <img class="popup-review-image" src="{{p_image}}">
         <div class="popup-review-bottom">
-            <img class="popup-review-image" src="{{p_image}}">
             <div class="popup-review-comment"> {{comment}}
             </div>
         </div>
@@ -800,7 +801,6 @@
     </li>
     {{/this}}
 </script>
-
 <script id="review-preview-template" type="text/x-handlebars-template">
     {{#this}}
 
@@ -867,7 +867,6 @@
     </div>
     {{/this}}
 </script>
-
 <script id="card-review-page-template" type="text/x-handlebars-template">
     {{#this}}
     <a href="#popup">
@@ -923,11 +922,11 @@
             </div>
 
             <div style="width:150px; height: 20px; margin: 10px auto">
-                <input type="file" id="profileImageInput"/>
+                <input type="file" id="profileImageInput">
             </div>
 
             <div class="myPage-profile-nickname-wrapper">
-                <input class="myPage-profile-nickname-input" placeholder="{{nickname}}">
+                <input class="myPage-profile-nickname-input" placeholder="{{nickname}}"/>
                 <div class="myPage-profile-nickname">닉네임 바꾸기</div>
             </div>
             <div class="myPage-profile-email-title">E-mail 주소 </div>
