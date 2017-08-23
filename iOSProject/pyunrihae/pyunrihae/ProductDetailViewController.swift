@@ -297,6 +297,7 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                 cell.uploadedFoodImageBtn.isHidden = false
                 cell.detailReviewLabel.isHidden = false
                 cell.detailReviewLabel.frame.origin.y = 130
+                cell.commentTopConstraint.constant = 8
                 Image.makeCircleImage(image: cell.userImage)
                 cell.reviewBoxView.layer.cornerRadius = 10
                 let row = indexPath.row - 2
@@ -354,7 +355,7 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                         cell.userImageLoading.stopAnimating()
                     })
                     if reviewList[row].p_image != "" {
-                        cell.reviewBoxView.frame.size.height = cell.detailReviewLabel.frame.height + 145
+                        cell.reviewBoxView.frame.size.height = cell.detailReviewLabel.frame.height + 135
                         cell.uploadedImageLoading.startAnimating()
                         let imageView = UIImageView()
                         imageView.af_setImage(withURL: URL(string: reviewList[row].p_image)!, placeholderImage: UIImage(), completion:{ image in
@@ -362,12 +363,12 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                             cell.uploadedImageLoading.stopAnimating()
                         })
                     } else {
-                        if cell.detailReviewLabel.text == "" {
+                        if cell.detailReviewLabel.text == "" { // 사진 글 모두 없는 경우
                             cell.detailReviewLabel.isHidden = true
                             cell.reviewBoxView.frame.size.height = 90
-                        }else {
+                        }else { // 사진만 없는 경우
                             cell.reviewBoxView.frame.size.height = cell.detailReviewLabel.frame.height + 90
-                            cell.detailReviewLabel.frame.origin.y = 70
+                            cell.commentTopConstraint.constant -= 60
                         }
                         cell.uploadedFoodImageBtn.isHidden = true
                     }
@@ -421,12 +422,13 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                 if reviewList.count > 0 {
                     let row = indexPath.row - 2
                     let font =  UIFont(name: "AppleSDGothicNeo-Thin", size: 13)
-                    let height = Label.heightForView(text: reviewList[row].comment, font: font!, width: 260)
+                    let width = (tableView.superview?.frame.size.width)! - 110
+                    let height = Label.heightForView(text: reviewList[row].comment, font: font!, width: width)
                     if reviewList[row].p_image != "" {
                         if reviewList[row].comment == "" {
                             return 180 // 사진만 있는 경우
                         }else {
-                            return height + 180 // 사진과 글 모두 있는 경우
+                            return height + 170 // 사진과 글 모두 있는 경우
                         }
                     } else {
                         if reviewList[row].comment == "" {
@@ -436,7 +438,7 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                         }
                     }
                 } else {
-                    return 215
+                    return 205
                 }
             }
         }
