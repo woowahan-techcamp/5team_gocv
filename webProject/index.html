@@ -377,11 +377,10 @@
 
 <!--마이페이지 모달창-->
 <div id="myPage" class="myPage-overlay">
-
 </div>
 
 <!--로그인 모달창-->
-<div style="display:block;" id="sign" class="sign-overlay">
+<div style="display:none;" id="sign" class="sign-overlay">
     <div class="sign-wrapper">
         <div class="signin-facebook">
             <img class="icon" src="image/facebook2.png">Facebook 계정으로 로그인
@@ -812,14 +811,15 @@
 
     <div class="popup-review-preview">
         <div class="popup-newReviewWrapper-top">
-            <div class="popup-newReview-product">상품 리뷰 보기</div>
+            <div class="review-preview-title">
+                상품 리뷰 보기</div>
 
             <a href="#">
                 <div class="popup-newReview-cancel"></div>
             </a>
         </div>
 
-        <div class="popup-review-top">
+        <div style="margin-top:0px" class="popup-review-top">
             <img class="popup-review-profile" src="{{user_image}}">
             <div class="popup-review-nameTime">
                 <div style="font-size: 12px" class="popup-review-time">{{timestamp}}</div>
@@ -864,7 +864,7 @@
         </div>
 
         <div class="review-preview-bottom">
-            <img class="popup-review-image" src="{{p_image}}"
+            <img class="review-preview-image" src="{{p_image}}"
                  onerror="this.onerror=null;this.src='./image/not_found.gif';">
             <div class="review-preview-option">
                 {{comment}}
