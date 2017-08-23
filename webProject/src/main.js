@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
         category_drowndown: '.fixTab-search-category-dropdown',
         text: '.fixTab-search-word',
         button: '.fixTab-search-button'
-    }
+    };
 
     new SearchTab(searchParams);
     const user = firebase.auth().currentUser;
@@ -65,8 +65,6 @@ class Dropdown {
             }
         }.bind(this), true);
     }
-
-
 }
 
 
@@ -215,7 +213,7 @@ class SearchTab {
         this.categoryNavi = document.querySelector(searchParams.category_drowndown);
         this.inputText = document.querySelector(searchParams.text);
         this.searchButton = document.querySelector(searchParams.button);
-        this.fixTabNavi = document.querySelector("#fixTabNavi")
+        this.fixTabNavi = document.querySelector("#fixTabNavi");
         this.init();
     }
 
@@ -304,10 +302,10 @@ class Counter {
     }
 
     setCounter() {
-        var max = this.max;
+        let max = this.max;
         $(window).scroll(function () {
-            var val = $(this).scrollTop();
-            var cover = $('.cover');
+            const val = $(this).scrollTop();
+            const cover = $('.cover');
             if (max < val) {
                 $('#counter1').animateNumber({number: 4200}, 2000);
                 $('#counter2').animateNumber({number: 3203}, 2000);
@@ -317,8 +315,6 @@ class Counter {
         });
 
     }
-
-
 }
 
 //chart.js를 이용하여 차트를 만드는 클래스
@@ -382,7 +378,7 @@ class Review {
         this.comment = "";
         this.data = [0, 0, 0, 0, ""];
         this.navi = navi;
-        this.reviewId = ""
+        this.reviewId = "";
         this.fileName = "";
         this.init()
 
@@ -413,15 +409,17 @@ class Review {
         const removeArr = document.getElementsByClassName("newReview-element-price-select");
         Array.from(removeArr).forEach(function (e) {
             e.className = "newReview-element"
-        })
+        });
+
         const removeArr2 = document.getElementsByClassName("newReview-element-flavor-select");
         Array.from(removeArr2).forEach(function (e) {
             e.className = "newReview-element"
-        })
+        });
+
         const removeArr3 = document.getElementsByClassName("newReview-element-quantity-select");
         Array.from(removeArr3).forEach(function (e) {
             e.className = "newReview-element"
-        })
+        });
         this.setStar()
 
     }
@@ -464,7 +462,7 @@ class Review {
             }
 
 
-        }.bind(this))
+        }.bind(this));
 
         //quantity 레이팅
         naviArr[2].addEventListener("click", function (e) {
@@ -500,7 +498,7 @@ class Review {
     }
 
     setMakeReview() {
-        document.querySelector('#loading').style.display = "block"
+        document.querySelector('#loading').style.display = "block";
 
         this.data[4] = document.querySelector('.popup-newReview-comment').value;
         this.setOnOff();
@@ -511,7 +509,7 @@ class Review {
         let file = document.querySelector('#reviewImageInput').files[0];
 
 
-        this.fileName = 'images/' + this.reviewId + "." + file.type.split("/")[1]
+        this.fileName = 'images/' + this.reviewId + "." + file.type.split("/")[1];
 
         const storageRef = firebase.storage().ref();
         const mountainImagesRef = storageRef.child(this.fileName);
@@ -609,7 +607,7 @@ class Review {
             }.bind(that));
 
         }.bind(this)).catch(function (error) {
-            console.log(error)
+            console.log(error);
             document.querySelector('#loading').style.display = "none"
 
         });
@@ -621,27 +619,27 @@ class Review {
 class UpLoadImage {
     constructor(inputId, imgPreviewId) {
         this.inputId = inputId;
-        this.imgPreviewId = imgPreviewId
+        this.imgPreviewId = imgPreviewId;
         this.init();
     }
 
     init() {
-        const inputBtn =  document.querySelector("#" + this.inputId);
+        const inputBtn = document.querySelector("#" + this.inputId);
         const previewBtn = document.querySelector("#" + this.imgPreviewId);
 
-        inputBtn.style.display = "none"
+        inputBtn.style.display = "none";
 
         inputBtn.addEventListener("change", function () {
             this.previewFile();
         }.bind(this));
 
-        previewBtn.addEventListener("click",function () {
+        previewBtn.addEventListener("click", function () {
             inputBtn.click();
         })
 
     }
 
-    previewFile(){
+    previewFile() {
         let preview = document.querySelector('#' + this.imgPreviewId);
         let file = document.querySelector('#' + this.inputId).files[0];
         let reader = new FileReader();
@@ -660,6 +658,178 @@ class UpLoadImage {
 
     }
 
+}
+
+class ReviewFilter {
+    constructor(reviewArray) {
+        this.reviewFilter = document.querySelector('.popup-reviewFilter-dropdown');
+        this.selectedReviewFilter = 'selected-popup-reviewFilter-element';
+        this.reviewFilterKey = 'popup-reviewFilter-element selected-popup-reviewFilter-element';
+
+        this.reviewArray = reviewArray;
+
+        this.init();
+    }
+
+    init() {
+        this.reviewObj = this.getDefaultArrayObject();
+        this.setSorting('date');
+        this.getEvent(this.selectedReviewFilter, this.reviewFilterKey);
+    }
+
+    getDefaultArrayObject() {
+        const queryObj = [];
+        const obj = this.reviewArray;
+
+        for (const key in obj) {
+            const value = obj[key];
+
+            const time = value.timestamp;
+            const splitTimestamp = time.split(' ');
+
+            value['time_score'] = this.getDate(splitTimestamp[0]) + this.getTime(splitTimestamp[1]);
+
+            queryObj.push(value);
+        }
+
+        return queryObj;
+    }
+
+    getDate(value) {
+        const splitDate = value.split('-');
+
+        const yy = parseInt(splitDate[0]);
+        const mm = parseInt(splitDate[1]);
+        const dd = parseInt(splitDate[2]);
+
+        let dateValue = 0;
+
+        for (let x = 2016; x < yy; x++) {
+            if (x % 4 == 0) {
+                if (x % 100 != 0 || x % 400 == 0) {
+                    dateValue += 366;
+                }
+            } else {
+                dateValue += 365;
+            }
+        }
+
+        for (let x = 1; x < mm; x++) {
+            switch (x) {
+                case 4:
+                case 6:
+                case 9:
+                case 11:
+                    dateValue += 31;
+                    break;
+                case 2:
+                    dateValue += 28;
+                default:
+                    dateValue += 31;
+                    break;
+            }
+        }
+
+        dateValue += dd;
+
+        return (dateValue);
+    }
+
+    getTime(value) {
+        const splitTime = value.split(':');
+
+        const hh = parseInt(splitTime[0]);
+        const mm = parseInt(splitTime[1]);
+        const ss = parseInt(splitTime[2]);
+
+        let timeValue = 0;
+
+        timeValue = (mm + (hh * 60)) * 100;
+        timeValue += ss;
+
+        return timeValue / 1e6;
+    }
+
+    getEvent(selectedReviewFilter, reviewFilterKey) {
+        this.reviewFilter.addEventListener("click", function (e) {
+            const selectedFilter = document.getElementsByClassName(selectedReviewFilter)[0];
+
+            selectedFilter.classList.remove(selectedReviewFilter);
+            e.target.classList.add(selectedReviewFilter);
+
+            const changeSelectedFilter = document.getElementsByClassName(selectedReviewFilter)[0];
+
+            if (changeSelectedFilter.getAttribute('class') == reviewFilterKey) {
+                const requestParam = changeSelectedFilter.getAttribute('name');
+                this.setSorting(requestParam);
+            } else {
+                e.target.classList.remove(selectedReviewFilter);
+                selectedFilter.classList.add(selectedReviewFilter);
+            }
+        }.bind(this));
+    }
+
+    setSorting(param) {
+        const queryObj = this.reviewObj;
+        let sortObj = [];
+
+        switch (param) {
+            case 'date':
+                sortObj = this.setDateSorting(queryObj);
+                break;
+            case 'useful':
+                sortObj = this.setUsefulSorting(queryObj);
+                break;
+            default:
+                break;
+        }
+
+        this.reviewObj = sortObj;
+
+        this.setDefaultReviewData();
+    }
+
+    setDateSorting(array){
+        array.sort(function (a, b) {
+            const beforeTimeScore = parseFloat(a.time_score);
+            const afterTimeScore = parseFloat(b.time_score);
+
+            if (beforeTimeScore < afterTimeScore) {
+                return 1;
+            } else if (beforeTimeScore > afterTimeScore) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
+
+        return array;
+    }
+
+    setUsefulSorting(array){
+        array.sort(function (a, b) {
+            const beforeUseful = parseInt(a.useful);
+            const afterUseful = parseInt(b.useful);
+
+            if (beforeUseful < afterUseful) {
+                return 1;
+            } else if (beforeUseful > afterUseful) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
+
+        return array;
+    }
+
+    setDefaultReviewData() {
+        const util = new Util();
+        const template = document.querySelector("#review-template").innerHTML;
+        const popup = document.querySelector("#popupReview");
+
+        util.template(this.reviewObj, template, popup);
+    }
 }
 
 function loadDetailProduct(event) {
@@ -699,12 +869,12 @@ function loadDetailProduct(event) {
     const flavorData = [];
     Object.keys(obj[id].flavor_level).forEach(function (e) {
         flavorData.push(obj[id].flavor_level[e])
-    })
+    });
 
     const quantityData = [];
     Object.keys(obj[id].quantity_level).forEach(function (e) {
         quantityData.push(obj[id].quantity_level[e])
-    })
+    });
 
     const ratingChart = new MakeChart('line', ["1🌟", "2🌟", "3🌟", "4🌟", "5🌟"], gradeData, 'ratingChart', '#ffc225', '#eeb225');
     const priceChart = new MakeChart('bar', ["비쌈", "", "적당", "", "저렴"], priceData, 'priceChart', '#ee5563', '#9c3740');
@@ -717,10 +887,6 @@ function loadDetailProduct(event) {
         obj[id].reviewList.forEach(function (e) {
             reviewArr.push(obj2[e])
         });
-        const template2 = document.querySelector("#review-template").innerHTML;
-        const sec2 = document.querySelector("#popupReview");
-
-        util.template(reviewArr, template2, sec2);
     }
 
 
@@ -731,9 +897,11 @@ function loadDetailProduct(event) {
     //모달 리뷰 필터 드롭다운
     const reviewFilterDrop = new Dropdown("click", ".popup-reviewFilter", ".popup-reviewFilter-dropdown");
 
+    new ReviewFilter(reviewArr);
+
     setTimeout(function () {
         document.querySelector('#loading').style.display = "none"
-    },2000)
+    }, 2000);
 
     document.querySelector("#popupWish").addEventListener("click", function () {
         document.querySelector("#popupWish").setAttribute("class", "popup-wish popup-wish-select");
@@ -745,22 +913,22 @@ function loadDetailProduct(event) {
         let double = true;
 
 
-        if(!!newWishArr) {
+        if (!!newWishArr) {
             newWishArr.forEach(function (e) {
                 if (e === id) {
                     double = false;
                 }
             })
-        }else{
-            newWishArr=[];
+        } else {
+            newWishArr = [];
         }
 
         if (double) {
             newWishArr.push(id);
-            console.log(newWishArr)
-            console.log(user.uid)
-            console.log('user/' + user.uid + "/wish_product_list")
-            firebase.database().ref('user/' + user.uid + "/wish_product_list").set(newWishArr).then(function(){
+            console.log(newWishArr);
+            console.log(user.uid);
+            console.log('user/' + user.uid + "/wish_product_list");
+            firebase.database().ref('user/' + user.uid + "/wish_product_list").set(newWishArr).then(function () {
                 console.log("ss");
                 firebase.database().ref('user/').once('value').then(function (snapshot) {
                     localStorage['user'] = JSON.stringify(snapshot.val());
@@ -770,10 +938,7 @@ function loadDetailProduct(event) {
 
         }
 
-
-
-
-    })
+    });
 
 
     document.querySelector(".popup-close").addEventListener("click", function () {
