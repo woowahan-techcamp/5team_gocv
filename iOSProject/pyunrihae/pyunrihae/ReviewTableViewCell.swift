@@ -1,14 +1,14 @@
 //
-//  ReviewCollectionViewCell.swift
+//  ReviewTableViewCell.swift
 //  pyunrihae
 //
-//  Created by woowabrothers on 2017. 8. 8..
+//  Created by woowabrothers on 2017. 8. 23..
 //  Copyright © 2017년 busride. All rights reserved.
 //
 
 import UIKit
 
-class ReviewCollectionViewCell: UICollectionViewCell {
+class ReviewTableViewCell: UITableViewCell {
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var reviewView: UIView!
     @IBOutlet weak var badLabel: UILabel!
@@ -19,5 +19,15 @@ class ReviewCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var starView: UIView!
     @IBOutlet weak var gradeLabel: UILabel!
     @IBOutlet weak var loading: UIActivityIndicatorView!
-    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
+
 }
