@@ -84,7 +84,7 @@ open class YNSearchViewController: UIViewController, UITextFieldDelegate {
     open func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let text = textField.text else { return true }
         if !text.isEmpty {
-            self.ynSearch.appendSearchHistories(value: text)
+//            self.ynSearch.appendSearchHistories(value: text)
             self.ynSearchView.ynSearchMainView.redrawSearchHistoryButtons()
             // return 눌렀을 때 검색이 되도록하기
             self.ynSearchView.ynSearchListView.ynSearchTextFieldText = self.ynSearchTextfieldView.ynSearchTextField.text

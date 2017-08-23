@@ -160,7 +160,7 @@ class ReviewViewController: UIViewController {
         
         switch selectedBrandIndexFromTab {
         case 0 : brand = ""
-        case 1 : brand = "gs25"
+        case 1 : brand = "GS25"
         case 2 : brand = "CU"
         case 3 : brand = "7-eleven"
         default : break;

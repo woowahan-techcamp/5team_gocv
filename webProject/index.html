@@ -190,15 +190,15 @@
             </div>
 
             <ul class="main-rank-tab-wrapper">
-                <!-- 도시락 / 김밥 / 베이커리 / 라면 / 스낵 / 유제품 / 음료 / 즉석식품 -->
+                <!-- 도시락 / 김밥 / 베이커리 / 라면 / 스낵 / 아이ㅡ크림 / 음료 / 식품 -->
                 <li class="main-rank-tab main-rank-selectedtab" name="도시락">도시락</li>
                 <li class="main-rank-tab" name="김밥">김밥</li>
                 <li class="main-rank-tab" name="베이커리">베이커리</li>
                 <li class="main-rank-tab" name="라면">라면</li>
                 <li class="main-rank-tab" name="스낵">스낵</li>
-                <li class="main-rank-tab" name="유제품">유제품</li>
+                <li class="main-rank-tab" name="아이스크림">아이스크림</li>
                 <li class="main-rank-tab" name="음료">음료</li>
-                <li class="main-rank-tab" name="즉석식품">즉석식품</li>
+                <li class="main-rank-tab" name="식품">식품</li>
             </ul>
 
 
@@ -233,6 +233,7 @@
             <div class="brand-rank-more">GS25 랭킹 전체 보기</div>
         </a>
     </div>
+
     <!--cu-->
     <div class="brand-rank-wrapper">
         <div class="brand-rank-arrow">
@@ -320,14 +321,14 @@
             <li style="background-image:url('image/snack.png')" class="rank-category-tab" name="스낵">
                 스낵
             </li>
-            <li style="background-image:url('image/milk.png')" class="rank-category-tab" name="유제품">
-                유제품
+            <li style="background-image:url('image/milk.png')" class="rank-category-tab" name="아이스크림">
+                아이스크림
             </li>
             <li style="background-image:url('image/bottle.png')" class="rank-category-tab" name="음료">
                 음료
             </li>
-            <li style="background-image:url('image/instant.png')" class="rank-category-tab" name="즉석식품">
-                즉석식품
+            <li style="background-image:url('image/instant.png')" class="rank-category-tab" name="식품">
+                식품
             </li>
         </ul>
     </div>
@@ -434,8 +435,12 @@
     </div>
 </div>
 
-
-
+<!--로딩 스피너-->
+<div style="display: none" id="loading" class="spinner">
+    <div class="bounce1"></div>
+    <div class="bounce2"></div>
+    <div class="bounce3"></div>
+</div>
 
 <!--template-->
 <script id="rank-card-template" type="text/x-handlebars-template">
@@ -572,12 +577,15 @@
         <a href="#">
             <div class="popup-close"></div>
         </a>
+
+
         <div class="popup-reviewImage"></div>
         <div class="popup-productImage" style="background-image:url({{img}})"></div>
         <div class="popup-productWrapper">
             <div class="popup-productCount">
                 <div>누적리뷰 수</div>
                 <div>{{grade_count}} reviews</div>
+                <div id="popupWish" class="popup-wish"></div>
             </div>
             <div class="popup-productName">{{name}}</div>
             <div class="popup-productPrice">가격</div>
@@ -586,6 +594,7 @@
             <div class="popup-productBrand2">{{brand}}</div>
             <div class="popup-productScore">총 평점</div>
             <div class="popup-productScore2">{{grade_avg}}<span style="font-size:12px"> /5점</span></div>
+
         </div>
         <div class="popup-ratingChart">
             <canvas id="ratingChart"></canvas>
@@ -789,8 +798,7 @@
                 <div class="myPage-profile-nickname">닉네임 바꾸기</div>
             </div>
             <div class="myPage-profile-email-title">E-mail 주소 </div>
-            <div class="myPage-profile-email">{{email}}
-            </div>
+            <div class="myPage-profile-email">{{email}}</div>
         </div>
 
 
@@ -807,10 +815,10 @@
 <script id="myPage-review-template" type="text/x-handlebars-template">
     {{#this}}
     <li class="myPage-wish-element">
-        <img src="{{img}}" class="myPage-wish-element-image">
+        <img name={{id}} onclick="loadDetailProduct()" src="{{img}}" class="myPage-wish-element-image">
         <div style="margin-top:10px;float: left">
             <div class="myPage-wish-element-name">{{name}}</div>
-            <div class="myPage-wish-element-brand">{{brand}} {{price}}원 </div>
+            <div class="myPage-wish-element-brand">{{brand}} </div>
         </div>
         <div class="myPage-wish-element-delete" name="{{id}}">삭제</div>
     </li>
