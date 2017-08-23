@@ -178,27 +178,63 @@ class Carousel {
 
     setData() {
         const review = localStorage['review'];
-        const data = JSON.parse(review);
-        this.data = data;
+        this.data = JSON.parse(review);
+
         const fakeArr = [];
 
+        let i = 1;
         Object.keys(this.data).forEach(function (e) {
-            fakeArr.push(this.data[e])
+            const value = this.data[e];
+
+            fakeArr.push(value);
         }.bind(this));
 
+        console.log(fakeArr);
+
+        const fakeBeforeValue = fakeArr[9];
+        fakeBeforeValue["rating"] = "carousel-rank-rating" + 0;
+
+        console.log('fakeB', fakeBeforeValue.rating);
+
+        const fakeAfterValue = fakeArr[0];
+        fakeAfterValue["rating"] = "carousel-rank-rating" + 11;
+
+        console.log('fakeA', fakeAfterValue.rating);
+
         const arr = [];
-        arr.push(fakeArr[9]);
+        arr.push(fakeBeforeValue);
 
+        console.log('---- ---- ----');
         for (let i = 0; i <= 9; i++) {
-            arr.push(fakeArr[i]);
-        }
-        arr.push(fakeArr[0]);
+            const value = fakeArr[i];
 
+            value["rating"] = "carousel-rank-rating" + (i+1);
+
+            console.log(value.rating);
+
+            arr.push(value);
+        }
+
+        arr.push(fakeAfterValue);
 
         const util = new Util();
 
         util.template(arr, this.template, this.sec);
         this.reviewNavi = document.getElementById(this.reviewNavi);
+
+        this.setRatingHandler(arr);
+    }
+
+    setRatingHandler(value){
+        console.log(value.length);
+        let i = 0;
+        for(const x of value){
+            console.log(i);
+            $('#carousel-rank-rating' + i).rateYo({
+               rating: x.grade
+            });
+            i++;
+        }
     }
 }
 

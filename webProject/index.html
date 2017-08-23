@@ -515,15 +515,11 @@
                         </div>
                     </div>
 
-                    <div class="carousel-review-star">
-                        <ul>
-                            <li class="carousel-review-starElement"></li>
-                            <li class="carousel-review-starElement"></li>
-                            <li class="carousel-review-starElement"></li>
-                            <li class="carousel-review-starElement"></li>
-                            <li style="display:none" class="carousel-review-starElement"></li>
-                        </ul>
+                    <div class="review-preview-star">
+                        <div id="{{rating}}">
+                        </div>
                     </div>
+
                     <div class="carousel-review-score">
                         <span style="font-weight: 700;">{{grade}}</span>
                         <span style="font-size: 12px">점</span>
@@ -534,6 +530,7 @@
                         <div class="carousel-review-imageEle">
                             <a href="#popup">
                                 <img class="carousel-review-imageEle" src="{{p_image}}" name="{{p_id}}"
+                                     onerror="this.onerror=null;this.src='./image/no_image.gif';"
                                      onclick="loadDetailProduct(this)"/>
                             </a>
                         </div>
