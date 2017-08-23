@@ -179,7 +179,6 @@ class DataManager{
                 let product = Product.init(snapshot : childSnapshot as! DataSnapshot)
                 productList.append(product)
             }
-
             completion(productList)
         })
     }

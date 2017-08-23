@@ -75,11 +75,11 @@ class TabBarViewController: UIViewController {
         didPressTabBtn(tabBtns[2])
     }
     func animateView(){
-        UIView.animate(withDuration: 1,delay: 1, animations: {
+        UIView.animate(withDuration: 1,delay: 0.5, animations: {
             self.pyunrihaeImage.alpha -= 1
         }, completion: { (complete:Bool) in
             if complete == true{
-                UIView.animate(withDuration: 1,delay: 1, animations: {
+                UIView.animate(withDuration: 1,delay: 0.5, animations: {
                     self.pyunrihaeImage.alpha += 1
                 }
                 )
@@ -87,7 +87,7 @@ class TabBarViewController: UIViewController {
         })
     }
     func doneLoading() {
-        UIView.animate(withDuration: 1.0,delay: 1, animations: {
+        UIView.animate(withDuration: 1.0,delay: 0, animations: {
             self.pyunrihaeImage.frame.origin.x -= 375
             self.waitingImage.frame.origin.x -= 375
         }, completion: { (complete:Bool) in
@@ -97,11 +97,16 @@ class TabBarViewController: UIViewController {
             }
         })
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        saveProductListToGlobal()
+        NotificationCenter.default.addObserver(self, selector: #selector(showRanking), name: NSNotification.Name("showRanking"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showCategory), name: NSNotification.Name("showCategory"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showReview), name: NSNotification.Name("showReview"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(doneLoading), name: NSNotification.Name("doneLoading"), object: nil)
         waitingImage.layer.zPosition = 10
         pyunrihaeImage.layer.zPosition = 20
-        saveProductListToGlobal()
         animateView()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         mainViewController = storyboard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
@@ -123,10 +128,7 @@ class TabBarViewController: UIViewController {
         Button.select(btn: tabBtns[selectedTabIndex])
         didPressTabBtn(tabBtns[selectedTabIndex])
         tabContentView.layer.zPosition = 10
-        NotificationCenter.default.addObserver(self, selector: #selector(showRanking), name: NSNotification.Name("showRanking"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(showCategory), name: NSNotification.Name("showCategory"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(showReview), name: NSNotification.Name("showReview"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(doneLoading), name: NSNotification.Name("doneLoading"), object: nil)
+        
         // Do any additional setup after loading the view.
         if Auth.auth().currentUser != nil {
             DataManager.getUserFromUID(uid: (Auth.auth().currentUser?.uid)!, completion: { (user) in

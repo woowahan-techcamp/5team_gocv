@@ -293,6 +293,7 @@ class MainViewController: UIViewController {
                     attrString.addAttribute(NSParagraphStyleAttributeName, value: style, range: NSRange(location: 0, length: review.comment.characters.count))
                     attrString.addAttribute(NSForegroundColorAttributeName, value: UIColor.white , range: NSRange(location: 0, length: review.comment.characters.count))
                     reviewLabel?.attributedText = attrString
+                    reviewLabel?.lineBreakMode = NSLineBreakMode.byTruncatingTail
                     selectedCountLabel?.text = (cnt + 1).description
                     totalCountLabel?.text = scrollViewImageNum.description
                 
