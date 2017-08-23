@@ -1,0 +1,49 @@
+.popup-review-preview {
+    min-width: 800px;
+    height: 450px;
+    overflow: scroll;
+    margin: 70px auto;
+    border-radius: 5px;
+    /*height: auto;*/
+    width: 80%;
+    position: relative;
+    z-index: 120;
+
+    background-color: #fff6f2;
+}
+
+.review-preview-star {
+    float: left;
+    width: 200px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    margin-left: 30px;
+}
+
+.review-preview-bottom{
+    margin-top: 10px;
+    float: left;
+    margin-left: 2%;
+    width: 96%;
+    height: 150px;
+    border-radius: 10px;
+}
+
+.review-preview-option {
+    max-height: 250px;
+    line-height: 2em;
+    overflow: scroll;
+    height: auto;
+    background-color: white;
+    border-radius: 10px;
+    padding: 7px;
+}
+
+.popup-review-preview-allergy {
+    margin-top: 20px;
+}
+
+.preview-hash-tag {
+    color: cornflowerblue;
+}

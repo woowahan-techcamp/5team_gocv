@@ -272,10 +272,11 @@ class SearchTab{
             if (text === "편리해") {
                 document.querySelector(".main-wrapper").style.display = "";
                 document.querySelector(".rank-container").style.display = "none";
+                document.querySelector(".review-container").style.display = "none";
             } else if(text === "랭킹"){
                 document.querySelector(".main-wrapper").style.display = "none";
                 document.querySelector(".rank-container").style.display = "";
-
+                document.querySelector(".review-container").style.display = "none";
                 const value = {
                   brand: 'all',
                   category: '전체',
@@ -286,6 +287,7 @@ class SearchTab{
             } else if(text === "리뷰"){
                 document.querySelector(".main-wrapper").style.display = "none";
                 document.querySelector(".rank-container").style.display = "none";
+                document.querySelector(".review-container").style.display = "";
             }
 
         }.bind(this));
@@ -738,5 +740,41 @@ function timestamp() {
         curr_hour+":"+curr_minute+":"+curr_second;
 }
 
+
+function loadReviewDetail(event) {
+
+    $("body").css("overflow", "hidden");
+
+    const key = event.getAttribute("name");
+    const review = localStorage['review'];
+
+    const reviewObj = JSON.parse(review);
+
+    const template = document.querySelector('#review-preview-template').innerHTML;
+    const popup = document.querySelector('#popup');
+
+    const selectReviewData = reviewObj[key];
+
+    selectReviewData["rating"] = "review-preview-rating";
+
+    const util = new Util();
+
+    util.template(selectReviewData, template, popup);
+
+    $("#review-preview-rating").rateYo({
+        rating: selectReviewData.grade,
+        readOnly: true,
+        spacing: "10px",
+        starWidth: "20px",
+        normalFill: "#e2dbd6",
+        ratedFill: "#ffcf4d"
+    });
+
+    document.querySelector(".popup-newReview-cancel").addEventListener("click", function () {
+        $("body").css("overflow", "visible");
+    });
+}
+
 //이런식으로 해야 웹팩에서 function을 html onclick으로 사용가
 window.loadDetailProduct = loadDetailProduct;
+window.loadReviewDetail = loadReviewDetail;
