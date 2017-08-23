@@ -38,10 +38,9 @@
                     <color key="textColor" red="0.98958333330000003" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="싼 가격에 푸짐하게 먹었네요. 다음에도  먹을 의향이 있습니다. 추천드립니다!! 꼭 먹으세요!" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUV-5x-AHN">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="싼 가격에 푸짐하게 먹었네요. 다음에도  먹을 의향이 있습니다. 추천드립니다!! 꼭 먹으세요!" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUV-5x-AHN">
                     <rect key="frame" x="16" y="104" width="289" height="48"/>
                     <constraints>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="48" id="9jz-PE-FVU"/>
                         <constraint firstAttribute="height" constant="48" id="BzJ-OG-bUl"/>
                         <constraint firstAttribute="width" constant="289" id="PGI-Ns-uvb"/>
                     </constraints>
