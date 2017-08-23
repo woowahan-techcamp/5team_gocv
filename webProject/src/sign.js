@@ -97,13 +97,12 @@ class SignUp {
                 document.querySelector('#loading').style.display = "none";
 
             }).then(function () {
-                const user = firebase.auth().currentUser;
 
                 database.ref('user/' + user.uid).set({
                     "email": this.email.value,
                     "id": user.uid,
                     "nickname": this.nic.value,
-                    "user_profile": "https://avatars3.githubusercontent.com/u/22839752?v=4&s=460"
+                    "user_profile": "http://item.kakaocdn.net/dw/4407092.title.png"
                 }).then(function () {
 
 
@@ -207,7 +206,6 @@ class SignIn {
             const userData = JSON.parse(userStorage);
             const user = firebase.auth().currentUser;
 
-            //프로필 탭 설정
             document.querySelector(".fixTab-profile-wrapper").style.display = "block"
             document.querySelector("#fixTabProfileImg").setAttribute("src", userData[user.uid].user_profile);
             document.querySelector(".fixTab-profile-id").innerHTML =
@@ -231,10 +229,9 @@ class SignIn {
                 const myPage = new MyPage(user.uid);
 
             });
-
-
         })
     }
+
 }
 
 class SignConnect {
@@ -335,15 +332,19 @@ class UpLoadImage {
 }
 
 class MyPage {
-    constructor(userId) {
-        this.userId = userId;
+    constructor() {
+        const userStorage = localStorage['user'];
+        const user = firebase.auth().currentUser;
+
+        this.userData = JSON.parse(userStorage);
+        this.userId = user.uid;
+
         this.setData();
-        this.setUploadProfile();
+        this.setEventUpdateImage();
+        this.setEventUpdateNicname();
     }
 
     setData() {
-        const userStorage = localStorage['user'];
-        const userData = JSON.parse(userStorage);
         const util = new Util();
 
         const productStorage = localStorage['product'];
@@ -351,12 +352,12 @@ class MyPage {
 
         const template = document.querySelector("#myPage-template").innerHTML;
         const sec = document.querySelector("#myPage");
-        util.template(userData[this.userId], template, sec);
+        util.template(this.userData[this.userId], template, sec);
 
         const wishReviewArr = [];
 
-        if(!!userData[this.userId].wish_product_list){
-            userData[this.userId].wish_product_list.forEach(function (e) {
+        if(!!this.userData[this.userId].wish_product_list){
+            this.userData[this.userId].wish_product_list.forEach(function (e) {
                 wishReviewArr.push(productData[e]);
             });
         }
@@ -366,6 +367,10 @@ class MyPage {
         util.template(wishReviewArr, template2, sec2);
 
         this.setDeleteButtonEvent()
+
+        document.querySelector(".myPage-close").addEventListener("click",function(){
+
+        })
     }
 
     setDeleteButtonEvent() {
@@ -373,9 +378,7 @@ class MyPage {
             const that = this;
 
             firebase.database().ref('user/').once('value').then(function (snapshot) {
-                localStorage['user'] = JSON.stringify(snapshot.val());
-                const userStorage = localStorage['user'];
-                const userData = JSON.parse(userStorage);
+
 
                 if (e.target.classList.contains("myPage-wish-element-delete")) {
                     document.querySelector('#loading').style.display = "block";
@@ -385,7 +388,7 @@ class MyPage {
                     const id = e.target.getAttribute("name");
                     const newWishArr = [];
 
-                    userData[that.userId].wish_product_list.forEach(function (e) {
+                    that.userData[that.userId].wish_product_list.forEach(function (e) {
                         if (e !== id) {
                             newWishArr.push(e);
                         }
@@ -404,7 +407,7 @@ class MyPage {
         }.bind(this));
     }
 
-    setUploadProfile() {
+    setEventUpdateImage() {
         const uploadProfile = new UpLoadImage("profileImageInput", "profilePreview");
 
         document.querySelector('#profileImageInput').addEventListener("change",function(){
@@ -425,6 +428,32 @@ class MyPage {
             }.bind(that));
 
         }.bind(this))
+    }
+
+    setEventUpdateNicname(){
+        const changeBtn = document.querySelector(".myPage-profile-nickname");
+        changeBtn.addEventListener("click",function(){
+            const that = this;
+            document.querySelector('#loading').style.display = "block";
+
+
+            const input = document.querySelector(".myPage-profile-nickname-input");
+            const changedName = input.value;
+            input.setAttribute("value",changedName);
+
+            firebase.database().ref('user/' + this.userId+'/nickname').set(changedName);
+
+
+            firebase.database().ref('user/').once('value').then(function (snapshot) {
+                localStorage['user'] = JSON.stringify(snapshot.val());
+            });
+
+            setTimeout(function(){
+                that.setProfileTab();
+                document.querySelector('#loading').style.display = "none";
+            }.bind(that),1000)
+
+        }.bind(this))
 
 
     }
@@ -435,21 +464,31 @@ class MyPage {
 
         storageRef.child(this.fileName).getDownloadURL().then(function (url) {
             const that = this;
-            const userStorage = localStorage['user'];
-            this.user = JSON.parse(userStorage);
-            const user = firebase.auth().currentUser;
+            // const userStorage = localStorage['user'];
 
             database.ref('user/' + this.userId+'/user_profile').set(url);
 
             firebase.database().ref('user/').once('value').then(function (snapshot) {
                 localStorage['user'] = JSON.stringify(snapshot.val());
+                that.setProfileTab();
                 document.querySelector('#loading').style.display = "none";
-            });
+            }.bind(that));
 
         }.bind(this)).catch(function (error) {
             console.log(error);
             document.querySelector('#loading').style.display = "none"
         });
+    }
+
+    setProfileTab(){
+        //프로필 탭 설정
+        document.querySelector(".fixTab-profile-wrapper").style.display = "block"
+        document.querySelector("#fixTabProfileImg").setAttribute("src", this.userData[user.uid].user_profile);
+        document.querySelector(".fixTab-profile-id").innerHTML =
+            this.userData[this.userId   ].nickname + "<ul class=\"fixTab-profile-dropdown\">\n" +
+            "                     <a href=\"#myPage\"><li class=\"fixTab-profile-element\">내 정보</li></a>\n" +
+            "                    <li id=\"logout\" class=\"fixTab-profile-element\">로그아웃</li>\n" +
+            "                </ul>";
     }
 
 }

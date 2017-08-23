@@ -1,7 +1,6 @@
 .popup-review-preview {
     min-width: 800px;
     height: 450px;
-    overflow: scroll;
     margin: 70px auto;
     border-radius: 5px;
     /*height: auto;*/
@@ -33,7 +32,7 @@
 .review-preview-option {
     max-height: 250px;
     line-height: 2em;
-    overflow: scroll;
+    overflow: auto;
     height: auto;
     background-color: white;
     border-radius: 10px;
