@@ -38,14 +38,19 @@
 
 
 .myPage-profile-image{
+    cursor: pointer;
     margin: auto;
     width: 200px;
     height: 200px;
     border-radius: 100px;
-    border: solid 1px gray;
+    border: solid 2px #cbcbcb;
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: center;
+}
+
+.myPage-profile-image:hover{
+    filter:brightness(70%);
 }
 
 #profileImageInput{

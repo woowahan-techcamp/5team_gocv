@@ -347,7 +347,7 @@ document.addEventListener('DOMContentLoaded', function () {
     new BrandRankingPreview(sevenParams, sevObj);
 });
 
-var category = ['도시락', '김밥', '베이커리', '라면', '스낵', '유제품', '음료', '즉석식품'];
+var category = ['도시락', '김밥', '베이커리', '라면', '스낵', '아이스크림', '음료', '식품'];
 
 var defaultParam = {
     brand: "",
