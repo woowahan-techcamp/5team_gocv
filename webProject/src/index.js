@@ -4,7 +4,6 @@ import "./brand.js"
 import "./main.js"
 import "./rankingTab.js"
 import "./sign.js"
-import "./review-preview.js"
 import "./review.js"
 
 
