@@ -1,0 +1,74 @@
+.popup-review-preview {
+    min-width: 800px;
+    height: 450px;
+    margin: 25vh auto;
+    padding-top: 20px;
+    border-radius: 5px;
+    /*height: auto;*/
+    width: 80%;
+    position: relative;
+    z-index: 120;
+
+    background-color: #fff6f2;
+}
+
+.review-preview-title{
+    float: left;
+    width: 150px;
+    margin-left: 2%;
+    background-color: #ff6f5c;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-size: 15px;
+    height: 25px;
+    line-height: 25px;
+}
+
+
+.review-preview-star {
+    float: left;
+    width: 150px;
+    text-align: center;
+    margin-top: 42px;
+    height: 20px;
+    margin-left: 30px;
+}
+
+.review-preview-bottom{
+    margin-top: 10px;
+    float: left;
+    margin-left: 2%;
+    width: 96%;
+    height: 250px;
+    border-radius: 10px;
+}
+
+.review-preview-option {
+    float: right;
+    max-height: 100%;
+    line-height: 2em;
+    overflow: auto;
+    width: 77%;
+    height: auto;
+    background-color: white;
+    border-radius: 10px;
+    padding: 7px;
+}
+
+.popup-review-preview-allergy {
+    margin-top: 20px;
+}
+
+.preview-hash-tag {
+    color: cornflowerblue;
+}
+
+.review-preview-image{
+    float: left;
+    background-size: contain;
+    border-radius: 10px;
+    width: 20%;
+    margin-right: 2%;
+    height: 100%;
+}

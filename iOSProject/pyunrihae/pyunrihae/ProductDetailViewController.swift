@@ -53,6 +53,18 @@ class ProductDetailViewController: UIViewController {
     var reviewList = [Review]()
     var product = Product()
     let appdelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    func didPressallergyBtn(sender: UIButton){ // 알러지 리스트 누르기
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "ProductAllergyViewController") as! ProductAllergyViewController
+        for product in appdelegate.productList {
+            if product.id == SelectedProduct.foodId{
+                vc.allergyList = product.allergy
+                self.present(vc, animated: true, completion: nil)
+            }
+        }
+    }
     func didPressUsefulBtn(sender: UIButton) { //유용해요 버튼 누르기
         if appdelegate.user?.email == "" {
             let alert = UIAlertController(title: "로그인 후 이용해주세요!", message: "", preferredStyle: UIAlertControllerStyle.alert)
@@ -167,6 +179,10 @@ class ProductDetailViewController: UIViewController {
             }
         }
     }
+    
+    func popAllergyList(){
+        
+    }
 }
 
 extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegate {
@@ -253,7 +269,8 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                         } else {
                             cell.allergyBtn.isEnabled = true
                             let count = allergyList.count - 1
-                            cell.allergyBtn.setTitle(allergy + "외 " + count.description + "개의 성분 >", for: .normal)
+                            cell.allergyBtn.setTitle(allergy + " 외 " + count.description + "개의 성분 >", for: .normal)
+                            cell.allergyBtn.addTarget(self, action: #selector(self.didPressallergyBtn), for: .touchUpInside)
                         }
                     } else {
                         cell.allergyBtn.isEnabled = false

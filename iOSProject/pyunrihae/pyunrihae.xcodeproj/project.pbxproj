@@ -37,6 +37,7 @@
 		9865E55C1F417E2000014795 /* SelectedAllergy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E55B1F417E2000014795 /* SelectedAllergy.swift */; };
 		9865E56C1F42E55E00014795 /* BigImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E56B1F42E55E00014795 /* BigImageViewController.swift */; };
 		98768AA01F39A5D600654C19 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C5AAD71F342C3900610115 /* DataManager.swift */; };
+		98B394861F4D59190071BB8B /* ProductAllergyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B394851F4D59190071BB8B /* ProductAllergyViewController.swift */; };
 		98B73F861F39394500E55420 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B73F851F39394500E55420 /* Review.swift */; };
 		98B73F881F394CAB00E55420 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B73F871F394CAB00E55420 /* Product.swift */; };
 		98B82EDC1F45352A001C63A4 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B82EDB1F45352A001C63A4 /* Validator.swift */; };
@@ -176,6 +177,7 @@
 		9865E5591F3D837200014795 /* SelectedProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedProduct.swift; sourceTree = "<group>"; };
 		9865E55B1F417E2000014795 /* SelectedAllergy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedAllergy.swift; sourceTree = "<group>"; };
 		9865E56B1F42E55E00014795 /* BigImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BigImageViewController.swift; sourceTree = "<group>"; };
+		98B394851F4D59190071BB8B /* ProductAllergyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductAllergyViewController.swift; sourceTree = "<group>"; };
 		98B73F851F39394500E55420 /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		98B73F871F394CAB00E55420 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		98B82EDB1F45352A001C63A4 /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
@@ -417,6 +419,7 @@
 				98CBA0D31F4ACA73003D0370 /* UpdateNicknameViewController.swift */,
 				98CBA0D91F4AEE60003D0370 /* LikeProductViewController.swift */,
 				98D569211F4C06F1002693E9 /* PyunrihaeInfoViewController.swift */,
+				98B394851F4D59190071BB8B /* ProductAllergyViewController.swift */,
 			);
 			name = "View Controller";
 			sourceTree = "<group>";
@@ -884,6 +887,7 @@
 				98DED89B1F41729100CC4D63 /* SearchViewController.swift in Sources */,
 				9865E4F61F387C7A00014795 /* TabBarViewController.swift in Sources */,
 				9865E52C1F3AF3EE00014795 /* MypageTableViewCell.swift in Sources */,
+				98B394861F4D59190071BB8B /* ProductAllergyViewController.swift in Sources */,
 				9865E54A1F3C436000014795 /* ProductReviewTableViewCell.swift in Sources */,
 				98D9F2E01F418DF3009D0E10 /* README.md in Sources */,
 				9865E4F81F38801B00014795 /* TabBarView.swift in Sources */,

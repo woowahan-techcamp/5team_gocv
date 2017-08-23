@@ -97,13 +97,12 @@ class SignUp {
                 document.querySelector('#loading').style.display = "none";
 
             }).then(function () {
-                const user = firebase.auth().currentUser;
 
                 database.ref('user/' + user.uid).set({
                     "email": this.email.value,
                     "id": user.uid,
                     "nickname": this.nic.value,
-                    "user_profile": "https://avatars3.githubusercontent.com/u/22839752?v=4&s=460"
+                    "user_profile": "http://item.kakaocdn.net/dw/4407092.title.png"
                 }).then(function () {
 
 
@@ -136,7 +135,7 @@ class SignUp {
                             });
                         })
 
-                        document.querySelector('.fixTab-profile-element').addEventListener("click",function (){
+                        document.querySelector('.fixTab-profile-element').addEventListener("click", function () {
                             const myPage = new MyPage(user.uid);
 
                         });
@@ -147,7 +146,6 @@ class SignUp {
 
 
                 document.querySelector('#signupDetail').style.display = "none";
-
 
 
             }.bind(that));
@@ -208,7 +206,6 @@ class SignIn {
             const userData = JSON.parse(userStorage);
             const user = firebase.auth().currentUser;
 
-            //프로필 탭 설정
             document.querySelector(".fixTab-profile-wrapper").style.display = "block"
             document.querySelector("#fixTabProfileImg").setAttribute("src", userData[user.uid].user_profile);
             document.querySelector(".fixTab-profile-id").innerHTML =
@@ -228,14 +225,13 @@ class SignIn {
 
             document.querySelector('#sign').style.display = "none";
 
-            document.querySelector('.fixTab-profile-element').addEventListener("click",function (){
+            document.querySelector('.fixTab-profile-element').addEventListener("click", function () {
                 const myPage = new MyPage(user.uid);
 
             });
-
-
         })
     }
+
 }
 
 class SignConnect {
@@ -291,87 +287,6 @@ class Util {
     }
 }
 
-class MyPage {
-    constructor(userId) {
-        this.userId = userId;
-        this.setData();
-        this.setUploadProfile()
-    }
-
-    setData() {
-        const userStorage = localStorage['user'];
-        const userData = JSON.parse(userStorage);
-        const util = new Util();
-
-        const productStorage = localStorage['product'];
-        const productData = JSON.parse(productStorage);
-
-        const template = document.querySelector("#myPage-template").innerHTML;
-        const sec = document.querySelector("#myPage");
-        util.template(userData[this.userId], template, sec);
-
-        const wishReviewArr = [];
-
-        userData[this.userId].wish_product_list.forEach(function (e) {
-            wishReviewArr.push(productData[e]);
-        });
-
-
-        const template2 = document.querySelector("#myPage-review-template").innerHTML;
-        const sec2 = document.querySelector("#myPageReviewNavi");
-        util.template(wishReviewArr, template2, sec2);
-
-        this.setDeleteButtonEvent()
-    }
-
-    setDeleteButtonEvent() {
-        document.querySelector("#myPageReviewNavi").addEventListener("click", function (e) {
-            const that = this;
-
-
-
-            firebase.database().ref('user/').once('value').then(function (snapshot) {
-                document.querySelector('#loading').style.display = "block";
-                localStorage['user'] = JSON.stringify(snapshot.val());
-                const userStorage = localStorage['user'];
-                const userData = JSON.parse(userStorage);
-
-
-                if (e.target.classList.contains("myPage-wish-element-delete")) {
-                    e.target.parentElement.style.display = "none";
-                    const id = e.target.getAttribute("name");
-                    const newWishArr = [];
-
-                    console.log(id)
-
-                    userData[that.userId].wish_product_list.forEach(function (e) {
-                        if (e !== id) {
-                            newWishArr.push(e);
-                        }
-                    })
-
-                    console.log(newWishArr)
-
-                    firebase.database().ref('user/' + that.userId + "/wish_product_list").set(newWishArr).then(function () {
-                        firebase.database().ref('user/')
-                            .once('value').then(function (snapshot) {
-
-                            localStorage['user'] = JSON.stringify(snapshot.val());
-                            document.querySelector('#loading').style.display = "none";
-                        });
-                    });
-                }
-            }.bind(that));
-        }.bind(this));
-
-    }
-
-    setUploadProfile(){
-        const uploadProfile = new UpLoadImage("profileImageInput","profilePreview")
-    }
-
-}
-
 //일단 중복해서 쓰기
 class UpLoadImage {
     constructor(inputId, imgPreviewId) {
@@ -381,7 +296,7 @@ class UpLoadImage {
     }
 
     init() {
-        const inputBtn =  document.querySelector("#" + this.inputId);
+        const inputBtn = document.querySelector("#" + this.inputId);
         const previewBtn = document.querySelector("#" + this.imgPreviewId);
 
         inputBtn.style.display = "none"
@@ -390,13 +305,13 @@ class UpLoadImage {
             this.previewFile();
         }.bind(this));
 
-        previewBtn.addEventListener("click",function () {
+        previewBtn.addEventListener("click", function () {
             inputBtn.click();
         })
 
     }
 
-    previewFile(){
+    previewFile() {
         let preview = document.querySelector('#' + this.imgPreviewId);
         let file = document.querySelector('#' + this.inputId).files[0];
         let reader = new FileReader();
@@ -409,10 +324,174 @@ class UpLoadImage {
         if (!file) {
         } else {
             reader.readAsDataURL(file);
-            console.log(file.type.split("/")[1])
         }
 
 
+    }
+
+}
+
+class MyPage {
+    constructor() {
+        const userStorage = localStorage['user'];
+        const user = firebase.auth().currentUser;
+
+        this.userData = JSON.parse(userStorage);
+        this.userId = user.uid;
+
+        this.setData();
+        this.setEventUpdateImage();
+        this.setEventUpdateNicname();
+    }
+
+    setData() {
+        const util = new Util();
+
+        const productStorage = localStorage['product'];
+        const productData = JSON.parse(productStorage);
+
+        const template = document.querySelector("#myPage-template").innerHTML;
+        const sec = document.querySelector("#myPage");
+        util.template(this.userData[this.userId], template, sec);
+
+        const wishReviewArr = [];
+
+        if(!!this.userData[this.userId].wish_product_list){
+            this.userData[this.userId].wish_product_list.forEach(function (e) {
+                wishReviewArr.push(productData[e]);
+            });
+        }
+
+        const template2 = document.querySelector("#myPage-review-template").innerHTML;
+        const sec2 = document.querySelector("#myPageReviewNavi");
+        util.template(wishReviewArr, template2, sec2);
+
+        this.setDeleteButtonEvent()
+
+        document.querySelector(".myPage-close").addEventListener("click",function(){
+
+        })
+    }
+
+    setDeleteButtonEvent() {
+        document.querySelector("#myPageReviewNavi").addEventListener("click", function (e) {
+            const that = this;
+
+            firebase.database().ref('user/').once('value').then(function (snapshot) {
+
+
+                if (e.target.classList.contains("myPage-wish-element-delete")) {
+                    document.querySelector('#loading').style.display = "block";
+
+                    e.target.parentElement.style.display = "none";
+
+                    const id = e.target.getAttribute("name");
+                    const newWishArr = [];
+
+                    that.userData[that.userId].wish_product_list.forEach(function (e) {
+                        if (e !== id) {
+                            newWishArr.push(e);
+                        }
+                    });
+
+                    firebase.database().ref('user/' + that.userId + "/wish_product_list").set(newWishArr).then(function () {
+                        firebase.database().ref('user/')
+                            .once('value').then(function (snapshot) {
+
+                            localStorage['user'] = JSON.stringify(snapshot.val());
+                            document.querySelector('#loading').style.display = "none";
+                        });
+                    });
+                }
+            }.bind(that));
+        }.bind(this));
+    }
+
+    setEventUpdateImage() {
+        const uploadProfile = new UpLoadImage("profileImageInput", "profilePreview");
+
+        document.querySelector('#profileImageInput').addEventListener("change",function(){
+            document.querySelector('#loading').style.display = "block";
+
+
+            const that=this;
+
+            let file = document.querySelector('#profileImageInput').files[0];
+
+            this.fileName = 'user/' + this.userId + "." + file.type.split("/")[1]
+
+            const storageRef = firebase.storage().ref();
+            const mountainImagesRef = storageRef.child(this.fileName);
+
+            mountainImagesRef.put(file).then(function () {
+                this.updateDb();
+            }.bind(that));
+
+        }.bind(this))
+    }
+
+    setEventUpdateNicname(){
+        const changeBtn = document.querySelector(".myPage-profile-nickname");
+        changeBtn.addEventListener("click",function(){
+            const that = this;
+            document.querySelector('#loading').style.display = "block";
+
+
+            const input = document.querySelector(".myPage-profile-nickname-input");
+            const changedName = input.value;
+            input.setAttribute("value",changedName);
+
+            firebase.database().ref('user/' + this.userId+'/nickname').set(changedName);
+
+
+            firebase.database().ref('user/').once('value').then(function (snapshot) {
+                localStorage['user'] = JSON.stringify(snapshot.val());
+
+
+                that.setProfileTab();
+                document.querySelector('#loading').style.display = "none";
+
+            }.bind(that));
+
+        }.bind(this))
+
+
+    }
+
+    updateDb() {
+        const storageRef = firebase.storage().ref();
+        const database = firebase.database();
+
+        storageRef.child(this.fileName).getDownloadURL().then(function (url) {
+            const that = this;
+            // const userStorage = localStorage['user'];
+
+            database.ref('user/' + this.userId+'/user_profile').set(url);
+
+            firebase.database().ref('user/').once('value').then(function (snapshot) {
+                localStorage['user'] = JSON.stringify(snapshot.val());
+
+                that.setProfileTab();
+                document.querySelector('#loading').style.display = "none";
+            }.bind(that));
+
+        }.bind(this)).catch(function (error) {
+            console.log(error);
+            document.querySelector('#loading').style.display = "none"
+        });
+    }
+
+    setProfileTab(){
+        const userStorage = localStorage['user'];
+        this.userData = JSON.parse(userStorage);
+        //프로필 탭 설정
+        document.querySelector(".fixTab-profile-wrapper").style.display = "block"
+        document.querySelector("#fixTabProfileImg").setAttribute("src", this.userData[this.userId].user_profile);
+        document.querySelector(".fixTab-profile-id").innerHTML =
+            this.userData[this.userId].nickname + "<ul class=\"fixTab-profile-dropdown\">\n" +
+            "                     <a href=\"#myPage\"><li class=\"fixTab-profile-element\">내 정보</li></a>\n" +
+            "                    <li id=\"logout\" class=\"fixTab-profile-element\">로그아웃</li>\n" +
+            "                </ul>";
     }
 
 }
