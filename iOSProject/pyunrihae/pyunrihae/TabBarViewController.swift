@@ -81,11 +81,8 @@ class TabBarViewController: UIViewController {
             if complete == true{
                 UIView.animate(withDuration: 1,delay: 1, animations: {
                     self.pyunrihaeImage.alpha += 1
-                }, completion: { (complete:Bool) in
-                    if complete == true{
-                        self.doneLoading()
-                    }
-                })
+                }
+                )
             }
         })
     }
@@ -143,7 +140,7 @@ class TabBarViewController: UIViewController {
     func saveProductListToGlobal(){
         DataManager.getProductAllInRank(){ (products) in
             self.appdelegate.productList = products.sorted(by: {$0.grade_avg > $1.grade_avg})
-            //NotificationCenter.default.post(name: NSNotification.Name("doneLoading"), object: self)
+            NotificationCenter.default.post(name: NSNotification.Name("doneLoading"), object: self)
         }
     }
     
