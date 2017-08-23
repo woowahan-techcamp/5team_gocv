@@ -9,10 +9,10 @@
 import UIKit
 
 class RankingViewController: UIViewController {
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var categoryScrollView: UIScrollView!
     @IBOutlet weak var productNumLabel: UILabel!
     @IBOutlet weak var sortingMethodLabel: UILabel!
-    @IBOutlet weak var collectionView: UICollectionView!
     @IBAction func tabDropDownBtn(_ sender: UIButton) {
         let alert = UIAlertController(title: "\r순서 정렬하기", message: "", preferredStyle: .actionSheet)
         //Create and add the Cancel action
@@ -117,8 +117,8 @@ class RankingViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        tableView.delegate = self
+        tableView.dataSource = self
         categoryScrollView.backgroundColor = UIColor.white
         addCategoryBtn() // 카테고리 버튼 만들어서 스크롤 뷰에 붙이기
         Button.select(btn: categoryBtns[selectedCategoryIndex]) // 맨 처음 카테고리는 전체 선택된 것으로 나타나게 함
@@ -163,7 +163,7 @@ class RankingViewController: UIViewController {
         
         self.showActivityIndicatory()
         
-        if collectionView != nil {
+        if tableView != nil {
             if selectedBrandIndexFromTab == 0  && selectedCategoryIndex == 0 { // 브랜드 : 전체 , 카테고리 : 전체 일때
                 self.productList = []
                 self.productList = self.appdelegate.productList
@@ -241,7 +241,7 @@ class RankingViewController: UIViewController {
                 self.productList = productList.sorted(by: { Int($0.price)! < Int($1.price)! })
             }
             
-            self.collectionView.reloadData()
+            self.tableView.reloadData()
         }
     }
 
@@ -249,15 +249,15 @@ class RankingViewController: UIViewController {
     
 }
 
-extension RankingViewController: UICollectionViewDataSource { 
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+extension RankingViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1;
     }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return productList.count;
     }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? RankingCollectionViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell =  tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? RankingTableViewCell {
             let product = self.productList[indexPath.item]
             cell.foodImage.layer.cornerRadius = cell.foodImage.frame.height/2
             cell.foodImage.clipsToBounds = true
@@ -352,16 +352,17 @@ extension RankingViewController: UICollectionViewDataSource {
             
             return cell
         }
-        return RankingCollectionViewCell()
+        return RankingTableViewCell()
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 130
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let cell = sender as! RankingCollectionViewCell
-        let indexRow = self.collectionView!.indexPath(for: cell)?.row
+        let cell = sender as! RankingTableViewCell
+        let indexRow = self.tableView!.indexPath(for: cell)?.row
         if productList.count > 0 {
             let product = productList[indexRow!]
             NotificationCenter.default.post(name: NSNotification.Name("showProduct"), object: self, userInfo: ["product" : product])
         }
     }
-}
-extension RankingViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 }

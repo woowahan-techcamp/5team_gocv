@@ -1,15 +1,56 @@
+.review-container{
+    margin-top: 60px;
+}
+
 .review-item-list-wrapper{
     margin: auto;
+}
+
+.review-query-wrapper{
+    margin-top: 30px;
+    height: 50px;
+}
+
+.review-query-type-wrapper{
+    text-align: right;
+    width: 100%;
+    float: right;
+    margin: 25px auto;
+    padding-right: 10%;
+}
+
+.review-query-tab{
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    width: 100px;
+    color: grey;
+}
+
+.selected-review-query-tab{
+    color: #ff2321;
+    font-weight: bold;
 }
 
 .card-main-review-content{
 
 }
 
+.review-card-readmore{
+    color: black;
+}
+
+.review-card-readmore:hover{
+    color: red;
+}
+
 .review-card-content{
+    position: relative;
+    height: 510px;
     float: left;
     border: solid 2px #ffb3b2;
     margin: 15px;
+    overflow: hidden;
 }
 
 .review-card-image-wrapper{
@@ -31,12 +72,13 @@
     right: 10px;
     line-heighst: 1;
     z-index: 5;
-    color: white;
+    color: green;
 }
 
 .review-card-image{
     display: block;
     width: 400px;
+    height: 240px;
     position: relative;
 }
 
@@ -52,6 +94,7 @@
 .review-user-image{
     width: 125px;
     height: 125px;
+    background-color: white;
     border-radius: 50%;
 }
 
@@ -64,7 +107,7 @@
 }
 
 .review-card-assess{
-  float: right;
+    float: right;
 }
 
 .review-card-name{

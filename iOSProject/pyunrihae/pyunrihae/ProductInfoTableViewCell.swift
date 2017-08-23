@@ -10,11 +10,13 @@ import UIKit
 
 class ProductInfoTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var manufacturerLabel: UILabel!
     @IBOutlet weak var foodImageBtn: UIButton!
     @IBOutlet weak var brandLabel: UILabel!
     @IBOutlet weak var foodNameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var eventLabel: UILabel!
+    @IBOutlet weak var capacityLabel: UILabel!
     @IBOutlet weak var loading: UIActivityIndicatorView!
     override func awakeFromNib() {
         super.awakeFromNib()

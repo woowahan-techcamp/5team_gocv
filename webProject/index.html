@@ -278,7 +278,6 @@
     </div>
 
 
-
     <!--하단부 구현-->
     <div class="bottom-wrapper">
         <div class="fixTab-logo" style="margin-top: 15px; color: #858585">Pyenrihae</div>
@@ -303,7 +302,8 @@
 <div style="display: none;" class="rank-container">
     <div class="rank-wrapper">
         <ul class="rank-category-wrapper">
-            <li  style="background-image:url('image/all.png')" class="rank-category-tab selected-rank-category-tab" name="전체">
+            <li style="background-image:url('image/all.png')" class="rank-category-tab selected-rank-category-tab"
+                name="전체">
                 전체
             </li>
             <li style="background-image:url('image/lunchbox.png')" class="rank-category-tab" name="도시락">
@@ -354,6 +354,22 @@
     </div>
 </div>
 
+<div style="display: none;" class="review-container">
+    <div class="review-wrapper">
+
+    </div>
+
+    <div class="review-query-wrapper">
+        <ul class="review-query-type-wrapper">
+            <li class="review-query-tab selected-review-query-tab" name="date">날짜순</li>
+            <li class="review-query-tab" name="useful">유용순</li>
+        </ul>
+    </div>
+
+    <div class="review-item-list-wrapper">
+    </div>
+</div>
+
 <!--상품 상세페이지 모달창-->
 <div id="popup" class="overlay">
 </div>
@@ -364,18 +380,20 @@
 </div>
 
 <!--로그인 모달창-->
-<div style="display:block" id="sign" class="sign-overlay">
+<div style="display:none;" id="sign" class="sign-overlay">
     <div class="sign-wrapper">
         <div class="signin-facebook">
-            <img class="icon" src="image/facebook2.png">Facebook 계정으로 로그인</div>
+            <img class="icon" src="image/facebook2.png">Facebook 계정으로 로그인
+        </div>
         <div class="signin-google">
-            <img  class="icon" src="image/google.png"> Google 계정으로 로그인</div>
+            <img class="icon" src="image/google.png"> Google 계정으로 로그인
+        </div>
 
         <div lass="sign-line"></div>
         <input class="signin-id" placeholder="이메일 주소" value="tong9433@naver.com"/>
         <input type="password" class="signin-password" placeholder="비밀번호" value="008055"/>
 
-        <div class="signin-button">로그인 </div>
+        <div class="signin-button">로그인</div>
         <div id="signinErrorCheck" style="display:none; margin: 0px 30px -10px; color: red; font-size: 12px"></div>
         <div class="sign-line"></div>
         <div class="signup-wrapper">
@@ -405,7 +423,7 @@
 
         <div class="signup-wrapper">
             <div class="signup-text">이미 편리해 계정이 있으신가요?</div>
-            <div id="signup-singinButton" class="signup-button">로그인 </div>
+            <div id="signup-singinButton" class="signup-button">로그인</div>
         </div>
     </div>
 </div>
@@ -414,7 +432,8 @@
 <div style="display: none" id="signupDetail" class="sign-overlay">
     <div class="signup-detail-wrapper">
         <div class="signup-detail-title">
-            <img style="margin-left: 80px" src="image/burger.png" class="icon">편리해 회원가입</div>
+            <img style="margin-left: 80px" src="image/burger.png" class="icon">편리해 회원가입
+        </div>
         <input id="signupNic" class="signup-detail-input" placeholder="닉네임을 입력해주세요 "/>
         <input id="signupEmail" class="signup-detail-input" placeholder="pyunrihae@pyunrihae.com"/>
         <input type="password" id="signupPw1" class="signup-detail-input" placeholder="비밀번호를 입력해주세요"/>
@@ -430,7 +449,7 @@
 
         <div class="signup-wrapper">
             <div class="signup-text">이미 편리해 계정이 있으신가요?</div>
-            <div id="signupDetail-signinButton" class="signup-button">로그인 </div>
+            <div id="signupDetail-signinButton" class="signup-button">로그인</div>
         </div>
     </div>
 </div>
@@ -446,19 +465,19 @@
 <script id="rank-card-template" type="text/x-handlebars-template">
     {{#this}}
     <div class="rank-card-content">
-      <!--<div class="{{style}}">{{rank}}
-      </div>-->
+        <!--<div class="{{style}}">{{rank}}
+        </div>-->
         <a href="#popup">
             <div class="rank-card-image" style="background-image:url('{{img}}');
             background-size:80%" name="{{id}}" onclick="loadDetailProduct(this)">
-            <div class="rank-card-medal {{style}}">{{rank}}</div>
+                <div class="rank-card-medal {{style}}">{{rank}}</div>
 
             </div>
         </a>
         <div class="rank-card-description">
             <div class="rank-card-rating">
                 <div id="{{rating}}">
-                   </div>
+                </div>
             </div>
 
             <div class="rank-card-name">{{name}}</div>
@@ -480,7 +499,7 @@
         class="carousel-review-navi" id="reviewNavi">
         {{#this}}
         <li class="carousel-review-element">
-            <div  class="carousel-review-element-wrapper">
+            <div class="carousel-review-element-wrapper">
                 <div class="carousel-review-elementTop">
                     <div class="carousel-review-profile">
                         <img class="carousel-review-profile" src="{{user_image}}"/>
@@ -510,9 +529,10 @@
                 </div>
                 <div>
                     <div class="carousel-review-image">
-                        <div class="carousel-review-imageEle" >
+                        <div class="carousel-review-imageEle">
                             <a href="#popup">
-                            <img class="carousel-review-imageEle" src="{{p_image}}" name="{{p_id}}" onclick="loadDetailProduct(this)"/>
+                                <img class="carousel-review-imageEle" src="{{p_image}}" name="{{p_id}}"
+                                     onclick="loadDetailProduct(this)"/>
                             </a>
                         </div>
                     </div>
@@ -533,7 +553,8 @@
         <div class="{{style}}">{{rank}}
         </div>
         <a href="#popup">
-            <img class="card-rank-image" src="{{img}}" name="{{id}}" onerror="this.onerror=null;this.src='./image/not_found.gif';" onclick="loadDetailProduct(this)"/>
+            <img class="card-rank-image" src="{{img}}" name="{{id}}"
+                 onerror="this.onerror=null;this.src='./image/not_found.gif';" onclick="loadDetailProduct(this)"/>
         </a>
         <div class="card-main-description">
             <div style="width:50px; margin-left:5px; margin-bottom:20px" id="{{rating}}">
@@ -551,7 +572,8 @@
     {{#this}}
 
     <a href="#popup">
-        <div class="rank-product-image" style="background-size:70%;background-image:url('{{img}}')"  name="{{id}}" onclick="loadDetailProduct(this)">
+        <div class="rank-product-image" style="background-size:70%;background-image:url('{{img}}')" name="{{id}}"
+             onclick="loadDetailProduct(this)">
             <div class="rank-product-type">
                 {{category}}
             </div>
@@ -762,7 +784,7 @@
                     </div>
                     <div class="popup-review-pfq-p">
                         <div class="popup-review-pfq-top">가격</div>
-                        <div class="popup-review-pfq-bottom">{{price}}점 </div>
+                        <div class="popup-review-pfq-bottom">{{price}}점</div>
                     </div>
                 </div>
 
@@ -777,7 +799,118 @@
 
     </li>
     {{/this}}
+</script>
 
+<script id="review-preview-template" type="text/x-handlebars-template">
+    {{#this}}
+
+    <div class="popup-review-preview">
+        <div class="popup-newReviewWrapper-top">
+            <div class="popup-newReview-product">상품 리뷰 보기</div>
+
+            <a href="#">
+                <div class="popup-newReview-cancel"></div>
+            </a>
+        </div>
+
+        <div class="popup-review-top">
+            <img class="popup-review-profile" src="{{user_image}}">
+            <div class="popup-review-nameTime">
+                <div style="font-size: 12px" class="popup-review-time">{{timestamp}}</div>
+                <div class="popup-review-name">{{user}}</div>
+            </div>
+
+            <div class="review-preview-star">
+                <div id="{{rating}}">
+                </div>
+            </div>
+
+            <div class="popup-review-eval">
+                <div style="float:right; width: 130px">
+                    <div>
+                        <div class="popup-review-good">유용해요</div>
+                        <div class="popup-review-good2">{{useful}}</div>
+                    </div>
+                    <div>
+                        <div class="popup-review-bad"> 별로에요</div>
+                        <div class="popup-review-bad2">{{bad}}</div>
+                    </div>
+                </div>
+
+                <div class="popup-review-pfq">
+
+
+                    <div class="popup-review-pfq-q">
+                        <div class="popup-review-pfq-top">양</div>
+                        <div class="popup-review-pfq-bottom">{{quantity}}점</div>
+                    </div>
+                    <div class="popup-review-pfq-f">
+                        <div class="popup-review-pfq-top">맛</div>
+                        <div class="popup-review-pfq-bottom">{{flavor}}점</div>
+                    </div>
+                    <div class="popup-review-pfq-p">
+                        <div class="popup-review-pfq-top">가격</div>
+                        <div class="popup-review-pfq-bottom">{{price}}점</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="review-preview-bottom">
+            <img class="popup-review-image" src="{{p_image}}"
+                 onerror="this.onerror=null;this.src='./image/not_found.gif';">
+            <div class="review-preview-option">
+                {{comment}}
+            </div>
+        </div>
+    </div>
+    {{/this}}
+</script>
+
+<script id="card-review-page-template" type="text/x-handlebars-template">
+    {{#this}}
+    <a href="#popup">
+        <div class="review-card-content" name={{key}} onclick="loadReviewDetail(this)">
+            <div class="review-card-image-wrapper">
+                <img class="review-card-brand" src="{{brand_image}}"/>
+                <span class="review-card-date">{{date}}</span>
+                <img class="review-card-image" src="{{p_image}}"
+                     onerror="this.onerror=null;this.src='../image/no_image.gif';"/>
+                <div class="review-user-image-wrapper">
+                    <img class="review-user-image"
+                         src="{{user_image}}"/>
+                </div>
+
+                <div class="review-card-description">
+                    <div class="review-card-rating">
+                        <div id="{{rating}}">
+                        </div>
+                    </div>
+
+                    <span class="review-card-assess">
+                    <div>
+                        <div class="popup-review-good">유용해요</div>
+                        <div class="popup-review-good2">{{useful}}</div>
+                    </div>
+                    <div>
+                        <div class="popup-review-bad">별로에요</div>
+                        <div class="popup-review-bad2">{{bad}}</div>
+                    </div>
+                  </span>
+
+                    <div class="review-card-user-id">평가유저 : {{user}}</div>
+
+                    <div class="review-card-name">상품이름 : {{p_name}}</div>
+
+                    <div class="review-card-review">
+                        리뷰 : {{comment}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+    {{/this}}
 </script>
 <script id="myPage-template" type="text/x-handlebars-template">
     <div class="myPage-wrapper">
