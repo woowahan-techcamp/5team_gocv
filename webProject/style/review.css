@@ -1,9 +1,12 @@
 .review-container{
-    margin-top: 60px;
+    margin: 100px 10%;
+    width: 80%;
+
 }
 
 .review-item-list-wrapper{
     margin: auto;
+    width: 100%;
 }
 
 .review-query-wrapper{
@@ -16,7 +19,7 @@
     width: 100%;
     float: right;
     margin: 25px auto;
-    padding-right: 10%;
+    padding-right: 5%;
 }
 
 .review-query-tab{
@@ -45,61 +48,72 @@
 }
 
 .review-card-content{
-    position: relative;
-    height: 510px;
     float: left;
-    border: solid 2px #ffb3b2;
-    margin: 15px;
+    box-shadow: 5px 5px 5px #9a9a9a;
+    border-radius: 10px;
+    position: relative;
+    width: 28.3%;
+    margin: 2%;
+    height: auto;
     overflow: hidden;
 }
 
+
 .review-card-image-wrapper{
-    margin: 15px;
-    width: 400px;
-    display: block;
     position: relative;
 }
 
 .review-card-brand{
     position: absolute;
     z-index: 5;
-    width: 80px;
+    width: 15%;
     height: 50px;
+    border-bottom-right-radius: 10px;
 }
 
 .review-card-date{
     position: absolute;
     right: 10px;
-    line-heighst: 1;
     z-index: 5;
-    color: green;
+    margin-top: 10px;
+    color: rgba(92, 92, 92, 0.68);
 }
 
 .review-card-image{
+    filter: brightness(70%);
     display: block;
-    width: 400px;
+    width: 100%;
     height: 240px;
-    position: relative;
+}
+
+.review-card-image:hover{
+    filter: brightness(100%);
 }
 
 .review-user-image-wrapper{
-    display: block;
-    z-index: 5;
-    margin-top: -75px;
-    width: 400px;
+    z-index: 10;
+    width: 90%;
+    margin: 5%;
     text-align: center;
-    position: relative;
 }
 
 .review-user-image{
-    width: 125px;
-    height: 125px;
+    float: left;
+    width: 30%;
+    height: auto;
+    top: 175px;
+    left: 35%;
+    position: absolute;
     background-color: white;
     border-radius: 50%;
 }
 
 .review-card-description{
-    font-weight: bold;
+    width: 100%;
+    font-size: 15px;
+    position: relative;
+
+
 }
 
 .review-card-rating{
@@ -119,7 +133,15 @@
 }
 
 .review-card-review{
+    overflow: auto;
+    color: black;
+    line-height: 2em;
+    background-color: #eeeeee;
     margin-top: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding: 10px;
+    font-size: 15px;
 }
 
 .popup-review-good, .popup-review-bad{
@@ -133,6 +155,10 @@
     color: white;
     margin-top: 5px;
     font-size: 12px;
+}
+
+.popup-review-bad{
+    background-color: #ff686d;
 }
 
 .popup-review-good2, .popup-review-bad2{

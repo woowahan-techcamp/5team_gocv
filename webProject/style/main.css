@@ -405,7 +405,7 @@
 
 .carousel-review-image{
     float: left;
-    width: 40%;
+    width: 42%;
     height: 300px;
     margin-left: 5%;
     border-radius: 5px;
@@ -796,7 +796,9 @@
     }
 
     .carousel-review-star {
-        display: none;
+        float: left;
+        margin-top: 30px;
+        height: 50px;
     }
 
     .carousel-review-score {
