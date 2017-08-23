@@ -238,6 +238,12 @@ class RankingViewController: UIViewController {
                 self.productList = productList.sorted(by: { $0.grade_avg > $1.grade_avg })
             }else{
                 // 멈출 위험이 있음.
+                for product in productList {
+                    if product.price == ""{
+                        return
+                    }
+                }
+                
                 self.productList = productList.sorted(by: { Int($0.price)! < Int($1.price)! })
             }
             

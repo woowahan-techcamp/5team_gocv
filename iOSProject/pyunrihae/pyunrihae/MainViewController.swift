@@ -419,10 +419,4 @@ extension MainViewController: UICollectionViewDataSource { //메인화면에서 
 }
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//            let cellsAcross: CGFloat = 3
-//            let spaceBetweenCells: CGFloat = 4
-//            let dim = (collectionView.bounds.width - (cellsAcross - 1) * spaceBetweenCells) / cellsAcross
-//            return CGSize(width: dim, height: dim / 105 * 168)
-//    }
 }
