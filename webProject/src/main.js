@@ -69,6 +69,7 @@ class Dropdown {
 
 }
 
+
 class Util {
 
     ajax(func) {
@@ -497,6 +498,7 @@ class Review {
     }
 
     setMakeReview() {
+        document.querySelector('#loading').style.display = "block"
 
         this.data[4] = document.querySelector('.popup-newReview-comment').value;
         this.setOnOff();
@@ -513,7 +515,6 @@ class Review {
         const mountainImagesRef = storageRef.child(this.fileName);
 
         mountainImagesRef.put(file).then(function (snapshot) {
-            console.log('Uploaded a blob or file!');
             this.updateDb();
         }.bind(this));
     }
@@ -601,10 +602,14 @@ class Review {
                 const template2 = document.querySelector("#review-template").innerHTML;
                 const sec2 = document.querySelector("#popupReview");
                 util.template(reviewArr, template2, sec2);
+                document.querySelector('#loading').style.display = "none"
+
             }.bind(that));
 
         }.bind(this)).catch(function (error) {
             console.log(error)
+            document.querySelector('#loading').style.display = "none"
+
         });
     }
 
@@ -649,7 +654,7 @@ class UpLoadImage {
 function loadDetailProduct(event) {
 
     $("body").css("overflow", "hidden");
-
+    document.querySelector('#loading').style.display = "block";
 
     //데이터 받아오기
     const product = localStorage['product'];
@@ -715,6 +720,9 @@ function loadDetailProduct(event) {
     //모달 리뷰 필터 드롭다운
     const reviewFilterDrop = new Dropdown("click", ".popup-reviewFilter", ".popup-reviewFilter-dropdown");
 
+    setTimeout(function () {
+        document.querySelector('#loading').style.display = "none"
+    },2000)
 
     document.querySelector("#popupWish").addEventListener("click", function () {
         document.querySelector("#popupWish").setAttribute("class", "popup-wish popup-wish-select");

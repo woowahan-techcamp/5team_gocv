@@ -62,6 +62,8 @@ class SignUp {
         document.querySelector("#signupButton").addEventListener("click", function () {
             if (this.check === true) {
                 this.setUser();
+                document.querySelector('#loading').style.display = "block";
+
             }
         }.bind(this))
     }
@@ -83,6 +85,7 @@ class SignUp {
             if (error.code === "auth/invalid-email") {
                 this.emailCheck.style.display = "block"
             }
+            document.querySelector('#loading').style.display = "none";
 
             return Promise.reject();
 
@@ -91,6 +94,7 @@ class SignUp {
             const that = this;
             firebase.auth().signInWithEmailAndPassword(this.email.value, this.pw1.value).catch(function (error) {
                 console.log(error);
+                document.querySelector('#loading').style.display = "none";
 
             }).then(function () {
                 const user = firebase.auth().currentUser;
@@ -105,6 +109,8 @@ class SignUp {
 
                     //한번 다시 user db 캐시 업데이트
                     firebase.database().ref('user/').once('value').then(function (snapshot) {
+
+                        document.querySelector('#loading').style.display = "none";
 
                         localStorage['user'] = JSON.stringify(snapshot.val());
 
@@ -134,7 +140,6 @@ class SignUp {
 
                 });
 
-                alert("가입이 완료되었습니다. 가입한 이메일로 자동로그인 됩니다.");
 
                 document.querySelector('#signupDetail').style.display = "none";
 
@@ -166,6 +171,7 @@ class SignIn {
 
         this.signInButton.addEventListener("click", function () {
             this.checkEmail();
+            document.querySelector('#loading').style.display = "block";
         }.bind(this));
     }
 
@@ -176,14 +182,21 @@ class SignIn {
             if (error.code === "auth/user-not-found") {
                 document.querySelector("#signinErrorCheck").innerHTML = "존재하지 않는 이메일 입니다."
                 document.querySelector("#signinErrorCheck").style.display = "block";
+
             }
             if (error.code === "auth/wrong-password") {
                 document.querySelector("#signinErrorCheck").innerHTML = "비밀번호가 일치하지 않습니다."
                 document.querySelector("#signinErrorCheck").style.display = "block";
+
             }
+
+            document.querySelector('#loading').style.display = "none";
+
             return Promise.reject();
         }).then(function () {
-            alert("로그인 되었습니다.")
+
+
+            document.querySelector('#loading').style.display = "none";
 
             const userStorage = localStorage['user'];
             const userData = JSON.parse(userStorage);
@@ -308,6 +321,9 @@ class MyPage {
     setDeleteButtonEvent() {
         document.querySelector("#myPageReviewNavi").addEventListener("click", function (e) {
             const that = this;
+            document.querySelector('#loading').style.display = "block";
+
+
             firebase.database().ref('user/').once('value').then(function (snapshot) {
                 localStorage['user'] = JSON.stringify(snapshot.val());
                 const userStorage = localStorage['user'];
@@ -334,8 +350,8 @@ class MyPage {
                             .once('value').then(function (snapshot) {
 
                             localStorage['user'] = JSON.stringify(snapshot.val());
+                            document.querySelector('#loading').style.display = "none";
                         });
-
                     });
                 }
             }.bind(that));
