@@ -8,10 +8,6 @@ document.addEventListener('DOMContentLoaded', function () {
         readmore: 'review-card-readmore'
     };
 
-    /* @TODO 처리 순서 정하기
-      클릭시 상품 팝업
-      추가적인 디버깅
-    */
     new ReviewPage(reviewParams);
 });
 

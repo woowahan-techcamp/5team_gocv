@@ -23,7 +23,7 @@ class MypageViewController: UIViewController, FusumaDelegate{
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
-    var labelList = ["내가 찜한 상품","편리해 정보","회원가입 / 로그인"]
+    var labelList = ["내가 찜한 상품","편리해란","회원가입 / 로그인"]
     override func viewDidLoad() {
         NotificationCenter.default.addObserver(self, selector: #selector(checkUserLogin), name: NSNotification.Name("userLogined"), object: nil)
         super.viewDidLoad()
@@ -113,6 +113,10 @@ class MypageViewController: UIViewController, FusumaDelegate{
                 self.labelList[2] = "로그아웃"
                 self.tableView.reloadData()
             }
+            DispatchQueue.main.async {
+                self.moreImg.isHidden = false
+                self.photoEditImage.isHidden = false
+            }
         }else{
             DispatchQueue.main.async{
                 self.userImage.image = UIImage(named: "ic_user.png")
@@ -120,6 +124,10 @@ class MypageViewController: UIViewController, FusumaDelegate{
                 self.emailLabel.text = "로그인을 해주세요."
                 self.labelList[2] = "회원가입 / 로그인"
                 self.tableView.reloadData()
+                DispatchQueue.main.async {
+                    self.moreImg.isHidden = true
+                    self.photoEditImage.isHidden = true
+                }
             }
         }
     }

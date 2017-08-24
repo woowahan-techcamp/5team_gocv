@@ -181,40 +181,50 @@ class Carousel {
         this.data = JSON.parse(review);
 
         const fakeArr = [];
+        const queryObj = [];
 
-        let i = 1;
-        Object.keys(this.data).forEach(function (e) {
-            const value = this.data[e];
+        for (const key in this.data) {
+            const value = this.data[key];
 
-            fakeArr.push(value);
-        }.bind(this));
+            const time = value.timestamp;
 
-        console.log(fakeArr);
+            const splitTimeStamp = time.split(' ');
 
-        const fakeBeforeValue = fakeArr[9];
-        fakeBeforeValue["rating"] = "carousel-rank-rating" + 0;
+            value['date'] = splitTimeStamp[0];
+            value['time_score'] = this.getDate(splitTimeStamp[0]) + this.getTime(splitTimeStamp[1]);
 
-        console.log('fakeB', fakeBeforeValue.rating);
+            queryObj.push(value);
+        }
 
-        const fakeAfterValue = fakeArr[0];
-        fakeAfterValue["rating"] = "carousel-rank-rating" + 11;
+        queryObj.sort(function (a, b) {
+            const beforeTimeScore = parseFloat(a.time_score);
+            const afterTimeScore = parseFloat(b.time_score);
 
-        console.log('fakeA', fakeAfterValue.rating);
+            if (beforeTimeScore < afterTimeScore) {
+                return 1;
+            } else if (beforeTimeScore > afterTimeScore) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
+
+        const fakeBeforeValue = this.clone(queryObj[9]);
+        fakeBeforeValue["rating"] = "carousel-rank-rating" + '0';
+
+        const fakeAfterValue = this.clone(queryObj[0]);
+        fakeAfterValue["rating"] = "carousel-rank-rating" + '11';
 
         const arr = [];
+
         arr.push(fakeBeforeValue);
-
-        console.log('---- ---- ----');
         for (let i = 0; i <= 9; i++) {
-            const value = fakeArr[i];
+            const value = queryObj[i];
 
-            value["rating"] = "carousel-rank-rating" + (i+1);
-
-            console.log(value.rating);
+            value["rating"] = "carousel-rank-rating" + (i + 1);
 
             arr.push(value);
         }
-
         arr.push(fakeAfterValue);
 
         const util = new Util();
@@ -225,16 +235,86 @@ class Carousel {
         this.setRatingHandler(arr);
     }
 
-    setRatingHandler(value){
-        console.log(value.length);
+    clone(obj) {
+        if (obj === null || typeof(obj) !== 'object')
+            return obj;
+        const copy = obj.constructor();
+        for (const attr in obj) {
+            if (obj.hasOwnProperty(attr)) {
+                copy[attr] = obj[attr];
+            }
+        }
+        return copy;
+    }
+
+    setRatingHandler(value) {
         let i = 0;
-        for(const x of value){
-            console.log(i);
+        for (const x of value) {
+            console.log(i, x.grade, x.rating);
             $('#carousel-rank-rating' + i).rateYo({
-               rating: x.grade
+                rating: x.grade,
+                spacing: "10px",
+                starWidth: "20px",
+                normalFill: "#e2dbd6",
+                ratedFill: "#ffcf4d"
             });
             i++;
         }
+    }
+
+    getDate(value) {
+        const splitDate = value.split('-');
+
+        const yy = parseInt(splitDate[0]);
+        const mm = parseInt(splitDate[1]);
+        const dd = parseInt(splitDate[2]);
+
+        let dateValue = 0;
+
+        for (let x = 2016; x < yy; x++) {
+            if (x % 4 == 0) {
+                if (x % 100 != 0 || x % 400 == 0) {
+                    dateValue += 366;
+                }
+            } else {
+                dateValue += 365;
+            }
+        }
+
+        for (let x = 1; x < mm; x++) {
+            switch (x) {
+                case 4:
+                case 6:
+                case 9:
+                case 11:
+                    dateValue += 31;
+                    break;
+                case 2:
+                    dateValue += 28;
+                default:
+                    dateValue += 31;
+                    break;
+            }
+        }
+
+        dateValue += dd;
+
+        return (dateValue);
+    }
+
+    getTime(value) {
+        const splitTime = value.split(':');
+
+        const hh = parseInt(splitTime[0]);
+        const mm = parseInt(splitTime[1]);
+        const ss = parseInt(splitTime[2]);
+
+        let timeValue = 0;
+
+        timeValue = (mm + (hh * 60)) * 100;
+        timeValue += ss;
+
+        return timeValue / 1e6;
     }
 }
 
@@ -335,20 +415,54 @@ class SearchTab {
 class Counter {
     constructor(max) {
         this.max = max;
+        this.counter1 = 0;
+        this.counter2 = 0;
+        this.counter3 = 0;
+        this.setData();
+
+
     }
 
     setCounter() {
         let max = this.max;
+
+
         $(window).scroll(function () {
             const val = $(this).scrollTop();
             const cover = $('.cover');
             if (max < val) {
-                $('#counter1').animateNumber({number: 4200}, 2000);
-                $('#counter2').animateNumber({number: 3203}, 2000);
-                $('#counter3').animateNumber({number: 23}, 2000);
+
+                $('#counter1').animateNumber({number: this.counter1}, 2000);
+                $('#counter2').animateNumber({number: this.counter2}, 2000);
+                $('#counter3').animateNumber({number: this.counter3}, 2000);
                 max = 99999;
             }
-        });
+        }.bind(this));
+
+    }
+
+    setData() {
+        const productStorage = localStorage['product'];
+        const productData = JSON.parse(productStorage);
+
+        const reviewStorage = localStorage['review'];
+        const reviewData = JSON.parse(reviewStorage);
+
+        const prodcutCount = Object.keys(productData).length;
+        const reviewCount = Object.keys(reviewData).length;
+        let todayReviewCount = 0;
+
+        Object.keys(reviewData).forEach(function (e) {
+            if (timestamp().split(" ")[0] === reviewData[e].timestamp.split(" ")[0]) {
+                todayReviewCount += 1;
+            }
+        })
+
+
+        this.counter1 = parseInt(prodcutCount);
+        this.counter2 = parseInt(reviewCount);
+        this.counter3 = parseInt(todayReviewCount);
+
 
     }
 }
@@ -825,7 +939,7 @@ class ReviewFilter {
         this.setDefaultReviewData();
     }
 
-    setDateSorting(array){
+    setDateSorting(array) {
         array.sort(function (a, b) {
             const beforeTimeScore = parseFloat(a.time_score);
             const afterTimeScore = parseFloat(b.time_score);
@@ -842,7 +956,7 @@ class ReviewFilter {
         return array;
     }
 
-    setUsefulSorting(array){
+    setUsefulSorting(array) {
         array.sort(function (a, b) {
             const beforeUseful = parseInt(a.useful);
             const afterUseful = parseInt(b.useful);
@@ -1041,6 +1155,7 @@ function loadReviewDetail(event) {
         starWidth: "20px",
         normalFill: "#e2dbd6",
         ratedFill: "#ffcf4d"
+
     });
 
     document.querySelector(".popup-newReview-cancel").addEventListener("click", function () {

@@ -314,13 +314,17 @@
 }
 
 .carousel-review-element-wrapper{
-    min-width: 600px;
     position: relative;
-    left: 10%;
-    background-color: #000000;
-    width: 50%;
-    height: 450px;
-    opacity:0.7;
+    left: 35%;
+    top:0px;
+    min-width: 490px;
+    background-color: #2c2c2c;
+    width: 30%;
+    height:60vh;
+    overflow: hidden;
+    opacity:0.8;
+    border-radius: 10px;
+
     /*box-shadow: 10px 10px 5px #282828;*/
 }
 
@@ -342,7 +346,7 @@
     width: 100%;
     height: 60px;
     opacity: 1;
-    background-color: #000000;
+    background-color: #2c2c2c;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 
@@ -369,17 +373,17 @@
 
 .carousel-review-star{
     float: left;
-    width: 200px;
+    width: 150px;
+    margin-top: 10px;
     height: 100px;
     line-height: 100px;
     text-align: center;
-    margin-left: 30px;
+    margin-left: 20px;
 }
 
 .carousel-review-starElement{
     margin-top: 35px;
     width:30px;
-    margin-left: 10px;
     height:30px;
     float: left;
     background-size: contain;
@@ -391,23 +395,26 @@
 
 .carousel-review-score{
     float: right;
-    margin-top: 20px;
-    width: 60px;
+    margin-top: 0px;
+    width: 40px;
     text-align: center;
-    height: 60px;
-    margin-right: 20px;
+    height: 40px;
+    margin-right:20px;
+    margin-top: 30px;
     font-size: 20px;
-    line-height: 60px;
+    line-height: 40px;
     color: white;
-    border-radius: 40px;
+    border-radius: 20px;
     background-color: #ff5039;
 }
 
 .carousel-review-image{
     float: left;
-    width: 40%;
+    width: 90%;
+
     height: 300px;
     margin-left: 5%;
+    margin-right: 5%;
     border-radius: 5px;
     background-color: #000000;
     overflow: hidden;
@@ -427,13 +434,13 @@
 .carousel-review-product{
     font-size: 20px;
     font-weight: 500;
-    color: #000000;
+    color: white;
     margin-top: 30px;
 }
 
 .carousel-review-description{
     width: 100%;
-    max-height: 150px;
+    height: 60px;
     overflow: hidden;
     margin-top: 10px;
     line-height:2em;
@@ -796,7 +803,9 @@
     }
 
     .carousel-review-star {
-        display: none;
+        float: left;
+        margin-top: 30px;
+        height: 50px;
     }
 
     .carousel-review-score {

@@ -293,6 +293,7 @@ class MainViewController: UIViewController {
                     attrString.addAttribute(NSParagraphStyleAttributeName, value: style, range: NSRange(location: 0, length: review.comment.characters.count))
                     attrString.addAttribute(NSForegroundColorAttributeName, value: UIColor.white , range: NSRange(location: 0, length: review.comment.characters.count))
                     reviewLabel?.attributedText = attrString
+                    reviewLabel?.lineBreakMode = NSLineBreakMode.byTruncatingTail
                     selectedCountLabel?.text = (cnt + 1).description
                     totalCountLabel?.text = scrollViewImageNum.description
                 
@@ -419,10 +420,4 @@ extension MainViewController: UICollectionViewDataSource { //메인화면에서 
 }
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//            let cellsAcross: CGFloat = 3
-//            let spaceBetweenCells: CGFloat = 4
-//            let dim = (collectionView.bounds.width - (cellsAcross - 1) * spaceBetweenCells) / cellsAcross
-//            return CGSize(width: dim, height: dim / 105 * 168)
-//    }
 }
