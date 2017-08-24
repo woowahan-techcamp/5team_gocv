@@ -50,7 +50,10 @@ class ProductDetailViewController: UIViewController {
     var productGrade = 0.0 //임의로 넣어놧음
     var usefulBtns = [UIButton]()
     var badBtns = [UIButton]()
+    var usefulLabels = [UILabel]()
+    var badLabels = [UILabel]()
     var reviewList = [Review]()
+    var reviewIdList = [String]()
     var product = Product()
     let appdelegate = UIApplication.shared.delegate as! AppDelegate
     
@@ -70,6 +73,69 @@ class ProductDetailViewController: UIViewController {
             let alert = UIAlertController(title: "로그인 후 이용해주세요!", message: "", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
+        } else {
+            let reviewId = reviewIdList[sender.tag]
+            let usefulNumLabel = usefulLabels[sender.tag]
+            let badNumLabel = badLabels[sender.tag]
+            let usefulBtn = usefulBtns[sender.tag]
+            let badBtn = badBtns[sender.tag]
+            let reviewStatus = appdelegate.user?.review_like_list[reviewId]
+            let uid = appdelegate.user?.id
+            if reviewStatus == nil { //유용해요 누른적이 없는 리뷰
+                DataManager.tabUsefulBtn(id: reviewId)
+                var useful = Int(usefulNumLabel.text!)
+                useful = useful! + 1
+                usefulNumLabel.text = String(describing: useful!)
+                DataManager.updateUsefulReview(id: reviewId, uid: uid!)
+                appdelegate.user?.review_like_list[reviewId] = 1
+                Button.makeBorder(btn: usefulBtn)
+                Button.deleteBorder(btn: badBtn)
+                usefulNumLabel.textColor = UIColor.red
+                badNumLabel.textColor = UIColor.lightGray
+            } else if reviewStatus == 1 { // 유용해요 취소
+                DataManager.cancleUsefulBtn(id: reviewId)
+                var useful = Int(usefulNumLabel.text!)
+                useful = useful! - 1
+                usefulNumLabel.text = String(describing: useful!)
+                DataManager.updateCancleReview(id: reviewId, uid: uid!)
+                appdelegate.user?.review_like_list[reviewId] = 0
+                Button.deleteBorder(btn: usefulBtn)
+                Button.deleteBorder(btn: badBtn)
+                usefulNumLabel.textColor = UIColor.lightGray
+                badNumLabel.textColor = UIColor.lightGray
+            } else if reviewStatus == -1 { // 별로에요 취소후 유용해요 누르기
+                DataManager.tabUsefulBtn(id: reviewId)
+                DataManager.cancleBadBtn(id: reviewId)
+                var useful = Int(usefulNumLabel.text!)
+                useful = useful! + 1
+                usefulNumLabel.text = String(describing: useful!)
+                var bad = Int(badNumLabel.text!)
+                bad = bad! - 1
+                badNumLabel.text = String(describing: bad!)
+                DataManager.updateUsefulReview(id: reviewId, uid: uid!)
+                appdelegate.user?.review_like_list[reviewId] = 1
+                Button.makeBorder(btn: usefulBtn)
+                Button.deleteBorder(btn: badBtn)
+                usefulNumLabel.textColor = UIColor.red
+                badNumLabel.textColor = UIColor.lightGray
+            } else if reviewStatus == 0 { // 별로에요 취소 했다가 다시 누르기
+                DataManager.tabUsefulBtn(id: reviewId)
+                var useful = Int(usefulNumLabel.text!)
+                useful = useful! + 1
+                usefulNumLabel.text = String(describing: useful!)
+                DataManager.updateUsefulReview(id: reviewId, uid: uid!)
+                appdelegate.user?.review_like_list[reviewId] = 1
+                Button.makeBorder(btn: usefulBtn)
+                Button.deleteBorder(btn: badBtn)
+                usefulNumLabel.textColor = UIColor.red
+                badNumLabel.textColor = UIColor.lightGray
+            }
+            for i in 0..<reviewList.count {
+                if reviewList[i].id == reviewIdList[sender.tag] {
+                    reviewList[i].useful = Int(usefulNumLabel.text!)!
+                    reviewList[i].bad = Int(badNumLabel.text!)!
+                }
+            }
         }
     }
     func didPressBadBtn(sender: UIButton) { //별로에요 버튼 누르기
@@ -77,6 +143,69 @@ class ProductDetailViewController: UIViewController {
             let alert = UIAlertController(title: "로그인 후 이용해주세요!", message: "", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
+        } else {
+            let uid = appdelegate.user?.id
+            let reviewId = reviewIdList[sender.tag]
+            let usefulNumLabel = usefulLabels[sender.tag]
+            let badNumLabel = badLabels[sender.tag]
+            let usefulBtn = usefulBtns[sender.tag]
+            let badBtn = badBtns[sender.tag]
+            let reviewStatus = appdelegate.user?.review_like_list[reviewId]
+            if reviewStatus == nil { //별로에요 누른적이 없는 리뷰
+                DataManager.tabBadBtn(id: reviewId)
+                var bad = Int(badNumLabel.text!)
+                bad = bad! + 1
+                badNumLabel.text = String(describing: bad!)
+                DataManager.updateBadReview(id: reviewId, uid: uid!)
+                appdelegate.user?.review_like_list[reviewId] = -1
+                Button.makeBorder(btn: badBtn)
+                Button.deleteBorder(btn: usefulBtn)
+                usefulNumLabel.textColor = UIColor.lightGray
+                badNumLabel.textColor = UIColor.red
+            } else if reviewStatus == -1 { // 별로에요 취소
+                DataManager.cancleBadBtn(id: reviewId)
+                var bad = Int(badNumLabel.text!)
+                bad = bad! - 1
+                badNumLabel.text = String(describing: bad!)
+                DataManager.updateCancleReview(id: reviewId, uid: uid!)
+                appdelegate.user?.review_like_list[reviewId] = 0
+                Button.deleteBorder(btn: usefulBtn)
+                Button.deleteBorder(btn: badBtn)
+                usefulNumLabel.textColor = UIColor.lightGray
+                badNumLabel.textColor = UIColor.lightGray
+            } else if reviewStatus == 1 { // 유용해요 취소후 별로에요 누르기
+                DataManager.tabBadBtn(id: reviewId)
+                DataManager.cancleUsefulBtn(id: reviewId)
+                var bad = Int(badNumLabel.text!)
+                bad = bad! + 1
+                badNumLabel.text = String(describing: bad!)
+                var useful = Int(usefulNumLabel.text!)
+                useful = useful! - 1
+                usefulNumLabel.text = String(describing: useful!)
+                DataManager.updateBadReview(id: reviewId, uid: uid!)
+                appdelegate.user?.review_like_list[reviewId] = -1
+                Button.makeBorder(btn: badBtn)
+                Button.deleteBorder(btn: usefulBtn)
+                usefulNumLabel.textColor = UIColor.lightGray
+                badNumLabel.textColor = UIColor.red
+            } else if reviewStatus == 0 { // 별로에요 취소 했다가 다시 누르기
+                DataManager.tabBadBtn(id: reviewId)
+                var bad = Int(badNumLabel.text!)
+                bad = bad! + 1
+                badNumLabel.text = String(describing: bad!)
+                DataManager.updateBadReview(id: reviewId, uid: uid!)
+                appdelegate.user?.review_like_list[reviewId] = -1
+                Button.makeBorder(btn: badBtn)
+                Button.deleteBorder(btn: usefulBtn)
+                usefulNumLabel.textColor = UIColor.lightGray
+                badNumLabel.textColor = UIColor.red
+            }
+            for i in 0..<reviewList.count {
+                if reviewList[i].id == reviewIdList[sender.tag] {
+                    reviewList[i].useful = Int(usefulNumLabel.text!)!
+                    reviewList[i].bad = Int(badNumLabel.text!)!
+                }
+            }
         }
     }
     func showProduct(_ notification: Notification) { // 넘어온 product 정보 받아서 화면 구성
@@ -103,6 +232,9 @@ class ProductDetailViewController: UIViewController {
                 SelectedProduct.reviewCount = reviewList.count
                 self.reviewList = reviewList
                 self.setReviewListOrder()
+                self.reviewIdList = []
+                self.usefulLabels = []
+                self.badLabels = []
                 self.usefulBtns = []
                 self.badBtns = []
                 self.tableView.reloadData()
@@ -334,7 +466,9 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                 if reviewList.count == SelectedProduct.reviewCount && reviewList.count > 0 {
                     usefulBtns.append(cell.usefulBtn)
                     badBtns.append(cell.badBtn)
-                    cell.reviewId = reviewList[row].id
+                    reviewIdList.append(reviewList[row].id)
+                    usefulLabels.append(cell.usefulNumLabel)
+                    badLabels.append(cell.badNumLabel)
                     cell.usefulBtn.addTarget(self, action: #selector(self.didPressUsefulBtn), for: UIControlEvents.touchUpInside)
                     cell.badBtn.addTarget(self, action: #selector(self.didPressBadBtn), for: UIControlEvents.touchUpInside)
                     cell.badNumLabel.text = String(reviewList[row].bad)
@@ -550,6 +684,9 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
             self.reviewList = reviewList.sorted(by: { $0.useful > $1.useful })
         }
         DispatchQueue.main.async {
+            self.reviewIdList = []
+            self.usefulLabels = []
+            self.badLabels = []
             self.usefulBtns = []
             self.badBtns = []
             self.tableView.reloadData()
