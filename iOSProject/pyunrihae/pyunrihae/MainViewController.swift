@@ -271,7 +271,15 @@ class MainViewController: UIViewController {
                     myImageView?.contentMode = UIViewContentMode.scaleAspectFill
                     brandLabel?.text = review.brand
                     nameLabel?.text = review.p_name
-                    hotReviewLabel?.layer.cornerRadius = 14
+                    
+                    if imageViewWidth < 375 {
+                        hotReviewLabel?.layer.cornerRadius = 12
+                    }else if imageViewWidth > 1024{
+                        hotReviewLabel?.layer.cornerRadius = 20
+                    }else{
+                         hotReviewLabel?.layer.cornerRadius = 14
+                    }
+
                     hotReviewLabel?.layer.masksToBounds = true
                     hotReviewLabel?.clipsToBounds = true
                     //리뷰를 줄간격을 16 + 글자색 흰색으로 바꾸는 코드
@@ -281,11 +289,10 @@ class MainViewController: UIViewController {
                     attrString.addAttribute(NSParagraphStyleAttributeName, value: style, range: NSRange(location: 0, length: review.comment.characters.count))
                     attrString.addAttribute(NSForegroundColorAttributeName, value: UIColor.white , range: NSRange(location: 0, length: review.comment.characters.count))
                     reviewLabel?.attributedText = attrString
-                    reviewLabel?.lineBreakMode = NSLineBreakMode.byTruncatingTail
+                    
                     selectedCountLabel?.text = (cnt + 1).description
                     totalCountLabel?.text = scrollViewImageNum.description
-                
-                    
+            
                     switch(review.grade) {
                     case 1 : starImageView?.image = #imageLiteral(resourceName: "star1.png");
                     case 2: starImageView?.image = #imageLiteral(resourceName: "star2.png");
@@ -363,6 +370,9 @@ class MainViewController: UIViewController {
 
                 productView.nameLabel.text = product.name
                 
+                
+                // 상품을 눌렀을 때 상세로 보여주는 함수
+               
                 self.productScrollView.addSubview(productView)
                 xPosition += imageViewWidth / 3.0
                 cnt = cnt + 1
@@ -375,85 +385,8 @@ class MainViewController: UIViewController {
         NotificationCenter.default.post(name: NSNotification.Name("showReview"), object: self)
     }
     
+   
+    
     
 }
 
-//extension MainViewController: UICollectionViewDataSource { //메인화면에서 1,2,3위 상품 보여주기
-//    func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        return 1;
-//    }
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        if collectionView.bounds.width < 375 {
-//            return 2;
-//        }else if collectionView.bounds.width < 414{
-//            return 3;
-//        }else if collectionView.bounds.width < 667{
-//            return 4;
-//        }else{
-//            return 5;
-//        }
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        if let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? MainRankCollectionViewCell {
-//
-//
-//            
-//            if (productList.count > 2) && (indexPath.item < 5) {
-//                cell.loading.startAnimating()
-//                cell.foodImage.af_setImage(withURL: URL(string: productList[indexPath.item].image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
-//                    cell.loading.stopAnimating()
-//                })
-//                
-//                for sub in cell.brandLabel.subviews {
-//                    sub.removeFromSuperview()
-//                }
-//                
-//                let imageview : UIImageView = UIImageView()
-//                switch (productList[indexPath.item].brand) {
-//                case "GS25":
-//                    imageview.image = #imageLiteral(resourceName: "logo_gs25.png")
-//                    imageview.frame.size.width = 35;
-//                    imageview.frame.size.height = 15;
-//                    imageview.center = CGPoint.init(x: cell.brandLabel.frame.size.width  / 2, y: cell.brandLabel.frame.size.height / 2);
-//                case "7-eleven":
-//                    imageview.image = #imageLiteral(resourceName: "logo_7eleven.png")
-//                    imageview.frame.size.width = 66;
-//                    imageview.frame.size.height = 12;
-//                    imageview.center = CGPoint.init(x: cell.brandLabel.frame.size.width  / 2, y: cell.brandLabel.frame.size.height / 2);
-//                case "CU":
-//                    imageview.image = #imageLiteral(resourceName: "logo_cu.png")
-//                    imageview.frame.size.width = 32;
-//                    imageview.frame.size.height = 14;
-//                    imageview.center = CGPoint.init(x: cell.brandLabel.frame.size.width  / 2, y: cell.brandLabel.frame.size.height / 2);
-//                default :
-//                    imageview.image = #imageLiteral(resourceName: "ic_common.png")
-//                    imageview.frame.size.width = 50;
-//                    imageview.frame.size.height = 20;
-//                    imageview.center = CGPoint.init(x: cell.brandLabel.frame.size.width  / 2, y: cell.brandLabel.frame.size.height / 2);
-//
-//                }
-//                
-//                cell.brandLabel.addSubview(imageview)
-//                cell.nameLabel.text = productList[indexPath.item].name
-//                cell.rankLabel.text = (indexPath.item + 1).description
-//            }
-//            
-//            return cell
-//        }
-//        
-//        return MainRankCollectionViewCell()
-//    }
-//    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let cell = sender as! MainRankCollectionViewCell
-//        let indexRow = self.collectionView!.indexPath(for: cell)?.row
-//        if productList.count > 0 {
-//            let product = productList[indexRow!]
-//            NotificationCenter.default.post(name: NSNotification.Name("showProduct"), object: self, userInfo: ["product" : product])
-//        }
-//    }
-//}
-//extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-//    
-//}
