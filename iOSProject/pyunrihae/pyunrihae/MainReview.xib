@@ -37,7 +37,10 @@
                     </variation>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="백종원도시락" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1iJ-H9-PgI">
-                    <rect key="frame" x="16" y="61" width="312.5" height="42.5"/>
+                    <rect key="frame" x="16" y="60" width="312.5" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="1iJ-H9-PgI" secondAttribute="height" multiplier="13:1" id="K7q-3q-ObH"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                     <color key="textColor" red="0.98958333330000003" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -46,9 +49,9 @@
                     </variation>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="싼 가격에 푸짐하게 먹었네요. 다음에도  먹을 의향이 있습니다. 추천드립니다!! 꼭 먹으세요! 증맬 맛이 좋아요! 호호호" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUV-5x-AHN">
-                    <rect key="frame" x="16" y="111.5" width="312.5" height="48"/>
+                    <rect key="frame" x="16" y="92" width="312.5" height="67"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="AUV-5x-AHN" secondAttribute="height" multiplier="13:2" id="ciP-GS-JJi"/>
+                        <constraint firstAttribute="width" secondItem="AUV-5x-AHN" secondAttribute="height" multiplier="14:3" id="ciP-GS-JJi"/>
                     </constraints>
                     <fontDescription key="fontDescription" name=".AppleSDGothicNeoI-Regular" family=".Apple SD Gothic NeoI" pointSize="14"/>
                     <color key="textColor" red="0.98477339760000004" green="1" blue="0.97554714320000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -72,8 +75,11 @@
                     <color key="textColor" red="0.98958333330000003" green="1" blue="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GS25" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="etA-5w-DQ8">
-                    <rect key="frame" x="103" y="170" width="32" height="12.5"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7-eleven" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="etA-5w-DQ8">
+                    <rect key="frame" x="103" y="170" width="54.5" height="13"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="etA-5w-DQ8" secondAttribute="height" multiplier="54:13" id="Iba-te-fZJ"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" red="0.98958333330000003" green="1" blue="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -82,9 +88,9 @@
                     </variation>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="자세히" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cTv-ct-Zh0">
-                    <rect key="frame" x="318" y="170" width="41" height="12.5"/>
+                    <rect key="frame" x="328.5" y="170" width="30.5" height="13"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="cTv-ct-Zh0" secondAttribute="height" multiplier="16:5" id="xuq-AD-EMv"/>
+                        <constraint firstAttribute="width" secondItem="cTv-ct-Zh0" secondAttribute="height" multiplier="30:13" id="ABj-m6-PEI"/>
                     </constraints>
                     <fontDescription key="fontDescription" name=".AppleSDGothicNeoI-Regular" family=".Apple SD Gothic NeoI" pointSize="11"/>
                     <color key="textColor" red="0.98958333330000003" green="1" blue="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
@@ -94,7 +100,7 @@
                     </variation>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fEQ-Ch-eSW">
-                    <rect key="frame" x="320" y="186.5" width="39" height="1"/>
+                    <rect key="frame" x="330" y="186.5" width="28.5" height="1"/>
                     <color key="backgroundColor" red="0.98958333330000003" green="1" blue="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="HCt-gf-cCb"/>
@@ -149,8 +155,7 @@
                 <constraint firstItem="AUV-5x-AHN" firstAttribute="width" secondItem="ftV-lI-wTW" secondAttribute="width" multiplier="5/6" id="Wn8-tZ-zcR"/>
                 <constraint firstItem="fEQ-Ch-eSW" firstAttribute="width" secondItem="cTv-ct-Zh0" secondAttribute="width" constant="-2" id="XA3-gK-hqw"/>
                 <constraint firstItem="AUV-5x-AHN" firstAttribute="leading" secondItem="ftV-lI-wTW" secondAttribute="leading" constant="16" id="Xcm-Na-h6T"/>
-                <constraint firstItem="1iJ-H9-PgI" firstAttribute="top" secondItem="Ud7-1B-taI" secondAttribute="bottom" constant="17" id="YEC-m7-EHv"/>
-                <constraint firstItem="4sK-pI-DKO" firstAttribute="top" secondItem="AUV-5x-AHN" secondAttribute="bottom" constant="10" id="ZLp-pz-lpb"/>
+                <constraint firstItem="1iJ-H9-PgI" firstAttribute="top" secondItem="Ud7-1B-taI" secondAttribute="bottom" constant="16" id="YEC-m7-EHv"/>
                 <constraint firstItem="Fdh-0E-UWV" firstAttribute="centerY" secondItem="Ud7-1B-taI" secondAttribute="centerY" id="aQ0-Oa-XJE"/>
                 <constraint firstItem="cTv-ct-Zh0" firstAttribute="height" secondItem="4sK-pI-DKO" secondAttribute="height" id="aZx-jZ-zbM"/>
                 <constraint firstAttribute="bottom" secondItem="sjk-NT-fxC" secondAttribute="bottom" id="ap1-ae-N7I"/>
@@ -162,14 +167,14 @@
                 <constraint firstAttribute="trailing" secondItem="ohm-HM-iKT" secondAttribute="trailing" id="jOK-s7-9vt"/>
                 <constraint firstItem="ohm-HM-iKT" firstAttribute="leading" secondItem="ftV-lI-wTW" secondAttribute="leading" id="nBC-Ju-Oew"/>
                 <constraint firstItem="39N-wb-VyD" firstAttribute="leading" secondItem="CdA-Bc-0H1" secondAttribute="trailing" constant="4" id="pNH-Ac-7hM"/>
-                <constraint firstItem="fEQ-Ch-eSW" firstAttribute="trailing" secondItem="cTv-ct-Zh0" secondAttribute="trailing" id="pft-5s-cQl"/>
                 <constraint firstItem="39N-wb-VyD" firstAttribute="centerY" secondItem="Ud7-1B-taI" secondAttribute="centerY" id="rcT-bl-fZN"/>
                 <constraint firstItem="4sK-pI-DKO" firstAttribute="width" secondItem="ftV-lI-wTW" secondAttribute="width" multiplier="1/5" id="ujo-zL-ezx"/>
                 <constraint firstItem="1iJ-H9-PgI" firstAttribute="width" secondItem="ftV-lI-wTW" secondAttribute="width" multiplier="5/6" id="us6-GR-Nwi"/>
+                <constraint firstItem="fEQ-Ch-eSW" firstAttribute="centerX" secondItem="cTv-ct-Zh0" secondAttribute="centerX" id="v2s-bA-sWW"/>
                 <constraint firstAttribute="bottom" secondItem="4sK-pI-DKO" secondAttribute="bottom" constant="24" id="w9x-jW-c9P"/>
                 <constraint firstItem="Ud7-1B-taI" firstAttribute="leading" secondItem="ftV-lI-wTW" secondAttribute="leading" constant="16" id="wTt-Tw-Nzi"/>
                 <constraint firstAttribute="trailing" secondItem="sjk-NT-fxC" secondAttribute="trailing" id="yHt-aF-I3y"/>
-                <constraint firstItem="AUV-5x-AHN" firstAttribute="top" secondItem="1iJ-H9-PgI" secondAttribute="bottom" constant="8.5" id="yzp-e7-w0G"/>
+                <constraint firstItem="AUV-5x-AHN" firstAttribute="top" secondItem="1iJ-H9-PgI" secondAttribute="bottom" constant="8" id="yzp-e7-w0G"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>

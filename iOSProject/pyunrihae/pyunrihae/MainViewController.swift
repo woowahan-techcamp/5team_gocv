@@ -282,10 +282,11 @@ class MainViewController: UIViewController {
 
                     hotReviewLabel?.layer.masksToBounds = true
                     hotReviewLabel?.clipsToBounds = true
+                    
                     //리뷰를 줄간격을 16 + 글자색 흰색으로 바꾸는 코드
                     let style = NSMutableParagraphStyle()
                     let attrString = NSMutableAttributedString(string: review.comment)
-                    style.minimumLineHeight = 20
+                    style.minimumLineHeight = (reviewLabel?.font.pointSize)! * 1.6
                     attrString.addAttribute(NSParagraphStyleAttributeName, value: style, range: NSRange(location: 0, length: review.comment.characters.count))
                     attrString.addAttribute(NSForegroundColorAttributeName, value: UIColor.white , range: NSRange(location: 0, length: review.comment.characters.count))
                     reviewLabel?.attributedText = attrString
