@@ -11,14 +11,21 @@
     position: fixed;
     top:0;
     left:0;
+    opacity: 0.8;
     z-index: 100;
+    transition-duration: 0.5s;
+
+}
+
+.fixTab-wrapper:hover{
+    opacity: 1;
 }
 
 .fixTab-bottom{
     position: fixed;
     width: 100%;
     background-color: #eeeeee;
-    height: 1px;
+    height: 0px;
     top: 60px;
     z-index: 100;
 
@@ -412,7 +419,7 @@
     float: left;
     width: 90%;
 
-    height: 300px;
+    height: 200px;
     margin-left: 5%;
     margin-right: 5%;
     border-radius: 5px;
@@ -427,6 +434,7 @@
 }
 
 .carousel-review-imageEle:hover {
+    height: 100%;
     transform: scale(1.2);
     transition-duration: 1s;
 }
