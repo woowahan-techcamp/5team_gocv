@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
     console.log(user);
 
-
     const profileDrop = document.querySelector('.fixTab-profile-id');
 
     profileDrop.addEventListener("mouseover", function () {
@@ -87,7 +86,7 @@ class Util {
         section.innerHTML = tmpl(context);
     }
 
-    setHandlebars(value){
+    setHandlebars(value) {
         let i = 0;
         for (const x of value) {
             $("#carousel-review-star" + i).rateYo({
@@ -115,6 +114,8 @@ class Carousel {
         this.sec = sec;
         this.data = [];
         this.index = 0;
+
+        this.now = getNowTimeScore();
         this.init();
     }
 
@@ -205,8 +206,13 @@ class Carousel {
 
             const splitTimeStamp = time.split(' ');
 
-            value['date'] = splitTimeStamp[0];
             value['time_score'] = this.getDate(splitTimeStamp[0]) + this.getTime(splitTimeStamp[1]);
+
+            const dateValue = this.getDateWord(value.time_score);
+
+            console.log(dateValue);
+
+            value['date'] = (!!dateValue) ? dateValue : splitTimeStamp[0];
 
             queryObj.push(value);
         }
@@ -250,6 +256,26 @@ class Carousel {
         this.setRatingHandler(arr);
     }
 
+    getDateWord(value) {
+        const date = (this.now * 1e6) - (value * 1e6);
+
+        if (date < 6000) {
+            if(date / 100 === 0){
+                return '방금 전';
+            }else {
+                return parseInt(date / 100) + '분 전';
+            }
+        } else if (date >= 1e6 && date <= 3e6) {
+            return parseInt(date / 1e6) + '일 전';
+        } else if (date <= 1e6) {
+            const day = parseInt(this.now);
+            const nowHour = parseInt((this.now - day) * 10000) + 2400;
+            const hour = parseInt((value - 634) * 10000);
+
+            return parseInt((nowHour - hour) / 100) + '시간 전';
+        }
+    }
+
     clone(obj) {
         if (obj === null || typeof(obj) !== 'object')
             return obj;
@@ -265,7 +291,6 @@ class Carousel {
     setRatingHandler(value) {
         let i = 0;
         for (const x of value) {
-            console.log(i, x.grade, x.rating);
             $('#carousel-rank-rating' + i).rateYo({
                 rating: x.grade,
                 spacing: "10px",
@@ -545,7 +570,8 @@ class Review {
         this.navi = navi;
         this.reviewId = "";
         this.fileName = "";
-        this.init()
+
+        this.init();
 
     }
 
@@ -1146,6 +1172,54 @@ function timestamp() {
 
     return curr_year + "-" + curr_month + "-" + curr_date + " " +
         curr_hour + ":" + curr_minute + ":" + curr_second;
+}
+
+function getNowTimeScore() {
+    const d = new Date();
+    const curr_date = d.getDate();
+    const curr_month = d.getMonth() + 1; //Months are zero based
+    const curr_year = d.getFullYear();
+    const curr_hour = d.getHours();
+    const curr_minute = d.getMinutes();
+    const curr_second = d.getSeconds();
+
+    let dateValue = 0;
+
+    for (let x = 2016; x < curr_year; x++) {
+        if (x % 4 == 0) {
+            if (x % 100 != 0 || x % 400 == 0) {
+                dateValue += 366;
+            }
+        } else {
+            dateValue += 365;
+        }
+    }
+
+    for (let x = 1; x < curr_month; x++) {
+        switch (x) {
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                dateValue += 31;
+                break;
+            case 2:
+                dateValue += 28;
+            default:
+                dateValue += 31;
+                break;
+        }
+    }
+
+    dateValue += curr_date;
+
+
+    let timeValue = 0;
+
+    timeValue = (curr_minute + (curr_hour * 60)) * 100;
+    timeValue += curr_second;
+
+    return parseFloat(dateValue + (timeValue / 1e6));
 }
 
 

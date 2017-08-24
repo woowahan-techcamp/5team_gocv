@@ -24,6 +24,7 @@ class ReviewPage {
         this.domControlKey = 'date';
 
         this.maxiumWord = 240;
+        this.now = timestamp();
         this.arrayObj = this.getArrayObject();
 
         this.init();
@@ -154,14 +155,36 @@ class ReviewPage {
 
             const splitTimestamp = time.split(' ');
 
-            value['date'] = splitTimestamp[0];
             value['time_score'] = this.getDate(splitTimestamp[0]) + this.getTime(splitTimestamp[1]);
+            const dateValue = this.getDateWord(value.time_score);
+
+            value['date'] = (!!dateValue) ? dateValue : splitTimestamp[0];
             value['key'] = key;
 
             queryObj.push(value);
         }
 
         return queryObj;
+    }
+
+    getDateWord(value) {
+        const date = (this.now * 1e6) - (value * 1e6);
+
+        if (date < 6000) {
+            if(date / 100 === 0){
+                return '방금 전';
+            }else {
+                return parseInt(date / 100) + '분 전';
+            }
+        } else if (date >= 1e6 && date <= 3e6) {
+            return parseInt(date / 1e6) + '일 전';
+        } else if (date <= 1e6) {
+            const day = parseInt(this.now);
+            const nowHour = parseInt((this.now - day) * 10000) + 2400;
+            const hour = parseInt((value - 634) * 10000);
+
+            return parseInt((nowHour - hour) / 100) + '시간 전';
+        }
     }
 
     getDate(value) {
@@ -305,4 +328,53 @@ class ReviewPage {
             i++;
         }
     }
+}
+
+function timestamp() {
+    const d = new Date();
+    const curr_date = d.getDate();
+    const curr_month = d.getMonth() + 1; //Months are zero based
+    const curr_year = d.getFullYear();
+    const curr_hour = d.getHours();
+    const curr_minute = d.getMinutes();
+    const curr_second = d.getSeconds();
+
+    let dateValue = 0;
+
+    for (let x = 2016; x < curr_year; x++) {
+        if (x % 4 == 0) {
+            if (x % 100 != 0 || x % 400 == 0) {
+                dateValue += 366;
+            }
+        } else {
+            dateValue += 365;
+        }
+    }
+
+    for (let x = 1; x < curr_month; x++) {
+        switch (x) {
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                dateValue += 31;
+                break;
+            case 2:
+                dateValue += 28;
+            default:
+                dateValue += 31;
+                break;
+        }
+    }
+
+    dateValue += curr_date;
+
+
+    let timeValue = 0;
+
+    timeValue = (curr_minute + (curr_hour * 60)) * 100;
+    timeValue += curr_second;
+
+    return parseFloat(dateValue + (timeValue / 1e6));
+
 }
