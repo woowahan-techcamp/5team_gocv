@@ -2498,30 +2498,26 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kl4-wb-bYZ">
-                                                    <rect key="frame" x="16" y="27" width="42" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="My6-Nk-OeZ"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="16" y="22" width="270" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back_right.png" translatesAutoresizingMaskIntoConstraints="NO" id="jda-CU-isv">
-                                                    <rect key="frame" x="294" y="29" width="10" height="15"/>
+                                                    <rect key="frame" x="294" y="24" width="10" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="a5p-Uu-tfA"/>
                                                         <constraint firstAttribute="width" constant="10" id="e7c-Wl-xZE"/>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="10" id="i37-nA-289"/>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="15" id="jg9-N4-EdK"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="jda-CU-isv" firstAttribute="centerY" secondItem="kl4-wb-bYZ" secondAttribute="centerY" id="EKe-g0-DI8"/>
+                                                <constraint firstItem="jda-CU-isv" firstAttribute="leading" secondItem="kl4-wb-bYZ" secondAttribute="trailing" constant="8" id="JXP-OH-7Uf"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="jda-CU-isv" secondAttribute="trailing" constant="8" id="Q3f-1c-egp"/>
-                                                <constraint firstItem="kl4-wb-bYZ" firstAttribute="leading" secondItem="o4B-Aj-hJy" secondAttribute="leadingMargin" constant="8" id="Vnw-XG-HPv"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="kl4-wb-bYZ" secondAttribute="bottom" constant="8.5" id="krK-PH-zR7"/>
-                                                <constraint firstItem="kl4-wb-bYZ" firstAttribute="top" secondItem="o4B-Aj-hJy" secondAttribute="topMargin" constant="19" id="ynt-47-JXi"/>
+                                                <constraint firstItem="kl4-wb-bYZ" firstAttribute="leading" secondItem="o4B-Aj-hJy" secondAttribute="leadingMargin" constant="8" id="StD-Kx-Fn0"/>
+                                                <constraint firstItem="kl4-wb-bYZ" firstAttribute="centerY" secondItem="o4B-Aj-hJy" secondAttribute="centerY" id="TuT-gM-vLB"/>
+                                                <constraint firstItem="jda-CU-isv" firstAttribute="centerY" secondItem="o4B-Aj-hJy" secondAttribute="centerY" id="UEV-8L-lyE"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -2877,22 +2873,36 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="back_right.png" translatesAutoresizingMaskIntoConstraints="NO" id="ioc-sX-ZRs">
-                                                    <rect key="frame" x="292" y="23" width="15" height="16"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back_right.png" translatesAutoresizingMaskIntoConstraints="NO" id="ioc-sX-ZRs">
+                                                    <rect key="frame" x="293" y="32" width="15" height="16"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="16" id="NLs-EP-A8r"/>
+                                                        <constraint firstAttribute="width" constant="15" id="zah-Kr-Wai"/>
+                                                    </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YjJ-P4-qQI">
-                                                    <rect key="frame" x="69" y="18" width="193" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YjJ-P4-qQI">
+                                                    <rect key="frame" x="77.5" y="31" width="207.5" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vrg-y0-u5C">
-                                                    <rect key="frame" x="15" y="8" width="44" height="44.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vrg-y0-u5C">
+                                                    <rect key="frame" x="16" y="13" width="53.5" height="53.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="vrg-y0-u5C" secondAttribute="height" multiplier="1:1" id="CdJ-Ho-ttL"/>
+                                                    </constraints>
                                                 </imageView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="vrg-y0-u5C" firstAttribute="centerY" secondItem="MPM-Db-dqS" secondAttribute="centerY" id="27e-9T-70P"/>
+                                                <constraint firstItem="YjJ-P4-qQI" firstAttribute="leading" secondItem="vrg-y0-u5C" secondAttribute="trailing" constant="8" id="DLS-tU-aeK"/>
+                                                <constraint firstItem="vrg-y0-u5C" firstAttribute="width" secondItem="MPM-Db-dqS" secondAttribute="width" multiplier="1/6" id="N6I-0Q-rha"/>
+                                                <constraint firstItem="ioc-sX-ZRs" firstAttribute="leading" secondItem="YjJ-P4-qQI" secondAttribute="trailing" constant="8" id="VPD-pa-5kR"/>
+                                                <constraint firstItem="ioc-sX-ZRs" firstAttribute="centerY" secondItem="MPM-Db-dqS" secondAttribute="centerY" id="Z7E-my-DBF"/>
+                                                <constraint firstItem="vrg-y0-u5C" firstAttribute="leading" secondItem="MPM-Db-dqS" secondAttribute="leadingMargin" constant="8" id="a8I-wQ-l0I"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ioc-sX-ZRs" secondAttribute="trailing" constant="4" id="gui-ME-UCE"/>
+                                                <constraint firstItem="YjJ-P4-qQI" firstAttribute="centerY" secondItem="MPM-Db-dqS" secondAttribute="centerY" id="vEs-Vk-yct"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="moreImage" destination="ioc-sX-ZRs" id="19J-SX-QuT"/>
