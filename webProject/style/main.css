@@ -47,7 +47,7 @@
 .fixTab-tab{
     margin-left: 10px;
     display: block;
-    color: #282828;
+    color: gray;
     height: 60px;
     float: left;
     line-height: 70px;
@@ -94,8 +94,8 @@
     cursor: pointer;
     position: relative;
     float: left;
-    color: #191919;
-    height: 30px;
+    color: #ff5f4e;
+    height: 29px;
     font-size: 13px;
     line-height: 30px;
     font-weight: 500;
@@ -106,7 +106,7 @@
 
 
 .fixTab-search-brand:hover, .fixTab-search-category:hover, .fixTab-search-word:hover{
-    background-color: #ff8a82;
+    background-color: #ff5f4e;
     color: #ffffff;
 }
 
@@ -119,26 +119,31 @@
 }
 
 .fixTab-search-brand-dropdown, .fixTab-search-category-dropdown {
+
     width: 100%;
 }
 .fixTab-search-brand-element, .fixTab-search-category-element{
+    border-bottom:solid 1px #eeeeee;
+    border-left:solid 1px #eeeeee;
+    border-right:solid 1px #eeeeee;
+
     background: #ffffff;
     width:100%;
     top:0;
     z-index: 110;
     left: 0;
     position: relative;
-    color: #191919;
+    color: gray;
 }
 
 
 .fixTab-tab:hover > .fixTab-tab-hover{
-    background-color: #ff4832;
+    background-color: #ff5f4e;
 }
 
 
 .fixTab-search-brand-element:hover, .fixTab-search-category-element:hover{
-    background: #ff9285;
+    background: #ff5f4e;
     color: white;
 }
 
@@ -176,7 +181,7 @@
     position: fixed;
     top: 10px;
     font-size: 15px;
-    color: #282828;
+    color: gray;
 }
 
 .fixTab-profile-image{
@@ -220,7 +225,7 @@
 .fixTab-profile-element{
     background: #ffffff;
     width:75%;
-    color: #212121;
+    color: #gray;
     margin-top: 1px;
     top:0;
     left: 20%;
@@ -231,7 +236,7 @@
 }
 
 .fixTab-profile-element:hover{
-    background: #ff8a82;
+    background: #ff5f4e;
     color: white;
 }
 
@@ -655,7 +660,7 @@
         width: 40%;
         margin: 0px 5% 0px 5%;
         text-align: center;
-        color: #282828;
+        color: #ff5f4e;
         height: 30px;
         float: left;
         line-height: 30px;

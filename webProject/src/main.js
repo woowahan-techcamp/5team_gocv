@@ -355,10 +355,11 @@ class Counter {
             const val = $(this).scrollTop();
             const cover = $('.cover');
             if (max < val) {
-                console.log("냠냠")
-                $('#counter1').animateNumber({number: this.counter1}, 2000);
-                $('#counter2').animateNumber({number: this.counter2}, 2000);
-                $('#counter3').animateNumber({number: this.counter3}, 2000);
+                console.log("냠냠");
+
+                $('#counter1').animateNumber({number:1000}, 2000);
+                $('#counter2').animateNumber({number:1000}, 2000);
+                $('#counter3').animateNumber({number:1000}, 2000);
                 max = 99999;
             }
         }.bind(this));

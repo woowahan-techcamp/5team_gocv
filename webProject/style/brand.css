@@ -90,11 +90,12 @@
 .rank-product-type {
     /*position: absolute;*/
     background-color: #ff5f4e;
-    font-size: 14px;
+    font-size: 13px;
     color: white;
     width: 30%;
-    height: 30px;
-    line-height: 30px;
+    height: 25px;
+    line-height: 25px;
+    float: left;
     text-align: center;
 }
 

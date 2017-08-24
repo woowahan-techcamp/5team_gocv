@@ -30,7 +30,7 @@
                 <li class="fixTab-search-brand-element">GS25</li>
                 <li class="fixTab-search-brand-element">7ELEVEN</li>
                 <li class="fixTab-search-brand-element">CU</li>
-                <li style="color:#d82c20" class="fixTab-search-brand-element">전체</li>
+                <li style="color:#a499ff" class="fixTab-search-brand-element">전체</li>
             </ul>
         </div>
 
@@ -44,7 +44,7 @@
                 <li class="fixTab-search-category-element">아이스크림</li>
                 <li class="fixTab-search-category-element">음료</li>
                 <li class="fixTab-search-category-element">식품</li>
-                <li style="color:#d82c20" class="fixTab-search-category-element">전체</li>
+                <li style="color:#a499ff" class="fixTab-search-category-element">전체</li>
             </ul>
         </div>
         <div>
@@ -571,6 +571,9 @@
             <div class="rank-product-type">
                 {{category}}
             </div>
+            <div style="background-color:cornflowerblue" class="rank-product-type">
+                {{brand}}
+            </div>
 
             <div class="rank-event-wrapper">
                 {{#each event}}
@@ -962,7 +965,7 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/handlebarsjs/4.0.8/handlebars.min.js"></script>
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
-<script src="plugin/jquery.animateNumber.min.js"></script>
+<script src="./plugin/jquery.animateNumber.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
 <!--번들-->
