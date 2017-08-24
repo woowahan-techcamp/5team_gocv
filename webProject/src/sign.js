@@ -336,12 +336,15 @@ class MyPage {
         const userStorage = localStorage['user'];
         const user = firebase.auth().currentUser;
 
+
         this.userData = JSON.parse(userStorage);
         this.userId = user.uid;
 
         this.setData();
         this.setEventUpdateImage();
         this.setEventUpdateNicname();
+
+        new UserInfoPopup();
     }
 
     setData() {
@@ -494,6 +497,42 @@ class MyPage {
             "                </ul>";
     }
 
+}
+
+class UserInfoPopup {
+
+    constructor() {
+        this.popupOverlay = document.querySelector('.myPage-overlay');
+        this.popupInner = document.querySelector('.myPage-wrapper');
+
+        this.flag = false;
+
+        this.getEvent();
+    }
+
+    getEvent() {
+        /* item view modal settings */
+        this.popupOverlay.addEventListener('click', function () {
+            if (!this.flag) {
+                this.closePopup();
+            } else {
+                this.flag = false;
+            }
+        }.bind(this));
+
+        this.popupInner.addEventListener('click', function (e) {
+            this.flag = true;
+            e.stopPropagation();
+        }.bind(this));
+    }
+
+    closePopup() {
+        if (!this.flag) {
+            document.getElementsByClassName('popup-close-fake')[0].click();
+            $("body").css("overflow", "visible");
+            this.flag = false;
+        }
+    }
 }
 
 
