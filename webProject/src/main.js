@@ -33,9 +33,43 @@ document.addEventListener('DOMContentLoaded', function (event) {
         'carousel-rightButton', 10, 'carousel-template', 'carouselSec');
     const counter = new Counter(800);
 
-
+    new PopupOverlayClick();
 });
 
+class PopupOverlayClick {
+
+    constructor() {
+        this.signOverlay = document.querySelector('.sign-overlay');
+        this.signInner = document.querySelector('.sign-wrapper');
+
+        this.signFlag = false;
+
+        this.getEvent();
+    }
+
+    getEvent() {
+        /* sign in modal settings */
+        this.signOverlay.addEventListener('click', function () {
+            if (!this.signFlag) {
+                this.closePopup();
+            }
+            this.signFlag = false;
+
+        }.bind(this));
+
+        this.signInner.addEventListener('click', function () {
+            this.signFlag = true;
+        }.bind(this));
+
+    }
+
+    closePopup() {
+        if (!this.signFlag) {
+            this.signOverlay.style.display = "none";
+            this.signFlag = false;
+        }
+    }
+}
 
 class Dropdown {
     constructor(event, button, drop) {
@@ -62,7 +96,6 @@ class Dropdown {
         }.bind(this), true);
     }
 }
-
 
 class Util {
 
@@ -266,8 +299,11 @@ class Carousel {
             const day = parseInt(this.now);
             const nowHour = parseInt((this.now - day) * 10000) + 2400;
             const hour = parseInt((value - 634) * 10000);
-
-            return parseInt((nowHour - hour) / 100) + '시간 전';
+            if (hour > 1e4) {
+                return parseInt(hour / 1e4) + '시간 전';
+            } else {
+                return parseInt((nowHour - hour) / 100) + '시간 전';
+            }
         }
     }
 
@@ -669,6 +705,7 @@ class Review {
     setStar() {
         $("#" + this.id).rateYo({
             fullStar: true, // 정수단위로
+            readOnly: true,
             spacing: "15px" // margin
 
         }).on("rateyo.change", function (e, data) {
@@ -1206,6 +1243,8 @@ function loadDetailProduct(event) {
         document.querySelector('#loading').style.display = "none"
     }, 1000);
 
+    new ItemPopup();
+
     document.querySelector("#popupWish").addEventListener("click", function () {
         document.querySelector("#popupWish").setAttribute("class", "popup-wish popup-wish-select");
 
@@ -1238,7 +1277,6 @@ function loadDetailProduct(event) {
 
     });
 
-
     const reviewHeart = new ReviewHeart();
 
 
@@ -1246,6 +1284,78 @@ function loadDetailProduct(event) {
     document.querySelector(".popup-close").addEventListener("click", function () {
         $("body").css("overflow", "visible");
     });
+}
+
+class ItemPopup {
+
+    constructor() {
+        this.popupOverlay = document.querySelector('.overlay');
+        this.popupInner = document.querySelector('.popup-wrapper');
+
+        this.flag = false;
+
+        this.getEvent();
+    }
+
+    getEvent() {
+        /* item view modal settings */
+        this.popupOverlay.addEventListener('click', function () {
+            if (!this.flag) {
+                this.closePopup();
+            } else {
+                this.flag = false;
+            }
+        }.bind(this));
+
+        this.popupInner.addEventListener('click', function (e) {
+            this.flag = true;
+            e.stopPropagation();
+        }.bind(this));
+    }
+
+    closePopup() {
+        if (!this.flag) {
+            document.getElementsByClassName('popup-close-fake')[0].click();
+            $("body").css("overflow", "visible");
+            this.flag = false;
+        }
+    }
+}
+
+class ReviewPopup {
+
+    constructor() {
+        this.popupOverlay = document.querySelector('.overlay');
+        this.popupInner = document.querySelector('.popup-review-preview');
+
+        this.flag = false;
+
+        this.getEvent();
+    }
+
+    getEvent() {
+        /* item view modal settings */
+        this.popupOverlay.addEventListener('click', function () {
+            if (!this.flag) {
+                this.closePopup();
+            } else {
+                this.flag = false;
+            }
+        }.bind(this));
+
+        this.popupInner.addEventListener('click', function (e) {
+            this.flag = true;
+            e.stopPropagation();
+        }.bind(this));
+    }
+
+    closePopup() {
+        if (!this.flag) {
+            document.getElementsByClassName('popup-close-fake')[0].click();
+            $("body").css("overflow", "visible");
+            this.flag = false;
+        }
+    }
 }
 
 function timestamp() {
@@ -1357,7 +1467,7 @@ function loadReviewDetail(event) {
 
     });
 
-
+    new ReviewPopup();
 
     document.querySelector(".popup-newReview-cancel").addEventListener("click", function () {
         $("body").css("overflow", "visible");
