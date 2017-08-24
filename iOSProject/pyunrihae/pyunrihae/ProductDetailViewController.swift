@@ -508,7 +508,7 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
         return orderReviewView
     }
     func tabDropDownBtn(_ sender: UIButton) {
-        let alert = UIAlertController(title: "\r순서 정렬하기", message: "", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         //Create and add the Cancel action
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
             
