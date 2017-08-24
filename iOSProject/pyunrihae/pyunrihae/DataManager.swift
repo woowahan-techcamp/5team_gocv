@@ -17,7 +17,7 @@ class DataManager{
     
     // 기본 데이터 레퍼런스
     static var ref : DatabaseReference! = Database.database().reference()
-    
+    static var appdelegate = UIApplication.shared.delegate as? AppDelegate
     /*
      * 메인화면
      */
@@ -382,8 +382,16 @@ class DataManager{
                 update["grade_count"] = grade_count
             }
             
-            let grade_avg = Float(grade_total) / Float(grade_count)
-            update["grade_avg"] = grade_avg
+            // 가중치 계산 공식
+            let m = 50 // TOP에 들기 위한 최소 리뷰 갯수
+            let C : Float = 2.75 // 점수 중간값
+            let grade_avg = Float(grade_total) / Float(grade_count) // 산술평균 
+            
+            let first_exp = ( Float(grade_count)  / Float(grade_count + m)) * Float(grade_avg)
+            let second_exp = ( Float(m)  / Float(grade_count + m )) * C
+            let weighted_rank: Float = first_exp + second_exp
+            update["grade_avg"] = weighted_rank
+            //여기에는 weighted 값이 들어가야함.
             
             if postDict["allergy"] != nil {
                 if var allergyList = postDict["allergy"] as? [String] {
@@ -477,6 +485,21 @@ class DataManager{
                 update["quantity_level"] = quantity_level
             }
             localRef.updateChildValues(update)
+            
+            // 저장된 productList에서도 업데이트 해주도록!
+            for product in (appdelegate?.productList)! {
+                if product.id == p_id {
+                    product.grade_total = update["grade_total"] as! Int
+                    product.flavor_level = update["flavor_level"] as! [String : Int]
+                    product.quantity_level = update["quantity_level"] as! [String : Int]
+                    product.price_level = update["price_level"] as! [String: Int]
+                    product.grade_avg = update["grade_avg"] as! Float
+                    product.grade_count = update["grade_count"] as! Int
+                    product.allergy = update["allergy"] as! [String]
+                    
+                    NotificationCenter.default.post(name: NSNotification.Name("productListChanged"), object: nil)
+                }
+            }
         })
     }
     
