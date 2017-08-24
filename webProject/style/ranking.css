@@ -20,11 +20,11 @@
 }
 
 .main-rank-tab-wrapper {
-    margin: 200px auto auto auto;
+    margin: 170px auto auto auto;
     /*background-color: red;*/
     text-align: center;
     margin-bottom: 20px;
-    width: 80%;
+    width: 70%;
 }
 
 .main-rank-tab {
@@ -62,7 +62,7 @@
 .card-main-rank-content {
     float: left;
     margin-top: 30px;
-    width: 33%;
+    width: 33.3333333%;
     height: 30%;
     border-radius: 2%;
 }

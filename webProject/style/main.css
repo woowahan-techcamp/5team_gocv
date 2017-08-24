@@ -80,11 +80,12 @@
 
 .fixTab-search-wrapper{
     display: block;
-    margin-top: 10px;
-    margin-left: 8%;
-    height: 50px;
-    width: 40%;
+    margin-left: 15%;
+    margin-top: 20px;
+    height: 30px;
+    width: 30%;
     float: left;
+    border: solid 1px #ff5f4e;
 }
 
 
@@ -94,27 +95,27 @@
     position: relative;
     float: left;
     color: #191919;
-    border: solid #ffffff 2px ;
+    height: 30px;
     font-size: 13px;
     line-height: 30px;
     font-weight: 500;
     text-align: center;
-    margin: 1%;
     z-index: 110;
-    border-radius: 10px;
-    background-color: #fff7f3;
 }
+
+
+
 .fixTab-search-brand:hover, .fixTab-search-category:hover, .fixTab-search-word:hover{
     background-color: #ff8a82;
     color: #ffffff;
 }
 
 .fixTab-search-button:hover{
-    transform: scale(1.3);
+
 }
 
 .fixTab-search-brand{
-    width: 25%;
+    width: 20%;
 }
 
 .fixTab-search-brand-dropdown, .fixTab-search-category-dropdown {
@@ -144,23 +145,22 @@
 
 
 .fixTab-search-category{
-    width: 25%;
+    width: 20%;
 }
 
 
 .fixTab-search-word{
-    width: 30%;
+    width: 50%;
+    text-decoration: none;
+    border: solid 0px;
+    height: 28px;
 }
 
 .fixTab-search-button{
-    width: 30px;
-    line-height: 30px;
+    width: 10%;
+    height: 29px;
     text-align: center;
-    height: 30px;
-    margin-top: 9px;
-    border: solid #ffffff 2px ;
-    border-radius: 10px;
-    background-color: #ffffff;
+    background-color: #ff5f4e;
 }
 
 .fixTab-profile-wrapper{
@@ -729,7 +729,6 @@
         text-align: center;
         height: 30px;
         margin-top: 9px;
-        border: solid #ffffff 2px;
         border-radius: 10px;
         background-color: #ffffff;
     }
