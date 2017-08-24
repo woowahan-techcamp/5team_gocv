@@ -29,7 +29,10 @@ class DataManager{
         
         
         if brand == "전체" { // 브랜드 : 전체를 선택한 경우
-            localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            localRef.observe(DataEventType.value, with: { (snapshot) in
+                if snapshot.exists(){
+                    localRef.removeAllObservers()
+                }
                 var reviewList : [Review]  = []
                 for childSnapshot in snapshot.children {
                     let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
@@ -40,7 +43,10 @@ class DataManager{
             })
 
         }else { // 특정 브랜드를 선택한 경우
-            localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            localRef.observe(DataEventType.value, with: { (snapshot) in
+                if snapshot.exists(){
+                    localRef.removeAllObservers()
+                }
                 var reviewList : [Review]  = []
                 for childSnapshot in snapshot.children {
                     let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
@@ -60,7 +66,10 @@ class DataManager{
     static func getTop3Product(completion: @escaping ([Product]) -> ()) {
         let localRef = ref.child("product")
         
-        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+        localRef.observe(DataEventType.value, with: { (snapshot) in
+            if snapshot.exists(){
+                localRef.removeAllObservers()
+            }
             var productList : [Product] = []
             for childSnapshot in snapshot.children {
                 let product = Product.init(snapshot: childSnapshot as! DataSnapshot)
@@ -94,7 +103,10 @@ class DataManager{
     static func getReviewListBy(brand : String, category : String, completion : @escaping ([Review]) -> ()) {
         let localRef = ref.child("review")
         let query = localRef.queryOrdered(byChild: "brand").queryEqual(toValue: brand)
-        query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+        query.observe(DataEventType.value, with: { (snapshot) in
+            if snapshot.exists(){
+                localRef.removeAllObservers()
+            }
              var reviewList : [Review] = []
             for childSnapshot in snapshot.children {
                 let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
@@ -112,7 +124,10 @@ class DataManager{
     static func getReviewListBy(brand: String, completion: @escaping ([Review]) ->()) {
         let localRef = ref.child("review")
         let query = localRef.queryOrdered(byChild: "brand").queryEqual(toValue: brand)
-        query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+        query.observe(DataEventType.value, with: { (snapshot) in
+            if snapshot.exists(){
+                localRef.removeAllObservers()
+            }
             var reviewList : [Review] = []
             for childSnapshot in snapshot.children {
                 let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
@@ -126,7 +141,10 @@ class DataManager{
     static func getReviewListBy(category: String, completion: @escaping ([Review]) ->()) {
         let localRef = ref.child("review")
         let query = localRef.queryOrdered(byChild: "category").queryEqual(toValue: category)
-        query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+        query.observe(DataEventType.value, with: { (snapshot) in
+            if snapshot.exists(){
+                localRef.removeAllObservers()
+            }
             var reviewList : [Review] = []
             for childSnapshot in snapshot.children {
                 let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
@@ -142,7 +160,10 @@ class DataManager{
         let localRef = ref.child("review")
         let query = localRef.queryOrdered(byChild: "useful")
         
-        query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+        query.observe(DataEventType.value, with: { (snapshot) in
+            if snapshot.exists(){
+                localRef.removeAllObservers()
+            }
             var reviewList : [Review] = []
             for childSnapshot in snapshot.children {
                 let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
@@ -156,7 +177,10 @@ class DataManager{
     static func getReviewListBy(id: String, completion: @escaping ([Review]) ->()) {
         let localRef = ref.child("review")
         let query = localRef.queryOrdered(byChild: "p_id").queryEqual(toValue: id)
-        query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+        query.observe(DataEventType.value, with: { (snapshot) in
+            if snapshot.exists(){
+                localRef.removeAllObservers()
+            }
             var reviewList : [Review] = []
             for childSnapshot in snapshot.children {
                 let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
@@ -173,10 +197,14 @@ class DataManager{
     static func getProductAllInRank(completion : @escaping ([Product]) -> ()){
         let localRef = ref.child("product")
         
-        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+        let query = localRef.queryOrdered(byChild: "grade_avg")
+        query.observe(DataEventType.value, with: { (snapshot) in
+            if snapshot.exists(){
+                localRef.removeAllObservers()
+            }
             var productList : [Product] = []
             for childSnapshot in snapshot.children {
-                let product = Product.init(snapshot : childSnapshot as! DataSnapshot)
+                let product = Product.init(snapshot: childSnapshot as! DataSnapshot)
                 productList.append(product)
             }
             completion(productList)
@@ -186,7 +214,10 @@ class DataManager{
     // 상품 id로 상품 가져오기
     static func getProductById(id: String, completion : @escaping (Product) -> ()) {
         let localRef = ref.child("product").child(id)
-        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+        localRef.observe(DataEventType.value, with: { (snapshot) in
+            if snapshot.exists(){
+                localRef.removeAllObservers()
+            }
             let product = Product.init(snapshot: snapshot)
             completion(product)
         })
@@ -199,7 +230,10 @@ class DataManager{
     
     static func updateWishList(id: String, uid: String) {
         let localRef = ref.child("user").child(uid)
-        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+        localRef.observe(DataEventType.value, with: { (snapshot) in
+            if snapshot.exists(){
+                localRef.removeAllObservers()
+            }
             let postDict = snapshot.value as? [String : AnyObject] ?? [:]
             var update = [String: Any]()
             var wishList = [String]()
@@ -229,7 +263,10 @@ class DataManager{
     }
     static func updateUsefulReview(id: String, uid: String) { //유용해요
         let userRef = ref.child("user").child(uid)
-        userRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+        userRef.observe(DataEventType.value, with: { (snapshot) in
+            if snapshot.exists(){
+                userRef.removeAllObservers()
+            }
             let postDict = snapshot.value as? [String : AnyObject] ?? [:]
             var update = [String: Any]()
             var reviewLikeList = [String: Int]()
@@ -247,7 +284,10 @@ class DataManager{
     }
     static func updateBadReview(id: String, uid: String) { //별로에요
         let userRef = ref.child("user").child(uid)
-        userRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+        userRef.observe(DataEventType.value, with: { (snapshot) in
+            if snapshot.exists(){
+                userRef.removeAllObservers()
+            }
             let postDict = snapshot.value as? [String : AnyObject] ?? [:]
             var update = [String: Any]()
             var reviewLikeList = [String: Int]()
@@ -265,7 +305,10 @@ class DataManager{
     }
     static func updateCancleReview(id: String, uid: String) { //유용/별로 취소
         let userRef = ref.child("user").child(uid)
-        userRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+        userRef.observe(DataEventType.value, with: { (snapshot) in
+            if snapshot.exists(){
+                userRef.removeAllObservers()
+            }
             let postDict = snapshot.value as? [String : AnyObject] ?? [:]
             var update = [String: Any]()
             var reviewLikeList = [String: Int]()
@@ -283,7 +326,10 @@ class DataManager{
     }
     static func tabUsefulBtn(id: String) {
         let localRef = ref.child("review").child(id)
-        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+        localRef.observe(DataEventType.value, with: { (snapshot) in
+            if snapshot.exists(){
+                localRef.removeAllObservers()
+            }
             let postDict = snapshot.value as? [String : AnyObject] ?? [:]
             if postDict["useful"] != nil {
                 if var useful = postDict["useful"] as? Int {
@@ -295,7 +341,10 @@ class DataManager{
     }
     static func cancleUsefulBtn(id: String) {
         let localRef = ref.child("review").child(id)
-        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+        localRef.observe(DataEventType.value, with: { (snapshot) in
+            if snapshot.exists(){
+                localRef.removeAllObservers()
+            }
             let postDict = snapshot.value as? [String : AnyObject] ?? [:]
             if postDict["useful"] != nil {
                 if var useful = postDict["useful"] as? Int {
@@ -307,7 +356,10 @@ class DataManager{
     }
     static func tabBadBtn(id: String) {
         let localRef = ref.child("review").child(id)
-        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+        localRef.observe(DataEventType.value, with: { (snapshot) in
+            if snapshot.exists(){
+                localRef.removeAllObservers()
+            }
             let postDict = snapshot.value as? [String : AnyObject] ?? [:]
             if postDict["bad"] != nil {
                 if var bad = postDict["bad"] as? Int {
@@ -319,7 +371,10 @@ class DataManager{
     }
     static func cancleBadBtn(id: String) {
         let localRef = ref.child("review").child(id)
-        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+        localRef.observe(DataEventType.value, with: { (snapshot) in
+            if snapshot.exists(){
+                localRef.removeAllObservers()
+            }
             let postDict = snapshot.value as? [String : AnyObject] ?? [:]
             if postDict["bad"] != nil {
                 if var bad = postDict["bad"] as? Int {
@@ -335,7 +390,10 @@ class DataManager{
      */
     static func updateReviewList(id: String, uid: String) {
         let localRef = ref.child("user").child(uid)
-        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+        localRef.observe(DataEventType.value, with: { (snapshot) in
+            if snapshot.exists(){
+                localRef.removeAllObservers()
+            }
             let postDict = snapshot.value as? [String : AnyObject] ?? [:]
             var update = [String: Any]()
             var reviewList = [String]()
@@ -357,7 +415,10 @@ class DataManager{
     // 리뷰 쓰기
     static func updateProductInfo(p_id: String, grade: Int, priceLevel: Int, flavorLevel: Int, quantityLevel: Int, allergy: [String]) {
         let localRef = ref.child("product").child(p_id)
-        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+        localRef.observe(DataEventType.value, with: { (snapshot) in
+            if snapshot.exists(){
+                localRef.removeAllObservers()
+            }
             let postDict = snapshot.value as? [String : AnyObject] ?? [:]
             var update = [String: Any]()
             
@@ -536,7 +597,10 @@ class DataManager{
         }
         
         let productRef = ref.child("product").child(p_id)
-        productRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+        productRef.observe(DataEventType.value, with: { (snapshot) in
+            if snapshot.exists(){
+                localRef.removeAllObservers()
+            }
             let postDict = snapshot.value as? [String : AnyObject] ?? [:]
             var update = [String: Any]()
             var review_count = 1
@@ -584,7 +648,10 @@ class DataManager{
         let localRef = ref.child("product")
         let query = localRef.queryOrdered(byChild: "name").queryEqual(toValue: from)
         
-        query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+        query.observe(DataEventType.value, with: { (snapshot) in
+            if snapshot.exists(){
+                localRef.removeAllObservers()
+            }
             var product = Product()
             for childSnapshot in snapshot.children {
                 product = Product.init(snapshot: childSnapshot as! DataSnapshot)

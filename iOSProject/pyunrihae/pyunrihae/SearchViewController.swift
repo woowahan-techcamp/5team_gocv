@@ -139,6 +139,9 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
         self.present(vc, animated: true, completion : nil )
         vc.pyunrihaeImage.isHidden = true
         vc.waitingImage.isHidden = true
+        vc.watingView.isHidden = true
+        vc.brandContentView.isHidden = false
+        vc.contentView.isHidden = false
         NotificationCenter.default.post(name: NSNotification.Name("selectCategory"), object: self, userInfo: ["category" : categoryIndex])
     }
     

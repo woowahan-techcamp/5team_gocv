@@ -317,6 +317,7 @@ class MainViewController: UIViewController {
                     xPosition += imageViewWidth
                     scrollViewSize += imageViewWidth
                     cnt = cnt + 1
+                    
                 }
                 
                 
