@@ -13,9 +13,9 @@ import Alamofire
 class MainViewController: UIViewController {
 
     @IBOutlet weak var reviewScrollView: UIScrollView!
-    @IBOutlet weak var collectionView : UICollectionView!
     @IBOutlet weak var categoryScrollView: CategoryScrollView!
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var productScrollView: UIScrollView!
     
 
     let appdelegate = UIApplication.shared.delegate as! AppDelegate
@@ -26,6 +26,7 @@ class MainViewController: UIViewController {
         didSet{
             getProductList()
             setReviewScrollImages()
+//            setProductScrollView()
         }
     }
     var selectedCategoryIndex: Int = 0 { // 선택된 카테고리 인덱스, 초기값은 0 (전체)
@@ -41,14 +42,6 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        reviewScrollView.translatesAutoresizingMaskIntoConstraints = true
-        reviewScrollView.frame.size.width = view.frame.size.width
-        collectionView.translatesAutoresizingMaskIntoConstraints = true
-        collectionView.frame.size.width = view.frame.size.width
-        categoryScrollView.translatesAutoresizingMaskIntoConstraints = true
-        categoryScrollView.frame.size.width = view.frame.size.width
         NotificationCenter.default.addObserver(self, selector: #selector(selectCategory), name: NSNotification.Name("selectCategory"), object: nil)
         categoryScrollView.backgroundColor = UIColor.white
         addCategoryBtn() // 카테고리 버튼 만들어서 스크롤 뷰에 붙이기
@@ -65,7 +58,7 @@ class MainViewController: UIViewController {
         DataManager.getTop3Product() { (products) in
             self.productList = products
             DispatchQueue.main.async {
-                self.collectionView.reloadData()
+//                self.collectionView.reloadData()
             }
         }
         
@@ -79,9 +72,11 @@ class MainViewController: UIViewController {
     // 카테고리 버튼 스크롤 뷰에 추가하기
     func addCategoryBtn(){
         categoryScrollView.isScrollEnabled = true
-        categoryScrollView.contentSize.width = CGFloat(64 * category.count)
+        
+        let widthUsed = categoryScrollView.frame.width
+        categoryScrollView.contentSize.width = CGFloat(widthUsed / 5.0 * CGFloat(category.count))
         for index in 0..<category.count {
-            let categoryBtn = UIButton(frame: CGRect(x: 64 * index, y: 5, width: 64, height: 32))
+            let categoryBtn = UIButton(frame: CGRect(x: widthUsed / 5.0 * CGFloat(index), y: 0, width: widthUsed / 5.0, height: categoryScrollView.frame.height))
             let color = UIColor(red: CGFloat(102.0 / 255.0), green: CGFloat(102.0 / 255.0),  blue: CGFloat(102.0 / 255.0), alpha: CGFloat(1.0))
             categoryBtn.setTitle(category[index], for: .normal) // 카테고리 버튼 텍스트
             categoryBtn.setTitleColor(color, for: .normal) // 카테고리 버튼 텍스트 색깔
@@ -105,7 +100,7 @@ class MainViewController: UIViewController {
         selectedCategoryIndex = sender.tag
         categoryBtns[previousCategoryIndex].isSelected = false
         Button.select(btn: sender) // 선택된 버튼에 따라 뷰 보여주기
-        UIView.animate(withDuration: 1.0, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
             if sender.tag == 0 || sender.tag == 1 || sender.tag == 2 {
                 self.categoryScrollView.contentOffset.x = CGFloat(0)
             } else if sender.tag == 6 || sender.tag == 7 || sender.tag == 8 {
@@ -171,14 +166,14 @@ class MainViewController: UIViewController {
             if self.appdelegate.productList.count > 0 { // global product list가 저장된 후
                 self.productList = self.appdelegate.productList
                 DispatchQueue.main.async {
-                    self.collectionView.reloadData()
+                  self.setProductScrollView()
                     self.hideActivityIndicatory()
                 }
             }else{ // global product list가 없다면
                 DataManager.getTop3Product() { (products) in
                     self.productList = products
                     DispatchQueue.main.async {
-                        self.collectionView.reloadData()
+                        self.setProductScrollView()
                         self.hideActivityIndicatory()
                     }
                 }
@@ -196,7 +191,7 @@ class MainViewController: UIViewController {
                 }
                 
                 DispatchQueue.main.async {
-                    self.collectionView.reloadData()
+                    self.setProductScrollView()
                     self.hideActivityIndicatory()
                 }
             }
@@ -210,7 +205,7 @@ class MainViewController: UIViewController {
             }
             
             DispatchQueue.main.async {
-                self.collectionView.reloadData()
+                self.setProductScrollView()
                 self.hideActivityIndicatory()
             }
         } else { // 브랜드도 카테고리도 전체가 아닐 때
@@ -222,7 +217,7 @@ class MainViewController: UIViewController {
                     }
                 }
                 DispatchQueue.main.async {
-                    self.collectionView.reloadData()
+                    self.setProductScrollView()
                     self.hideActivityIndicatory()
                 }
             }
@@ -261,7 +256,7 @@ class MainViewController: UIViewController {
                     let reviewView = MainReviewView.instanceFromNib()
                     reviewView.translatesAutoresizingMaskIntoConstraints = true
                     reviewView.frame = CGRect(x: xPosition, y: 0, width: imageViewWidth, height: imageViewHeight)
-                    
+
                    
                     let myImageView = reviewView.myImageView
                     let brandLabel =  reviewView.brandLabel
@@ -322,102 +317,150 @@ class MainViewController: UIViewController {
         
     }
     
+    func setProductScrollView(){
+        var brand = ""
+        
+        switch selectedBrandIndexFromTab {
+        case 0 : brand = "전체"
+        case 1 : brand = "GS25"
+        case 2 : brand = "CU"
+        case 3 : brand = "7-eleven"
+        default : break;
+        }
+        
+        for subview in self.productScrollView.subviews {
+            subview.removeFromSuperview()
+        }
+        
+        if self.productScrollView != nil {
+            let imageViewWidth = self.productScrollView.frame.size.width;
+            let imageViewHeight = self.productScrollView.frame.size.height;
+            var xPosition:CGFloat = 0;
+            var cnt = 0
+            let scrollViewNum = 10
+            self.productScrollView.contentSize = CGSize(width: imageViewWidth / 3.0 * CGFloat(scrollViewNum), height: imageViewHeight);
+            
+            
+            for product in productList {
+                if cnt >= scrollViewNum {
+                    break;
+                }
+                
+                let url = URL(string: product.image)
+                let productView = MainProduct.instanceFromNib()
+                productView.translatesAutoresizingMaskIntoConstraints = true
+                productView.frame = CGRect(x: xPosition, y: 0, width: imageViewWidth / 3.0, height: imageViewWidth / 3.0)
+                productView.center.y = imageViewHeight / 2.0
+                
+                // productView들어감
+                
+                productView.productImageview.af_setImage(withURL: url!)
+                productView.rankLabel.text = (cnt + 1).description
+                
+                switch (product.brand) {
+                case "GS25":
+                    productView.logoImageView.image = #imageLiteral(resourceName: "logo_gs25.png")
+                case "7-eleven":
+                    productView.logoImageView.image = #imageLiteral(resourceName: "logo_7eleven.png")
+                case "CU":
+                    productView.logoImageView.image = #imageLiteral(resourceName: "logo_cu.png")
+                default :
+                    productView.logoImageView.image = #imageLiteral(resourceName: "ic_common.png")
+                }
+
+                productView.nameLabel.text = product.name
+                
+                self.productScrollView.addSubview(productView)
+                xPosition += imageViewWidth / 3.0
+                cnt = cnt + 1
+            }
+        }
+    }
+    
     // 리뷰 스크롤을 눌렀을 때 전환하는 함수
     func handleTap(_ sender: UITapGestureRecognizer) {
         NotificationCenter.default.post(name: NSNotification.Name("showReview"), object: self)
     }
     
-    // 변할때
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        reviewScrollView.translatesAutoresizingMaskIntoConstraints = true
-        reviewScrollView.frame.size.width = size.width
-        collectionView.translatesAutoresizingMaskIntoConstraints = true
-        collectionView.frame.size.width = size.width
-        categoryScrollView.translatesAutoresizingMaskIntoConstraints = true
-        categoryScrollView.frame.size.width = size.width
-        
-        collectionView.reloadData()
-        setReviewScrollImages()
-    }
     
 }
 
-extension MainViewController: UICollectionViewDataSource { //메인화면에서 1,2,3위 상품 보여주기
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1;
-    }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView.bounds.width < 375 {
-            return 2;
-        }else if collectionView.bounds.width < 414{
-            return 3;
-        }else if collectionView.bounds.width < 667{
-            return 4;
-        }else{
-            return 5;
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? MainRankCollectionViewCell {
-
-
-            
-            if (productList.count > 2) && (indexPath.item < 5) {
-                cell.loading.startAnimating()
-                cell.foodImage.af_setImage(withURL: URL(string: productList[indexPath.item].image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
-                    cell.loading.stopAnimating()
-                })
-                
-                for sub in cell.brandLabel.subviews {
-                    sub.removeFromSuperview()
-                }
-                
-                let imageview : UIImageView = UIImageView()
-                switch (productList[indexPath.item].brand) {
-                case "GS25":
-                    imageview.image = #imageLiteral(resourceName: "logo_gs25.png")
-                    imageview.frame.size.width = 35;
-                    imageview.frame.size.height = 15;
-                    imageview.center = CGPoint.init(x: cell.brandLabel.frame.size.width  / 2, y: cell.brandLabel.frame.size.height / 2);
-                case "7-eleven":
-                    imageview.image = #imageLiteral(resourceName: "logo_7eleven.png")
-                    imageview.frame.size.width = 66;
-                    imageview.frame.size.height = 12;
-                    imageview.center = CGPoint.init(x: cell.brandLabel.frame.size.width  / 2, y: cell.brandLabel.frame.size.height / 2);
-                case "CU":
-                    imageview.image = #imageLiteral(resourceName: "logo_cu.png")
-                    imageview.frame.size.width = 32;
-                    imageview.frame.size.height = 14;
-                    imageview.center = CGPoint.init(x: cell.brandLabel.frame.size.width  / 2, y: cell.brandLabel.frame.size.height / 2);
-                default :
-                    imageview.image = #imageLiteral(resourceName: "ic_common.png")
-                    imageview.frame.size.width = 50;
-                    imageview.frame.size.height = 20;
-                    imageview.center = CGPoint.init(x: cell.brandLabel.frame.size.width  / 2, y: cell.brandLabel.frame.size.height / 2);
-
-                }
-                
-                cell.brandLabel.addSubview(imageview)
-                cell.nameLabel.text = productList[indexPath.item].name
-                cell.rankLabel.text = (indexPath.item + 1).description
-            }
-            
-            return cell
-        }
-        
-        return MainRankCollectionViewCell()
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let cell = sender as! MainRankCollectionViewCell
-        let indexRow = self.collectionView!.indexPath(for: cell)?.row
-        if productList.count > 0 {
-            let product = productList[indexRow!]
-            NotificationCenter.default.post(name: NSNotification.Name("showProduct"), object: self, userInfo: ["product" : product])
-        }
-    }
-}
-extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    
-}
+//extension MainViewController: UICollectionViewDataSource { //메인화면에서 1,2,3위 상품 보여주기
+//    func numberOfSections(in collectionView: UICollectionView) -> Int {
+//        return 1;
+//    }
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        if collectionView.bounds.width < 375 {
+//            return 2;
+//        }else if collectionView.bounds.width < 414{
+//            return 3;
+//        }else if collectionView.bounds.width < 667{
+//            return 4;
+//        }else{
+//            return 5;
+//        }
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        if let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? MainRankCollectionViewCell {
+//
+//
+//            
+//            if (productList.count > 2) && (indexPath.item < 5) {
+//                cell.loading.startAnimating()
+//                cell.foodImage.af_setImage(withURL: URL(string: productList[indexPath.item].image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
+//                    cell.loading.stopAnimating()
+//                })
+//                
+//                for sub in cell.brandLabel.subviews {
+//                    sub.removeFromSuperview()
+//                }
+//                
+//                let imageview : UIImageView = UIImageView()
+//                switch (productList[indexPath.item].brand) {
+//                case "GS25":
+//                    imageview.image = #imageLiteral(resourceName: "logo_gs25.png")
+//                    imageview.frame.size.width = 35;
+//                    imageview.frame.size.height = 15;
+//                    imageview.center = CGPoint.init(x: cell.brandLabel.frame.size.width  / 2, y: cell.brandLabel.frame.size.height / 2);
+//                case "7-eleven":
+//                    imageview.image = #imageLiteral(resourceName: "logo_7eleven.png")
+//                    imageview.frame.size.width = 66;
+//                    imageview.frame.size.height = 12;
+//                    imageview.center = CGPoint.init(x: cell.brandLabel.frame.size.width  / 2, y: cell.brandLabel.frame.size.height / 2);
+//                case "CU":
+//                    imageview.image = #imageLiteral(resourceName: "logo_cu.png")
+//                    imageview.frame.size.width = 32;
+//                    imageview.frame.size.height = 14;
+//                    imageview.center = CGPoint.init(x: cell.brandLabel.frame.size.width  / 2, y: cell.brandLabel.frame.size.height / 2);
+//                default :
+//                    imageview.image = #imageLiteral(resourceName: "ic_common.png")
+//                    imageview.frame.size.width = 50;
+//                    imageview.frame.size.height = 20;
+//                    imageview.center = CGPoint.init(x: cell.brandLabel.frame.size.width  / 2, y: cell.brandLabel.frame.size.height / 2);
+//
+//                }
+//                
+//                cell.brandLabel.addSubview(imageview)
+//                cell.nameLabel.text = productList[indexPath.item].name
+//                cell.rankLabel.text = (indexPath.item + 1).description
+//            }
+//            
+//            return cell
+//        }
+//        
+//        return MainRankCollectionViewCell()
+//    }
+//    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let cell = sender as! MainRankCollectionViewCell
+//        let indexRow = self.collectionView!.indexPath(for: cell)?.row
+//        if productList.count > 0 {
+//            let product = productList[indexRow!]
+//            NotificationCenter.default.post(name: NSNotification.Name("showProduct"), object: self, userInfo: ["product" : product])
+//        }
+//    }
+//}
+//extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+//    
+//}
