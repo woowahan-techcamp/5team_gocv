@@ -266,7 +266,7 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //ë
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell =  tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? ReviewTableViewCell {
-            
+            cell.selectionStyle = UITableViewCellSelectionStyle.none
             let review = reviewList[indexPath.item]
             cell.userImage.layer.cornerRadius = cell.userImage.frame.height/2
             cell.userImage.clipsToBounds = true

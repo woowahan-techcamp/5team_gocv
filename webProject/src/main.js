@@ -471,10 +471,11 @@ class Counter {
             const val = $(this).scrollTop();
             const cover = $('.cover');
             if (max < val) {
+                console.log("냠냠");
 
-                $('#counter1').animateNumber({number: this.counter1}, 2000);
-                $('#counter2').animateNumber({number: this.counter2}, 2000);
-                $('#counter3').animateNumber({number: this.counter3}, 2000);
+                $('#counter1').animateNumber({number:1000}, 2000);
+                $('#counter2').animateNumber({number:1000}, 2000);
+                $('#counter3').animateNumber({number:1000}, 2000);
                 max = 99999;
             }
         }.bind(this));
@@ -797,12 +798,25 @@ class Review {
                 util.setHandlebars(reviewArr);
                 document.querySelector('#loading').style.display = "none"
 
+                const Event = function(){
+                    this.getAttribute = function (name) {
+                        return that.product.id;
+                    };
+                }
+
+
+                const event = new Event();
+                console.log(event);
+                console.log(event.getAttribute("ss"))
+
+                loadDetailProduct(event);
+
+
             }.bind(that));
 
         }.bind(this)).catch(function (error) {
             console.log(error);
             document.querySelector('#loading').style.display = "none"
-
         });
     }
 
