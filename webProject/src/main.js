@@ -681,12 +681,25 @@ class Review {
                 util.template(reviewArr, template2, sec2);
                 document.querySelector('#loading').style.display = "none"
 
+                const Event = function(){
+                    this.getAttribute = function (name) {
+                        return that.product.id;
+                    };
+                }
+
+
+                const event = new Event();
+                console.log(event);
+                console.log(event.getAttribute("ss"))
+
+                loadDetailProduct(event);
+
+
             }.bind(that));
 
         }.bind(this)).catch(function (error) {
             console.log(error);
             document.querySelector('#loading').style.display = "none"
-
         });
     }
 

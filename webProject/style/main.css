@@ -498,7 +498,7 @@
     margin-top: 300px;
     width: 100%;
     height: 550px;
-    background-image: url("/image/counter_bg.jpg");
+    background-color: #ff724b;
     background-repeat: no-repeat;
     background-size: cover;
 }

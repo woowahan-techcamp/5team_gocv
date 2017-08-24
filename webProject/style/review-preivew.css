@@ -13,6 +13,7 @@
 }
 
 .review-preview-title{
+    cursor: pointer;
     float: left;
     width: 150px;
     margin-left: 2%;
@@ -23,6 +24,10 @@
     font-size: 15px;
     height: 25px;
     line-height: 25px;
+}
+
+.review-preview-title:hover{
+    filter: brightness(120%);
 }
 
 
