@@ -370,8 +370,13 @@ class MainViewController: UIViewController {
 
                 productView.nameLabel.text = product.name
                 
+                productView.tag = cnt
                 
-                // 상품을 눌렀을 때 상세로 보여주는 함수
+               
+                let tap = UITapGestureRecognizer(target: self, action: #selector(self.showProduct(_:)))
+                
+                productView.addGestureRecognizer(tap)
+                productView.isUserInteractionEnabled = true
                
                 self.productScrollView.addSubview(productView)
                 xPosition += imageViewWidth / 3.0
@@ -385,6 +390,17 @@ class MainViewController: UIViewController {
         NotificationCenter.default.post(name: NSNotification.Name("showReview"), object: self)
     }
     
+    
+     // 상품을 눌렀을 때 상세를 보여주는 함수
+    func showProduct(_ sender: UITapGestureRecognizer) {
+        if productList.count > 0 {
+            let product = productList[(sender.view?.tag)!]
+            NotificationCenter.default.post(name: NSNotification.Name("showProduct"), object: self, userInfo: ["product" : product])
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "mainNavigationController") as! UINavigationController
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
    
     
     
