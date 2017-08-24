@@ -11,7 +11,6 @@ import Alamofire
 
 class ProductDetailViewController: UIViewController {
    
-    
     @IBOutlet weak var uploadingView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var writingReviewBtn: UIButton!
@@ -257,6 +256,7 @@ class ProductDetailViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let user = appDelegate.user
         if user?.email != "" {
@@ -313,6 +313,21 @@ class ProductDetailViewController: UIViewController {
     
     func popAllergyList(){
         
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        if velocity.y > 0 {
+            UIView.animate(withDuration: 0.7, delay: 0, animations: {
+                self.writingReviewBtn.frame.origin.y += 100
+            }, completion: { (complete:Bool) in
+                self.writingReviewBtn.isHidden = true
+            })
+        } else {
+            self.writingReviewBtn.isHidden = false
+            UIView.animate(withDuration: 0.7, delay: 0, animations: {
+                self.writingReviewBtn.frame.origin.y -= 100
+            })
+        }
     }
 }
 

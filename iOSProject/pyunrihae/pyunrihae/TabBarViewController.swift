@@ -92,6 +92,8 @@ class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
     }
     func doneLoading() {
         done = true
+        brandContentView.isHidden = false
+        tabContentView.isHidden = false
         self.stopAnimating()
         UIView.animate(withDuration: 0.5, delay: 0, animations: {
             self.waitingImage.alpha -= 1
@@ -104,6 +106,8 @@ class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        brandContentView.isHidden = true
+        tabContentView.isHidden = true
         saveProductListToGlobal()
         NVActivityIndicatorView.DEFAULT_BLOCKER_BACKGROUND_COLOR = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
         NVActivityIndicatorView.DEFAULT_TYPE = .pacman
