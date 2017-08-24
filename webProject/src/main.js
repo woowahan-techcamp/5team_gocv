@@ -86,6 +86,21 @@ class Util {
         const tmpl = Handlebars.compile(template);
         section.innerHTML = tmpl(context);
     }
+
+    setHandlebars(value){
+        let i = 0;
+        for (const x of value) {
+            $("#carousel-review-star" + i).rateYo({
+                rating: x.grade,
+                readOnly: true,
+                spacing: "10px",
+                starWidth: "20px",
+                normalFill: "#e2dbd6",
+                ratedFill: "#ffcf4d"
+            });
+            i++;
+        }
+    }
 }
 
 //main 상단 리뷰 캐러셀
@@ -752,6 +767,8 @@ class Review {
                 const template2 = document.querySelector("#review-template").innerHTML;
                 const sec2 = document.querySelector("#popupReview");
                 util.template(reviewArr, template2, sec2);
+
+                util.setHandlebars(reviewArr);
                 document.querySelector('#loading').style.display = "none"
 
             }.bind(that));
@@ -830,6 +847,7 @@ class ReviewFilter {
     getDefaultArrayObject() {
         const queryObj = [];
         const obj = this.reviewArray;
+        let i = 0;
 
         for (const key in obj) {
             const value = obj[key];
@@ -838,8 +856,10 @@ class ReviewFilter {
             const splitTimestamp = time.split(' ');
 
             value['time_score'] = this.getDate(splitTimestamp[0]) + this.getTime(splitTimestamp[1]);
+            value['rating'] = "carousel-review-star" + i;
 
             queryObj.push(value);
+            i++;
         }
 
         return queryObj;
@@ -979,6 +999,7 @@ class ReviewFilter {
         const popup = document.querySelector("#popupReview");
 
         util.template(this.reviewObj, template, popup);
+        util.setHandlebars(this.reviewObj);
     }
 }
 

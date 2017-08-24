@@ -760,13 +760,10 @@
                 <div class="popup-review-name"> {{user}}</div>
             </div>
             <div style="height: 80px" class="carousel-review-star">
-                <ul>
-                    <li class="carousel-review-starElement popup-review-star"></li>
-                    <li class="carousel-review-starElement popup-review-star"></li>
-                    <li class="carousel-review-starElement popup-review-star"></li>
-                    <li class="carousel-review-starElement popup-review-star"></li>
-                    <li style="display:none" class="carousel-review-starElement popup-review-star"></li>
-                </ul>
+                <!--<div class="review-preview-star">-->
+                    <div id="{{rating}}">
+                    </div>
+                <!--</div>-->
             </div>
             <div class="popup-review-eval">
                 <div style="float:right; width: 130px">
@@ -800,7 +797,7 @@
 
             </div>
         </div>
-        <img class="popup-review-image" src="{{p_image}}">
+        <img class="popup-review-image" src="{{p_image}}" onerror="this.onerror=null;this.src='../image/no_image.gif';">
         <div class="popup-review-bottom">
             <div class="popup-review-comment"> {{comment}}
             </div>
@@ -869,7 +866,7 @@
 
         <div class="review-preview-bottom">
             <img class="review-preview-image" src="{{p_image}}"
-                 onerror="this.onerror=null;this.src='./image/not_found.gif';">
+                 onerror="this.onerror=null;this.src='./image/no_image.gif';">
             <div class="review-preview-option">
                 {{comment}}
             </div>
@@ -877,15 +874,15 @@
     </div>
     {{/this}}
 </script>
+
 <script id="card-review-page-template" type="text/x-handlebars-template">
     {{#this}}
-
     <div class="review-card-content" name={{key}} onclick="loadReviewDetail(this)">
         <div class="review-card-image-wrapper">
             <img class="review-card-brand" src="{{brand_image}}"/>
             <a href="#popup">
                 <img class="review-card-image" src="{{p_image}}"
-                     onerror="this.onerror=null;this.src='../image/no_image.gif';"/
+                     onerror="this.onerror=null;this.src='./image/no_image.gif';">
             </a>
             <div class="review-user-image-wrapper">
                 <img class="review-user-image"
