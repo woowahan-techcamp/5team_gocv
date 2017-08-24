@@ -495,7 +495,7 @@ class Counter {
     }
 
     setAnimation() {
-        window.addEventListener('scroll', function(e) {
+        window.addEventListener('scroll', function (e) {
             let val = $(window).scrollTop();
             let max = this.max;
             const cover = $('.cover');
@@ -623,8 +623,6 @@ class Review {
         }.bind(this));
 
 
-
-
     }
 
     //초기화 함수
@@ -705,7 +703,6 @@ class Review {
     setStar() {
         $("#" + this.id).rateYo({
             fullStar: true, // 정수단위로
-            readOnly: true,
             spacing: "15px" // margin
 
         }).on("rateyo.change", function (e, data) {
@@ -1074,32 +1071,162 @@ class ReviewFilter {
 }
 
 class ReviewHeart {
-    constructor(userId,productId,reviewId, likeList) {
+    constructor(userId, productId, reviewId, likeList) {
         this.userId = userId;
         this.productId = productId;
         this.reviewId = reviewId;
         this.likeList = likeList;
         this.db = new DB();
-        this.init();
         this.setEvent()
     }
 
-    init(){
+    setEvent() {
         // console.log(this.db.review);
         // console.log(this.db.user);
         // console.log(this.db.product);
 
-        document.querySelector(".popup-reviewWrapperList").addEventListener("click",function(e){
+        document.querySelector(".popup-reviewWrapperList").addEventListener("click", function (e) {
 
-            if(e.target.className=== "popup-review-good"||e.target.className === "popup-review-good"){
+
+            if (e.target.className === "popup-review-good" || e.target.className === "popup-review-bad") {
+
                 this.userId = firebase.auth().currentUser.uid;
                 this.productId = e.target.getAttribute("name");
                 this.reviewId = e.target.parentElement.getAttribute("name");
+                //
+                // console.log(this.userId);
+                // console.log(this.productId);
+                // console.log(this.reviewId);
 
-                console.log(this.db.user.userId)
+                this.likeList = this.db.user[this.userId].review_like_list[this.reviewId];
+                // console.log(!this.likeList)
 
-                this.likeList = this.db.user.userId.review_like_list;
-                console.log(!!this.likeList);
+                const that = this;
+
+                //데이터가 없거나, 0일경우
+                if (!this.likeList || this.likeList === 0) {
+                    console.log("데이터가 없거나, 0일경우")
+
+                    document.querySelector('#loading').style.display = "block"
+                    e.target.disabled = true;
+
+
+                    let value = 0;
+                    let newValue = parseInt(e.target.nextSibling.nextSibling.innerHTML);
+                    newValue += 1;
+                    e.target.nextSibling.nextSibling.innerHTML = newValue;
+
+
+                    //good 버튼을 누를 경우
+                    if (e.target.className === "popup-review-good") {
+                        value = 1;
+                        firebase.database().ref('review/' + this.reviewId + "/useful")
+                            .set(this.db.review[this.reviewId].useful + 1).then(function () {
+                            that.db.updateReviewDb();
+                        }.bind(that));
+
+                        //bad button을 누를 경우
+                    } else {
+                        value = -1;
+                        firebase.database().ref('review/' + this.reviewId + "/useful")
+                            .set(this.db.review[this.reviewId].bad - 1).then(function () {
+                            this.db.updateReviewDb();
+
+                        }.bind(that));
+                    }
+
+
+                    //userDb에 해당 값을 업데이트
+                    firebase.database().ref('user/' + this.userId + "/review_like_list/" + this.reviewId)
+                        .set(value).then(function () {
+                        const that2=that;
+                        firebase.database().ref('user/').once('value').then(function (snapshot) {
+                            localStorage['user'] = JSON.stringify(snapshot.val());
+                            that2.db.user = JSON.parse(localStorage['user']);
+                            document.querySelector('#loading').style.display = "none"
+                            e.target.disabled = false;
+                            console.log("user 캐시 업데이트")
+                        }.bind(that2));
+                    }.bind(that));
+
+                    //이미 선택된적이 있는 경우
+                } else if (this.likeList === 1) {
+                    console.log("good 으로 선택된적 있는 경우")
+                    document.querySelector('#loading').style.display = "block"
+                    e.target.disabled = true;
+
+                    if (e.target.className === "popup-review-good") {
+
+
+                        let newValue = parseInt(e.target.nextSibling.nextSibling.innerHTML);
+                        newValue -= 1;
+                        e.target.nextSibling.nextSibling.innerHTML = newValue;
+
+                        let value = 0;
+                        firebase.database().ref("review/" + this.reviewId + '/useful').set(newValue).then(function () {
+                            this.db.updateReviewDb();
+                        }.bind(that));
+
+                        //userDb에 해당 값을 업데이트
+                        firebase.database().ref('user/' + this.userId + "/review_like_list/" + this.reviewId)
+                            .set(value).then(function () {
+                            const that2=that;
+                            firebase.database().ref('user/').once('value').then(function (snapshot) {
+                                localStorage['user'] = JSON.stringify(snapshot.val());
+                                that2.db.user = JSON.parse(localStorage['user']);
+                                document.querySelector('#loading').style.display = "none"
+                                e.target.disabled = false;
+                                console.log("user 캐시 업데이트")
+                            }.bind(that2));
+                        }.bind(that));
+                    } else {
+
+                        console.log("아무반응이 없어야함")
+                        document.querySelector('#loading').style.display = "none"
+                        e.target.disabled = false
+
+                    }
+
+                } else if (this.likeList === -1) {
+                    console.log("bad 으로 선택된적 있는 경우")
+                    document.querySelector('#loading').style.display = "block"
+                    e.target.disabled = true;
+
+
+                    if (e.target.className === "popup-review-bad") {
+
+                        let newValue = parseInt(e.target.nextSibling.nextSibling.innerHTML);
+                        newValue -= 1;
+                        e.target.nextSibling.nextSibling.innerHTML = newValue;
+
+
+                        let value = 0;
+                        firebase.database().ref('review/' + this.reviewId + "/bad")
+                            .set(this.db.review[this.reviewId].bad - 1).then(function () {
+                            this.db.updateReviewDb();
+                        }.bind(that));
+
+                        //userDb에 해당 값을 업데이트
+                        firebase.database().ref('user/' + this.userId + "/review_like_list/" + this.reviewId)
+                            .set(value).then(function () {
+                            const that2=that;
+                            firebase.database().ref('user/').once('value').then(function (snapshot) {
+                                localStorage['user'] = JSON.stringify(snapshot.val());
+                                that2.db.user = JSON.parse(localStorage['user']);
+                                document.querySelector('#loading').style.display = "none"
+                                e.target.disabled = false;
+                                console.log("user 캐시 업데이트")
+                            }.bind(that2));
+                        }.bind(that));
+
+                    } else {
+
+                        console.log("아무반응이 없어야함")
+                        document.querySelector('#loading').style.display = "none"
+                        e.target.disabled = false
+
+                    }
+                }
 
 
             }
@@ -1108,65 +1235,52 @@ class ReviewHeart {
 
     }
 
-    getData(){
-        console.log(this.db.user.userId.review_like_list);
-        this.likeList = this.db.user.userId.review_like_list ;
-    }
-
-
-    setEvent(){
-
-
-
-
-    }
-
-
-
 
 }
 
 
 class DB {
-    constructor(){
+    constructor() {
         this.user = JSON.parse(localStorage['user']);
         this.product = JSON.parse(localStorage['product']);
         this.review = JSON.parse(localStorage['review']);
     }
 
-    init(){
+    init() {
         this.updateUserDb();
         this.updateProductDb();
         this.updateReviewDb();
     }
 
-    updateUserDb(){
+    updateUserDb() {
         firebase.database().ref('user/').once('value').then(function (snapshot) {
             localStorage['user'] = JSON.stringify(snapshot.val());
             this.user = JSON.parse(localStorage['user']);
-        }.bind(this));
-    }
-
-    updateReviewDb(){
-        firebase.database().ref('product/').once('value').then(function (snapshot) {
-            localStorage['product'] = JSON.stringify(snapshot.val());
-            this.product = JSON.parse(localStorage['product']);
+            document.querySelector('#loading').style.display = "none"
+            console.log("user 캐시 업데이트")
 
         }.bind(this));
     }
 
-    updateProductDb(){
+    updateReviewDb() {
         firebase.database().ref('review/').once('value').then(function (snapshot) {
             localStorage['review'] = JSON.stringify(snapshot.val());
-            this.review = JSON.parse(localStorage['review']);
+            this.product = JSON.parse(localStorage['review']);
+            document.querySelector('#loading').style.display = "none"
+            console.log("review 캐시 업데이트")
+
+        }.bind(this));
+    }
+
+    updateProductDb() {
+        firebase.database().ref('product/').once('value').then(function (snapshot) {
+            localStorage['product'] = JSON.stringify(snapshot.val());
+            this.review = JSON.parse(localStorage['product']);
+            document.querySelector('#loading').style.display = "none"
+            console.log("product 캐시 업데이트")
         }.bind(this));
     }
 }
-
-
-
-
-
 
 
 function loadDetailProduct(event) {
@@ -1185,8 +1299,6 @@ function loadDetailProduct(event) {
     const template = document.querySelector("#popup-template").innerHTML;
     const sec = document.querySelector("#popup");
     const util = new Util();
-
-
 
 
     // const value = obj[grade_total]/obj[grade_count];
@@ -1278,7 +1390,6 @@ function loadDetailProduct(event) {
     });
 
     const reviewHeart = new ReviewHeart();
-
 
 
     document.querySelector(".popup-close").addEventListener("click", function () {
