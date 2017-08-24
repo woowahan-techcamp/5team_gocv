@@ -171,10 +171,9 @@ class DataManager{
      */
     
     static func getProductAllInRank(completion : @escaping ([Product]) -> ()){
-        let localRef = ref.child("product")
         
-        let query = localRef.queryOrdered(byChild: "grade_avg")
-        query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+        let localRef = ref.child("product")
+        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             var productList : [Product] = []
             for childSnapshot in snapshot.children {
                 let product = Product.init(snapshot: childSnapshot as! DataSnapshot)
@@ -580,19 +579,6 @@ class DataManager{
      */
     
     
-    // 상품 이름으로 상품아이디 가져오기 (겹치는 게 있을 시 처음 것)
-    static func getProductId(from: String, completion : @escaping (String) -> ()){
-        let localRef = ref.child("product")
-        let query = localRef.queryOrdered(byChild: "name").queryEqual(toValue: from)
-        
-        query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
-            var product = Product()
-            for childSnapshot in snapshot.children {
-                product = Product.init(snapshot: childSnapshot as! DataSnapshot)
-            }
-            completion(product.id)
-        })
-    }
     
     /*
      *  회원가입 화면

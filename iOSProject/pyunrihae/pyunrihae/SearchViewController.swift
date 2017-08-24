@@ -14,7 +14,7 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
     @IBAction func onBackBtnPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    
+    var db : [YNSearchModel] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,8 +36,6 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
         
         self.ynSearchView.ynSearchMainView.redrawSearchHistoryButtons()
         
-        var db : [YNSearchModel] = []
-        
         let appdelegate = UIApplication.shared.delegate as! AppDelegate
             
             for product in appdelegate.productList {
@@ -45,7 +43,7 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
                 db.append(searchModel)
             }
             DispatchQueue.main.async {
-                self.initData(database: db)
+                self.initData(database: self.db)
                 self.setYNCategoryButtonType(type: YNCategoryButtonType.border)
             }
 
@@ -64,15 +62,20 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
     func ynSearchHistoryButtonClicked(text: String) {
         // 검색 history가 카테고리와 같으면 카테고리로 보냄
         
-        let demoCategories = ["도시락","김밥","베이커리","라면","즉석식품","스낵","유제품","음료"]
+        let demoCategories = ["도시락","김밥","베이커리","라면","식품","스낵","아이스크림","음료"]
         
         for category in demoCategories {
             if text == category {
                 pushRankingController(text: text)
             }
         }
-        
-        pushViewControllerFromProductName(text : text)
+        var key = ""
+        for i in 0..<db.count{
+            if db[i].key == text {
+                key = db[i].id!
+            }
+        }
+        self.pushViewController(text : key)
     }
     
     
@@ -118,9 +121,8 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
     }
     
     func pushRankingController(text : String) {
+        NotificationCenter.default.post(name: NSNotification.Name("showRanking"), object: self)
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
         var categoryIndex = 0
         switch (text){
         case "도시락" : categoryIndex = 1
@@ -133,29 +135,8 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
         case "음료" : categoryIndex = 8
         default : categoryIndex = 0
         }
-        vc.selectedTabIndex = 1
-        vc.categoryIndex = categoryIndex
         
-        self.present(vc, animated: true, completion : nil )
-        vc.pyunrihaeImage.isHidden = true
-        vc.waitingImage.isHidden = true
-        vc.watingView.isHidden = true
-        vc.brandContentView.isHidden = false
-        vc.contentView.isHidden = false
         NotificationCenter.default.post(name: NSNotification.Name("selectCategory"), object: self, userInfo: ["category" : categoryIndex])
-    }
-    
-    func pushViewControllerFromProductName(text : String) {
-        DataManager.getProductId(from: text) { (productId) in
-            SelectedProduct.foodId = productId
-            SelectedProduct.reviewCount = 0
-            DataManager.getReviewListBy(id: text) { (reviewList) in
-                SelectedProduct.reviewCount = reviewList.count
-                NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
-            }
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "mainNavigationController") as! UINavigationController
-            self.present(vc, animated: true, completion: nil)
-        }
+        self.dismiss(animated: true, completion: nil)
     }
 }
