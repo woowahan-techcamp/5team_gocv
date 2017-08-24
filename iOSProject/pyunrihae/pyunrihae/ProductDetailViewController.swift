@@ -55,7 +55,6 @@ class ProductDetailViewController: UIViewController {
     var reviewIdList = [String]()
     var product = Product()
     let appdelegate = UIApplication.shared.delegate as! AppDelegate
-    
     func didPressallergyBtn(sender: UIButton){ // 알러지 리스트 누르기
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -311,22 +310,22 @@ class ProductDetailViewController: UIViewController {
         }
     }
     
-    func popAllergyList(){
-        
-    }
-    
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         if velocity.y > 0 {
-            UIView.animate(withDuration: 0.7, delay: 0, animations: {
-                self.writingReviewBtn.frame.origin.y += 100
-            }, completion: { (complete:Bool) in
-                self.writingReviewBtn.isHidden = true
-            })
+            if writingReviewBtn.isHidden == false {
+                UIView.animate(withDuration: 0.7, delay: 0, animations: {
+                    self.writingReviewBtn.frame.origin.y += 100
+                }, completion: { (complete:Bool) in
+                    self.writingReviewBtn.isHidden = true
+                })
+            }
         } else {
-            self.writingReviewBtn.isHidden = false
-            UIView.animate(withDuration: 0.7, delay: 0, animations: {
-                self.writingReviewBtn.frame.origin.y -= 100
-            })
+            if writingReviewBtn.isHidden == true {
+                writingReviewBtn.isHidden = false
+                UIView.animate(withDuration: 0.7, delay: 0, animations: {
+                    self.writingReviewBtn.frame.origin.y -= 100
+                })
+            }
         }
     }
 }

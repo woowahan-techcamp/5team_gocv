@@ -85,7 +85,7 @@ class ReviewViewController: UIViewController {
         selectedCategoryIndex = sender.tag
         categoryBtns[previousCategoryIndex].isSelected = false
         Button.select(btn: sender) // 선택된 버튼에 따라 뷰 보여주기
-        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut,animations: {
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut,animations: {
             if sender.tag == 0 || sender.tag == 1 || sender.tag == 2 {
                 self.categoryScrollView.contentOffset.x = CGFloat(0)
             } else if sender.tag == 6 || sender.tag == 7 || sender.tag == 8 {
@@ -108,7 +108,7 @@ class ReviewViewController: UIViewController {
             if selectedCategoryIndex == 0 || selectedCategoryIndex == 1 || selectedCategoryIndex == 2 {
                 categoryScrollView.contentOffset.x = CGFloat(0)
             } else if selectedCategoryIndex == 6 || selectedCategoryIndex == 7 || selectedCategoryIndex == 8 {
-                categoryScrollView.contentOffset.x = CGFloat(7 * 35)
+                categoryScrollView.contentOffset.x = CGFloat(70 * self.category.count) - self.view.frame.size.width
             } else {
                 categoryScrollView.contentOffset.x = CGFloat((selectedCategoryIndex - 1) * 40)
             }

@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
     console.log(user);
 
-
     const profileDrop = document.querySelector('.fixTab-profile-id');
 
     profileDrop.addEventListener("mouseover", function () {
@@ -86,6 +85,21 @@ class Util {
         const tmpl = Handlebars.compile(template);
         section.innerHTML = tmpl(context);
     }
+
+    setHandlebars(value) {
+        let i = 0;
+        for (const x of value) {
+            $("#carousel-review-star" + i).rateYo({
+                rating: x.grade,
+                readOnly: true,
+                spacing: "10px",
+                starWidth: "20px",
+                normalFill: "#e2dbd6",
+                ratedFill: "#ffcf4d"
+            });
+            i++;
+        }
+    }
 }
 
 //main 상단 리뷰 캐러셀
@@ -100,6 +114,8 @@ class Carousel {
         this.sec = sec;
         this.data = [];
         this.index = 0;
+
+        this.now = getNowTimeScore();
         this.init();
     }
 
@@ -181,40 +197,55 @@ class Carousel {
         this.data = JSON.parse(review);
 
         const fakeArr = [];
+        const queryObj = [];
 
-        let i = 1;
-        Object.keys(this.data).forEach(function (e) {
-            const value = this.data[e];
+        for (const key in this.data) {
+            const value = this.data[key];
 
-            fakeArr.push(value);
-        }.bind(this));
+            const time = value.timestamp;
 
-        console.log(fakeArr);
+            const splitTimeStamp = time.split(' ');
 
-        const fakeBeforeValue = fakeArr[9];
-        fakeBeforeValue["rating"] = "carousel-rank-rating" + 0;
+            value['time_score'] = this.getDate(splitTimeStamp[0]) + this.getTime(splitTimeStamp[1]);
 
-        console.log('fakeB', fakeBeforeValue.rating);
+            const dateValue = this.getDateWord(value.time_score);
 
-        const fakeAfterValue = fakeArr[0];
-        fakeAfterValue["rating"] = "carousel-rank-rating" + 11;
+            console.log(dateValue);
 
-        console.log('fakeA', fakeAfterValue.rating);
+            value['date'] = (!!dateValue) ? dateValue : splitTimeStamp[0];
+
+            queryObj.push(value);
+        }
+
+        queryObj.sort(function (a, b) {
+            const beforeTimeScore = parseFloat(a.time_score);
+            const afterTimeScore = parseFloat(b.time_score);
+
+            if (beforeTimeScore < afterTimeScore) {
+                return 1;
+            } else if (beforeTimeScore > afterTimeScore) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
+
+        const fakeBeforeValue = this.clone(queryObj[9]);
+        fakeBeforeValue["rating"] = "carousel-rank-rating" + '0';
+
+        const fakeAfterValue = this.clone(queryObj[0]);
+        fakeAfterValue["rating"] = "carousel-rank-rating" + '11';
 
         const arr = [];
+
         arr.push(fakeBeforeValue);
-
-        console.log('---- ---- ----');
         for (let i = 0; i <= 9; i++) {
-            const value = fakeArr[i];
+            const value = queryObj[i];
 
-            value["rating"] = "carousel-rank-rating" + (i+1);
-
-            console.log(value.rating);
+            value["rating"] = "carousel-rank-rating" + (i + 1);
 
             arr.push(value);
         }
-
         arr.push(fakeAfterValue);
 
         const util = new Util();
@@ -225,16 +256,105 @@ class Carousel {
         this.setRatingHandler(arr);
     }
 
-    setRatingHandler(value){
-        console.log(value.length);
+    getDateWord(value) {
+        const date = (this.now * 1e6) - (value * 1e6);
+
+        if (date < 6000) {
+            if(date / 100 === 0){
+                return '방금 전';
+            }else {
+                return parseInt(date / 100) + '분 전';
+            }
+        } else if (date >= 1e6 && date <= 3e6) {
+            return parseInt(date / 1e6) + '일 전';
+        } else if (date <= 1e6) {
+            const day = parseInt(this.now);
+            const nowHour = parseInt((this.now - day) * 10000) + 2400;
+            const hour = parseInt((value - 634) * 10000);
+
+            return parseInt((nowHour - hour) / 100) + '시간 전';
+        }
+    }
+
+    clone(obj) {
+        if (obj === null || typeof(obj) !== 'object')
+            return obj;
+        const copy = obj.constructor();
+        for (const attr in obj) {
+            if (obj.hasOwnProperty(attr)) {
+                copy[attr] = obj[attr];
+            }
+        }
+        return copy;
+    }
+
+    setRatingHandler(value) {
         let i = 0;
-        for(const x of value){
-            console.log(i);
+        for (const x of value) {
             $('#carousel-rank-rating' + i).rateYo({
-               rating: x.grade
+                rating: x.grade,
+                spacing: "10px",
+                starWidth: "20px",
+                normalFill: "#e2dbd6",
+                ratedFill: "#ffcf4d"
             });
             i++;
         }
+    }
+
+    getDate(value) {
+        const splitDate = value.split('-');
+
+        const yy = parseInt(splitDate[0]);
+        const mm = parseInt(splitDate[1]);
+        const dd = parseInt(splitDate[2]);
+
+        let dateValue = 0;
+
+        for (let x = 2016; x < yy; x++) {
+            if (x % 4 == 0) {
+                if (x % 100 != 0 || x % 400 == 0) {
+                    dateValue += 366;
+                }
+            } else {
+                dateValue += 365;
+            }
+        }
+
+        for (let x = 1; x < mm; x++) {
+            switch (x) {
+                case 4:
+                case 6:
+                case 9:
+                case 11:
+                    dateValue += 31;
+                    break;
+                case 2:
+                    dateValue += 28;
+                default:
+                    dateValue += 31;
+                    break;
+            }
+        }
+
+        dateValue += dd;
+
+        return (dateValue);
+    }
+
+    getTime(value) {
+        const splitTime = value.split(':');
+
+        const hh = parseInt(splitTime[0]);
+        const mm = parseInt(splitTime[1]);
+        const ss = parseInt(splitTime[2]);
+
+        let timeValue = 0;
+
+        timeValue = (mm + (hh * 60)) * 100;
+        timeValue += ss;
+
+        return timeValue / 1e6;
     }
 }
 
@@ -335,20 +455,55 @@ class SearchTab {
 class Counter {
     constructor(max) {
         this.max = max;
+        this.counter1 = 0;
+        this.counter2 = 0;
+        this.counter3 = 0;
+        this.setData();
+
+
     }
 
     setCounter() {
         let max = this.max;
+
+
         $(window).scroll(function () {
             const val = $(this).scrollTop();
             const cover = $('.cover');
             if (max < val) {
-                $('#counter1').animateNumber({number: 4200}, 2000);
-                $('#counter2').animateNumber({number: 3203}, 2000);
-                $('#counter3').animateNumber({number: 23}, 2000);
+                console.log("냠냠");
+
+                $('#counter1').animateNumber({number:1000}, 2000);
+                $('#counter2').animateNumber({number:1000}, 2000);
+                $('#counter3').animateNumber({number:1000}, 2000);
                 max = 99999;
             }
-        });
+        }.bind(this));
+
+    }
+
+    setData() {
+        const productStorage = localStorage['product'];
+        const productData = JSON.parse(productStorage);
+
+        const reviewStorage = localStorage['review'];
+        const reviewData = JSON.parse(reviewStorage);
+
+        const prodcutCount = Object.keys(productData).length;
+        const reviewCount = Object.keys(reviewData).length;
+        let todayReviewCount = 0;
+
+        Object.keys(reviewData).forEach(function (e) {
+            if (timestamp().split(" ")[0] === reviewData[e].timestamp.split(" ")[0]) {
+                todayReviewCount += 1;
+            }
+        })
+
+
+        this.counter1 = parseInt(prodcutCount);
+        this.counter2 = parseInt(reviewCount);
+        this.counter3 = parseInt(todayReviewCount);
+
 
     }
 }
@@ -416,7 +571,8 @@ class Review {
         this.navi = navi;
         this.reviewId = "";
         this.fileName = "";
-        this.init()
+
+        this.init();
 
     }
 
@@ -638,14 +794,29 @@ class Review {
                 const template2 = document.querySelector("#review-template").innerHTML;
                 const sec2 = document.querySelector("#popupReview");
                 util.template(reviewArr, template2, sec2);
+
+                util.setHandlebars(reviewArr);
                 document.querySelector('#loading').style.display = "none"
+
+                const Event = function(){
+                    this.getAttribute = function (name) {
+                        return that.product.id;
+                    };
+                }
+
+
+                const event = new Event();
+                console.log(event);
+                console.log(event.getAttribute("ss"))
+
+                loadDetailProduct(event);
+
 
             }.bind(that));
 
         }.bind(this)).catch(function (error) {
             console.log(error);
             document.querySelector('#loading').style.display = "none"
-
         });
     }
 
@@ -716,6 +887,7 @@ class ReviewFilter {
     getDefaultArrayObject() {
         const queryObj = [];
         const obj = this.reviewArray;
+        let i = 0;
 
         for (const key in obj) {
             const value = obj[key];
@@ -724,8 +896,10 @@ class ReviewFilter {
             const splitTimestamp = time.split(' ');
 
             value['time_score'] = this.getDate(splitTimestamp[0]) + this.getTime(splitTimestamp[1]);
+            value['rating'] = "carousel-review-star" + i;
 
             queryObj.push(value);
+            i++;
         }
 
         return queryObj;
@@ -825,7 +999,7 @@ class ReviewFilter {
         this.setDefaultReviewData();
     }
 
-    setDateSorting(array){
+    setDateSorting(array) {
         array.sort(function (a, b) {
             const beforeTimeScore = parseFloat(a.time_score);
             const afterTimeScore = parseFloat(b.time_score);
@@ -842,7 +1016,7 @@ class ReviewFilter {
         return array;
     }
 
-    setUsefulSorting(array){
+    setUsefulSorting(array) {
         array.sort(function (a, b) {
             const beforeUseful = parseInt(a.useful);
             const afterUseful = parseInt(b.useful);
@@ -865,6 +1039,7 @@ class ReviewFilter {
         const popup = document.querySelector("#popupReview");
 
         util.template(this.reviewObj, template, popup);
+        util.setHandlebars(this.reviewObj);
     }
 }
 
@@ -937,7 +1112,7 @@ function loadDetailProduct(event) {
 
     setTimeout(function () {
         document.querySelector('#loading').style.display = "none"
-    }, 2000);
+    }, 1000);
 
     document.querySelector("#popupWish").addEventListener("click", function () {
         document.querySelector("#popupWish").setAttribute("class", "popup-wish popup-wish-select");
@@ -1013,6 +1188,54 @@ function timestamp() {
         curr_hour + ":" + curr_minute + ":" + curr_second;
 }
 
+function getNowTimeScore() {
+    const d = new Date();
+    const curr_date = d.getDate();
+    const curr_month = d.getMonth() + 1; //Months are zero based
+    const curr_year = d.getFullYear();
+    const curr_hour = d.getHours();
+    const curr_minute = d.getMinutes();
+    const curr_second = d.getSeconds();
+
+    let dateValue = 0;
+
+    for (let x = 2016; x < curr_year; x++) {
+        if (x % 4 == 0) {
+            if (x % 100 != 0 || x % 400 == 0) {
+                dateValue += 366;
+            }
+        } else {
+            dateValue += 365;
+        }
+    }
+
+    for (let x = 1; x < curr_month; x++) {
+        switch (x) {
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                dateValue += 31;
+                break;
+            case 2:
+                dateValue += 28;
+            default:
+                dateValue += 31;
+                break;
+        }
+    }
+
+    dateValue += curr_date;
+
+
+    let timeValue = 0;
+
+    timeValue = (curr_minute + (curr_hour * 60)) * 100;
+    timeValue += curr_second;
+
+    return parseFloat(dateValue + (timeValue / 1e6));
+}
+
 
 function loadReviewDetail(event) {
 
@@ -1041,6 +1264,7 @@ function loadReviewDetail(event) {
         starWidth: "20px",
         normalFill: "#e2dbd6",
         ratedFill: "#ffcf4d"
+
     });
 
     document.querySelector(".popup-newReview-cancel").addEventListener("click", function () {
