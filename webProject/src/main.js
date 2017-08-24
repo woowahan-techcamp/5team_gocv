@@ -11,9 +11,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
     new SearchTab(searchParams);
     const user = firebase.auth().currentUser;
 
-    console.log(user);
-
-
     const profileDrop = document.querySelector('.fixTab-profile-id');
 
     profileDrop.addEventListener("mouseover", function () {
@@ -35,11 +32,44 @@ document.addEventListener('DOMContentLoaded', function (event) {
     const carousel = new Carousel('reviewNavi', 'carousel-leftButton',
         'carousel-rightButton', 10, 'carousel-template', 'carouselSec');
     const counter = new Counter(800);
-    counter.setCounter();
 
-
+    new PopupOverlayClick();
 });
 
+class PopupOverlayClick {
+
+    constructor() {
+        this.signOverlay = document.querySelector('.sign-overlay');
+        this.signInner = document.querySelector('.sign-wrapper');
+
+        this.signFlag = false;
+
+        this.getEvent();
+    }
+
+    getEvent() {
+        /* sign in modal settings */
+        this.signOverlay.addEventListener('click', function () {
+            if (!this.signFlag) {
+                this.closePopup();
+            }
+            this.signFlag = false;
+
+        }.bind(this));
+
+        this.signInner.addEventListener('click', function () {
+            this.signFlag = true;
+        }.bind(this));
+
+    }
+
+    closePopup() {
+        if (!this.signFlag) {
+            this.signOverlay.style.display = "none";
+            this.signFlag = false;
+        }
+    }
+}
 
 class Dropdown {
     constructor(event, button, drop) {
@@ -67,7 +97,6 @@ class Dropdown {
     }
 }
 
-
 class Util {
 
     ajax(func) {
@@ -86,6 +115,21 @@ class Util {
         const tmpl = Handlebars.compile(template);
         section.innerHTML = tmpl(context);
     }
+
+    setHandlebars(value) {
+        let i = 0;
+        for (const x of value) {
+            $("#carousel-review-star" + i).rateYo({
+                rating: x.grade,
+                readOnly: true,
+                spacing: "10px",
+                starWidth: "20px",
+                normalFill: "#e2dbd6",
+                ratedFill: "#ffcf4d"
+            });
+            i++;
+        }
+    }
 }
 
 //main 상단 리뷰 캐러셀
@@ -100,6 +144,8 @@ class Carousel {
         this.sec = sec;
         this.data = [];
         this.index = 0;
+
+        this.now = getNowTimeScore();
         this.init();
     }
 
@@ -181,40 +227,53 @@ class Carousel {
         this.data = JSON.parse(review);
 
         const fakeArr = [];
+        const queryObj = [];
 
-        let i = 1;
-        Object.keys(this.data).forEach(function (e) {
-            const value = this.data[e];
+        for (const key in this.data) {
+            const value = this.data[key];
 
-            fakeArr.push(value);
-        }.bind(this));
+            const time = value.timestamp;
 
-        console.log(fakeArr);
+            const splitTimeStamp = time.split(' ');
 
-        const fakeBeforeValue = fakeArr[9];
-        fakeBeforeValue["rating"] = "carousel-rank-rating" + 0;
+            value['time_score'] = this.getDate(splitTimeStamp[0]) + this.getTime(splitTimeStamp[1]);
 
-        console.log('fakeB', fakeBeforeValue.rating);
+            const dateValue = this.getDateWord(value.time_score);
 
-        const fakeAfterValue = fakeArr[0];
-        fakeAfterValue["rating"] = "carousel-rank-rating" + 11;
+            value['date'] = (!!dateValue) ? dateValue : splitTimeStamp[0];
 
-        console.log('fakeA', fakeAfterValue.rating);
+            queryObj.push(value);
+        }
+
+        queryObj.sort(function (a, b) {
+            const beforeTimeScore = parseFloat(a.time_score);
+            const afterTimeScore = parseFloat(b.time_score);
+
+            if (beforeTimeScore < afterTimeScore) {
+                return 1;
+            } else if (beforeTimeScore > afterTimeScore) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
+
+        const fakeBeforeValue = this.clone(queryObj[9]);
+        fakeBeforeValue["rating"] = "carousel-rank-rating" + '0';
+
+        const fakeAfterValue = this.clone(queryObj[0]);
+        fakeAfterValue["rating"] = "carousel-rank-rating" + '11';
 
         const arr = [];
+
         arr.push(fakeBeforeValue);
-
-        console.log('---- ---- ----');
         for (let i = 0; i <= 9; i++) {
-            const value = fakeArr[i];
+            const value = queryObj[i];
 
-            value["rating"] = "carousel-rank-rating" + (i+1);
-
-            console.log(value.rating);
+            value["rating"] = "carousel-rank-rating" + (i + 1);
 
             arr.push(value);
         }
-
         arr.push(fakeAfterValue);
 
         const util = new Util();
@@ -225,13 +284,46 @@ class Carousel {
         this.setRatingHandler(arr);
     }
 
-    setRatingHandler(value){
-        console.log(value.length);
+    getDateWord(value) {
+        const date = (this.now * 1e6) - (value * 1e6);
+
+        if (date < 6000) {
+            if (date / 100 === 0) {
+                return '방금 전';
+            } else {
+                return parseInt(date / 100) + '분 전';
+            }
+        } else if (date >= 1e6 && date <= 3e6) {
+            return parseInt(date / 1e6) + '일 전';
+        } else if (date <= 1e6) {
+            const day = parseInt(this.now);
+            const nowHour = parseInt((this.now - day) * 10000) + 2400;
+            const hour = parseInt((value - 634) * 10000);
+            if (hour > 1e4) {
+                return parseInt(hour / 1e4) + '시간 전';
+            } else {
+                return parseInt((nowHour - hour) / 100) + '시간 전';
+            }
+        }
+    }
+
+    clone(obj) {
+        if (obj === null || typeof(obj) !== 'object')
+            return obj;
+        const copy = obj.constructor();
+        for (const attr in obj) {
+            if (obj.hasOwnProperty(attr)) {
+                copy[attr] = obj[attr];
+            }
+        }
+        return copy;
+    }
+
+    setRatingHandler(value) {
         let i = 0;
-        for(const x of value){
-            console.log(i);
+        for (const x of value) {
             $('#carousel-rank-rating' + i).rateYo({
-               rating: x.grade,
+                rating: x.grade,
                 spacing: "10px",
                 starWidth: "20px",
                 normalFill: "#e2dbd6",
@@ -239,6 +331,61 @@ class Carousel {
             });
             i++;
         }
+    }
+
+    getDate(value) {
+        const splitDate = value.split('-');
+
+        const yy = parseInt(splitDate[0]);
+        const mm = parseInt(splitDate[1]);
+        const dd = parseInt(splitDate[2]);
+
+        let dateValue = 0;
+
+        for (let x = 2016; x < yy; x++) {
+            if (x % 4 == 0) {
+                if (x % 100 != 0 || x % 400 == 0) {
+                    dateValue += 366;
+                }
+            } else {
+                dateValue += 365;
+            }
+        }
+
+        for (let x = 1; x < mm; x++) {
+            switch (x) {
+                case 4:
+                case 6:
+                case 9:
+                case 11:
+                    dateValue += 31;
+                    break;
+                case 2:
+                    dateValue += 28;
+                default:
+                    dateValue += 31;
+                    break;
+            }
+        }
+
+        dateValue += dd;
+
+        return (dateValue);
+    }
+
+    getTime(value) {
+        const splitTime = value.split(':');
+
+        const hh = parseInt(splitTime[0]);
+        const mm = parseInt(splitTime[1]);
+        const ss = parseInt(splitTime[2]);
+
+        let timeValue = 0;
+
+        timeValue = (mm + (hh * 60)) * 100;
+        timeValue += ss;
+
+        return timeValue / 1e6;
     }
 }
 
@@ -339,55 +486,50 @@ class SearchTab {
 class Counter {
     constructor(max) {
         this.max = max;
-        this.counter1 = 0;
-        this.counter2 = 0;
-        this.counter3 = 0;
+        this.c1 = 0;
+        this.c2 = 0;
+        this.c3 = 0;
         this.setData();
-
+        this.setAnimation()
 
     }
 
-    setCounter() {
-        let max = this.max;
-
-
-        $(window).scroll(function () {
-            const val = $(this).scrollTop();
+    setAnimation() {
+        window.addEventListener('scroll', function(e) {
+            let val = $(window).scrollTop();
+            let max = this.max;
             const cover = $('.cover');
-            if (max < val) {
 
-                $('#counter1').animateNumber({number: this.counter1}, 2000);
-                $('#counter2').animateNumber({number: this.counter2}, 2000);
-                $('#counter3').animateNumber({number: this.counter3}, 2000);
-                max = 99999;
+            if (max < val) {
+                $('#counter1').animateNumber({number: this.c1}, 2000);
+                $('#counter2').animateNumber({number: this.c2}, 2000);
+                $('#counter3').animateNumber({number: this.c3}, 2000);
+                this.max = 99999;
             }
         }.bind(this));
-
     }
 
-    setData(){
+    setData() {
         const productStorage = localStorage['product'];
         const productData = JSON.parse(productStorage);
 
         const reviewStorage = localStorage['review'];
         const reviewData = JSON.parse(reviewStorage);
 
-        const prodcutCount =Object.keys(productData).length;
+        const productCount = Object.keys(productData).length;
         const reviewCount = Object.keys(reviewData).length;
         let todayReviewCount = 0;
 
-        Object.keys(reviewData).forEach(function(e){
-            if(timestamp().split(" ")[0]===reviewData[e].timestamp.split(" ")[0]){
-                todayReviewCount+= 1;
+        Object.keys(reviewData).forEach(function (e) {
+            if (timestamp().split(" ")[0] === reviewData[e].timestamp.split(" ")[0]) {
+                todayReviewCount += 1;
             }
         })
 
 
-        this.counter1=parseInt(prodcutCount);
-        this.counter2=parseInt(reviewCount);
-        this.counter3=parseInt(todayReviewCount);
-
-
+        this.c1 = parseInt(productCount);
+        this.c2 = parseInt(reviewCount);
+        this.c3 = parseInt(todayReviewCount);
 
 
     }
@@ -456,7 +598,8 @@ class Review {
         this.navi = navi;
         this.reviewId = "";
         this.fileName = "";
-        this.init()
+
+        this.init();
 
     }
 
@@ -478,6 +621,10 @@ class Review {
         writeBtn.addEventListener("click", function () {
             this.setOnOff()
         }.bind(this));
+
+
+
+
     }
 
     //초기화 함수
@@ -558,6 +705,7 @@ class Review {
     setStar() {
         $("#" + this.id).rateYo({
             fullStar: true, // 정수단위로
+            readOnly: true,
             spacing: "15px" // margin
 
         }).on("rateyo.change", function (e, data) {
@@ -678,14 +826,27 @@ class Review {
                 const template2 = document.querySelector("#review-template").innerHTML;
                 const sec2 = document.querySelector("#popupReview");
                 util.template(reviewArr, template2, sec2);
+
+                util.setHandlebars(reviewArr);
                 document.querySelector('#loading').style.display = "none"
+
+                const Event = function () {
+                    this.getAttribute = function (name) {
+                        return that.product.id;
+                    };
+                }
+
+
+                const event = new Event();
+
+                loadDetailProduct(event);
+
 
             }.bind(that));
 
         }.bind(this)).catch(function (error) {
             console.log(error);
             document.querySelector('#loading').style.display = "none"
-
         });
     }
 
@@ -728,7 +889,6 @@ class UpLoadImage {
         if (!file) {
         } else {
             reader.readAsDataURL(file);
-            console.log(file.type.split("/")[1])
         }
 
 
@@ -736,6 +896,7 @@ class UpLoadImage {
 
 }
 
+//리뷰 정렬 하는 클래스
 class ReviewFilter {
     constructor(reviewArray) {
         this.reviewFilter = document.querySelector('.popup-reviewFilter-dropdown');
@@ -756,6 +917,7 @@ class ReviewFilter {
     getDefaultArrayObject() {
         const queryObj = [];
         const obj = this.reviewArray;
+        let i = 0;
 
         for (const key in obj) {
             const value = obj[key];
@@ -764,8 +926,10 @@ class ReviewFilter {
             const splitTimestamp = time.split(' ');
 
             value['time_score'] = this.getDate(splitTimestamp[0]) + this.getTime(splitTimestamp[1]);
+            value['rating'] = "carousel-review-star" + i;
 
             queryObj.push(value);
+            i++;
         }
 
         return queryObj;
@@ -865,7 +1029,7 @@ class ReviewFilter {
         this.setDefaultReviewData();
     }
 
-    setDateSorting(array){
+    setDateSorting(array) {
         array.sort(function (a, b) {
             const beforeTimeScore = parseFloat(a.time_score);
             const afterTimeScore = parseFloat(b.time_score);
@@ -882,7 +1046,7 @@ class ReviewFilter {
         return array;
     }
 
-    setUsefulSorting(array){
+    setUsefulSorting(array) {
         array.sort(function (a, b) {
             const beforeUseful = parseInt(a.useful);
             const afterUseful = parseInt(b.useful);
@@ -905,8 +1069,105 @@ class ReviewFilter {
         const popup = document.querySelector("#popupReview");
 
         util.template(this.reviewObj, template, popup);
+        util.setHandlebars(this.reviewObj);
     }
 }
+
+class ReviewHeart {
+    constructor(userId,productId,reviewId, likeList) {
+        this.userId = userId;
+        this.productId = productId;
+        this.reviewId = reviewId;
+        this.likeList = likeList;
+        this.db = new DB();
+        this.init();
+        this.setEvent()
+    }
+
+    init(){
+        // console.log(this.db.review);
+        // console.log(this.db.user);
+        // console.log(this.db.product);
+
+        document.querySelector(".popup-reviewWrapperList").addEventListener("click",function(e){
+
+            if(e.target.className=== "popup-review-good"||e.target.className === "popup-review-good"){
+                this.userId = firebase.auth().currentUser.uid;
+                this.productId = e.target.getAttribute("name");
+                this.reviewId = e.target.parentElement.getAttribute("name");
+
+                console.log(this.db.user.userId)
+
+                this.likeList = this.db.user.userId.review_like_list;
+                console.log(!!this.likeList);
+
+
+            }
+
+        }.bind(this))
+
+    }
+
+    getData(){
+        console.log(this.db.user.userId.review_like_list);
+        this.likeList = this.db.user.userId.review_like_list ;
+    }
+
+
+    setEvent(){
+
+
+
+
+    }
+
+
+
+
+}
+
+
+class DB {
+    constructor(){
+        this.user = JSON.parse(localStorage['user']);
+        this.product = JSON.parse(localStorage['product']);
+        this.review = JSON.parse(localStorage['review']);
+    }
+
+    init(){
+        this.updateUserDb();
+        this.updateProductDb();
+        this.updateReviewDb();
+    }
+
+    updateUserDb(){
+        firebase.database().ref('user/').once('value').then(function (snapshot) {
+            localStorage['user'] = JSON.stringify(snapshot.val());
+            this.user = JSON.parse(localStorage['user']);
+        }.bind(this));
+    }
+
+    updateReviewDb(){
+        firebase.database().ref('product/').once('value').then(function (snapshot) {
+            localStorage['product'] = JSON.stringify(snapshot.val());
+            this.product = JSON.parse(localStorage['product']);
+
+        }.bind(this));
+    }
+
+    updateProductDb(){
+        firebase.database().ref('review/').once('value').then(function (snapshot) {
+            localStorage['review'] = JSON.stringify(snapshot.val());
+            this.review = JSON.parse(localStorage['review']);
+        }.bind(this));
+    }
+}
+
+
+
+
+
+
 
 function loadDetailProduct(event) {
 
@@ -924,6 +1185,9 @@ function loadDetailProduct(event) {
     const template = document.querySelector("#popup-template").innerHTML;
     const sec = document.querySelector("#popup");
     const util = new Util();
+
+
+
 
     // const value = obj[grade_total]/obj[grade_count];
 
@@ -977,7 +1241,9 @@ function loadDetailProduct(event) {
 
     setTimeout(function () {
         document.querySelector('#loading').style.display = "none"
-    }, 2000);
+    }, 1000);
+
+    new ItemPopup();
 
     document.querySelector("#popupWish").addEventListener("click", function () {
         document.querySelector("#popupWish").setAttribute("class", "popup-wish popup-wish-select");
@@ -1001,14 +1267,9 @@ function loadDetailProduct(event) {
 
         if (double) {
             newWishArr.push(id);
-            console.log(newWishArr);
-            console.log(user.uid);
-            console.log('user/' + user.uid + "/wish_product_list");
             firebase.database().ref('user/' + user.uid + "/wish_product_list").set(newWishArr).then(function () {
-                console.log("ss");
                 firebase.database().ref('user/').once('value').then(function (snapshot) {
                     localStorage['user'] = JSON.stringify(snapshot.val());
-                    console.log("완료")
                 });
             });
 
@@ -1016,10 +1277,85 @@ function loadDetailProduct(event) {
 
     });
 
+    const reviewHeart = new ReviewHeart();
+
+
 
     document.querySelector(".popup-close").addEventListener("click", function () {
         $("body").css("overflow", "visible");
     });
+}
+
+class ItemPopup {
+
+    constructor() {
+        this.popupOverlay = document.querySelector('.overlay');
+        this.popupInner = document.querySelector('.popup-wrapper');
+
+        this.flag = false;
+
+        this.getEvent();
+    }
+
+    getEvent() {
+        /* item view modal settings */
+        this.popupOverlay.addEventListener('click', function () {
+            if (!this.flag) {
+                this.closePopup();
+            } else {
+                this.flag = false;
+            }
+        }.bind(this));
+
+        this.popupInner.addEventListener('click', function (e) {
+            this.flag = true;
+            e.stopPropagation();
+        }.bind(this));
+    }
+
+    closePopup() {
+        if (!this.flag) {
+            document.getElementsByClassName('popup-close-fake')[0].click();
+            $("body").css("overflow", "visible");
+            this.flag = false;
+        }
+    }
+}
+
+class ReviewPopup {
+
+    constructor() {
+        this.popupOverlay = document.querySelector('.overlay');
+        this.popupInner = document.querySelector('.popup-review-preview');
+
+        this.flag = false;
+
+        this.getEvent();
+    }
+
+    getEvent() {
+        /* item view modal settings */
+        this.popupOverlay.addEventListener('click', function () {
+            if (!this.flag) {
+                this.closePopup();
+            } else {
+                this.flag = false;
+            }
+        }.bind(this));
+
+        this.popupInner.addEventListener('click', function (e) {
+            this.flag = true;
+            e.stopPropagation();
+        }.bind(this));
+    }
+
+    closePopup() {
+        if (!this.flag) {
+            document.getElementsByClassName('popup-close-fake')[0].click();
+            $("body").css("overflow", "visible");
+            this.flag = false;
+        }
+    }
 }
 
 function timestamp() {
@@ -1053,6 +1389,53 @@ function timestamp() {
         curr_hour + ":" + curr_minute + ":" + curr_second;
 }
 
+function getNowTimeScore() {
+    const d = new Date();
+    const curr_date = d.getDate();
+    const curr_month = d.getMonth() + 1; //Months are zero based
+    const curr_year = d.getFullYear();
+    const curr_hour = d.getHours();
+    const curr_minute = d.getMinutes();
+    const curr_second = d.getSeconds();
+
+    let dateValue = 0;
+
+    for (let x = 2016; x < curr_year; x++) {
+        if (x % 4 == 0) {
+            if (x % 100 != 0 || x % 400 == 0) {
+                dateValue += 366;
+            }
+        } else {
+            dateValue += 365;
+        }
+    }
+
+    for (let x = 1; x < curr_month; x++) {
+        switch (x) {
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                dateValue += 31;
+                break;
+            case 2:
+                dateValue += 28;
+            default:
+                dateValue += 31;
+                break;
+        }
+    }
+
+    dateValue += curr_date;
+
+
+    let timeValue = 0;
+
+    timeValue = (curr_minute + (curr_hour * 60)) * 100;
+    timeValue += curr_second;
+
+    return parseFloat(dateValue + (timeValue / 1e6));
+}
 
 function loadReviewDetail(event) {
 
@@ -1083,6 +1466,8 @@ function loadReviewDetail(event) {
         ratedFill: "#ffcf4d"
 
     });
+
+    new ReviewPopup();
 
     document.querySelector(".popup-newReview-cancel").addEventListener("click", function () {
         $("body").css("overflow", "visible");

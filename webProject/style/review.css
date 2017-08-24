@@ -49,7 +49,7 @@
 
 .review-card-content{
     float: left;
-    box-shadow: 5px 5px 5px #9a9a9a;
+    box-shadow: 3px 3px 3px #d6d6d6;
     border-radius: 10px;
     position: relative;
     width: 28.3%;
@@ -66,8 +66,8 @@
 .review-card-brand{
     position: absolute;
     z-index: 5;
-    width: 15%;
-    height: 50px;
+    width: 20%;
+    height: 40px;
     border-bottom-right-radius: 10px;
 }
 
@@ -128,15 +128,22 @@
     margin-top: 10px;
 }
 
+.review-card-user-id{
+    padding-top: 2px;
+    color: gray;
+    font-size: 14px;
+
+}
+
 .review-card-rating{
 
 }
 
 .review-card-review{
     overflow: auto;
-    color: black;
+    color: #5c5c5c;
     height: 200px;
-    line-height: 2em;
+    line-height: 1.7em;
     background-color: #eeeeee;
     margin-top: 10px;
     border-bottom-right-radius: 10px;

@@ -101,11 +101,8 @@
 
 .popup-wish:hover ,.popup-wish-select{
     filter: brightness(100%);
-    transform: scale(1.3);
+    transform: scale(1.5);
     transition-duration: 0.5s;
-    border: solid 2px #ffc43a;
-
-
 }
 
 .popup-productWrapper{
@@ -187,7 +184,7 @@
     background-color: #e7e7e7;
     margin-left: 5%;
     margin-right: 5%;
-    margin-bottom: 60px;
+    margin-bottom: 0px;
     height: 2px;
 }
 
@@ -316,7 +313,6 @@
 }
 
 .popup-reviewWrapperList{
-    padding-top: 10px;
     width: 100%;
     margin-bottom: 200px;
 }
@@ -478,11 +474,13 @@
 }
 
 .popup-newReviewWrapper{
-    /*display: none;*/
     height: 400px;
-    margin-bottom: 100px;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-radius: 10px;
     background-color: white;
     border: solid 2px #eeeeee;
+
 }
 
 .popup-newReviewWrapper-top{
