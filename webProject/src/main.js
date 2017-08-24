@@ -585,6 +585,10 @@ class Review {
         writeBtn.addEventListener("click", function () {
             this.setOnOff()
         }.bind(this));
+
+
+
+
     }
 
     //초기화 함수
@@ -855,6 +859,7 @@ class UpLoadImage {
 
 }
 
+//리뷰 정렬 하는 클래스
 class ReviewFilter {
     constructor(reviewArray) {
         this.reviewFilter = document.querySelector('.popup-reviewFilter-dropdown');
@@ -1031,6 +1036,102 @@ class ReviewFilter {
     }
 }
 
+class ReviewHeart {
+    constructor(userId,productId,reviewId, likeList) {
+        this.userId = userId;
+        this.productId = productId;
+        this.reviewId = reviewId;
+        this.likeList = likeList;
+        this.db = new DB();
+        this.init();
+        this.setEvent()
+    }
+
+    init(){
+        // console.log(this.db.review);
+        // console.log(this.db.user);
+        // console.log(this.db.product);
+
+        document.querySelector(".popup-reviewWrapperList").addEventListener("click",function(e){
+
+            if(e.target.className=== "popup-review-good"||e.target.className === "popup-review-good"){
+                this.userId = firebase.auth().currentUser.uid;
+                this.productId = e.target.getAttribute("name");
+                this.reviewId = e.target.parentElement.getAttribute("name");
+
+                console.log(this.db.user.userId)
+
+                this.likeList = this.db.user.userId.review_like_list;
+                console.log(!!this.likeList);
+
+
+            }
+
+        }.bind(this))
+
+    }
+
+    getData(){
+        console.log(this.db.user.userId.review_like_list);
+        this.likeList = this.db.user.userId.review_like_list ;
+    }
+
+
+    setEvent(){
+
+
+
+
+    }
+
+
+
+
+}
+
+
+class DB {
+    constructor(){
+        this.user = JSON.parse(localStorage['user']);
+        this.product = JSON.parse(localStorage['product']);
+        this.review = JSON.parse(localStorage['review']);
+    }
+
+    init(){
+        this.updateUserDb();
+        this.updateProductDb();
+        this.updateReviewDb();
+    }
+
+    updateUserDb(){
+        firebase.database().ref('user/').once('value').then(function (snapshot) {
+            localStorage['user'] = JSON.stringify(snapshot.val());
+            this.user = JSON.parse(localStorage['user']);
+        }.bind(this));
+    }
+
+    updateReviewDb(){
+        firebase.database().ref('product/').once('value').then(function (snapshot) {
+            localStorage['product'] = JSON.stringify(snapshot.val());
+            this.product = JSON.parse(localStorage['product']);
+
+        }.bind(this));
+    }
+
+    updateProductDb(){
+        firebase.database().ref('review/').once('value').then(function (snapshot) {
+            localStorage['review'] = JSON.stringify(snapshot.val());
+            this.review = JSON.parse(localStorage['review']);
+        }.bind(this));
+    }
+}
+
+
+
+
+
+
+
 function loadDetailProduct(event) {
 
     $("body").css("overflow", "hidden");
@@ -1047,6 +1148,9 @@ function loadDetailProduct(event) {
     const template = document.querySelector("#popup-template").innerHTML;
     const sec = document.querySelector("#popup");
     const util = new Util();
+
+
+
 
     // const value = obj[grade_total]/obj[grade_count];
 
@@ -1135,6 +1239,10 @@ function loadDetailProduct(event) {
     });
 
 
+    const reviewHeart = new ReviewHeart();
+
+
+
     document.querySelector(".popup-close").addEventListener("click", function () {
         $("body").css("overflow", "visible");
     });
@@ -1219,7 +1327,6 @@ function getNowTimeScore() {
     return parseFloat(dateValue + (timeValue / 1e6));
 }
 
-
 function loadReviewDetail(event) {
 
     $("body").css("overflow", "hidden");
@@ -1249,6 +1356,8 @@ function loadReviewDetail(event) {
         ratedFill: "#ffcf4d"
 
     });
+
+
 
     document.querySelector(".popup-newReview-cancel").addEventListener("click", function () {
         $("body").css("overflow", "visible");
