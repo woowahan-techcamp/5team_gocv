@@ -1,4 +1,8 @@
 
+.good-bad-select{
+    color: yellow !important;
+}
+
 .overlay {
     position: fixed;
     top: 0;
@@ -398,11 +402,11 @@
     cursor:pointer;
     float: left;
     width: 80px;
+    color: white;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     background-color: #9a80ff;
     text-align: center;
-    color: white;
     margin-top: 5px;
     font-size: 12px;
 }
@@ -661,3 +665,4 @@
     background-color: #424242;
     color: white;
 }
+
