@@ -463,7 +463,28 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                 cell.userImage.image = UIImage(named: "user_default.png")
                 cell.uploadedFoodImageBtn.setBackgroundImage(UIImage(), for: .normal)
                 
+                let format = DateFormatter()
+                format.locale = Locale(identifier: "ko_kr")
+                format.timeZone = TimeZone(abbreviation: "KST")
+                format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                
                 if reviewList.count == SelectedProduct.reviewCount && reviewList.count > 0 {
+                    if let writtenDate = format.date(from: reviewList[row].timestamp) {
+                        if writtenDate.timeIntervalSinceNow >= -5 * 24 * 60 * 60 {
+                            if writtenDate.timeIntervalSinceNow <= -1 * 24 * 60 * 60 {
+                                let daysAgo = Int(-writtenDate.timeIntervalSinceNow / 24 / 60 / 60)
+                                cell.timeLabel.text = String(daysAgo) + "일 전"
+                            } else if writtenDate.timeIntervalSinceNow <= -1 * 60 * 60 {
+                                let hoursAgo = Int(-writtenDate.timeIntervalSinceNow / 60 / 60)
+                                cell.timeLabel.text = String(hoursAgo) + "시간 전"
+                            } else {
+                                let minutesAgo = Int(-writtenDate.timeIntervalSinceNow / 60)
+                                cell.timeLabel.text = String(minutesAgo) + "분 전"
+                            }
+                        } else {
+                            cell.timeLabel.text = reviewList[row].timestamp
+                        }
+                    }
                     usefulBtns.append(cell.usefulBtn)
                     badBtns.append(cell.badBtn)
                     reviewIdList.append(reviewList[row].id)

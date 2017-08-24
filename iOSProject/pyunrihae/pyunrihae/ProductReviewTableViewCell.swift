@@ -9,6 +9,7 @@
 import UIKit
 
 class ProductReviewTableViewCell: UITableViewCell {
+    @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var usefulView: UIView!
     @IBOutlet weak var badView: UIView!
     @IBOutlet weak var commentTopConstraint: NSLayoutConstraint!

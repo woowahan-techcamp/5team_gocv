@@ -84,16 +84,16 @@ class RankingViewController: UIViewController {
         selectedCategoryIndex = sender.tag
         categoryBtns[previousCategoryIndex].isSelected = false
         Button.select(btn: sender) // 선택된 버튼에 따라 뷰 보여주기
-        UIView.animate(withDuration: 1.0, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut,animations: {
             if sender.tag == 0 || sender.tag == 1 || sender.tag == 2 {
                 self.categoryScrollView.contentOffset.x = CGFloat(0)
             } else if sender.tag == 6 || sender.tag == 7 || sender.tag == 8 {
-                self.categoryScrollView.contentOffset.x = CGFloat(7 * 35)
+                self.categoryScrollView.contentOffset.x = CGFloat(70 * self.category.count) - self.view.frame.size.width
             } else {
                 self.categoryScrollView.contentOffset.x = CGFloat((sender.tag - 1) * 40)
             }
             self.scrollBar.frame.origin.x = CGFloat(self.selectedCategoryIndex * 70 + 15)
-        })
+        },completion: nil)
         NotificationCenter.default.post(name: NSNotification.Name("showCategory"), object: self, userInfo: ["category" : selectedCategoryIndex])
     }
     func selectCategory(_ notification: Notification){

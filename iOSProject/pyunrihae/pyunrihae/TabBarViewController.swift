@@ -90,12 +90,11 @@ class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
     }
     func doneLoading() {
         done = true
+        self.stopAnimating()
         UIView.animate(withDuration: 1,delay: 0.5, animations: {
             self.watingView.isHidden = true
             self.waitingImage.alpha -= 1
             self.waitingImage.isHidden = true
-            self.stopAnimating()
-            
         })
     }
     
