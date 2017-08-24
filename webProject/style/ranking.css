@@ -20,50 +20,49 @@
 }
 
 .main-rank-tab-wrapper {
-    margin: 200px auto auto auto;
+    margin: 170px auto auto auto;
     /*background-color: red;*/
     text-align: center;
-    width: 90%;
+    margin-bottom: 20px;
+    width: 70%;
 }
 
 .main-rank-tab {
     cursor: pointer;
-    display: inline-block;
+    float: left;
+    /*display: inline-block;*/
     line-height: 40px;
     text-align: center;
-    width: 10%;
-    border-radius: 3px;
-    background-color: #ffded1;
+    width: 12.5%;
+    margin: 0px;
+    border: solid 0px;
 }
 
-.main-rank-tab:hover {
-    background-color: #ff5853;
-    color: white;
+.main-rank-tab:hover, .main-rank-selectedtab {
+    border-bottom: solid 3px #ff5853;
+    color: #ff5853;
 }
 
-.main-rank-selectedtab {
-    background-color: #ff5853;
-    color: white;
-}
 
 .main-rank-content {
     text-align: center;
-    /*background-color: yellow;*/
-    width: 70%;
-    height: 500px;
-    margin: 50px auto auto auto;
+    width: 80%;
+    height: 350px;
+    margin: 300px auto auto auto;
 }
 
 .card-main-rank-wrapper {
     margin: 50px auto auto auto;
+    position: relative;
+    top: 100px;
     width: 80%;
     text-align: center;
 }
 
 .card-main-rank-content {
-    margin-top: 30px;
-    width: 33%;
     float: left;
+    margin-top: 30px;
+    width: 33.3333333%;
     height: 30%;
     border-radius: 2%;
 }

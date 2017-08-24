@@ -30,7 +30,7 @@
                 <li class="fixTab-search-brand-element">GS25</li>
                 <li class="fixTab-search-brand-element">7ELEVEN</li>
                 <li class="fixTab-search-brand-element">CU</li>
-                <li style="color:#d82c20" class="fixTab-search-brand-element">전체</li>
+                <li style="color:#a499ff" class="fixTab-search-brand-element">전체</li>
             </ul>
         </div>
 
@@ -44,7 +44,7 @@
                 <li class="fixTab-search-category-element">아이스크림</li>
                 <li class="fixTab-search-category-element">음료</li>
                 <li class="fixTab-search-category-element">식품</li>
-                <li style="color:#d82c20" class="fixTab-search-category-element">전체</li>
+                <li style="color:#a499ff" class="fixTab-search-category-element">전체</li>
             </ul>
         </div>
         <div>
@@ -52,7 +52,7 @@
                 <input class="fixTab-search-word" type="text" name="product" placeholder="상품명을 입력하세요">
             </form>
         </div>
-        <div class="fixTab-search-button"><img style="margin-top:5px; width: 20px; height: 20px"
+        <div class="fixTab-search-button"><img style=" margin-top:2px; width: 25px; height: 25px"
                                                src="image/search.png"></div>
     </div>
 
@@ -163,7 +163,7 @@
                 </div>
                 <div class="counter-element-count" id="counter2"></div>
                 <div class="counter-element-title">총 <span class="highlight">누적 리뷰</span> 개수</div>
-            </div>
+    </div>
             <div class="counter-element">
                 <div class="counter-element-icon">
                     <img class="counter-icon" src="image/review_icon.png"/>
@@ -180,17 +180,10 @@
 
         <div class="main-div-wrapper">
 
-            <div class="main-rank-header">
-                <span style="color: red; font-size: 30px; font-weight: 600">이번 주</span>의 <span
-                    style="font-weight: 600; color: red; font-size: 40px">HOT</span>상품
-                <span>
-                <img style="position:relative; margin-left:10px; top: 10px;width: 50px; height: 50px"
-                     src="image/burger.png"/>
-                </span>
+            <div class="main-rank-header"><span style="font-size: 30px; font-weight: 600">카테고리 별 HOT 상품</span>
             </div>
 
             <ul class="main-rank-tab-wrapper">
-                <!-- 도시락 / 김밥 / 베이커리 / 라면 / 스낵 / 아이ㅡ크림 / 음료 / 식품 -->
                 <li class="main-rank-tab main-rank-selectedtab" name="도시락">도시락</li>
                 <li class="main-rank-tab" name="김밥">김밥</li>
                 <li class="main-rank-tab" name="베이커리">베이커리</li>
@@ -380,7 +373,7 @@
 </div>
 
 <!--로그인 모달창-->
-<div style="display:none;" id="sign" class="sign-overlay">
+<div style="display:block;" id="sign" class="sign-overlay">
     <div class="sign-wrapper">
         <div class="signin-facebook">
             <img class="icon" src="image/facebook2.png">Facebook 계정으로 로그인
@@ -577,6 +570,9 @@
              onclick="loadDetailProduct(this)">
             <div class="rank-product-type">
                 {{category}}
+            </div>
+            <div style="background-color:cornflowerblue" class="rank-product-type">
+                {{brand}}
             </div>
 
             <div class="rank-event-wrapper">
@@ -808,8 +804,10 @@
 
     <div class="popup-review-preview">
         <div class="popup-newReviewWrapper-top">
-            <div class="review-preview-title">
-                상품 리뷰 보기</div>
+            <a href="#popup">
+            <div class="review-preview-title" name={{p_id}} onclick="loadDetailProduct(this)">
+                해당 상품 보기</div>
+            </a>
 
             <a href="#">
                 <div class="popup-newReview-cancel"></div>
@@ -901,11 +899,11 @@
                         <div class="popup-review-bad2">{{bad}}</div>
                     </div>
                   </span>
+                    <div style="margin-left:10px" class="review-card-user-id"><img style="width:20px; margin-left: 0px; margin-right: 5px; padding: 0px; height: 20px;" src="image/pencil.png" class="icon">{{user}}</div>
 
-                    <div style="margin-left:10px" class="review-card-user-id">작성자: <span style="font-size:17px; font-weight:700">{{user}}</span></div>
                     <div class="review-card-date">{{date}}</div>
 
-                    <div style="margin-left:10px" class="review-card-name">{{p_name}}</div>
+                    <div style="margin-left:10px" class="review-card-name"><span style="font-size:17px; font-weight:700">{{p_name}}</span></div>
 
                     <div class="review-card-review">
                         {{comment}}
@@ -969,7 +967,7 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/handlebarsjs/4.0.8/handlebars.min.js"></script>
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
-<script src="plugin/jquery.animateNumber.min.js"></script>
+<script src="./plugin/jquery.animateNumber.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
 <!--번들-->
