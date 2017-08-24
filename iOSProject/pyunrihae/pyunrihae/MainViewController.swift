@@ -126,8 +126,16 @@ class MainViewController: UIViewController {
         let width = self.view.frame.size.width
         let previousCategoryIndex = selectedCategoryIndex
         selectedCategoryIndex = notification.userInfo?["category"] as! Int
+
         categoryBtns[previousCategoryIndex].isSelected = false
         Button.select(btn: categoryBtns[selectedCategoryIndex])
+        if selectedCategoryIndex == 0 || selectedCategoryIndex == 1 || selectedCategoryIndex == 2 {
+            categoryScrollView.contentOffset.x = CGFloat(0)
+        } else if selectedCategoryIndex == 6 || selectedCategoryIndex == 7 || selectedCategoryIndex == 8 {
+            categoryScrollView.contentOffset.x = width / 5.0 * CGFloat(self.category.count) - width
+        } else {
+            categoryScrollView.contentOffset.x = CGFloat(selectedCategoryIndex - 1) * width / 10.0
+        }
         scrollBar.frame.origin.x = CGFloat(self.selectedCategoryIndex) * width / 5.0
     }
     
