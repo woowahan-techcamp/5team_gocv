@@ -281,16 +281,18 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //�
                 if writtenDate.timeIntervalSinceNow >= -5 * 24 * 60 * 60 {
                     if writtenDate.timeIntervalSinceNow <= -1 * 24 * 60 * 60 {
                         let daysAgo = Int(-writtenDate.timeIntervalSinceNow / 24 / 60 / 60)
-                        cell.timeLabel.text = String(daysAgo) + "일 전에 작성"
+                        cell.timeLabel.text = String(daysAgo) + "일 전"
                     } else if writtenDate.timeIntervalSinceNow <= -1 * 60 * 60 {
                         let hoursAgo = Int(-writtenDate.timeIntervalSinceNow / 60 / 60)
-                        cell.timeLabel.text = String(hoursAgo) + "시간 전에 작성"
-                    } else {
+                        cell.timeLabel.text = String(hoursAgo) + "시간 전"
+                    } else if writtenDate.timeIntervalSinceNow <= -1 * 60{
                         let minutesAgo = Int(-writtenDate.timeIntervalSinceNow / 60)
-                        cell.timeLabel.text = String(minutesAgo) + "분 전에 작성"
+                        cell.timeLabel.text = String(minutesAgo) + "분 전"
+                    } else{
+                        cell.timeLabel.text = "방금"
                     }
                 } else {
-                    cell.timeLabel.text = review.timestamp + "에 작성"
+                    cell.timeLabel.text = review.timestamp.components(separatedBy: " ")[0]
                 }
             }
             

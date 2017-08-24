@@ -490,14 +490,17 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                             } else if writtenDate.timeIntervalSinceNow <= -1 * 60 * 60 {
                                 let hoursAgo = Int(-writtenDate.timeIntervalSinceNow / 60 / 60)
                                 cell.timeLabel.text = String(hoursAgo) + "시간 전"
-                            } else {
+                            } else if writtenDate.timeIntervalSinceNow <= -1 * 60{
                                 let minutesAgo = Int(-writtenDate.timeIntervalSinceNow / 60)
                                 cell.timeLabel.text = String(minutesAgo) + "분 전"
+                            } else{
+                                cell.timeLabel.text = "방금"
                             }
                         } else {
-                            cell.timeLabel.text = reviewList[row].timestamp
+                            cell.timeLabel.text = reviewList[row].timestamp.components(separatedBy: " ")[0]
                         }
                     }
+                    
                     usefulBtns.append(cell.usefulBtn)
                     badBtns.append(cell.badBtn)
                     reviewIdList.append(reviewList[row].id)
