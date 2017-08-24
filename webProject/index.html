@@ -431,10 +431,16 @@
         <input id="signupEmail" class="signup-detail-input" placeholder="pyunrihae@pyunrihae.com"/>
         <input type="password" id="signupPw1" class="signup-detail-input" placeholder="비밀번호를 입력해주세요"/>
         <input type="password" id="signupPw2" class="signup-detail-input" placeholder="비밀번호를 다시 입력해주세요"/>
-        <div id="signupPwCheck" style="display:none; margin:5px 30px; color: red; font-size: 12px">비밀번호가 일치하지 않습니다.</div>
-        <div id="signupPwCheck2" style="display:none; margin:5px 30px; color: red; font-size: 12px">비밀번호는 6자리 이상이어야 합니다.</div>
-        <div id="signupEmailCheck" style="display:none; margin:5px 30px; color: red; font-size: 12px">올바른 이메일 형식이 아닙니다.</div>
-        <div id="signupEmailCheck2" style="display:none; margin:5px 30px; color: red; font-size: 12px">이미 존재하는 이메일입니다</div>
+        <div id="signupPwCheck" style="display:none; margin:5px 30px; color: red; font-size: 12px">비밀번호가 일치하지 않습니다.
+        </div>
+        <div id="signupPwCheck2" style="display:none; margin:5px 30px; color: red; font-size: 12px">비밀번호는 6자리 이상이어야
+            합니다.
+        </div>
+        <div id="signupEmailCheck" style="display:none; margin:5px 30px; color: red; font-size: 12px">올바른 이메일 형식이
+            아닙니다.
+        </div>
+        <div id="signupEmailCheck2" style="display:none; margin:5px 30px; color: red; font-size: 12px">이미 존재하는 이메일입니다
+        </div>
 
 
         <div id="signupButton" class="signup-detail-button">회원가입</div>
@@ -504,7 +510,7 @@
                             {{user}}
                         </div>
                         <div class="carousel-review-date">
-                            {{timestamp}}
+                            {{date}}
                         </div>
                     </div>
 
@@ -750,13 +756,10 @@
                 <div class="popup-review-name"> {{user}}</div>
             </div>
             <div style="height: 80px" class="carousel-review-star">
-                <ul>
-                    <li class="carousel-review-starElement popup-review-star"></li>
-                    <li class="carousel-review-starElement popup-review-star"></li>
-                    <li class="carousel-review-starElement popup-review-star"></li>
-                    <li class="carousel-review-starElement popup-review-star"></li>
-                    <li style="display:none" class="carousel-review-starElement popup-review-star"></li>
-                </ul>
+                <!--<div class="review-preview-star">-->
+                    <div id="{{rating}}">
+                    </div>
+                <!--</div>-->
             </div>
             <div class="popup-review-eval">
                 <div style="float:right; width: 130px">
@@ -790,7 +793,7 @@
 
             </div>
         </div>
-        <img class="popup-review-image" src="{{p_image}}">
+        <img class="popup-review-image" src="{{p_image}}" onerror="this.onerror=null;this.src='../image/no_image.gif';">
         <div class="popup-review-bottom">
             <div class="popup-review-comment"> {{comment}}
             </div>
@@ -860,7 +863,7 @@
 
         <div class="review-preview-bottom">
             <img class="review-preview-image" src="{{p_image}}"
-                 onerror="this.onerror=null;this.src='./image/not_found.gif';">
+                 onerror="this.onerror=null;this.src='./image/no_image.gif';">
             <div class="review-preview-option">
                 {{comment}}
             </div>
@@ -868,28 +871,28 @@
     </div>
     {{/this}}
 </script>
+
 <script id="card-review-page-template" type="text/x-handlebars-template">
     {{#this}}
-
-        <div class="review-card-content" name={{key}} onclick="loadReviewDetail(this)">
-            <div class="review-card-image-wrapper">
-                <img class="review-card-brand" src="{{brand_image}}"/>
-                <a href="#popup">
+    <div class="review-card-content" name={{key}} onclick="loadReviewDetail(this)">
+        <div class="review-card-image-wrapper">
+            <img class="review-card-brand" src="{{brand_image}}"/>
+            <a href="#popup">
                 <img class="review-card-image" src="{{p_image}}"
-                     onerror="this.onerror=null;this.src='../image/no_image.gif';"/
-                </a>
-                <div class="review-user-image-wrapper">
-                    <img class="review-user-image"
-                         src="{{user_image}}"/>
+                     onerror="this.onerror=null;this.src='./image/no_image.gif';">
+            </a>
+            <div class="review-user-image-wrapper">
+                <img class="review-user-image"
+                     src="{{user_image}}"/>
+            </div>
+
+            <div class="review-card-description">
+                <div class="review-card-rating">
+                    <div id="{{rating}}">
+                    </div>
                 </div>
 
-                <div class="review-card-description">
-                    <div class="review-card-rating">
-                        <div id="{{rating}}">
-                        </div>
-                    </div>
-
-                    <span class="review-card-assess">
+                <span class="review-card-assess">
                     <div>
                         <div class="popup-review-good">유용해요</div>
                         <div class="popup-review-good2">{{useful}}</div>
@@ -905,12 +908,12 @@
 
                     <div style="margin-left:10px" class="review-card-name"><span style="font-size:17px; font-weight:700">{{p_name}}</span></div>
 
-                    <div class="review-card-review">
-                        {{comment}}
-                    </div>
+                <div class="review-card-review">
+                    {{comment}}
                 </div>
             </div>
         </div>
+    </div>
 
     {{/this}}
 </script>
@@ -932,7 +935,7 @@
                 <input class="myPage-profile-nickname-input" placeholder="{{nickname}}"/>
                 <div class="myPage-profile-nickname">닉네임 바꾸기</div>
             </div>
-            <div class="myPage-profile-email-title">E-mail 주소 </div>
+            <div class="myPage-profile-email-title">E-mail 주소</div>
             <div class="myPage-profile-email">{{email}}</div>
         </div>
 
@@ -951,11 +954,11 @@
     {{#this}}
     <li class="myPage-wish-element">
         <a href="#popup">
-        <img name={{id}} onclick="loadDetailProduct(this)" src="{{img}}" class="myPage-wish-element-image">
+            <img name={{id}} onclick="loadDetailProduct(this)" src="{{img}}" class="myPage-wish-element-image">
         </a>
         <div style="margin-top:10px;float: left">
             <div class="myPage-wish-element-name">{{name}}</div>
-            <div class="myPage-wish-element-brand">{{brand}} </div>
+            <div class="myPage-wish-element-brand">{{brand}}</div>
         </div>
         <div class="myPage-wish-element-delete" name="{{id}}">삭제</div>
     </li>
