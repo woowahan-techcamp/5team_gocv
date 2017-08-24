@@ -79,7 +79,7 @@
 </div>
 
 <!--메인 페이지-->
-<div style="display: block" class="main-wrapper overflow-y-hidden">
+<div style="display: none" class="main-wrapper overflow-y-hidden">
 
     <!--carousel 구현-->
     <div class="carousel-wrapper">
@@ -163,7 +163,7 @@
                 </div>
                 <div class="counter-element-count" id="counter2"></div>
                 <div class="counter-element-title">총 <span class="highlight">누적 리뷰</span> 개수</div>
-    </div>
+            </div>
             <div class="counter-element">
                 <div class="counter-element-icon">
                     <img class="counter-icon" src="image/review_icon.png"/>
@@ -292,7 +292,7 @@
 </div>
 
 <!--랭크페이지-->
-<div style="display: none;" class="rank-container">
+<div style="display: block;" class="rank-container">
     <div class="rank-wrapper">
         <ul class="rank-category-wrapper">
             <li style="background-image:url('image/all.png')" class="rank-category-tab selected-rank-category-tab"
@@ -365,8 +365,12 @@
 </div>
 
 <!--상품 상세페이지 모달창-->
+
+<a href="#" class="popup-close-fake"></a>
 <div id="popup" class="overlay">
+
 </div>
+
 
 <!--마이페이지 모달창-->
 <div id="myPage" class="myPage-overlay">
@@ -383,8 +387,8 @@
         </div>
 
         <div lass="sign-line"></div>
-        <input class="signin-id" placeholder="이메일 주소" value="tong9433@naver.com"/>
-        <input type="password" class="signin-password" placeholder="비밀번호" value="008055"/>
+        <input class="signin-id" placeholder="이메일 주소" value="june@woowa.bro"/>
+        <input type="password" class="signin-password" placeholder="비밀번호" value="aabb1122"/>
 
         <div class="signin-button">로그인</div>
         <div id="signinErrorCheck" style="display:none; margin: 0px 30px -10px; color: red; font-size: 12px"></div>
@@ -420,6 +424,7 @@
         </div>
     </div>
 </div>
+
 
 <!--상세 회원가입 모달창-->
 <div style="display: none" id="signupDetail" class="sign-overlay">
@@ -599,7 +604,7 @@
 </script>
 
 <script id="popup-template" type="text/x-handlebars-template">
-    <div class="popup-wrapper">
+    <div class="popup-wrapper" style="z-index: 1;">
         <a href="#">
             <div class="popup-close"></div>
         </a>
@@ -757,18 +762,18 @@
             </div>
             <div style="height: 80px" class="carousel-review-star">
                 <!--<div class="review-preview-star">-->
-                    <div id="{{rating}}">
-                    </div>
+                <div id="{{rating}}">
+                </div>
                 <!--</div>-->
             </div>
             <div class="popup-review-eval">
                 <div style="float:right; width: 130px">
-                    <div>
-                        <div class="popup-review-good">유용해요</div>
+                    <div name="{{id}}">
+                        <div class="popup-review-good" name="{{p_id}}">유용해요</div>
                         <div class="popup-review-good2">{{useful}}</div>
                     </div>
-                    <div>
-                        <div class="popup-review-bad"> 별로에요</div>
+                    <div name="{{id}}">
+                        <div class="popup-review-bad" name="{{p_id}}"> 별로에요</div>
                         <div class="popup-review-bad2"> {{bad}}</div>
                     </div>
                 </div>
@@ -808,8 +813,9 @@
     <div class="popup-review-preview">
         <div class="popup-newReviewWrapper-top">
             <a href="#popup">
-            <div class="review-preview-title" name={{p_id}} onclick="loadDetailProduct(this)">
-                해당 상품 보기</div>
+                <div class="review-preview-title" name={{p_id}} onclick="loadDetailProduct(this)">
+                    해당 상품 보기
+                </div>
             </a>
 
             <a href="#">
@@ -902,11 +908,15 @@
                         <div class="popup-review-bad2">{{bad}}</div>
                     </div>
                   </span>
-                    <div style="margin-left:10px" class="review-card-user-id"><img style="width:20px; margin-left: 0px; margin-right: 5px; padding: 0px; height: 20px;" src="image/pencil.png" class="icon">{{user}}</div>
+                <div style="margin-left:10px" class="review-card-user-id"><img
+                        style="width:20px; margin-left: 0px; margin-right: 5px; padding: 0px; height: 20px;"
+                        src="image/pencil.png" class="icon">{{user}}
+                </div>
 
-                    <div class="review-card-date">{{date}}</div>
+                <div class="review-card-date">{{date}}</div>
 
-                    <div style="margin-left:10px" class="review-card-name"><span style="font-size:17px; font-weight:700">{{p_name}}</span></div>
+                <div style="margin-left:10px" class="review-card-name"><span style="font-size:17px; font-weight:700">{{p_name}}</span>
+                </div>
 
                 <div class="review-card-review">
                     {{comment}}

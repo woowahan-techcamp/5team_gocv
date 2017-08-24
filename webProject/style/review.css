@@ -66,8 +66,8 @@
 .review-card-brand{
     position: absolute;
     z-index: 5;
-    width: 15%;
-    height: 50px;
+    width: 20%;
+    height: 40px;
     border-bottom-right-radius: 10px;
 }
 
