@@ -11,8 +11,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
     new SearchTab(searchParams);
     const user = firebase.auth().currentUser;
 
-    console.log(user);
-
     const profileDrop = document.querySelector('.fixTab-profile-id');
 
     profileDrop.addEventListener("mouseover", function () {
@@ -34,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
     const carousel = new Carousel('reviewNavi', 'carousel-leftButton',
         'carousel-rightButton', 10, 'carousel-template', 'carouselSec');
     const counter = new Counter(800);
-    counter.setCounter();
 
 
 });
@@ -210,8 +207,6 @@ class Carousel {
 
             const dateValue = this.getDateWord(value.time_score);
 
-            console.log(dateValue);
-
             value['date'] = (!!dateValue) ? dateValue : splitTimeStamp[0];
 
             queryObj.push(value);
@@ -260,9 +255,9 @@ class Carousel {
         const date = (this.now * 1e6) - (value * 1e6);
 
         if (date < 6000) {
-            if(date / 100 === 0){
+            if (date / 100 === 0) {
                 return '방금 전';
-            }else {
+            } else {
                 return parseInt(date / 100) + '분 전';
             }
         } else if (date >= 1e6 && date <= 3e6) {
@@ -455,31 +450,27 @@ class SearchTab {
 class Counter {
     constructor(max) {
         this.max = max;
-        this.counter1 = 0;
-        this.counter2 = 0;
-        this.counter3 = 0;
+        this.c1 = 0;
+        this.c2 = 0;
+        this.c3 = 0;
         this.setData();
-
+        this.setAnimation()
 
     }
 
-    setCounter() {
-        let max = this.max;
-
-
-        $(window).scroll(function () {
-            const val = $(this).scrollTop();
+    setAnimation() {
+        window.addEventListener('scroll', function(e) {
+            let val = $(window).scrollTop();
+            let max = this.max;
             const cover = $('.cover');
-            if (max < val) {
-                console.log("냠냠");
 
-                $('#counter1').animateNumber({number:1000}, 2000);
-                $('#counter2').animateNumber({number:1000}, 2000);
-                $('#counter3').animateNumber({number:1000}, 2000);
-                max = 99999;
+            if (max < val) {
+                $('#counter1').animateNumber({number: this.c1}, 2000);
+                $('#counter2').animateNumber({number: this.c2}, 2000);
+                $('#counter3').animateNumber({number: this.c3}, 2000);
+                this.max = 99999;
             }
         }.bind(this));
-
     }
 
     setData() {
@@ -489,7 +480,7 @@ class Counter {
         const reviewStorage = localStorage['review'];
         const reviewData = JSON.parse(reviewStorage);
 
-        const prodcutCount = Object.keys(productData).length;
+        const productCount = Object.keys(productData).length;
         const reviewCount = Object.keys(reviewData).length;
         let todayReviewCount = 0;
 
@@ -500,9 +491,9 @@ class Counter {
         })
 
 
-        this.counter1 = parseInt(prodcutCount);
-        this.counter2 = parseInt(reviewCount);
-        this.counter3 = parseInt(todayReviewCount);
+        this.c1 = parseInt(productCount);
+        this.c2 = parseInt(reviewCount);
+        this.c3 = parseInt(todayReviewCount);
 
 
     }
@@ -798,7 +789,7 @@ class Review {
                 util.setHandlebars(reviewArr);
                 document.querySelector('#loading').style.display = "none"
 
-                const Event = function(){
+                const Event = function () {
                     this.getAttribute = function (name) {
                         return that.product.id;
                     };
@@ -806,8 +797,6 @@ class Review {
 
 
                 const event = new Event();
-                console.log(event);
-                console.log(event.getAttribute("ss"))
 
                 loadDetailProduct(event);
 
@@ -859,7 +848,6 @@ class UpLoadImage {
         if (!file) {
         } else {
             reader.readAsDataURL(file);
-            console.log(file.type.split("/")[1])
         }
 
 
@@ -1136,14 +1124,9 @@ function loadDetailProduct(event) {
 
         if (double) {
             newWishArr.push(id);
-            console.log(newWishArr);
-            console.log(user.uid);
-            console.log('user/' + user.uid + "/wish_product_list");
             firebase.database().ref('user/' + user.uid + "/wish_product_list").set(newWishArr).then(function () {
-                console.log("ss");
                 firebase.database().ref('user/').once('value').then(function (snapshot) {
                     localStorage['user'] = JSON.stringify(snapshot.val());
-                    console.log("완료")
                 });
             });
 
