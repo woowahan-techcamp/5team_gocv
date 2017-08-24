@@ -1112,7 +1112,7 @@ function loadDetailProduct(event) {
 
     setTimeout(function () {
         document.querySelector('#loading').style.display = "none"
-    }, 2000);
+    }, 1000);
 
     document.querySelector("#popupWish").addEventListener("click", function () {
         document.querySelector("#popupWish").setAttribute("class", "popup-wish popup-wish-select");
