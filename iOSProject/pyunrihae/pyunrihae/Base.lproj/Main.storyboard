@@ -2509,10 +2509,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="101" sectionHeaderHeight="12" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZtX-Y0-mGN">
-                                <rect key="frame" x="0.0" y="153" width="375" height="300"/>
+                                <rect key="frame" x="0.0" y="153" width="375" height="255"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="AmK-zT-qU4"/>
+                                    <constraint firstAttribute="height" constant="255" id="AmK-zT-qU4"/>
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="MypageTableViewCell" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" focusStyle="custom" rowHeight="100" id="6Lg-Vw-iDj" customClass="MypageTableViewCell" customModule="pyunrihae" customModuleProvider="target">
