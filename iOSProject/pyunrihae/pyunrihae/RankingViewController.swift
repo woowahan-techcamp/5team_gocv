@@ -264,6 +264,7 @@ extension RankingViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell =  tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? RankingTableViewCell {
+            cell.selectionStyle = UITableViewCellSelectionStyle.none
             let product = self.productList[indexPath.item]
             cell.foodImage.layer.cornerRadius = cell.foodImage.frame.height/2
             cell.foodImage.clipsToBounds = true
