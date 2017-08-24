@@ -95,14 +95,14 @@
                                     <constraint firstAttribute="width" secondItem="ikf-Qp-r0w" secondAttribute="height" multiplier="25:14" id="XbH-Mw-sbb"/>
                                 </constraints>
                             </scrollView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ryG-Uu-J61" customClass="CategoryScrollView" customModule="pyunrihae" customModuleProvider="target">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ryG-Uu-J61">
                                 <rect key="frame" x="0.0" y="199" width="320" height="48"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="ryG-Uu-J61" secondAttribute="height" multiplier="16:3" constant="64" id="1tR-QH-IGh"/>
+                                    <constraint firstAttribute="height" constant="48" id="S5t-Go-1Lh"/>
                                 </constraints>
                             </scrollView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="akb-01-cHJ">
-                                <rect key="frame" x="0.0" y="248" width="320" height="320"/>
+                                <rect key="frame" x="0.0" y="247" width="320" height="321"/>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="0.98958333330000003" green="1" blue="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
@@ -113,14 +113,14 @@
                             <constraint firstItem="ryG-Uu-J61" firstAttribute="leading" secondItem="UVV-kV-hrm" secondAttribute="leading" id="FDu-yK-qiK"/>
                             <constraint firstAttribute="trailing" secondItem="ryG-Uu-J61" secondAttribute="trailing" id="S65-mV-Sex"/>
                             <constraint firstAttribute="trailing" secondItem="akb-01-cHJ" secondAttribute="trailing" id="eKR-y7-kLO"/>
-                            <constraint firstItem="akb-01-cHJ" firstAttribute="top" secondItem="ryG-Uu-J61" secondAttribute="bottom" constant="1" id="iHn-0I-llc"/>
+                            <constraint firstItem="akb-01-cHJ" firstAttribute="top" secondItem="ryG-Uu-J61" secondAttribute="bottom" id="iHn-0I-llc"/>
                             <constraint firstItem="odE-R0-RLy" firstAttribute="top" secondItem="akb-01-cHJ" secondAttribute="bottom" id="pbs-sD-UDP"/>
                             <constraint firstItem="ikf-Qp-r0w" firstAttribute="top" secondItem="EJn-9B-I2E" secondAttribute="bottom" id="pqm-29-TOf"/>
                             <constraint firstItem="ikf-Qp-r0w" firstAttribute="leading" secondItem="UVV-kV-hrm" secondAttribute="leading" id="sGY-Xl-753"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="categoryScrollView" destination="ryG-Uu-J61" id="jCb-Q5-3Vr"/>
+                        <outlet property="categoryScrollView" destination="ryG-Uu-J61" id="1O4-Xm-86o"/>
                         <outlet property="indicatorView" destination="lxZ-9B-pPF" id="caf-jV-dtX"/>
                         <outlet property="productScrollView" destination="akb-01-cHJ" id="NZS-IF-zFZ"/>
                         <outlet property="reviewScrollView" destination="ikf-Qp-r0w" id="oiF-qC-ifZ"/>

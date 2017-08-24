@@ -13,7 +13,7 @@ import Alamofire
 class MainViewController: UIViewController {
 
     @IBOutlet weak var reviewScrollView: UIScrollView!
-    @IBOutlet weak var categoryScrollView: CategoryScrollView!
+    @IBOutlet weak var categoryScrollView: UIScrollView!
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     @IBOutlet weak var productScrollView: UIScrollView!
     
@@ -26,7 +26,6 @@ class MainViewController: UIViewController {
         didSet{
             getProductList()
             setReviewScrollImages()
-//            setProductScrollView()
         }
     }
     var selectedCategoryIndex: Int = 0 { // 선택된 카테고리 인덱스, 초기값은 0 (전체)
@@ -73,12 +72,18 @@ class MainViewController: UIViewController {
     func addCategoryBtn(){
         categoryScrollView.isScrollEnabled = true
         
-        let widthUsed = categoryScrollView.frame.width
-        categoryScrollView.contentSize.width = CGFloat(widthUsed / 5.0 * CGFloat(category.count))
+        let width = self.view.frame.size.width
+        // 이 함수가 호출되는 시점에서는 categoryScrollView가 320의 width로 잡혀서 전체 뷰로 잡아줌.
+        
+        categoryScrollView.contentSize.width = CGFloat(width / 5.0 * CGFloat(category.count))
+        // 버튼 하나하나는 기기 가로 크기의 1 / 5 
+        
+        let color = UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(1.0))
+        
         for index in 0..<category.count {
-            let categoryBtn = UIButton(frame: CGRect(x: widthUsed / 5.0 * CGFloat(index), y: 0, width: widthUsed / 5.0, height: categoryScrollView.frame.height))
-            let color = UIColor(red: CGFloat(102.0 / 255.0), green: CGFloat(102.0 / 255.0),  blue: CGFloat(102.0 / 255.0), alpha: CGFloat(1.0))
+            let categoryBtn = UIButton(frame: CGRect(x: width / 5.0 * CGFloat(index), y: 0, width: width / 5.0, height: categoryScrollView.frame.height))
             categoryBtn.setTitle(category[index], for: .normal) // 카테고리 버튼 텍스트
+            let color = UIColor(red: CGFloat(102.0 / 255.0), green: CGFloat(102.0 / 255.0),  blue: CGFloat(102.0 / 255.0), alpha: CGFloat(1.0))
             categoryBtn.setTitleColor(color, for: .normal) // 카테고리 버튼 텍스트 색깔
             categoryBtn.contentHorizontalAlignment = .center // 카테고리 버튼 중앙정렬
             categoryBtn.titleLabel?.font = categoryBtn.titleLabel?.font.withSize(13) // 카테고리 버튼 폰트 크기 13
@@ -87,8 +92,8 @@ class MainViewController: UIViewController {
             categoryBtn.addTarget(self, action: #selector(didPressCategoryBtn), for: UIControlEvents.touchUpInside)
             categoryScrollView.addSubview(categoryBtn)
         }
-        scrollBar.frame = CGRect(x: 15, y: 40, width: 34, height: 2)
-        let color = UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(Float(1)))
+        
+        scrollBar.frame = CGRect(x: 0, y: categoryScrollView.frame.height - 4, width: width / 5.0, height: 2)
         scrollBar.backgroundColor = color
         categoryScrollView.addSubview(scrollBar)
         categoryScrollView.showsHorizontalScrollIndicator = false // 스크롤 바 없애기
@@ -96,37 +101,25 @@ class MainViewController: UIViewController {
     
     // 카테고리 버튼 클릭 이벤트 함수
     func didPressCategoryBtn(sender: UIButton) {
+        let width = self.view.frame.size.width
         let previousCategoryIndex = selectedCategoryIndex
         selectedCategoryIndex = sender.tag
         categoryBtns[previousCategoryIndex].isSelected = false
         Button.select(btn: sender) // 선택된 버튼에 따라 뷰 보여주기
         UIView.animate(withDuration: 0.2, animations: {
-            if sender.tag == 0 || sender.tag == 1 || sender.tag == 2 {
-                self.categoryScrollView.contentOffset.x = CGFloat(0)
-            } else if sender.tag == 6 || sender.tag == 7 || sender.tag == 8 {
-                self.categoryScrollView.contentOffset.x = CGFloat(6 * 32)
-            } else {
-                self.categoryScrollView.contentOffset.x = CGFloat((sender.tag - 1) * 32)
-            }
-            self.scrollBar.frame.origin.x = CGFloat(self.selectedCategoryIndex * 64 + 15)
+            self.scrollBar.frame.origin.x = CGFloat(self.selectedCategoryIndex) * width / 5.0
         })
         NotificationCenter.default.post(name: NSNotification.Name("showCategory"), object: self, userInfo: ["category" : selectedCategoryIndex])
     }
     
     // 카테고리를 선택했을 때 함수
     func selectCategory(_ notification: Notification){
+        let width = self.view.frame.size.width
         let previousCategoryIndex = selectedCategoryIndex
         selectedCategoryIndex = notification.userInfo?["category"] as! Int
         categoryBtns[previousCategoryIndex].isSelected = false
         Button.select(btn: categoryBtns[selectedCategoryIndex])
-        if selectedCategoryIndex == 0 || selectedCategoryIndex == 1 || selectedCategoryIndex == 2 {
-            categoryScrollView.contentOffset.x = CGFloat(0)
-        } else if selectedCategoryIndex == 6 || selectedCategoryIndex == 7 || selectedCategoryIndex == 8 {
-            categoryScrollView.contentOffset.x = CGFloat(7 * 32)
-        } else {
-            categoryScrollView.contentOffset.x = CGFloat((selectedCategoryIndex - 1) * 32)
-        }
-        scrollBar.frame.origin.x = CGFloat(selectedCategoryIndex * 64 + 15)
+        scrollBar.frame.origin.x = CGFloat(self.selectedCategoryIndex) * width / 5.0
     }
     
     // 로딩 인디케이터 보이는 함수 DEPRECATED
