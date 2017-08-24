@@ -171,9 +171,9 @@ class ReviewPage {
         const date = (this.now * 1e6) - (value * 1e6);
 
         if (date < 6000) {
-            if(date / 100 === 0){
+            if (date / 100 === 0) {
                 return '방금 전';
-            }else {
+            } else {
                 return parseInt(date / 100) + '분 전';
             }
         } else if (date >= 1e6 && date <= 3e6) {
@@ -182,8 +182,11 @@ class ReviewPage {
             const day = parseInt(this.now);
             const nowHour = parseInt((this.now - day) * 10000) + 2400;
             const hour = parseInt((value - 634) * 10000);
-
-            return parseInt((nowHour - hour) / 100) + '시간 전';
+            if (hour > 1e4) {
+                return parseInt(hour / 1e4) + '시간 전';
+            } else {
+                return parseInt((nowHour - hour) / 100) + '시간 전';
+            }
         }
     }
 
@@ -260,16 +263,16 @@ class ReviewPage {
         switch (value) {
             case 'gs25':
             case 'GS25':
-                return '../image/gs25.jpg';
+                return './image/gs25.jpg';
             case 'cu':
             case 'CU':
-                return '../image/cu.jpg';
+                return './image/cu.jpg';
             case 'seven':
             case '7ELEVEN':
             case '7-eleven':
-                return '../image/seven.png';
+                return './image/seven.png';
             default:
-                return '전체 카테고리';
+                return './image/all_category.png';
         }
     }
 

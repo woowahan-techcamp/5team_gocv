@@ -36,9 +36,43 @@ document.addEventListener('DOMContentLoaded', function (event) {
     const counter = new Counter(800);
     counter.setCounter();
 
-
+    new PopupOverlayClick();
 });
 
+class PopupOverlayClick {
+
+    constructor() {
+        this.signOverlay = document.querySelector('.sign-overlay');
+        this.signInner = document.querySelector('.sign-wrapper');
+
+        this.signFlag = false;
+
+        this.getEvent();
+    }
+
+    getEvent() {
+        /* sign in modal settings */
+        this.signOverlay.addEventListener('click', function () {
+            if (!this.signFlag) {
+                this.closePopup();
+            }
+            this.signFlag = false;
+
+        }.bind(this));
+
+        this.signInner.addEventListener('click', function () {
+            this.signFlag = true;
+        }.bind(this));
+
+    }
+
+    closePopup() {
+        if (!this.signFlag) {
+            this.signOverlay.style.display = "none";
+            this.signFlag = false;
+        }
+    }
+}
 
 class Dropdown {
     constructor(event, button, drop) {
@@ -65,7 +99,6 @@ class Dropdown {
         }.bind(this), true);
     }
 }
-
 
 class Util {
 
@@ -210,8 +243,6 @@ class Carousel {
 
             const dateValue = this.getDateWord(value.time_score);
 
-            console.log(dateValue);
-
             value['date'] = (!!dateValue) ? dateValue : splitTimeStamp[0];
 
             queryObj.push(value);
@@ -260,9 +291,9 @@ class Carousel {
         const date = (this.now * 1e6) - (value * 1e6);
 
         if (date < 6000) {
-            if(date / 100 === 0){
+            if (date / 100 === 0) {
                 return '방금 전';
-            }else {
+            } else {
                 return parseInt(date / 100) + '분 전';
             }
         } else if (date >= 1e6 && date <= 3e6) {
@@ -271,8 +302,11 @@ class Carousel {
             const day = parseInt(this.now);
             const nowHour = parseInt((this.now - day) * 10000) + 2400;
             const hour = parseInt((value - 634) * 10000);
-
-            return parseInt((nowHour - hour) / 100) + '시간 전';
+            if (hour > 1e4) {
+                return parseInt(hour / 1e4) + '시간 전';
+            } else {
+                return parseInt((nowHour - hour) / 100) + '시간 전';
+            }
         }
     }
 
@@ -473,9 +507,9 @@ class Counter {
             if (max < val) {
                 console.log("냠냠");
 
-                $('#counter1').animateNumber({number:1000}, 2000);
-                $('#counter2').animateNumber({number:1000}, 2000);
-                $('#counter3').animateNumber({number:1000}, 2000);
+                $('#counter1').animateNumber({number: 1000}, 2000);
+                $('#counter2').animateNumber({number: 1000}, 2000);
+                $('#counter3').animateNumber({number: 1000}, 2000);
                 max = 99999;
             }
         }.bind(this));
@@ -674,6 +708,7 @@ class Review {
     setStar() {
         $("#" + this.id).rateYo({
             fullStar: true, // 정수단위로
+            readOnly: true,
             spacing: "15px" // margin
 
         }).on("rateyo.change", function (e, data) {
@@ -798,7 +833,7 @@ class Review {
                 util.setHandlebars(reviewArr);
                 document.querySelector('#loading').style.display = "none"
 
-                const Event = function(){
+                const Event = function () {
                     this.getAttribute = function (name) {
                         return that.product.id;
                     };
@@ -1114,6 +1149,8 @@ function loadDetailProduct(event) {
         document.querySelector('#loading').style.display = "none"
     }, 2000);
 
+    new ItemPopup();
+
     document.querySelector("#popupWish").addEventListener("click", function () {
         document.querySelector("#popupWish").setAttribute("class", "popup-wish popup-wish-select");
 
@@ -1151,10 +1188,81 @@ function loadDetailProduct(event) {
 
     });
 
-
     document.querySelector(".popup-close").addEventListener("click", function () {
         $("body").css("overflow", "visible");
     });
+}
+
+class ItemPopup {
+
+    constructor() {
+        this.popupOverlay = document.querySelector('.overlay');
+        this.popupInner = document.querySelector('.popup-wrapper');
+
+        this.flag = false;
+
+        this.getEvent();
+    }
+
+    getEvent() {
+        /* item view modal settings */
+        this.popupOverlay.addEventListener('click', function () {
+            if (!this.flag) {
+                this.closePopup();
+            } else {
+                this.flag = false;
+            }
+        }.bind(this));
+
+        this.popupInner.addEventListener('click', function (e) {
+            this.flag = true;
+            e.stopPropagation();
+        }.bind(this));
+    }
+
+    closePopup() {
+        if (!this.flag) {
+            document.getElementsByClassName('popup-close-fake')[0].click();
+            $("body").css("overflow", "visible");
+            this.flag = false;
+        }
+    }
+}
+
+class ReviewPopup {
+
+    constructor() {
+        this.popupOverlay = document.querySelector('.overlay');
+        this.popupInner = document.querySelector('.popup-review-preview');
+
+        this.flag = false;
+
+        this.getEvent();
+    }
+
+    getEvent() {
+        /* item view modal settings */
+        this.popupOverlay.addEventListener('click', function () {
+            if (!this.flag) {
+                this.closePopup();
+            } else {
+                this.flag = false;
+            }
+        }.bind(this));
+
+        this.popupInner.addEventListener('click', function (e) {
+            this.flag = true;
+            e.stopPropagation();
+        }.bind(this));
+    }
+
+    closePopup() {
+        if (!this.flag) {
+            document.getElementsByClassName('popup-close-fake')[0].click();
+            $("body").css("overflow", "visible");
+            this.flag = false;
+        }
+    }
 }
 
 function timestamp() {
@@ -1266,6 +1374,8 @@ function loadReviewDetail(event) {
         ratedFill: "#ffcf4d"
 
     });
+
+    new ReviewPopup();
 
     document.querySelector(".popup-newReview-cancel").addEventListener("click", function () {
         $("body").css("overflow", "visible");
