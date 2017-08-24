@@ -135,6 +135,7 @@
 .review-card-review{
     overflow: auto;
     color: black;
+    height: 200px;
     line-height: 2em;
     background-color: #eeeeee;
     margin-top: 10px;

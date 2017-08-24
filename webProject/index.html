@@ -79,7 +79,7 @@
 </div>
 
 <!--메인 페이지-->
-<div style="display: none" class="main-wrapper overflow-y-hidden">
+<div style="display: block" class="main-wrapper overflow-y-hidden">
 
     <!--carousel 구현-->
     <div class="carousel-wrapper">
@@ -152,7 +152,7 @@
                 <div class="counter-element-icon">
                     <img class="counter-icon" src="image/product_icon.png"/>
                 </div>
-                <div class="counter-element-count" id="counter1">4200</div>
+                <div class="counter-element-count" id="counter1"></div>
                 <div class="counter-element-title">편의점 총 <span class="highlight">상품정보</span>
                     개수
                 </div>
@@ -161,14 +161,14 @@
                 <div class="counter-element-icon">
                     <img class="counter-icon" src="image/allReview_icon.png"/>
                 </div>
-                <div class="counter-element-count" id="counter2">3203</div>
+                <div class="counter-element-count" id="counter2"></div>
                 <div class="counter-element-title">총 <span class="highlight">누적 리뷰</span> 개수</div>
             </div>
             <div class="counter-element">
                 <div class="counter-element-icon">
                     <img class="counter-icon" src="image/review_icon.png"/>
                 </div>
-                <div class="counter-element-count" id="counter3">23</div>
+                <div class="counter-element-count" id="counter3"></div>
                 <div class="counter-element-title">오늘의 <span class="highlight">등록된 리뷰 </span>개수</div>
             </div>
         </div>
@@ -355,7 +355,7 @@
 </div>
 
 <!--리뷰 탭 페이지-->
-<div style="display: block;" class="review-container">
+<div style="display: none;" class="review-container">
     <div class="review-wrapper">
 
     </div>
@@ -380,7 +380,7 @@
 </div>
 
 <!--로그인 모달창-->
-<div style="display:block;" id="sign" class="sign-overlay">
+<div style="display:none;" id="sign" class="sign-overlay">
     <div class="sign-wrapper">
         <div class="signin-facebook">
             <img class="icon" src="image/facebook2.png">Facebook 계정으로 로그인
@@ -506,7 +506,7 @@
                     <div class="carousel-review-profile">
                         <img class="carousel-review-profile" src="{{user_image}}"/>
                     </div>
-                    <div style="margin-top:20px;float:left; width:25%">
+                    <div style="margin-left:5px;margin-top:20px;float:left; width:30%">
                         <div class="carousel-review-nic">
                             {{user}}
                         </div>
@@ -535,7 +535,7 @@
                             </a>
                         </div>
                     </div>
-                    <div style="float: left; width:45%; margin-left: 5%">
+                    <div style="float: left; width:90%; margin-left: 5%">
                         <div class="carousel-review-product">{{p_name}}</div>
                         <div class="carousel-review-description">{{comment}}
                         </div>
@@ -902,7 +902,7 @@
                     </div>
                   </span>
 
-                    <div style="margin-left:10px" class="review-card-user-id">글쓴이 : {{user}}</div>
+                    <div style="margin-left:10px" class="review-card-user-id">작성자: <span style="font-size:17px; font-weight:700">{{user}}</span></div>
                     <div class="review-card-date">{{date}}</div>
 
                     <div style="margin-left:10px" class="review-card-name">{{p_name}}</div>
