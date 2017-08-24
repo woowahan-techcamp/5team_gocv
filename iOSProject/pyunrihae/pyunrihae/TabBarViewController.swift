@@ -63,8 +63,10 @@ class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
         brandBtns[previousBrandIndex].isSelected = false
         Button.select(btn: sender) // 선택된 버튼에 따라 뷰 보여주기
         mainViewController.selectedBrandIndexFromTab = selectedBrandIndex // 선택된 브랜드 index를 main에 넘겨주기
-        reviewViewController.selectedBrandIndexFromTab = selectedBrandIndex // 선택된 브랜드 index를 review 에 넘겨주기 
+        reviewViewController.selectedBrandIndexFromTab = selectedBrandIndex // 선택된 브랜드 index를 review 에 넘겨주기
+        reviewViewController.tableView.contentOffset.y = 0
         rankingViewController.selectedBrandIndexFromTab = selectedBrandIndex // 선택된 브랜드 index를 ranking에 넘겨주기
+        rankingViewController.tableView.contentOffset.y = 0
     }
 
     func showRanking(_ notification: Notification){
@@ -91,9 +93,11 @@ class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
     func doneLoading() {
         done = true
         self.stopAnimating()
-        UIView.animate(withDuration: 1,delay: 0.5, animations: {
-            self.watingView.isHidden = true
+        UIView.animate(withDuration: 0.5, delay: 0, animations: {
             self.waitingImage.alpha -= 1
+            self.watingView.alpha -= 0.35
+        }, completion: { (complete:Bool) in
+            self.watingView.isHidden = true
             self.waitingImage.isHidden = true
         })
     }

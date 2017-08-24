@@ -96,6 +96,7 @@ class ReviewViewController: UIViewController {
             self.scrollBar.frame.origin.x = CGFloat(self.selectedCategoryIndex * 70 + 15)
         },completion: nil)
         NotificationCenter.default.post(name: NSNotification.Name("showCategory"), object: self, userInfo: ["category" : selectedCategoryIndex])
+        self.tableView.contentOffset.y = 0
     }
     
     func selectCategory(_ notification: Notification){
@@ -113,6 +114,7 @@ class ReviewViewController: UIViewController {
             }
             scrollBar.frame.origin.x = CGFloat(selectedCategoryIndex * 70 + 15)
         }
+        self.tableView.contentOffset.y = 0
     }
     func addNotiObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(selectCategory), name: NSNotification.Name("selectCategory"), object: nil)

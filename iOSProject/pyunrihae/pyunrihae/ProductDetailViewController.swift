@@ -269,7 +269,6 @@ class ProductDetailViewController: UIViewController {
             wishBtn.setBackgroundImage(UIImage(named: "ic_like.png"), for: .normal)
         }
         
-        
         let titleAttributes = [
             NSFontAttributeName: UIFont.boldSystemFont(ofSize: 16)
         ]
