@@ -383,7 +383,7 @@ class DataManager{
             }
             
             // 가중치 계산 공식
-            let m = 50 // TOP에 들기 위한 최소 리뷰 갯수
+            let m = 10 // TOP에 들기 위한 최소 리뷰 갯수
             let C : Float = 2.75 // 점수 중간값
             let grade_avg = Float(grade_total) / Float(grade_count) // 산술평균 
             
