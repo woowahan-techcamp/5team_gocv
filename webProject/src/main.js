@@ -11,8 +11,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
     new SearchTab(searchParams);
     const user = firebase.auth().currentUser;
 
-    console.log(user);
-
     const profileDrop = document.querySelector('.fixTab-profile-id');
 
     profileDrop.addEventListener("mouseover", function () {
@@ -34,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
     const carousel = new Carousel('reviewNavi', 'carousel-leftButton',
         'carousel-rightButton', 10, 'carousel-template', 'carouselSec');
     const counter = new Counter(800);
-    counter.setCounter();
 
     new PopupOverlayClick();
 });
@@ -489,31 +486,27 @@ class SearchTab {
 class Counter {
     constructor(max) {
         this.max = max;
-        this.counter1 = 0;
-        this.counter2 = 0;
-        this.counter3 = 0;
+        this.c1 = 0;
+        this.c2 = 0;
+        this.c3 = 0;
         this.setData();
-
+        this.setAnimation()
 
     }
 
-    setCounter() {
-        let max = this.max;
-
-
-        $(window).scroll(function () {
-            const val = $(this).scrollTop();
+    setAnimation() {
+        window.addEventListener('scroll', function(e) {
+            let val = $(window).scrollTop();
+            let max = this.max;
             const cover = $('.cover');
-            if (max < val) {
-                console.log("냠냠");
 
-                $('#counter1').animateNumber({number: 1000}, 2000);
-                $('#counter2').animateNumber({number: 1000}, 2000);
-                $('#counter3').animateNumber({number: 1000}, 2000);
-                max = 99999;
+            if (max < val) {
+                $('#counter1').animateNumber({number: this.c1}, 2000);
+                $('#counter2').animateNumber({number: this.c2}, 2000);
+                $('#counter3').animateNumber({number: this.c3}, 2000);
+                this.max = 99999;
             }
         }.bind(this));
-
     }
 
     setData() {
@@ -523,7 +516,7 @@ class Counter {
         const reviewStorage = localStorage['review'];
         const reviewData = JSON.parse(reviewStorage);
 
-        const prodcutCount = Object.keys(productData).length;
+        const productCount = Object.keys(productData).length;
         const reviewCount = Object.keys(reviewData).length;
         let todayReviewCount = 0;
 
@@ -534,9 +527,9 @@ class Counter {
         })
 
 
-        this.counter1 = parseInt(prodcutCount);
-        this.counter2 = parseInt(reviewCount);
-        this.counter3 = parseInt(todayReviewCount);
+        this.c1 = parseInt(productCount);
+        this.c2 = parseInt(reviewCount);
+        this.c3 = parseInt(todayReviewCount);
 
 
     }
@@ -628,6 +621,10 @@ class Review {
         writeBtn.addEventListener("click", function () {
             this.setOnOff()
         }.bind(this));
+
+
+
+
     }
 
     //초기화 함수
@@ -841,8 +838,6 @@ class Review {
 
 
                 const event = new Event();
-                console.log(event);
-                console.log(event.getAttribute("ss"))
 
                 loadDetailProduct(event);
 
@@ -894,7 +889,6 @@ class UpLoadImage {
         if (!file) {
         } else {
             reader.readAsDataURL(file);
-            console.log(file.type.split("/")[1])
         }
 
 
@@ -902,6 +896,7 @@ class UpLoadImage {
 
 }
 
+//리뷰 정렬 하는 클래스
 class ReviewFilter {
     constructor(reviewArray) {
         this.reviewFilter = document.querySelector('.popup-reviewFilter-dropdown');
@@ -1078,6 +1073,102 @@ class ReviewFilter {
     }
 }
 
+class ReviewHeart {
+    constructor(userId,productId,reviewId, likeList) {
+        this.userId = userId;
+        this.productId = productId;
+        this.reviewId = reviewId;
+        this.likeList = likeList;
+        this.db = new DB();
+        this.init();
+        this.setEvent()
+    }
+
+    init(){
+        // console.log(this.db.review);
+        // console.log(this.db.user);
+        // console.log(this.db.product);
+
+        document.querySelector(".popup-reviewWrapperList").addEventListener("click",function(e){
+
+            if(e.target.className=== "popup-review-good"||e.target.className === "popup-review-good"){
+                this.userId = firebase.auth().currentUser.uid;
+                this.productId = e.target.getAttribute("name");
+                this.reviewId = e.target.parentElement.getAttribute("name");
+
+                console.log(this.db.user.userId)
+
+                this.likeList = this.db.user.userId.review_like_list;
+                console.log(!!this.likeList);
+
+
+            }
+
+        }.bind(this))
+
+    }
+
+    getData(){
+        console.log(this.db.user.userId.review_like_list);
+        this.likeList = this.db.user.userId.review_like_list ;
+    }
+
+
+    setEvent(){
+
+
+
+
+    }
+
+
+
+
+}
+
+
+class DB {
+    constructor(){
+        this.user = JSON.parse(localStorage['user']);
+        this.product = JSON.parse(localStorage['product']);
+        this.review = JSON.parse(localStorage['review']);
+    }
+
+    init(){
+        this.updateUserDb();
+        this.updateProductDb();
+        this.updateReviewDb();
+    }
+
+    updateUserDb(){
+        firebase.database().ref('user/').once('value').then(function (snapshot) {
+            localStorage['user'] = JSON.stringify(snapshot.val());
+            this.user = JSON.parse(localStorage['user']);
+        }.bind(this));
+    }
+
+    updateReviewDb(){
+        firebase.database().ref('product/').once('value').then(function (snapshot) {
+            localStorage['product'] = JSON.stringify(snapshot.val());
+            this.product = JSON.parse(localStorage['product']);
+
+        }.bind(this));
+    }
+
+    updateProductDb(){
+        firebase.database().ref('review/').once('value').then(function (snapshot) {
+            localStorage['review'] = JSON.stringify(snapshot.val());
+            this.review = JSON.parse(localStorage['review']);
+        }.bind(this));
+    }
+}
+
+
+
+
+
+
+
 function loadDetailProduct(event) {
 
     $("body").css("overflow", "hidden");
@@ -1094,6 +1185,9 @@ function loadDetailProduct(event) {
     const template = document.querySelector("#popup-template").innerHTML;
     const sec = document.querySelector("#popup");
     const util = new Util();
+
+
+
 
     // const value = obj[grade_total]/obj[grade_count];
 
@@ -1173,20 +1267,19 @@ function loadDetailProduct(event) {
 
         if (double) {
             newWishArr.push(id);
-            console.log(newWishArr);
-            console.log(user.uid);
-            console.log('user/' + user.uid + "/wish_product_list");
             firebase.database().ref('user/' + user.uid + "/wish_product_list").set(newWishArr).then(function () {
-                console.log("ss");
                 firebase.database().ref('user/').once('value').then(function (snapshot) {
                     localStorage['user'] = JSON.stringify(snapshot.val());
-                    console.log("완료")
                 });
             });
 
         }
 
     });
+
+    const reviewHeart = new ReviewHeart();
+
+
 
     document.querySelector(".popup-close").addEventListener("click", function () {
         $("body").css("overflow", "visible");
@@ -1343,7 +1436,6 @@ function getNowTimeScore() {
 
     return parseFloat(dateValue + (timeValue / 1e6));
 }
-
 
 function loadReviewDetail(event) {
 
