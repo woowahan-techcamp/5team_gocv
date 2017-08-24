@@ -8,8 +8,10 @@
 
 import UIKit
 import FirebaseAuth
+import NVActivityIndicatorView
 
-class TabBarViewController: UIViewController {
+class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
+    @IBOutlet weak var watingView: UIView!
     @IBOutlet weak var waitingImage: UIImageView!
     @IBOutlet weak var pyunrihaeImage: UIImageView!
     @IBOutlet var searchBtn : UIButton!
@@ -30,7 +32,7 @@ class TabBarViewController: UIViewController {
     let titleName = ["편리해","랭킹","리뷰","마이페이지"]
     let category = ["전체","도시락","김밥","베이커리","라면","식품","스낵","아이스크림","음료"]
     var categoryIndex = 0
-    
+    var done = false
     let appdelegate = UIApplication.shared.delegate as! AppDelegate
     @IBAction func didPressTabBtn(_ sender: UIButton) { // 탭 버튼 클릭
         NotificationCenter.default.post(name: NSNotification.Name("selectCategory"), object: self, userInfo: ["category" : categoryIndex])
@@ -61,8 +63,10 @@ class TabBarViewController: UIViewController {
         brandBtns[previousBrandIndex].isSelected = false
         Button.select(btn: sender) // 선택된 버튼에 따라 뷰 보여주기
         mainViewController.selectedBrandIndexFromTab = selectedBrandIndex // 선택된 브랜드 index를 main에 넘겨주기
-        reviewViewController.selectedBrandIndexFromTab = selectedBrandIndex // 선택된 브랜드 index를 review 에 넘겨주기 
+        reviewViewController.selectedBrandIndexFromTab = selectedBrandIndex // 선택된 브랜드 index를 review 에 넘겨주기
+        reviewViewController.tableView.contentOffset.y = 0
         rankingViewController.selectedBrandIndexFromTab = selectedBrandIndex // 선택된 브랜드 index를 ranking에 넘겨주기
+        rankingViewController.tableView.contentOffset.y = 0
     }
 
     func showRanking(_ notification: Notification){
@@ -75,36 +79,44 @@ class TabBarViewController: UIViewController {
         didPressTabBtn(tabBtns[2])
     }
     func animateView(){
-        UIView.animate(withDuration: 1,delay: 0.5, animations: {
+        UIView.animate(withDuration: 2,delay: 1, animations: {
             self.pyunrihaeImage.alpha -= 1
         }, completion: { (complete:Bool) in
             if complete == true{
-                UIView.animate(withDuration: 1,delay: 0.5, animations: {
-                    self.pyunrihaeImage.alpha += 1
+                self.pyunrihaeImage.isHidden = true
+                if !self.done {
+                    self.startAnimating()
                 }
-                )
             }
         })
     }
     func doneLoading() {
-        UIView.animate(withDuration: 1.0,delay: 0, animations: {
-            self.pyunrihaeImage.frame.origin.x -= 375
-            self.waitingImage.frame.origin.x -= 375
+        done = true
+        brandContentView.isHidden = false
+        tabContentView.isHidden = false
+        self.stopAnimating()
+        UIView.animate(withDuration: 0.5, delay: 0, animations: {
+            self.waitingImage.alpha -= 1
+            self.watingView.alpha -= 0.35
         }, completion: { (complete:Bool) in
-            if complete == true{
-                self.waitingImage.isHidden = true
-                self.pyunrihaeImage.isHidden = true
-            }
+            self.watingView.isHidden = true
+            self.waitingImage.isHidden = true
         })
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        brandContentView.isHidden = true
+        tabContentView.isHidden = true
         saveProductListToGlobal()
+        NVActivityIndicatorView.DEFAULT_BLOCKER_BACKGROUND_COLOR = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
+        NVActivityIndicatorView.DEFAULT_TYPE = .pacman
+        NVActivityIndicatorView.DEFAULT_BLOCKER_MESSAGE = "편리해 정보를 받아오는 중입니다..."
         NotificationCenter.default.addObserver(self, selector: #selector(showRanking), name: NSNotification.Name("showRanking"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showCategory), name: NSNotification.Name("showCategory"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showReview), name: NSNotification.Name("showReview"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(doneLoading), name: NSNotification.Name("doneLoading"), object: nil)
+        watingView.layer.zPosition = 15
         waitingImage.layer.zPosition = 10
         pyunrihaeImage.layer.zPosition = 20
         animateView()

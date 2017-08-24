@@ -13,6 +13,8 @@ import FirebaseAuth
 
 class WritingReviewViewController: UIViewController, FusumaDelegate{
 
+    @IBOutlet weak var completeBtn: UIButton!
+    @IBOutlet weak var barBtn: UIButton!
     @IBAction func addImageBtn(_ sender: UIButton) {
         let fusuma = FusumaViewController()
         
@@ -335,6 +337,8 @@ extension WritingReviewViewController: UITextViewDelegate {
         
         addedImageView.isHidden = true
         placeholder.isHidden = true
+        barBtn.isHidden = true
+        completeBtn.isHidden = true
     }
     func textViewDidEndEditing(_ textView: UITextView) {
         UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 3.0, initialSpringVelocity: 3.0, options: UIViewAnimationOptions.curveEaseInOut, animations: ({
@@ -342,6 +346,8 @@ extension WritingReviewViewController: UITextViewDelegate {
         }), completion: nil)
         
         addedImageView.isHidden = false
+        barBtn.isHidden = false
+        completeBtn.isHidden = false
         var frameRect = detailReview.frame
         frameRect.size.height = 30
         detailReview.frame = frameRect
