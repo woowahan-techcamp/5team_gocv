@@ -312,7 +312,7 @@ class MainViewController: UIViewController {
                 productView.center.y = imageViewHeight / 2.0
                 
                 // productView들어감
-                
+                productView.productImageview.contentMode = .scaleAspectFit
                 productView.productImageview.af_setImage(withURL: url!)
                 productView.rankLabel.text = (cnt + 1).description
                 

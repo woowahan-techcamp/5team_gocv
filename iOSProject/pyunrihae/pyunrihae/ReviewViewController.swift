@@ -280,6 +280,7 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //ë
             cell.userImage.clipsToBounds = true
             
             cell.loading.startAnimating()
+            cell.userImage.contentMode = .scaleAspectFit
             cell.userImage.af_setImage(withURL: URL(string: review.user_image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
                 cell.loading.stopAnimating()
             })
