@@ -1132,8 +1132,13 @@ class ReviewRating {
                 // console.log(this.userId);
                 // console.log(this.productId);
                 // console.log(this.reviewId);
+                if(!!this.db.user[this.userId].review_like_list){
+                    this.likeList = this.db.user[this.userId].review_like_list[this.reviewId];
+                }else{
+                    this.db.user[this.userId].review_like_list = {};
+                    this.likeList = this.db.user[this.userId].review_like_list[this.reviewId];
+                }
 
-                this.likeList = this.db.user[this.userId].review_like_list[this.reviewId];
                 // console.log(!this.likeList)
 
                 const that = this;

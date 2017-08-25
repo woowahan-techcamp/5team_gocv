@@ -590,9 +590,10 @@
     width: 44%;
     padding: 15px;
     border-radius: 5px;
-    line-height: 1em;
+    line-height: 300px;
+    max-width: 44%;
     margin-left: 10px;
-    font-size: 12px;
+    font-size: 15px;
     margin-right: 1%;
     background-color: white;
     border: solid 2px #bcbcbc;
