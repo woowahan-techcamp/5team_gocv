@@ -9,6 +9,7 @@
 import UIKit
 
 class ReviewTableViewCell: UITableViewCell {
+    @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var reviewView: UIView!
     @IBOutlet weak var badLabel: UILabel!
