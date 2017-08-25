@@ -364,10 +364,10 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                         cell.eventLabel.isHidden = true
                     }
                     cell.loading.startAnimating()
-                    let foodImage = UIImageView()
-                   
-                    foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), completion:{ image in
-                        cell.foodImageBtn.setBackgroundImage(foodImage.image, for: .normal)
+                    cell.foodImage.contentMode = .scaleAspectFit
+                    cell.foodImage.backgroundColor = UIColor.white
+                    cell.foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), completion:{ image in
+                        cell.foodImageBtn.setBackgroundImage(cell.foodImage.image, for: .normal)
                         cell.loading.stopAnimating()
                     })
                 }
@@ -543,15 +543,18 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                     cell.userImageLoading.startAnimating()
                     cell.usefulBtn.tag = usefulBtns.count - 1
                     cell.badBtn.tag = badBtns.count - 1
+                    cell.userImage.contentMode = .scaleAspectFit
                     cell.userImage.af_setImage(withURL: URL(string: reviewList[row].user_image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
                         cell.userImageLoading.stopAnimating()
                     })
                     if reviewList[row].p_image != "" {
                         cell.reviewBoxView.frame.size.height = cell.detailReviewLabel.frame.height + 135
                         cell.uploadedImageLoading.startAnimating()
-                        let imageView = UIImageView()
-                        imageView.af_setImage(withURL: URL(string: reviewList[row].p_image)!, placeholderImage: UIImage(), completion:{ image in
-                            cell.uploadedFoodImageBtn.setBackgroundImage(imageView.image, for: .normal)
+                        cell.uploadedFoodImage.contentMode = .scaleAspectFit
+                        let color = UIColor(red: CGFloat(230.0 / 255.0), green: CGFloat(230.0 / 255.0),  blue: CGFloat(230.0 / 255.0), alpha: CGFloat(Float(1)))
+                        cell.uploadedFoodImage.backgroundColor = color
+                        cell.uploadedFoodImage.af_setImage(withURL: URL(string: reviewList[row].p_image)!, placeholderImage: UIImage(), completion:{ image in
+                            cell.uploadedFoodImageBtn.setBackgroundImage(cell.uploadedFoodImage.image, for: .normal)
                             cell.uploadedImageLoading.stopAnimating()
                         })
                     } else {

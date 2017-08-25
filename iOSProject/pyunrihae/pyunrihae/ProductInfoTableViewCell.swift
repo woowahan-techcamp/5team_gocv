@@ -9,6 +9,7 @@
 import UIKit
 
 class ProductInfoTableViewCell: UITableViewCell {
+    @IBOutlet weak var foodImage: UIImageView!
     @IBOutlet weak var manufacturerLabel: UILabel!
     @IBOutlet weak var foodImageBtn: UIButton!
     @IBOutlet weak var brandLabel: UILabel!
