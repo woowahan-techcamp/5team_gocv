@@ -14,7 +14,7 @@ class RankingViewController: UIViewController {
     @IBOutlet weak var productNumLabel: UILabel!
     @IBOutlet weak var sortingMethodLabel: UILabel!
     @IBAction func tabDropDownBtn(_ sender: UIButton) {
-        let alert = UIAlertController(title: "\r순서 정렬하기", message: "", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         //Create and add the Cancel action
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
             
@@ -59,6 +59,7 @@ class RankingViewController: UIViewController {
     var scrollBar = UILabel()
     var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
     let category = ["전체","도시락","김밥","베이커리","라면","식품","스낵","아이스크림","음료"]
+    
     func addCategoryBtn(){ // 카테고리 버튼 스크롤 뷰에 추가하기
         categoryScrollView.isScrollEnabled = true
         categoryScrollView.contentSize.width = CGFloat(70 * category.count)
@@ -117,6 +118,7 @@ class RankingViewController: UIViewController {
     func addNotiObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(selectCategory), name: NSNotification.Name("selectCategory"), object: nil)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -128,6 +130,9 @@ class RankingViewController: UIViewController {
         isLoaded = true
         // Do any additional setup after loading the view.
         
+        // Notification Observer
+        NotificationCenter.default.addObserver(self, selector: #selector(getRankingList), name: NSNotification.Name("productListChanged"), object: nil)
+
     }
 
     override func didReceiveMemoryWarning() {

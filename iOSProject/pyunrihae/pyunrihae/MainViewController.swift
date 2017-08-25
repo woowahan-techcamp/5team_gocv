@@ -41,6 +41,8 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Notification Observer
+        NotificationCenter.default.addObserver(self, selector: #selector(getProductList), name: NSNotification.Name("productListChanged"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(selectCategory), name: NSNotification.Name("selectCategory"), object: nil)
         categoryScrollView.backgroundColor = UIColor.white
         addCategoryBtn() // 카테고리 버튼 만들어서 스크롤 뷰에 붙이기
