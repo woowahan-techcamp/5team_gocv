@@ -151,7 +151,7 @@ class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
             self.waitingImage.isHidden = true
         })
     }
-    func saveProductListToGlobal(){ // 전체 상품 데이터 받아오기 
+    func saveProductListToGlobal(){ // 전체 상품 데이터 받아오기
         DataManager.getProductAllInRank(){ (products) in
             self.appdelegate.productList = products.sorted(by: {$0.grade_avg > $1.grade_avg})
             NotificationCenter.default.post(name: NSNotification.Name("doneLoading"), object: self)
