@@ -42,6 +42,7 @@ class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
         NVActivityIndicatorView.DEFAULT_BLOCKER_BACKGROUND_COLOR = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
         NVActivityIndicatorView.DEFAULT_TYPE = .pacman
         NVActivityIndicatorView.DEFAULT_BLOCKER_MESSAGE = "편리해 정보를 받아오는 중입니다..."
+        NVActivityIndicatorView.DEFAULT_BLOCKER_MESSAGE_FONT = UIFont.systemFont(ofSize: 18, weight: UIFontWeightThin)
         NotificationCenter.default.addObserver(self, selector: #selector(showRanking), name: NSNotification.Name("showRanking"), object: nil)
         //랭킹 탭으로 이동
         NotificationCenter.default.addObserver(self, selector: #selector(showCategory), name: NSNotification.Name("showCategory"), object: nil)
