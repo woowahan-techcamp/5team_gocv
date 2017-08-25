@@ -97,6 +97,7 @@ class SignUp {
                 document.querySelector('#loading').style.display = "none";
 
             }).then(function () {
+                const user = firebase.auth().currentUser;
 
                 database.ref('user/' + user.uid).set({
                     "email": this.email.value,
