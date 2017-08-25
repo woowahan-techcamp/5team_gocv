@@ -75,11 +75,8 @@
                     <color key="textColor" red="0.98958333330000003" green="1" blue="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7-eleven" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="etA-5w-DQ8">
-                    <rect key="frame" x="103" y="170" width="54.5" height="13"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="etA-5w-DQ8" secondAttribute="height" multiplier="54:13" id="Iba-te-fZJ"/>
-                    </constraints>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="7-eleven" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="etA-5w-DQ8">
+                    <rect key="frame" x="103" y="170" width="49.5" height="13"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" red="0.98958333330000003" green="1" blue="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -87,11 +84,8 @@
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     </variation>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="자세히" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cTv-ct-Zh0">
-                    <rect key="frame" x="328.5" y="170" width="30.5" height="13"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="cTv-ct-Zh0" secondAttribute="height" multiplier="30:13" id="ABj-m6-PEI"/>
-                    </constraints>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="자세히" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cTv-ct-Zh0">
+                    <rect key="frame" x="330" y="170" width="29" height="13"/>
                     <fontDescription key="fontDescription" name=".AppleSDGothicNeoI-Regular" family=".Apple SD Gothic NeoI" pointSize="11"/>
                     <color key="textColor" red="0.98958333330000003" green="1" blue="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -100,7 +94,7 @@
                     </variation>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fEQ-Ch-eSW">
-                    <rect key="frame" x="330" y="186.5" width="28.5" height="1"/>
+                    <rect key="frame" x="331.5" y="186.5" width="27" height="1"/>
                     <color key="backgroundColor" red="0.98958333330000003" green="1" blue="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="HCt-gf-cCb"/>

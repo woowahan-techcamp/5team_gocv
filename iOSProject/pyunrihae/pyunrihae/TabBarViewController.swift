@@ -70,12 +70,14 @@ class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
     }
 
     func showRanking(_ notification: Notification){
+        didPressBrandBtn(brandBtns[0])
         didPressTabBtn(tabBtns[1])
     }
     func showCategory(_ notification: Notification){
         categoryIndex = notification.userInfo?["category"] as! Int
     }
     func showReview(_ notification: Notification){
+        categoryIndex = 0
         didPressTabBtn(tabBtns[2])
     }
     func animateView(){

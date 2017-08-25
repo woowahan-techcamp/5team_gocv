@@ -20,6 +20,7 @@ class ProductDetailViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     @IBOutlet weak var wishBtn: UIButton!
+    var hidden = false
     @IBAction func tabWishBtn(_ sender: UIButton) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let user = appDelegate.user
@@ -255,7 +256,7 @@ class ProductDetailViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        writingReviewBtn.isHidden = true
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let user = appDelegate.user
         if user?.email != "" {
@@ -312,7 +313,8 @@ class ProductDetailViewController: UIViewController {
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         if velocity.y > 0 {
-            if writingReviewBtn.isHidden == false {
+            if hidden == false {
+                hidden = true
                 UIView.animate(withDuration: 0.7, delay: 0, animations: {
                     self.writingReviewBtn.frame.origin.y += 100
                 }, completion: { (complete:Bool) in
@@ -320,8 +322,9 @@ class ProductDetailViewController: UIViewController {
                 })
             }
         } else {
-            if writingReviewBtn.isHidden == true {
+            if hidden == true {
                 writingReviewBtn.isHidden = false
+                hidden = false
                 UIView.animate(withDuration: 0.7, delay: 0, animations: {
                     self.writingReviewBtn.frame.origin.y -= 100
                 })
@@ -350,6 +353,7 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                 let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath) as! ProductInfoTableViewCell
                 cell.frame.size.width = tableView.frame.size.width
                 DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
+                    self.writingReviewBtn.isHidden = false
                     cell.priceLabel.text = product.price + "원"
                     cell.brandLabel.text = product.brand
                     cell.foodNameLabel.text = product.name
