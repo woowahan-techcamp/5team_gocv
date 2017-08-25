@@ -1077,22 +1077,26 @@ class ReviewFilter {
 
         let newReviewObj = []
 
+            this.reviewObj.forEach(function(e){
 
-        this.reviewObj.forEach(function(e){
+                if(!!obj3[userId].review_like_list){
+                    if(obj3[userId].review_like_list[e.id]===1){
+                        e.rate1=" good-bad-select";
+                        e.rate2="";
 
+                    }else if(obj3[userId].review_like_list[e.id]===-1){
+                        e.rate1="";
+                        e.rate2=" good-bad-select";
+                    }
 
-            if(obj3[userId].review_like_list[e.id]===1){
-                e.rate1=" good-bad-select";
-                e.rate2="";
+                    newReviewObj.push(e);
+                }else{
 
-            }else if(obj3[userId].review_like_list[e.id]===-1){
-                e.rate1="";
-                e.rate2=" good-bad-select";
-            }
+                    newReviewObj.push(e);
 
-            newReviewObj.push(e);
+                }
 
-        }.bind(this));
+            }.bind(this));
 
         this.reviewObj = newReviewObj;
         console.log(newReviewObj)
