@@ -1,3 +1,23 @@
+class Toast{
+    constructor(message){
+        this.message = message;
+        this.setEvent();
+    }
+
+    setEvent(){
+
+        const element = document.querySelector('#toast-msg')
+        element.innerHTML = this.message;
+        // element.style.display = 'block'
+        element.style.display = "block";
+        setTimeout(function(){
+            // element.style.display = 'none'
+            element.style.display = "none";
+
+        },1000)
+    }
+}
+
 class SignUp {
     constructor(nic, email, pw1, pw2, pwCheck) {
         this.nic = nic;
@@ -404,6 +424,8 @@ class MyPage {
 
                             localStorage['user'] = JSON.stringify(snapshot.val());
                             document.querySelector('#loading').style.display = "none";
+                            new Toast("삭제되었습니다.");
+
                         });
                     });
                 }
@@ -429,6 +451,8 @@ class MyPage {
 
             mountainImagesRef.put(file).then(function () {
                 this.updateDb();
+                document.querySelector('#loading').style.display = "none";
+                new Toast("이미지가 업로드 되었습니다.");
             }.bind(that));
 
         }.bind(this))
@@ -454,6 +478,8 @@ class MyPage {
 
                 that.setProfileTab();
                 document.querySelector('#loading').style.display = "none";
+                new Toast("닉네임이 변경되었습니다.");
+
 
             }.bind(that));
 
