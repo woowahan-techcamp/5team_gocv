@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
     const counter = new Counter(800);
 
     new PopupOverlayClick();
+
 });
 
 class PopupOverlayClick {
@@ -388,6 +389,27 @@ class Carousel {
         return timeValue / 1e6;
     }
 }
+
+class Toast{
+    constructor(message){
+        this.message = message;
+        this.setEvent();
+    }
+
+    setEvent(){
+
+        const element = document.querySelector('#toast-msg')
+        element.innerHTML = this.message;
+        // element.style.display = 'block'
+        element.style.display = "block";
+        setTimeout(function(){
+            // element.style.display = 'none'
+            element.style.display = "none";
+
+        },1000)
+    }
+}
+
 
 //메인 상단 고정 탭
 class SearchTab {
@@ -1393,6 +1415,9 @@ class ReviewPopup {
     }
 }
 
+
+
+
 function loadDetailProduct(event) {
 
     $("body").css("overflow", "hidden");
@@ -1502,8 +1527,12 @@ function loadDetailProduct(event) {
             firebase.database().ref('user/' + user.uid + "/wish_product_list").set(newWishArr).then(function () {
                 firebase.database().ref('user/').once('value').then(function (snapshot) {
                     localStorage['user'] = JSON.stringify(snapshot.val());
+                    new Toast("즐겨찾기 품목에 추가되었습니다.")
                 });
             });
+
+        }else{
+            new Toast("이미 즐겨찾기에 포함된 상품입니다.")
 
         }
 

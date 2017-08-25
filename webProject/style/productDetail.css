@@ -338,6 +338,7 @@
     margin-left: 20px;
     width: 80px;
     height: 80px;
+    background-color: white;
     border-radius: 40px;
     background-size: contain;
 }
@@ -360,7 +361,7 @@
 }
 
 .popup-review-star{
-    margin-top: 25px;
+    margin-top: 40px;
 }
 
 #popupStar{
@@ -474,7 +475,7 @@
     border: solid 1px #FF7800;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
-    color: red ;
+    color: #FF7800 ;
 }
 
 .popup-newReviewWrapper{

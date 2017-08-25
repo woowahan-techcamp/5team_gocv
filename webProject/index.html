@@ -79,7 +79,7 @@
 </div>
 
 <!--메인 페이지-->
-<div style="display: none" class="main-wrapper overflow-y-hidden">
+<div style="display: block" class="main-wrapper overflow-y-hidden">
 
     <!--carousel 구현-->
     <div class="carousel-wrapper">
@@ -292,7 +292,7 @@
 </div>
 
 <!--랭크페이지-->
-<div style="display: block;" class="rank-container">
+<div style="display: none;" class="rank-container">
     <div class="rank-wrapper">
         <ul class="rank-category-wrapper">
             <li style="background-image:url('image/all.png')" class="rank-category-tab selected-rank-category-tab"
@@ -466,7 +466,7 @@
 </div>
 
 <!--토스트 메시지-->
-<div id="toast-msg" style="display: none;">저장되었습니다</div>
+<div id="toast-msg" style="display:none;">저장되었습니다</div>
 
 <!--template-->
 <script id="rank-card-template" type="text/x-handlebars-template">
@@ -763,7 +763,7 @@
                 <div style="font-size: 12px" class="popup-review-time"> {{timestamp}}</div>
                 <div class="popup-review-name"> {{user}}</div>
             </div>
-            <div style="height: 80px" class="carousel-review-star">
+            <div style="height: 50px; margin-top:30px" class="carousel-review-star">
                 <!--<div class="review-preview-star">-->
                 <div id="{{rating}}">
                 </div>
