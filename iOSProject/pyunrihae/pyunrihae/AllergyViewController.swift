@@ -11,6 +11,21 @@ import UIKit
 class AllergyViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    var selectedAllergy = [String]()
+    let allergyList = ["메밀","달걀","우유","콩","밀","게","새우","고등어","돼지고기","소고기","닭고기","복숭아","땅콩","토마토","오징어","호두","조개"] // 임의로 알레르기 리스트를 넣었음
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        selectedAllergy = SelectedAllergy.allergyList
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.allowsMultipleSelection = true
+        // Do any additional setup after loading the view.
+    }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
     @IBAction func tabBackBtn(_ sender: UIButton) {
         let writingReviewViewController = self.navigationController?.viewControllers[1] as! WritingReviewViewController
         self.navigationController?.popToViewController(writingReviewViewController, animated: true)
@@ -20,29 +35,11 @@ class AllergyViewController: UIViewController {
         let writingReviewViewController = self.navigationController?.viewControllers[1] as! WritingReviewViewController
         self.navigationController?.popToViewController(writingReviewViewController, animated: true)
     }
-    var selectedAllergy = [String]()
-    let allergyList = ["메밀","달걀","우유","콩","밀","게","새우","고등어","돼지고기","소고기","닭고기","복숭아","땅콩","토마토","오징어","호두","조개"] // 임의로 알레르기 리스트를 넣었음
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        selectedAllergy = SelectedAllergy.allergyList
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.allowsMultipleSelection = true
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 }
 extension AllergyViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allergyList.count
     }

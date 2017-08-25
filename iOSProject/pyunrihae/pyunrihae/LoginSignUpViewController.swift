@@ -15,19 +15,15 @@ class LoginSignUpViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(closeSelf), name: NSNotification.Name("userLogined"), object: nil)
         // Do any additional setup after loading the view.
     }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     @IBAction func onTouchCloseButton(_ sender: Any) {
         closeSelf()
     }
-
     func closeSelf() {
         navigationController?.popViewController(animated: true)
         dismiss(animated: true, completion: nil)
     }
-
 }

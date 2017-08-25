@@ -13,11 +13,44 @@ class RankingViewController: UIViewController {
     @IBOutlet weak var categoryScrollView: UIScrollView!
     @IBOutlet weak var productNumLabel: UILabel!
     @IBOutlet weak var sortingMethodLabel: UILabel!
+    let appdelegate = UIApplication.shared.delegate as! AppDelegate
+    let priceLevelList = ["비싸다","비싼편","적당","싼편","싸다"]
+    let flavorLevelList = ["노맛","별로","적당","괜춘","존맛"]
+    let quantityLevelList = ["창렬","적음","적당","많음","혜자"]
+    var isLoaded = false
+    var productList : [Product] = []
+    var categoryBtns = [UIButton]()
+    var scrollBar = UILabel()
+    var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
+    let category = ["전체","도시락","김밥","베이커리","라면","식품","스낵","아이스크림","음료"]
+    var selectedBrandIndexFromTab : Int = 0 {
+        didSet{
+            getRankingList()
+        }
+    }
+    var selectedCategoryIndex: Int = 0 { // 선택된 카테고리 인덱스, 초기값은 0 (전체)
+        didSet{
+            getRankingList()
+        }
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
+        categoryScrollView.backgroundColor = UIColor.white
+        addCategoryBtn() // 카테고리 버튼 만들어서 스크롤 뷰에 붙이기
+        Button.select(btn: categoryBtns[selectedCategoryIndex]) // 맨 처음 카테고리는 전체 선택된 것으로 나타나게 함
+        didPressCategoryBtn(sender: categoryBtns[selectedCategoryIndex])
+        isLoaded = true
+        NotificationCenter.default.addObserver(self, selector: #selector(getRankingList), name: NSNotification.Name("productListChanged"), object: nil)
+    }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
     @IBAction func tabDropDownBtn(_ sender: UIButton) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         //Create and add the Cancel action
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
-            
         }
         let orderByRanking = UIAlertAction(title: "평점순", style: .default) { action -> Void in
             DispatchQueue.main.async {
@@ -31,35 +64,11 @@ class RankingViewController: UIViewController {
                 self.setRankingListOrder()
             }
         }
-
         alert.addAction(cancelAction)
         alert.addAction(orderByRanking)
         alert.addAction(orderByPrice)
         present(alert, animated: true, completion: nil)
     }
-    
-    let appdelegate = UIApplication.shared.delegate as! AppDelegate
-
-    let priceLevelList = ["비싸다","비싼편","적당","싼편","싸다"]
-    let flavorLevelList = ["노맛","별로","적당","괜춘","존맛"]
-    let quantityLevelList = ["창렬","적음","적당","많음","혜자"]
-    var isLoaded = false
-    var selectedBrandIndexFromTab : Int = 0 {
-        didSet{
-            getRankingList()
-        }
-    }
-    var selectedCategoryIndex: Int = 0 { // 선택된 카테고리 인덱스, 초기값은 0 (전체)
-        didSet{
-            getRankingList()
-        }
-    }
-    var productList : [Product] = []
-    var categoryBtns = [UIButton]()
-    var scrollBar = UILabel()
-    var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
-    let category = ["전체","도시락","김밥","베이커리","라면","식품","스낵","아이스크림","음료"]
-    
     func addCategoryBtn(){ // 카테고리 버튼 스크롤 뷰에 추가하기
         categoryScrollView.isScrollEnabled = true
         categoryScrollView.contentSize.width = CGFloat(70 * category.count)
@@ -118,28 +127,6 @@ class RankingViewController: UIViewController {
     func addNotiObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(selectCategory), name: NSNotification.Name("selectCategory"), object: nil)
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
-        categoryScrollView.backgroundColor = UIColor.white
-        addCategoryBtn() // 카테고리 버튼 만들어서 스크롤 뷰에 붙이기
-        Button.select(btn: categoryBtns[selectedCategoryIndex]) // 맨 처음 카테고리는 전체 선택된 것으로 나타나게 함
-        didPressCategoryBtn(sender: categoryBtns[selectedCategoryIndex])
-        isLoaded = true
-        // Do any additional setup after loading the view.
-        
-        // Notification Observer
-        NotificationCenter.default.addObserver(self, selector: #selector(getRankingList), name: NSNotification.Name("productListChanged"), object: nil)
-
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     func showActivityIndicatory() {
         self.actInd.frame = CGRect.init(x: 0.0, y: 0.0, width: 40.0, height: 40.0)
         self.actInd.center = view.center
@@ -148,18 +135,14 @@ class RankingViewController: UIViewController {
         view.addSubview(actInd)
         actInd.startAnimating()
     }
-    
     func hideActivityIndicatory() {
         if view.subviews.contains(actInd){
             actInd.stopAnimating()
             view.willRemoveSubview(actInd)
         }
     }
-    
     func getRankingList(){
-        
         var brand = ""
-        
         switch selectedBrandIndexFromTab {
         case 0 : brand = ""
         case 1 : brand = "GS25"
@@ -223,9 +206,7 @@ class RankingViewController: UIViewController {
                 }
             }
         }
-        
     }
-    
     func setRankingNum(){
         DispatchQueue.main.async{
             if self.productList.count > 0 {
@@ -235,12 +216,9 @@ class RankingViewController: UIViewController {
             }
         }
     }
-    
-       
     func setRankingListOrder(){
         
         if sortingMethodLabel != nil {
-            
             if sortingMethodLabel.text == "평점순"{
                 self.productList = productList.sorted(by: { $0.grade_avg > $1.grade_avg })
             }else{
@@ -250,16 +228,11 @@ class RankingViewController: UIViewController {
                         return
                     }
                 }
-                
                 self.productList = productList.sorted(by: { Int($0.price)! < Int($1.price)! })
             }
-            
             self.tableView.reloadData()
         }
     }
-
-
-    
 }
 
 extension RankingViewController: UITableViewDelegate, UITableViewDataSource {
@@ -275,7 +248,6 @@ extension RankingViewController: UITableViewDelegate, UITableViewDataSource {
             let product = self.productList[indexPath.item]
             cell.foodImage.layer.cornerRadius = cell.foodImage.frame.height/2
             cell.foodImage.clipsToBounds = true
-           
             cell.loading.startAnimating()
             
             if product.image != "" {
@@ -285,14 +257,10 @@ extension RankingViewController: UITableViewDelegate, UITableViewDataSource {
             }else{
                 cell.foodImage.image = #imageLiteral(resourceName: "ic_default.png")
             }
-           
-
             cell.orderNumLabel.text = (indexPath.item + 1).description
             cell.brandLabel.text = product.brand
             cell.PriceLabel.text = product.price.description + "원"
             cell.productNameLabel.text = product.name
-            
-            
             if product.event != "\r" {
                 cell.EventLabel.isHidden = false
                 cell.EventLabel.text = product.event
@@ -300,13 +268,9 @@ extension RankingViewController: UITableViewDelegate, UITableViewDataSource {
             }else{
                 cell.EventLabel.isHidden = true
             }
-           
-            
             for sub in cell.starView.subviews {
                 sub.removeFromSuperview()
             }
-            
-//            let grade = product.grade_avg
             let numberOfPlaces = 2.0
             let multiplier = pow(10.0, numberOfPlaces)
             let grade = round(Double(product.grade_avg) * multiplier) / multiplier

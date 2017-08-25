@@ -30,8 +30,6 @@ class Product {
     var reviewList : [String] // 가지고 있는 리뷰 아이디의 리스트
     var capacity : String
     var manufacturer : String
-    
-    
     init(){
         self.id = ""
         self.image = ""
@@ -77,8 +75,6 @@ class Product {
         self.capacity = capacity
         self.manufacturer = manufacturer
     }
-    
-    
     convenience init(snapshot : DataSnapshot){
         let dict = snapshot.value as? [String : Any] ?? [:]
         let id = dict["id"] as? String ?? ""

@@ -14,7 +14,6 @@ import FirebaseAuth
 
 class DataManager{
     
-    
     // 기본 데이터 레퍼런스
     static var ref : DatabaseReference! = Database.database().reference()
     static var appdelegate = UIApplication.shared.delegate as? AppDelegate
@@ -26,7 +25,6 @@ class DataManager{
     static func getTop3ReviewByBrand(brand : String, completion: @escaping ([Review]) -> ()) {
         
         let localRef = ref.child("review")
-        
         
         if brand == "전체" { // 브랜드 : 전체를 선택한 경우
             localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
@@ -596,13 +594,6 @@ class DataManager{
         
         completion()
     }
-    
-    /*
-     * 검색 화면
-     */
-    
-    
-    
     /*
      *  회원가입 화면
      */
