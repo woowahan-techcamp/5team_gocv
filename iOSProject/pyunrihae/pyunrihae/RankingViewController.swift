@@ -256,6 +256,7 @@ extension RankingViewController: UITableViewDelegate, UITableViewDataSource {
             cell.loading.startAnimating()
             
             if product.image != "" {
+                cell.foodImage.contentMode = .scaleAspectFit
                 cell.foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
                     cell.loading.stopAnimating()
                 })

@@ -154,6 +154,7 @@ class ProductDetailViewController: UIViewController {
                 usefulNumLabel.textColor = UIColor.red
                 badNumLabel.textColor = UIColor.lightGray
             }
+            appdelegate.user?.review_like_list[reviewId] = reviewStatus
             for i in 0..<reviewList.count {
                 if reviewList[i].id == reviewId {
                     reviewList[i].useful = Int(usefulNumLabel.text!)!
@@ -224,6 +225,7 @@ class ProductDetailViewController: UIViewController {
                 usefulNumLabel.textColor = UIColor.lightGray
                 badNumLabel.textColor = UIColor.red
             }
+            appdelegate.user?.review_like_list[reviewId] = reviewStatus
             for i in 0..<reviewList.count {
                 if reviewList[i].id == reviewId {
                     reviewList[i].useful = Int(usefulNumLabel.text!)!
@@ -363,6 +365,7 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                     }
                     cell.loading.startAnimating()
                     let foodImage = UIImageView()
+                   
                     foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), completion:{ image in
                         cell.foodImageBtn.setBackgroundImage(foodImage.image, for: .normal)
                         cell.loading.stopAnimating()
