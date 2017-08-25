@@ -793,7 +793,8 @@ class Review {
             this.product.grade_count += 1;
             this.product.review_count += 1;
             this.product.grade_total += this.data[0];
-            this.product.grade_avg = this.product.grade_total / this.product.grade_count;
+            // this.product.grade_avg = this.product.grade_total / this.product.grade_count;
+            this.product.grade_avg =  (this.product.review_count / (this.product.review_count+10)) * (this.product.grade_total / this.product.grade_count) + (10 / (this.product.review_count+10)) * (2.75);
             this.product.grade_data["g" + this.data[0]] += 1;
             this.product.price_level["p" + this.data[1]] += 1;
             this.product.flavor_level["f" + this.data[2]] += 1;
