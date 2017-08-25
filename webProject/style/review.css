@@ -100,8 +100,8 @@
 .review-user-image{
     float: left;
     width: 30%;
-    height: auto;
-    top: 175px;
+    height: 110px;
+    top: 181px;
     left: 35%;
     position: absolute;
     background-color: white;

@@ -793,7 +793,8 @@ class Review {
             this.product.grade_count += 1;
             this.product.review_count += 1;
             this.product.grade_total += this.data[0];
-            this.product.grade_avg = this.product.grade_total / this.product.grade_count;
+            // this.product.grade_avg = this.product.grade_total / this.product.grade_count;
+            this.product.grade_avg =  (this.product.review_count / (this.product.review_count+10)) * (this.product.grade_total / this.product.grade_count) + (10 / (this.product.review_count+10)) * (2.75);
             this.product.grade_data["g" + this.data[0]] += 1;
             this.product.price_level["p" + this.data[1]] += 1;
             this.product.flavor_level["f" + this.data[2]] += 1;
@@ -825,13 +826,13 @@ class Review {
                 util.template(reviewArr, template2, sec2);
 
                 util.setHandlebars(reviewArr);
-                document.querySelector('#loading').style.display = "none"
+                document.querySelector('#loading').style.display = "none";
 
                 const Event = function () {
                     this.getAttribute = function (name) {
                         return that.product.id;
                     };
-                }
+                };
 
 
                 const event = new Event();
@@ -923,7 +924,7 @@ class ReviewFilter {
             const splitTimestamp = time.split(' ');
 
             value['time_score'] = this.getDate(splitTimestamp[0]) + this.getTime(splitTimestamp[1]);
-            value['rating'] = "carousel-review-star" + i;
+            // value['rating'] = "carousel-review-star" + i;
 
             queryObj.push(value);
             i++;
@@ -1009,6 +1010,7 @@ class ReviewFilter {
     setSorting(param) {
         const queryObj = this.reviewObj;
         let sortObj = [];
+        const result = [];
 
         switch (param) {
             case 'date':
@@ -1021,7 +1023,16 @@ class ReviewFilter {
                 break;
         }
 
-        this.reviewObj = sortObj;
+        let i = 0;
+        for(const x in sortObj){
+            const value =sortObj[x];
+
+            value['rating'] = "carousel-review-star" + i;
+            result.push(value);
+            i++;
+        }
+
+        this.reviewObj = result;
 
         this.setDefaultReviewData();
     }
@@ -1072,29 +1083,34 @@ class ReviewFilter {
         const obj2 = JSON.parse(review);
         const user = localStorage['user'];
         const obj3 = JSON.parse(user);
+
         const userId = firebase.auth().currentUser.uid;
 
-        let newReviewObj = []
+        let newReviewObj = [];
 
+            this.reviewObj.forEach(function(e){
 
-        this.reviewObj.forEach(function(e){
+                if(!!obj3[userId].review_like_list){
+                    if(obj3[userId].review_like_list[e.id]===1){
+                        e.rate1=" good-bad-select";
+                        e.rate2="";
 
+                    }else if(obj3[userId].review_like_list[e.id]===-1){
+                        e.rate1="";
+                        e.rate2=" good-bad-select";
+                    }
 
-            if(obj3[userId].review_like_list[e.id]===1){
-                e.rate1=" good-bad-select";
-                e.rate2="";
+                    newReviewObj.push(e);
+                }else{
 
-            }else if(obj3[userId].review_like_list[e.id]===-1){
-                e.rate1="";
-                e.rate2=" good-bad-select";
-            }
+                    newReviewObj.push(e);
 
-            newReviewObj.push(e);
+                }
 
-        }.bind(this));
+            }.bind(this));
 
         this.reviewObj = newReviewObj;
-        console.log(newReviewObj)
+        console.log(newReviewObj);
 
         util.template(this.reviewObj, template, popup);
         util.setHandlebars(this.reviewObj);
@@ -1135,9 +1151,9 @@ class ReviewRating {
 
                 //데이터가 없거나, 0일경우
                 if (!this.likeList || this.likeList === 0) {
-                    console.log("데이터가 없거나, 0일경우")
+                    console.log("데이터가 없거나, 0일경우");
 
-                    document.querySelector('#loading').style.display = "block"
+                    document.querySelector('#loading').style.display = "block";
                     e.target.disabled = true;
 
 
@@ -1475,7 +1491,6 @@ function loadDetailProduct(event) {
         const user = firebase.auth().currentUser;
         let newWishArr = userData[user.uid].wish_product_list;
         let double = true;
-
 
         if (!!newWishArr) {
             newWishArr.forEach(function (e) {
