@@ -9,7 +9,6 @@
 import UIKit
 
 class ProductDetailInfoTableViewCell: UITableViewCell {
-
     @IBOutlet weak var allergyBtn: UIButton!
     @IBOutlet weak var starView: UIView!
     @IBOutlet weak var gradeLabel: UILabel!
@@ -18,13 +17,8 @@ class ProductDetailInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var priceLevelLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
-
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
-
 }

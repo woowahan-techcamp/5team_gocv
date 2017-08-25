@@ -26,18 +26,10 @@ class ProductReviewTableViewCell: UITableViewCell {
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var uploadedFoodImageBtn: UIButton!
     @IBOutlet weak var detailReviewLabel: UILabel!
-    var productDetailViewController : ProductDetailViewController!
-
-    let appdelegate = UIApplication.shared.delegate as! AppDelegate
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
-
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
-
 }
