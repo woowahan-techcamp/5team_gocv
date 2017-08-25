@@ -15,7 +15,40 @@ class ReviewViewController: UIViewController {
     @IBOutlet weak var reviewNumLabel: UILabel!
     @IBOutlet weak var sortingMethodLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    
+    var scrollBar = UILabel()
+    var reviewList : [Review] = []
+    var categoryBtns = [UIButton]()
+    let category = ["전체","도시락","김밥","베이커리","라면","식품","스낵","아이스크림","음료"]
+    var isLoaded = false
+    var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
+    var selectedBrandIndexFromTab : Int = 0 {
+        didSet{
+            getReviewList()
+        }
+    }
+    var selectedCategoryIndex: Int = 0 { // 선택된 카테고리 인덱스, 초기값은 0 (전체)
+        didSet {
+            getReviewList()
+        }
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.isScrollEnabled = true
+        tableView.separatorStyle = .none
+        categoryScrollView.backgroundColor = UIColor.white
+        addCategoryBtn() // 카테고리 버튼 만들어서 스크롤 뷰에 붙이기
+        Button.select(btn: categoryBtns[selectedCategoryIndex]) // 맨 처음 카테고리는 전체 선택된 것으로 나타나게 함
+        didPressCategoryBtn(sender: categoryBtns[selectedCategoryIndex])
+        isLoaded = true
+        // Do any additional setup after loading the view.
+        
+    }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
     @IBAction func tabDropDownBtn(_ sender: UIButton) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         //Create and add the Cancel action
@@ -28,7 +61,6 @@ class ReviewViewController: UIViewController {
                 self.setReviewListOrder()
             }
         }
-
         let orderByUsefulNum = UIAlertAction(title: "유용순", style: .default) { action -> Void in
             DispatchQueue.main.async {
                 self.sortingMethodLabel.text  = "유용순"
@@ -41,25 +73,6 @@ class ReviewViewController: UIViewController {
         alert.addAction(orderByUsefulNum)
         present(alert, animated: true, completion: nil)
     }
-    
-    var selectedBrandIndexFromTab : Int = 0 {
-        didSet{
-            getReviewList()
-        }
-    }
-    
-    var selectedCategoryIndex: Int = 0 { // 선택된 카테고리 인덱스, 초기값은 0 (전체)
-        didSet {
-            getReviewList()
-        }
-    }
-    var scrollBar = UILabel()
-    var reviewList : [Review] = []
-    var categoryBtns = [UIButton]()
-    let category = ["전체","도시락","김밥","베이커리","라면","식품","스낵","아이스크림","음료"]
-    var isLoaded = false
-    var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
-
     func addCategoryBtn(){ // 카테고리 버튼 스크롤 뷰에 추가하기
         categoryScrollView.isScrollEnabled = true
         let width = self.view.frame.size.width
@@ -122,27 +135,6 @@ class ReviewViewController: UIViewController {
     func addNotiObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(selectCategory), name: NSNotification.Name("selectCategory"), object: nil)
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.isScrollEnabled = true
-        tableView.separatorStyle = .none
-        categoryScrollView.backgroundColor = UIColor.white
-        addCategoryBtn() // 카테고리 버튼 만들어서 스크롤 뷰에 붙이기
-        Button.select(btn: categoryBtns[selectedCategoryIndex]) // 맨 처음 카테고리는 전체 선택된 것으로 나타나게 함
-        didPressCategoryBtn(sender: categoryBtns[selectedCategoryIndex])
-        isLoaded = true
-        // Do any additional setup after loading the view.
-        
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     func showActivityIndicatory() {
         self.actInd.frame = CGRect.init(x: 0.0, y: 0.0, width: 40.0, height: 40.0)
         self.actInd.center = view.center
@@ -159,7 +151,6 @@ class ReviewViewController: UIViewController {
             view.willRemoveSubview(actInd)
         }
     }
-    
     func getReviewList(){
         
         var brand = ""
@@ -196,7 +187,6 @@ class ReviewViewController: UIViewController {
                         }
                     }
                 }
-                
             } else if selectedCategoryIndex == 0 { // 카테고리만 전체일 때
                 DataManager.getReviewListBy(brand: brand) { (reviews) in
                     self.reviewList = reviews
@@ -218,11 +208,8 @@ class ReviewViewController: UIViewController {
                     }
                 }
             }
-            
         }
-        
     }
-    
     func setReviewNum(){
         DispatchQueue.main.async{
             if self.reviewList.count > 0 {
@@ -232,12 +219,8 @@ class ReviewViewController: UIViewController {
             }
         }
     }
-    
     func setReviewListOrder(){
-       
-        
         if sortingMethodLabel != nil {
-            
             
             let format = DateFormatter()
             format.locale = Locale(identifier: "ko_kr")
@@ -256,11 +239,9 @@ class ReviewViewController: UIViewController {
             }else{
                 self.reviewList = reviewList.sorted(by: { $0.useful > $1.useful })
             }
-            
             self.tableView.reloadData()
         }
     }
-    
 }
 
 extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //메인화면에서 1,2,3위 상품 보여주기
@@ -298,7 +279,6 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //�
                     cell.timeLabel.text = review.timestamp.components(separatedBy: " ")[0]
                 }
             }
-            
             cell.userImage.layer.cornerRadius = cell.userImage.frame.height/2
             cell.userImage.clipsToBounds = true
             
@@ -306,7 +286,6 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //�
             cell.userImage.af_setImage(withURL: URL(string: review.user_image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
                 cell.loading.stopAnimating()
             })
-            
             cell.brandLabel.text = review.brand
             cell.productNameLabel.text = review.p_name
             cell.reviewContentLabel.text = review.comment
@@ -316,12 +295,8 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //�
             for sub in cell.starView.subviews {
                 sub.removeFromSuperview()
             }
-            
-            //임의의 별점
             let grade = Double(review.grade)
-            //
             cell.gradeLabel.text = String(grade)
-            
             for i in 0..<Int(grade) {
                 let starImage = UIImage(named: "stars.png")
                 let cgImage = starImage?.cgImage

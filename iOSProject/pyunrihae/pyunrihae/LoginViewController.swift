@@ -13,24 +13,18 @@ class LoginViewController: UIViewController {
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    
     @IBOutlet weak var alertLabel: UILabel!
-    
     @IBOutlet weak var loginButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
-
-    @IBAction func onCancelButtonClicked(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
-        dismiss(animated: true, completion: nil)
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    @IBAction func onCancelButtonClicked(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     @IBAction func onEditingPassword(_ sender: Any) {
         isValidSignup()
@@ -68,8 +62,6 @@ class LoginViewController: UIViewController {
                     } else {
                         appDelegate.user = User()
                     }
-                    
-                    
                 }
             }
         }

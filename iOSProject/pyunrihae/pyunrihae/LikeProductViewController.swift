@@ -10,10 +10,8 @@ import UIKit
 
 class LikeProductViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-
     let appdelegate = UIApplication.shared.delegate as! AppDelegate
     var likeProductList : [Product] = []
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         getLikeProductList()
@@ -23,15 +21,14 @@ class LikeProductViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(getLikeProductList), name: NSNotification.Name("likeListChanged"), object: nil)
         // Do any additional setup after loading the view.
     }
-
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
     @IBAction func onTouchCloseButton(_ sender: Any) {
         navigationController?.popViewController(animated: true)
         dismissKeyboard()
         dismiss(animated: true, completion: nil)
-    }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func dismissKeyboard() {
@@ -52,28 +49,13 @@ class LikeProductViewController: UIViewController {
                 }
             }
         }
-        
         tableView.reloadData()
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
-
-
 extension LikeProductViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if likeProductList.count == 0 {
             return 1
@@ -94,20 +76,14 @@ extension LikeProductViewController: UITableViewDataSource, UITableViewDelegate 
             }else{
                 cell.productImageView.image = #imageLiteral(resourceName: "ic_default.png")
             }
-            
             if likeProductList[indexPath.row].name != "" {
                 cell.productNameLabel.text = likeProductList[indexPath.row].name
             }
-            
             cell.moreImage.isHidden = false
         }
-       
-       
         return cell
     }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         if likeProductList.count > 0 {
             let product = likeProductList[indexPath.row]
             NotificationCenter.default.post(name: NSNotification.Name("showProduct"), object: self, userInfo: ["product" : product])
