@@ -119,7 +119,6 @@ class Util {
     setHandlebars(value) {
         let i = 0;
         for (const x of value) {
-            console.log(i, x.grade);
             $("#carousel-review-star" + i).rateYo({
                 rating: x.grade,
                 readOnly: true,
@@ -931,8 +930,6 @@ class ReviewFilter {
             i++;
         }
 
-        console.log(queryObj);
-
         return queryObj;
     }
 
@@ -1466,7 +1463,6 @@ function loadDetailProduct(event) {
 
     if (!!obj[id].reviewList) {
         obj[id].reviewList.forEach(function (e) {
-            console.log(obj2[e]);
             reviewArr.push(obj2[e])
         });
     }
