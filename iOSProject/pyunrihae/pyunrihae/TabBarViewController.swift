@@ -144,6 +144,17 @@ class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
         tabContentView.layer.zPosition = 10
         
         // Do any additional setup after loading the view.
+        
+       
+        
+//        let firebaseAuth = Auth.auth()
+//        do {
+//            try firebaseAuth.signOut()
+//            self.appdelegate.user = User()
+//        } catch let signOutError as NSError {
+//            print ("Error signing out: %@", signOutError)
+//        }
+//
         if Auth.auth().currentUser != nil {
             DataManager.getUserFromUID(uid: (Auth.auth().currentUser?.uid)!, completion: { (user) in
                self.appdelegate.user = user
