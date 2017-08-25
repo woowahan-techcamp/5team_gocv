@@ -15,69 +15,6 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
 
     @IBOutlet weak var completeBtn: UIButton!
     @IBOutlet weak var barBtn: UIButton!
-    @IBAction func addImageBtn(_ sender: UIButton) {
-        let fusuma = FusumaViewController()
-        
-        fusuma.delegate = self
-        fusuma.cropHeightRatio = 0.7
-        fusuma.defaultMode = .library
-        fusuma.allowMultipleSelection = false
-        fusumaSavesImage = false
-        
-        self.present(fusuma, animated: true, completion: nil)
-    
-    }
-    
-    // MARK: FusumaDelegate Protocol
-    func fusumaImageSelected(_ image: UIImage, source: FusumaMode) {
-
-        let imageView = UIImageView()
-        reviewImage = image
-        imageView.image = reviewImage
-        imageView.frame = CGRect(origin: CGPoint(x: 0 ,y: 0), size: addedImageView.frame.size)
-        imageView.layer.cornerRadius = 7
-        imageView.clipsToBounds = true
-        addedImageView.addSubview(imageView)
-        addImageBtn.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        addImageBtn.layer.cornerRadius = 7
-        addImageBtn.clipsToBounds = true
-        addImageBtn.setTitle("사진 변경", for: .normal)
-    }
-    
-    func fusumaMultipleImageSelected(_ images: [UIImage], source: FusumaMode) {
-    }
-    
-    func fusumaImageSelected(_ image: UIImage, source: FusumaMode, metaData: ImageMetadata) {
-    }
-    
-    func fusumaVideoCompleted(withFileURL fileURL: URL) {
-    }
-    
-    func fusumaDismissedWithImage(_ image: UIImage, source: FusumaMode) {
-    }
-    
-    func fusumaCameraRollUnauthorized() {
-        
-        let alert = UIAlertController(title: "Access Requested",
-                                      message: "Saving image needs to access your photo album",
-                                      preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "Settings", style: .default) { (action) -> Void in
-        })
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
-            
-        })
-        
-        guard let vc = UIApplication.shared.delegate?.window??.rootViewController,
-            let presented = vc.presentedViewController else {
-                
-                return
-        }
-        
-        presented.present(alert, animated: true, completion: nil)
-    }
-    
     @IBOutlet weak var loading: UIActivityIndicatorView!
     @IBOutlet weak var reviewTextView: UIView!
     @IBOutlet weak var detailReview: UITextView!
@@ -93,9 +30,60 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
     @IBOutlet weak var priceLevelView: UIView!
     @IBOutlet weak var flavorLevelView: UIView!
     @IBOutlet weak var quantityLevelView: UIView!
-    
+    @IBOutlet weak var scrollView: UIScrollView!
+    var reviewImage = UIImage()
+    var checkGrade = false
+    var checkPriceLevel = false
+    var checkFlavorLevel = false
+    var checkQuantityLevel = false
+    var grade = 0
+    var priceLevel = 0
+    var flavorLevel = 0
+    var quantityLevel = 0
+    let priceLevelList = ["비싸다","비싼편","적당","싼편","싸다"]
+    let flavorLevelList = ["노맛","별로","적당","괜춘","존맛"]
+    let quantityLevelList = ["창렬","적음","적당","많음","혜자"]
+    var allergy = [String]()
+    var starBtns = [UIButton]()
+    var priceLevelBtns = [UIButton]()
+    var flavorLevelBtns = [UIButton]()
+    var quantityLevelBtns = [UIButton]()
     let appdelegate = UIApplication.shared.delegate as! AppDelegate
-    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.addDoneButtonOnKeyboard()
+        addImageBtn.layer.zPosition = 10
+        scrollView.isScrollEnabled = true
+        addStarBtn()
+        addPriceLevelBtn()
+        addFlavorLevelBtn()
+        addQuantityLevelBtn()
+        Image.makeCircleImage(image: productImage)
+        
+        loading.startAnimating()
+        DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
+            self.productNameLabel.text = product.name
+            self.brandLabel.text = product.brand
+            self.priceLabel.text = product.price + "원"
+            self.productImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
+                self.loading.stopAnimating()
+            })
+        }
+        
+        detailReview.layer.borderWidth = 0.7
+        detailReview.layer.borderColor = UIColor.lightGray.cgColor
+        detailReview.layer.cornerRadius = 5
+        detailReview.clipsToBounds = true
+        detailReview.delegate = self
+        NotificationCenter.default.addObserver(self, selector: #selector(chooseImage), name: NSNotification.Name("chooseImage"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showAllergyList), name: NSNotification.Name("selectAllergy"), object: nil)
+        
+        // Do any additional setup after loading the view.
+    }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
     @IBAction func tabBackBtn(_ sender: UIButton) {
         self.navigationController?.popToRootViewController(animated: true)
         SelectedAllergy.allergyList = []
@@ -143,24 +131,64 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
             present(alert, animated: true, completion: nil)
         }
     }
-    @IBOutlet weak var scrollView: UIScrollView!
-    var reviewImage = UIImage()
-    var checkGrade = false
-    var checkPriceLevel = false
-    var checkFlavorLevel = false
-    var checkQuantityLevel = false
-    var grade = 0
-    var priceLevel = 0
-    var flavorLevel = 0
-    var quantityLevel = 0
-    let priceLevelList = ["비싸다","비싼편","적당","싼편","싸다"]
-    let flavorLevelList = ["노맛","별로","적당","괜춘","존맛"]
-    let quantityLevelList = ["창렬","적음","적당","많음","혜자"]
-    var allergy = [String]()
-    var starBtns = [UIButton]()
-    var priceLevelBtns = [UIButton]()
-    var flavorLevelBtns = [UIButton]()
-    var quantityLevelBtns = [UIButton]()
+    @IBAction func addImageBtn(_ sender: UIButton) {
+        let fusuma = FusumaViewController()
+        
+        fusuma.delegate = self
+        fusuma.cropHeightRatio = 0.7
+        fusuma.defaultMode = .library
+        fusuma.allowMultipleSelection = false
+        fusumaSavesImage = false
+        
+        self.present(fusuma, animated: true, completion: nil)
+        
+    }
+    
+    // MARK: FusumaDelegate Protocol
+    func fusumaImageSelected(_ image: UIImage, source: FusumaMode) {
+        
+        let imageView = UIImageView()
+        reviewImage = image
+        imageView.image = reviewImage
+        imageView.frame = CGRect(origin: CGPoint(x: 0 ,y: 0), size: addedImageView.frame.size)
+        imageView.layer.cornerRadius = 7
+        imageView.clipsToBounds = true
+        addedImageView.addSubview(imageView)
+        addImageBtn.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        addImageBtn.layer.cornerRadius = 7
+        addImageBtn.clipsToBounds = true
+        addImageBtn.setTitle("사진 변경", for: .normal)
+    }
+    
+    func fusumaMultipleImageSelected(_ images: [UIImage], source: FusumaMode) {
+    }
+    func fusumaImageSelected(_ image: UIImage, source: FusumaMode, metaData: ImageMetadata) {
+    }
+    func fusumaVideoCompleted(withFileURL fileURL: URL) {
+    }
+    func fusumaDismissedWithImage(_ image: UIImage, source: FusumaMode) {
+    }
+    func fusumaCameraRollUnauthorized() {
+        
+        let alert = UIAlertController(title: "Access Requested",
+                                      message: "Saving image needs to access your photo album",
+                                      preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Settings", style: .default) { (action) -> Void in
+        })
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+            
+        })
+        
+        guard let vc = UIApplication.shared.delegate?.window??.rootViewController,
+            let presented = vc.presentedViewController else {
+                
+                return
+        }
+        
+        presented.present(alert, animated: true, completion: nil)
+    }
     func addStarBtn() { //별 버튼 뷰에 붙이기
         for i in 0..<5 {
             let starBtn = UIButton()
@@ -295,45 +323,6 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
     {
         self.detailReview.resignFirstResponder()
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.addDoneButtonOnKeyboard()
-        
-        addImageBtn.layer.zPosition = 10
-        scrollView.isScrollEnabled = true
-        addStarBtn()
-        addPriceLevelBtn()
-        addFlavorLevelBtn()
-        addQuantityLevelBtn()
-        Image.makeCircleImage(image: productImage)
-        
-        loading.startAnimating()
-        DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
-            self.productNameLabel.text = product.name
-            self.brandLabel.text = product.brand
-            self.priceLabel.text = product.price + "원"
-            self.productImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
-                self.loading.stopAnimating()
-            })
-        }
-        
-        detailReview.layer.borderWidth = 0.7
-        detailReview.layer.borderColor = UIColor.lightGray.cgColor
-        detailReview.layer.cornerRadius = 5
-        detailReview.clipsToBounds = true
-        detailReview.delegate = self
-        NotificationCenter.default.addObserver(self, selector: #selector(chooseImage), name: NSNotification.Name("chooseImage"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(showAllergyList), name: NSNotification.Name("selectAllergy"), object: nil)
-        
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 }
 
 extension WritingReviewViewController: UITextViewDelegate {

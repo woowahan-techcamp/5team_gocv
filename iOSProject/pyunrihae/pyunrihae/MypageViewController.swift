@@ -12,7 +12,6 @@ import Fusuma
 import AlamofireImage
 
 class MypageViewController: UIViewController, FusumaDelegate{
-
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emailLabel: UILabel!
@@ -20,9 +19,7 @@ class MypageViewController: UIViewController, FusumaDelegate{
     @IBOutlet weak var nickNameLabel: UILabel!
     @IBOutlet weak var moreImg: UIImageView!
     @IBOutlet weak var photoEditImage: UIImageView!
-    
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    
     var labelList = ["내가 찜한 상품","편리해란","회원가입 / 로그인"]
     override func viewDidLoad() {
         NotificationCenter.default.addObserver(self, selector: #selector(checkUserLogin), name: NSNotification.Name("userLogined"), object: nil)
@@ -31,25 +28,16 @@ class MypageViewController: UIViewController, FusumaDelegate{
         tableView.dataSource = self
         // Do any additional setup after loading the view.
         checkUserLogin()
-        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(nicknameTapped))
         let tapGesture2 = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
-        
-    
         nickNameLabel.addGestureRecognizer(tapGesture)
         nickNameLabel.isUserInteractionEnabled = true
-        
         userImage.addGestureRecognizer(tapGesture2)
         userImage.isUserInteractionEnabled = true
-        
     }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
-    
     func nicknameTapped(){
         if nickNameLabel.text != "로그인을 해주세요." {
             // 닉네임 수정
@@ -101,8 +89,6 @@ class MypageViewController: UIViewController, FusumaDelegate{
             tableView.reloadData()
         }
     }
-
-    
     func setLogined(){
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let currentUser = appDelegate.user
@@ -147,10 +133,7 @@ class MypageViewController: UIViewController, FusumaDelegate{
                 self.alertLabel.alpha = 0
             }
         }
-        
-       
     }
-    
     // 사진선택 (Fusma 관련 함수) 
     // MARK: FusumaDelegate Protocol
     
@@ -167,8 +150,6 @@ class MypageViewController: UIViewController, FusumaDelegate{
             self.present(fusuma, animated: true, completion: nil)
         }
     }
-
-    
     func fusumaImageSelected(_ image: UIImage, source: FusumaMode) {
         
         if appDelegate.user?.email != "" {
@@ -178,19 +159,14 @@ class MypageViewController: UIViewController, FusumaDelegate{
         }
         
     }
-    
     func fusumaMultipleImageSelected(_ images: [UIImage], source: FusumaMode) {
     }
-    
     func fusumaImageSelected(_ image: UIImage, source: FusumaMode, metaData: ImageMetadata) {
     }
-    
     func fusumaVideoCompleted(withFileURL fileURL: URL) {
     }
-    
     func fusumaDismissedWithImage(_ image: UIImage, source: FusumaMode) {
     }
-    
     func fusumaCameraRollUnauthorized() {
         
         let alert = UIAlertController(title: "Access Requested",
@@ -203,13 +179,11 @@ class MypageViewController: UIViewController, FusumaDelegate{
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
             
         })
-        
         guard let vc = UIApplication.shared.delegate?.window??.rootViewController,
             let presented = vc.presentedViewController else {
                 
                 return
         }
-        
         presented.present(alert, animated: true, completion: nil)
     }
     
@@ -287,9 +261,7 @@ extension MypageViewController: UITableViewDataSource, UITableViewDelegate {
                         print ("Error signing out: %@", signOutError)
                     }
                 }
-                
                 alertController.addAction(DestructiveAction)
-                
                 alertController.addAction(okAction)
                 
                 self.present(alertController, animated: true, completion: nil)
