@@ -94,12 +94,20 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
     @IBOutlet weak var flavorLevelView: UIView!
     @IBOutlet weak var quantityLevelView: UIView!
     
+    let appdelegate = UIApplication.shared.delegate as! AppDelegate
+    
     @IBAction func tabBackBtn(_ sender: UIButton) {
         self.navigationController?.popToRootViewController(animated: true)
         SelectedAllergy.allergyList = []
     }
     @IBAction func tabCompleteBtn(_ sender: UIButton) {
-        let user_image = "http://item.kakaocdn.net/dw/4407092.title.png"
+         var user_image = ""
+        if appdelegate.user?.user_profile != "" {
+            user_image = (appdelegate.user?.user_profile)!
+        }else{
+            user_image = "http://item.kakaocdn.net/dw/4407092.title.png"
+        }
+       
         if checkGrade && checkPriceLevel && checkFlavorLevel && checkQuantityLevel {
             
             if detailReview.text.characters.count > 500 {

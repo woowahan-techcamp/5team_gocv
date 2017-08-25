@@ -17,7 +17,7 @@ class ReviewViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func tabDropDownBtn(_ sender: UIButton) {
-        let alert = UIAlertController(title: "\r순서 정렬하기", message: "", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         //Create and add the Cancel action
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
             
@@ -281,16 +281,18 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //�
                 if writtenDate.timeIntervalSinceNow >= -5 * 24 * 60 * 60 {
                     if writtenDate.timeIntervalSinceNow <= -1 * 24 * 60 * 60 {
                         let daysAgo = Int(-writtenDate.timeIntervalSinceNow / 24 / 60 / 60)
-                        cell.timeLabel.text = String(daysAgo) + "일 전에 작성"
+                        cell.timeLabel.text = String(daysAgo) + "일 전"
                     } else if writtenDate.timeIntervalSinceNow <= -1 * 60 * 60 {
                         let hoursAgo = Int(-writtenDate.timeIntervalSinceNow / 60 / 60)
-                        cell.timeLabel.text = String(hoursAgo) + "시간 전에 작성"
-                    } else {
+                        cell.timeLabel.text = String(hoursAgo) + "시간 전"
+                    } else if writtenDate.timeIntervalSinceNow <= -1 * 60{
                         let minutesAgo = Int(-writtenDate.timeIntervalSinceNow / 60)
-                        cell.timeLabel.text = String(minutesAgo) + "분 전에 작성"
+                        cell.timeLabel.text = String(minutesAgo) + "분 전"
+                    } else{
+                        cell.timeLabel.text = "방금"
                     }
                 } else {
-                    cell.timeLabel.text = review.timestamp + "에 작성"
+                    cell.timeLabel.text = review.timestamp.components(separatedBy: " ")[0]
                 }
             }
             
