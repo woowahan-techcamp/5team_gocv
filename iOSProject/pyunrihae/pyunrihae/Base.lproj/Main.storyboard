@@ -1393,7 +1393,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h3F-UO-lJA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="276" y="3097.6011994003002"/>
+            <point key="canvasLocation" x="276" y="3116"/>
         </scene>
         <!--리뷰 쓰기-->
         <scene sceneID="U4u-zJ-8pO">
@@ -2751,7 +2751,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rhe-QR-ckg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-500" y="3848.7256371814096"/>
+            <point key="canvasLocation" x="-654" y="3850"/>
         </scene>
         <!--Pyunrihae Info View Controller-->
         <scene sceneID="Gwd-d6-W6S">
@@ -2884,7 +2884,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MWr-f1-dsc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-871.20000000000005" y="4548.5757121439283"/>
+            <point key="canvasLocation" x="-1327" y="4512"/>
         </scene>
         <!--찜한 상품 리스트 -->
         <scene sceneID="RFr-9z-ag7">
@@ -2985,7 +2985,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rAm-CT-KY4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="215.19999999999999" y="3846.9265367316343"/>
+            <point key="canvasLocation" x="-655" y="4512"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Kan-CB-blf">
