@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		025FB54D69452E7E0E398251 /* Pods_pyunrihae.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4488E201DEAF59744BC95780 /* Pods_pyunrihae.framework */; };
+		0EC14C971F51B29500D257E1 /* KakaoLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EC14C961F51B29500D257E1 /* KakaoLink.framework */; };
+		0EC14C991F51B29D00D257E1 /* KakaoCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EC14C981F51B29D00D257E1 /* KakaoCommon.framework */; };
+		0EC14C9B1F51B34D00D257E1 /* kakaolink_btn_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EC14C9A1F51B34D00D257E1 /* kakaolink_btn_small.png */; };
 		14F146B434332A2D6E2CFF9B /* Pods_pyunrihaeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40585D3F57E929D9644DF6CD /* Pods_pyunrihaeUITests.framework */; };
 		981E932A1F38666E004BE63B /* RankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981E93291F38666E004BE63B /* RankingViewController.swift */; };
 		981E932C1F386677004BE63B /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981E932B1F386677004BE63B /* ReviewViewController.swift */; };
@@ -143,6 +146,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0EC14C951F51B24600D257E1 /* KakaoOpenSDK-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KakaoOpenSDK-Bridging-Header.h"; sourceTree = "<group>"; };
+		0EC14C961F51B29500D257E1 /* KakaoLink.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoLink.framework; sourceTree = "<group>"; };
+		0EC14C981F51B29D00D257E1 /* KakaoCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoCommon.framework; sourceTree = "<group>"; };
+		0EC14C9A1F51B34D00D257E1 /* kakaolink_btn_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kakaolink_btn_small.png; sourceTree = "<group>"; };
 		1319BEB880E29049AC8F0515 /* Pods_pyunrihaeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pyunrihaeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B085AE2D2B3D6AD37BF1C6F /* Pods-pyunrihaeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pyunrihaeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-pyunrihaeUITests/Pods-pyunrihaeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		40074A42A71C85B97C9ED731 /* Pods-pyunrihae.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pyunrihae.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pyunrihae/Pods-pyunrihae.debug.xcconfig"; sourceTree = "<group>"; };
@@ -278,6 +285,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EC14C971F51B29500D257E1 /* KakaoLink.framework in Frameworks */,
+				0EC14C991F51B29D00D257E1 /* KakaoCommon.framework in Frameworks */,
 				025FB54D69452E7E0E398251 /* Pods_pyunrihae.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -317,6 +326,8 @@
 		735C2F99ED0A73A028E0CEA8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0EC14C981F51B29D00D257E1 /* KakaoCommon.framework */,
+				0EC14C961F51B29500D257E1 /* KakaoLink.framework */,
 				4488E201DEAF59744BC95780 /* Pods_pyunrihae.framework */,
 				1319BEB880E29049AC8F0515 /* Pods_pyunrihaeTests.framework */,
 				40585D3F57E929D9644DF6CD /* Pods_pyunrihaeUITests.framework */,
@@ -353,6 +364,7 @@
 				9865E5391F3BD81E00014795 /* back.png */,
 				98CBA0B71F458BA8003D0370 /* back_right.png */,
 				98D839091F452E6200CDF699 /* ic_pyunrihae.png */,
+				0EC14C9A1F51B34D00D257E1 /* kakaolink_btn_small.png */,
 				98F865AE1F44340E00C2F333 /* ic_complete_enabled.png */,
 				98F865AF1F44340E00C2F333 /* ic_complete.png */,
 				98F8657E1F43FB1A00C2F333 /* star1.png */,
@@ -518,6 +530,7 @@
 		98F172E81F32EDB70044FD0D /* pyunrihae */ = {
 			isa = PBXGroup;
 			children = (
+				0EC14C951F51B24600D257E1 /* KakaoOpenSDK-Bridging-Header.h */,
 				98D9F2CD1F418DF3009D0E10 /* YNSearch */,
 				98D819071F32F9C000BE2A95 /* etc */,
 				98D819061F32F9B700BE2A95 /* Storyboard */,
@@ -665,6 +678,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				98CBA0D01F469E6C003D0370 /* ic_default.png in Resources */,
+				0EC14C9B1F51B34D00D257E1 /* kakaolink_btn_small.png in Resources */,
 				98F172F41F32EDB70044FD0D /* LaunchScreen.storyboard in Resources */,
 				98CBA0C21F467E7D003D0370 /* ic_add.png in Resources */,
 				98D5691E1F4BE6DA002693E9 /* bad.png in Resources */,
@@ -1090,11 +1104,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = pyunrihae/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.busride.pyunrihae;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "./pyunrihae/KakaoOpenSDK-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1106,11 +1125,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = pyunrihae/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.busride.pyunrihae;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "./pyunrihae/KakaoOpenSDK-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

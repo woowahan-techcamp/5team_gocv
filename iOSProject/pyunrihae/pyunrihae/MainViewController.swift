@@ -27,6 +27,7 @@ class MainViewController: UIViewController {
     var badNumLabel = UILabel()
     var usefulBtn = UIButton()
     var badBtn = UIButton()
+    var selectedReview = Review()
     var selectedBrandIndexFromTab : Int = 0 {
         didSet{
             getProductList()
@@ -356,7 +357,10 @@ class MainViewController: UIViewController {
         if reviewScrollView.contentOffset.x != 0{
             index = 2 - Int(reviewScrollView.frame.width / reviewScrollView.contentOffset.x)
         }
+        
+
         review = reviewList[index]
+        selectedReview = review
         let frame = self.view.frame
         popup.backgroundColor = UIColor.black.withAlphaComponent(0.1)
         popup.frame = frame
@@ -406,6 +410,12 @@ class MainViewController: UIViewController {
         }
         popup.badBtn.addTarget(self, action: #selector(self.didPressBadBtn), for: UIControlEvents.touchUpInside)
         popup.usefulBtn.addTarget(self, action: #selector(self.didPressUsefulBtn), for: UIControlEvents.touchUpInside)
+        
+        // 카카오톡 공유 버튼 누르기 
+        
+        popup.kakaoShareBtn.addTarget(self, action: #selector(self.didPressKakaoShareBtn), for: UIControlEvents.touchUpInside)
+        
+       
         if URL(string: review.user_image) != nil{
             popup.userImage.af_setImage(withURL: URL(string: review.user_image)!)
         } else {
@@ -591,6 +601,15 @@ class MainViewController: UIViewController {
                     reviewList[i].useful = Int(usefulNumLabel.text!)!
                     reviewList[i].bad = Int(badNumLabel.text!)!
                 }
+            }
+        }
+    }
+    func didPressKakaoShareBtn(sender: UIButton) { //카카오톡 공유 버튼 클릭 이벤트
+        if selectedReview.p_name != "" && selectedReview != nil {
+            if selectedReview.p_image == "" || selectedReview.p_image == nil {
+                DataManager.sendLinkFeed(title: selectedReview.p_name, desc: selectedReview.comment, imageURL: "https://firebasestorage.googleapis.com/v0/b/pyeonrehae.appspot.com/o/ic_background_default.png?alt=media&token=09d05950-5f8a-4a73-95b3-a74faee4cad3")
+            }else{
+                DataManager.sendLinkFeed(title: selectedReview.p_name, desc: selectedReview.comment, imageURL: selectedReview.p_image)
             }
         }
     }

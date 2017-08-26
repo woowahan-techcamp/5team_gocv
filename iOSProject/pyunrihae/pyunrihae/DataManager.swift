@@ -658,4 +658,63 @@ class DataManager{
             // 올린 이미지를 PNG로 바꾸는데 실패하면 아무것도 하지 않는다.
         }
     }
+    
+    // 카카오 링크 공유
+    static func sendLinkFeed(title : String, desc : String, imageURL : String) -> Void {
+        
+        // Feed 타입 템플릿 오브젝트 생성
+        let template = KLKFeedTemplate.init { (feedTemplateBuilder) in
+            
+            // 컨텐츠
+            feedTemplateBuilder.content = KLKContentObject.init(builderBlock: { (contentBuilder) in
+                contentBuilder.title = title
+                contentBuilder.desc = desc
+                contentBuilder.imageURL = URL.init(string: imageURL)!
+                contentBuilder.link = KLKLinkObject.init(builderBlock: { (linkBuilder) in
+                    linkBuilder.mobileWebURL = URL.init(string: "https://developers.kakao.com")
+                })
+            })
+            
+            // 소셜
+            feedTemplateBuilder.social = KLKSocialObject.init(builderBlock: { (socialBuilder) in
+                socialBuilder.likeCount = 286
+                socialBuilder.commnentCount = 45
+                socialBuilder.sharedCount = 845
+            })
+            
+            // 버튼
+            feedTemplateBuilder.addButton(KLKButtonObject.init(builderBlock: { (buttonBuilder) in
+                buttonBuilder.title = "웹으로 보기"
+                buttonBuilder.link = KLKLinkObject.init(builderBlock: { (linkBuilder) in
+                    linkBuilder.mobileWebURL = URL.init(string: "https://developers.kakao.com")
+                })
+            }))
+            feedTemplateBuilder.addButton(KLKButtonObject.init(builderBlock: { (buttonBuilder) in
+                buttonBuilder.title = "앱으로 보기"
+                buttonBuilder.link = KLKLinkObject.init(builderBlock: { (linkBuilder) in
+                    linkBuilder.iosExecutionParams = "param1=value1&param2=value2"
+                    linkBuilder.androidExecutionParams = "param1=value1&param2=value2"
+                })
+            }))
+        }
+        
+        // 카카오링크 실행
+//        self.view.startLoading()
+        KLKTalkLinkCenter.shared().sendDefault(with: template, success: { (warningMsg, argumentMsg) in
+            
+            // 성공
+//            self.view.stopLoading()
+            print("warning message: \(warningMsg)")
+            print("argument message: \(argumentMsg)")
+            
+        }, failure: { (error) in
+            
+            // 실패
+//            self.view.stopLoading()
+//            self.alert(error.localizedDescription)
+            print("error \(error)")
+            
+        })
+    }
+    
 }

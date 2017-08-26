@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16D30" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -66,7 +67,7 @@
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="user" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PuD-dV-MUl">
                                     <rect key="frame" x="0.0" y="251.5" width="428" height="16"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="13"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -78,34 +79,34 @@
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="food name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="jTH-Sv-6bZ">
-                                    <rect key="frame" x="63" y="275.5" width="69" height="16"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                    <rect key="frame" x="63" y="275.5" width="64.5" height="16"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y5n-QR-fl5">
-                                    <rect key="frame" x="15" y="221.5" width="85" height="20"/>
+                                    <rect key="frame" x="15" y="221.5" width="106.5" height="18"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6yg-Ih-AWY">
-                                            <rect key="frame" x="0.0" y="0.0" width="85" height="20"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6yg-Ih-AWY">
+                                            <rect key="frame" x="0.0" y="0.0" width="142" height="24"/>
                                         </imageView>
                                     </subviews>
                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
+                                        <constraint firstAttribute="width" secondItem="y5n-QR-fl5" secondAttribute="height" multiplier="71:12" id="Eyz-CK-lHg"/>
                                         <constraint firstAttribute="trailing" secondItem="6yg-Ih-AWY" secondAttribute="trailing" id="Hs8-pm-38E"/>
                                         <constraint firstAttribute="bottom" secondItem="6yg-Ih-AWY" secondAttribute="bottom" id="Mwd-Du-1aa"/>
                                         <constraint firstItem="6yg-Ih-AWY" firstAttribute="leading" secondItem="y5n-QR-fl5" secondAttribute="leading" id="SNx-j3-NmG"/>
-                                        <constraint firstAttribute="width" constant="85" id="Xys-Yd-Ikp"/>
-                                        <constraint firstAttribute="height" constant="20" id="pva-Ww-9df"/>
+                                        <constraint firstAttribute="height" constant="18" id="pva-Ww-9df"/>
                                         <constraint firstItem="6yg-Ih-AWY" firstAttribute="top" secondItem="y5n-QR-fl5" secondAttribute="top" id="xtI-2B-G1v"/>
                                     </constraints>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SZg-MJ-eTQ">
-                                    <rect key="frame" x="305" y="8" width="108" height="30"/>
+                                    <rect key="frame" x="312" y="8" width="101" height="30"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="30" id="QfB-im-34K"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
                                     <state key="normal" title="상품상세 보러가기">
                                         <color key="titleColor" red="1" green="0.47058823529411764" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
@@ -121,8 +122,8 @@
                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 </textView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="2시간 전" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lcq-te-48t">
-                                    <rect key="frame" x="367" y="256.5" width="46" height="16"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <rect key="frame" x="377.5" y="256.5" width="35.5" height="12"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                     <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -184,6 +185,17 @@
                                         <constraint firstAttribute="width" constant="44" id="CQi-yW-PHX"/>
                                     </constraints>
                                 </view>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="abV-Mh-SdR">
+                                    <rect key="frame" x="257" y="224" width="24" height="24"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="24" id="TUy-Mt-r3t"/>
+                                        <constraint firstAttribute="width" constant="24" id="mII-iu-Xfc"/>
+                                    </constraints>
+                                    <state key="normal" image="kakaolink_btn_small.png"/>
+                                    <connections>
+                                        <action selector="onClickKakaoShare:" destination="iN0-l3-epB" eventType="touchUpInside" id="i46-27-K5C"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -206,6 +218,8 @@
                                 <constraint firstItem="PuD-dV-MUl" firstAttribute="top" secondItem="IHM-JH-Zsf" secondAttribute="bottom" constant="3" id="SMA-OI-nPp"/>
                                 <constraint firstAttribute="bottom" secondItem="Xtk-Ar-7EC" secondAttribute="bottom" constant="10" id="WAW-KJ-Zco"/>
                                 <constraint firstItem="w6n-kH-Aox" firstAttribute="top" secondItem="PNQ-4W-VtX" secondAttribute="top" id="Xnr-oC-6Bf"/>
+                                <constraint firstItem="abV-Mh-SdR" firstAttribute="bottom" secondItem="IHM-JH-Zsf" secondAttribute="bottom" id="Z99-BS-HxS"/>
+                                <constraint firstItem="abV-Mh-SdR" firstAttribute="leading" secondItem="IHM-JH-Zsf" secondAttribute="trailing" constant="8" id="amP-e6-NqV"/>
                                 <constraint firstItem="IHM-JH-Zsf" firstAttribute="centerX" secondItem="kig-rE-GbK" secondAttribute="centerX" id="axe-Ms-N2S"/>
                                 <constraint firstItem="1KI-aQ-B84" firstAttribute="height" secondItem="kig-rE-GbK" secondAttribute="height" multiplier="4:10" id="bfP-LK-oDn"/>
                                 <constraint firstAttribute="trailing" secondItem="PNQ-4W-VtX" secondAttribute="trailing" constant="15" id="dAr-zk-oUJ"/>
@@ -248,6 +262,7 @@
                 <outlet property="brand" destination="gKF-LS-dwZ" id="sXe-0r-LbG"/>
                 <outlet property="comment" destination="Xtk-Ar-7EC" id="fSk-Yn-FbH"/>
                 <outlet property="foodNameLabel" destination="jTH-Sv-6bZ" id="Qjp-DK-VwW"/>
+                <outlet property="kakaoShareBtn" destination="abV-Mh-SdR" id="o3E-SG-cVC"/>
                 <outlet property="starView" destination="6yg-Ih-AWY" id="VR3-0d-CjU"/>
                 <outlet property="timeLabel" destination="lcq-te-48t" id="xfi-Rq-tqg"/>
                 <outlet property="uploadedImage" destination="OEG-oC-C6C" id="ep5-bf-WVL"/>
@@ -269,6 +284,7 @@
     <resources>
         <image name="bad.png" width="512" height="512"/>
         <image name="ic_close_gray.png" width="44" height="42"/>
+        <image name="kakaolink_btn_small.png" width="34" height="35"/>
         <image name="useful.png" width="512" height="512"/>
     </resources>
 </document>
