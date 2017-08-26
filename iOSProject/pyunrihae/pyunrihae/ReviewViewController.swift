@@ -27,6 +27,7 @@ class ReviewViewController: UIViewController {
     let category = ["전체","도시락","김밥","베이커리","라면","식품","스낵","아이스크림","음료"]
     var isLoaded = false
     var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
+    var selectedReview = Review()
     var selectedBrandIndexFromTab : Int = 0 {
         didSet{
             getReviewList()
@@ -343,7 +344,9 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //�
     func handleTap(index: Int) {
         let popup: ReviewPopupView = UINib(nibName: "ReviewPopupView", bundle: nil).instantiate(withOwner: self, options: nil)[0] as! ReviewPopupView
         popup.validator = 1
+        
         review = reviewList[index]
+        selectedReview = review
         let frame = self.view.frame
         popup.backgroundColor = UIColor.black.withAlphaComponent(0.1)
         popup.frame = frame
@@ -393,6 +396,12 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //�
         }
         popup.badBtn.addTarget(self, action: #selector(self.didPressBadBtn), for: UIControlEvents.touchUpInside)
         popup.usefulBtn.addTarget(self, action: #selector(self.didPressUsefulBtn), for: UIControlEvents.touchUpInside)
+        
+        // 카카오톡 공유 버튼 누르기
+        
+        popup.kakaoShareBtn.addTarget(self, action: #selector(self.didPressKakaoShareBtn), for: UIControlEvents.touchUpInside)
+        
+        
         if URL(string: review.user_image) != nil{
             popup.userImage.af_setImage(withURL: URL(string: review.user_image)!)
         } else {
@@ -586,6 +595,9 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //�
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
+    }
+    func didPressKakaoShareBtn(sender: UIButton) { //카카오톡 공유 버튼 클릭 이벤트
+        DataManager.sendLinkFeed(review: selectedReview)
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         handleTap(index: indexPath.row)

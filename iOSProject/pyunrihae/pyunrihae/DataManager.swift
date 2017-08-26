@@ -673,10 +673,10 @@ class DataManager{
 //                if review.p_image != nil || review.p_image != "" {
 //                    contentBuilder.imageURL = URL.init(string: review.p_image)!
 //                }else{
-//                    contentBuilder.imageURL = URL.init(string : "https://firebasestorage.googleapis.com/v0/b/pyeonrehae.appspot.com/o/ic_background_default.png?alt=media&token=09d05950-5f8a-4a73-95b3-a74faee4cad3")!
+//                    contentBuilder.imageURL = URL.init(string : "https://s3.ap-northeast-2.amazonaws.com/pyunrihae/Group%402x.png")!
 //                }
+                
                 contentBuilder.imageURL = URL.init(string : "https://s3.ap-northeast-2.amazonaws.com/pyunrihae/Group%402x.png")!
-
                 contentBuilder.link = KLKLinkObject.init(builderBlock: { (linkBuilder) in
                     linkBuilder.mobileWebURL = URL.init(string: "https://developers.kakao.com")
                 })
