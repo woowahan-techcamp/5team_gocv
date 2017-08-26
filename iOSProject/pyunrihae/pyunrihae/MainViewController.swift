@@ -605,13 +605,7 @@ class MainViewController: UIViewController {
         }
     }
     func didPressKakaoShareBtn(sender: UIButton) { //카카오톡 공유 버튼 클릭 이벤트
-        if selectedReview.p_name != "" && selectedReview != nil {
-            if selectedReview.p_image == "" || selectedReview.p_image == nil {
-                DataManager.sendLinkFeed(title: selectedReview.p_name, desc: selectedReview.comment, imageURL: "https://firebasestorage.googleapis.com/v0/b/pyeonrehae.appspot.com/o/ic_background_default.png?alt=media&token=09d05950-5f8a-4a73-95b3-a74faee4cad3")
-            }else{
-                DataManager.sendLinkFeed(title: selectedReview.p_name, desc: selectedReview.comment, imageURL: selectedReview.p_image)
-            }
-        }
+        DataManager.sendLinkFeed(review: selectedReview)
     }
      // 상품을 눌렀을 때 상세를 보여주는 함수
     func showProduct(_ sender: UITapGestureRecognizer) {
