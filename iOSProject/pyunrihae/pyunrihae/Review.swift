@@ -69,6 +69,14 @@ class Review {
         self.p_name = p_name
         self.comment = comment
         self.user_image = user_image
+        var done = false
+        while !done {
+            if self.comment.contains("\n\n") {
+                self.comment = (self.comment as NSString).replacingOccurrences(of: "\n\n", with: "\n")
+            } else {
+                done = true
+            }
+        }
     }
     
     convenience init(snapshot : DataSnapshot){

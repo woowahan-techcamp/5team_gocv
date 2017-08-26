@@ -33,6 +33,8 @@
 		9865E55C1F417E2000014795 /* SelectedAllergy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E55B1F417E2000014795 /* SelectedAllergy.swift */; };
 		9865E56C1F42E55E00014795 /* BigImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E56B1F42E55E00014795 /* BigImageViewController.swift */; };
 		98768AA01F39A5D600654C19 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C5AAD71F342C3900610115 /* DataManager.swift */; };
+		989FA79A1F511E40001D1E42 /* ReviewPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989FA7991F511E40001D1E42 /* ReviewPopupView.swift */; };
+		989FA79C1F511E59001D1E42 /* ReviewPopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 989FA79B1F511E59001D1E42 /* ReviewPopupView.xib */; };
 		98B394861F4D59190071BB8B /* ProductAllergyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B394851F4D59190071BB8B /* ProductAllergyViewController.swift */; };
 		98B394881F4E5EDA0071BB8B /* MainProduct.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98B394871F4E5EDA0071BB8B /* MainProduct.xib */; };
 		98B3948A1F4E63230071BB8B /* MainProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B394891F4E63230071BB8B /* MainProduct.swift */; };
@@ -171,6 +173,8 @@
 		9865E5591F3D837200014795 /* SelectedProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedProduct.swift; sourceTree = "<group>"; };
 		9865E55B1F417E2000014795 /* SelectedAllergy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedAllergy.swift; sourceTree = "<group>"; };
 		9865E56B1F42E55E00014795 /* BigImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BigImageViewController.swift; sourceTree = "<group>"; };
+		989FA7991F511E40001D1E42 /* ReviewPopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewPopupView.swift; sourceTree = "<group>"; };
+		989FA79B1F511E59001D1E42 /* ReviewPopupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewPopupView.xib; sourceTree = "<group>"; };
 		98B394851F4D59190071BB8B /* ProductAllergyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductAllergyViewController.swift; sourceTree = "<group>"; };
 		98B394871F4E5EDA0071BB8B /* MainProduct.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainProduct.xib; sourceTree = "<group>"; };
 		98B394891F4E63230071BB8B /* MainProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainProduct.swift; sourceTree = "<group>"; };
@@ -425,6 +429,7 @@
 			children = (
 				9860609E1F4BE0C30014E4D5 /* MainReviewView.swift */,
 				98B394891F4E63230071BB8B /* MainProduct.swift */,
+				989FA7991F511E40001D1E42 /* ReviewPopupView.swift */,
 				98D569231F4D119B002693E9 /* RankingTableViewCell.swift */,
 				98D569251F4D3688002693E9 /* ReviewTableViewCell.swift */,
 				9865E52B1F3AF3EE00014795 /* MypageTableViewCell.swift */,
@@ -444,6 +449,7 @@
 				98F172ED1F32EDB70044FD0D /* Main.storyboard */,
 				98CB17901F4BF2EA00305D3D /* MainReview.xib */,
 				98B394871F4E5EDA0071BB8B /* MainProduct.xib */,
+				989FA79B1F511E59001D1E42 /* ReviewPopupView.xib */,
 			);
 			name = Storyboard;
 			sourceTree = "<group>";
@@ -675,6 +681,7 @@
 				98CBA0C01F466919003D0370 /* ic_review_write.png in Resources */,
 				98F8658D1F44021000C2F333 /* logo_gs25.png in Resources */,
 				98F865A11F442A3000C2F333 /* ic_login.png in Resources */,
+				989FA79C1F511E59001D1E42 /* ReviewPopupView.xib in Resources */,
 				98F865971F4407A700C2F333 /* ic_home.png in Resources */,
 				98CBA0CA1F468196003D0370 /* ic_star.png in Resources */,
 				98DED89C1F41732700CC4D63 /* Main.storyboard in Resources */,
@@ -891,6 +898,7 @@
 				98D9F2E71F418DF3009D0E10 /* YNSearchHistoryButton.swift in Sources */,
 				9865E55C1F417E2000014795 /* SelectedAllergy.swift in Sources */,
 				981E932A1F38666E004BE63B /* RankingViewController.swift in Sources */,
+				989FA79A1F511E40001D1E42 /* ReviewPopupView.swift in Sources */,
 				98D9F2EE1F418DF3009D0E10 /* YNSearchViewController.swift in Sources */,
 				9865E53C1F3C0BD500014795 /* AllergyViewController.swift in Sources */,
 				981E932E1F386681004BE63B /* MypageViewController.swift in Sources */,

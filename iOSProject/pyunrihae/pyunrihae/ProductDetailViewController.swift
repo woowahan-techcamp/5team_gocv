@@ -53,9 +53,22 @@ class ProductDetailViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsSelection = false
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        self.view.addGestureRecognizer(swipeRight)
         NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name("complete"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reviewUpload), name: NSNotification.Name("reviewUpload"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(startUploading), name: NSNotification.Name("startUploading"), object: nil)
+    }
+    func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.right:
+                self.dismiss(animated: true, completion: nil)
+            default:
+                break
+            }
+        }
     }
     @IBAction func closeNavViewBtn(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
@@ -245,6 +258,7 @@ class ProductDetailViewController: UIViewController {
     }
     func showReviewProduct(_ notification: Notification) { // 넘어온 product 정보 받아서 화면 구성
         let product = notification.userInfo?["product"] as! Review
+        print(product.p_id)
         SelectedProduct.foodId = product.p_id
         SelectedProduct.reviewCount = 0
         DataManager.getReviewListBy(id: product.p_id) { (reviewList) in
@@ -364,10 +378,10 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                         cell.eventLabel.isHidden = true
                     }
                     cell.loading.startAnimating()
-                    let foodImage = UIImageView()
-                   
-                    foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), completion:{ image in
-                        cell.foodImageBtn.setBackgroundImage(foodImage.image, for: .normal)
+                    cell.foodImage.contentMode = .scaleAspectFit
+                    cell.foodImage.backgroundColor = UIColor.white
+                    cell.foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), completion:{ image in
+                        cell.foodImageBtn.setBackgroundImage(cell.foodImage.image, for: .normal)
                         cell.loading.stopAnimating()
                     })
                 }
@@ -543,15 +557,18 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                     cell.userImageLoading.startAnimating()
                     cell.usefulBtn.tag = usefulBtns.count - 1
                     cell.badBtn.tag = badBtns.count - 1
+                    cell.userImage.contentMode = .scaleAspectFit
                     cell.userImage.af_setImage(withURL: URL(string: reviewList[row].user_image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
                         cell.userImageLoading.stopAnimating()
                     })
                     if reviewList[row].p_image != "" {
                         cell.reviewBoxView.frame.size.height = cell.detailReviewLabel.frame.height + 135
                         cell.uploadedImageLoading.startAnimating()
-                        let imageView = UIImageView()
-                        imageView.af_setImage(withURL: URL(string: reviewList[row].p_image)!, placeholderImage: UIImage(), completion:{ image in
-                            cell.uploadedFoodImageBtn.setBackgroundImage(imageView.image, for: .normal)
+                        cell.uploadedFoodImage.contentMode = .scaleAspectFit
+                        let color = UIColor(red: CGFloat(230.0 / 255.0), green: CGFloat(230.0 / 255.0),  blue: CGFloat(230.0 / 255.0), alpha: CGFloat(Float(1)))
+                        cell.uploadedFoodImage.backgroundColor = color
+                        cell.uploadedFoodImage.af_setImage(withURL: URL(string: reviewList[row].p_image)!, placeholderImage: UIImage(), completion:{ image in
+                            cell.uploadedFoodImageBtn.setBackgroundImage(cell.uploadedFoodImage.image, for: .normal)
                             cell.uploadedImageLoading.stopAnimating()
                         })
                     } else {

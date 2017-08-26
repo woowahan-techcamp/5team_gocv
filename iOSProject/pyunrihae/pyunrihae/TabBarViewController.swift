@@ -47,8 +47,6 @@ class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
         //랭킹 탭으로 이동
         NotificationCenter.default.addObserver(self, selector: #selector(showCategory), name: NSNotification.Name("showCategory"), object: nil)
         //카테고리 선택 탭 화면간 공유
-        NotificationCenter.default.addObserver(self, selector: #selector(showReview), name: NSNotification.Name("showReview"), object: nil)
-        //리뷰 탭으로 이동
         NotificationCenter.default.addObserver(self, selector: #selector(doneLoading), name: NSNotification.Name("doneLoading"), object: nil)
         //데이터 받아오기 완료
         animateView()
@@ -69,7 +67,6 @@ class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
         didPressBrandBtn(brandBtns[selectedBrandIndex])
         Button.select(btn: tabBtns[selectedTabIndex])
         didPressTabBtn(tabBtns[selectedTabIndex])
-        tabContentView.layer.zPosition = 10
         if Auth.auth().currentUser != nil {
             DataManager.getUserFromUID(uid: (Auth.auth().currentUser?.uid)!, completion: { (user) in
                 self.appdelegate.user = user
@@ -121,10 +118,6 @@ class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
     }
     func showCategory(_ notification: Notification){ // 탭 화면 간 카테고리 공유
         categoryIndex = notification.userInfo?["category"] as! Int
-    }
-    func showReview(_ notification: Notification){ // 리뷰 탭 화면 이동
-        categoryIndex = 0
-        didPressTabBtn(tabBtns[2])
     }
     func animateView(){ // 첫 화면
         UIView.animate(withDuration: 2,delay: 1, animations: {
