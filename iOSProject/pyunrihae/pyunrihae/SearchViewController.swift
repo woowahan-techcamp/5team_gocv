@@ -95,7 +95,6 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
     }
     func pushRankingController(text : String) {
         NotificationCenter.default.post(name: NSNotification.Name("showRanking"), object: self)
-        
         var categoryIndex = 0
         switch (text){
         case "도시락" : categoryIndex = 1
