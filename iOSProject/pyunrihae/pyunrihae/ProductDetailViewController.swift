@@ -245,6 +245,7 @@ class ProductDetailViewController: UIViewController {
     }
     func showReviewProduct(_ notification: Notification) { // 넘어온 product 정보 받아서 화면 구성
         let product = notification.userInfo?["product"] as! Review
+        print(product.p_id)
         SelectedProduct.foodId = product.p_id
         SelectedProduct.reviewCount = 0
         DataManager.getReviewListBy(id: product.p_id) { (reviewList) in

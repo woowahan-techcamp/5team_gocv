@@ -17,6 +17,7 @@ class ReviewViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var scrollBar = UILabel()
     var reviewList : [Review] = []
+    var review = Review()
     var categoryBtns = [UIButton]()
     let category = ["전체","도시락","김밥","베이커리","라면","식품","스낵","아이스크림","음료"]
     var isLoaded = false
@@ -42,12 +43,21 @@ class ReviewViewController: UIViewController {
         Button.select(btn: categoryBtns[selectedCategoryIndex]) // 맨 처음 카테고리는 전체 선택된 것으로 나타나게 함
         didPressCategoryBtn(sender: categoryBtns[selectedCategoryIndex])
         isLoaded = true
+        NotificationCenter.default.addObserver(self, selector: #selector(showDetailProduct), name: NSNotification.Name("showDetailProduct"), object: nil)
         // Do any additional setup after loading the view.
-        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    func showDetailProduct(_ notification: Notification) {
+        if notification.userInfo?["validator"] as! Int == 1{
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "mainNavigationController") as! UINavigationController
+            self.present(vc, animated: true, completion: nil)
+            print(review.p_id)
+            NotificationCenter.default.post(name: NSNotification.Name("showReviewProduct"), object: self, userInfo: ["product" : review])
+        }
     }
     @IBAction func tabDropDownBtn(_ sender: UIButton) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -324,12 +334,88 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //�
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let cell = sender as! ReviewTableViewCell
-        let indexRow = self.tableView!.indexPath(for: cell)?.row
-        if reviewList.count > 0 {
-            let product = reviewList[indexRow!]
-            NotificationCenter.default.post(name: NSNotification.Name("showReviewProduct"), object: self, userInfo: ["product" : product])
+    // 리뷰를 눌렀을 때 전환하는 함수
+    func handleTap(index: Int) {
+        let popup: ReviewPopupView = UINib(nibName: "ReviewPopupView", bundle: nil).instantiate(withOwner: self, options: nil)[0] as! ReviewPopupView
+        popup.validator = 1
+        review = reviewList[index]
+        let frame = self.view.frame
+        popup.backgroundColor = UIColor.black.withAlphaComponent(0.1)
+        popup.frame = frame
+        popup.view.layer.borderColor = UIColor.gray.cgColor
+        popup.view.layer.borderWidth = 0.3
+        popup.view.layer.cornerRadius = 10
+        popup.view.layer.cornerRadius = 10
+        popup.badNumLabel.text = String(review.bad)
+        popup.usefulNumLabel.text = String(review.useful)
+        popup.comment.text = review.comment
+        popup.comment.isEditable = false
+        popup.comment.layer.cornerRadius = 10
+        popup.comment.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10)
+        popup.userNameLabel.text = review.user
+        popup.foodNameLabel.text = review.p_name
+        self.view.addSubview(popup)
+        Image.makeCircleImage(image: popup.userImage)
+        popup.userImage.contentMode = .scaleAspectFit
+        popup.userImage.layer.borderColor = UIColor.gray.cgColor
+        popup.userImage.layer.borderWidth = 0.3
+        if URL(string: review.user_image) != nil{
+            popup.userImage.af_setImage(withURL: URL(string: review.user_image)!)
+        } else {
+            popup.userImage.image = UIImage(named: "user_default.png")
         }
+        popup.uploadedImage.contentMode = .scaleAspectFill
+        popup.uploadedImage.clipsToBounds = true
+        if URL(string: review.p_image) != nil{
+            popup.uploadedImage.af_setImage(withURL: URL(string: review.p_image)!)
+        } else {
+            popup.uploadedImage.af_setImage(withURL: URL(string: "https://firebasestorage.googleapis.com/v0/b/pyeonrehae.appspot.com/o/ic_background_default.png?alt=media&token=09d05950-5f8a-4a73-95b3-a74faee4cad3")!)
+        }
+        popup.brand.contentMode = .scaleAspectFit
+        if review.brand == "CU" {
+            popup.brand.image = UIImage(named: "logo_cu.png")
+        } else if review.brand == "GS25" {
+            popup.brand.image = UIImage(named: "logo_gs25.png")
+        } else if review.brand == "7-eleven" {
+            popup.brand.image = UIImage(named: "logo_7eleven.png")
+        } else {
+            popup.brand.image = UIImage(named: "ic_common.png")
+        }
+        switch(review.grade) {
+        case 1 : popup.starView.image = #imageLiteral(resourceName: "star1.png");
+        case 2: popup.starView.image = #imageLiteral(resourceName: "star2.png");
+        case 3 : popup.starView.image = #imageLiteral(resourceName: "star3.png");
+        case 4 : popup.starView.image = #imageLiteral(resourceName: "star4.png");
+        case 5 : popup.starView.image = #imageLiteral(resourceName: "star5.png");
+        default : popup.starView.image = #imageLiteral(resourceName: "star3.png");
+        }
+        popup.starView.contentMode = .scaleAspectFit
+        
+        let format = DateFormatter()
+        format.locale = Locale(identifier: "ko_kr")
+        format.timeZone = TimeZone(abbreviation: "KST")
+        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        if let writtenDate = format.date(from: review.timestamp) {
+            if writtenDate.timeIntervalSinceNow >= -5 * 24 * 60 * 60 {
+                if writtenDate.timeIntervalSinceNow <= -1 * 24 * 60 * 60 {
+                    let daysAgo = Int(-writtenDate.timeIntervalSinceNow / 24 / 60 / 60)
+                    popup.timeLabel.text = String(daysAgo) + "일 전"
+                } else if writtenDate.timeIntervalSinceNow <= -1 * 60 * 60 {
+                    let hoursAgo = Int(-writtenDate.timeIntervalSinceNow / 60 / 60)
+                    popup.timeLabel.text = String(hoursAgo) + "시간 전"
+                } else if writtenDate.timeIntervalSinceNow <= -1 * 60{
+                    let minutesAgo = Int(-writtenDate.timeIntervalSinceNow / 60)
+                    popup.timeLabel.text = String(minutesAgo) + "분 전"
+                } else{
+                    popup.timeLabel.text = "방금"
+                }
+            } else {
+                popup.timeLabel.text = review.timestamp.components(separatedBy: " ")[0]
+            }
+        }
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        handleTap(index: indexPath.row)
     }
 }

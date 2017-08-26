@@ -128,7 +128,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0kK-as-rNF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-708.75" y="1661.6197183098591"/>
+            <point key="canvasLocation" x="-709.60000000000002" y="1661.0194902548726"/>
         </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="g2Z-sH-bSe">
@@ -536,7 +536,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="130"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hx1-FC-c0Q" id="ylF-Bu-Y03">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="129.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1+1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JvE-m9-zGk">
@@ -588,7 +588,7 @@
                                                     <color key="textColor" red="1" green="0.47058823529411764" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="247" translatesAutoresizingMaskIntoConstraints="NO" id="cly-4C-f2a">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="253" translatesAutoresizingMaskIntoConstraints="NO" id="cly-4C-f2a">
                                                     <rect key="frame" x="182" y="57" width="70" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="E4e-y2-Xbg"/>
@@ -659,15 +659,14 @@
                                                 <constraint firstItem="q0B-Uv-CQ7" firstAttribute="top" secondItem="o0K-rL-XjS" secondAttribute="top" id="NLE-mS-VPC"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="nuP-SV-grC" secondAttribute="bottom" constant="12" id="NOF-2F-jie"/>
                                                 <constraint firstItem="5Qe-nm-Vek" firstAttribute="top" secondItem="JvE-m9-zGk" secondAttribute="bottom" constant="9" id="UAO-MO-ySS"/>
-                                                <constraint firstItem="yK6-Sy-hLu" firstAttribute="leading" secondItem="cly-4C-f2a" secondAttribute="trailing" constant="25" id="Ziv-hm-RHd"/>
                                                 <constraint firstItem="yK6-Sy-hLu" firstAttribute="top" secondItem="cly-4C-f2a" secondAttribute="top" id="anM-8a-QDJ"/>
                                                 <constraint firstItem="nuP-SV-grC" firstAttribute="leading" secondItem="D3A-qB-grp" secondAttribute="trailing" constant="15" id="czG-EW-Sfu"/>
                                                 <constraint firstItem="PLx-iE-b3f" firstAttribute="leading" secondItem="q0B-Uv-CQ7" secondAttribute="trailing" constant="5" id="d80-yZ-XCh"/>
                                                 <constraint firstItem="ILA-6R-yMQ" firstAttribute="leading" secondItem="ylF-Bu-Y03" secondAttribute="leadingMargin" constant="11" id="grN-em-pAm"/>
+                                                <constraint firstItem="nxo-bd-EGt" firstAttribute="leading" secondItem="5Qe-nm-Vek" secondAttribute="trailing" constant="31" id="hXe-lv-AmJ"/>
                                                 <constraint firstItem="yK6-Sy-hLu" firstAttribute="trailing" secondItem="ylF-Bu-Y03" secondAttribute="trailingMargin" id="lgR-IV-x3f"/>
                                                 <constraint firstItem="5Qe-nm-Vek" firstAttribute="top" secondItem="nxo-bd-EGt" secondAttribute="top" id="mUi-2E-oFI"/>
                                                 <constraint firstItem="D3A-qB-grp" firstAttribute="leading" secondItem="PLx-iE-b3f" secondAttribute="trailing" constant="15" id="qjY-G5-1dE"/>
-                                                <constraint firstItem="Zop-Rl-KJb" firstAttribute="leading" secondItem="nxo-bd-EGt" secondAttribute="trailing" constant="37" id="swJ-ir-cBI"/>
                                                 <constraint firstItem="Zop-Rl-KJb" firstAttribute="top" secondItem="b7P-Vs-4Ot" secondAttribute="bottom" constant="15" id="wLY-NF-lqe"/>
                                                 <constraint firstItem="5Qe-nm-Vek" firstAttribute="leading" secondItem="ylF-Bu-Y03" secondAttribute="leading" constant="4" id="wWr-Ew-iPc"/>
                                                 <constraint firstItem="JvE-m9-zGk" firstAttribute="top" secondItem="ylF-Bu-Y03" secondAttribute="topMargin" constant="17" id="wn1-nO-sfq"/>
@@ -765,7 +764,7 @@
         <!--상품 상세-->
         <scene sceneID="1Yi-Qd-Imp">
             <objects>
-                <viewController storyboardIdentifier="ProductDetailViewController" id="t3O-Pz-lwz" customClass="ProductDetailViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProductDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="t3O-Pz-lwz" customClass="ProductDetailViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iGX-N6-Qxt"/>
                         <viewControllerLayoutGuide type="bottom" id="FHL-9w-PA7"/>
@@ -937,34 +936,34 @@
                                                             <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="적당" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPQ-f2-TDP">
-                                                            <rect key="frame" x="327" y="43" width="30" height="17"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="적당" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPQ-f2-TDP">
+                                                            <rect key="frame" x="312" y="43" width="45" height="17"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="30" id="vBB-Kf-XOI"/>
+                                                                <constraint firstAttribute="width" constant="45" id="vBB-Kf-XOI"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                                             <color key="textColor" red="1" green="0.47061997649999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4.31" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="orv-4S-YX2">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="4.31" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="orv-4S-YX2">
                                                             <rect key="frame" x="329" y="20" width="28" height="16"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                                             <color key="textColor" red="1" green="0.47061997649999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="적당" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Px1-gv-3Q7">
-                                                            <rect key="frame" x="327" y="67" width="30" height="17"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="적당" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Px1-gv-3Q7">
+                                                            <rect key="frame" x="312" y="67" width="45" height="17"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="30" id="z5x-Ap-AlD"/>
+                                                                <constraint firstAttribute="width" constant="45" id="z5x-Ap-AlD"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                                             <color key="textColor" red="1" green="0.47061997649999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="적당" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wgy-sd-NF0">
-                                                            <rect key="frame" x="327" y="91" width="30" height="17"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="적당" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wgy-sd-NF0">
+                                                            <rect key="frame" x="312" y="91" width="45" height="17"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="30" id="Ld2-LO-BTb"/>
+                                                                <constraint firstAttribute="width" constant="45" id="Ld2-LO-BTb"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                                             <color key="textColor" red="1" green="0.47058823529411764" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2471,7 +2470,6 @@
                                             <outlet property="timeLabel" destination="4EX-RX-uxo" id="Ymg-I7-IWI"/>
                                             <outlet property="usefulLabel" destination="LJI-XV-1eO" id="Hkq-5P-qAM"/>
                                             <outlet property="userImage" destination="g70-uV-OQ1" id="qbX-Pq-ak3"/>
-                                            <segue destination="9cE-6F-aqE" kind="show" id="GiD-zt-fLw"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -3045,7 +3043,6 @@
         <image name="useful.png" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="bTl-dq-KGg"/>
         <segue reference="fGg-R2-bk1"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
