@@ -2235,7 +2235,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="ic_google_sign_in.png"/>
                                 <connections>
-                                    <action selector="onTouchGoogleSignIn:" destination="diG-g8-7uo" eventType="touchUpInside" id="4hq-Ua-0fQ"/>
+                                    <action selector="onTouchGoogleSignInBtn:" destination="diG-g8-7uo" eventType="touchUpInside" id="Mph-rg-q6C"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YtJ-Az-ONQ">
@@ -2752,24 +2752,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rhe-QR-ckg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-654" y="3850"/>
-        </scene>
-        <!--Google Sign In View Controller-->
-        <scene sceneID="998-cG-CPb">
-            <objects>
-                <viewController storyboardIdentifier="GoogleSignInViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="laH-HS-jfy" customClass="GoogleSignInViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="CIC-WN-fZZ"/>
-                        <viewControllerLayoutGuide type="bottom" id="Vdo-fa-bX7"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="w9H-tv-2R7">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="JY5-Ii-cyJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2010" y="5075"/>
         </scene>
         <!--Pyunrihae Info View Controller-->
         <scene sceneID="Gwd-d6-W6S">

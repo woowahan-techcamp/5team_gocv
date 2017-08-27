@@ -40,10 +40,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate{
                                                      annotation: [:])
     }
     
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url,
+                                                 sourceApplication: sourceApplication,
+                                                 annotation: annotation)
+    }
+    
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
         // ...
         if let error = error {
-            // ...
+            print("\(error)")
             return
         }
         
@@ -51,12 +57,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate{
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
                                                        accessToken: authentication.accessToken)
         // ...
+        
+        Auth.auth().signIn(with: credential) { (user, error) in
+            if let error = error {
+                // ...
+                return
+            }
+            // User is signed in
+            // ...
+            
+            let user_instance = User.init(id: (user?.uid)!, email: (user?.email)!, nickname: (user?.displayName)!)
+            DataManager.saveUser(user: user_instance)
+            NotificationCenter.default.post(name: NSNotification.Name("userLogined"), object: nil)
+        }
+        
     }
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         // Perform any operations when the user disconnects from app here.
         // ...
+        
+        //disconnect 됐으면 signout
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
     }
-
-    
 }

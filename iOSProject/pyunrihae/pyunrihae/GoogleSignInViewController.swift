@@ -26,39 +26,5 @@ class GoogleSignInViewController: UIViewController,GIDSignInUIDelegate {
     }
     
 
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
-        // ...
-        if let error = error {
-            print("\(error)")
-            print("구글 계정 연결에 실패했습니다.")
-            return
-        }
-        
-        guard let authentication = user.authentication else { return }
-        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
-                                                       accessToken: authentication.accessToken)
-        
-        Auth.auth().signIn(with: credential) { (user, error) in
-            if let error = error {
-                print("\(error)")
-                print("파이어베이스 계정 연동에 실패했습니다.")
-                return
-            }
-            
-            // 파이어베이스 연동 성공하면
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            if Auth.auth().currentUser != nil {
-                DataManager.getUserFromUID(uid: (Auth.auth().currentUser?.uid)!, completion: { (user) in
-                    appDelegate.user = user
-                    self.dismiss(animated: true, completion: {
-                        NotificationCenter.default.post(name: NSNotification.Name("userLogined"), object: nil)
-                    })
-                })
-            } else {
-                appDelegate.user = User()
-            }
-        }
-    }
-
 
 }
