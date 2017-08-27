@@ -182,13 +182,16 @@ class Carousel {
         this.changeIndex(1);
         const left = (this.index + 1) * 100;
         this.reviewNavi.style.left = "-" + left + "%";
-
         if (this.index === this.count) {
 
             this.index = 0;
+            this.rightButton.disabled = true;
+
             setTimeout(function () {
                 this.setDurationZero();
                 this.reviewNavi.style.left = "-100%";
+                console.log("sss")
+                this.rightButton.disabled = false;
             }.bind(this), 1000);
 
         }
@@ -205,13 +208,17 @@ class Carousel {
 
         if (this.index === -1) {
             this.index = 9;
+            this.leftButton.disabled = true;
+
             setTimeout(function () {
                 this.setDurationZero();
                 this.reviewNavi.style.left = "-1000%";
+                this.leftButton.disabled = false;
             }.bind(this), 1000);
         }
 
         this.changeCircle();
+
     }
 
     changeCircle() {
@@ -390,23 +397,23 @@ class Carousel {
     }
 }
 
-class Toast{
-    constructor(message){
+class Toast {
+    constructor(message) {
         this.message = message;
         this.setEvent();
     }
 
-    setEvent(){
+    setEvent() {
 
         const element = document.querySelector('#toast-msg')
         element.innerHTML = this.message;
         // element.style.display = 'block'
         element.style.display = "block";
-        setTimeout(function(){
+        setTimeout(function () {
             // element.style.display = 'none'
             element.style.display = "none";
 
-        },1000)
+        }, 1000)
     }
 }
 
@@ -609,7 +616,6 @@ class MakeChart {
 
 //review의 이벤트를 만들고 리뷰를 생성하는 클래스
 class Review {
-
     constructor(id, navi, product, user) {
         this.id = id;
         this.value = 0;
@@ -640,8 +646,19 @@ class Review {
         }.bind(this));
 
         const writeBtn = document.querySelector(".popup-reviewWrite");
+
+
+        const userStorage = localStorage['user'];
+        this.user = JSON.parse(userStorage);
+        const userId = firebase.auth().currentUser.uid
+
+
         writeBtn.addEventListener("click", function () {
-            this.setOnOff()
+            if (this.user[userId].product_review_list.includes(this.product.id)) {
+                new Toast("이미 리뷰를 작성한 상품입니다");
+            } else {
+                this.setOnOff()
+            }
         }.bind(this));
 
 
@@ -741,25 +758,39 @@ class Review {
     }
 
     setMakeReview() {
-        document.querySelector('#loading').style.display = "block";
+        // document.querySelector('#loading').style.display = "block";
 
         this.data[4] = document.querySelector('.popup-newReview-comment').value;
-        this.setOnOff();
-        const database = firebase.database();
-
-        this.reviewId = database.ref().child('review').push().key;
-
-        let file = document.querySelector('#reviewImageInput').files[0];
 
 
-        this.fileName = 'images/' + this.reviewId + "." + file.type.split("/")[1];
+        if (this.data[0] === 0) {
+            new Toast("한 개이상의 별을 선택해 주세요.");
+        } else if (this.data[1] === 0) {
+            new Toast("가격 평가를 선택해 주세요.");
+        } else if (this.data[2] === 0) {
+            new Toast("맛 평가를 선택해 주세요.");
+        } else if (this.data[3] === 0) {
+            new Toast("양 평가를 선택해 주세요.");
+        } else if (this.data[4].length < 20) {
+            new Toast("20자 이상의 리뷰를 써주시길 바랍니다")
+        } else {
+            this.setOnOff();
+            const database = firebase.database();
 
-        const storageRef = firebase.storage().ref();
-        const mountainImagesRef = storageRef.child(this.fileName);
+            this.reviewId = database.ref().child('review').push().key;
 
-        mountainImagesRef.put(file).then(function (snapshot) {
-            this.updateDb();
-        }.bind(this));
+            let file = document.querySelector('#reviewImageInput').files[0];
+
+
+            this.fileName = 'images/' + this.reviewId + "." + file.type.split("/")[1];
+
+            const storageRef = firebase.storage().ref();
+            const mountainImagesRef = storageRef.child(this.fileName);
+
+            mountainImagesRef.put(file).then(function (snapshot) {
+                this.updateDb();
+            }.bind(this));
+        }
     }
 
     updateDb() {
@@ -769,9 +800,8 @@ class Review {
         storageRef.child(this.fileName).getDownloadURL().then(function (url) {
             const that = this;
 
-            const userStorage = localStorage['user'];
-            this.user = JSON.parse(userStorage);
-            const user = firebase.auth().currentUser;
+
+            const userId = firebase.auth().currentUser.uid;
 
             database.ref('review/' + this.reviewId).set({
                 "bad": 0,
@@ -789,8 +819,8 @@ class Review {
                 "quantity": this.data[3],
                 "timestamp": timestamp(),
                 "useful": 0,
-                "user": this.user[user.uid].nickname,
-                "user_image": this.user[user.uid].user_profile,
+                "user": this.user[userId].nickname,
+                "user_image": this.user[userId].user_profile,
             });
 
 
@@ -801,7 +831,7 @@ class Review {
                 this.user.product_review_list = [];
                 this.user.product_review_list.push(this.product.id);
             }
-            database.ref('user/' + user.uid + '/product_review_list').set(this.user.product_review_list);
+            database.ref('user/' + userId + '/product_review_list').set(this.user.product_review_list);
 
 
             //상품 리뷰리스트에 리뷰 번호 추가
@@ -816,7 +846,7 @@ class Review {
             this.product.review_count += 1;
             this.product.grade_total += this.data[0];
             // this.product.grade_avg = this.product.grade_total / this.product.grade_count;
-            this.product.grade_avg =  (this.product.review_count / (this.product.review_count+10)) * (this.product.grade_total / this.product.grade_count) + (10 / (this.product.review_count+10)) * (2.75);
+            this.product.grade_avg = (this.product.review_count / (this.product.review_count + 10)) * (this.product.grade_total / this.product.grade_count) + (10 / (this.product.review_count + 10)) * (2.75);
             this.product.grade_data["g" + this.data[0]] += 1;
             this.product.price_level["p" + this.data[1]] += 1;
             this.product.flavor_level["f" + this.data[2]] += 1;
@@ -863,6 +893,7 @@ class Review {
 
 
             }.bind(that));
+
 
         }.bind(this)).catch(function (error) {
             console.log(error);
@@ -1110,26 +1141,26 @@ class ReviewFilter {
 
         let newReviewObj = [];
 
-            this.reviewObj.forEach(function(e){
+        this.reviewObj.forEach(function (e) {
 
-                if(!!obj3[userId].review_like_list){
-                    if(obj3[userId].review_like_list[e.id]===1){
-                        e.rate1=" good-bad-select";
-                        e.rate2="";
+            if (!!obj3[userId].review_like_list) {
+                if (obj3[userId].review_like_list[e.id] === 1) {
+                    e.rate1 = " good-bad-select";
+                    e.rate2 = "";
 
-                    }else if(obj3[userId].review_like_list[e.id]===-1){
-                        e.rate1="";
-                        e.rate2=" good-bad-select";
-                    }
-
-                    newReviewObj.push(e);
-                }else{
-
-                    newReviewObj.push(e);
-
+                } else if (obj3[userId].review_like_list[e.id] === -1) {
+                    e.rate1 = "";
+                    e.rate2 = " good-bad-select";
                 }
 
-            }.bind(this));
+                newReviewObj.push(e);
+            } else {
+
+                newReviewObj.push(e);
+
+            }
+
+        }.bind(this));
 
         this.reviewObj = newReviewObj;
         console.log(newReviewObj);
@@ -1157,17 +1188,16 @@ class ReviewRating {
         document.querySelector(".popup-reviewWrapperList").addEventListener("click", function (e) {
 
 
-
-            if ( e.target.classList.contains("popup-review-good")||e.target.classList.contains("popup-review-bad") ) {
+            if (e.target.classList.contains("popup-review-good") || e.target.classList.contains("popup-review-bad")) {
                 this.userId = firebase.auth().currentUser.uid;
                 this.reviewId = e.target.parentElement.getAttribute("name");
                 //
                 // console.log(this.userId);
                 // console.log(this.productId);
                 // console.log(this.reviewId);
-                if(!!this.db.user[this.userId].review_like_list){
+                if (!!this.db.user[this.userId].review_like_list) {
                     this.likeList = this.db.user[this.userId].review_like_list[this.reviewId];
-                }else{
+                } else {
                     this.db.user[this.userId].review_like_list = {};
                     this.likeList = this.db.user[this.userId].review_like_list[this.reviewId];
                 }
@@ -1182,7 +1212,6 @@ class ReviewRating {
 
                     document.querySelector('#loading').style.display = "block";
                     e.target.disabled = true;
-
 
 
                     let value = 0;
@@ -1204,10 +1233,9 @@ class ReviewRating {
                     } else {
                         e.target.className = "good-bad-select popup-review-bad";
                         value = -1;
-                        firebase.database().ref('review/' + this.reviewId + "/useful")
-                            .set(this.db.review[this.reviewId].bad - 1).then(function () {
+                        firebase.database().ref('review/' + this.reviewId + "/bad")
+                            .set(this.db.review[this.reviewId].bad + 1).then(function () {
                             this.db.updateReviewDb();
-
                         }.bind(that));
                     }
 
@@ -1215,7 +1243,7 @@ class ReviewRating {
                     //userDb에 해당 값을 업데이트
                     firebase.database().ref('user/' + this.userId + "/review_like_list/" + this.reviewId)
                         .set(value).then(function () {
-                        const that2=that;
+                        const that2 = that;
                         firebase.database().ref('user/').once('value').then(function (snapshot) {
                             localStorage['user'] = JSON.stringify(snapshot.val());
                             that2.db.user = JSON.parse(localStorage['user']);
@@ -1247,7 +1275,7 @@ class ReviewRating {
                         //userDb에 해당 값을 업데이트
                         firebase.database().ref('user/' + this.userId + "/review_like_list/" + this.reviewId)
                             .set(value).then(function () {
-                            const that2=that;
+                            const that2 = that;
                             firebase.database().ref('user/').once('value').then(function (snapshot) {
                                 localStorage['user'] = JSON.stringify(snapshot.val());
                                 that2.db.user = JSON.parse(localStorage['user']);
@@ -1286,7 +1314,7 @@ class ReviewRating {
                         //userDb에 해당 값을 업데이트
                         firebase.database().ref('user/' + this.userId + "/review_like_list/" + this.reviewId)
                             .set(value).then(function () {
-                            const that2=that;
+                            const that2 = that;
                             firebase.database().ref('user/').once('value').then(function (snapshot) {
                                 localStorage['user'] = JSON.stringify(snapshot.val());
                                 that2.db.user = JSON.parse(localStorage['user']);
@@ -1427,6 +1455,54 @@ class ReviewPopup {
 }
 
 
+function timestamp() {
+    const d = new Date();
+    const curr_date = d.getDate();
+    const curr_month = d.getMonth() + 1; //Months are zero based
+    const curr_year = d.getFullYear();
+    const curr_hour = d.getHours();
+    const curr_minute = d.getMinutes();
+    const curr_second = d.getSeconds();
+
+    let dateValue = 0;
+
+    for (let x = 2016; x < curr_year; x++) {
+        if (x % 4 == 0) {
+            if (x % 100 != 0 || x % 400 == 0) {
+                dateValue += 366;
+            }
+        } else {
+            dateValue += 365;
+        }
+    }
+
+    for (let x = 1; x < curr_month; x++) {
+        switch (x) {
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                dateValue += 31;
+                break;
+            case 2:
+                dateValue += 28;
+            default:
+                dateValue += 31;
+                break;
+        }
+    }
+
+    dateValue += curr_date;
+
+
+    let timeValue = 0;
+
+    timeValue = (curr_minute + (curr_hour * 60)) * 100;
+    timeValue += curr_second;
+
+    return parseFloat(dateValue + (timeValue / 1e6));
+
+}
 
 
 function loadDetailProduct(event) {
@@ -1485,9 +1561,9 @@ function loadDetailProduct(event) {
     });
 
     const ratingChart = new MakeChart('line', ["1🌟", "2🌟", "3🌟", "4🌟", "5🌟"], gradeData, 'ratingChart', '#ffc225', '#eeb225');
-    const priceChart = new MakeChart('bar', ["비쌈", "", "적당", "", "저렴"], priceData, 'priceChart', '#ee5563', '#9c3740');
-    const flavorChart = new MakeChart('bar', ["노맛", "", "적당", "", "존맛"], flavorData, 'flavorChart', '#ee5563', '#9c3740');
-    const quantityChart = new MakeChart('bar', ["창렬", "", "적당", "", "헤자"], quantityData, 'quantityChart', '#ee5563', '#9c3740');
+    const priceChart = new MakeChart('bar', ["비쌈", "아쉽", "적당", "양호", "저렴"], priceData, 'priceChart', '#ee5563', '#9c3740');
+    const flavorChart = new MakeChart('bar', ["노맛", "아쉽", "적당", "양호", "존맛"], flavorData, 'flavorChart', '#ee5563', '#9c3740');
+    const quantityChart = new MakeChart('bar', ["창렬", "아쉽", "적당", "양호", "혜자"], quantityData, 'quantityChart', '#ee5563', '#9c3740');
 
     const reviewArr = [];
 
@@ -1541,7 +1617,7 @@ function loadDetailProduct(event) {
                 });
             });
 
-        }else{
+        } else {
             new Toast("이미 즐겨찾기에 포함된 상품입니다.")
 
         }

@@ -1,20 +1,20 @@
-class Toast{
-    constructor(message){
+class Toast {
+    constructor(message) {
         this.message = message;
         this.setEvent();
     }
 
-    setEvent(){
+    setEvent() {
 
         const element = document.querySelector('#toast-msg')
         element.innerHTML = this.message;
         // element.style.display = 'block'
         element.style.display = "block";
-        setTimeout(function(){
+        setTimeout(function () {
             // element.style.display = 'none'
             element.style.display = "none";
 
-        },1000)
+        }, 1000)
     }
 }
 
@@ -380,7 +380,7 @@ class MyPage {
 
         const wishReviewArr = [];
 
-        if(!!this.userData[this.userId].wish_product_list){
+        if (!!this.userData[this.userId].wish_product_list) {
             this.userData[this.userId].wish_product_list.forEach(function (e) {
                 wishReviewArr.push(productData[e]);
             });
@@ -392,7 +392,7 @@ class MyPage {
 
         this.setDeleteButtonEvent()
 
-        document.querySelector(".myPage-close").addEventListener("click",function(){
+        document.querySelector(".myPage-close").addEventListener("click", function () {
 
         })
     }
@@ -436,11 +436,11 @@ class MyPage {
     setEventUpdateImage() {
         const uploadProfile = new UpLoadImage("profileImageInput", "profilePreview");
 
-        document.querySelector('#profileImageInput').addEventListener("change",function(){
+        document.querySelector('#profileImageInput').addEventListener("change", function () {
             document.querySelector('#loading').style.display = "block";
 
 
-            const that=this;
+            const that = this;
 
             let file = document.querySelector('#profileImageInput').files[0];
 
@@ -458,35 +458,47 @@ class MyPage {
         }.bind(this))
     }
 
-    setEventUpdateNicname(){
+    setEventUpdateNicname() {
         const changeBtn = document.querySelector(".myPage-profile-nickname");
-        changeBtn.addEventListener("click",function(){
-            const that = this;
-            document.querySelector('#loading').style.display = "block";
+        const input = document.querySelector(".myPage-profile-nickname-input");
 
 
-            const input = document.querySelector(".myPage-profile-nickname-input");
-            const changedName = input.value;
-            input.setAttribute("value",changedName);
 
-            firebase.database().ref('user/' + this.userId+'/nickname').set(changedName);
+        changeBtn.addEventListener("click", function () {
+
+            console.log(input.value);
+            console.log(input.getAttribute("placeholder"));
+
+            if (input.value !== " " && input.value !== input.getAttribute("placeholder")) {
+                const that = this;
+                document.querySelector('#loading').style.display = "block";
+                const changedName = input.value;
+                input.setAttribute("value", changedName);
+
+                firebase.database().ref('user/' + this.userId + '/nickname').set(changedName);
+                firebase.database().ref('user/').once('value').then(function (snapshot) {
+                    localStorage['user'] = JSON.stringify(snapshot.val());
 
 
-            firebase.database().ref('user/').once('value').then(function (snapshot) {
-                localStorage['user'] = JSON.stringify(snapshot.val());
+                    that.setProfileTab();
+                    document.querySelector('#loading').style.display = "none";
+                    input.setAttribute("placeholder",input.value);
+                    new Toast("닉네임이 변경되었습니다.");
+                }.bind(that));
+            } else if (input.value === "") {
+                new Toast("닉네임을 입력해주세요.");
 
+            } else if (input.value === input.getAttribute("placeholder")) {
+                new Toast("중복된 닉네임입니다");
 
-                that.setProfileTab();
-                document.querySelector('#loading').style.display = "none";
-                new Toast("닉네임이 변경되었습니다.");
+            }
 
-
-            }.bind(that));
+            document.querySelector('#loading').style.display = "none";
 
         }.bind(this))
 
-
     }
+
 
     updateDb() {
         const storageRef = firebase.storage().ref();
@@ -496,7 +508,7 @@ class MyPage {
             const that = this;
             // const userStorage = localStorage['user'];
 
-            database.ref('user/' + this.userId+'/user_profile').set(url);
+            database.ref('user/' + this.userId + '/user_profile').set(url);
 
             firebase.database().ref('user/').once('value').then(function (snapshot) {
                 localStorage['user'] = JSON.stringify(snapshot.val());
@@ -511,7 +523,7 @@ class MyPage {
         });
     }
 
-    setProfileTab(){
+    setProfileTab() {
         const userStorage = localStorage['user'];
         this.userData = JSON.parse(userStorage);
         //프로필 탭 설정
