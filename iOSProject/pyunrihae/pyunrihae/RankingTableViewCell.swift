@@ -5,9 +5,7 @@
 //  Created by woowabrothers on 2017. 8. 23..
 //  Copyright © 2017년 busride. All rights reserved.
 //
-
 import UIKit
-
 class RankingTableViewCell: UITableViewCell {
     @IBOutlet weak var orderNumLabel: UILabel!
     @IBOutlet weak var foodImage: UIImageView!

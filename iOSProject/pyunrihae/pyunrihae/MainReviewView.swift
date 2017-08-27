@@ -5,9 +5,7 @@
 //  Created by woowabrothers on 2017. 8. 22..
 //  Copyright © 2017년 busride. All rights reserved.
 //
-
 import UIKit
-
 class MainReviewView: UIView {
     @IBOutlet weak var myImageView: UIImageView!
     @IBOutlet weak var blackLayerView : UIView!

@@ -5,13 +5,9 @@
 //  Created by woowabrothers on 2017. 8. 8..
 //  Copyright © 2017년 busride. All rights reserved.
 //
-
 import Foundation
 import FirebaseDatabase
-
-
 class Product {
-    
     var id : String // 상품의 고유번호 
     var image : String // 상품의 이미지 URL
     var name : String // 상품 이름 
@@ -50,8 +46,6 @@ class Product {
         self.capacity = ""
         self.manufacturer = ""
     }
-    
-    
     init(id : String, image : String, name : String, price : String, brand: String, event: String, allergy : [String] , category: String, grade_avg: Float, grade_total: Int, grade_count: Int, price_level: [String: Int] , flavor_level : [String : Int], quantity_level : [String: Int], review_count : Int, reviewList : [String], capacity : String, manufacturer : String ) {
         self.id = id
         self.image = image
@@ -95,7 +89,6 @@ class Product {
         let reviewList = dict["reviewList"] as? [String] ?? []
         let capacity = dict["capacity"] as? String ?? ""
         let manufacturer = dict["manufacture"] as? String ?? ""
-        
         self.init(id: id, image: image, name: name, price: price, brand: brand, event: event, allergy: allergy, category: category, grade_avg: grade_avg, grade_total: grade_total, grade_count: grade_count, price_level: price_level, flavor_level: flavor_level, quantity_level: quantity_level, review_count: review_count, reviewList: reviewList, capacity: capacity, manufacturer: manufacturer)
     }
 }

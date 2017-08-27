@@ -5,9 +5,7 @@
 //  Created by woowabrothers on 2017. 8. 15..
 //  Copyright © 2017년 busride. All rights reserved.
 //
-
 import UIKit
-
 class BigImageViewController: UIViewController {
     @IBOutlet weak var bigImageView = UIImageView()
     var image = UIImage()

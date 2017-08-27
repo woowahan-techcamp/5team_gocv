@@ -5,9 +5,7 @@
 //  Created by woowabrothers on 2017. 8. 10..
 //  Copyright © 2017년 busride. All rights reserved.
 //
-
 import UIKit
-
 class ProductInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var foodImage: UIImageView!
     @IBOutlet weak var manufacturerLabel: UILabel!

@@ -5,13 +5,9 @@
 //  Created by woowabrothers on 2017. 8. 8..
 //  Copyright © 2017년 busride. All rights reserved.
 //
-
 import Foundation
 import FirebaseDatabase
-
-
 class Review {
-    
     var id : String  // 리뷰 아이디
     var user : String // 사용자 닉네임
     var p_image : String // 사용자가 올린 리뷰 사진
@@ -29,7 +25,6 @@ class Review {
     var useful : Int // 이 리뷰가 유용하다고 평가한 사람 수
     var bad : Int // 이 리뷰가 별로라고 평가한 사람 수
     var user_image : String // 사용자 프로필 사진
-    
     init() {
         self.id = ""
         self.p_image = ""
@@ -49,8 +44,6 @@ class Review {
         self.comment = ""
         self.user_image = ""
     }
-    
-    
     init(id : String, p_image : String, user : String, p_id : String, p_price : Int,timestamp : String, brand : String, category : String, grade : Int, price : Int, flavor : Int, quantity : Int, useful : Int, bad :Int , p_name : String, comment: String, user_image: String){
         self.id = id
         self.p_image = p_image
@@ -78,7 +71,6 @@ class Review {
             }
         }
     }
-    
     convenience init(snapshot : DataSnapshot){
         let dict = snapshot.value as? Dictionary<String,AnyObject> ?? [:]
         let id = dict["id"] as? String ?? ""
@@ -98,7 +90,6 @@ class Review {
         let p_name = dict["p_name"] as? String ?? ""
         let comment = dict["comment"] as? String ?? ""
         let user_image = dict["user_image"] as? String ?? ""
-        
         self.init(id: id,p_image : p_image, user: user, p_id: p_id, p_price: p_price, timestamp : timestamp, brand: brand, category: category, grade: grade, price : price, flavor: flavor, quantity : quantity, useful: useful, bad : bad, p_name: p_name, comment: comment, user_image: user_image)
     }
 }

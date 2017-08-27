@@ -980,9 +980,10 @@
                                                             </state>
                                                         </button>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O34-GD-I7A">
-                                                            <rect key="frame" x="232" y="18" width="79" height="21"/>
+                                                            <rect key="frame" x="232" y="21" width="79" height="15"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
+                                                                <constraint firstAttribute="height" constant="15" id="7pl-yo-OIZ"/>
                                                                 <constraint firstAttribute="width" constant="79" id="hI0-hQ-zbj"/>
                                                             </constraints>
                                                         </view>
@@ -992,7 +993,6 @@
                                                         <constraint firstItem="sus-Zi-hSx" firstAttribute="top" secondItem="Qq6-OC-Ey9" secondAttribute="bottom" constant="7" id="2IL-k8-Os2"/>
                                                         <constraint firstItem="Qq6-OC-Ey9" firstAttribute="top" secondItem="BRW-gA-aWd" secondAttribute="bottom" constant="7" id="4bl-Xo-fIM"/>
                                                         <constraint firstItem="orv-4S-YX2" firstAttribute="leading" secondItem="O34-GD-I7A" secondAttribute="trailing" constant="18" id="4zW-aL-MXY"/>
-                                                        <constraint firstItem="O34-GD-I7A" firstAttribute="centerY" secondItem="orv-4S-YX2" secondAttribute="centerY" id="7Yt-Aj-uwM"/>
                                                         <constraint firstItem="Wgy-sd-NF0" firstAttribute="top" secondItem="Px1-gv-3Q7" secondAttribute="bottom" constant="7" id="C0E-SE-pWx"/>
                                                         <constraint firstAttribute="trailingMargin" secondItem="coX-Gl-Ppg" secondAttribute="trailing" constant="10" id="EbS-Vr-WBc"/>
                                                         <constraint firstAttribute="bottom" secondItem="Wgy-sd-NF0" secondAttribute="bottom" constant="45.666666666666657" id="JpE-YI-Rbm"/>
@@ -1007,7 +1007,7 @@
                                                         <constraint firstItem="Qq6-OC-Ey9" firstAttribute="leading" secondItem="D9K-Pc-FZp" secondAttribute="leading" id="mxx-yK-VHA"/>
                                                         <constraint firstItem="D9K-Pc-FZp" firstAttribute="top" secondItem="sus-Zi-hSx" secondAttribute="bottom" constant="7" id="o7d-YN-lwb"/>
                                                         <constraint firstItem="Qq6-OC-Ey9" firstAttribute="leading" secondItem="sus-Zi-hSx" secondAttribute="leading" id="oOT-Fk-1oX"/>
-                                                        <constraint firstItem="O34-GD-I7A" firstAttribute="top" secondItem="oTu-zk-F13" secondAttribute="topMargin" constant="10" id="skq-lj-CCF"/>
+                                                        <constraint firstItem="O34-GD-I7A" firstAttribute="top" secondItem="oTu-zk-F13" secondAttribute="topMargin" constant="13" id="skq-lj-CCF"/>
                                                         <constraint firstItem="Qq6-OC-Ey9" firstAttribute="leading" secondItem="BRW-gA-aWd" secondAttribute="leading" id="v4r-AL-jUZ"/>
                                                         <constraint firstItem="Qq6-OC-Ey9" firstAttribute="leading" secondItem="oTu-zk-F13" secondAttribute="leadingMargin" constant="10" id="wHC-tb-0bo"/>
                                                         <constraint firstItem="Px1-gv-3Q7" firstAttribute="top" secondItem="oPQ-f2-TDP" secondAttribute="bottom" constant="7" id="zhv-ym-vpQ"/>
@@ -1093,8 +1093,8 @@
                                                                                 <color key="titleColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                             </state>
                                                                         </button>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="8" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XR2-3w-pJ8">
-                                                                            <rect key="frame" x="23" y="5" width="20" height="16"/>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XR2-3w-pJ8">
+                                                                            <rect key="frame" x="20" y="4" width="23" height="16"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                             <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -1122,8 +1122,8 @@
                                                                                 <color key="titleColor" red="0.89019607840000003" green="0.29411764709999999" blue="0.039215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             </state>
                                                                         </button>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="111" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FHO-Hv-hIx">
-                                                                            <rect key="frame" x="23" y="5" width="20" height="16"/>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FHO-Hv-hIx">
+                                                                            <rect key="frame" x="21" y="5" width="23" height="16"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                             <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -1666,7 +1666,7 @@
                     <navigationItem key="navigationItem" title="리뷰 쓰기" id="IFW-fE-urb">
                         <barButtonItem key="leftBarButtonItem" image="back.png" style="plain" id="j5k-uI-Fja">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qSi-kf-Tx0">
-                                <rect key="frame" x="16" y="12" width="15" height="20"/>
+                                <rect key="frame" x="16" y="13" width="20" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="back.png"/>
                                 <connections>
@@ -1801,7 +1801,7 @@
                     <navigationItem key="navigationItem" title="알레르기 성분 선택" id="HOX-Gg-ysw">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="Fxn-we-hoq">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MtE-Q2-e5s">
-                                <rect key="frame" x="16" y="12" width="15" height="20"/>
+                                <rect key="frame" x="16" y="13" width="20" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="back.png"/>
                                 <connections>

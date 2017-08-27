@@ -5,9 +5,7 @@
 //  Created by woowabrothers on 2017. 8. 26..
 //  Copyright © 2017년 busride. All rights reserved.
 //
-
 import UIKit
-
 class ReviewPopupView: UIView {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var view: UIView!
@@ -20,8 +18,6 @@ class ReviewPopupView: UIView {
     @IBOutlet weak var brand: UIImageView!
     @IBOutlet weak var uploadedImage: UIImageView!
     @IBOutlet weak var userImage: UIImageView!
-    @IBOutlet weak var usefulView: UIView!
-    @IBOutlet weak var badView: UIView!
     @IBOutlet weak var badBtn: UIButton!
     @IBOutlet weak var usefulBtn: UIButton!
     @IBOutlet weak var kakaoShareBtn: UIButton!

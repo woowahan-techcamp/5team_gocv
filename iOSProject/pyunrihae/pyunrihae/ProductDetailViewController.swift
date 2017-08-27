@@ -5,21 +5,14 @@
 //  Created by woowabrothers on 2017. 8. 9..
 //  Copyright © 2017년 busride. All rights reserved.
 //
-
 import UIKit
-import Alamofire
-
 class ProductDetailViewController: UIViewController {
-   
     @IBOutlet weak var uploadingView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var writingReviewBtn: UIButton!
     @IBOutlet weak var alertMessageLabel: UILabel!
     @IBOutlet weak var wishBtn: UIButton!
     var hidden = false
-    let priceLevelList = ["비싸다","비싼편","적당","싼편","싸다"]
-    let flavorLevelList = ["노맛","별로","적당","괜춘","존맛"]
-    let quantityLevelList = ["창렬","적음","적당","많음","혜자"]
     var sortingMethodLabel = UILabel()
     var orderBy = "최신순"
     var productGrade = 0.0
@@ -53,25 +46,28 @@ class ProductDetailViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsSelection = false
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
-        swipeRight.direction = UISwipeGestureRecognizerDirection.right
-        self.view.addGestureRecognizer(swipeRight)
         NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name("complete"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reviewUpload), name: NSNotification.Name("reviewUpload"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(startUploading), name: NSNotification.Name("startUploading"), object: nil)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        self.view.addGestureRecognizer(tap)
     }
-    func respondToSwipeGesture(gesture: UIGestureRecognizer) {
-        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
-            switch swipeGesture.direction {
-            case UISwipeGestureRecognizerDirection.right:
-                self.dismiss(animated: true, completion: nil)
-            default:
-                break
-            }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    func handleTap(_ sender: UITapGestureRecognizer) { // 탭해주면 리뷰 작성 버튼 뜸
+        if hidden == true {
+            writingReviewBtn.isHidden = false
+            hidden = false
+            UIView.animate(withDuration: 0.7, delay: 0, animations: {
+                self.writingReviewBtn.frame.origin.y -= 100
+            })
         }
     }
     @IBAction func closeNavViewBtn(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
+        NotificationCenter.default.post(name: NSNotification.Name("reloadReview"), object: self)
     }
     @IBAction func tabWishBtn(_ sender: UIButton) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -95,7 +91,6 @@ class ProductDetailViewController: UIViewController {
         }
     }
     func didPressallergyBtn(sender: UIButton){ // 알러지 리스트 누르기
-        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "ProductAllergyViewController") as! ProductAllergyViewController
         for product in appdelegate.productList {
@@ -111,69 +106,7 @@ class ProductDetailViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
         } else {
-            let reviewId = reviewIdList[sender.tag]
-            let usefulNumLabel = usefulLabels[sender.tag]
-            let badNumLabel = badLabels[sender.tag]
-            let usefulBtn = usefulBtns[sender.tag]
-            let badBtn = badBtns[sender.tag]
-            var reviewStatus = appdelegate.user?.review_like_list[reviewId]
-            let uid = appdelegate.user?.id
-            if reviewStatus == nil { //유용해요 누른적이 없는 리뷰
-                DataManager.tabUsefulBtn(id: reviewId)
-                var useful = Int(usefulNumLabel.text!)
-                useful = useful! + 1
-                usefulNumLabel.text = String(describing: useful!)
-                DataManager.updateUsefulReview(id: reviewId, uid: uid!)
-                reviewStatus = 1
-                Button.makeBorder(btn: usefulBtn)
-                Button.deleteBorder(btn: badBtn)
-                usefulNumLabel.textColor = UIColor.red
-                badNumLabel.textColor = UIColor.lightGray
-            } else if reviewStatus == 1 { // 유용해요 취소
-                DataManager.cancleUsefulBtn(id: reviewId)
-                var useful = Int(usefulNumLabel.text!)
-                useful = useful! - 1
-                usefulNumLabel.text = String(describing: useful!)
-                DataManager.updateCancleReview(id: reviewId, uid: uid!)
-                reviewStatus = 0
-                Button.deleteBorder(btn: usefulBtn)
-                Button.deleteBorder(btn: badBtn)
-                usefulNumLabel.textColor = UIColor.lightGray
-                badNumLabel.textColor = UIColor.lightGray
-            } else if reviewStatus == -1 { // 별로에요 취소후 유용해요 누르기
-                DataManager.tabUsefulBtn(id: reviewId)
-                DataManager.cancleBadBtn(id: reviewId)
-                var useful = Int(usefulNumLabel.text!)
-                useful = useful! + 1
-                usefulNumLabel.text = String(describing: useful!)
-                var bad = Int(badNumLabel.text!)
-                bad = bad! - 1
-                badNumLabel.text = String(describing: bad!)
-                DataManager.updateUsefulReview(id: reviewId, uid: uid!)
-                reviewStatus = 1
-                Button.makeBorder(btn: usefulBtn)
-                Button.deleteBorder(btn: badBtn)
-                usefulNumLabel.textColor = UIColor.red
-                badNumLabel.textColor = UIColor.lightGray
-            } else if reviewStatus == 0 { // 별로에요 취소 했다가 다시 누르기
-                DataManager.tabUsefulBtn(id: reviewId)
-                var useful = Int(usefulNumLabel.text!)
-                useful = useful! + 1
-                usefulNumLabel.text = String(describing: useful!)
-                DataManager.updateUsefulReview(id: reviewId, uid: uid!)
-                reviewStatus = 1
-                Button.makeBorder(btn: usefulBtn)
-                Button.deleteBorder(btn: badBtn)
-                usefulNumLabel.textColor = UIColor.red
-                badNumLabel.textColor = UIColor.lightGray
-            }
-            appdelegate.user?.review_like_list[reviewId] = reviewStatus
-            for i in 0..<reviewList.count {
-                if reviewList[i].id == reviewId {
-                    reviewList[i].useful = Int(usefulNumLabel.text!)!
-                    reviewList[i].bad = Int(badNumLabel.text!)!
-                }
-            }
+            Button.didPressUsefulBtn(sender: sender, reviewId: reviewIdList[sender.tag], usefulNumLabel: usefulLabels[sender.tag], badNumLabel: badLabels[sender.tag], usefulBtn: usefulBtns[sender.tag], badBtn: badBtns[sender.tag], reviewList: reviewList)
         }
     }
     func didPressBadBtn(sender: UIButton) { //별로에요 버튼 누르기
@@ -182,69 +115,7 @@ class ProductDetailViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
         } else {
-            let uid = appdelegate.user?.id
-            let reviewId = reviewIdList[sender.tag]
-            let usefulNumLabel = usefulLabels[sender.tag]
-            let badNumLabel = badLabels[sender.tag]
-            let usefulBtn = usefulBtns[sender.tag]
-            let badBtn = badBtns[sender.tag]
-            var reviewStatus = appdelegate.user?.review_like_list[reviewId]
-            if reviewStatus == nil { //별로에요 누른적이 없는 리뷰
-                DataManager.tabBadBtn(id: reviewId)
-                var bad = Int(badNumLabel.text!)
-                bad = bad! + 1
-                badNumLabel.text = String(describing: bad!)
-                DataManager.updateBadReview(id: reviewId, uid: uid!)
-                reviewStatus = -1
-                Button.makeBorder(btn: badBtn)
-                Button.deleteBorder(btn: usefulBtn)
-                usefulNumLabel.textColor = UIColor.lightGray
-                badNumLabel.textColor = UIColor.red
-            } else if reviewStatus == -1 { // 별로에요 취소
-                DataManager.cancleBadBtn(id: reviewId)
-                var bad = Int(badNumLabel.text!)
-                bad = bad! - 1
-                badNumLabel.text = String(describing: bad!)
-                DataManager.updateCancleReview(id: reviewId, uid: uid!)
-                reviewStatus = 0
-                Button.deleteBorder(btn: usefulBtn)
-                Button.deleteBorder(btn: badBtn)
-                usefulNumLabel.textColor = UIColor.lightGray
-                badNumLabel.textColor = UIColor.lightGray
-            } else if reviewStatus == 1 { // 유용해요 취소후 별로에요 누르기
-                DataManager.tabBadBtn(id: reviewId)
-                DataManager.cancleUsefulBtn(id: reviewId)
-                var bad = Int(badNumLabel.text!)
-                bad = bad! + 1
-                badNumLabel.text = String(describing: bad!)
-                var useful = Int(usefulNumLabel.text!)
-                useful = useful! - 1
-                usefulNumLabel.text = String(describing: useful!)
-                DataManager.updateBadReview(id: reviewId, uid: uid!)
-                reviewStatus = -1
-                Button.makeBorder(btn: badBtn)
-                Button.deleteBorder(btn: usefulBtn)
-                usefulNumLabel.textColor = UIColor.lightGray
-                badNumLabel.textColor = UIColor.red
-            } else if reviewStatus == 0 { // 별로에요 취소 했다가 다시 누르기
-                DataManager.tabBadBtn(id: reviewId)
-                var bad = Int(badNumLabel.text!)
-                bad = bad! + 1
-                badNumLabel.text = String(describing: bad!)
-                DataManager.updateBadReview(id: reviewId, uid: uid!)
-                reviewStatus = -1
-                Button.makeBorder(btn: badBtn)
-                Button.deleteBorder(btn: usefulBtn)
-                usefulNumLabel.textColor = UIColor.lightGray
-                badNumLabel.textColor = UIColor.red
-            }
-            appdelegate.user?.review_like_list[reviewId] = reviewStatus
-            for i in 0..<reviewList.count {
-                if reviewList[i].id == reviewId {
-                    reviewList[i].useful = Int(usefulNumLabel.text!)!
-                    reviewList[i].bad = Int(badNumLabel.text!)!
-                }
-            }
+            Button.didPressBadBtn(sender: sender, reviewId: reviewIdList[sender.tag], usefulNumLabel: usefulLabels[sender.tag], badNumLabel: badLabels[sender.tag], usefulBtn: usefulBtns[sender.tag], badBtn: badBtns[sender.tag], reviewList: reviewList)
         }
     }
     func showProduct(_ notification: Notification) { // 넘어온 product 정보 받아서 화면 구성
@@ -256,7 +127,7 @@ class ProductDetailViewController: UIViewController {
             NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
         }
     }
-    func showReviewProduct(_ notification: Notification) { // 넘어온 product 정보 받아서 화면 구성
+    func showReviewProduct(_ notification: Notification) { // 넘어온 review 정보 받아서 화면 구성
         let product = notification.userInfo?["product"] as! Review
         print(product.p_id)
         SelectedProduct.foodId = product.p_id
@@ -295,19 +166,15 @@ class ProductDetailViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(showProduct), name: NSNotification.Name("showProduct"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showReviewProduct), name: NSNotification.Name("showReviewProduct"), object: nil)
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is BigImageViewController {
+        if segue.destination is BigImageViewController { // 사진 확대 화면
             let destination =  segue.destination as? BigImageViewController
             if let button = sender as? UIButton{
                 if let image = button.backgroundImage(for: .normal) {
                     destination?.image = image
                 }
             }
-        } else if segue.destination is WritingReviewViewController {
+        } else if segue.destination is WritingReviewViewController { // 리뷰 작성 화면
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let user = appDelegate.user
             if user?.email == "" {
@@ -322,7 +189,7 @@ class ProductDetailViewController: UIViewController {
             }
         }
     }
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) { // 밑으로 내리면 리뷰작성 버튼 사라지고, 올리면 다시 뜸
         if velocity.y > 0 {
             if hidden == false {
                 hidden = true
@@ -354,7 +221,7 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
             if SelectedProduct.reviewCount == 0 {
                 return 3
             }
-            return SelectedProduct.reviewCount + 2 // 리뷰 수+2로 리턴해야 함
+            return SelectedProduct.reviewCount + 2
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -369,17 +236,16 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                     cell.foodNameLabel.text = product.name
                     cell.capacityLabel.text = product.capacity
                     cell.manufacturerLabel.text = product.manufacturer
-               
                     if product.event != "\r" { 
                         cell.eventLabel.text = product.event
-                        Label.makeRoundLabel(label: cell.eventLabel, color: UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(1.0)))
-                        cell.eventLabel.textColor = UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(1.0))
+                        Label.makeRoundLabel(label: cell.eventLabel, color: self.appdelegate.mainColor)
+                        cell.eventLabel.textColor = self.appdelegate.mainColor
                     }else{
                         cell.eventLabel.isHidden = true
                     }
                     cell.loading.startAnimating()
-                    cell.foodImage.contentMode = .scaleAspectFit
-                    cell.foodImage.backgroundColor = UIColor.white
+                    cell.foodImage.contentMode = .scaleAspectFill
+                    cell.foodImage.clipsToBounds = true
                     cell.foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), completion:{ image in
                         cell.foodImageBtn.setBackgroundImage(cell.foodImage.image, for: .normal)
                         cell.loading.stopAnimating()
@@ -390,36 +256,7 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath) as! ProductDetailInfoTableViewCell
                 // 제품 별점 보여주기
                 DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
-                    let numberOfPlaces = 2.0
-                    let multiplier = pow(10.0, numberOfPlaces)
-                    self.productGrade = round(Double(product.grade_avg) * multiplier) / multiplier
-                    cell.gradeLabel.text = String(self.productGrade)
-                    for sub in cell.starView.subviews {
-                        sub.removeFromSuperview()
-                    }
-                    var space = 0
-                    if self.productGrade - Double(Int(self.productGrade)) >= 0.5 {
-                        let starImage = UIImage(named: "stars.png")
-                        let cgImage = starImage?.cgImage
-                        let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: (starImage?.size.width)! * 4 / 5, y: 0, width: (starImage?.size.width)!, height: starImage!.size.height))!
-                        let uiImage = UIImage(cgImage: croppedCGImage)
-                        let imageView = UIImageView(image: uiImage)
-                        space = (4 - Int(self.productGrade)) * 15
-                        
-                        imageView.frame = CGRect(x: Int(self.productGrade)*18 - 3 + space, y: 0, width: 18, height: 15)
-                        cell.starView.addSubview(imageView)
-                    } else{
-                        space = (5 - Int(self.productGrade)) * 15
-                    }
-                    for i in 0..<Int(self.productGrade) {
-                        let starImage = UIImage(named: "stars.png")
-                        let cgImage = starImage?.cgImage
-                        let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: 0, y: 0, width: (starImage?.size.width)! / 5, height: starImage!.size.height))!
-                        let uiImage = UIImage(cgImage: croppedCGImage)
-                        let imageView = UIImageView(image: uiImage)
-                        imageView.frame = CGRect(x: i*18 + space, y: 0, width: 18, height: 15)
-                        cell.starView.addSubview(imageView)
-                    }
+                    Image.drawStar(numberOfPlaces: 2.0, grade_avg: Double(product.grade_avg), gradeLabel: cell.gradeLabel, starView: cell.starView, needSpace: true)
                     let allergyList = product.allergy
                     if allergyList.count != 0 {
                         let allergy = allergyList[0]
@@ -436,35 +273,7 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                         cell.allergyBtn.isEnabled = false
                         cell.allergyBtn.setTitle("알레르기 정보가 없습니다!", for: .normal)
                     }
-                    let priceLevelDict = product.price_level
-                    let flavorLevelDict = product.flavor_level
-                    let quantityLevelDict = product.quantity_level
-                    var maxPriceLevel = 3
-                    var maxFlavorLevel = 3
-                    var maxQuantityLevel = 3
-                    var maxPriceNum = 0
-                    var maxFlavorNum = 0
-                    var maxQuantityNum = 0
-                    for i in 1...5 {
-                        let p = "p" + i.description
-                        let f = "f" + i.description
-                        let q = "q" + i.description
-                        if priceLevelDict[p]! > maxPriceNum {
-                            maxPriceLevel = i
-                            maxPriceNum = priceLevelDict[p]!
-                        }
-                        if flavorLevelDict[f]! > maxFlavorNum {
-                            maxFlavorLevel = i
-                            maxFlavorNum = flavorLevelDict[f]!
-                        }
-                        if quantityLevelDict[q]! > maxQuantityNum {
-                            maxQuantityLevel = i
-                            maxQuantityNum = quantityLevelDict[q]!
-                        }
-                     }
-                    cell.priceLevelLabel.text = self.priceLevelList[maxPriceLevel - 1]
-                    cell.flavorLevelLabel.text = self.flavorLevelList[maxFlavorLevel - 1]
-                    cell.quantityLevelLabel.text = self.quantityLevelList[maxQuantityLevel - 1]
+                    Label.showLevel(PriceLevelLabel: cell.priceLevelLabel, FlavorLevelLabel: cell.flavorLevelLabel, QuantityLevelLabel: cell.quantityLevelLabel, priceLevelDict: product.price_level, flavorLevelDict: product.flavor_level, quantityLevelDict: product.quantity_level)
                 }
                 return cell
             }
@@ -490,32 +299,8 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                 cell.badNumLabel.text = "0"
                 cell.userImage.image = UIImage(named: "user_default.png")
                 cell.uploadedFoodImageBtn.setBackgroundImage(UIImage(), for: .normal)
-                
-                let format = DateFormatter()
-                format.locale = Locale(identifier: "ko_kr")
-                format.timeZone = TimeZone(abbreviation: "KST")
-                format.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                
                 if reviewList.count == SelectedProduct.reviewCount && reviewList.count > 0 {
-                    if let writtenDate = format.date(from: reviewList[row].timestamp) {
-                        if writtenDate.timeIntervalSinceNow >= -5 * 24 * 60 * 60 {
-                            if writtenDate.timeIntervalSinceNow <= -1 * 24 * 60 * 60 {
-                                let daysAgo = Int(-writtenDate.timeIntervalSinceNow / 24 / 60 / 60)
-                                cell.timeLabel.text = String(daysAgo) + "일 전"
-                            } else if writtenDate.timeIntervalSinceNow <= -1 * 60 * 60 {
-                                let hoursAgo = Int(-writtenDate.timeIntervalSinceNow / 60 / 60)
-                                cell.timeLabel.text = String(hoursAgo) + "시간 전"
-                            } else if writtenDate.timeIntervalSinceNow <= -1 * 60{
-                                let minutesAgo = Int(-writtenDate.timeIntervalSinceNow / 60)
-                                cell.timeLabel.text = String(minutesAgo) + "분 전"
-                            } else{
-                                cell.timeLabel.text = "방금"
-                            }
-                        } else {
-                            cell.timeLabel.text = reviewList[row].timestamp.components(separatedBy: " ")[0]
-                        }
-                    }
-                    
+                    Label.showWrittenTime(timestamp: reviewList[row].timestamp, timeLabel: cell.timeLabel)
                     usefulBtns.append(cell.usefulBtn)
                     badBtns.append(cell.badBtn)
                     reviewIdList.append(reviewList[row].id)
@@ -525,33 +310,9 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                     cell.badBtn.addTarget(self, action: #selector(self.didPressBadBtn), for: UIControlEvents.touchUpInside)
                     cell.badNumLabel.text = String(reviewList[row].bad)
                     cell.usefulNumLabel.text = String(reviewList[row].useful)
-                    if let userReviewLike = appdelegate.user?.review_like_list[reviewList[row].id]{
-                        if userReviewLike == 1 {
-                            Button.makeBorder(btn: cell.usefulBtn)
-                            Button.deleteBorder(btn: cell.badBtn)
-                            cell.usefulNumLabel.textColor = UIColor.red
-                            cell.badNumLabel.textColor = UIColor.lightGray
-                        } else if userReviewLike == -1 {
-                            Button.makeBorder(btn: cell.badBtn)
-                            Button.deleteBorder(btn: cell.usefulBtn)
-                            cell.usefulNumLabel.textColor = UIColor.lightGray
-                            cell.badNumLabel.textColor = UIColor.red
-                        } else {
-                            Button.deleteBorder(btn: cell.usefulBtn)
-                            Button.deleteBorder(btn: cell.badBtn)
-                            cell.usefulNumLabel.textColor = UIColor.lightGray
-                            cell.badNumLabel.textColor = UIColor.lightGray
-                        }
-                    } else {
-                        Button.deleteBorder(btn: cell.usefulBtn)
-                        Button.deleteBorder(btn: cell.badBtn)
-                        cell.usefulNumLabel.textColor = UIColor.lightGray
-                        cell.badNumLabel.textColor = UIColor.lightGray
-                    }
+                    Button.validateUseful(review: reviewList[row], usefulBtn: cell.usefulBtn, badBtn: cell.badBtn, usefulNumLabel: cell.usefulNumLabel, badNumLabel: cell.badNumLabel)
                     cell.detailReviewLabel.text = reviewList[row].comment
-                    
                     let height = Label.heightForView(text: reviewList[row].comment, font: cell.detailReviewLabel.font, width: cell.detailReviewLabel.frame.width)
-                    
                     cell.detailReviewLabel.frame.size.height = height
                     cell.userNameLabel.text = reviewList[row].user
                     cell.userImageLoading.startAnimating()
@@ -581,11 +342,9 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                         }
                         cell.uploadedFoodImageBtn.isHidden = true
                     }
-                    
                     for sub in cell.starView.subviews {
                         sub.removeFromSuperview()
                     }
-                    
                     // 리뷰어 각각의 별점
                     for i in 0..<Int(reviewList[row].grade) {
                         let starImage = UIImage(named: "stars.png")
@@ -603,7 +362,6 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
             return cell
         }
     }
-    
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0{
             if indexPath.row == 0 {
@@ -662,31 +420,25 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
             headerText.font = UIFont.systemFont(ofSize: 14)
             orderReviewView.addSubview(headerText)
             orderReviewView.layer.backgroundColor = UIColor.white.cgColor
-            
             let width = tableView.superview?.frame.size.width
-            
             // 소비자 리뷰 정렬 텍스트
             sortingMethodLabel.text = orderBy
             sortingMethodLabel.textColor = UIColor.darkGray
             sortingMethodLabel.frame = CGRect(x: width! - 73, y: 10, width: 50, height: 25)
             sortingMethodLabel.font = UIFont.systemFont(ofSize: 13)
             orderReviewView.addSubview(sortingMethodLabel)
-            
             // 소비자 리뷰 정렬 버튼
             let orderBtn = UIButton()
             orderBtn.setImage(UIImage(named: "ic_dropdown.png"), for: .normal)
             orderBtn.frame = CGRect(x: width! - 33, y: 13, width: 15, height: 15)
             orderBtn.addTarget(self, action: #selector(tabDropDownBtn), for: UIControlEvents.touchUpInside)
             orderReviewView.addSubview(orderBtn)
-            
             // 헤더 경계선 생성
             let color = UIColor(red: CGFloat(Float(0xee) / 255.0), green: CGFloat(Float(0xee) / 255.0),  blue: CGFloat(Float(0xee) / 255.0), alpha: CGFloat(Float(1)))
-            
             let topBorder = UILabel()
             topBorder.layer.backgroundColor = color.cgColor
             topBorder.frame = CGRect(x: 10, y: 0, width: width! - 20, height: 1)
             orderReviewView.addSubview(topBorder)
-            
             let bottomBorder = UILabel()
             bottomBorder.layer.backgroundColor = color.cgColor
             bottomBorder.frame = CGRect(x: 10, y: 44, width: width! - 20, height: 1)
@@ -697,23 +449,19 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
     func tabDropDownBtn(_ sender: UIButton) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         //Create and add the Cancel action
-        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
-            
-        }
+        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel)
         let orderByRanking = UIAlertAction(title: "최신순", style: .default) { action -> Void in
             DispatchQueue.main.async {
                 self.orderBy  = "최신순"
                 self.setReviewListOrder()
             }
         }
-        
         let orderByPrice = UIAlertAction(title: "유용순", style: .default) { action -> Void in
             DispatchQueue.main.async {
                 self.orderBy  = "유용순"
                 self.setReviewListOrder()
             }
         }
-        
         alert.addAction(cancelAction)
         alert.addAction(orderByRanking)
         alert.addAction(orderByPrice)
@@ -724,7 +472,6 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
         format.locale = Locale(identifier: "ko_kr")
         format.timeZone = TimeZone(abbreviation: "KST")
         format.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
         if orderBy == "최신순"{
             self.reviewList = reviewList.sorted(by: { (review1, review2) in
                 if format.date(from: review1.timestamp) != nil && format.date(from: review2.timestamp) != nil {
@@ -745,7 +492,6 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
             self.tableView.reloadData()
         }
     }
-
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return 0

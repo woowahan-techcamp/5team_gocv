@@ -5,11 +5,9 @@
 //  Created by woowabrothers on 2017. 8. 7..
 //  Copyright © 2017년 busride. All rights reserved.
 //
-
 import UIKit
 import FirebaseAuth
 import NVActivityIndicatorView
-
 class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
     @IBOutlet weak var watingView: UIView!
     @IBOutlet weak var waitingImage: UIImageView!
@@ -17,9 +15,9 @@ class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
     @IBOutlet var searchBtn : UIButton!
     @IBOutlet var titleLabel : UILabel!
     @IBOutlet var brandBtns : [UIButton]! // 브랜드 메뉴 버튼 4개
-    @IBOutlet weak var contentView: UIView!
-    @IBOutlet weak var brandContentView: UIView!
-    @IBOutlet weak var tabContentView: UIView!
+    @IBOutlet weak var contentView: UIView! //탭에 따라 바뀔 뷰 부분
+    @IBOutlet weak var brandContentView: UIView! // 브랜드 버튼 뷰
+    @IBOutlet weak var tabContentView: UIView! // 탭 버튼 뷰
     @IBOutlet var tabBtns : [UIButton]! // 탭 메뉴 버튼 4개
     var mainViewController : MainViewController!
     var rankingViewController : RankingViewController!
@@ -29,15 +27,15 @@ class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
     var viewControllers : [UIViewController]! // 탭에 따른 뷰 컨트롤러
     var selectedTabIndex: Int = 0 // 선택된 뷰 컨트롤러 인덱스, 초기값은 0
     var selectedBrandIndex: Int = 0 // 선택된 브랜드 인덱스, 초기값은 0 (전체)
-    var categoryIndex: Int = 0
+    var categoryIndex: Int = 0 //선택된 카테고리 인덱스, 초기값은 0
     let titleName = ["편리해","랭킹","리뷰","마이페이지"]
-    let category = ["전체","도시락","김밥","베이커리","라면","식품","스낵","아이스크림","음료"]
-    var done = false
+    var done = false // 편리해 정보 받아오기 완료 여부
     let appdelegate = UIApplication.shared.delegate as! AppDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         brandContentView.isHidden = true
         tabContentView.isHidden = true
+        contentView.isHidden = true // 화면 받아오기 전까지 화면 터치 안됨
         saveProductListToGlobal()
         NVActivityIndicatorView.DEFAULT_BLOCKER_BACKGROUND_COLOR = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
         NVActivityIndicatorView.DEFAULT_TYPE = .pacman
@@ -65,7 +63,7 @@ class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
         viewControllers = [mainViewController,rankingViewController,reviewViewController,mypageViewController]
         Button.select(btn: brandBtns[selectedBrandIndex]) // 맨 처음 브랜드는 전체 선택된 것으로 나타나게 함
         didPressBrandBtn(brandBtns[selectedBrandIndex])
-        Button.select(btn: tabBtns[selectedTabIndex])
+        Button.select(btn: tabBtns[selectedTabIndex]) // 맨 처음 탭은 홈 탭 화면
         didPressTabBtn(tabBtns[selectedTabIndex])
         if Auth.auth().currentUser != nil {
             DataManager.getUserFromUID(uid: (Auth.auth().currentUser?.uid)!, completion: { (user) in
@@ -135,6 +133,7 @@ class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
         done = true
         brandContentView.isHidden = false
         tabContentView.isHidden = false
+        contentView.isHidden = false
         self.stopAnimating()
         UIView.animate(withDuration: 0.5, delay: 0, animations: {
             self.waitingImage.alpha -= 1

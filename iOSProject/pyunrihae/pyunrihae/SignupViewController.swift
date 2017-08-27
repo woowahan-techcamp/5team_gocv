@@ -5,12 +5,9 @@
 //  Created by woowabrothers on 2017. 8. 16..
 //  Copyright © 2017년 busride. All rights reserved.
 //
-
 import UIKit
 import FirebaseAuth
-
 class SignupViewController: UIViewController {
-
     @IBOutlet weak var passWordConfirmTextField: UITextField!
     @IBOutlet weak var passWordTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
@@ -45,7 +42,6 @@ class SignupViewController: UIViewController {
         }
         isValidSignup()
     }
-    
     @IBAction func onPasswordTextChanged(_ sender: Any) {
         if Validator.isValidPassWord(password: passWordTextField.text!) {
             passwordAlertLabel.isHidden = true
@@ -54,7 +50,6 @@ class SignupViewController: UIViewController {
         }
         isValidSignup()
     }
-    
     @IBAction func onPasswordConfirmTextChanged(_ sender: Any) {
         if Validator.isSamePassWord(password: passWordTextField.text!, confirmPassword: passWordConfirmTextField.text!){
             passwordConfirmAlertLabel.isHidden = true
@@ -63,7 +58,6 @@ class SignupViewController: UIViewController {
         }
         isValidSignup()
     }
-    
     func isValidSignup(){
         if Validator.isValidSign(email: emailTextField.text!,password: passWordTextField.text!, confirmPassword: passWordConfirmTextField.text!) && (nicknameTextField.text?.characters.count)! > 0 {
            completeBtn.isEnabled = true
@@ -71,7 +65,6 @@ class SignupViewController: UIViewController {
             completeBtn.isEnabled = false
         }
     }
-   
     @IBAction func signUp(_ sender: Any) {
         if completeBtn.isEnabled {
             // 회원가입 과정을 다 통과하면 user 만듦
@@ -82,11 +75,9 @@ class SignupViewController: UIViewController {
             } else {
                 dismissKeyboard()
                 Auth.auth().createUser(withEmail: emailTextField.text!, password: passWordTextField.text!) { (user, error) in
-                    
                     if error == nil {
                         let user_instance = User.init(id: (user?.uid)!, email: (user?.email)!, nickname: self.nicknameTextField.text!)
                         DataManager.saveUser(user: user_instance)
-                        
                         Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.passWordTextField.text!) { (user, error) in
                             if error != nil {
                                 self.alertView.text = "로그인에 실패했습니다."

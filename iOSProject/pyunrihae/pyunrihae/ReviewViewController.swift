@@ -5,11 +5,7 @@
 //  Created by woowabrothers on 2017. 8. 7..
 //  Copyright © 2017년 busride. All rights reserved.
 //
-
 import UIKit
-import Alamofire
-import AlamofireImage
-
 class ReviewViewController: UIViewController {
     @IBOutlet weak var categoryScrollView: UIScrollView!
     @IBOutlet weak var reviewNumLabel: UILabel!
@@ -24,7 +20,6 @@ class ReviewViewController: UIViewController {
     var badNumLabel = UILabel()
     var usefulBtn = UIButton()
     var badBtn = UIButton()
-    let category = ["전체","도시락","김밥","베이커리","라면","식품","스낵","아이스크림","음료"]
     var isLoaded = false
     var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
     var selectedReview = Review()
@@ -50,6 +45,7 @@ class ReviewViewController: UIViewController {
         didPressCategoryBtn(sender: categoryBtns[selectedCategoryIndex])
         isLoaded = true
         NotificationCenter.default.addObserver(self, selector: #selector(showDetailProduct), name: NSNotification.Name("showDetailProduct"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(getReviewList), name: NSNotification.Name("reloadReview"), object: nil)
         // Do any additional setup after loading the view.
     }
     override func didReceiveMemoryWarning() {
@@ -61,16 +57,13 @@ class ReviewViewController: UIViewController {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "mainNavigationController") as! UINavigationController
             self.present(vc, animated: true, completion: nil)
-            print(review.p_id)
             NotificationCenter.default.post(name: NSNotification.Name("showReviewProduct"), object: self, userInfo: ["product" : review])
         }
     }
     @IBAction func tabDropDownBtn(_ sender: UIButton) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         //Create and add the Cancel action
-        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
-            
-        }
+        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel)
         let orderByUpdate = UIAlertAction(title: "최신순", style: .default) { action -> Void in
             DispatchQueue.main.async {
                 self.sortingMethodLabel.text  = "최신순"
@@ -83,69 +76,29 @@ class ReviewViewController: UIViewController {
                 self.setReviewListOrder()
             }
         }
-
         alert.addAction(cancelAction)
         alert.addAction(orderByUpdate)
         alert.addAction(orderByUsefulNum)
         present(alert, animated: true, completion: nil)
     }
     func addCategoryBtn(){ // 카테고리 버튼 스크롤 뷰에 추가하기
-        categoryScrollView.isScrollEnabled = true
-        let width = self.view.frame.size.width
-        categoryScrollView.contentSize.width = CGFloat(width / 5.0 * CGFloat(category.count))
-        for index in 0..<category.count {
-            let categoryBtn = UIButton(frame: CGRect(x: width / 5.0 * CGFloat(index), y: 5, width: width / 5.0, height: categoryScrollView.frame.height))
-            categoryBtn.setTitle(category[index], for: .normal) // 카테고리 버튼 텍스트
-            categoryBtn.setTitleColor(UIColor.darkGray, for: .normal) // 카테고리 버튼 텍스트 색깔
-            categoryBtn.contentHorizontalAlignment = .center // 카테고리 버튼 중앙정렬
-            categoryBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15) // 카테고리 버튼 폰트 크기 15
-            categoryBtn.tag = index // 버튼 태그 생성해주기
-            categoryBtns.append(categoryBtn)
-            categoryBtn.addTarget(self, action: #selector(didPressCategoryBtn), for: UIControlEvents.touchUpInside)
-            categoryScrollView.addSubview(categoryBtn)
+        categoryBtns = Button.addCategoryBtn(view: self.view, categoryScrollView: categoryScrollView, category: appdelegate.category, scrollBar: scrollBar)
+        for i in 0..<categoryBtns.count {
+            categoryBtns[i].addTarget(self, action: #selector(didPressCategoryBtn), for: UIControlEvents.touchUpInside)
         }
-        scrollBar.frame = CGRect(x: 0, y: categoryScrollView.frame.height - 4, width: width / 5.0, height: 2)
-        let color = UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(Float(1)))
-        scrollBar.backgroundColor = color
-        categoryScrollView.addSubview(scrollBar)
-        categoryScrollView.showsHorizontalScrollIndicator = false // 스크롤 바 없애기
     }
     func didPressCategoryBtn(sender: UIButton) { // 카테고리 버튼 클릭 함수
-        let previousCategoryIndex = selectedCategoryIndex
-        selectedCategoryIndex = sender.tag
-        let width = self.view.frame.size.width
-        categoryBtns[previousCategoryIndex].isSelected = false
-        Button.select(btn: sender) // 선택된 버튼에 따라 뷰 보여주기
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut,animations: {
-            if sender.tag == 0 || sender.tag == 1 || sender.tag == 2 {
-                self.categoryScrollView.contentOffset.x = CGFloat(0)
-            } else if sender.tag == 6 || sender.tag == 7 || sender.tag == 8 {
-                self.categoryScrollView.contentOffset.x = width / 5.0 * CGFloat(self.category.count) - width
-            } else {
-                self.categoryScrollView.contentOffset.x = CGFloat(sender.tag - 1) * width / 10.0
-            }
-            self.scrollBar.frame.origin.x = CGFloat(self.selectedCategoryIndex) * width / 5.0
+            Button.selectCategory(view: self.view, previousIndex: self.selectedCategoryIndex, categoryBtns: self.categoryBtns, selectedCategoryIndex: sender.tag, categoryScrollView: self.categoryScrollView, scrollBar: self.scrollBar)
+            self.selectedCategoryIndex = sender.tag
         },completion: nil)
         NotificationCenter.default.post(name: NSNotification.Name("showCategory"), object: self, userInfo: ["category" : selectedCategoryIndex])
-        self.tableView.contentOffset.y = 0
+        tableView.contentOffset.y = 0
     }
-    
+
     func selectCategory(_ notification: Notification){
-        let width = self.view.frame.size.width
-        let previousCategoryIndex = selectedCategoryIndex
+        Button.selectCategory(view: self.view, previousIndex: selectedCategoryIndex, categoryBtns: categoryBtns, selectedCategoryIndex: notification.userInfo?["category"] as! Int, categoryScrollView: categoryScrollView, scrollBar: scrollBar)
         selectedCategoryIndex = notification.userInfo?["category"] as! Int
-        if isLoaded {
-            categoryBtns[previousCategoryIndex].isSelected = false
-            Button.select(btn: categoryBtns[selectedCategoryIndex])
-            if selectedCategoryIndex == 0 || selectedCategoryIndex == 1 || selectedCategoryIndex == 2 {
-                categoryScrollView.contentOffset.x = CGFloat(0)
-            } else if selectedCategoryIndex == 6 || selectedCategoryIndex == 7 || selectedCategoryIndex == 8 {
-                categoryScrollView.contentOffset.x = width / 5.0 * CGFloat(self.category.count) - width
-            } else {
-                categoryScrollView.contentOffset.x = CGFloat(selectedCategoryIndex - 1) * width / 10.0
-            }
-            scrollBar.frame.origin.x = CGFloat(self.selectedCategoryIndex) * width / 5.0
-        }
         self.tableView.contentOffset.y = 0
     }
     func addNotiObserver() {
@@ -160,7 +113,6 @@ class ReviewViewController: UIViewController {
         view.addSubview(actInd)
         actInd.startAnimating()
     }
-    
     func hideActivityIndicatory() {
         if view.subviews.contains(actInd){
             actInd.stopAnimating()
@@ -168,21 +120,17 @@ class ReviewViewController: UIViewController {
         }
     }
     func getReviewList(){
-        
         var brand = ""
-        
         switch selectedBrandIndexFromTab {
-        case 0 : brand = ""
-        case 1 : brand = "GS25"
-        case 2 : brand = "CU"
-        case 3 : brand = "7-eleven"
-        default : break;
+            case 0 : brand = ""
+            case 1 : brand = "GS25"
+            case 2 : brand = "CU"
+            case 3 : brand = "7-eleven"
+            default : break
         }
-        
         showActivityIndicatory()
         if tableView != nil {
             if selectedBrandIndexFromTab == 0  && selectedCategoryIndex == 0 { // 브랜드 : 전체 , 카테고리 : 전체 일때
-                
                 DataManager.getReviewList(completion:  { (reviews) in
                     self.reviewList = reviews
                     DispatchQueue.main.async {
@@ -192,7 +140,6 @@ class ReviewViewController: UIViewController {
                     }
                 })
             } else if selectedBrandIndexFromTab == 0 { // 브랜드만 전체일 때
-                
                 if categoryBtns.count > 0 {
                     DataManager.getReviewListBy(category: (categoryBtns[selectedCategoryIndex].titleLabel?.text)!) { (reviews) in
                         self.reviewList = reviews
@@ -237,13 +184,10 @@ class ReviewViewController: UIViewController {
     }
     func setReviewListOrder(){
         if sortingMethodLabel != nil {
-            
             let format = DateFormatter()
             format.locale = Locale(identifier: "ko_kr")
             format.timeZone = TimeZone(abbreviation: "KST")
             format.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            
-            
             if sortingMethodLabel.text == "최신순"{
                 self.reviewList = reviewList.sorted(by: { (review1, review2) in
                     if format.date(from: review1.timestamp) != nil && format.date(from: review2.timestamp) != nil {
@@ -271,35 +215,9 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //�
         if let cell =  tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? ReviewTableViewCell {
             cell.selectionStyle = UITableViewCellSelectionStyle.none
             let review = reviewList[indexPath.item]
-            
-            let format = DateFormatter()
-            format.locale = Locale(identifier: "ko_kr")
-            format.timeZone = TimeZone(abbreviation: "KST")
-            format.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            
-            if let writtenDate = format.date(from: review.timestamp) {
-                if writtenDate.timeIntervalSinceNow >= -5 * 24 * 60 * 60 {
-                    if writtenDate.timeIntervalSinceNow <= -1 * 24 * 60 * 60 {
-                        let daysAgo = Int(-writtenDate.timeIntervalSinceNow / 24 / 60 / 60)
-                        cell.timeLabel.text = String(daysAgo) + "일 전"
-                    } else if writtenDate.timeIntervalSinceNow <= -1 * 60 * 60 {
-                        let hoursAgo = Int(-writtenDate.timeIntervalSinceNow / 60 / 60)
-                        cell.timeLabel.text = String(hoursAgo) + "시간 전"
-                    } else if writtenDate.timeIntervalSinceNow <= -1 * 60{
-                        let minutesAgo = Int(-writtenDate.timeIntervalSinceNow / 60)
-                        cell.timeLabel.text = String(minutesAgo) + "분 전"
-                    } else{
-                        cell.timeLabel.text = "방금"
-                    }
-                } else {
-                    cell.timeLabel.text = review.timestamp.components(separatedBy: " ")[0]
-                }
-            }
-            cell.userImage.layer.cornerRadius = cell.userImage.frame.height/2
-            cell.userImage.clipsToBounds = true
-            
+            Label.showWrittenTime(timestamp: review.timestamp, timeLabel: cell.timeLabel)
+            Image.makeCircleImage(image: cell.userImage)
             cell.loading.startAnimating()
-            cell.userImage.contentMode = .scaleAspectFit
             cell.userImage.af_setImage(withURL: URL(string: review.user_image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
                 cell.loading.stopAnimating()
             })
@@ -308,30 +226,7 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //�
             cell.reviewContentLabel.text = review.comment
             cell.badLabel.text = review.bad.description
             cell.usefulLabel.text = review.useful.description
-           
-            for sub in cell.starView.subviews {
-                sub.removeFromSuperview()
-            }
-            let grade = Double(review.grade)
-            cell.gradeLabel.text = String(grade)
-            for i in 0..<Int(grade) {
-                let starImage = UIImage(named: "stars.png")
-                let cgImage = starImage?.cgImage
-                let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: 0, y: 0, width: (starImage?.size.width)! / 5, height: starImage!.size.height))!
-                let uiImage = UIImage(cgImage: croppedCGImage)
-                let imageView = UIImageView(image: uiImage)
-                imageView.frame = CGRect(x: i*18, y: 0, width: 18, height: 15)
-                cell.starView.addSubview(imageView)
-            }
-            if grade - Double(Int(grade)) >= 0.5 {
-                let starImage = UIImage(named: "stars.png")
-                let cgImage = starImage?.cgImage
-                let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: (starImage?.size.width)! * 4 / 5, y: 0, width: (starImage?.size.width)!, height: starImage!.size.height))!
-                let uiImage = UIImage(cgImage: croppedCGImage)
-                let imageView = UIImageView(image: uiImage)
-                imageView.frame = CGRect(x: Int(grade)*18 - 3, y: 0, width: 18, height: 15)
-                cell.starView.addSubview(imageView)
-            }
+            Image.drawStar(numberOfPlaces: 1.0, grade_avg: Double(review.grade), gradeLabel: cell.gradeLabel, starView: cell.starView, needSpace: false)
             cell.reviewView.layer.cornerRadius = 15
             return cell
         }
@@ -344,7 +239,7 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //�
     func handleTap(index: Int) {
         let popup: ReviewPopupView = UINib(nibName: "ReviewPopupView", bundle: nil).instantiate(withOwner: self, options: nil)[0] as! ReviewPopupView
         popup.validator = 1
-        
+
         review = reviewList[index]
         selectedReview = review
         let frame = self.view.frame
@@ -396,12 +291,12 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //�
         }
         popup.badBtn.addTarget(self, action: #selector(self.didPressBadBtn), for: UIControlEvents.touchUpInside)
         popup.usefulBtn.addTarget(self, action: #selector(self.didPressUsefulBtn), for: UIControlEvents.touchUpInside)
-        
+
         // 카카오톡 공유 버튼 누르기
-        
+
         popup.kakaoShareBtn.addTarget(self, action: #selector(self.didPressKakaoShareBtn), for: UIControlEvents.touchUpInside)
-        
-        
+
+
         if URL(string: review.user_image) != nil{
             popup.userImage.af_setImage(withURL: URL(string: review.user_image)!)
         } else {
@@ -433,12 +328,12 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //�
         default : popup.starView.image = #imageLiteral(resourceName: "star3.png");
         }
         popup.starView.contentMode = .scaleAspectFit
-        
+
         let format = DateFormatter()
         format.locale = Locale(identifier: "ko_kr")
         format.timeZone = TimeZone(abbreviation: "KST")
         format.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
+
         if let writtenDate = format.date(from: review.timestamp) {
             if writtenDate.timeIntervalSinceNow >= -5 * 24 * 60 * 60 {
                 if writtenDate.timeIntervalSinceNow <= -1 * 24 * 60 * 60 {
@@ -464,64 +359,7 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //�
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
         } else {
-            var reviewStatus = appdelegate.user?.review_like_list[review.id]
-            let uid = appdelegate.user?.id
-            if reviewStatus == nil { //유용해요 누른적이 없는 리뷰
-                DataManager.tabUsefulBtn(id: review.id)
-                var useful = Int(usefulNumLabel.text!)
-                useful = useful! + 1
-                usefulNumLabel.text = String(describing: useful!)
-                DataManager.updateUsefulReview(id: review.id, uid: uid!)
-                reviewStatus = 1
-                Button.makeBorder(btn: usefulBtn)
-                Button.deleteBorder(btn: badBtn)
-                usefulNumLabel.textColor = UIColor.red
-                badNumLabel.textColor = UIColor.lightGray
-            } else if reviewStatus == 1 { // 유용해요 취소
-                DataManager.cancleUsefulBtn(id: review.id)
-                var useful = Int(usefulNumLabel.text!)
-                useful = useful! - 1
-                usefulNumLabel.text = String(describing: useful!)
-                DataManager.updateCancleReview(id: review.id, uid: uid!)
-                reviewStatus = 0
-                Button.deleteBorder(btn: usefulBtn)
-                Button.deleteBorder(btn: badBtn)
-                usefulNumLabel.textColor = UIColor.lightGray
-                badNumLabel.textColor = UIColor.lightGray
-            } else if reviewStatus == -1 { // 별로에요 취소후 유용해요 누르기
-                DataManager.tabUsefulBtn(id: review.id)
-                DataManager.cancleBadBtn(id: review.id)
-                var useful = Int(usefulNumLabel.text!)
-                useful = useful! + 1
-                usefulNumLabel.text = String(describing: useful!)
-                var bad = Int(badNumLabel.text!)
-                bad = bad! - 1
-                badNumLabel.text = String(describing: bad!)
-                DataManager.updateUsefulReview(id: review.id, uid: uid!)
-                reviewStatus = 1
-                Button.makeBorder(btn: usefulBtn)
-                Button.deleteBorder(btn: badBtn)
-                usefulNumLabel.textColor = UIColor.red
-                badNumLabel.textColor = UIColor.lightGray
-            } else if reviewStatus == 0 { // 별로에요 취소 했다가 다시 누르기
-                DataManager.tabUsefulBtn(id: review.id)
-                var useful = Int(usefulNumLabel.text!)
-                useful = useful! + 1
-                usefulNumLabel.text = String(describing: useful!)
-                DataManager.updateUsefulReview(id: review.id, uid: uid!)
-                reviewStatus = 1
-                Button.makeBorder(btn: usefulBtn)
-                Button.deleteBorder(btn: badBtn)
-                usefulNumLabel.textColor = UIColor.red
-                badNumLabel.textColor = UIColor.lightGray
-            }
-            appdelegate.user?.review_like_list[review.id] = reviewStatus
-            for i in 0..<reviewList.count {
-                if reviewList[i].id == review.id {
-                    reviewList[i].useful = Int(usefulNumLabel.text!)!
-                    reviewList[i].bad = Int(badNumLabel.text!)!
-                }
-            }
+            Button.didPressUsefulBtn(sender: sender, reviewId: review.id, usefulNumLabel: usefulNumLabel, badNumLabel: badNumLabel, usefulBtn: usefulBtn, badBtn: badBtn, reviewList: reviewList)
         }
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -533,64 +371,7 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //�
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
         } else {
-            let uid = appdelegate.user?.id
-            var reviewStatus = appdelegate.user?.review_like_list[review.id]
-            if reviewStatus == nil { //별로에요 누른적이 없는 리뷰
-                DataManager.tabBadBtn(id: review.id)
-                var bad = Int(badNumLabel.text!)
-                bad = bad! + 1
-                badNumLabel.text = String(describing: bad!)
-                DataManager.updateBadReview(id: review.id, uid: uid!)
-                reviewStatus = -1
-                Button.makeBorder(btn: badBtn)
-                Button.deleteBorder(btn: usefulBtn)
-                usefulNumLabel.textColor = UIColor.lightGray
-                badNumLabel.textColor = UIColor.red
-            } else if reviewStatus == -1 { // 별로에요 취소
-                DataManager.cancleBadBtn(id: review.id)
-                var bad = Int(badNumLabel.text!)
-                bad = bad! - 1
-                badNumLabel.text = String(describing: bad!)
-                DataManager.updateCancleReview(id: review.id, uid: uid!)
-                reviewStatus = 0
-                Button.deleteBorder(btn: usefulBtn)
-                Button.deleteBorder(btn: badBtn)
-                usefulNumLabel.textColor = UIColor.lightGray
-                badNumLabel.textColor = UIColor.lightGray
-            } else if reviewStatus == 1 { // 유용해요 취소후 별로에요 누르기
-                DataManager.tabBadBtn(id: review.id)
-                DataManager.cancleUsefulBtn(id: review.id)
-                var bad = Int(badNumLabel.text!)
-                bad = bad! + 1
-                badNumLabel.text = String(describing: bad!)
-                var useful = Int(usefulNumLabel.text!)
-                useful = useful! - 1
-                usefulNumLabel.text = String(describing: useful!)
-                DataManager.updateBadReview(id: review.id, uid: uid!)
-                reviewStatus = -1
-                Button.makeBorder(btn: badBtn)
-                Button.deleteBorder(btn: usefulBtn)
-                usefulNumLabel.textColor = UIColor.lightGray
-                badNumLabel.textColor = UIColor.red
-            } else if reviewStatus == 0 { // 별로에요 취소 했다가 다시 누르기
-                DataManager.tabBadBtn(id: review.id)
-                var bad = Int(badNumLabel.text!)
-                bad = bad! + 1
-                badNumLabel.text = String(describing: bad!)
-                DataManager.updateBadReview(id: review.id, uid: uid!)
-                reviewStatus = -1
-                Button.makeBorder(btn: badBtn)
-                Button.deleteBorder(btn: usefulBtn)
-                usefulNumLabel.textColor = UIColor.lightGray
-                badNumLabel.textColor = UIColor.red
-            }
-            appdelegate.user?.review_like_list[review.id] = reviewStatus
-            for i in 0..<reviewList.count {
-                if reviewList[i].id == review.id {
-                    reviewList[i].useful = Int(usefulNumLabel.text!)!
-                    reviewList[i].bad = Int(badNumLabel.text!)!
-                }
-            }
+            Button.didPressBadBtn(sender: sender, reviewId: review.id, usefulNumLabel: usefulNumLabel, badNumLabel: badNumLabel, usefulBtn: usefulBtn, badBtn: badBtn, reviewList: reviewList)
         }
         DispatchQueue.main.async {
             self.tableView.reloadData()

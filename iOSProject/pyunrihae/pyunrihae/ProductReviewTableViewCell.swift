@@ -5,9 +5,7 @@
 //  Created by woowabrothers on 2017. 8. 10..
 //  Copyright © 2017년 busride. All rights reserved.
 //
-
 import UIKit
-
 class ProductReviewTableViewCell: UITableViewCell {
     @IBOutlet weak var uploadedFoodImage: UIImageView!
     @IBOutlet weak var timeLabel: UILabel!
