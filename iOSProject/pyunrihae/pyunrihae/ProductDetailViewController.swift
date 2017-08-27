@@ -56,9 +56,23 @@ class ProductDetailViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name("complete"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reviewUpload), name: NSNotification.Name("reviewUpload"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(startUploading), name: NSNotification.Name("startUploading"), object: nil)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        self.view.addGestureRecognizer(tap)
+    }
+    
+    // function which is triggered when handleTap is called
+    func handleTap(_ sender: UITapGestureRecognizer) {
+        if hidden == true {
+            writingReviewBtn.isHidden = false
+            hidden = false
+            UIView.animate(withDuration: 0.7, delay: 0, animations: {
+                self.writingReviewBtn.frame.origin.y -= 100
+            })
+        }
     }
     @IBAction func closeNavViewBtn(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
+        NotificationCenter.default.post(name: NSNotification.Name("reloadReview"), object: self)
     }
     @IBAction func tabWishBtn(_ sender: UIButton) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate

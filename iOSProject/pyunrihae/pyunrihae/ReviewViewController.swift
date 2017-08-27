@@ -49,6 +49,7 @@ class ReviewViewController: UIViewController {
         didPressCategoryBtn(sender: categoryBtns[selectedCategoryIndex])
         isLoaded = true
         NotificationCenter.default.addObserver(self, selector: #selector(showDetailProduct), name: NSNotification.Name("showDetailProduct"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(getReviewList), name: NSNotification.Name("reloadReview"), object: nil)
         // Do any additional setup after loading the view.
     }
     override func didReceiveMemoryWarning() {
