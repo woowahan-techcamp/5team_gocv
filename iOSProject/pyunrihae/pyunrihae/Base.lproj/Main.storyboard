@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D30" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="09o-sF-lFm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="09o-sF-lFm">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -536,7 +536,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="130"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hx1-FC-c0Q" id="ylF-Bu-Y03">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="129.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1+1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JvE-m9-zGk">
@@ -2201,17 +2201,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_login2.png" translatesAutoresizingMaskIntoConstraints="NO" id="EY0-lI-LAh">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OJX-5H-CNK">
-                                <rect key="frame" x="27.5" y="537" width="320" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="80" id="O8o-5i-WHn"/>
-                                    <constraint firstAttribute="width" secondItem="OJX-5H-CNK" secondAttribute="height" multiplier="32:5" id="ck5-f2-D0i"/>
-                                </constraints>
-                                <state key="normal" backgroundImage="ic_emailsignup.png"/>
-                                <connections>
-                                    <segue destination="KQa-R2-kWD" kind="showDetail" id="hYp-u4-DGF"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Egl-G9-nsF">
                                 <rect key="frame" x="27.5" y="602" width="320" height="50"/>
                                 <constraints>
@@ -2241,27 +2230,50 @@
                                     <constraint firstAttribute="height" constant="190" id="eag-2N-QUR"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WfG-74-UDi">
+                                <rect key="frame" x="27" y="537" width="160" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="50" id="39b-fW-NRi"/>
+                                    <constraint firstAttribute="width" secondItem="WfG-74-UDi" secondAttribute="height" multiplier="16:5" id="Kxa-T3-la5"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="ic_google_sign_in.png"/>
+                                <connections>
+                                    <action selector="onTouchGoogleSignInBtn:" destination="diG-g8-7uo" eventType="touchUpInside" id="Mph-rg-q6C"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YtJ-Az-ONQ">
+                                <rect key="frame" x="187" y="537" width="160" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="YtJ-Az-ONQ" secondAttribute="height" multiplier="16:5" id="9Mx-gH-W1f"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="50" id="vLj-0W-BPw"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="ic_emailsignup.png"/>
+                                <connections>
+                                    <segue destination="KQa-R2-kWD" kind="show" id="PzK-lZ-0gB"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="OJX-5H-CNK" firstAttribute="centerX" secondItem="QAN-AJ-ueM" secondAttribute="centerX" id="2ch-jn-rrU"/>
                             <constraint firstItem="Egl-G9-nsF" firstAttribute="centerX" secondItem="QAN-AJ-ueM" secondAttribute="centerX" id="2li-7Y-TyZ"/>
                             <constraint firstItem="Egl-G9-nsF" firstAttribute="leading" secondItem="QAN-AJ-ueM" secondAttribute="leadingMargin" constant="11.5" id="6Eo-hO-q1E"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Egl-G9-nsF" secondAttribute="trailing" constant="11.5" id="6YD-NL-7vf"/>
-                            <constraint firstItem="OJX-5H-CNK" firstAttribute="centerX" secondItem="QAN-AJ-ueM" secondAttribute="centerX" id="AId-Ol-Uxs"/>
                             <constraint firstItem="EY0-lI-LAh" firstAttribute="top" secondItem="QAN-AJ-ueM" secondAttribute="top" id="BUC-1V-YPh"/>
-                            <constraint firstItem="OJX-5H-CNK" firstAttribute="leading" secondItem="QAN-AJ-ueM" secondAttribute="leadingMargin" constant="11.5" id="KAf-uN-0XA"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="OJX-5H-CNK" secondAttribute="trailing" constant="11.5" id="Ngm-Ew-Acg"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="YtJ-Az-ONQ" secondAttribute="trailing" constant="11.5" id="Gi8-uu-qPl"/>
                             <constraint firstItem="Egl-G9-nsF" firstAttribute="centerX" secondItem="QAN-AJ-ueM" secondAttribute="centerX" id="O9L-Rn-fDU"/>
+                            <constraint firstItem="Egl-G9-nsF" firstAttribute="top" secondItem="WfG-74-UDi" secondAttribute="bottom" constant="15" id="OiJ-Yh-vwk"/>
                             <constraint firstItem="U8v-zp-Sg2" firstAttribute="top" secondItem="6QF-Ys-NgG" secondAttribute="top" id="Yg3-HZ-yMR"/>
-                            <constraint firstItem="Egl-G9-nsF" firstAttribute="top" secondItem="OJX-5H-CNK" secondAttribute="bottom" constant="15" id="ZwJ-mB-ysM"/>
+                            <constraint firstItem="Egl-G9-nsF" firstAttribute="top" secondItem="YtJ-Az-ONQ" secondAttribute="bottom" constant="15" id="e1E-Lp-aoq"/>
                             <constraint firstAttribute="trailing" secondItem="EY0-lI-LAh" secondAttribute="trailing" id="f8b-i9-RcK"/>
                             <constraint firstItem="U8v-zp-Sg2" firstAttribute="top" secondItem="hRG-id-eRT" secondAttribute="bottom" constant="8" id="lSs-Nc-6U5"/>
                             <constraint firstItem="6QF-Ys-NgG" firstAttribute="leading" secondItem="QAN-AJ-ueM" secondAttribute="leadingMargin" id="nYZ-Z8-LBB"/>
+                            <constraint firstItem="YtJ-Az-ONQ" firstAttribute="centerY" secondItem="WfG-74-UDi" secondAttribute="centerY" id="o6D-hS-sUS"/>
+                            <constraint firstItem="YtJ-Az-ONQ" firstAttribute="leading" secondItem="WfG-74-UDi" secondAttribute="trailing" id="qwt-VU-Ev3"/>
                             <constraint firstItem="jaf-Jk-sNQ" firstAttribute="top" secondItem="Egl-G9-nsF" secondAttribute="bottom" constant="15" id="u0n-eA-7GT"/>
                             <constraint firstItem="U8v-zp-Sg2" firstAttribute="centerX" secondItem="QAN-AJ-ueM" secondAttribute="centerX" id="vVd-bW-pJP"/>
                             <constraint firstItem="jaf-Jk-sNQ" firstAttribute="top" secondItem="EY0-lI-LAh" secondAttribute="bottom" id="vmO-EF-61f"/>
                             <constraint firstItem="EY0-lI-LAh" firstAttribute="leading" secondItem="QAN-AJ-ueM" secondAttribute="leading" id="x0F-08-yWt"/>
+                            <constraint firstItem="WfG-74-UDi" firstAttribute="leading" secondItem="QAN-AJ-ueM" secondAttribute="leadingMargin" constant="11.5" id="yvc-cF-ujj"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -3018,7 +3030,8 @@
         <image name="ic_complete.png" width="640" height="100"/>
         <image name="ic_complete_enabled.png" width="640" height="100"/>
         <image name="ic_dropdown.png" width="40" height="40"/>
-        <image name="ic_emailsignup.png" width="640" height="100"/>
+        <image name="ic_emailsignup.png" width="320" height="100"/>
+        <image name="ic_google_sign_in.png" width="320" height="100"/>
         <image name="ic_home.png" width="44" height="74"/>
         <image name="ic_home_selected.png" width="44" height="74"/>
         <image name="ic_like.png" width="50" height="50"/>
