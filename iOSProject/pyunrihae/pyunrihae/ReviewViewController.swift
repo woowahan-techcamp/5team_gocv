@@ -458,7 +458,6 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //�
             var reviewStatus = appdelegate.user?.review_like_list[review.id]
             let uid = appdelegate.user?.id
             if reviewStatus == nil { //유용해요 누른적이 없는 리뷰
-                DataManager.tabUsefulBtn(id: review.id)
                 var useful = Int(usefulNumLabel.text!)
                 useful = useful! + 1
                 usefulNumLabel.text = String(describing: useful!)
@@ -469,7 +468,6 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //�
                 usefulNumLabel.textColor = UIColor.red
                 badNumLabel.textColor = UIColor.lightGray
             } else if reviewStatus == 1 { // 유용해요 취소
-                DataManager.cancleUsefulBtn(id: review.id)
                 var useful = Int(usefulNumLabel.text!)
                 useful = useful! - 1
                 usefulNumLabel.text = String(describing: useful!)
@@ -480,8 +478,6 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //�
                 usefulNumLabel.textColor = UIColor.lightGray
                 badNumLabel.textColor = UIColor.lightGray
             } else if reviewStatus == -1 { // 별로에요 취소후 유용해요 누르기
-                DataManager.tabUsefulBtn(id: review.id)
-                DataManager.cancleBadBtn(id: review.id)
                 var useful = Int(usefulNumLabel.text!)
                 useful = useful! + 1
                 usefulNumLabel.text = String(describing: useful!)
@@ -495,7 +491,6 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //�
                 usefulNumLabel.textColor = UIColor.red
                 badNumLabel.textColor = UIColor.lightGray
             } else if reviewStatus == 0 { // 별로에요 취소 했다가 다시 누르기
-                DataManager.tabUsefulBtn(id: review.id)
                 var useful = Int(usefulNumLabel.text!)
                 useful = useful! + 1
                 usefulNumLabel.text = String(describing: useful!)
@@ -527,7 +522,6 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //�
             let uid = appdelegate.user?.id
             var reviewStatus = appdelegate.user?.review_like_list[review.id]
             if reviewStatus == nil { //별로에요 누른적이 없는 리뷰
-                DataManager.tabBadBtn(id: review.id)
                 var bad = Int(badNumLabel.text!)
                 bad = bad! + 1
                 badNumLabel.text = String(describing: bad!)
@@ -538,7 +532,6 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //�
                 usefulNumLabel.textColor = UIColor.lightGray
                 badNumLabel.textColor = UIColor.red
             } else if reviewStatus == -1 { // 별로에요 취소
-                DataManager.cancleBadBtn(id: review.id)
                 var bad = Int(badNumLabel.text!)
                 bad = bad! - 1
                 badNumLabel.text = String(describing: bad!)
@@ -549,8 +542,6 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //�
                 usefulNumLabel.textColor = UIColor.lightGray
                 badNumLabel.textColor = UIColor.lightGray
             } else if reviewStatus == 1 { // 유용해요 취소후 별로에요 누르기
-                DataManager.tabBadBtn(id: review.id)
-                DataManager.cancleUsefulBtn(id: review.id)
                 var bad = Int(badNumLabel.text!)
                 bad = bad! + 1
                 badNumLabel.text = String(describing: bad!)
@@ -564,7 +555,6 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //�
                 usefulNumLabel.textColor = UIColor.lightGray
                 badNumLabel.textColor = UIColor.red
             } else if reviewStatus == 0 { // 별로에요 취소 했다가 다시 누르기
-                DataManager.tabBadBtn(id: review.id)
                 var bad = Int(badNumLabel.text!)
                 bad = bad! + 1
                 badNumLabel.text = String(describing: bad!)
@@ -580,6 +570,8 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //�
                 if reviewList[i].id == review.id {
                     reviewList[i].useful = Int(usefulNumLabel.text!)!
                     reviewList[i].bad = Int(badNumLabel.text!)!
+                    DataManager.tabUsefulBtn(id: review.id, useful: Int(usefulNumLabel.text!)!)
+                    DataManager.tabBadBtn(id: review.id, bad: Int(badNumLabel.text!)!)
                 }
             }
         }

@@ -119,7 +119,6 @@ class ProductDetailViewController: UIViewController {
             var reviewStatus = appdelegate.user?.review_like_list[reviewId]
             let uid = appdelegate.user?.id
             if reviewStatus == nil { //유용해요 누른적이 없는 리뷰
-                DataManager.tabUsefulBtn(id: reviewId)
                 var useful = Int(usefulNumLabel.text!)
                 useful = useful! + 1
                 usefulNumLabel.text = String(describing: useful!)
@@ -130,7 +129,6 @@ class ProductDetailViewController: UIViewController {
                 usefulNumLabel.textColor = UIColor.red
                 badNumLabel.textColor = UIColor.lightGray
             } else if reviewStatus == 1 { // 유용해요 취소
-                DataManager.cancleUsefulBtn(id: reviewId)
                 var useful = Int(usefulNumLabel.text!)
                 useful = useful! - 1
                 usefulNumLabel.text = String(describing: useful!)
@@ -141,8 +139,6 @@ class ProductDetailViewController: UIViewController {
                 usefulNumLabel.textColor = UIColor.lightGray
                 badNumLabel.textColor = UIColor.lightGray
             } else if reviewStatus == -1 { // 별로에요 취소후 유용해요 누르기
-                DataManager.tabUsefulBtn(id: reviewId)
-                DataManager.cancleBadBtn(id: reviewId)
                 var useful = Int(usefulNumLabel.text!)
                 useful = useful! + 1
                 usefulNumLabel.text = String(describing: useful!)
@@ -156,7 +152,6 @@ class ProductDetailViewController: UIViewController {
                 usefulNumLabel.textColor = UIColor.red
                 badNumLabel.textColor = UIColor.lightGray
             } else if reviewStatus == 0 { // 별로에요 취소 했다가 다시 누르기
-                DataManager.tabUsefulBtn(id: reviewId)
                 var useful = Int(usefulNumLabel.text!)
                 useful = useful! + 1
                 usefulNumLabel.text = String(describing: useful!)
@@ -172,6 +167,8 @@ class ProductDetailViewController: UIViewController {
                 if reviewList[i].id == reviewId {
                     reviewList[i].useful = Int(usefulNumLabel.text!)!
                     reviewList[i].bad = Int(badNumLabel.text!)!
+                    DataManager.tabUsefulBtn(id: reviewId, useful: Int(usefulNumLabel.text!)!)
+                    DataManager.tabBadBtn(id: reviewId, bad: Int(badNumLabel.text!)!)
                 }
             }
         }
@@ -190,7 +187,6 @@ class ProductDetailViewController: UIViewController {
             let badBtn = badBtns[sender.tag]
             var reviewStatus = appdelegate.user?.review_like_list[reviewId]
             if reviewStatus == nil { //별로에요 누른적이 없는 리뷰
-                DataManager.tabBadBtn(id: reviewId)
                 var bad = Int(badNumLabel.text!)
                 bad = bad! + 1
                 badNumLabel.text = String(describing: bad!)
@@ -201,7 +197,6 @@ class ProductDetailViewController: UIViewController {
                 usefulNumLabel.textColor = UIColor.lightGray
                 badNumLabel.textColor = UIColor.red
             } else if reviewStatus == -1 { // 별로에요 취소
-                DataManager.cancleBadBtn(id: reviewId)
                 var bad = Int(badNumLabel.text!)
                 bad = bad! - 1
                 badNumLabel.text = String(describing: bad!)
@@ -212,8 +207,6 @@ class ProductDetailViewController: UIViewController {
                 usefulNumLabel.textColor = UIColor.lightGray
                 badNumLabel.textColor = UIColor.lightGray
             } else if reviewStatus == 1 { // 유용해요 취소후 별로에요 누르기
-                DataManager.tabBadBtn(id: reviewId)
-                DataManager.cancleUsefulBtn(id: reviewId)
                 var bad = Int(badNumLabel.text!)
                 bad = bad! + 1
                 badNumLabel.text = String(describing: bad!)
@@ -227,7 +220,6 @@ class ProductDetailViewController: UIViewController {
                 usefulNumLabel.textColor = UIColor.lightGray
                 badNumLabel.textColor = UIColor.red
             } else if reviewStatus == 0 { // 별로에요 취소 했다가 다시 누르기
-                DataManager.tabBadBtn(id: reviewId)
                 var bad = Int(badNumLabel.text!)
                 bad = bad! + 1
                 badNumLabel.text = String(describing: bad!)
@@ -243,6 +235,8 @@ class ProductDetailViewController: UIViewController {
                 if reviewList[i].id == reviewId {
                     reviewList[i].useful = Int(usefulNumLabel.text!)!
                     reviewList[i].bad = Int(badNumLabel.text!)!
+                    DataManager.tabUsefulBtn(id: reviewId, useful: Int(usefulNumLabel.text!)!)
+                    DataManager.tabBadBtn(id: reviewId, bad: Int(badNumLabel.text!)!)
                 }
             }
         }

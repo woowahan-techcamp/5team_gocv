@@ -279,52 +279,16 @@ class DataManager{
             userRef.updateChildValues(update)
         })
     }
-    static func tabUsefulBtn(id: String) {
+    static func tabUsefulBtn(id: String, useful: Int) {
         let localRef = ref.child("review").child(id)
         localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
-            let postDict = snapshot.value as? [String : AnyObject] ?? [:]
-            if postDict["useful"] != nil {
-                if var useful = postDict["useful"] as? Int {
-                    useful += 1
-                    localRef.updateChildValues(["useful": useful])
-                }
-            }
+            localRef.updateChildValues(["useful": useful])
         })
     }
-    static func cancleUsefulBtn(id: String) {
+    static func tabBadBtn(id: String, bad: Int) {
         let localRef = ref.child("review").child(id)
         localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
-            let postDict = snapshot.value as? [String : AnyObject] ?? [:]
-            if postDict["useful"] != nil {
-                if var useful = postDict["useful"] as? Int {
-                    useful -= 1
-                    localRef.updateChildValues(["useful": useful])
-                }
-            }
-        })
-    }
-    static func tabBadBtn(id: String) {
-        let localRef = ref.child("review").child(id)
-        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
-            let postDict = snapshot.value as? [String : AnyObject] ?? [:]
-            if postDict["bad"] != nil {
-                if var bad = postDict["bad"] as? Int {
-                    bad += 1
-                    localRef.updateChildValues(["bad": bad])
-                }
-            }
-        })
-    }
-    static func cancleBadBtn(id: String) {
-        let localRef = ref.child("review").child(id)
-        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
-            let postDict = snapshot.value as? [String : AnyObject] ?? [:]
-            if postDict["bad"] != nil {
-                if var bad = postDict["bad"] as? Int {
-                    bad -= 1
-                    localRef.updateChildValues(["bad": bad])
-                }
-            }
+            localRef.updateChildValues(["bad": bad])
         })
     }
     
