@@ -164,6 +164,14 @@ class DataManager{
         })
     }
     
+    static func getReviewBy(id: String, completion : @escaping (Review) -> ()) {
+        let localRef = ref.child("review").child(id)
+        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            let review = Review.init(snapshot: snapshot)
+            completion(review)
+        })
+    }
+    
     /*
      * 랭킹화면 : 메인화면 함수 재사용. 전체 브랜드 + 전체 카테고리 일 때 함수만 재작성.
      */

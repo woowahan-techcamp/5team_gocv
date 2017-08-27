@@ -364,8 +364,6 @@ class MainViewController: UIViewController {
         popup.view.layer.borderWidth = 0.3
         popup.view.layer.cornerRadius = 10
         popup.view.layer.cornerRadius = 10
-        popup.badNumLabel.text = String(review.bad)
-        popup.usefulNumLabel.text = String(review.useful)
         popup.comment.text = review.comment
         popup.comment.isEditable = false
         popup.comment.layer.cornerRadius = 10
@@ -377,35 +375,43 @@ class MainViewController: UIViewController {
         popup.userImage.contentMode = .scaleAspectFit
         popup.userImage.layer.borderColor = UIColor.gray.cgColor
         popup.userImage.layer.borderWidth = 0.3
-        usefulNumLabel = popup.usefulNumLabel
-        badNumLabel = popup.badNumLabel
-        usefulBtn = popup.usefulBtn
-        badBtn = popup.badBtn
-        if let userReviewLike = appdelegate.user?.review_like_list[review.id]{
-            if userReviewLike == 1 {
-                Button.makeBorder(btn: usefulBtn)
-                Button.deleteBorder(btn: badBtn)
-                usefulNumLabel.textColor = UIColor.red
-                badNumLabel.textColor = UIColor.lightGray
-            } else if userReviewLike == -1 {
-                Button.makeBorder(btn: badBtn)
-                Button.deleteBorder(btn: usefulBtn)
-                usefulNumLabel.textColor = UIColor.lightGray
-                badNumLabel.textColor = UIColor.red
+        popup.badBtn.isEnabled = false
+        popup.usefulBtn.isEnabled = false
+        DataManager.getReviewBy(id: review.id){ (review) in
+            popup.badNumLabel.text = String(review.bad)
+            popup.usefulNumLabel.text = String(review.useful)
+            self.usefulNumLabel = popup.usefulNumLabel
+            self.badNumLabel = popup.badNumLabel
+            self.usefulBtn = popup.usefulBtn
+            self.badBtn = popup.badBtn
+            if let userReviewLike = self.appdelegate.user?.review_like_list[review.id]{
+                if userReviewLike == 1 {
+                    Button.makeBorder(btn: self.usefulBtn)
+                    Button.deleteBorder(btn: self.badBtn)
+                    self.usefulNumLabel.textColor = UIColor.red
+                    self.badNumLabel.textColor = UIColor.lightGray
+                } else if userReviewLike == -1 {
+                    Button.makeBorder(btn: self.badBtn)
+                    Button.deleteBorder(btn: self.usefulBtn)
+                    self.usefulNumLabel.textColor = UIColor.lightGray
+                    self.badNumLabel.textColor = UIColor.red
+                } else {
+                    Button.deleteBorder(btn: self.usefulBtn)
+                    Button.deleteBorder(btn: self.badBtn)
+                    self.usefulNumLabel.textColor = UIColor.lightGray
+                    self.badNumLabel.textColor = UIColor.lightGray
+                }
             } else {
-                Button.deleteBorder(btn: usefulBtn)
-                Button.deleteBorder(btn: badBtn)
-                usefulNumLabel.textColor = UIColor.lightGray
-                badNumLabel.textColor = UIColor.lightGray
+                Button.deleteBorder(btn: self.usefulBtn)
+                Button.deleteBorder(btn: self.badBtn)
+                self.usefulNumLabel.textColor = UIColor.lightGray
+                self.badNumLabel.textColor = UIColor.lightGray
             }
-        } else {
-            Button.deleteBorder(btn: usefulBtn)
-            Button.deleteBorder(btn: badBtn)
-            usefulNumLabel.textColor = UIColor.lightGray
-            badNumLabel.textColor = UIColor.lightGray
+            popup.badBtn.addTarget(self, action: #selector(self.didPressBadBtn), for: UIControlEvents.touchUpInside)
+            popup.usefulBtn.addTarget(self, action: #selector(self.didPressUsefulBtn), for: UIControlEvents.touchUpInside)
+            popup.badBtn.isEnabled = true
+            popup.usefulBtn.isEnabled = true
         }
-        popup.badBtn.addTarget(self, action: #selector(self.didPressBadBtn), for: UIControlEvents.touchUpInside)
-        popup.usefulBtn.addTarget(self, action: #selector(self.didPressUsefulBtn), for: UIControlEvents.touchUpInside)
         if URL(string: review.user_image) != nil{
             popup.userImage.af_setImage(withURL: URL(string: review.user_image)!)
         } else {
