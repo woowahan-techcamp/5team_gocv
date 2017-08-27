@@ -5,12 +5,10 @@
 //  Created by woowabrothers on 2017. 8. 7..
 //  Copyright © 2017년 busride. All rights reserved.
 //
-
 import UIKit
 import FirebaseAuth
 import Fusuma
 import AlamofireImage
-
 class MypageViewController: UIViewController, FusumaDelegate{
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var tableView: UITableView!
@@ -50,18 +48,14 @@ class MypageViewController: UIViewController, FusumaDelegate{
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let user = appDelegate.user
         if user?.email != "" {
-            
             if user?.user_profile != nil {
 //                userImage.af_setImage(withURL: URL(string: (user?.user_profile)!)!)
 //                userImage.image = userImage.image?.af_imageRoundedIntoCircle()
-                
                 let url = URL(string: (user?.user_profile)!)!
                 let placeholderImage = UIImage(named: "ic_user")!
-                
                 let filter = AspectScaledToFillSizeCircleFilter(
                     size: userImage.frame.size
                 )
-                
                 userImage.af_setImage(
                     withURL: url,
                     placeholderImage: placeholderImage,
@@ -117,9 +111,7 @@ class MypageViewController: UIViewController, FusumaDelegate{
             }
         }
     }
-    
     func showAlertIfLogined(bool : Bool){
-        
         // TODO 회원가입이나 로그인 시 로그인 되었습니다 뜨도록 하기. 그때는 제대로 안뜸.
         alertLabel.alpha = 1.0
         if bool {
@@ -134,30 +126,23 @@ class MypageViewController: UIViewController, FusumaDelegate{
             }
         }
     }
-    // 사진선택 (Fusma 관련 함수) 
-    // MARK: FusumaDelegate Protocol
-    
     func profileTapped(){
         if appDelegate.user?.email != "" {
             let fusuma = FusumaViewController()
-            
             fusuma.delegate = self
             fusuma.cropHeightRatio = 0.7
             fusuma.defaultMode = .library
             fusuma.allowMultipleSelection = false
             fusumaSavesImage = false
-            
             self.present(fusuma, animated: true, completion: nil)
         }
     }
     func fusumaImageSelected(_ image: UIImage, source: FusumaMode) {
-        
         if appDelegate.user?.email != "" {
            userImage.image = image
            userImage.image = userImage.image?.af_imageRoundedIntoCircle()
            DataManager.updateUserProfile(user: appDelegate.user!, profile: image)
         }
-        
     }
     func fusumaMultipleImageSelected(_ images: [UIImage], source: FusumaMode) {
     }
@@ -168,32 +153,23 @@ class MypageViewController: UIViewController, FusumaDelegate{
     func fusumaDismissedWithImage(_ image: UIImage, source: FusumaMode) {
     }
     func fusumaCameraRollUnauthorized() {
-        
         let alert = UIAlertController(title: "Access Requested",
                                       message: "Saving image needs to access your photo album",
                                       preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Settings", style: .default) { (action) -> Void in
-        })
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
-            
-        })
+        alert.addAction(UIAlertAction(title: "Settings", style: .default))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         guard let vc = UIApplication.shared.delegate?.window??.rootViewController,
             let presented = vc.presentedViewController else {
-                
                 return
         }
         presented.present(alert, animated: true, completion: nil)
     }
-    
 }
-
 extension MypageViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return labelList.count
     }
@@ -206,28 +182,21 @@ extension MypageViewController: UITableViewDataSource, UITableViewDelegate {
         return 85
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         if indexPath.row == 0 { // 내가 찜한 상품을 눌렀을 때
-            
             if appDelegate.user?.email == "" { // 로그인 된 상태가 아니면
                 let alertController = UIAlertController(title: "알림", message: "내가 찜한 상품은 로그인 뒤 이용가능합니다.", preferredStyle: UIAlertControllerStyle.alert)
-                
                 let DestructiveAction = UIAlertAction(title: "취소", style: UIAlertActionStyle.destructive) { (result : UIAlertAction) -> Void in
                     alertController.dismiss(animated: false, completion: nil)
                 }
-                
                 let okAction = UIAlertAction(title: "로그인", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let vc = storyboard.instantiateViewController(withIdentifier: "LoginSignUpViewController") as! LoginSignUpViewController
                     self.present(vc, animated: true, completion: nil)
                 }
-                
                 alertController.addAction(DestructiveAction)
-                
                 alertController.addAction(okAction)
-                
                 self.present(alertController, animated: true, completion: nil)
-            }else{
+            } else {
                 // 내가 찜한 상품 뷰
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let vc = storyboard.instantiateViewController(withIdentifier: "LikeProductViewController") as! LikeProductViewController
@@ -243,13 +212,10 @@ extension MypageViewController: UITableViewDataSource, UITableViewDelegate {
                 let vc = storyboard.instantiateViewController(withIdentifier: "LoginSignUpViewController") as! LoginSignUpViewController
                 self.present(vc, animated: true, completion: nil)
             } else{ // 로그아웃 시키기
-                
                 let alertController = UIAlertController(title: "알림", message: "정말 로그아웃 하시겠어요?", preferredStyle: UIAlertControllerStyle.alert)
-                
                 let DestructiveAction = UIAlertAction(title: "취소", style: UIAlertActionStyle.destructive) { (result : UIAlertAction) -> Void in
                     alertController.dismiss(animated: false, completion: nil)
                 }
-                
                 let okAction = UIAlertAction(title: "로그아웃", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
                     let firebaseAuth = Auth.auth()
                     do {
@@ -263,11 +229,8 @@ extension MypageViewController: UITableViewDataSource, UITableViewDelegate {
                 }
                 alertController.addAction(DestructiveAction)
                 alertController.addAction(okAction)
-                
                 self.present(alertController, animated: true, completion: nil)
             }
         }
-    }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     }
 }

@@ -18,7 +18,6 @@ class UpdateNicknameViewController: UIViewController {
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     @IBAction func onTouchCloseBtn(_ sender: Any) {
         navigationController?.popViewController(animated: true)
@@ -33,7 +32,6 @@ class UpdateNicknameViewController: UIViewController {
         }
     }
     @IBAction func onTouchCompleteBtn(_ sender: Any) {
-        
         if completeBtn.isEnabled {
             if appdelegate.user != nil {
                 if (nickNameTextField.text?.characters.count)! > 10 {
@@ -52,5 +50,4 @@ class UpdateNicknameViewController: UIViewController {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
-
 }

@@ -5,24 +5,18 @@
 //  Created by woowabrothers on 2017. 8. 7..
 //  Copyright © 2017년 busride. All rights reserved.
 //
-
 import UIKit
-
 class RankingViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var categoryScrollView: UIScrollView!
     @IBOutlet weak var productNumLabel: UILabel!
     @IBOutlet weak var sortingMethodLabel: UILabel!
     let appdelegate = UIApplication.shared.delegate as! AppDelegate
-    let priceLevelList = ["비싸다","비싼편","적당","싼편","싸다"]
-    let flavorLevelList = ["노맛","별로","적당","괜춘","존맛"]
-    let quantityLevelList = ["창렬","적음","적당","많음","혜자"]
     var isLoaded = false
     var productList : [Product] = []
     var categoryBtns = [UIButton]()
     var scrollBar = UILabel()
     var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
-    let category = ["전체","도시락","김밥","베이커리","라면","식품","스낵","아이스크림","음료"]
     var selectedBrandIndexFromTab : Int = 0 {
         didSet{
             getRankingList()
@@ -50,8 +44,7 @@ class RankingViewController: UIViewController {
     @IBAction func tabDropDownBtn(_ sender: UIButton) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         //Create and add the Cancel action
-        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
-        }
+        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel)
         let orderByRanking = UIAlertAction(title: "평점순", style: .default) { action -> Void in
             DispatchQueue.main.async {
                 self.sortingMethodLabel.text  = "평점순"
@@ -70,63 +63,22 @@ class RankingViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     func addCategoryBtn(){ // 카테고리 버튼 스크롤 뷰에 추가하기
-        categoryScrollView.isScrollEnabled = true
-        let width = self.view.frame.size.width
-        categoryScrollView.contentSize.width = CGFloat(width / 5.0 * CGFloat(category.count))
-        for index in 0..<category.count {
-            
-            let categoryBtn = UIButton(frame: CGRect(x: width / 5.0 * CGFloat(index), y: 5, width: width / 5.0, height: categoryScrollView.frame.height))
-            categoryBtn.setTitle(category[index], for: .normal) // 카테고리 버튼 텍스트
-            categoryBtn.setTitleColor(UIColor.darkGray, for: .normal) // 카테고리 버튼 텍스트 색깔
-            categoryBtn.contentHorizontalAlignment = .center // 카테고리 버튼 중앙정렬
-            categoryBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15) // 카테고리 버튼 폰트 크기 15
-            categoryBtn.tag = index // 버튼 태그 생성해주기
-            categoryBtns.append(categoryBtn)
-            categoryBtn.addTarget(self, action: #selector(didPressCategoryBtn), for: UIControlEvents.touchUpInside)
-            categoryScrollView.addSubview(categoryBtn)
+        categoryBtns = Button.addCategoryBtn(view: self.view, categoryScrollView: categoryScrollView, category: appdelegate.category, scrollBar: scrollBar)
+        for i in 0..<categoryBtns.count {
+            categoryBtns[i].addTarget(self, action: #selector(didPressCategoryBtn), for: UIControlEvents.touchUpInside)
         }
-        
-        scrollBar.frame = CGRect(x: 0, y: categoryScrollView.frame.height - 4, width: width / 5.0, height: 2)
-        let color = UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(Float(1)))
-        scrollBar.backgroundColor = color
-        categoryScrollView.addSubview(scrollBar)
-        categoryScrollView.showsHorizontalScrollIndicator = false // 스크롤 바 없애기
     }
     func didPressCategoryBtn(sender: UIButton) { // 카테고리 버튼 클릭 함수
-        let previousCategoryIndex = selectedCategoryIndex
-        let width = self.view.frame.size.width
-        selectedCategoryIndex = sender.tag
-        categoryBtns[previousCategoryIndex].isSelected = false
-        Button.select(btn: sender) // 선택된 버튼에 따라 뷰 보여주기
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut,animations: {
-            if sender.tag == 0 || sender.tag == 1 || sender.tag == 2 {
-                self.categoryScrollView.contentOffset.x = CGFloat(0)
-            } else if sender.tag == 6 || sender.tag == 7 || sender.tag == 8 {
-                self.categoryScrollView.contentOffset.x = width / 5.0 * CGFloat(self.category.count) - width
-            } else {
-                self.categoryScrollView.contentOffset.x = CGFloat(sender.tag - 1) * width / 10.0
-            }
-            self.scrollBar.frame.origin.x = CGFloat(self.selectedCategoryIndex) * width / 5.0
+            Button.selectCategory(view: self.view, previousIndex: self.selectedCategoryIndex, categoryBtns: self.categoryBtns, selectedCategoryIndex: sender.tag, categoryScrollView: self.categoryScrollView, scrollBar: self.scrollBar)
+            self.selectedCategoryIndex = sender.tag
         },completion: nil)
         NotificationCenter.default.post(name: NSNotification.Name("showCategory"), object: self, userInfo: ["category" : selectedCategoryIndex])
-        self.tableView.contentOffset.y = 0
+        tableView.contentOffset.y = 0
     }
     func selectCategory(_ notification: Notification){
-        let previousCategoryIndex = selectedCategoryIndex
-        let width = self.view.frame.size.width
+        Button.selectCategory(view: self.view, previousIndex: selectedCategoryIndex, categoryBtns: categoryBtns, selectedCategoryIndex: notification.userInfo?["category"] as! Int, categoryScrollView: categoryScrollView, scrollBar: scrollBar)
         selectedCategoryIndex = notification.userInfo?["category"] as! Int
-        if isLoaded {
-            categoryBtns[previousCategoryIndex].isSelected = false
-            Button.select(btn: categoryBtns[selectedCategoryIndex])
-            if selectedCategoryIndex == 0 || selectedCategoryIndex == 1 || selectedCategoryIndex == 2 {
-                categoryScrollView.contentOffset.x = CGFloat(0)
-            } else if selectedCategoryIndex == 6 || selectedCategoryIndex == 7 || selectedCategoryIndex == 8 {
-                categoryScrollView.contentOffset.x = width / 5.0 * CGFloat(self.category.count) - width
-            } else {
-                categoryScrollView.contentOffset.x = CGFloat(selectedCategoryIndex - 1) * width / 10.0
-            }
-            scrollBar.frame.origin.x = CGFloat(self.selectedCategoryIndex) * width / 5.0
-        }
         self.tableView.contentOffset.y = 0
     }
     func addNotiObserver() {
@@ -149,15 +101,13 @@ class RankingViewController: UIViewController {
     func getRankingList(){
         var brand = ""
         switch selectedBrandIndexFromTab {
-        case 0 : brand = ""
-        case 1 : brand = "GS25"
-        case 2 : brand = "CU"
-        case 3 : brand = "7-eleven"
-        default : break;
+            case 0 : brand = ""
+            case 1 : brand = "GS25"
+            case 2 : brand = "CU"
+            case 3 : brand = "7-eleven"
+            default : break
         }
-        
         self.showActivityIndicatory()
-        
         if tableView != nil {
             if selectedBrandIndexFromTab == 0  && selectedCategoryIndex == 0 { // 브랜드 : 전체 , 카테고리 : 전체 일때
                 self.productList = []
@@ -167,8 +117,7 @@ class RankingViewController: UIViewController {
                     self.setRankingListOrder()
                     self.hideActivityIndicatory()
                 }
-                }
-            else if selectedBrandIndexFromTab == 0 { // 브랜드만 전체일 때
+            } else if selectedBrandIndexFromTab == 0 { // 브랜드만 전체일 때
                 self.productList = []
                 if categoryBtns.count > 0 {
                     for product in self.appdelegate.productList {
@@ -181,9 +130,7 @@ class RankingViewController: UIViewController {
                         self.setRankingListOrder()
                         self.hideActivityIndicatory()
                     }
-                    
                 }
-                
             } else if selectedCategoryIndex == 0 { // 카테고리만 전체일 때
             self.productList = []
                 for product in self.appdelegate.productList {
@@ -196,7 +143,6 @@ class RankingViewController: UIViewController {
                     self.setRankingListOrder()
                     self.hideActivityIndicatory()
                 }
-
             } else { // 브랜드도 카테고리도 전체가 아닐 때
                 self.productList = []
                 for product in self.appdelegate.productList {
@@ -222,7 +168,6 @@ class RankingViewController: UIViewController {
         }
     }
     func setRankingListOrder(){
-        
         if sortingMethodLabel != nil {
             if sortingMethodLabel.text == "평점순"{
                 self.productList = productList.sorted(by: { $0.grade_avg > $1.grade_avg })
@@ -239,7 +184,6 @@ class RankingViewController: UIViewController {
         }
     }
 }
-
 extension RankingViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1;
@@ -251,12 +195,9 @@ extension RankingViewController: UITableViewDelegate, UITableViewDataSource {
         if let cell =  tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? RankingTableViewCell {
             cell.selectionStyle = UITableViewCellSelectionStyle.none
             let product = self.productList[indexPath.item]
-            cell.foodImage.layer.cornerRadius = cell.foodImage.frame.height/2
-            cell.foodImage.clipsToBounds = true
+            Image.makeCircleImage(image: cell.foodImage)
             cell.loading.startAnimating()
-            
             if product.image != "" {
-                cell.foodImage.contentMode = .scaleAspectFit
                 cell.foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
                     cell.loading.stopAnimating()
                 })
@@ -274,66 +215,12 @@ extension RankingViewController: UITableViewDelegate, UITableViewDataSource {
             }else{
                 cell.EventLabel.isHidden = true
             }
-            for sub in cell.starView.subviews {
-                sub.removeFromSuperview()
-            }
-            let numberOfPlaces = 2.0
-            let multiplier = pow(10.0, numberOfPlaces)
-            let grade = round(Double(product.grade_avg) * multiplier) / multiplier
-
-            cell.gradeLabel.text = String(grade)
-            for i in 0..<Int(grade) {
-                let starImage = UIImage(named: "stars.png")
-                let cgImage = starImage?.cgImage
-                let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: 0, y: 10, width: (starImage?.size.width)! / 5, height: starImage!.size.height))!
-                let uiImage = UIImage(cgImage: croppedCGImage)
-                let imageView = UIImageView(image: uiImage)
-                imageView.frame = CGRect(x: i*18, y: 0, width: 18, height: 15)
-                cell.starView.addSubview(imageView)
-            }
-            if grade - Double(Int(grade)) >= 0.5 {
-                let starImage = UIImage(named: "stars.png")
-                let cgImage = starImage?.cgImage
-                let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: (starImage?.size.width)! * 4 / 5, y: 10, width: (starImage?.size.width)!, height: starImage!.size.height))!
-                let uiImage = UIImage(cgImage: croppedCGImage)
-                let imageView = UIImageView(image: uiImage)
-                imageView.frame = CGRect(x: Int(grade)*18 - 3, y: 0, width: 18, height: 15)
-                cell.starView.addSubview(imageView)
-            }
+            Image.drawStar(numberOfPlaces: 2.0, grade_avg: Double(product.grade_avg), gradeLabel: cell.gradeLabel, starView: cell.starView, needSpace: false)
             Label.makeRoundLabel(label: cell.PriceLevelLabel, color: UIColor.gray)
             Label.makeRoundLabel(label: cell.QuantityLevelLabel, color: UIColor.gray)
             Label.makeRoundLabel(label: cell.FlavorLevelLabel, color: UIColor.gray)
-            Label.makeRoundLabel(label: cell.EventLabel, color: UIColor(red: CGFloat(255.0 / 255.0), green: CGFloat(120.0 / 255.0),  blue: CGFloat(0.0 / 255.0), alpha: CGFloat(1.0)))
-            let priceLevelDict = product.price_level
-            let flavorLevelDict = product.flavor_level
-            let quantityLevelDict = product.quantity_level
-            var maxPriceLevel = 3
-            var maxFlavorLevel = 3
-            var maxQuantityLevel = 3
-            var maxPriceNum = 0
-            var maxFlavorNum = 0
-            var maxQuantityNum = 0
-            for i in 1...5 {
-                let p = "p" + i.description
-                let f = "f" + i.description
-                let q = "q" + i.description
-                if priceLevelDict.count > 0  && priceLevelDict[p]! > maxPriceNum {
-                    maxPriceLevel = i
-                    maxPriceNum = priceLevelDict[p]!
-                }
-                if  flavorLevelDict.count > 0  && flavorLevelDict[f]! > maxFlavorNum {
-                    maxFlavorLevel = i
-                    maxFlavorNum = flavorLevelDict[f]!
-                }
-                if  quantityLevelDict.count > 0  && quantityLevelDict[q]! > maxQuantityNum {
-                    maxQuantityLevel = i
-                    maxQuantityNum = quantityLevelDict[q]!
-                }
-            }
-            cell.PriceLevelLabel.text = self.priceLevelList[maxPriceLevel - 1]
-            cell.FlavorLevelLabel.text = self.flavorLevelList[maxFlavorLevel - 1]
-            cell.QuantityLevelLabel.text = self.quantityLevelList[maxQuantityLevel - 1]
-            
+            Label.makeRoundLabel(label: cell.EventLabel, color: appdelegate.mainColor)
+            Label.showLevel(PriceLevelLabel: cell.PriceLevelLabel, FlavorLevelLabel: cell.FlavorLevelLabel, QuantityLevelLabel: cell.QuantityLevelLabel, priceLevelDict: product.price_level, flavorLevelDict: product.flavor_level, quantityLevelDict: product.quantity_level)
             return cell
         }
         return RankingTableViewCell()

@@ -5,9 +5,7 @@
 //  Created by woowabrothers on 2017. 8. 21..
 //  Copyright © 2017년 busride. All rights reserved.
 //
-
 import UIKit
-
 class LikeProductViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     let appdelegate = UIApplication.shared.delegate as! AppDelegate
@@ -17,7 +15,6 @@ class LikeProductViewController: UIViewController {
         getLikeProductList()
         tableView.delegate = self
         tableView.dataSource = self
-        
         NotificationCenter.default.addObserver(self, selector: #selector(getLikeProductList), name: NSNotification.Name("likeListChanged"), object: nil)
         // Do any additional setup after loading the view.
     }
@@ -27,20 +24,11 @@ class LikeProductViewController: UIViewController {
     }
     @IBAction func onTouchCloseButton(_ sender: Any) {
         navigationController?.popViewController(animated: true)
-        dismissKeyboard()
         dismiss(animated: true, completion: nil)
     }
-    
-    func dismissKeyboard() {
-        //Causes the view (or one of its embedded text fields) to resign the first responder status.
-        view.endEditing(true)
-    }
-    
     func getLikeProductList(){
-        
         likeProductList = []
         if (appdelegate.user?.wish_product_list)! != [] && appdelegate.user?.wish_product_list != nil{
-            
             for product in appdelegate.productList {
                 for id in (appdelegate.user?.wish_product_list)! {
                     if product.id == id {
@@ -90,7 +78,6 @@ extension LikeProductViewController: UITableViewDataSource, UITableViewDelegate 
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "mainNavigationController") as! UINavigationController
             self.present(vc, animated: true, completion: nil)
-            
         }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
