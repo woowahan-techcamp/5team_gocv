@@ -1,8 +1,8 @@
 //
-//  LoginSignUpViewController.swift
+//  GoogleSignInViewController.swift
 //  pyunrihae
 //
-//  Created by woowabrothers on 2017. 8. 16..
+//  Created by KimJuneYoung on 2017. 8. 27..
 //  Copyright © 2017년 busride. All rights reserved.
 //
 
@@ -10,33 +10,22 @@ import UIKit
 import GoogleSignIn
 import Firebase
 
-class LoginSignUpViewController: UIViewController,GIDSignInUIDelegate{
+class GoogleSignInViewController: UIViewController,GIDSignInUIDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         GIDSignIn.sharedInstance().uiDelegate = self
-       
-        NotificationCenter.default.addObserver(self, selector: #selector(closeSelf), name: NSNotification.Name("userLogined"), object: nil)
+        GIDSignIn.sharedInstance().signIn()
+
         // Do any additional setup after loading the view.
     }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    @IBAction func onTouchCloseButton(_ sender: Any) {
-        closeSelf()
-    }
-    func closeSelf() {
-        navigationController?.popViewController(animated: true)
-        dismiss(animated: true, completion: nil)
-    }
     
-    @IBAction func onTouchGoogleSignIn(_ sender: Any) {
-         GIDSignIn.sharedInstance().signIn()
-    }
- 
-    
-    
+
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
         // ...
         if let error = error {
@@ -71,5 +60,5 @@ class LoginSignUpViewController: UIViewController,GIDSignInUIDelegate{
         }
     }
 
-    
+
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D30" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="09o-sF-lFm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="09o-sF-lFm">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -56,7 +56,7 @@
         <scene sceneID="xtN-fi-hkD">
             <objects>
                 <navigationController useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="ivr-CL-MQp" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="a0R-9B-fNe">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="a0R-9B-fNe">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -536,7 +536,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="130"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hx1-FC-c0Q" id="ylF-Bu-Y03">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="129.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1+1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JvE-m9-zGk">
@@ -2201,17 +2201,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_login2.png" translatesAutoresizingMaskIntoConstraints="NO" id="EY0-lI-LAh">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OJX-5H-CNK">
-                                <rect key="frame" x="27.5" y="537" width="320" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="80" id="O8o-5i-WHn"/>
-                                    <constraint firstAttribute="width" secondItem="OJX-5H-CNK" secondAttribute="height" multiplier="32:5" id="ck5-f2-D0i"/>
-                                </constraints>
-                                <state key="normal" backgroundImage="ic_emailsignup.png"/>
-                                <connections>
-                                    <segue destination="KQa-R2-kWD" kind="showDetail" id="hYp-u4-DGF"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Egl-G9-nsF">
                                 <rect key="frame" x="27.5" y="602" width="320" height="50"/>
                                 <constraints>
@@ -2241,20 +2230,31 @@
                                     <constraint firstAttribute="height" constant="190" id="eag-2N-QUR"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WfG-74-UDi">
+                                <rect key="frame" x="27" y="537" width="160" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="ic_google_sign_in.png"/>
+                                <connections>
+                                    <action selector="onTouchGoogleSignIn:" destination="diG-g8-7uo" eventType="touchUpInside" id="4hq-Ua-0fQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YtJ-Az-ONQ">
+                                <rect key="frame" x="187" y="537" width="160" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="ic_emailsignup.png"/>
+                                <connections>
+                                    <segue destination="KQa-R2-kWD" kind="show" id="PzK-lZ-0gB"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="OJX-5H-CNK" firstAttribute="centerX" secondItem="QAN-AJ-ueM" secondAttribute="centerX" id="2ch-jn-rrU"/>
                             <constraint firstItem="Egl-G9-nsF" firstAttribute="centerX" secondItem="QAN-AJ-ueM" secondAttribute="centerX" id="2li-7Y-TyZ"/>
                             <constraint firstItem="Egl-G9-nsF" firstAttribute="leading" secondItem="QAN-AJ-ueM" secondAttribute="leadingMargin" constant="11.5" id="6Eo-hO-q1E"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Egl-G9-nsF" secondAttribute="trailing" constant="11.5" id="6YD-NL-7vf"/>
-                            <constraint firstItem="OJX-5H-CNK" firstAttribute="centerX" secondItem="QAN-AJ-ueM" secondAttribute="centerX" id="AId-Ol-Uxs"/>
                             <constraint firstItem="EY0-lI-LAh" firstAttribute="top" secondItem="QAN-AJ-ueM" secondAttribute="top" id="BUC-1V-YPh"/>
-                            <constraint firstItem="OJX-5H-CNK" firstAttribute="leading" secondItem="QAN-AJ-ueM" secondAttribute="leadingMargin" constant="11.5" id="KAf-uN-0XA"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="OJX-5H-CNK" secondAttribute="trailing" constant="11.5" id="Ngm-Ew-Acg"/>
                             <constraint firstItem="Egl-G9-nsF" firstAttribute="centerX" secondItem="QAN-AJ-ueM" secondAttribute="centerX" id="O9L-Rn-fDU"/>
                             <constraint firstItem="U8v-zp-Sg2" firstAttribute="top" secondItem="6QF-Ys-NgG" secondAttribute="top" id="Yg3-HZ-yMR"/>
-                            <constraint firstItem="Egl-G9-nsF" firstAttribute="top" secondItem="OJX-5H-CNK" secondAttribute="bottom" constant="15" id="ZwJ-mB-ysM"/>
                             <constraint firstAttribute="trailing" secondItem="EY0-lI-LAh" secondAttribute="trailing" id="f8b-i9-RcK"/>
                             <constraint firstItem="U8v-zp-Sg2" firstAttribute="top" secondItem="hRG-id-eRT" secondAttribute="bottom" constant="8" id="lSs-Nc-6U5"/>
                             <constraint firstItem="6QF-Ys-NgG" firstAttribute="leading" secondItem="QAN-AJ-ueM" secondAttribute="leadingMargin" id="nYZ-Z8-LBB"/>
@@ -2753,6 +2753,24 @@
             </objects>
             <point key="canvasLocation" x="-654" y="3850"/>
         </scene>
+        <!--Google Sign In View Controller-->
+        <scene sceneID="998-cG-CPb">
+            <objects>
+                <viewController storyboardIdentifier="GoogleSignInViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="laH-HS-jfy" customClass="GoogleSignInViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CIC-WN-fZZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="Vdo-fa-bX7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="w9H-tv-2R7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JY5-Ii-cyJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2010" y="5075"/>
+        </scene>
         <!--Pyunrihae Info View Controller-->
         <scene sceneID="Gwd-d6-W6S">
             <objects>
@@ -2992,7 +3010,7 @@
             <objects>
                 <navigationController storyboardIdentifier="mainNavigationController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9cE-6F-aqE" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Fmm-Zd-Qc7">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Fmm-Zd-Qc7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3018,7 +3036,8 @@
         <image name="ic_complete.png" width="640" height="100"/>
         <image name="ic_complete_enabled.png" width="640" height="100"/>
         <image name="ic_dropdown.png" width="40" height="40"/>
-        <image name="ic_emailsignup.png" width="640" height="100"/>
+        <image name="ic_emailsignup.png" width="320" height="100"/>
+        <image name="ic_google_sign_in.png" width="320" height="100"/>
         <image name="ic_home.png" width="44" height="74"/>
         <image name="ic_home_selected.png" width="44" height="74"/>
         <image name="ic_like.png" width="50" height="50"/>
