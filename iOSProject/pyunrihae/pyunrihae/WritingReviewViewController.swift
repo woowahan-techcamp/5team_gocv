@@ -5,14 +5,11 @@
 //  Created by woowabrothers on 2017. 8. 9..
 //  Copyright © 2017년 busride. All rights reserved.
 //
-
 import UIKit
 import FirebaseDatabase
 import Fusuma
 import FirebaseAuth
-
 class WritingReviewViewController: UIViewController, FusumaDelegate{
-
     @IBOutlet weak var completeBtn: UIButton!
     @IBOutlet weak var barBtn: UIButton!
     @IBOutlet weak var loading: UIActivityIndicatorView!
@@ -40,9 +37,6 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
     var priceLevel = 0
     var flavorLevel = 0
     var quantityLevel = 0
-    let priceLevelList = ["비싸다","비싼편","적당","싼편","싸다"]
-    let flavorLevelList = ["노맛","별로","적당","괜춘","존맛"]
-    let quantityLevelList = ["창렬","적음","적당","많음","혜자"]
     var allergy = [String]()
     var starBtns = [UIButton]()
     var priceLevelBtns = [UIButton]()
@@ -59,7 +53,6 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
         addFlavorLevelBtn()
         addQuantityLevelBtn()
         Image.makeCircleImage(image: productImage)
-        
         loading.startAnimating()
         DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
             self.productNameLabel.text = product.name
@@ -69,7 +62,6 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
                 self.loading.stopAnimating()
             })
         }
-        
         detailReview.layer.borderWidth = 0.7
         detailReview.layer.borderColor = UIColor.lightGray.cgColor
         detailReview.layer.cornerRadius = 5
@@ -77,16 +69,12 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
         detailReview.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(chooseImage), name: NSNotification.Name("chooseImage"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showAllergyList), name: NSNotification.Name("selectAllergy"), object: nil)
-        
-        // Do any additional setup after loading the view.
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     @IBAction func tabBackBtn(_ sender: UIButton) {
         self.navigationController?.popToRootViewController(animated: true)
-        SelectedAllergy.allergyList = []
     }
     @IBAction func tabCompleteBtn(_ sender: UIButton) {
          var user_image = ""
@@ -95,22 +83,16 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
         }else{
             user_image = "http://item.kakaocdn.net/dw/4407092.title.png"
         }
-       
         if checkGrade && checkPriceLevel && checkFlavorLevel && checkQuantityLevel {
-            
             if detailReview.text.characters.count > 500 {
                 let alert = UIAlertController(title: "알림", message: "500자 이내로 리뷰를 작성해주세요!", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             } else {
-                SelectedAllergy.allergyList = []
                 self.navigationController?.popToRootViewController(animated: true)
                 NotificationCenter.default.post(name: NSNotification.Name("startUploading"), object: self)
-                
-                let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                appDelegate.user?.product_review_list.append(SelectedProduct.foodId)
-                DataManager.updateReviewList(id: SelectedProduct.foodId, uid: (appDelegate.user?.id)!)
-                
+                appdelegate.user?.product_review_list.append(SelectedProduct.foodId)
+                DataManager.updateReviewList(id: SelectedProduct.foodId, uid: (appdelegate.user?.id)!)
                 DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
                     DataManager.getUserFromUID(uid: (Auth.auth().currentUser?.uid)!, completion: { (user) in
                         let userNickName =  user.nickname
@@ -118,7 +100,6 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
                         }
                     })
                 }
-                
                 DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
                     DataManager.updateProductInfo(p_id: product.id, grade: self.grade, priceLevel: self.priceLevel, flavorLevel: self.flavorLevel, quantityLevel: self.quantityLevel, allergy: self.allergy)
                 }
@@ -133,20 +114,14 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
     }
     @IBAction func addImageBtn(_ sender: UIButton) {
         let fusuma = FusumaViewController()
-        
         fusuma.delegate = self
         fusuma.cropHeightRatio = 0.7
         fusuma.defaultMode = .library
         fusuma.allowMultipleSelection = false
         fusumaSavesImage = false
-        
         self.present(fusuma, animated: true, completion: nil)
-        
     }
-    
-    // MARK: FusumaDelegate Protocol
     func fusumaImageSelected(_ image: UIImage, source: FusumaMode) {
-        
         let imageView = UIImageView()
         reviewImage = image
         imageView.image = reviewImage
@@ -159,7 +134,6 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
         addImageBtn.clipsToBounds = true
         addImageBtn.setTitle("사진 변경", for: .normal)
     }
-    
     func fusumaMultipleImageSelected(_ images: [UIImage], source: FusumaMode) {
     }
     func fusumaImageSelected(_ image: UIImage, source: FusumaMode, metaData: ImageMetadata) {
@@ -169,24 +143,15 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
     func fusumaDismissedWithImage(_ image: UIImage, source: FusumaMode) {
     }
     func fusumaCameraRollUnauthorized() {
-        
         let alert = UIAlertController(title: "Access Requested",
                                       message: "Saving image needs to access your photo album",
                                       preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "Settings", style: .default) { (action) -> Void in
-        })
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
-            
-        })
-        
+        alert.addAction(UIAlertAction(title: "Settings", style: .default))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         guard let vc = UIApplication.shared.delegate?.window??.rootViewController,
             let presented = vc.presentedViewController else {
-                
                 return
         }
-        
         presented.present(alert, animated: true, completion: nil)
     }
     func addStarBtn() { //별 버튼 뷰에 붙이기
@@ -195,7 +160,6 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
             let startImg = UIImage(named: "ic_star.png")
             starBtn.frame = CGRect(x: i*45, y: 0, width: 24, height: 24)
             starBtn.setImage(startImg, for: .normal)
-//            Button.changeColor(btn: starBtn, color: UIColor.lightGray, imageName: "ic_star.png")
             starBtn.addTarget(self, action: #selector(didPressStarBtn), for: UIControlEvents.touchUpInside)
             starBtn.tag = i
             starBtns.append(starBtn)
@@ -207,7 +171,7 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
         for i in 0..<5 {
             let priceLevelBtn = UIButton()
             priceLevelBtn.frame = CGRect(x: (i * width / 15 * 2) + (width / 15 * i), y: 0, width: width / 7, height: 25)
-            Button.makeNormalBtn(btn: priceLevelBtn, text: priceLevelList[i])
+            Button.makeNormalBtn(btn: priceLevelBtn, text: appdelegate.priceLevelList[i])
             priceLevelBtn.addTarget(self, action: #selector(didPressPriceLevelBtn), for: UIControlEvents.touchUpInside)
             priceLevelBtn.tag = i
             priceLevelBtns.append(priceLevelBtn)
@@ -219,7 +183,7 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
         for i in 0..<5 {
             let flavorLevelBtn = UIButton()
             flavorLevelBtn.frame = CGRect(x: (i * width / 15 * 2) + (width / 15 * i), y: 0, width: width / 7, height: 25)
-            Button.makeNormalBtn(btn: flavorLevelBtn, text: flavorLevelList[i])
+            Button.makeNormalBtn(btn: flavorLevelBtn, text: appdelegate.flavorLevelList[i])
             flavorLevelBtn.addTarget(self, action: #selector(didPressFlavorLevelBtn), for: UIControlEvents.touchUpInside)
             flavorLevelBtn.tag = i
             flavorLevelBtns.append(flavorLevelBtn)
@@ -231,7 +195,7 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
         for i in 0..<5 {
             let quantityLevelBtn = UIButton()
             quantityLevelBtn.frame = CGRect(x: (i * width / 15 * 2) + (width / 15 * i), y: 0, width: width / 7, height: 25)
-            Button.makeNormalBtn(btn: quantityLevelBtn, text: quantityLevelList[i])
+            Button.makeNormalBtn(btn: quantityLevelBtn, text: appdelegate.quantityLevelList[i])
             quantityLevelBtn.addTarget(self, action: #selector(didPressQuantityLevelBtn), for: UIControlEvents.touchUpInside)
             quantityLevelBtn.tag = i
             quantityLevelBtns.append(quantityLevelBtn)
@@ -242,12 +206,10 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
         for i in 0...sender.tag {
             let startImg = UIImage(named: "ic_star_filled.png")
             starBtns[i].setImage(startImg, for: .normal)
-//            Button.changeColor(btn: starBtns[i], color: UIColor.orange, imageName: "star.png")
         }
         for i in (sender.tag + 1)..<5 {
             let startImg = UIImage(named: "ic_star.png")
             starBtns[i].setImage(startImg, for: .normal)
-//            Button.changeColor(btn: starBtns[i], color: UIColor.lightGray, imageName: "star.png")
         }
         grade = sender.tag + 1
         checkGrade = true
@@ -290,7 +252,6 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
     }
      func showAllergyList(_ notification: Notification) { // 선택된 알레르기 성분 보여주기
         allergy = notification.userInfo?["allergy"] as! [String]
-        SelectedAllergy.allergyList = allergy
         let allergyNum = allergy.count
         if allergyNum == 0 {
             allergyListLabel.text = "알레르기 성분을 선택해주세요."
@@ -300,38 +261,34 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
             allergyListLabel.text = allergy[0] + " 외 " + String(allergyNum - 1) + "개의 성분"
         }
     }
-    func addDoneButtonOnKeyboard()
-    {
+    func addDoneButtonOnKeyboard() {
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
         doneToolbar.barStyle = UIBarStyle.blackTranslucent
-        
         let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
         let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(WritingReviewViewController.doneButtonAction))
-        
         let items = NSMutableArray()
         items.add(flexSpace)
         items.add(done)
-        
         doneToolbar.items = items as? [UIBarButtonItem]
         doneToolbar.sizeToFit()
-        
         self.detailReview.inputAccessoryView = doneToolbar
-        
     }
-    
-    func doneButtonAction()
-    {
+    func doneButtonAction() {
         self.detailReview.resignFirstResponder()
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is AllergyViewController {
+            let destination =  segue.destination as? AllergyViewController
+            destination?.selectedAllergy = allergy
+        }
+    }
 }
-
 extension WritingReviewViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 3.0, initialSpringVelocity: 3.0, options: UIViewAnimationOptions.curveEaseInOut, animations: ({
             self.scrollView.frame.origin.y = self.scrollView.contentOffset.y - 350
             self.detailReview.frame.size.height = UIScreen.main.bounds.size.height * 3 / 11
         }), completion: nil)
-        
         addedImageView.isHidden = true
         placeholder.isHidden = true
         barBtn.isHidden = true
@@ -341,7 +298,6 @@ extension WritingReviewViewController: UITextViewDelegate {
         UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 3.0, initialSpringVelocity: 3.0, options: UIViewAnimationOptions.curveEaseInOut, animations: ({
             self.scrollView.frame.origin.y = 0
         }), completion: nil)
-        
         addedImageView.isHidden = false
         barBtn.isHidden = false
         completeBtn.isHidden = false
@@ -353,4 +309,3 @@ extension WritingReviewViewController: UITextViewDelegate {
         }
     }
 }
-

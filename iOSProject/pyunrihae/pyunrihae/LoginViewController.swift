@@ -5,12 +5,9 @@
 //  Created by woowabrothers on 2017. 8. 17..
 //  Copyright © 2017년 busride. All rights reserved.
 //
-
 import UIKit
 import FirebaseAuth
-
 class LoginViewController: UIViewController {
-
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var alertLabel: UILabel!
@@ -29,11 +26,9 @@ class LoginViewController: UIViewController {
     @IBAction func onEditingPassword(_ sender: Any) {
         isValidSignup()
     }
-    
     @IBAction func onEditingEmail(_ sender: Any) {
         isValidSignup()
     }
-   
     func isValidSignup(){
         if Validator.isValidLogin(email: emailTextField.text!,password: passwordTextField.text!) {
             loginButton.isEnabled = true

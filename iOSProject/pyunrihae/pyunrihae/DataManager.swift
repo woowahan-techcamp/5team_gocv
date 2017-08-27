@@ -5,27 +5,21 @@
 //  Created by woowabrothers on 2017. 8. 3..
 //  Copyright © 2017년 busride. All rights reserved.
 //
-
 import Foundation
 import FirebaseStorage
 import Firebase
 import FirebaseDatabase
 import FirebaseAuth
-
 class DataManager{
-    
     // 기본 데이터 레퍼런스
     static var ref : DatabaseReference! = Database.database().reference()
     static var appdelegate = UIApplication.shared.delegate as? AppDelegate
     /*
      * 메인화면
      */
-    
     // 브랜드에 따라 리뷰 가져오고, 그걸 유용순으로 정리하기.
     static func getTop3ReviewByBrand(brand : String, completion: @escaping ([Review]) -> ()) {
-        
         let localRef = ref.child("review")
-        
         if brand == "전체" { // 브랜드 : 전체를 선택한 경우
             localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
                 var reviewList : [Review]  = []
@@ -52,8 +46,6 @@ class DataManager{
             })
         }
     }
-    
-    
     // 브랜드 + 카테고리 전체일 때
     static func getTop3Product(completion: @escaping ([Product]) -> ()) {
         let localRef = ref.child("product")
@@ -85,9 +77,6 @@ class DataManager{
     /*
      * 리뷰 화면
      */
-    
-    
-    
     // 브랜드와 카테고리가 전체가 아닐 때 리뷰 리스트 받아오기
     static func getReviewListBy(brand : String, category : String, completion : @escaping ([Review]) -> ()) {
         let localRef = ref.child("review")
@@ -101,11 +90,9 @@ class DataManager{
                     reviewList.append(review)
                 }
             }
-            
             completion(reviewList)
         })
     }
-    
     // 카테고리가 전체일때 브랜드로만 리뷰 리스트 받아오기.
     static func getReviewListBy(brand: String, completion: @escaping ([Review]) ->()) {
         let localRef = ref.child("review")
@@ -119,7 +106,6 @@ class DataManager{
             completion(reviewList)
         })
     }
-    
     // 브랜드가 전체일때 카테고리로만 리뷰 리스트 받아오기.
     static func getReviewListBy(category: String, completion: @escaping ([Review]) ->()) {
         let localRef = ref.child("review")
@@ -130,16 +116,13 @@ class DataManager{
                 let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
                 reviewList.append(review)
             }
-            
             completion(reviewList)
         })
     }
-    
     // 브랜드와 카테고리가 전체일 때 리뷰 리스트 받아오기.
     static func getReviewList(completion: @escaping ([Review]) ->()) {
         let localRef = ref.child("review")
         let query = localRef.queryOrdered(byChild: "useful")
-        
         query.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             var reviewList : [Review] = []
             for childSnapshot in snapshot.children {
@@ -149,7 +132,6 @@ class DataManager{
             completion(reviewList)
         })
     }
-    
     // 상품 아이디로 리뷰 리스트 받아오기.
     static func getReviewListBy(id: String, completion: @escaping ([Review]) ->()) {
         let localRef = ref.child("review")
@@ -163,13 +145,17 @@ class DataManager{
             completion(reviewList)
         })
     }
-    
+    static func getReviewBy(id: String, completion : @escaping (Review) -> ()) {
+        let localRef = ref.child("review").child(id)
+        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            let review = Review.init(snapshot: snapshot)
+            completion(review)
+        })
+    }
     /*
      * 랭킹화면 : 메인화면 함수 재사용. 전체 브랜드 + 전체 카테고리 일 때 함수만 재작성.
      */
-    
     static func getProductAllInRank(completion : @escaping ([Product]) -> ()){
-        
         let localRef = ref.child("product")
         localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             var productList : [Product] = []
@@ -180,7 +166,6 @@ class DataManager{
             completion(productList)
         })
     }
-    
     // 상품 id로 상품 가져오기
     static func getProductById(id: String, completion : @escaping (Product) -> ()) {
         let localRef = ref.child("product").child(id)
@@ -192,9 +177,7 @@ class DataManager{
     /*
      *  상품 상세 화면
      */
-    
     // 유저 위시리스트 업데이트 하기
-    
     static func updateWishList(id: String, uid: String) {
         let localRef = ref.child("user").child(uid)
         localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
@@ -222,7 +205,6 @@ class DataManager{
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             appDelegate.user?.wish_product_list = wishList
             NotificationCenter.default.post(name: NSNotification.Name("likeListChanged"), object: nil)
-            
         })
     }
     static func updateUsefulReview(id: String, uid: String) { //유용해요
@@ -279,55 +261,18 @@ class DataManager{
             userRef.updateChildValues(update)
         })
     }
-    static func tabUsefulBtn(id: String) {
+    static func tabUsefulBtn(id: String, useful: Int) {
         let localRef = ref.child("review").child(id)
         localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
-            let postDict = snapshot.value as? [String : AnyObject] ?? [:]
-            if postDict["useful"] != nil {
-                if var useful = postDict["useful"] as? Int {
-                    useful += 1
-                    localRef.updateChildValues(["useful": useful])
-                }
-            }
+            localRef.updateChildValues(["useful": useful])
         })
     }
-    static func cancleUsefulBtn(id: String) {
+    static func tabBadBtn(id: String, bad: Int) {
         let localRef = ref.child("review").child(id)
         localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
-            let postDict = snapshot.value as? [String : AnyObject] ?? [:]
-            if postDict["useful"] != nil {
-                if var useful = postDict["useful"] as? Int {
-                    useful -= 1
-                    localRef.updateChildValues(["useful": useful])
-                }
-            }
+            localRef.updateChildValues(["bad": bad])
         })
     }
-    static func tabBadBtn(id: String) {
-        let localRef = ref.child("review").child(id)
-        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
-            let postDict = snapshot.value as? [String : AnyObject] ?? [:]
-            if postDict["bad"] != nil {
-                if var bad = postDict["bad"] as? Int {
-                    bad += 1
-                    localRef.updateChildValues(["bad": bad])
-                }
-            }
-        })
-    }
-    static func cancleBadBtn(id: String) {
-        let localRef = ref.child("review").child(id)
-        localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
-            let postDict = snapshot.value as? [String : AnyObject] ?? [:]
-            if postDict["bad"] != nil {
-                if var bad = postDict["bad"] as? Int {
-                    bad -= 1
-                    localRef.updateChildValues(["bad": bad])
-                }
-            }
-        })
-    }
-    
     /*
      *  리뷰 쓰기 화면
      */
@@ -349,20 +294,15 @@ class DataManager{
             }
             localRef.updateChildValues(update)
         })
-        
     }
-    
     // 리뷰 쓰기
     static func updateProductInfo(p_id: String, grade: Int, priceLevel: Int, flavorLevel: Int, quantityLevel: Int, allergy: [String]) {
         let localRef = ref.child("product").child(p_id)
         localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             let postDict = snapshot.value as? [String : AnyObject] ?? [:]
             var update = [String: Any]()
-            
             var grade_total = grade
             var grade_count = 1
-            
-            
             if postDict["grade_total"] != nil {
                 if let total = postDict["grade_total"] as? Int {
                     grade_total += total
@@ -379,18 +319,15 @@ class DataManager{
             } else {
                 update["grade_count"] = grade_count
             }
-            
             // 가중치 계산 공식
             let m = 10 // TOP에 들기 위한 최소 리뷰 갯수
             let C : Float = 2.75 // 점수 중간값
-            let grade_avg = Float(grade_total) / Float(grade_count) // 산술평균 
-            
+            let grade_avg = Float(grade_total) / Float(grade_count) // 산술평균
             let first_exp = ( Float(grade_count)  / Float(grade_count + m)) * Float(grade_avg)
             let second_exp = ( Float(m)  / Float(grade_count + m )) * C
             let weighted_rank: Float = first_exp + second_exp
             update["grade_avg"] = weighted_rank
             //여기에는 weighted 값이 들어가야함.
-            
             if postDict["allergy"] != nil {
                 if var allergyList = postDict["allergy"] as? [String] {
                     for i in 0..<allergy.count {
@@ -409,7 +346,6 @@ class DataManager{
             } else {
                 update["allergy"] = allergy
             }
-            
             var level = "g" + grade.description
             if postDict["grade_data"] != nil {
                 if var grade_data = postDict["grade_data"] as? [String: Int] {
@@ -427,8 +363,6 @@ class DataManager{
                 grade_data[level] = 1
                 update["grade_data"] = grade_data
             }
-            
-            
             level = "p" + priceLevel.description
             if postDict["price_level"] != nil {
                 if var price_level = postDict["price_level"] as? [String: Int] {
@@ -446,7 +380,6 @@ class DataManager{
                 price_level[level] = 1
                 update["price_level"] = price_level
             }
-            
             level = "f" + flavorLevel.description
             if postDict["flavor_level"] != nil {
                 if var flavor_level = postDict["flavor_level"] as? [String: Int] {
@@ -494,36 +427,28 @@ class DataManager{
                     product.grade_avg = update["grade_avg"] as! Float
                     product.grade_count = update["grade_count"] as! Int
                     product.allergy = update["allergy"] as! [String]
-                    
                     NotificationCenter.default.post(name: NSNotification.Name("productListChanged"), object: nil)
                 }
             }
         })
     }
-    
     static func writeReview(brand: String, category: String, grade: Int, priceLevel: Int, flavorLevel: Int, quantityLevel: Int, allergy: [String], review: String, user: String,user_image: String, p_id: String, p_image: UIImage, p_name: String, p_price: Int, completion: ()->()) {
-    
         let format = DateFormatter()
         format.locale = Locale(identifier: "ko_kr")
         format.timeZone = TimeZone(abbreviation: "KST")
         format.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
         let today = format.string(from: Date())
         var imgURL = ""
-        
         let localRef = ref.child("review")
         let id = localRef.childByAutoId()
         let storage = Storage.storage()
-        
         var autoId = id.description()
         var components = autoId.components(separatedBy: "review/")
         autoId = components[1]
-        
         // Create a storage reference from our storage service
         let storageRef = storage.reference(forURL: "gs://pyeonrehae.appspot.com")
         let imagesRef = storageRef.child("images/" + autoId + ".png")
         var update = ["bad": 0, "useful": 0, "user": user, "user_image": user_image, "brand": brand, "category": category, "comment": review, "grade": grade, "price": priceLevel, "flavor": flavorLevel, "quantity": quantityLevel, "p_id": p_id, "p_name": p_name, "p_price": p_price, "timestamp": today, "id": autoId] as [String : Any]
-        
         if let data = UIImagePNGRepresentation(p_image) {
             imagesRef.putData(data, metadata: nil, completion: {
                 (metadata, error) in

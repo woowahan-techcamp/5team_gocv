@@ -5,9 +5,7 @@
 //  Created by woowabrothers on 2017. 8. 23..
 //  Copyright © 2017년 busride. All rights reserved.
 //
-
 import UIKit
-
 class ProductAllergyViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var allergyList : [String] = []
@@ -26,7 +24,6 @@ class ProductAllergyViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 }
-
 extension ProductAllergyViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -40,7 +37,6 @@ extension ProductAllergyViewController: UITableViewDataSource, UITableViewDelega
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "allergyCell", for: indexPath)
-        
         if allergyList.count == 0 {
             cell.textLabel?.text = "알레르기 정보가 없습니다."
         }else{
