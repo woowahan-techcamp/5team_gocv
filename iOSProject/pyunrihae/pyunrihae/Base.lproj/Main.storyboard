@@ -56,7 +56,7 @@
         <scene sceneID="xtN-fi-hkD">
             <objects>
                 <navigationController useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="ivr-CL-MQp" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="a0R-9B-fNe">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="a0R-9B-fNe">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2230,17 +2230,23 @@
                                     <constraint firstAttribute="height" constant="190" id="eag-2N-QUR"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WfG-74-UDi">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WfG-74-UDi">
                                 <rect key="frame" x="27" y="537" width="160" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="50" id="39b-fW-NRi"/>
+                                    <constraint firstAttribute="width" secondItem="WfG-74-UDi" secondAttribute="height" multiplier="16:5" id="Kxa-T3-la5"/>
+                                </constraints>
                                 <state key="normal" backgroundImage="ic_google_sign_in.png"/>
                                 <connections>
                                     <action selector="onTouchGoogleSignInBtn:" destination="diG-g8-7uo" eventType="touchUpInside" id="Mph-rg-q6C"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YtJ-Az-ONQ">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YtJ-Az-ONQ">
                                 <rect key="frame" x="187" y="537" width="160" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="YtJ-Az-ONQ" secondAttribute="height" multiplier="16:5" id="9Mx-gH-W1f"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="50" id="vLj-0W-BPw"/>
+                                </constraints>
                                 <state key="normal" backgroundImage="ic_emailsignup.png"/>
                                 <connections>
                                     <segue destination="KQa-R2-kWD" kind="show" id="PzK-lZ-0gB"/>
@@ -2253,15 +2259,21 @@
                             <constraint firstItem="Egl-G9-nsF" firstAttribute="leading" secondItem="QAN-AJ-ueM" secondAttribute="leadingMargin" constant="11.5" id="6Eo-hO-q1E"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Egl-G9-nsF" secondAttribute="trailing" constant="11.5" id="6YD-NL-7vf"/>
                             <constraint firstItem="EY0-lI-LAh" firstAttribute="top" secondItem="QAN-AJ-ueM" secondAttribute="top" id="BUC-1V-YPh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="YtJ-Az-ONQ" secondAttribute="trailing" constant="11.5" id="Gi8-uu-qPl"/>
                             <constraint firstItem="Egl-G9-nsF" firstAttribute="centerX" secondItem="QAN-AJ-ueM" secondAttribute="centerX" id="O9L-Rn-fDU"/>
+                            <constraint firstItem="Egl-G9-nsF" firstAttribute="top" secondItem="WfG-74-UDi" secondAttribute="bottom" constant="15" id="OiJ-Yh-vwk"/>
                             <constraint firstItem="U8v-zp-Sg2" firstAttribute="top" secondItem="6QF-Ys-NgG" secondAttribute="top" id="Yg3-HZ-yMR"/>
+                            <constraint firstItem="Egl-G9-nsF" firstAttribute="top" secondItem="YtJ-Az-ONQ" secondAttribute="bottom" constant="15" id="e1E-Lp-aoq"/>
                             <constraint firstAttribute="trailing" secondItem="EY0-lI-LAh" secondAttribute="trailing" id="f8b-i9-RcK"/>
                             <constraint firstItem="U8v-zp-Sg2" firstAttribute="top" secondItem="hRG-id-eRT" secondAttribute="bottom" constant="8" id="lSs-Nc-6U5"/>
                             <constraint firstItem="6QF-Ys-NgG" firstAttribute="leading" secondItem="QAN-AJ-ueM" secondAttribute="leadingMargin" id="nYZ-Z8-LBB"/>
+                            <constraint firstItem="YtJ-Az-ONQ" firstAttribute="centerY" secondItem="WfG-74-UDi" secondAttribute="centerY" id="o6D-hS-sUS"/>
+                            <constraint firstItem="YtJ-Az-ONQ" firstAttribute="leading" secondItem="WfG-74-UDi" secondAttribute="trailing" id="qwt-VU-Ev3"/>
                             <constraint firstItem="jaf-Jk-sNQ" firstAttribute="top" secondItem="Egl-G9-nsF" secondAttribute="bottom" constant="15" id="u0n-eA-7GT"/>
                             <constraint firstItem="U8v-zp-Sg2" firstAttribute="centerX" secondItem="QAN-AJ-ueM" secondAttribute="centerX" id="vVd-bW-pJP"/>
                             <constraint firstItem="jaf-Jk-sNQ" firstAttribute="top" secondItem="EY0-lI-LAh" secondAttribute="bottom" id="vmO-EF-61f"/>
                             <constraint firstItem="EY0-lI-LAh" firstAttribute="leading" secondItem="QAN-AJ-ueM" secondAttribute="leading" id="x0F-08-yWt"/>
+                            <constraint firstItem="WfG-74-UDi" firstAttribute="leading" secondItem="QAN-AJ-ueM" secondAttribute="leadingMargin" constant="11.5" id="yvc-cF-ujj"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -2992,7 +3004,7 @@
             <objects>
                 <navigationController storyboardIdentifier="mainNavigationController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9cE-6F-aqE" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Fmm-Zd-Qc7">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Fmm-Zd-Qc7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
