@@ -1,5 +1,7 @@
 import {Util,Dropdown, Toast} from './main'
 import {DB, UpdateData} from './index.js'
+import timestamp from './manage.js'
+import {PopupInfo} from "./manage";
 
 export class PopupOverlayClick {
 
@@ -133,6 +135,8 @@ class MakeChart {
 //review의 이벤트를 만들고 리뷰를 생성하는 클래스
 class Review {
     constructor(id, navi, product, user) {
+        this.popup = new PopupInfo();
+
         this.id = id;
         this.value = 0;
         this.product = product;
@@ -1006,36 +1010,9 @@ function loadDetailProduct(event) {
         $("body").css("overflow", "visible");
     });
 }
-function timestamp() {
-    var d = new Date();
-    var curr_date = d.getDate();
-    var curr_month = d.getMonth() + 1; //Months are zero based
-    var curr_year = d.getFullYear();
-    var curr_hour = d.getHours();
-    var curr_minute = d.getMinutes();
-    var curr_second = d.getSeconds();
 
-    if (curr_month < 10) {
-        curr_month = "0" + curr_month;
-    }
 
-    if (curr_hour < 10) {
-        curr_hour = "0" + curr_hour;
-    }
 
-    if (curr_minute < 10) {
-        curr_minute = "0" + curr_minute;
-
-    }
-
-    if (curr_second < 10) {
-        curr_second = "0" + curr_second;
-
-    }
-
-    return curr_year + "-" + curr_month + "-" + curr_date + " " +
-        curr_hour + ":" + curr_minute + ":" + curr_second;
-}
 function loadReviewDetail(event) {
 
     $("body").css("overflow", "hidden");
@@ -1075,4 +1052,3 @@ function loadReviewDetail(event) {
 
 window.loadDetailProduct = loadDetailProduct;
 window.loadReviewDetail = loadReviewDetail;
-export default timestamp;

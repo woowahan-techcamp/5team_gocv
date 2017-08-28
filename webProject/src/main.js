@@ -1,4 +1,4 @@
-import timestamp from './productDetail';
+import {TimeManager} from "./manage";
 import {UpdateData} from './index.js';
 
 export class Dropdown {
@@ -75,7 +75,9 @@ export class Carousel {
         this.data = [];
         this.index = 0;
 
-        this.now = getNowTimeScore();
+        this.manager = new TimeManager();
+
+        this.now = this.manager.getNowTimeScore();
         this.init();
     }
 
@@ -172,9 +174,9 @@ export class Carousel {
 
             const splitTimeStamp = time.split(' ');
 
-            value['time_score'] = this.getDate(splitTimeStamp[0]) + this.getTime(splitTimeStamp[1]);
+            value['time_score'] = this.manager.getDate(splitTimeStamp[0]) + this.manager.getTime(splitTimeStamp[1]);
 
-            const dateValue = this.getDateWord(value.time_score);
+            const dateValue = this.manager.getDateWord(value.time_score);
 
             value['date'] = (!!dateValue) ? dateValue : splitTimeStamp[0];
 
@@ -220,29 +222,6 @@ export class Carousel {
         this.setRatingHandler(arr);
     }
 
-    getDateWord(value) {
-        const date = (this.now * 1e6) - (value * 1e6);
-
-        if (date < 6000) {
-            if (date / 100 === 0) {
-                return '방금 전';
-            } else {
-                return parseInt(date / 100) + '분 전';
-            }
-        } else if (date >= 1e6 && date <= 3e6) {
-            return parseInt(date / 1e6) + '일 전';
-        } else if (date <= 1e6) {
-            const day = parseInt(this.now);
-            const nowHour = parseInt((this.now - day) * 10000) + 2400;
-            const hour = parseInt((value - 634) * 10000);
-            if (hour > 1e4) {
-                return parseInt(hour / 1e4) + '시간 전';
-            } else {
-                return parseInt((nowHour - hour) / 100) + '시간 전';
-            }
-        }
-    }
-
     clone(obj) {
         if (obj === null || typeof(obj) !== 'object')
             return obj;
@@ -269,60 +248,6 @@ export class Carousel {
         }
     }
 
-    getDate(value) {
-        const splitDate = value.split('-');
-
-        const yy = parseInt(splitDate[0]);
-        const mm = parseInt(splitDate[1]);
-        const dd = parseInt(splitDate[2]);
-
-        let dateValue = 0;
-
-        for (let x = 2016; x < yy; x++) {
-            if (x % 4 == 0) {
-                if (x % 100 != 0 || x % 400 == 0) {
-                    dateValue += 366;
-                }
-            } else {
-                dateValue += 365;
-            }
-        }
-
-        for (let x = 1; x < mm; x++) {
-            switch (x) {
-                case 4:
-                case 6:
-                case 9:
-                case 11:
-                    dateValue += 31;
-                    break;
-                case 2:
-                    dateValue += 28;
-                default:
-                    dateValue += 31;
-                    break;
-            }
-        }
-
-        dateValue += dd;
-
-        return (dateValue);
-    }
-
-    getTime(value) {
-        const splitTime = value.split(':');
-
-        const hh = parseInt(splitTime[0]);
-        const mm = parseInt(splitTime[1]);
-        const ss = parseInt(splitTime[2]);
-
-        let timeValue = 0;
-
-        timeValue = (mm + (hh * 60)) * 100;
-        timeValue += ss;
-
-        return timeValue / 1e6;
-    }
 }
 
 // 메시지 토스트 기능
@@ -457,9 +382,12 @@ export class Counter {
         this.c1 = 0;
         this.c2 = 0;
         this.c3 = 0;
-        this.setData();
-        this.setAnimation()
 
+        const manager = new TimeManager();
+        this.timestamp = manager.timestamp();
+
+        this.setData();
+        this.setAnimation();
     }
 
     setAnimation() {
@@ -489,11 +417,10 @@ export class Counter {
         let todayReviewCount = 0;
 
         Object.keys(reviewData).forEach(function (e) {
-            if (timestamp().split(" ")[0] === reviewData[e].timestamp.split(" ")[0]) {
+            if (this.timestamp.split(" ")[0] === reviewData[e].timestamp.split(" ")[0]) {
                 todayReviewCount += 1;
             }
-        })
-
+        }.bind(this));
 
         this.c1 = parseInt(productCount);
         this.c2 = parseInt(reviewCount);
@@ -501,52 +428,4 @@ export class Counter {
 
 
     }
-}
-
-function getNowTimeScore() {
-    const d = new Date();
-    const curr_date = d.getDate();
-    const curr_month = d.getMonth() + 1; //Months are zero based
-    const curr_year = d.getFullYear();
-    const curr_hour = d.getHours();
-    const curr_minute = d.getMinutes();
-    const curr_second = d.getSeconds();
-
-    let dateValue = 0;
-
-    for (let x = 2016; x < curr_year; x++) {
-        if (x % 4 == 0) {
-            if (x % 100 != 0 || x % 400 == 0) {
-                dateValue += 366;
-            }
-        } else {
-            dateValue += 365;
-        }
-    }
-
-    for (let x = 1; x < curr_month; x++) {
-        switch (x) {
-            case 4:
-            case 6:
-            case 9:
-            case 11:
-                dateValue += 31;
-                break;
-            case 2:
-                dateValue += 28;
-            default:
-                dateValue += 31;
-                break;
-        }
-    }
-
-    dateValue += curr_date;
-
-
-    let timeValue = 0;
-
-    timeValue = (curr_minute + (curr_hour * 60)) * 100;
-    timeValue += curr_second;
-
-    return parseFloat(dateValue + (timeValue / 1e6));
 }
