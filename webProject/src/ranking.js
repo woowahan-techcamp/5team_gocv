@@ -1,18 +1,5 @@
-document.addEventListener('DOMContentLoaded', function (event) {
-    const documentParams = {
-        tab: '.main-rank-tab-wrapper',
-        selected: 'main-rank-selectedtab',
-        content: '.main-rank-content',
-        template: '#card-ranking-template',
-        check_key: 'main-rank-tab main-rank-selectedtab'
-    };
-
-    new MainRankingPreview(documentParams);
-
-});
-
 // main 인기 있는 리뷰 설정
-class MainRankingPreview {
+export class MainRankingPreview {
     constructor(documentParams) {
         this.rank_tab = document.querySelector(documentParams.tab);
         this.template = document.querySelector(documentParams.template).innerHTML;

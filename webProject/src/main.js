@@ -1,51 +1,42 @@
-document.addEventListener('DOMContentLoaded', function (event) {
-    const searchParams = {
-        brand: '.fixTab-search-brand',
-        brand_dropdown: '.fixTab-search-brand-dropdown',
-        category: '.fixTab-search-category',
-        category_drowndown: '.fixTab-search-category-dropdown',
-        text: '.fixTab-search-word',
-        button: '.fixTab-search-button'
-    };
+import { DB } from './index.js';
 
-    new SearchTab(searchParams);
+export class PopupOverlayClick {
 
-    const user = firebase.auth().currentUser;
+    constructor() {
+        this.signOverlay = document.querySelector('.sign-overlay');
+        this.signInner = document.querySelector('.sign-wrapper');
 
-    const profileDrop = document.querySelector('.fixTab-profile-id');
+        this.signFlag = false;
 
-    profileDrop.addEventListener("mouseover", function () {
-        const dropdown = document.querySelector((".fixTab-profile-dropdown"));
-        if (dropdown.style.display === "block") {
-        } else {
-            dropdown.style.display = "block";
+        this.getEvent();
+    }
+
+    getEvent() {
+        /* sign in modal settings */
+        this.signOverlay.addEventListener('click', function () {
+            if (!this.signFlag) {
+                this.closePopup();
+            }
+            this.signFlag = false;
+
+        }.bind(this));
+
+        this.signInner.addEventListener('click', function () {
+            this.signFlag = true;
+        }.bind(this));
+
+    }
+
+    closePopup() {
+        if (!this.signFlag) {
+            this.signOverlay.style.display = "none";
+            this.signFlag = false;
         }
-    });
-
-    profileDrop.addEventListener("mouseout", function () {
-        const dropdown = document.querySelector((".fixTab-profile-dropdown"));
-
-        if (dropdown.style.display === "block") {
-            dropdown.style.display = "none";
-        }
-    });
-
-    const carousel = new Carousel('reviewNavi', 'carousel-leftButton',
-        'carousel-rightButton', 10, 'carousel-template', 'carouselSec');
-    const counter = new Counter(800);
-
-    setRefreshOverlay();
-});
-
-function setRefreshOverlay() {
-    const popup = document.querySelector('#popup');
-
-    popup.addEventListener('click', function () {
-        document.getElementsByClassName('popup-close-fake')[0].click();
-    });
+    }
 }
 
-class Dropdown {
+export class Dropdown {
+
     constructor(event, button, drop) {
         this.event = event;
         this.button = button;
@@ -71,7 +62,7 @@ class Dropdown {
     }
 }
 
-class Util {
+export class Util {
 
     ajax(func) {
         const oReq = new XMLHttpRequest();
@@ -107,7 +98,7 @@ class Util {
 }
 
 //main 상단 리뷰 캐러셀
-class Carousel {
+export class Carousel {
 
     constructor(reviewNavi, leftButton, rightButton, count, template, sec) {
         this.reviewNavi = reviewNavi;
@@ -370,7 +361,8 @@ class Carousel {
     }
 }
 
-class Toast {
+// 메시지 토스트 기능
+export class Toast {
     constructor(message) {
         this.message = message;
         this.setEvent();
@@ -390,18 +382,24 @@ class Toast {
     }
 }
 
-
 //메인 상단 고정 탭
-class SearchTab {
+export class SearchTab {
     constructor(searchParams) {
-        this.searchParams = searchParams;
+        this.searchParams = {
+            brand: '.fixTab-search-brand',
+            brand_dropdown: '.fixTab-search-brand-dropdown',
+            category: '.fixTab-search-category',
+            category_drowndown: '.fixTab-search-category-dropdown',
+            text: '.fixTab-search-word',
+            button: '.fixTab-search-button'
+        };
 
-        this.brandDrop = document.querySelector(searchParams.brand);
-        this.brandNavi = document.querySelector(searchParams.brand_dropdown);
-        this.categoryDrop = document.querySelector(searchParams.category);
-        this.categoryNavi = document.querySelector(searchParams.category_drowndown);
-        this.inputText = document.querySelector(searchParams.text);
-        this.searchButton = document.querySelector(searchParams.button);
+        this.brandDrop = document.querySelector(this.searchParams.brand);
+        this.brandNavi = document.querySelector(this.searchParams.brand_dropdown);
+        this.categoryDrop = document.querySelector(this.searchParams.category);
+        this.categoryNavi = document.querySelector(this.searchParams.category_drowndown);
+        this.inputText = document.querySelector(this.searchParams.text);
+        this.searchButton = document.querySelector(this.searchParams.button);
         this.fixTabNavi = document.querySelector("#fixTabNavi");
 
         this.init();
@@ -488,7 +486,7 @@ class SearchTab {
 }
 
 //메인 하단 jquery plugin 을 이용한 counter, 매개변수는 스크롤 위치를 의미
-class Counter {
+export class Counter {
     constructor(max) {
         this.max = max;
         this.c1 = 0;
@@ -766,6 +764,8 @@ class Review {
             mountainImagesRef.put(file).then(function (snapshot) {
                 this.updateDb();
             }.bind(this));
+
+
         }
     }
 
@@ -1315,49 +1315,6 @@ class ReviewRating {
 
 }
 
-class DB {
-    constructor() {
-        this.user = JSON.parse(localStorage['user']);
-        this.product = JSON.parse(localStorage['product']);
-        this.review = JSON.parse(localStorage['review']);
-    }
-
-    init() {
-        this.updateUserDb();
-        this.updateProductDb();
-        this.updateReviewDb();
-    }
-
-    updateUserDb() {
-        firebase.database().ref('user/').once('value').then(function (snapshot) {
-            localStorage['user'] = JSON.stringify(snapshot.val());
-            this.user = JSON.parse(localStorage['user']);
-            document.querySelector('#loading').style.display = "none"
-            console.log("user 캐시 업데이트")
-
-        }.bind(this));
-    }
-
-    updateReviewDb() {
-        firebase.database().ref('review/').once('value').then(function (snapshot) {
-            localStorage['review'] = JSON.stringify(snapshot.val());
-            this.product = JSON.parse(localStorage['review']);
-            document.querySelector('#loading').style.display = "none"
-            console.log("review 캐시 업데이트")
-
-        }.bind(this));
-    }
-
-    updateProductDb() {
-        firebase.database().ref('product/').once('value').then(function (snapshot) {
-            localStorage['product'] = JSON.stringify(snapshot.val());
-            this.review = JSON.parse(localStorage['product']);
-            document.querySelector('#loading').style.display = "none"
-            console.log("product 캐시 업데이트")
-        }.bind(this));
-    }
-}
-
 class ItemPopup {
 
     constructor() {
@@ -1480,7 +1437,6 @@ function timestamp() {
 
 }
 
-
 function loadDetailProduct(event) {
 
     $("body").css("overflow", "hidden");
@@ -1494,13 +1450,6 @@ function loadDetailProduct(event) {
     const user = localStorage['user'];
     const obj3 = JSON.parse(user);
     const userId = firebase.auth().currentUser.uid;
-
-    // console.log(obj3[userId].review_like_list);
-    // Object.keys(obj2).forEach(function (e) {
-    //     if(!!obj3[userId].review_like_list[e]){
-    //         console.log(e);
-    //     }
-    // });
 
     //상품의 d 값받기 각종 초기 설정
     const id = event.getAttribute("name");
@@ -1727,3 +1676,4 @@ function loadReviewDetail(event) {
 //이런식으로 해야 웹팩에서 function을 html onclick으로 사용가능
 window.loadDetailProduct = loadDetailProduct;
 window.loadReviewDetail = loadReviewDetail;
+

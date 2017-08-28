@@ -1,42 +1,6 @@
-document.addEventListener('DOMContentLoaded', function () {
+export class RankingViewPage {
+    constructor(rankingParams) {
 
-    const rankingParams = {
-        sort_tab: '.rank-query-type-wrapper',
-        selected_sort: 'selected-rank-query-tab',
-        sort_check_key: 'rank-query-tab selected-rank-query-tab',
-
-        category_tab: '.rank-category-wrapper',
-        selected_category: 'selected-rank-category-tab',
-        category_check_key: 'rank-category-tab selected-rank-category-tab',
-
-        brand_tab: '.rank-brand-type',
-        selected_brand: 'selected-rank-brand-type-tab',
-        brand_check_key: 'rank-brand-type-tab selected-rank-brand-type-tab',
-
-        template: '#rank-card-template',
-        content: '.ranking-item-list-wrapper'
-    };
-
-    const searchParams = getSearchParams();
-
-    new RankingViewPage(rankingParams, searchParams);
-});
-
-function getSearchParams() {
-    const getObject = JSON.parse(localStorage['search_keyword']);
-
-    const searchParams = {};
-
-    searchParams.brand = getObject.brand;
-    searchParams.category = getObject.category;
-    searchParams.sort = 'grade';
-    searchParams.keyword = getObject.keyword;
-
-    return searchParams;
-}
-
-class RankingViewPage {
-    constructor(rankingParams, searchParams) {
         // sort
         this.sort_rank_tab = document.querySelector(rankingParams.sort_tab);
         this.selected_sort_rank_tab = rankingParams.selected_sort;
@@ -52,7 +16,7 @@ class RankingViewPage {
         this.selected_category_rank_tab = rankingParams.selected_category;
         this.category_key = rankingParams.category_check_key;
 
-        this.searchObject = searchParams;
+        this.searchObject = this.getSearchParams();
         this.arrayObj = this.getArrayObject();
 
         this.flag = true;
@@ -72,10 +36,23 @@ class RankingViewPage {
         this.reloadEvent();
     }
 
-    setClickEvent() {
-        document.querySelector('.fixTab-search-button').addEventListener('click', function () {
-            const storage = localStorage['search_keyword'];
-            const value = JSON.parse(storage);
+    getSearchParams(){
+        const getObject = JSON.parse(localStorage['search_keyword']);
+
+        const searchParams = {};
+
+        searchParams.brand = getObject.brand;
+        searchParams.category = getObject.category;
+        searchParams.sort = 'grade';
+        searchParams.keyword = getObject.keyword;
+
+        return searchParams;
+    }
+
+    setClickEvent(){
+      document.querySelector('.fixTab-search-button').addEventListener('click', function() {
+          const storage = localStorage['search_keyword'];
+          const value = JSON.parse(storage);
 
             const brand = this.getBrandName(value.brand);
             value['brand'] = brand;
