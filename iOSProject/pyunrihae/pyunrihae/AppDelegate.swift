@@ -73,6 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate{
             
             let user_instance = User.init(id: (user?.uid)!, email: (user?.email)!, nickname: (user?.displayName)!)
             DataManager.saveUser(user: user_instance)
+            self.user = user_instance
             NotificationCenter.default.post(name: NSNotification.Name("userLogined"), object: nil)
         }
         
@@ -86,6 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate{
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
+            self.user = User.init()
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
         }
