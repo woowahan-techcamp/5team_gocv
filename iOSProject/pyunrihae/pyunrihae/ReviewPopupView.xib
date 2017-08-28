@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16D30" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -85,20 +84,20 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y5n-QR-fl5">
-                                    <rect key="frame" x="15" y="221.5" width="106.5" height="18"/>
+                                    <rect key="frame" x="15" y="221.5" width="85" height="20"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6yg-Ih-AWY">
-                                            <rect key="frame" x="0.0" y="0.0" width="142" height="24"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6yg-Ih-AWY">
+                                            <rect key="frame" x="0.0" y="0.0" width="85" height="20"/>
                                         </imageView>
                                     </subviews>
                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" secondItem="y5n-QR-fl5" secondAttribute="height" multiplier="71:12" id="Eyz-CK-lHg"/>
                                         <constraint firstAttribute="trailing" secondItem="6yg-Ih-AWY" secondAttribute="trailing" id="Hs8-pm-38E"/>
+                                        <constraint firstAttribute="height" constant="20" id="Mki-Dl-bwX"/>
                                         <constraint firstAttribute="bottom" secondItem="6yg-Ih-AWY" secondAttribute="bottom" id="Mwd-Du-1aa"/>
                                         <constraint firstItem="6yg-Ih-AWY" firstAttribute="leading" secondItem="y5n-QR-fl5" secondAttribute="leading" id="SNx-j3-NmG"/>
-                                        <constraint firstAttribute="height" constant="18" id="pva-Ww-9df"/>
                                         <constraint firstItem="6yg-Ih-AWY" firstAttribute="top" secondItem="y5n-QR-fl5" secondAttribute="top" id="xtI-2B-G1v"/>
+                                        <constraint firstAttribute="width" constant="85" id="yiV-HX-7dG"/>
                                     </constraints>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SZg-MJ-eTQ">
