@@ -7,6 +7,7 @@
 //
 import UIKit
 class ProductReviewTableViewCell: UITableViewCell {
+    @IBOutlet weak var starImageView: UIImageView!
     @IBOutlet weak var uploadedFoodImage: UIImageView!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var usefulView: UIView!
@@ -21,7 +22,6 @@ class ProductReviewTableViewCell: UITableViewCell {
     @IBOutlet weak var badNumLabel: UILabel!
     @IBOutlet weak var usefulNumLabel: UILabel!
     @IBOutlet weak var reviewBoxView: UIView!
-    @IBOutlet weak var starView: UIView!
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var uploadedFoodImageBtn: UIButton!
     @IBOutlet weak var detailReviewLabel: UILabel!

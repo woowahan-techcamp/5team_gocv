@@ -51,10 +51,21 @@ class ProductDetailViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(startUploading), name: NSNotification.Name("startUploading"), object: nil)
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         self.view.addGestureRecognizer(tap)
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        self.view.addGestureRecognizer(swipeRight)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+                case UISwipeGestureRecognizerDirection.right: close()
+                default: break
+            }
+        }
     }
     func handleTap(_ sender: UITapGestureRecognizer) { // 탭해주면 리뷰 작성 버튼 뜸
         if hidden == true {
@@ -65,9 +76,18 @@ class ProductDetailViewController: UIViewController {
             })
         }
     }
-    @IBAction func closeNavViewBtn(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
+    func close() {
+        let transition = CATransition()
+        transition.duration = 0.4
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromLeft
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        self.view.window!.layer.add(transition, forKey: kCATransition)
+        self.dismiss(animated: false, completion: nil)
         NotificationCenter.default.post(name: NSNotification.Name("reloadReview"), object: self)
+    }
+    @IBAction func closeNavViewBtn(_ sender: UIButton) {
+        close()
     }
     @IBAction func tabWishBtn(_ sender: UIButton) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -342,20 +362,18 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                         }
                         cell.uploadedFoodImageBtn.isHidden = true
                     }
-                    for sub in cell.starView.subviews {
+                    for sub in cell.starImageView.subviews {
                         sub.removeFromSuperview()
                     }
-                    // 리뷰어 각각의 별점
-                    for i in 0..<Int(reviewList[row].grade) {
-                        let starImage = UIImage(named: "stars.png")
-                        let cgImage = starImage?.cgImage
-                        let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: 0, y: 0, width: (starImage?.size.width)! / 5, height: starImage!.size.height))!
-                        let uiImage = UIImage(cgImage: croppedCGImage)
-                        let imageView = UIImageView(image: uiImage)
-                        imageView.frame = CGRect(x: i*18, y: 0, width: 18, height: 15)
-                        cell.starView.addSubview(imageView)
-                    }
-                }
+                    cell.starImageView.contentMode = .scaleAspectFit
+                    switch(reviewList[row].grade) {
+                        case 1 : cell.starImageView?.image = #imageLiteral(resourceName: "star1.png")
+                        case 2: cell.starImageView?.image = #imageLiteral(resourceName: "star2.png")
+                        case 3 : cell.starImageView?.image = #imageLiteral(resourceName: "star3.png")
+                        case 4 : cell.starImageView?.image = #imageLiteral(resourceName: "star4.png")
+                        case 5 : cell.starImageView?.image = #imageLiteral(resourceName: "star5.png")
+                        default : cell.starImageView?.image = #imageLiteral(resourceName: "star3.png")
+                    }                }
             } else {
                 cell.isHidden = true
             }
