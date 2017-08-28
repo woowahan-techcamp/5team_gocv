@@ -50,36 +50,36 @@ class MainRankingPreview {
         }.bind(this));
     }
 
-    queryData(value){
-      const queryObj = [];
+    queryData(value) {
+        const queryObj = [];
 
-      for(const key in this.obj){
-        if(this.obj[key].category === value){
-          queryObj.push(this.obj[key]);
+        for (const key in this.obj) {
+            if (this.obj[key].category === value) {
+                queryObj.push(this.obj[key]);
+            }
         }
-      }
 
-      const sortObj = this.setGradeSort(queryObj);
+        const sortObj = this.setGradeSort(queryObj);
 
-      const data = sortObj.slice(0, 3);
-      this.setRankingData(data);
+        const data = sortObj.slice(0, 3);
+        this.setRankingData(data);
     }
 
-    setGradeSort(array){
-      array.sort(function(a, b){
-        const beforeGrade = parseFloat(a.grade_avg);
-        const afterGrade = parseFloat(b.grade_avg);
+    setGradeSort(array) {
+        array.sort(function (a, b) {
+            const beforeGrade = parseFloat(a.grade_avg);
+            const afterGrade = parseFloat(b.grade_avg);
 
-        if (beforeGrade < afterGrade) {
-          return 1;
-        } else if (beforeGrade > afterGrade) {
-          return -1;
-        } else{
-          return 0;
-        }
-      });
+            if (beforeGrade < afterGrade) {
+                return 1;
+            } else if (beforeGrade > afterGrade) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
 
-      return array;
+        return array;
     }
 
     setRankingData(data) {
@@ -102,8 +102,8 @@ class MainRankingPreview {
 
     setRatingHandler(value) {
         let i = 1;
-        for(const x of value){
-            $("#card-main-rank-rating"+i).rateYo({
+        for (const x of value) {
+            $("#card-main-rank-rating" + i).rateYo({
                 rating: x.grade_avg,
                 readOnly: true,
                 spacing: "10px",
@@ -114,6 +114,5 @@ class MainRankingPreview {
             i++;
         }
     }
-
-
 }
+

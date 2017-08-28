@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
     };
 
     new SearchTab(searchParams);
+
     const user = firebase.auth().currentUser;
 
     const profileDrop = document.querySelector('.fixTab-profile-id');
@@ -33,51 +34,15 @@ document.addEventListener('DOMContentLoaded', function (event) {
         'carousel-rightButton', 10, 'carousel-template', 'carouselSec');
     const counter = new Counter(800);
 
-    new PopupOverlayClick();
     setRefreshOverlay();
 });
 
-function setRefreshOverlay(){
+function setRefreshOverlay() {
     const popup = document.querySelector('#popup');
 
     popup.addEventListener('click', function () {
         document.getElementsByClassName('popup-close-fake')[0].click();
     });
-}
-
-class PopupOverlayClick {
-
-    constructor() {
-        this.signOverlay = document.querySelector('.sign-overlay');
-        this.signInner = document.querySelector('.sign-wrapper');
-
-        this.signFlag = false;
-
-        this.getEvent();
-    }
-
-    getEvent() {
-        /* sign in modal settings */
-        this.signOverlay.addEventListener('click', function () {
-            if (!this.signFlag) {
-                this.closePopup();
-            }
-            this.signFlag = false;
-
-        }.bind(this));
-
-        this.signInner.addEventListener('click', function () {
-            this.signFlag = true;
-        }.bind(this));
-
-    }
-
-    closePopup() {
-        if (!this.signFlag) {
-            this.signOverlay.style.display = "none";
-            this.signFlag = false;
-        }
-    }
 }
 
 class Dropdown {
@@ -438,12 +403,13 @@ class SearchTab {
         this.inputText = document.querySelector(searchParams.text);
         this.searchButton = document.querySelector(searchParams.button);
         this.fixTabNavi = document.querySelector("#fixTabNavi");
+
         this.init();
     }
 
     init() {
         this.dropdownEvent();
-        this.setTabClickEvent()
+        this.setTabClickEvent();
     }
 
     dropdownEvent() {
@@ -466,6 +432,7 @@ class SearchTab {
             document.querySelector(".rank-container").style.display = "";
         }.bind(this));
     }
+
 
     setQuery() {
         const queryBrand = this.brandDrop.firstChild.innerText;
@@ -493,6 +460,14 @@ class SearchTab {
 
             const text = document.getElementsByClassName("fixTab-select")[0].innerHTML;
 
+            const value = {
+                brand: 'all',
+                category: '전체',
+                keyword: ''
+            };
+
+            localStorage['search_keyword'] = JSON.stringify(value);
+
             if (text === "편리해") {
                 document.querySelector(".main-wrapper").style.display = "";
                 document.querySelector(".rank-container").style.display = "none";
@@ -501,13 +476,6 @@ class SearchTab {
                 document.querySelector(".main-wrapper").style.display = "none";
                 document.querySelector(".rank-container").style.display = "";
                 document.querySelector(".review-container").style.display = "none";
-                const value = {
-                    brand: 'all',
-                    category: '전체',
-                    keyword: ''
-                };
-
-                localStorage['search_keyword'] = JSON.stringify(value);
             } else if (text === "리뷰") {
                 document.querySelector(".main-wrapper").style.display = "none";
                 document.querySelector(".rank-container").style.display = "none";
@@ -1085,8 +1053,8 @@ class ReviewFilter {
         }
 
         let i = 0;
-        for(const x in sortObj){
-            const value =sortObj[x];
+        for (const x in sortObj) {
+            const value = sortObj[x];
 
             value['rating'] = "carousel-review-star" + i;
             result.push(value);
