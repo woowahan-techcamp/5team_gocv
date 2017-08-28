@@ -1,5 +1,5 @@
 import {Util,Dropdown, Toast} from './main'
-import {DB} from './index'
+import {DB, UpdateData} from './index.js'
 
 export class PopupOverlayClick {
 
@@ -413,6 +413,7 @@ class Review {
 
                 loadDetailProduct(event);
 
+                new UpdateData();
 
             }.bind(that));
 

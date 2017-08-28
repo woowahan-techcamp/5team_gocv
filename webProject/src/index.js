@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
     });
     setRefreshOverlay();
 
-    //brand.js
+    /*//brand.js
     const gsParams = {
         brand: 'gs',
         leftBtn: 'gs-left-scroll',
@@ -124,7 +124,8 @@ document.addEventListener('DOMContentLoaded', function (event) {
         content: '.review-item-list-wrapper',
         readmore: 'review-card-readmore'
     };
-    new ReviewPage(reviewParams);
+    new ReviewPage(reviewParams);*/
+    new UpdateData();
 
     //sign.js
     const signUp = new SignUp();
@@ -133,6 +134,83 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
 
 });
+
+export class UpdateData{
+    constructor(){
+        //brand.js
+        const gsParams = {
+            brand: 'gs',
+            leftBtn: 'gs-left-scroll',
+            rightBtn: 'gs-right-scroll',
+            // ul
+            wrapper: '.brand-rank-item',
+            template: 'brand-ranking-template',
+            item_wrapper: 'gs-item-wrapper'
+        };
+        const cuParams = {
+            brand: 'cu',
+            leftBtn: 'cu-left-scroll',
+            rightBtn: 'cu-right-scroll',
+            // ul
+            wrapper: '.brand-rank-item',
+            template: 'brand-ranking-template',
+            item_wrapper: 'cu-item-wrapper'
+        };
+        const sevenParams = {
+            brand: 'seven',
+            leftBtn: 'seven-left-scroll',
+            rightBtn: 'seven-right-scroll',
+            // ul
+            wrapper: '.brand-rank-item',
+            template: 'brand-ranking-template',
+            item_wrapper: 'seven-item-wrapper'
+        };
+
+        new BrandRankingPreview(gsParams, 'GS25');
+        new BrandRankingPreview(cuParams, 'CU');
+        new BrandRankingPreview(sevenParams, '7-eleven');
+
+        //ranking.js
+        const documentParams = {
+            tab: '.main-rank-tab-wrapper',
+            selected: 'main-rank-selectedtab',
+            content: '.main-rank-content',
+            template: '#card-ranking-template',
+            check_key: 'main-rank-tab main-rank-selectedtab'
+        };
+        new MainRankingPreview(documentParams);
+
+        //rankingTab.js
+        const rankingParams = {
+            sort_tab: '.rank-query-type-wrapper',
+            selected_sort: 'selected-rank-query-tab',
+            sort_check_key: 'rank-query-tab selected-rank-query-tab',
+
+            category_tab: '.rank-category-wrapper',
+            selected_category: 'selected-rank-category-tab',
+            category_check_key: 'rank-category-tab selected-rank-category-tab',
+
+            brand_tab: '.rank-brand-type',
+            selected_brand: 'selected-rank-brand-type-tab',
+            brand_check_key: 'rank-brand-type-tab selected-rank-brand-type-tab',
+
+            template: '#rank-card-template',
+            content: '.ranking-item-list-wrapper'
+        };
+        new RankingViewPage(rankingParams);
+
+        //review.js
+        const reviewParams = {
+            sort_tab: '.review-query-type-wrapper',
+            selected_sort: 'selected-review-query-tab',
+            sort_check_key: 'review-query-tab selected-review-query-tab',
+            template: '#card-review-page-template',
+            content: '.review-item-list-wrapper',
+            readmore: 'review-card-readmore'
+        };
+        new ReviewPage(reviewParams);
+    }
+}
 
 
 
