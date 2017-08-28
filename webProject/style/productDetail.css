@@ -62,9 +62,9 @@
 }
 
 .popup-reviewImage{
-    background-image: url("/image/ex2.png");
-    background-repeat: no-repeat;
-    background-size: cover;
+    /*background-image: url("/image/ex1.png");*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: cover;*/
     width: 100%;
     background-color: black;
     background-position: center;
@@ -227,6 +227,7 @@
     width: 23%;
     margin: 20px 1% 15px 1%;
     border-radius: 10px;
+    padding: 10px;
     height: 250px;
     float: left;
     background-color: white;
@@ -284,7 +285,7 @@
 }
 
 .popup-reviewFilter-element:hover{
-    background: darkslategray;
+    background: gray;
     color: #ffffff;
 }
 
@@ -376,7 +377,8 @@
 }
 
 .popup-review-image{
-
+    position: relative;
+    z-index: 110;
     background-size: contain;
     border-radius: 10px;
     width: 17%;
