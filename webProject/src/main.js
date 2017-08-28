@@ -27,6 +27,7 @@ export class Dropdown {
         }.bind(this), true);
     }
 }
+
 export class Util {
 
     ajax(func) {
