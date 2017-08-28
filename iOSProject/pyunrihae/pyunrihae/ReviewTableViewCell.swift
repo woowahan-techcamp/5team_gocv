@@ -15,9 +15,9 @@ class ReviewTableViewCell: UITableViewCell {
     @IBOutlet weak var brandLabel: UILabel!
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var reviewContentLabel: UILabel!
-    @IBOutlet weak var starView: UIView!
     @IBOutlet weak var gradeLabel: UILabel!
     @IBOutlet weak var loading: UIActivityIndicatorView!
+    @IBOutlet weak var starImageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
     }

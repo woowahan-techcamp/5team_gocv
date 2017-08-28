@@ -362,20 +362,18 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                         }
                         cell.uploadedFoodImageBtn.isHidden = true
                     }
-                    for sub in cell.starView.subviews {
+                    for sub in cell.starImageView.subviews {
                         sub.removeFromSuperview()
                     }
-                    // 리뷰어 각각의 별점
-                    for i in 0..<Int(reviewList[row].grade) {
-                        let starImage = UIImage(named: "stars.png")
-                        let cgImage = starImage?.cgImage
-                        let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: 0, y: 0, width: (starImage?.size.width)! / 5, height: starImage!.size.height))!
-                        let uiImage = UIImage(cgImage: croppedCGImage)
-                        let imageView = UIImageView(image: uiImage)
-                        imageView.frame = CGRect(x: i*18, y: 0, width: 18, height: 15)
-                        cell.starView.addSubview(imageView)
-                    }
-                }
+                    cell.starImageView.contentMode = .scaleAspectFit
+                    switch(reviewList[row].grade) {
+                        case 1 : cell.starImageView?.image = #imageLiteral(resourceName: "star1.png")
+                        case 2: cell.starImageView?.image = #imageLiteral(resourceName: "star2.png")
+                        case 3 : cell.starImageView?.image = #imageLiteral(resourceName: "star3.png")
+                        case 4 : cell.starImageView?.image = #imageLiteral(resourceName: "star4.png")
+                        case 5 : cell.starImageView?.image = #imageLiteral(resourceName: "star5.png")
+                        default : cell.starImageView?.image = #imageLiteral(resourceName: "star3.png")
+                    }                }
             } else {
                 cell.isHidden = true
             }

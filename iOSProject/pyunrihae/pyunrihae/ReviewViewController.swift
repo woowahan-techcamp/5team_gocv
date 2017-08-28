@@ -234,7 +234,19 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //ë
             cell.reviewContentLabel.text = review.comment
             cell.badLabel.text = review.bad.description
             cell.usefulLabel.text = review.useful.description
-            Image.drawStar(numberOfPlaces: 1.0, grade_avg: Double(review.grade), gradeLabel: cell.gradeLabel, starView: cell.starView, needSpace: false)
+            cell.gradeLabel.text = String(review.grade) + ".0"
+            for sub in cell.starImageView.subviews {
+                sub.removeFromSuperview()
+            }
+            cell.starImageView.contentMode = .scaleAspectFit
+            switch(review.grade) {
+                case 1 : cell.starImageView?.image = #imageLiteral(resourceName: "star1.png")
+                case 2: cell.starImageView?.image = #imageLiteral(resourceName: "star2.png")
+                case 3 : cell.starImageView?.image = #imageLiteral(resourceName: "star3.png")
+                case 4 : cell.starImageView?.image = #imageLiteral(resourceName: "star4.png")
+                case 5 : cell.starImageView?.image = #imageLiteral(resourceName: "star5.png")
+                default : cell.starImageView?.image = #imageLiteral(resourceName: "star3.png")
+            }
             cell.reviewView.layer.cornerRadius = 15
             return cell
         }
