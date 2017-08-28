@@ -49,13 +49,13 @@ class DataManager{
     // 브랜드 + 카테고리 전체일 때
     static func getTop3Product(completion: @escaping ([Product]) -> ()) {
         let localRef = ref.child("product")
-        
+
         localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             var productList : [Product] = []
             for childSnapshot in snapshot.children {
                 let product = Product.init(snapshot: childSnapshot as! DataSnapshot)
                 productList.append(product)
-                
+
             }
             productList = productList.sorted(by: { $0.grade_avg > $1.grade_avg})
             completion(productList)
@@ -73,7 +73,7 @@ class DataManager{
         })
     }
  */
-    
+
     /*
      * 리뷰 화면
      */
@@ -85,7 +85,7 @@ class DataManager{
              var reviewList : [Review] = []
             for childSnapshot in snapshot.children {
                 let review = Review.init(snapshot: childSnapshot as! DataSnapshot)
-                
+
                 if review.category == category {
                     reviewList.append(review)
                 }
@@ -397,7 +397,7 @@ class DataManager{
                 flavor_level[level] = 1
                 update["flavor_level"] = flavor_level
             }
-            
+
             level = "q" + quantityLevel.description
             if postDict["quantity_level"] != nil {
                 if var quantity_level = postDict["quantity_level"] as? [String: Int] {
@@ -416,7 +416,7 @@ class DataManager{
                 update["quantity_level"] = quantity_level
             }
             localRef.updateChildValues(update)
-            
+
             // 저장된 productList에서도 업데이트 해주도록!
             for product in (appdelegate?.productList)! {
                 if product.id == p_id {
@@ -447,9 +447,9 @@ class DataManager{
         autoId = components[1]
         // Create a storage reference from our storage service
         let storageRef = storage.reference(forURL: "gs://pyeonrehae.appspot.com")
-        let imagesRef = storageRef.child("images/" + autoId + ".png")
+        let imagesRef = storageRef.child("images/" + autoId + ".jpeg")
         var update = ["bad": 0, "useful": 0, "user": user, "user_image": user_image, "brand": brand, "category": category, "comment": review, "grade": grade, "price": priceLevel, "flavor": flavorLevel, "quantity": quantityLevel, "product_image": product_image,"p_id": p_id, "p_name": p_name, "p_price": p_price, "timestamp": today, "id": autoId] as [String : Any]
-        if let data = UIImagePNGRepresentation(p_image) {
+        if let data = UIImageJPEGRepresentation(p_image, 0.3) {
             imagesRef.putData(data, metadata: nil, completion: {
                 (metadata, error) in
                 if error != nil {
@@ -480,7 +480,7 @@ class DataManager{
             NotificationCenter.default.post(name: NSNotification.Name("reviewUpload"), object: self)
             NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
         }
-        
+
         let productRef = ref.child("product").child(p_id)
         productRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             let postDict = snapshot.value as? [String : AnyObject] ?? [:]
@@ -494,7 +494,7 @@ class DataManager{
             } else {
                 update["review_count"] = review_count
             }
-            
+
             if postDict["reviewList"] != nil {
                 if var reviewList = postDict["reviewList"] as? [String] {
                     var exist = false
@@ -514,54 +514,54 @@ class DataManager{
                 update["reviewList"] = reviewList
             }
             productRef.updateChildValues(update)
-            
+
         })
-        
+
         completion()
     }
     /*
      *  회원가입 화면
      */
-    
+
     // Firebase Auth의 user를 UserModel로 가져와서 넣기
     static func saveUser(user: User) {
         let localRef = ref.child("user")
         localRef.child(user.id).setValue(["id": user.id, "email" : user.email, "nickname" : user.nickname,  "review_like_list": user.review_like_list, "product_review_list" : user.product_review_list, "wish_product_list": user.wish_product_list])
     }
-    
+
     /*
      * 마이페이지 화면
      */
-    
+
     // uid로 User 불러오기.
     static func getUserFromUID(uid : String, completion: @escaping (User) -> ()){
         let localRef = ref.child("user").child(uid)
-        
+
         localRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             var user = User()
             user = User.init(snapshot: snapshot )
             completion(user)
         })
     }
-    
-    // user 닉네임 업데이트하기 
-    
+
+    // user 닉네임 업데이트하기
+
     static func updateUserNickname(user: User, nickname : String){
         user.nickname = nickname
         let localRef = ref.child("user")
         localRef.child(user.id).child("nickname").setValue(user.nickname)
     }
-    
-    // user 프로필 사진 업데이트 하기 
+
+    // user 프로필 사진 업데이트 하기
     static func updateUserProfile(user: User, profile : UIImage){
-        
+
         let localRef = ref.child("user")
-        
+
         let storage = Storage.storage()
-        
+
         let storageRef = storage.reference(forURL: "gs://pyeonrehae.appspot.com")
         let imagesRef = storageRef.child("images/" + user.id + ".png")
-        
+
         if let data = UIImagePNGRepresentation(profile) {
             imagesRef.putData(data, metadata: nil, completion: {
                 (metadata, error) in
@@ -583,36 +583,36 @@ class DataManager{
             // 올린 이미지를 PNG로 바꾸는데 실패하면 아무것도 하지 않는다.
         }
     }
-    
+
     // 카카오 링크 공유
     static func sendLinkFeed(review : Review) -> Void {
-        
+
         // Feed 타입 템플릿 오브젝트 생성
         let template = KLKFeedTemplate.init { (feedTemplateBuilder) in
-            
+
             // 컨텐츠
             feedTemplateBuilder.content = KLKContentObject.init(builderBlock: { (contentBuilder) in
                 contentBuilder.title = review.p_name
                 contentBuilder.desc = review.comment
-                
-                
+
+
                 if review.product_image != nil && review.product_image != "" {
                     contentBuilder.imageURL = URL.init(string : review.product_image)!
                 }else{
                     contentBuilder.imageURL = URL.init(string : "https://s3.ap-northeast-2.amazonaws.com/pyunrihae/Group%402x.png")!
                 }
-                
+
                 contentBuilder.link = KLKLinkObject.init(builderBlock: { (linkBuilder) in
-                    
+
                     linkBuilder.mobileWebURL = URL.init(string: "https://developers.kakao.com")
                 })
             })
-            
+
             // 소셜
             feedTemplateBuilder.social = KLKSocialObject.init(builderBlock: { (socialBuilder) in
                 socialBuilder.likeCount = review.useful as NSNumber
             })
-            
+
             // 버튼
             feedTemplateBuilder.addButton(KLKButtonObject.init(builderBlock: { (buttonBuilder) in
                 buttonBuilder.title = "웹으로 보기"
@@ -628,20 +628,20 @@ class DataManager{
                 })
             }))
         }
-        
+
         // 카카오링크 실행
         KLKTalkLinkCenter.shared().sendDefault(with: template, success: { (warningMsg, argumentMsg) in
-            
+
             // 성공
 //            self.view.stopLoading()
             print("warning message: \(String(describing: warningMsg))")
             print("argument message: \(String(describing: argumentMsg))")
-            
+
         }, failure: { (error) in
-            
+
             print("error \(error)")
-            
+
         })
     }
-    
+
 }

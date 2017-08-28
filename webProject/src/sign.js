@@ -1,24 +1,7 @@
-class Toast{
-    constructor(message){
-        this.message = message;
-        this.setEvent();
-    }
+import {Toast, Util} from './main.js'
+import {UpLoadImage} from './productDetail'
 
-    setEvent(){
-
-        const element = document.querySelector('#toast-msg')
-        element.innerHTML = this.message;
-        // element.style.display = 'block'
-        element.style.display = "block";
-        setTimeout(function(){
-            // element.style.display = 'none'
-            element.style.display = "none";
-
-        },1000)
-    }
-}
-
-class SignUp {
+export class SignUp {
     constructor(nic, email, pw1, pw2, pwCheck) {
         this.nic = nic;
         this.email = email;
@@ -175,8 +158,7 @@ class SignUp {
 
 
 }
-
-class SignIn {
+export class SignIn {
 
     constructor() {
         this.email = document.querySelector(".signin-id");
@@ -254,8 +236,7 @@ class SignIn {
     }
 
 }
-
-class SignConnect {
+export class SignConnect {
     constructor() {
         this.sign = document.querySelector('#sign');
         this.signup = document.querySelector('#signup');
@@ -287,71 +268,6 @@ class SignConnect {
 
 
 }
-
-class Util {
-
-    ajax(func) {
-        const oReq = new XMLHttpRequest();
-        oReq.addEventListener('load', function (e) {
-            const data = JSON.parse(oReq.responseText);
-            func.setData(data);
-        });
-
-        oReq.open('GET', func.url);
-        oReq.send();
-    }
-
-    template(data, template, section) {
-        const context = data;
-        const tmpl = Handlebars.compile(template);
-        section.innerHTML = tmpl(context);
-    }
-}
-
-//일단 중복해서 쓰기
-class UpLoadImage {
-    constructor(inputId, imgPreviewId) {
-        this.inputId = inputId;
-        this.imgPreviewId = imgPreviewId
-        this.init();
-    }
-
-    init() {
-        const inputBtn = document.querySelector("#" + this.inputId);
-        const previewBtn = document.querySelector("#" + this.imgPreviewId);
-
-        inputBtn.style.display = "none"
-
-        inputBtn.addEventListener("change", function () {
-            this.previewFile();
-        }.bind(this));
-
-        previewBtn.addEventListener("click", function () {
-            inputBtn.click();
-        })
-
-    }
-
-    previewFile() {
-        let preview = document.querySelector('#' + this.imgPreviewId);
-        let file = document.querySelector('#' + this.inputId).files[0];
-        let reader = new FileReader();
-
-        reader.addEventListener("load", function () {
-            preview.src = reader.result;
-
-        }, false);
-
-        if (!file) {
-        } else {
-            reader.readAsDataURL(file);
-        }
-
-
-    }
-
-}
-
 class MyPage {
     constructor() {
         const userStorage = localStorage['user'];
@@ -380,7 +296,7 @@ class MyPage {
 
         const wishReviewArr = [];
 
-        if(!!this.userData[this.userId].wish_product_list){
+        if (!!this.userData[this.userId].wish_product_list) {
             this.userData[this.userId].wish_product_list.forEach(function (e) {
                 wishReviewArr.push(productData[e]);
             });
@@ -392,8 +308,8 @@ class MyPage {
 
         this.setDeleteButtonEvent()
 
-        document.querySelector(".myPage-close").addEventListener("click",function(){
-
+        document.querySelector(".myPage-close").addEventListener("click", function () {
+            $("body").css("overflow", "visible");
         })
     }
 
@@ -436,11 +352,11 @@ class MyPage {
     setEventUpdateImage() {
         const uploadProfile = new UpLoadImage("profileImageInput", "profilePreview");
 
-        document.querySelector('#profileImageInput').addEventListener("change",function(){
+        document.querySelector('#profileImageInput').addEventListener("change", function () {
             document.querySelector('#loading').style.display = "block";
 
 
-            const that=this;
+            const that = this;
 
             let file = document.querySelector('#profileImageInput').files[0];
 
@@ -458,35 +374,47 @@ class MyPage {
         }.bind(this))
     }
 
-    setEventUpdateNicname(){
+    setEventUpdateNicname() {
         const changeBtn = document.querySelector(".myPage-profile-nickname");
-        changeBtn.addEventListener("click",function(){
-            const that = this;
-            document.querySelector('#loading').style.display = "block";
+        const input = document.querySelector(".myPage-profile-nickname-input");
 
 
-            const input = document.querySelector(".myPage-profile-nickname-input");
-            const changedName = input.value;
-            input.setAttribute("value",changedName);
 
-            firebase.database().ref('user/' + this.userId+'/nickname').set(changedName);
+        changeBtn.addEventListener("click", function () {
+
+            console.log(input.value);
+            console.log(input.getAttribute("placeholder"));
+
+            if (input.value !== " " && input.value !== input.getAttribute("placeholder")) {
+                const that = this;
+                document.querySelector('#loading').style.display = "block";
+                const changedName = input.value;
+                input.setAttribute("value", changedName);
+
+                firebase.database().ref('user/' + this.userId + '/nickname').set(changedName);
+                firebase.database().ref('user/').once('value').then(function (snapshot) {
+                    localStorage['user'] = JSON.stringify(snapshot.val());
 
 
-            firebase.database().ref('user/').once('value').then(function (snapshot) {
-                localStorage['user'] = JSON.stringify(snapshot.val());
+                    that.setProfileTab();
+                    document.querySelector('#loading').style.display = "none";
+                    input.setAttribute("placeholder",input.value);
+                    new Toast("닉네임이 변경되었습니다.");
+                }.bind(that));
+            } else if (input.value === "") {
+                new Toast("닉네임을 입력해주세요.");
 
+            } else if (input.value === input.getAttribute("placeholder")) {
+                new Toast("중복된 닉네임입니다");
 
-                that.setProfileTab();
-                document.querySelector('#loading').style.display = "none";
-                new Toast("닉네임이 변경되었습니다.");
+            }
 
-
-            }.bind(that));
+            document.querySelector('#loading').style.display = "none";
 
         }.bind(this))
 
-
     }
+
 
     updateDb() {
         const storageRef = firebase.storage().ref();
@@ -496,7 +424,7 @@ class MyPage {
             const that = this;
             // const userStorage = localStorage['user'];
 
-            database.ref('user/' + this.userId+'/user_profile').set(url);
+            database.ref('user/' + this.userId + '/user_profile').set(url);
 
             firebase.database().ref('user/').once('value').then(function (snapshot) {
                 localStorage['user'] = JSON.stringify(snapshot.val());
@@ -511,7 +439,7 @@ class MyPage {
         });
     }
 
-    setProfileTab(){
+    setProfileTab() {
         const userStorage = localStorage['user'];
         this.userData = JSON.parse(userStorage);
         //프로필 탭 설정
@@ -525,12 +453,13 @@ class MyPage {
     }
 
 }
-
 class UserInfoPopup {
 
     constructor() {
         this.popupOverlay = document.querySelector('.myPage-overlay');
         this.popupInner = document.querySelector('.myPage-wrapper');
+
+        $("body").css("overflow", "hidden");
 
         this.flag = false;
 
@@ -541,6 +470,7 @@ class UserInfoPopup {
         /* item view modal settings */
         this.popupOverlay.addEventListener('click', function () {
             if (!this.flag) {
+                $("body").css("overflow", "visible");
                 this.closePopup();
             } else {
                 this.flag = false;
@@ -556,14 +486,7 @@ class UserInfoPopup {
     closePopup() {
         if (!this.flag) {
             document.getElementsByClassName('popup-close-fake')[0].click();
-            $("body").css("overflow", "visible");
             this.flag = false;
         }
     }
 }
-
-
-const signUp = new SignUp();
-const signIn = new SignIn();
-const signConnect = new SignConnect();
-

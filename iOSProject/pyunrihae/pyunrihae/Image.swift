@@ -32,9 +32,23 @@ class Image {
             }
             imageView.frame = CGRect(x: Int(grade) * 18 - 3 + space, y: 0, width: 18, height: 15)
             starView.addSubview(imageView)
+            for i in (5 - Int(grade)..<5) {
+                let emptyStarImage =  UIImage(named: "empty_star.png")
+                let imageView = UIImageView(image: emptyStarImage)
+                imageView.contentMode = .scaleAspectFit
+                imageView.frame = CGRect(x: i * 18 - 3 + space, y: 0, width: 18, height: 15)
+                starView.addSubview(imageView)
+            }
         } else{
             if needSpace{
                 space = (5 - Int(grade)) * 15
+            }
+            for i in Int(grade)..<5 {
+                let emptyStarImage =  UIImage(named: "empty_star.png")
+                let imageView = UIImageView(image: emptyStarImage)
+                imageView.contentMode = .scaleAspectFit
+                imageView.frame = CGRect(x: i * 18 - 3 + space, y: 0, width: 18, height: 15)
+                starView.addSubview(imageView)
             }
         }
         for i in 0..<Int(grade) {

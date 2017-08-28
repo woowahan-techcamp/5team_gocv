@@ -22,6 +22,15 @@ a{
     color: #212121;
 }
 
+button{
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    outline: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
 #toast-msg {
     font-family: 'Hanna', serif;
     z-index: 300;
