@@ -7,7 +7,7 @@
 //
 import UIKit
 import FirebaseAuth
-class SignupViewController: UIViewController {
+class SignupViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var passWordConfirmTextField: UITextField!
     @IBOutlet weak var passWordTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
@@ -21,6 +21,15 @@ class SignupViewController: UIViewController {
         super.viewDidLoad()
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
+        
+        nicknameTextField.delegate = self
+        nicknameTextField.tag = 0
+        emailTextField.delegate = self
+        emailTextField.tag = 1
+        passWordTextField.delegate = self
+        passWordTextField.tag = 2
+        passWordConfirmTextField.delegate = self
+        passWordConfirmTextField.tag = 3
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -66,6 +75,7 @@ class SignupViewController: UIViewController {
         }
     }
     @IBAction func signUp(_ sender: Any) {
+        // 회원가입이 가능하면
         if completeBtn.isEnabled {
             // 회원가입 과정을 다 통과하면 user 만듦
             if (nicknameTextField.text?.characters.count)! > 10 {
@@ -102,6 +112,25 @@ class SignupViewController: UIViewController {
                     }
                 }
             }
+        }else{
+            // 회원가입 가능한 상태가 아니면
+            return
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+       
+        if textField.tag < 3 { // 마지막 필드가 아니면
+            if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField {
+                nextField.becomeFirstResponder()
+            } else {
+                // Not found, so remove keyboard.
+                textField.resignFirstResponder()
+            }
+        }else{
+            signUp(_: textField)
+        }
+        
+        return false
     }
 }

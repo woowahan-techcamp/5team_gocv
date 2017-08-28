@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D30" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="09o-sF-lFm">
-    <device id="retina3_5" orientation="portrait">
+
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -56,7 +57,7 @@
         <scene sceneID="xtN-fi-hkD">
             <objects>
                 <navigationController useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="ivr-CL-MQp" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="a0R-9B-fNe">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="a0R-9B-fNe">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1923,8 +1924,14 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오류가 났습니다." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mzZ-wP-2Vc">
-                                <rect key="frame" x="113.5" y="78" width="93" height="17"/>
+
+                                <rect key="frame" x="0.0" y="78" width="375" height="24"/>
+
                                 <color key="backgroundColor" red="1" green="0.47061997649999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="375" id="Bh0-fe-8FM"/>
+                                    <constraint firstAttribute="height" constant="24" id="ZU8-mn-wtp"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.98477339760000004" green="1" blue="0.97554714320000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -2026,7 +2033,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next"/>
                                 <connections>
                                     <action selector="onEmailTextChanged:" destination="KQa-R2-kWD" eventType="editingChanged" id="lNH-re-Khx"/>
                                 </connections>
@@ -2045,7 +2052,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" secureTextEntry="YES"/>
                                 <connections>
                                     <action selector="onPasswordTextChanged:" destination="KQa-R2-kWD" eventType="editingChanged" id="R8z-bP-hJf"/>
                                 </connections>
@@ -2058,13 +2065,15 @@
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="비밀번호를 한번 더 입력해주세요." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Rl-PH-Rad">
-                                <rect key="frame" x="62" y="389" width="226" height="30"/>
+
+                                <rect key="frame" x="66" y="389" width="277" height="30"/>
+
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="wq9-3H-9hB"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="join" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="join" secureTextEntry="YES"/>
                                 <connections>
                                     <action selector="onPasswordConfirmTextChanged:" destination="KQa-R2-kWD" eventType="editingChanged" id="K7Y-64-pbj"/>
                                 </connections>
@@ -2089,11 +2098,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오류가 났습니다." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lwj-zI-BFf">
-                                <rect key="frame" x="-27.5" y="86" width="375" height="17"/>
+
+                                <rect key="frame" x="0.0" y="86" width="375" height="24"/>
+
                                 <color key="backgroundColor" red="1" green="0.47061997649999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="375" id="4O8-wT-JJK"/>
-                                    <constraint firstAttribute="height" constant="17" id="qlL-ml-76f"/>
+                                    <constraint firstAttribute="height" constant="24" id="qlL-ml-76f"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.98477339760000004" green="1" blue="0.97554714320000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2126,10 +2137,10 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
                             </textField>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="비밀번호와 일치하지 않습니다." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DJb-Gp-tIC">
-                                <rect key="frame" x="62" y="427" width="145.5" height="14.5"/>
+                                <rect key="frame" x="66" y="427" width="145.5" height="14.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="1" green="0.47061997649999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -2152,7 +2163,7 @@
                             <constraint firstItem="hAM-RL-TaP" firstAttribute="centerY" secondItem="vQS-eu-BK0" secondAttribute="centerY" id="Hmh-9e-cW8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="kOV-iw-uH9" secondAttribute="trailing" constant="11.5" id="LRJ-wR-EsB"/>
                             <constraint firstItem="1Vk-M8-5xF" firstAttribute="centerX" secondItem="xmp-Dz-1Qo" secondAttribute="centerX" id="NBt-dI-JGq"/>
-                            <constraint firstItem="4Rl-PH-Rad" firstAttribute="leading" secondItem="ESb-dX-0ZU" secondAttribute="trailing" id="O22-Li-nq8"/>
+                            <constraint firstItem="4Rl-PH-Rad" firstAttribute="leading" secondItem="ESb-dX-0ZU" secondAttribute="trailing" constant="4" id="O22-Li-nq8"/>
                             <constraint firstItem="lwj-zI-BFf" firstAttribute="centerX" secondItem="xmp-Dz-1Qo" secondAttribute="centerX" id="WPc-tB-lRH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="cCO-g4-bVI" secondAttribute="trailing" constant="16" id="YXB-eL-Jz0"/>
                             <constraint firstItem="TBO-lJ-IOE" firstAttribute="top" secondItem="0h0-dB-PrQ" secondAttribute="bottom" constant="70" id="bO0-4L-dhc"/>
@@ -3022,7 +3033,7 @@
             <objects>
                 <navigationController storyboardIdentifier="mainNavigationController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9cE-6F-aqE" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Fmm-Zd-Qc7">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Fmm-Zd-Qc7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

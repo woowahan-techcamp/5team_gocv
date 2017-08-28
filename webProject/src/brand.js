@@ -1,89 +1,6 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const product = localStorage['product'];
-    const obj = JSON.parse(product);
 
-    const gsParams = {
-        brand: 'gs',
-        leftBtn: 'gs-left-scroll',
-        rightBtn: 'gs-right-scroll',
-        // ul
-        wrapper: '.brand-rank-item',
-        template: 'brand-ranking-template',
-        item_wrapper: 'gs-item-wrapper'
-    };
-
-    const cuParams = {
-        brand: 'cu',
-        leftBtn: 'cu-left-scroll',
-        rightBtn: 'cu-right-scroll',
-        // ul
-        wrapper: '.brand-rank-item',
-        template: 'brand-ranking-template',
-        item_wrapper: 'cu-item-wrapper'
-    };
-
-    const sevenParams = {
-        brand: 'seven',
-        leftBtn: 'seven-left-scroll',
-        rightBtn: 'seven-right-scroll',
-        // ul
-        wrapper: '.brand-rank-item',
-        template: 'brand-ranking-template',
-        item_wrapper: 'seven-item-wrapper'
-    };
-
-    const gsObj = brandFilter(obj, 'GS25');
-    const cuObj = brandFilter(obj, 'CU');
-    const sevObj = brandFilter(obj, '7-eleven');
-
-    new BrandRankingPreview(gsParams, gsObj);
-    new BrandRankingPreview(cuParams, cuObj);
-    new BrandRankingPreview(sevenParams, sevObj);
-});
-
-const category = [
-  '도시락', '김밥', '베이커리', '라면', '스낵', '아이스크림', '음료', '식품'];
-
-const defaultParam = {
-  brand: "",
- category: "",
- event: [],
- id: "",
- img:"",
- name: "",
- price: ""
-};
-
-function brandFilter(obj, param){
-  const value = [];
-  const finValue = [];
-
-  for(const key in obj){
-    if(obj[key].brand === param){
-      value.push(obj[key]);
-    }
-  }
-
-  for(const x in category){
-    finValue.push(defaultParam);
-  }
-
-  for(const key in value){
-    for(const x in category){
-      if(value[key].category === category[x]){
-        if(!!!finValue[x].price ||
-          finValue[x].grade_avg < value[key].grade_avg){
-            finValue[x] = value[key];
-        }
-      }
-    }
-  }
-
-  return finValue;
-}
-
-class BrandRankingPreview {
-    constructor(documentParams, obj) {
+export class BrandRankingPreview {
+    constructor(documentParams, brandName) {
         this.item_template = documentParams.item_wrapper;
         // this.wrapper = documentParams.wrapper;
         // btn
@@ -94,17 +11,18 @@ class BrandRankingPreview {
         this.brand = documentParams.brand;
         this.translateValue = 0;
 
+
+
         // dummy data
-        this.rankingData = obj;
-        this.rankingDataKey = Object.keys(obj);
+        this.rankingData = this.brandFilter(brandName);
+        this.rankingDataKey = Object.keys(this.rankingData);
         this.rankingDataSize = Object.keys(this.rankingData).length;
         // start
         this.index = 0;
         // view page
         this.query = 4;
-
-
         this.init();
+
     }
 
     init() {
@@ -276,4 +194,45 @@ class BrandRankingPreview {
             }.bind(that), 400);
         }.bind(this));
     }
+
+    brandFilter(param){
+        const obj = JSON.parse(localStorage['product']);
+
+        const value = [];
+        const finValue = [];
+        const category = ['도시락', '김밥', '베이커리', '라면', '스낵', '아이스크림', '음료', '식품'];
+        const defaultParam = {
+            brand: "",
+            category: "",
+            event: [],
+            id: "",
+            img:"",
+            name: "",
+            price: ""
+        };
+
+        for(const key in obj){
+            if(obj[key].brand === param){
+                value.push(obj[key]);
+            }
+        }
+
+        for(const x in category){
+            finValue.push(defaultParam);
+        }
+
+        for(const key in value){
+            for(const x in category){
+                if(value[key].category === category[x]){
+                    if(!!!finValue[x].price ||
+                        finValue[x].grade_avg < value[key].grade_avg){
+                        finValue[x] = value[key];
+                    }
+                }
+            }
+        }
+
+        return finValue;
+    }
+
 }
