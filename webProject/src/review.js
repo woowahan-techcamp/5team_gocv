@@ -1,4 +1,49 @@
+function timestampScore() {
+    const d = new Date();
+    const curr_date = d.getDate();
+    const curr_month = d.getMonth() + 1; //Months are zero based
+    const curr_year = d.getFullYear();
+    const curr_hour = d.getHours();
+    const curr_minute = d.getMinutes();
+    const curr_second = d.getSeconds();
 
+    let dateValue = 0;
+
+    for (let x = 2016; x < curr_year; x++) {
+        if (x % 4 == 0) {
+            if (x % 100 != 0 || x % 400 == 0) {
+                dateValue += 366;
+            }
+        } else {
+            dateValue += 365;
+        }
+    }
+
+    for (let x = 1; x < curr_month; x++) {
+        switch (x) {
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                dateValue += 31;
+                break;
+            case 2:
+                dateValue += 28;
+            default:
+                dateValue += 31;
+                break;
+        }
+    }
+
+    dateValue += curr_date;
+
+    let timeValue = 0;
+    timeValue = (curr_minute + (curr_hour * 60)) * 100;
+    timeValue += curr_second;
+
+    return parseFloat(dateValue + (timeValue / 1e6));
+
+}
 export class ReviewPage {
     constructor(reviewParams, reviewObj) {
         this.template = document.querySelector(reviewParams.template).innerHTML;
@@ -12,7 +57,7 @@ export class ReviewPage {
         this.domControlKey = 'date';
 
         this.maxiumWord = 240;
-        this.now = timestamp();
+        this.now = timestampScore();
         this.arrayObj = this.getArrayObject();
 
         this.init();
@@ -319,53 +364,4 @@ export class ReviewPage {
             i++;
         }
     }
-}
-
-function timestamp() {
-    const d = new Date();
-    const curr_date = d.getDate();
-    const curr_month = d.getMonth() + 1; //Months are zero based
-    const curr_year = d.getFullYear();
-    const curr_hour = d.getHours();
-    const curr_minute = d.getMinutes();
-    const curr_second = d.getSeconds();
-
-    let dateValue = 0;
-
-    for (let x = 2016; x < curr_year; x++) {
-        if (x % 4 == 0) {
-            if (x % 100 != 0 || x % 400 == 0) {
-                dateValue += 366;
-            }
-        } else {
-            dateValue += 365;
-        }
-    }
-
-    for (let x = 1; x < curr_month; x++) {
-        switch (x) {
-            case 4:
-            case 6:
-            case 9:
-            case 11:
-                dateValue += 31;
-                break;
-            case 2:
-                dateValue += 28;
-            default:
-                dateValue += 31;
-                break;
-        }
-    }
-
-    dateValue += curr_date;
-
-
-    let timeValue = 0;
-
-    timeValue = (curr_minute + (curr_hour * 60)) * 100;
-    timeValue += curr_second;
-
-    return parseFloat(dateValue + (timeValue / 1e6));
-
 }

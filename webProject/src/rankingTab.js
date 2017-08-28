@@ -414,12 +414,3 @@ export class RankingViewPage {
     }
 
 }
-
-function enterKeyEvent() {
-    if (window.event.keyCode === 13) {
-        document.getElementsByClassName("fixTab-search-button")[0].click();
-    }
-
-}
-
-window.enterKeyEvent = enterKeyEvent;

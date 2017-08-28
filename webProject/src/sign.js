@@ -1,24 +1,7 @@
-export class Toast {
-    constructor(message) {
-        this.message = message;
-        this.setEvent();
-    }
+import {Toast, Util} from './main.js'
+import {UpLoadImage} from './productDetail'
 
-    setEvent() {
-
-        const element = document.querySelector('#toast-msg')
-        element.innerHTML = this.message;
-        // element.style.display = 'block'
-        element.style.display = "block";
-        setTimeout(function () {
-            // element.style.display = 'none'
-            element.style.display = "none";
-
-        }, 1000)
-    }
-}
-
-class SignUp {
+export class SignUp {
     constructor(nic, email, pw1, pw2, pwCheck) {
         this.nic = nic;
         this.email = email;
@@ -175,8 +158,7 @@ class SignUp {
 
 
 }
-
-class SignIn {
+export class SignIn {
 
     constructor() {
         this.email = document.querySelector(".signin-id");
@@ -254,8 +236,7 @@ class SignIn {
     }
 
 }
-
-class SignConnect {
+export class SignConnect {
     constructor() {
         this.sign = document.querySelector('#sign');
         this.signup = document.querySelector('#signup');
@@ -287,71 +268,6 @@ class SignConnect {
 
 
 }
-
-class Util {
-
-    ajax(func) {
-        const oReq = new XMLHttpRequest();
-        oReq.addEventListener('load', function (e) {
-            const data = JSON.parse(oReq.responseText);
-            func.setData(data);
-        });
-
-        oReq.open('GET', func.url);
-        oReq.send();
-    }
-
-    template(data, template, section) {
-        const context = data;
-        const tmpl = Handlebars.compile(template);
-        section.innerHTML = tmpl(context);
-    }
-}
-
-//일단 중복해서 쓰기
-class UpLoadImage {
-    constructor(inputId, imgPreviewId) {
-        this.inputId = inputId;
-        this.imgPreviewId = imgPreviewId
-        this.init();
-    }
-
-    init() {
-        const inputBtn = document.querySelector("#" + this.inputId);
-        const previewBtn = document.querySelector("#" + this.imgPreviewId);
-
-        inputBtn.style.display = "none"
-
-        inputBtn.addEventListener("change", function () {
-            this.previewFile();
-        }.bind(this));
-
-        previewBtn.addEventListener("click", function () {
-            inputBtn.click();
-        })
-
-    }
-
-    previewFile() {
-        let preview = document.querySelector('#' + this.imgPreviewId);
-        let file = document.querySelector('#' + this.inputId).files[0];
-        let reader = new FileReader();
-
-        reader.addEventListener("load", function () {
-            preview.src = reader.result;
-
-        }, false);
-
-        if (!file) {
-        } else {
-            reader.readAsDataURL(file);
-        }
-
-
-    }
-
-}
-
 class MyPage {
     constructor() {
         const userStorage = localStorage['user'];
@@ -537,7 +453,6 @@ class MyPage {
     }
 
 }
-
 class UserInfoPopup {
 
     constructor() {
@@ -575,9 +490,3 @@ class UserInfoPopup {
         }
     }
 }
-
-
-const signUp = new SignUp();
-const signIn = new SignIn();
-const signConnect = new SignConnect();
-
