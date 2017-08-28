@@ -1,6 +1,4 @@
-import timestamp from './productDetail'
-
-
+import timestamp from './productDetail.js'
 
 export class Dropdown {
 
@@ -28,6 +26,7 @@ export class Dropdown {
         }.bind(this), true);
     }
 }
+
 export class Util {
 
     ajax(func) {

@@ -44,6 +44,7 @@ function timestampScore() {
     return parseFloat(dateValue + (timeValue / 1e6));
 
 }
+
 export class ReviewPage {
     constructor(reviewParams, reviewObj) {
         this.template = document.querySelector(reviewParams.template).innerHTML;
@@ -64,7 +65,6 @@ export class ReviewPage {
     }
 
     init() {
-        // this.setDefaultReviewData();
         this.setSorting(this.domControlKey);
         this.sortEvent(this.selected_sort_review_tab, this.sort_key);
         this.reloadEvent();
