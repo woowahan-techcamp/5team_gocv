@@ -1,6 +1,6 @@
-import { DB } from './index.js';
+import {DB} from './index.js';
 
-export class PopupOverlayClick {
+/*export class PopupOverlayClick {
 
     constructor() {
         this.signOverlay = document.querySelector('.sign-overlay');
@@ -12,7 +12,7 @@ export class PopupOverlayClick {
     }
 
     getEvent() {
-        /* sign in modal settings */
+        sign in modal settings
         this.signOverlay.addEventListener('click', function () {
             if (!this.signFlag) {
                 this.closePopup();
@@ -33,7 +33,7 @@ export class PopupOverlayClick {
             this.signFlag = false;
         }
     }
-}
+}*/
 
 export class Dropdown {
 
@@ -427,6 +427,7 @@ export class SearchTab {
             this.setQuery();
 
             document.querySelector(".main-wrapper").style.display = "none";
+            document.querySelector(".review-container").style.display = "none";
             document.querySelector(".rank-container").style.display = "";
         }.bind(this));
     }
@@ -763,6 +764,7 @@ class Review {
 
             mountainImagesRef.put(file).then(function (snapshot) {
                 this.updateDb();
+
             }.bind(this));
 
 
@@ -862,11 +864,17 @@ class Review {
                     };
                 };
 
-
                 const event = new Event();
 
                 loadDetailProduct(event);
 
+                const db = new DB();
+
+                db.updateProductDb();
+                db.updateReviewDb();
+                db.updateUserDb();
+
+                // 각각의 container를 가져와서 해당되는 container의 클래스를 갱신해준다?
 
             }.bind(that));
 
@@ -1299,7 +1307,6 @@ class ReviewRating {
                                 console.log("user 캐시 업데이트")
                             }.bind(that2));
                         }.bind(that));
-
                     } else {
 
                         console.log("아무반응이 없어야함")
