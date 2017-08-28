@@ -689,7 +689,7 @@
                                             <outlet property="orderNumLabel" destination="5Qe-nm-Vek" id="Hph-Mn-gPI"/>
                                             <outlet property="productNameLabel" destination="b7P-Vs-4Ot" id="OnN-rQ-SJe"/>
                                             <outlet property="starView" destination="cly-4C-f2a" id="9VA-5u-bgp"/>
-                                            <segue destination="9cE-6F-aqE" kind="show" id="bTl-dq-KGg"/>
+                                            <segue destination="9cE-6F-aqE" kind="show" customClass="Segue" customModule="pyunrihae" customModuleProvider="target" id="bTl-dq-KGg"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -2231,7 +2231,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WfG-74-UDi">
-                                <rect key="frame" x="27" y="537" width="160" height="50"/>
+                                <rect key="frame" x="27.5" y="537" width="160" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="50" id="39b-fW-NRi"/>
                                     <constraint firstAttribute="width" secondItem="WfG-74-UDi" secondAttribute="height" multiplier="16:5" id="Kxa-T3-la5"/>
@@ -2242,7 +2242,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YtJ-Az-ONQ">
-                                <rect key="frame" x="187" y="537" width="160" height="50"/>
+                                <rect key="frame" x="187.5" y="537" width="160" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="YtJ-Az-ONQ" secondAttribute="height" multiplier="16:5" id="9Mx-gH-W1f"/>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="50" id="vLj-0W-BPw"/>

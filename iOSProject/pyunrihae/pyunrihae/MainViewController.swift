@@ -63,8 +63,13 @@ class MainViewController: UIViewController {
         if notification.userInfo?["validator"] as! Int == 0{
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "mainNavigationController") as! UINavigationController
-            self.present(vc, animated: true, completion: nil)
-            print(review.p_id)
+            let transition = CATransition()
+            transition.duration = 0.4
+            transition.type = kCATransitionPush
+            transition.subtype = kCATransitionFromRight
+            transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            self.view.window!.layer.add(transition, forKey: kCATransition)
+            self.present(vc, animated: false, completion: nil)
             NotificationCenter.default.post(name: NSNotification.Name("showReviewProduct"), object: self, userInfo: ["product" : review])
         }
     }
@@ -347,7 +352,13 @@ class MainViewController: UIViewController {
             NotificationCenter.default.post(name: NSNotification.Name("showProduct"), object: self, userInfo: ["product" : product])
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "mainNavigationController") as! UINavigationController
-            self.present(vc, animated: true, completion: nil)
+            let transition = CATransition()
+            transition.duration = 0.4
+            transition.type = kCATransitionPush
+            transition.subtype = kCATransitionFromRight
+            transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            self.view.window!.layer.add(transition, forKey: kCATransition)
+            self.present(vc, animated: false, completion: nil)
         }
     }
 }
