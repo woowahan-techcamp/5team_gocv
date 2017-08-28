@@ -595,14 +595,15 @@ class DataManager{
                 contentBuilder.title = review.p_name
                 contentBuilder.desc = review.comment
                 
-//                if review.p_image != nil || review.p_image != "" {
-//                    contentBuilder.imageURL = URL.init(string: review.p_image)!
-//                }else{
-//                    contentBuilder.imageURL = URL.init(string : "https://s3.ap-northeast-2.amazonaws.com/pyunrihae/Group%402x.png")!
-//                }
                 
-                contentBuilder.imageURL = URL.init(string : "https://s3.ap-northeast-2.amazonaws.com/pyunrihae/Group%402x.png")!
+                if review.product_image != nil && review.product_image != "" {
+                    contentBuilder.imageURL = URL.init(string : review.product_image)!
+                }else{
+                    contentBuilder.imageURL = URL.init(string : "https://s3.ap-northeast-2.amazonaws.com/pyunrihae/Group%402x.png")!
+                }
+                
                 contentBuilder.link = KLKLinkObject.init(builderBlock: { (linkBuilder) in
+                    
                     linkBuilder.mobileWebURL = URL.init(string: "https://developers.kakao.com")
                 })
             })
