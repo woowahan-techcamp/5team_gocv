@@ -21,7 +21,7 @@ import {MainRankingPreview} from './ranking.js';
 import {RankingViewPage} from './rankingTab.js'
 import {ReviewPage} from './review.js'
 import {SignUp, SignIn, SignConnect} from './sign.js'
-import {PopupOverlayClick} from "./productDetail"
+
 
 document.addEventListener('DOMContentLoaded', function (event) {
   console.log("Dom content Loaded");
@@ -51,7 +51,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
             dropdown.style.display = "none";
         }
     });
-    const popupOverlayClick = new PopupOverlayClick();
     setRefreshOverlay();
 
     //brand.js
