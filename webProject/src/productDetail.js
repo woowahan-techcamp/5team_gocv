@@ -538,8 +538,8 @@ class Review {
             new Toast("20자 이상의 리뷰를 써주시길 바랍니다")
         } else {
             this.setOnOff();
-            const database = firebase.database();
 
+            const database = firebase.database();
             this.reviewId = database.ref().child('review').push().key;
 
             let file = document.querySelector('#reviewImageInput').files[0];
@@ -559,6 +559,8 @@ class Review {
     }
 
     updateDb() {
+        document.querySelector('#loading').style.display = "block"
+
         const storageRef = firebase.storage().ref();
         const database = firebase.database();
 
@@ -644,18 +646,19 @@ class Review {
                 util.setHandlebars(reviewArr);
                 document.querySelector('#loading').style.display = "none";
 
-                const Event = function () {
-                    this.getAttribute = function (name) {
-                        return that.product.id;
-                    };
-                };
+                // const Event = function () {
+                //     this.getAttribute = function (name) {
+                //         return that.product.id;
+                //     };
+                // };
+                //
+                //
+                // const event = new Event();
+                // loadDetailProduct(event);
+                //
+                // new UpdateData();
 
 
-                const event = new Event();
-
-                loadDetailProduct(event);
-
-                new UpdateData();
 
             }.bind(that));
 

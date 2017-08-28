@@ -275,11 +275,8 @@ export class SignConnect {
 class MyPage {
     constructor(db) {
         this.db= db;
-        const userStorage = localStorage['user'];
         const user = firebase.auth().currentUser;
-
-
-        this.userData = JSON.parse(userStorage);
+        this.db.user = this.db.user;
         this.userId = user.uid;
 
         this.setData();
@@ -291,7 +288,6 @@ class MyPage {
 
     getPopupInfo(){
         const popup = new PopupInfo();
-
         popup.setMyPageInit();
     }
 
@@ -303,14 +299,14 @@ class MyPage {
 
         const template = document.querySelector("#myPage-template").innerHTML;
         const sec = document.querySelector("#myPage");
-        util.template(this.userData[this.userId], template, sec);
+        util.template(this.db.user[this.userId], template, sec);
 
         const myPageProduct = new ProductPopup(this.db,'#myPageReviewNavi','productSelect');
 
         const wishReviewArr = [];
 
-        if (!!this.userData[this.userId].wish_product_list) {
-            this.userData[this.userId].wish_product_list.forEach(function (e) {
+        if (!!this.db.user[this.userId].wish_product_list) {
+            this.db.user[this.userId].wish_product_list.forEach(function (e) {
                 wishReviewArr.push(productData[e]);
             });
         }
@@ -341,22 +337,18 @@ class MyPage {
                     const id = e.target.getAttribute("name");
                     const newWishArr = [];
 
-                    that.userData[that.userId].wish_product_list.forEach(function (e) {
+                    that.db.user[that.userId].wish_product_list.forEach(function (e) {
                         if (e !== id) {
                             newWishArr.push(e);
                         }
                     });
 
+                    const that2 = that;
                     firebase.database().ref('user/' + that.userId + "/wish_product_list").set(newWishArr).then(function () {
-                        firebase.database().ref('user/')
-                            .once('value').then(function (snapshot) {
+                        that2.db.updateUserDb();
 
-                            localStorage['user'] = JSON.stringify(snapshot.val());
-                            document.querySelector('#loading').style.display = "none";
-                            new Toast("삭제되었습니다.");
 
-                        });
-                    });
+                    }.bind(that2));
                 }
             }.bind(that));
         }.bind(this));
@@ -453,13 +445,12 @@ class MyPage {
     }
 
     setProfileTab() {
-        const userStorage = localStorage['user'];
-        this.userData = JSON.parse(userStorage);
+
         //프로필 탭 설정
         document.querySelector(".fixTab-profile-wrapper").style.display = "block"
-        document.querySelector("#fixTabProfileImg").setAttribute("src", this.userData[this.userId].user_profile);
+        document.querySelector("#fixTabProfileImg").setAttribute("src", this.db.user[this.userId].user_profile);
         document.querySelector(".fixTab-profile-id").innerHTML =
-            this.userData[this.userId].nickname + "<ul class=\"fixTab-profile-dropdown\">\n" +
+            this.db.user[this.userId].nickname + "<ul class=\"fixTab-profile-dropdown\">\n" +
             "                     <a href=\"#myPage\"><li class=\"fixTab-profile-element\">내 정보</li></a>\n" +
             "                    <li id=\"logout\" class=\"fixTab-profile-element\">로그아웃</li>\n" +
             "                </ul>";
