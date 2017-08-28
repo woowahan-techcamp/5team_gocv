@@ -1,5 +1,6 @@
 import {Toast, Util} from './main.js'
 import {UpLoadImage, ProductPopup} from './productDetail.js'
+import {PopupInfo} from './manage'
 
 export class SignUp {
     constructor(db, nic, email, pw1, pw2, pwCheck) {
@@ -173,11 +174,11 @@ export class SignIn {
     setEventButton() {
         this.email.addEventListener("click", function () {
             document.querySelector("#signinErrorCheck").style.display = "none";
-        })
+        });
 
         this.password.addEventListener("click", function () {
             document.querySelector("#signinErrorCheck").style.display = "none";
-        })
+        });
 
         this.signInButton.addEventListener("click", function () {
             this.checkEmail();
@@ -188,7 +189,7 @@ export class SignIn {
     checkEmail() {
         firebase.auth().signInWithEmailAndPassword(this.email.value,
             this.password.value).catch(function (error) {
-            console.log(error)
+            console.log(error);
             if (error.code === "auth/user-not-found") {
                 document.querySelector("#signinErrorCheck").innerHTML = "존재하지 않는 이메일 입니다."
                 document.querySelector("#signinErrorCheck").style.display = "block";
@@ -284,8 +285,14 @@ class MyPage {
         this.setData();
         this.setEventUpdateImage();
         this.setEventUpdateNicname();
+        this.getPopupInfo();
 
-        new UserInfoPopup();
+    }
+
+    getPopupInfo(){
+        const popup = new PopupInfo();
+
+        popup.setMyPageInit();
     }
 
     setData() {
@@ -312,7 +319,7 @@ class MyPage {
         const sec2 = document.querySelector("#myPageReviewNavi");
         util.template(wishReviewArr, template2, sec2);
 
-        this.setDeleteButtonEvent()
+        this.setDeleteButtonEvent();
 
         document.querySelector(".myPage-close").addEventListener("click", function () {
             $("body").css("overflow", "visible");
@@ -459,40 +466,4 @@ class MyPage {
     }
 
 }
-class UserInfoPopup {
 
-    constructor() {
-        this.popupOverlay = document.querySelector('.myPage-overlay');
-        this.popupInner = document.querySelector('.myPage-wrapper');
-
-        $("body").css("overflow", "hidden");
-
-        this.flag = false;
-
-        this.getEvent();
-    }
-
-    getEvent() {
-        /* item view modal settings */
-        this.popupOverlay.addEventListener('click', function () {
-            if (!this.flag) {
-                $("body").css("overflow", "visible");
-                this.closePopup();
-            } else {
-                this.flag = false;
-            }
-        }.bind(this));
-
-        this.popupInner.addEventListener('click', function (e) {
-            this.flag = true;
-            e.stopPropagation();
-        }.bind(this));
-    }
-
-    closePopup() {
-        if (!this.flag) {
-            document.getElementsByClassName('popup-close-fake')[0].click();
-            this.flag = false;
-        }
-    }
-}

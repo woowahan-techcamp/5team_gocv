@@ -1,5 +1,42 @@
-import {Util, Dropdown, Toast} from './main.js'
-import {DB} from './firebaseInit.js'
+import {Util,Dropdown, Toast} from './main'
+import {DB, UpdateData} from './index.js'
+import timestamp from './manage.js'
+import {PopupInfo} from "./manage";
+
+export class PopupOverlayClick {
+
+    constructor() {
+        this.signOverlay = document.querySelector('.sign-overlay');
+        this.signInner = document.querySelector('.sign-wrapper');
+
+        this.signFlag = false;
+
+        this.getEvent();
+    }
+
+    getEvent() {
+        /* sign in modal settings */
+        this.signOverlay.addEventListener('click', function () {
+            if (!this.signFlag) {
+                this.closePopup();
+            }
+            this.signFlag = false;
+
+        }.bind(this));
+
+        this.signInner.addEventListener('click', function () {
+            this.signFlag = true;
+        }.bind(this));
+
+    }
+
+    closePopup() {
+        if (!this.signFlag) {
+            this.signOverlay.style.display = "none";
+            this.signFlag = false;
+        }
+    }
+}
 
 //image 업로드하고 미리보기 만드는 클래스
 export class UpLoadImage {
@@ -372,6 +409,8 @@ class MakeChart {
 //review의 이벤트를 만들고 리뷰를 생성하는 클래스
 class Review {
     constructor(id, navi, product, user) {
+        this.popup = new PopupInfo();
+
         this.id = id;
         this.value = 0;
         this.product = product;
@@ -650,6 +689,7 @@ class Review {
 
                 loadDetailProduct(event);
 
+                new UpdateData();
 
             }.bind(that));
 
@@ -1045,7 +1085,6 @@ class ReviewRating {
 }
 
 
-
 function timestamp() {
     var d = new Date();
     var curr_date = d.getDate();
@@ -1058,16 +1097,6 @@ function timestamp() {
     if (curr_month < 10) {
         curr_month = "0" + curr_month;
     }
-
-    if (curr_hour < 10) {
-        curr_hour = "0" + curr_hour;
-    }
-
-    if (curr_minute < 10) {
-        curr_minute = "0" + curr_minute;
-
-    }
-
     if (curr_second < 10) {
         curr_second = "0" + curr_second;
 

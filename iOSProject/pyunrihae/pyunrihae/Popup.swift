@@ -24,9 +24,10 @@ class Popup{
         popup.foodNameLabel.text = review.p_name
         view.addSubview(popup)
         Image.makeCircleImage(image: popup.userImage)
-        popup.userImage.contentMode = .scaleAspectFit
-        popup.userImage.layer.borderColor = UIColor.gray.cgColor
-        popup.userImage.layer.borderWidth = 0.3
+        popup.userImage.contentMode = .scaleAspectFill
+        popup.userImage.clipsToBounds = true
+        popup.userImage.layer.borderColor = UIColor.white.cgColor
+        popup.userImage.layer.borderWidth = 0.5
         if URL(string: review.user_image) != nil{
             popup.userImage.af_setImage(withURL: URL(string: review.user_image)!)
         } else {

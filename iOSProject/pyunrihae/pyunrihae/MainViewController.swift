@@ -22,7 +22,6 @@ class MainViewController: UIViewController {
     var badNumLabel = UILabel()
     var usefulBtn = UIButton()
     var badBtn = UIButton()
-    var selectedReview = Review()
     var selectedBrandIndexFromTab : Int = 0 {
         didSet{
             getProductList()
@@ -64,8 +63,13 @@ class MainViewController: UIViewController {
         if notification.userInfo?["validator"] as! Int == 0{
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "mainNavigationController") as! UINavigationController
-            self.present(vc, animated: true, completion: nil)
-            print(review.p_id)
+            let transition = CATransition()
+            transition.duration = 0.4
+            transition.type = kCATransitionPush
+            transition.subtype = kCATransitionFromRight
+            transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            self.view.window!.layer.add(transition, forKey: kCATransition)
+            self.present(vc, animated: false, completion: nil)
             NotificationCenter.default.post(name: NSNotification.Name("showReviewProduct"), object: self, userInfo: ["product" : review])
         }
     }
@@ -262,6 +266,12 @@ class MainViewController: UIViewController {
             var cnt = 0
             let scrollViewNum = 10
             self.productScrollView.contentSize = CGSize(width: imageViewWidth / 3.0 * CGFloat(scrollViewNum), height: imageViewHeight);
+            if productList.count < 10 {
+                for _ in 1...(10-productList.count){
+                    let product = Product.init()
+                    productList.append(product)
+                }
+            }
             for product in productList {
                 if cnt >= scrollViewNum {
                     break;
@@ -272,8 +282,14 @@ class MainViewController: UIViewController {
                 productView.frame = CGRect(x: xPosition, y: 0, width: imageViewWidth / 3.0, height: imageViewWidth / 3.0)
                 productView.center.y = imageViewHeight / 2.0
                 // productView들어감
-                productView.productImageview.contentMode = .scaleAspectFit
-                productView.productImageview.af_setImage(withURL: url!)
+                if product.name != "" {
+                    productView.productImageview.contentMode = .scaleAspectFit
+                    productView.productImageview.af_setImage(withURL: url!)
+                }else{
+                    productView.productImageview.contentMode = .scaleAspectFit
+                    productView.productImageview.image = #imageLiteral(resourceName: "ic_default_product.png")
+                }
+                
                 productView.rankLabel.text = (cnt + 1).description
                 switch (product.brand) {
                     case "GS25": productView.logoImageView.image = #imageLiteral(resourceName: "logo_gs25.png")
@@ -300,119 +316,24 @@ class MainViewController: UIViewController {
         if reviewScrollView.contentOffset.x != 0{
             index = 2 - Int(reviewScrollView.frame.width / reviewScrollView.contentOffset.x)
         }
-
-
         review = reviewList[index]
-        selectedReview = review
-        let frame = self.view.frame
-        popup.backgroundColor = UIColor.black.withAlphaComponent(0.1)
-        popup.frame = frame
-        popup.view.layer.borderColor = UIColor.gray.cgColor
-        popup.view.layer.borderWidth = 0.3
-        popup.view.layer.cornerRadius = 10
-        popup.view.layer.cornerRadius = 10
-        popup.badNumLabel.text = String(review.bad)
-        popup.usefulNumLabel.text = String(review.useful)
-        popup.comment.text = review.comment
-        popup.comment.isEditable = false
-        popup.comment.layer.cornerRadius = 10
-        popup.comment.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10)
-        popup.userNameLabel.text = review.user
-        popup.foodNameLabel.text = review.p_name
-        self.view.addSubview(popup)
-        Image.makeCircleImage(image: popup.userImage)
-        popup.userImage.contentMode = .scaleAspectFit
-        popup.userImage.layer.borderColor = UIColor.gray.cgColor
-        popup.userImage.layer.borderWidth = 0.3
-        usefulNumLabel = popup.usefulNumLabel
-        badNumLabel = popup.badNumLabel
-        usefulBtn = popup.usefulBtn
-        badBtn = popup.badBtn
-        if let userReviewLike = appdelegate.user?.review_like_list[review.id]{
-            if userReviewLike == 1 {
-                Button.makeBorder(btn: usefulBtn)
-                Button.deleteBorder(btn: badBtn)
-                usefulNumLabel.textColor = UIColor.red
-                badNumLabel.textColor = UIColor.lightGray
-            } else if userReviewLike == -1 {
-                Button.makeBorder(btn: badBtn)
-                Button.deleteBorder(btn: usefulBtn)
-                usefulNumLabel.textColor = UIColor.lightGray
-                badNumLabel.textColor = UIColor.red
-            } else {
-                Button.deleteBorder(btn: usefulBtn)
-                Button.deleteBorder(btn: badBtn)
-                usefulNumLabel.textColor = UIColor.lightGray
-                badNumLabel.textColor = UIColor.lightGray
-            }
-        } else {
-            Button.deleteBorder(btn: usefulBtn)
-            Button.deleteBorder(btn: badBtn)
-            usefulNumLabel.textColor = UIColor.lightGray
-            badNumLabel.textColor = UIColor.lightGray
-        }
-        popup.badBtn.addTarget(self, action: #selector(self.didPressBadBtn), for: UIControlEvents.touchUpInside)
-        popup.usefulBtn.addTarget(self, action: #selector(self.didPressUsefulBtn), for: UIControlEvents.touchUpInside)
-
-        // 카카오톡 공유 버튼 누르기
-
-        popup.kakaoShareBtn.addTarget(self, action: #selector(self.didPressKakaoShareBtn), for: UIControlEvents.touchUpInside)
-
-
-        if URL(string: review.user_image) != nil{
-            popup.userImage.af_setImage(withURL: URL(string: review.user_image)!)
-        } else {
-            popup.userImage.image = UIImage(named: "user_default.png")
-        }
-        popup.uploadedImage.contentMode = .scaleAspectFill
-        popup.uploadedImage.clipsToBounds = true
-        if URL(string: review.p_image) != nil{
-            popup.uploadedImage.af_setImage(withURL: URL(string: review.p_image)!)
-        } else {
-            popup.uploadedImage.af_setImage(withURL: URL(string: "https://firebasestorage.googleapis.com/v0/b/pyeonrehae.appspot.com/o/ic_background_default.png?alt=media&token=09d05950-5f8a-4a73-95b3-a74faee4cad3")!)
-        }
-        popup.brand.contentMode = .scaleAspectFit
-        if review.brand == "CU" {
-            popup.brand.image = UIImage(named: "logo_cu.png")
-        } else if review.brand == "GS25" {
-            popup.brand.image = UIImage(named: "logo_gs25.png")
-        } else if review.brand == "7-eleven" {
-            popup.brand.image = UIImage(named: "logo_7eleven.png")
-        } else {
-            popup.brand.image = UIImage(named: "ic_common.png")
-        }
-        switch(review.grade) {
-        case 1 : popup.starView.image = #imageLiteral(resourceName: "star1.png");
-        case 2: popup.starView.image = #imageLiteral(resourceName: "star2.png");
-        case 3 : popup.starView.image = #imageLiteral(resourceName: "star3.png");
-        case 4 : popup.starView.image = #imageLiteral(resourceName: "star4.png");
-        case 5 : popup.starView.image = #imageLiteral(resourceName: "star5.png");
-        default : popup.starView.image = #imageLiteral(resourceName: "star3.png");
-        }
-        popup.starView.contentMode = .scaleAspectFit
-
-        let format = DateFormatter()
-        format.locale = Locale(identifier: "ko_kr")
-        format.timeZone = TimeZone(abbreviation: "KST")
-        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
-
-        if let writtenDate = format.date(from: review.timestamp) {
-            if writtenDate.timeIntervalSinceNow >= -5 * 24 * 60 * 60 {
-                if writtenDate.timeIntervalSinceNow <= -1 * 24 * 60 * 60 {
-                    let daysAgo = Int(-writtenDate.timeIntervalSinceNow / 24 / 60 / 60)
-                    popup.timeLabel.text = String(daysAgo) + "일 전"
-                } else if writtenDate.timeIntervalSinceNow <= -1 * 60 * 60 {
-                    let hoursAgo = Int(-writtenDate.timeIntervalSinceNow / 60 / 60)
-                    popup.timeLabel.text = String(hoursAgo) + "시간 전"
-                } else if writtenDate.timeIntervalSinceNow <= -1 * 60{
-                    let minutesAgo = Int(-writtenDate.timeIntervalSinceNow / 60)
-                    popup.timeLabel.text = String(minutesAgo) + "분 전"
-                } else{
-                    popup.timeLabel.text = "방금"
-                }
-            } else {
-                popup.timeLabel.text = review.timestamp.components(separatedBy: " ")[0]
-            }
+        Popup.showPopup(popup: popup, index: index, reviewList: reviewList, review: review, view: self.view)
+        popup.badBtn.isEnabled = false
+        popup.usefulBtn.isEnabled = false
+        DataManager.getReviewBy(id: review.id){ (review) in
+            popup.badNumLabel.text = String(review.bad)
+            popup.usefulNumLabel.text = String(review.useful)
+            self.usefulNumLabel = popup.usefulNumLabel
+            self.badNumLabel = popup.badNumLabel
+            self.usefulBtn = popup.usefulBtn
+            self.badBtn = popup.badBtn
+            Button.validateUseful(review: review, usefulBtn: self.usefulBtn, badBtn: self.badBtn, usefulNumLabel: self.usefulNumLabel, badNumLabel: self.badNumLabel)
+            popup.badBtn.isEnabled = true
+            popup.usefulBtn.isEnabled = true
+            popup.badBtn.addTarget(self, action: #selector(self.didPressBadBtn), for: UIControlEvents.touchUpInside)
+            popup.usefulBtn.addTarget(self, action: #selector(self.didPressUsefulBtn), for: UIControlEvents.touchUpInside)
+            // 카카오톡 공유 버튼 누르기
+            popup.kakaoShareBtn.addTarget(self, action: #selector(self.didPressKakaoShareBtn), for: UIControlEvents.touchUpInside)
         }
     }
     func didPressUsefulBtn(sender: UIButton) { //유용해요 버튼 누르기
@@ -434,7 +355,7 @@ class MainViewController: UIViewController {
         }
     }
     func didPressKakaoShareBtn(sender: UIButton) { //카카오톡 공유 버튼 클릭 이벤트
-        DataManager.sendLinkFeed(review: selectedReview)
+        DataManager.sendLinkFeed(review: review)
     }
      // 상품을 눌렀을 때 상세를 보여주는 함수
     func showProduct(_ sender: UITapGestureRecognizer) {
@@ -443,7 +364,13 @@ class MainViewController: UIViewController {
             NotificationCenter.default.post(name: NSNotification.Name("showProduct"), object: self, userInfo: ["product" : product])
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "mainNavigationController") as! UINavigationController
-            self.present(vc, animated: true, completion: nil)
+            let transition = CATransition()
+            transition.duration = 0.4
+            transition.type = kCATransitionPush
+            transition.subtype = kCATransitionFromRight
+            transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            self.view.window!.layer.add(transition, forKey: kCATransition)
+            self.present(vc, animated: false, completion: nil)
         }
     }
 }
