@@ -34,8 +34,16 @@ document.addEventListener('DOMContentLoaded', function (event) {
     const counter = new Counter(800);
 
     new PopupOverlayClick();
-
+    setRefreshOverlay();
 });
+
+function setRefreshOverlay(){
+    const popup = document.querySelector('#popup');
+
+    popup.addEventListener('click', function () {
+        document.getElementsByClassName('popup-close-fake')[0].click();
+    });
+}
 
 class PopupOverlayClick {
 

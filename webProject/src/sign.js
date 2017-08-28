@@ -393,7 +393,7 @@ class MyPage {
         this.setDeleteButtonEvent()
 
         document.querySelector(".myPage-close").addEventListener("click", function () {
-
+            $("body").css("overflow", "visible");
         })
     }
 
@@ -544,6 +544,8 @@ class UserInfoPopup {
         this.popupOverlay = document.querySelector('.myPage-overlay');
         this.popupInner = document.querySelector('.myPage-wrapper');
 
+        $("body").css("overflow", "hidden");
+
         this.flag = false;
 
         this.getEvent();
@@ -553,6 +555,7 @@ class UserInfoPopup {
         /* item view modal settings */
         this.popupOverlay.addEventListener('click', function () {
             if (!this.flag) {
+                $("body").css("overflow", "visible");
                 this.closePopup();
             } else {
                 this.flag = false;
@@ -568,7 +571,6 @@ class UserInfoPopup {
     closePopup() {
         if (!this.flag) {
             document.getElementsByClassName('popup-close-fake')[0].click();
-            $("body").css("overflow", "visible");
             this.flag = false;
         }
     }

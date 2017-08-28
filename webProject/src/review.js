@@ -171,7 +171,7 @@ class ReviewPage {
         const date = (this.now * 1e6) - (value * 1e6);
 
         if (date < 6000) {
-            if (date / 100 === 0) {
+            if (date / 100 < 1) {
                 return '방금 전';
             } else {
                 return parseInt(date / 100) + '분 전';
