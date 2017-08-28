@@ -41,6 +41,7 @@
 		989FA79C1F511E59001D1E42 /* ReviewPopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 989FA79B1F511E59001D1E42 /* ReviewPopupView.xib */; };
 		989FA7A01F52BEC8001D1E42 /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989FA79F1F52BEC8001D1E42 /* Popup.swift */; };
 		989FA7A41F52E2BA001D1E42 /* ic_check.png in Resources */ = {isa = PBXBuildFile; fileRef = 989FA7A31F52E2BA001D1E42 /* ic_check.png */; };
+		98B288601F53EF43007673FF /* ic_default_product.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B2885F1F53EF43007673FF /* ic_default_product.png */; };
 		98B394861F4D59190071BB8B /* ProductAllergyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B394851F4D59190071BB8B /* ProductAllergyViewController.swift */; };
 		98B394881F4E5EDA0071BB8B /* MainProduct.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98B394871F4E5EDA0071BB8B /* MainProduct.xib */; };
 		98B3948A1F4E63230071BB8B /* MainProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B394891F4E63230071BB8B /* MainProduct.swift */; };
@@ -186,6 +187,7 @@
 		989FA79B1F511E59001D1E42 /* ReviewPopupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewPopupView.xib; sourceTree = "<group>"; };
 		989FA79F1F52BEC8001D1E42 /* Popup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
 		989FA7A31F52E2BA001D1E42 /* ic_check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_check.png; sourceTree = "<group>"; };
+		98B2885F1F53EF43007673FF /* ic_default_product.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_default_product.png; sourceTree = "<group>"; };
 		98B394851F4D59190071BB8B /* ProductAllergyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductAllergyViewController.swift; sourceTree = "<group>"; };
 		98B394871F4E5EDA0071BB8B /* MainProduct.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainProduct.xib; sourceTree = "<group>"; };
 		98B394891F4E63230071BB8B /* MainProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainProduct.swift; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 				98D5691F1F4BE6EC002693E9 /* useful.png */,
 				98D5691D1F4BE6DA002693E9 /* bad.png */,
 				98CBA0D51F4AE17B003D0370 /* ic_common.png */,
+				98B2885F1F53EF43007673FF /* ic_default_product.png */,
 				98CBA0B51F458AFC003D0370 /* ic_user.png */,
 				98CBA0C71F468196003D0370 /* ic_star_filled.png */,
 				98CBA0DB1F4B0BA2003D0370 /* ic_photo_edit.png */,
@@ -715,6 +718,7 @@
 				98CBA0CE1F468536003D0370 /* ic_like.png in Resources */,
 				98F865871F43FB1A00C2F333 /* star5.png in Resources */,
 				98D9F2E41F418DF3009D0E10 /* YNSearch.xcassets in Resources */,
+				98B288601F53EF43007673FF /* ic_default_product.png in Resources */,
 				984395861F32F29A0016B67D /* GoogleService-Info.plist in Resources */,
 				98F865AB1F442F8B00C2F333 /* ic_password.png in Resources */,
 				98F865A71F442EE100C2F333 /* ic_close.png in Resources */,

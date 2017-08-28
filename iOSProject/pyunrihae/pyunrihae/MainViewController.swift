@@ -262,6 +262,12 @@ class MainViewController: UIViewController {
             var cnt = 0
             let scrollViewNum = 10
             self.productScrollView.contentSize = CGSize(width: imageViewWidth / 3.0 * CGFloat(scrollViewNum), height: imageViewHeight);
+            if productList.count < 10 {
+                for _ in 1...(10-productList.count){
+                    let product = Product.init()
+                    productList.append(product)
+                }
+            }
             for product in productList {
                 if cnt >= scrollViewNum {
                     break;
@@ -272,8 +278,14 @@ class MainViewController: UIViewController {
                 productView.frame = CGRect(x: xPosition, y: 0, width: imageViewWidth / 3.0, height: imageViewWidth / 3.0)
                 productView.center.y = imageViewHeight / 2.0
                 // productView들어감
-                productView.productImageview.contentMode = .scaleAspectFit
-                productView.productImageview.af_setImage(withURL: url!)
+                if product.name != "" {
+                    productView.productImageview.contentMode = .scaleAspectFit
+                    productView.productImageview.af_setImage(withURL: url!)
+                }else{
+                    productView.productImageview.contentMode = .scaleAspectFit
+                    productView.productImageview.image = #imageLiteral(resourceName: "ic_default_product.png")
+                }
+                
                 productView.rankLabel.text = (cnt + 1).description
                 switch (product.brand) {
                     case "GS25": productView.logoImageView.image = #imageLiteral(resourceName: "logo_gs25.png")
