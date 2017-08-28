@@ -560,9 +560,9 @@ class DataManager{
         let storage = Storage.storage()
         
         let storageRef = storage.reference(forURL: "gs://pyeonrehae.appspot.com")
-        let imagesRef = storageRef.child("images/" + user.id + ".png")
+        let imagesRef = storageRef.child("images/" + user.id + ".jpeg")
         
-        if let data = UIImagePNGRepresentation(profile) {
+        if let data = UIImageJPEGRepresentation(profile, 0.3) {
             imagesRef.putData(data, metadata: nil, completion: {
                 (metadata, error) in
                 if error != nil {

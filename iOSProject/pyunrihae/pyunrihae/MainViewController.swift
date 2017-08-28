@@ -87,11 +87,13 @@ class MainViewController: UIViewController {
             self.selectedCategoryIndex = sender.tag
         },completion: nil)
         NotificationCenter.default.post(name: NSNotification.Name("showCategory"), object: self, userInfo: ["category" : selectedCategoryIndex])
+        productScrollView.contentOffset.x = 0
     }
     // 카테고리를 선택했을 때 함수
     func selectCategory(_ notification: Notification){
         Button.selectCategory(view: self.view, previousIndex: selectedCategoryIndex, categoryBtns: categoryBtns, selectedCategoryIndex: notification.userInfo?["category"] as! Int, categoryScrollView: categoryScrollView, scrollBar: scrollBar)
         selectedCategoryIndex = notification.userInfo?["category"] as! Int
+        productScrollView.contentOffset.x = 0
     }
     // 로딩 인디케이터 보이는 함수 DEPRECATED
     func showActivityIndicatory() {
