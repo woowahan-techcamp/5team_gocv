@@ -1,39 +1,4 @@
-import {DB} from './index.js';
-
-/*export class PopupOverlayClick {
-
-    constructor() {
-        this.signOverlay = document.querySelector('.sign-overlay');
-        this.signInner = document.querySelector('.sign-wrapper');
-
-        this.signFlag = false;
-
-        this.getEvent();
-    }
-
-    getEvent() {
-        sign in modal settings
-        this.signOverlay.addEventListener('click', function () {
-            if (!this.signFlag) {
-                this.closePopup();
-            }
-            this.signFlag = false;
-
-        }.bind(this));
-
-        this.signInner.addEventListener('click', function () {
-            this.signFlag = true;
-        }.bind(this));
-
-    }
-
-    closePopup() {
-        if (!this.signFlag) {
-            this.signOverlay.style.display = "none";
-            this.signFlag = false;
-        }
-    }
-}*/
+import timestamp from './productDetail';
 
 export class Dropdown {
 
@@ -61,7 +26,6 @@ export class Dropdown {
         }.bind(this), true);
     }
 }
-
 export class Util {
 
     ajax(func) {
@@ -539,6 +503,7 @@ export class Counter {
     }
 }
 
+<<<<<<< HEAD
 //chart.js를 이용하여 차트를 만드는 클래스
 class MakeChart {
     constructor(feature, label, data, id, color, hoverColor) {
@@ -1642,45 +1607,3 @@ function getNowTimeScore() {
 
     return parseFloat(dateValue + (timeValue / 1e6));
 }
-
-function loadReviewDetail(event) {
-
-    $("body").css("overflow", "hidden");
-
-    const key = event.getAttribute("name");
-    const review = localStorage['review'];
-
-    const reviewObj = JSON.parse(review);
-
-    const template = document.querySelector('#review-preview-template').innerHTML;
-    const popup = document.querySelector('#popup');
-
-    const selectReviewData = reviewObj[key];
-
-    selectReviewData["rating"] = "review-preview-rating";
-
-    const util = new Util();
-
-    util.template(selectReviewData, template, popup);
-
-    $("#review-preview-rating").rateYo({
-        rating: selectReviewData.grade,
-        readOnly: true,
-        spacing: "10px",
-        starWidth: "20px",
-        normalFill: "#e2dbd6",
-        ratedFill: "#ffcf4d"
-
-    });
-
-    new ReviewPopup();
-
-    document.querySelector(".popup-newReview-cancel").addEventListener("click", function () {
-        $("body").css("overflow", "visible");
-    });
-}
-
-//이런식으로 해야 웹팩에서 function을 html onclick으로 사용가능
-window.loadDetailProduct = loadDetailProduct;
-window.loadReviewDetail = loadReviewDetail;
-

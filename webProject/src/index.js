@@ -15,11 +15,13 @@ import "../style/sign.css"
 import "../style/review-preivew.css"
 import "../style/review.css"
 
-import {SearchTab, Carousel, Counter, PopupOverlayClick } from './main.js';
+import {SearchTab, Carousel, Counter} from './main.js';
 import {BrandRankingPreview} from './brand.js';
 import {MainRankingPreview} from './ranking.js';
 import {RankingViewPage} from './rankingTab.js'
 import {ReviewPage} from './review.js'
+import {SignUp, SignIn, SignConnect} from './sign.js'
+
 
 document.addEventListener('DOMContentLoaded', function (event) {
   console.log("Dom content Loaded");
@@ -49,7 +51,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
             dropdown.style.display = "none";
         }
     });
-    // const popupOverlayClick = new PopupOverlayClick();
     setRefreshOverlay();
 
     //brand.js
@@ -125,17 +126,15 @@ document.addEventListener('DOMContentLoaded', function (event) {
     };
     new ReviewPage(reviewParams);
 
+    //sign.js
+    const signUp = new SignUp();
+    const signIn = new SignIn();
+    const signConnect = new SignConnect();
+
 
 });
 
 
-function setRefreshOverlay(){
-    const popup = document.querySelector('#popup');
-
-    popup.addEventListener('click', function () {
-        document.getElementsByClassName('popup-close-fake')[0].click();
-    });
-}
 
 //DB 를 캐시화 해놓고 업데이트 해주는 클래스
 export class DB {
@@ -202,3 +201,19 @@ export class DB {
         }.bind(this));
     }
 }
+
+
+function setRefreshOverlay(){
+    const popup = document.querySelector('#popup');
+
+    popup.addEventListener('click', function () {
+        document.getElementsByClassName('popup-close-fake')[0].click();
+    });
+}
+function enterKeyEvent() {
+    if (window.event.keyCode === 13) {
+        document.getElementsByClassName("fixTab-search-button")[0].click();
+    }
+
+}
+window.enterKeyEvent = enterKeyEvent;
