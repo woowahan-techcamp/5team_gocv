@@ -6,9 +6,17 @@
 //  Copyright © 2017년 busride. All rights reserved.
 //
 import UIKit
-class LoginSignUpViewController: UIViewController {
+import GoogleSignIn
+import Firebase
+
+class LoginSignUpViewController: UIViewController,GIDSignInUIDelegate{
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        GIDSignIn.sharedInstance().uiDelegate = self
+//        GIDSignIn.sharedInstance().signIn()
+
         NotificationCenter.default.addObserver(self, selector: #selector(closeSelf), name: NSNotification.Name("userLogined"), object: nil)
     }
     override func didReceiveMemoryWarning() {
@@ -21,4 +29,11 @@ class LoginSignUpViewController: UIViewController {
         navigationController?.popViewController(animated: true)
         dismiss(animated: true, completion: nil)
     }
+
+
+    @IBAction func onTouchGoogleSignInBtn(_ sender: Any) {
+        GIDSignIn.sharedInstance().signIn()
+    }
+
+
 }

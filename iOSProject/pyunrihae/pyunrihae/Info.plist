@@ -16,8 +16,35 @@
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>kakaoe0a1ee3c299f7990a1ee2014bb89d8d8</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.296270517036-ha63c7pv4n84hiq7bf2ja0a7mlrouq6s</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>KAKAO_APP_KEY</key>
+	<string>e0a1ee3c299f7990a1ee2014bb89d8d8</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>kakaoe0a1ee3c299f7990a1ee2014bb89d8d8</string>
+		<string>kakaolink</string>
+		<string>kakaotalk-5.9.7</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -28,7 +55,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>사진첩을 열까요?</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>사진첩좀 봅시다!</string>
+	<string>사진첩을 열까요?</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

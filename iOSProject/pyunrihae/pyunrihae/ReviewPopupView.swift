@@ -20,6 +20,7 @@ class ReviewPopupView: UIView {
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var badBtn: UIButton!
     @IBOutlet weak var usefulBtn: UIButton!
+    @IBOutlet weak var kakaoShareBtn: UIButton!
     var validator = 0
     @IBAction func showDetailProduct(_ sender: UIButton) {
         self.removeFromSuperview()
@@ -31,4 +32,9 @@ class ReviewPopupView: UIView {
     @IBAction func closeBtn(_ sender: UIButton) {
         self.removeFromSuperview()
     }
+    @IBAction func onClickKakaoShare(_ sender: Any) {
+        
+//        DataManager.sendLinkFeed()
+    }
+    
 }

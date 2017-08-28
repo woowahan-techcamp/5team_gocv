@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		025FB54D69452E7E0E398251 /* Pods_pyunrihae.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4488E201DEAF59744BC95780 /* Pods_pyunrihae.framework */; };
+		0E9724EC1F52905100AAAD91 /* ic_google_sign_in.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E9724EA1F52905100AAAD91 /* ic_google_sign_in.png */; };
+		0E9724ED1F52905100AAAD91 /* ic_emailsignup.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E9724EB1F52905100AAAD91 /* ic_emailsignup.png */; };
+		0E9724EF1F529BB700AAAD91 /* GoogleSignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9724EE1F529BB700AAAD91 /* GoogleSignInViewController.swift */; };
+		0EC14C971F51B29500D257E1 /* KakaoLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EC14C961F51B29500D257E1 /* KakaoLink.framework */; };
+		0EC14C991F51B29D00D257E1 /* KakaoCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EC14C981F51B29D00D257E1 /* KakaoCommon.framework */; };
+		0EC14C9B1F51B34D00D257E1 /* kakaolink_btn_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EC14C9A1F51B34D00D257E1 /* kakaolink_btn_small.png */; };
 		14F146B434332A2D6E2CFF9B /* Pods_pyunrihaeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40585D3F57E929D9644DF6CD /* Pods_pyunrihaeUITests.framework */; };
 		981E932A1F38666E004BE63B /* RankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981E93291F38666E004BE63B /* RankingViewController.swift */; };
 		981E932C1F386677004BE63B /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981E932B1F386677004BE63B /* ReviewViewController.swift */; };
@@ -112,7 +118,6 @@
 		98F8659C1F4407A700C2F333 /* ic_review_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F865941F4407A700C2F333 /* ic_review_selected.png */; };
 		98F8659D1F4407A700C2F333 /* ic_review.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F865951F4407A700C2F333 /* ic_review.png */; };
 		98F865A11F442A3000C2F333 /* ic_login.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F8659E1F442A3000C2F333 /* ic_login.png */; };
-		98F865A21F442A3000C2F333 /* ic_emailsignup.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F8659F1F442A3000C2F333 /* ic_emailsignup.png */; };
 		98F865A31F442A3000C2F333 /* bg_login.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F865A01F442A3000C2F333 /* bg_login.png */; };
 		98F865A51F442B3800C2F333 /* LoginSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F865A41F442B3800C2F333 /* LoginSignUpViewController.swift */; };
 		98F865A71F442EE100C2F333 /* ic_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F865A61F442EE100C2F333 /* ic_close.png */; };
@@ -143,6 +148,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E9724EA1F52905100AAAD91 /* ic_google_sign_in.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_google_sign_in.png; sourceTree = "<group>"; };
+		0E9724EB1F52905100AAAD91 /* ic_emailsignup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_emailsignup.png; sourceTree = "<group>"; };
+		0E9724EE1F529BB700AAAD91 /* GoogleSignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleSignInViewController.swift; sourceTree = "<group>"; };
+		0EC14C951F51B24600D257E1 /* KakaoOpenSDK-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KakaoOpenSDK-Bridging-Header.h"; sourceTree = "<group>"; };
+		0EC14C961F51B29500D257E1 /* KakaoLink.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoLink.framework; sourceTree = "<group>"; };
+		0EC14C981F51B29D00D257E1 /* KakaoCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoCommon.framework; sourceTree = "<group>"; };
+		0EC14C9A1F51B34D00D257E1 /* kakaolink_btn_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kakaolink_btn_small.png; sourceTree = "<group>"; };
 		1319BEB880E29049AC8F0515 /* Pods_pyunrihaeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pyunrihaeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B085AE2D2B3D6AD37BF1C6F /* Pods-pyunrihaeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pyunrihaeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-pyunrihaeUITests/Pods-pyunrihaeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		40074A42A71C85B97C9ED731 /* Pods-pyunrihae.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pyunrihae.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pyunrihae/Pods-pyunrihae.debug.xcconfig"; sourceTree = "<group>"; };
@@ -259,7 +271,6 @@
 		98F865941F4407A700C2F333 /* ic_review_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_review_selected.png; sourceTree = "<group>"; };
 		98F865951F4407A700C2F333 /* ic_review.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_review.png; sourceTree = "<group>"; };
 		98F8659E1F442A3000C2F333 /* ic_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_login.png; sourceTree = "<group>"; };
-		98F8659F1F442A3000C2F333 /* ic_emailsignup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_emailsignup.png; sourceTree = "<group>"; };
 		98F865A01F442A3000C2F333 /* bg_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_login.png; sourceTree = "<group>"; };
 		98F865A41F442B3800C2F333 /* LoginSignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginSignUpViewController.swift; sourceTree = "<group>"; };
 		98F865A61F442EE100C2F333 /* ic_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_close.png; sourceTree = "<group>"; };
@@ -278,6 +289,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EC14C971F51B29500D257E1 /* KakaoLink.framework in Frameworks */,
+				0EC14C991F51B29D00D257E1 /* KakaoCommon.framework in Frameworks */,
 				025FB54D69452E7E0E398251 /* Pods_pyunrihae.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -317,6 +330,8 @@
 		735C2F99ED0A73A028E0CEA8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0EC14C981F51B29D00D257E1 /* KakaoCommon.framework */,
+				0EC14C961F51B29500D257E1 /* KakaoLink.framework */,
 				4488E201DEAF59744BC95780 /* Pods_pyunrihae.framework */,
 				1319BEB880E29049AC8F0515 /* Pods_pyunrihaeTests.framework */,
 				40585D3F57E929D9644DF6CD /* Pods_pyunrihaeUITests.framework */,
@@ -342,8 +357,9 @@
 				98F8659E1F442A3000C2F333 /* ic_login.png */,
 				98CBA0C31F467EE5003D0370 /* ic_dropdown.png */,
 				98CBA0BF1F466919003D0370 /* ic_review_write.png */,
+				0E9724EA1F52905100AAAD91 /* ic_google_sign_in.png */,
+				0E9724EB1F52905100AAAD91 /* ic_emailsignup.png */,
 				98CBA0C11F467E7D003D0370 /* ic_add.png */,
-				98F8659F1F442A3000C2F333 /* ic_emailsignup.png */,
 				98F865A61F442EE100C2F333 /* ic_close.png */,
 				98CBA0BB1F458E87003D0370 /* ic_login_disabled.png */,
 				98CBA0BC1F458E87003D0370 /* ic_login_enabled.png */,
@@ -353,6 +369,7 @@
 				9865E5391F3BD81E00014795 /* back.png */,
 				98CBA0B71F458BA8003D0370 /* back_right.png */,
 				98D839091F452E6200CDF699 /* ic_pyunrihae.png */,
+				0EC14C9A1F51B34D00D257E1 /* kakaolink_btn_small.png */,
 				98F865AE1F44340E00C2F333 /* ic_complete_enabled.png */,
 				98F865AF1F44340E00C2F333 /* ic_complete.png */,
 				98F8657E1F43FB1A00C2F333 /* star1.png */,
@@ -420,6 +437,7 @@
 				98CBA0D91F4AEE60003D0370 /* LikeProductViewController.swift */,
 				98D569211F4C06F1002693E9 /* PyunrihaeInfoViewController.swift */,
 				98B394851F4D59190071BB8B /* ProductAllergyViewController.swift */,
+				0E9724EE1F529BB700AAAD91 /* GoogleSignInViewController.swift */,
 			);
 			name = "View Controller";
 			sourceTree = "<group>";
@@ -518,6 +536,7 @@
 		98F172E81F32EDB70044FD0D /* pyunrihae */ = {
 			isa = PBXGroup;
 			children = (
+				0EC14C951F51B24600D257E1 /* KakaoOpenSDK-Bridging-Header.h */,
 				98D9F2CD1F418DF3009D0E10 /* YNSearch */,
 				98D819071F32F9C000BE2A95 /* etc */,
 				98D819061F32F9B700BE2A95 /* Storyboard */,
@@ -665,6 +684,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				98CBA0D01F469E6C003D0370 /* ic_default.png in Resources */,
+				0EC14C9B1F51B34D00D257E1 /* kakaolink_btn_small.png in Resources */,
 				98F172F41F32EDB70044FD0D /* LaunchScreen.storyboard in Resources */,
 				98CBA0C21F467E7D003D0370 /* ic_add.png in Resources */,
 				98D5691E1F4BE6DA002693E9 /* bad.png in Resources */,
@@ -685,6 +705,7 @@
 				98F865971F4407A700C2F333 /* ic_home.png in Resources */,
 				98CBA0CA1F468196003D0370 /* ic_star.png in Resources */,
 				98DED89C1F41732700CC4D63 /* Main.storyboard in Resources */,
+				0E9724EC1F52905100AAAD91 /* ic_google_sign_in.png in Resources */,
 				98F865A31F442A3000C2F333 /* bg_login.png in Resources */,
 				98F865861F43FB1A00C2F333 /* star4.png in Resources */,
 				98CBA0B61F458AFC003D0370 /* ic_user.png in Resources */,
@@ -701,6 +722,7 @@
 				98F865AB1F442F8B00C2F333 /* ic_password.png in Resources */,
 				98F865A71F442EE100C2F333 /* ic_close.png in Resources */,
 				98D569201F4BE6EC002693E9 /* useful.png in Resources */,
+				0E9724ED1F52905100AAAD91 /* ic_emailsignup.png in Resources */,
 				98CBA0B81F458BA8003D0370 /* back_right.png in Resources */,
 				98F8659B1F4407A700C2F333 /* ic_ranking.png in Resources */,
 				98F865981F4407A700C2F333 /* ic_my_selected.png in Resources */,
@@ -720,7 +742,6 @@
 				98F865831F43FB1A00C2F333 /* star1.png in Resources */,
 				98D569121F46ABC7002693E9 /* user_default.png in Resources */,
 				98F865AD1F44317C00C2F333 /* ic_close_gray.png in Resources */,
-				98F865A21F442A3000C2F333 /* ic_emailsignup.png in Resources */,
 				98F865A91F442F8700C2F333 /* ic_mail.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -748,9 +769,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-pyunrihae/Pods-pyunrihae-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -763,13 +787,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-pyunrihae-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		587EC5AC5552B8323941BD3C /* [CP] Check Pods Manifest.lock */ = {
@@ -778,13 +805,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-pyunrihaeTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		628518DEB10BA5748AD8E91C /* [CP] Copy Pods Resources */ = {
@@ -808,9 +838,14 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-pyunrihaeTests/Pods-pyunrihaeTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-Defines-NSData+zlib/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -838,13 +873,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-pyunrihaeUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C827A40123A93FC24DCE78F1 /* [CP] Embed Pods Frameworks */ = {
@@ -853,9 +891,26 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-pyunrihae/Pods-pyunrihae-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${BUILT_PRODUCTS_DIR}/Fusuma/Fusuma.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-f0850809/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Fusuma.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -932,6 +987,7 @@
 				98B82EDE1F45748D001C63A4 /* User.swift in Sources */,
 				98D9F2E11F418DF3009D0E10 /* Objectification.swift in Sources */,
 				98F865B31F4434F800C2F333 /* SignupViewController.swift in Sources */,
+				0E9724EF1F529BB700AAAD91 /* GoogleSignInViewController.swift in Sources */,
 				98D9F2E81F418DF3009D0E10 /* YNSearchListView.swift in Sources */,
 				9865E54E1F3C576D00014795 /* Image.swift in Sources */,
 				98D9F2E51F418DF3009D0E10 /* YNSearchDelegate.swift in Sources */,
@@ -1090,11 +1146,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = pyunrihae/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.busride.pyunrihae;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "./pyunrihae/KakaoOpenSDK-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1106,11 +1167,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = pyunrihae/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.busride.pyunrihae;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "./pyunrihae/KakaoOpenSDK-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
