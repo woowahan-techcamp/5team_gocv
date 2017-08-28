@@ -1,42 +1,8 @@
-import {Util,Dropdown, Toast} from './main'
-import {DB, UpdateData} from './index.js'
+import {Util,Dropdown, Toast} from './main.js'
+import {UpdateData} from './index.js'
+import {DB} from './firebaseInit.js'
 import timestamp from './manage.js'
-import {PopupInfo} from "./manage";
-
-export class PopupOverlayClick {
-
-    constructor() {
-        this.signOverlay = document.querySelector('.sign-overlay');
-        this.signInner = document.querySelector('.sign-wrapper');
-
-        this.signFlag = false;
-
-        this.getEvent();
-    }
-
-    getEvent() {
-        /* sign in modal settings */
-        this.signOverlay.addEventListener('click', function () {
-            if (!this.signFlag) {
-                this.closePopup();
-            }
-            this.signFlag = false;
-
-        }.bind(this));
-
-        this.signInner.addEventListener('click', function () {
-            this.signFlag = true;
-        }.bind(this));
-
-    }
-
-    closePopup() {
-        if (!this.signFlag) {
-            this.signOverlay.style.display = "none";
-            this.signFlag = false;
-        }
-    }
-}
+import {PopupInfo} from "./manage.js";
 
 //image 업로드하고 미리보기 만드는 클래스
 export class UpLoadImage {
@@ -410,7 +376,6 @@ class MakeChart {
 class Review {
     constructor(id, navi, product, user) {
         this.popup = new PopupInfo();
-
         this.id = id;
         this.value = 0;
         this.product = product;
@@ -611,6 +576,7 @@ class Review {
                 "id": this.reviewId,
                 "p_id": this.product.id,
                 "p_image": url,
+                "product_image":this.product.img,
                 "p_name": this.product.name,
                 "p_price": this.product.price,
                 "price": this.data[1],
@@ -1084,26 +1050,3 @@ class ReviewRating {
 
 }
 
-
-function timestamp() {
-    var d = new Date();
-    var curr_date = d.getDate();
-    var curr_month = d.getMonth() + 1; //Months are zero based
-    var curr_year = d.getFullYear();
-    var curr_hour = d.getHours();
-    var curr_minute = d.getMinutes();
-    var curr_second = d.getSeconds();
-
-    if (curr_month < 10) {
-        curr_month = "0" + curr_month;
-    }
-    if (curr_second < 10) {
-        curr_second = "0" + curr_second;
-
-    }
-
-    return curr_year + "-" + curr_month + "-" + curr_date + " " +
-        curr_hour + ":" + curr_minute + ":" + curr_second;
-}
-
-export default timestamp;
