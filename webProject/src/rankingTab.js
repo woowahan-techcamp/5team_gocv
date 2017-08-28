@@ -1,3 +1,5 @@
+import {BrandInfo} from "./manage";
+
 export class RankingViewPage {
     constructor(rankingParams) {
 
@@ -23,6 +25,8 @@ export class RankingViewPage {
 
         this.template = document.querySelector(rankingParams.template).innerHTML;
         this.rank_content = document.querySelector(rankingParams.content);
+
+        this.brandInfo = new BrandInfo();
 
         this.init();
     }
@@ -54,7 +58,7 @@ export class RankingViewPage {
           const storage = localStorage['search_keyword'];
           const value = JSON.parse(storage);
 
-            const brand = this.getBrandName(value.brand);
+            const brand = this.brandInfo.getBrandName(value.brand);
             value['brand'] = brand;
 
             console.log(value);
@@ -156,26 +160,10 @@ export class RankingViewPage {
         }.bind(this));
     }
 
-    getBrandName(params) {
-        switch (params) {
-            case 'gs25':
-            case 'GS25':
-                return 'GS25';
-            case 'cu':
-            case 'CU':
-                return 'CU';
-            case 'seven':
-            case '7ELEVEN':
-                return '7-eleven';
-            default:
-                return 'all';
-        }
-    }
-
     setBrandSort(params) {
         let brandName;
         if (!!params) {
-            brandName = this.getBrandName(params);
+            brandName = this.brandInfo.getBrandName(params);
             this.searchObject.brand = brandName;
         } else {
             params = this.searchObject.brand;
