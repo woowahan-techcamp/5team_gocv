@@ -36,6 +36,7 @@ export class PopupOverlayClick {
 }
 
 export class Dropdown {
+
     constructor(event, button, drop) {
         this.event = event;
         this.button = button;
@@ -400,12 +401,13 @@ export class SearchTab {
         this.inputText = document.querySelector(this.searchParams.text);
         this.searchButton = document.querySelector(this.searchParams.button);
         this.fixTabNavi = document.querySelector("#fixTabNavi");
+
         this.init();
     }
 
     init() {
         this.dropdownEvent();
-        this.setTabClickEvent()
+        this.setTabClickEvent();
     }
 
     dropdownEvent() {
@@ -428,6 +430,7 @@ export class SearchTab {
             document.querySelector(".rank-container").style.display = "";
         }.bind(this));
     }
+
 
     setQuery() {
         const queryBrand = this.brandDrop.firstChild.innerText;
@@ -455,6 +458,14 @@ export class SearchTab {
 
             const text = document.getElementsByClassName("fixTab-select")[0].innerHTML;
 
+            const value = {
+                brand: 'all',
+                category: '전체',
+                keyword: ''
+            };
+
+            localStorage['search_keyword'] = JSON.stringify(value);
+
             if (text === "편리해") {
                 document.querySelector(".main-wrapper").style.display = "";
                 document.querySelector(".rank-container").style.display = "none";
@@ -463,13 +474,6 @@ export class SearchTab {
                 document.querySelector(".main-wrapper").style.display = "none";
                 document.querySelector(".rank-container").style.display = "";
                 document.querySelector(".review-container").style.display = "none";
-                const value = {
-                    brand: 'all',
-                    category: '전체',
-                    keyword: ''
-                };
-
-                localStorage['search_keyword'] = JSON.stringify(value);
             } else if (text === "리뷰") {
                 document.querySelector(".main-wrapper").style.display = "none";
                 document.querySelector(".rank-container").style.display = "none";
@@ -1049,8 +1053,8 @@ class ReviewFilter {
         }
 
         let i = 0;
-        for(const x in sortObj){
-            const value =sortObj[x];
+        for (const x in sortObj) {
+            const value = sortObj[x];
 
             value['rating'] = "carousel-review-star" + i;
             result.push(value);

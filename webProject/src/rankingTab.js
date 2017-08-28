@@ -1,5 +1,6 @@
 export class RankingViewPage {
     constructor(rankingParams) {
+
         // sort
         this.sort_rank_tab = document.querySelector(rankingParams.sort_tab);
         this.selected_sort_rank_tab = rankingParams.selected_sort;
@@ -53,45 +54,45 @@ export class RankingViewPage {
           const storage = localStorage['search_keyword'];
           const value = JSON.parse(storage);
 
-          const brand = this.getBrandName(value.brand);
-          value['brand'] = brand;
-          console.log(value);
+            const brand = this.getBrandName(value.brand);
+            value['brand'] = brand;
 
-          this.flag = true;
-          this.searchObject = value;
-          this.setDefaultRankingData();
-      }.bind(this));
+            console.log(value);
+            this.flag = true;
+            this.searchObject = value;
+            this.setDefaultRankingData();
+        }.bind(this));
 
-      document.querySelector("#fixTabNavi").addEventListener('click', function() {
-        const selectedTab = document.getElementsByClassName("fixTab-select")[0];
+        document.querySelector("#fixTabNavi").addEventListener('click', function () {
+            const selectedTab = document.getElementsByClassName("fixTab-select")[0];
 
-        const text = document.getElementsByClassName("fixTab-select")[0].innerHTML;
+            const text = document.getElementsByClassName("fixTab-select")[0].innerHTML;
 
-        if(text === "랭킹"){
-          const value = {
-            brand: 'all',
-            category: '전체',
-            sort: 'grade',
-            keyword: ''
-          };
+            if (text === "랭킹") {
+                const value = {
+                    brand: 'all',
+                    category: '전체',
+                    sort: 'grade',
+                    keyword: ''
+                };
 
-          this.flag = true;
-          this.searchObject = value;
-          this.setDefaultRankingData();
-        }
-      }.bind(this));
+                this.flag = true;
+                this.searchObject = value;
+                this.setDefaultRankingData();
+            }
+        }.bind(this));
     }
 
-    getArrayObject(){
-      const product = localStorage['product'];
-      const obj = JSON.parse(product);
-      const queryObj = [];
+    getArrayObject() {
+        const product = localStorage['product'];
+        const obj = JSON.parse(product);
+        const queryObj = [];
 
-      for(const key in obj){
-        queryObj.push(obj[key]);
-      }
+        for (const key in obj) {
+            queryObj.push(obj[key]);
+        }
 
-      return queryObj;
+        return queryObj;
     }
 
     sortEvent(selectedClassName, key) {
@@ -104,18 +105,18 @@ export class RankingViewPage {
             const changeSelectedTab = document.getElementsByClassName(selectedClassName)[0];
 
             if (changeSelectedTab.getAttribute('class') == key) {
-              this.flag = true;
-              const requestParam = changeSelectedTab.getAttribute('name');
-              this.setSorting(requestParam);
+                this.flag = true;
+                const requestParam = changeSelectedTab.getAttribute('name');
+                this.setSorting(requestParam);
             } else {
-              e.target.classList.remove(selectedClassName);
-              selectedTab.classList.add(selectedClassName);
+                e.target.classList.remove(selectedClassName);
+                selectedTab.classList.add(selectedClassName);
             }
         }.bind(this));
     }
 
-    brandEvent(selectedClassName, key){
-        this.brand_rank_tab.addEventListener('click', function(e){
+    brandEvent(selectedClassName, key) {
+        this.brand_rank_tab.addEventListener('click', function (e) {
             const selectedTab = document.getElementsByClassName(selectedClassName)[0];
 
             selectedTab.classList.remove(selectedClassName);
@@ -124,199 +125,199 @@ export class RankingViewPage {
             const changeSelectedTab = document.getElementsByClassName(selectedClassName)[0];
 
             if (changeSelectedTab.getAttribute('class') == key) {
-              this.flag = true;
-              const requestParam = changeSelectedTab.getAttribute('name');
-              this.setBrandSort(requestParam);
+                this.flag = true;
+                const requestParam = changeSelectedTab.getAttribute('name');
+                this.setBrandSort(requestParam);
             } else {
-              e.target.classList.remove(selectedClassName);
-              selectedTab.classList.add(selectedClassName);
+                e.target.classList.remove(selectedClassName);
+                selectedTab.classList.add(selectedClassName);
             }
         }.bind(this));
     }
 
-    categoryEvent(selectedClassName, key){
-        this.category_rank_tab.addEventListener('click', function(e){
+    categoryEvent(selectedClassName, key) {
+        this.category_rank_tab.addEventListener('click', function (e) {
 
-          const selectedTab = document.getElementsByClassName(selectedClassName)[0];
+            const selectedTab = document.getElementsByClassName(selectedClassName)[0];
 
-          selectedTab.classList.remove(selectedClassName);
-          e.target.classList.add(selectedClassName);
+            selectedTab.classList.remove(selectedClassName);
+            e.target.classList.add(selectedClassName);
 
-          const changeSelectedTab = document.getElementsByClassName(selectedClassName)[0];
+            const changeSelectedTab = document.getElementsByClassName(selectedClassName)[0];
 
-          if (changeSelectedTab.getAttribute('class') == key) {
-            this.flag = true;
-            const requestParam = changeSelectedTab.getAttribute('name');
-            this.setCategorySort(requestParam);
-          } else {
-            e.target.classList.remove(selectedClassName);
-            selectedTab.classList.add(selectedClassName);
-          }
+            if (changeSelectedTab.getAttribute('class') == key) {
+                this.flag = true;
+                const requestParam = changeSelectedTab.getAttribute('name');
+                this.setCategorySort(requestParam);
+            } else {
+                e.target.classList.remove(selectedClassName);
+                selectedTab.classList.add(selectedClassName);
+            }
         }.bind(this));
     }
 
-    getBrandName(params){
-      switch (params) {
-        case 'gs25':
-        case 'GS25':
-          return 'GS25';
-        case 'cu':
-        case 'CU':
-          return 'CU';
-        case 'seven':
-        case '7ELEVEN':
-          return '7-eleven';
-        default:
-          return 'all';
-      }
+    getBrandName(params) {
+        switch (params) {
+            case 'gs25':
+            case 'GS25':
+                return 'GS25';
+            case 'cu':
+            case 'CU':
+                return 'CU';
+            case 'seven':
+            case '7ELEVEN':
+                return '7-eleven';
+            default:
+                return 'all';
+        }
     }
 
-    setBrandSort(params){
-      let brandName;
-      if(!!params){
-        brandName = this.getBrandName(params);
-        this.searchObject.brand = brandName;
-      }else{
-        params = this.searchObject.brand;
-        brandName = params;
-      }
-
-      this.arrayObj = this.getArrayObject();
-
-      let queryObj = [];
-
-      if(this.searchObject.brand != 'all'){
-        for(const key in this.arrayObj){
-          if(this.arrayObj[key].brand === brandName){
-            queryObj.push(this.arrayObj[key]);
-          }
+    setBrandSort(params) {
+        let brandName;
+        if (!!params) {
+            brandName = this.getBrandName(params);
+            this.searchObject.brand = brandName;
+        } else {
+            params = this.searchObject.brand;
+            brandName = params;
         }
-      }else{
-        queryObj = this.getArrayObject();
-      }
 
-      this.arrayObj = queryObj;
+        this.arrayObj = this.getArrayObject();
 
-      if(this.flag){
-        this.flag = false;
-        this.setCategorySort();
-        this.setSorting();
-      }
+        let queryObj = [];
 
-      this.setDefaultRankingData();
+        if (this.searchObject.brand != 'all') {
+            for (const key in this.arrayObj) {
+                if (this.arrayObj[key].brand === brandName) {
+                    queryObj.push(this.arrayObj[key]);
+                }
+            }
+        } else {
+            queryObj = this.getArrayObject();
+        }
+
+        this.arrayObj = queryObj;
+
+        if (this.flag) {
+            this.flag = false;
+            this.setCategorySort();
+            this.setSorting();
+        }
+
+        this.setDefaultRankingData();
     }
 
-    setCategorySort(param){
-      const queryObj = [];
-      if(!!param){
-        this.searchObject.category = param;
-      }else{
-        param = this.searchObject.category;
-      }
-
-      if(this.flag){
-        this.flag = false;
-        this.setBrandSort();
-      }
-
-      for(const key in this.arrayObj){
-        if(param === "전체"){
-          queryObj.push(this.arrayObj[key]);
-        }else if(this.arrayObj[key].category === param){
-          queryObj.push(this.arrayObj[key]);
+    setCategorySort(param) {
+        const queryObj = [];
+        if (!!param) {
+            this.searchObject.category = param;
+        } else {
+            param = this.searchObject.category;
         }
-      }
 
-      this.arrayObj = queryObj;
-      this.setDefaultRankingData();
+        if (this.flag) {
+            this.flag = false;
+            this.setBrandSort();
+        }
+
+        for (const key in this.arrayObj) {
+            if (param === "전체") {
+                queryObj.push(this.arrayObj[key]);
+            } else if (this.arrayObj[key].category === param) {
+                queryObj.push(this.arrayObj[key]);
+            }
+        }
+
+        this.arrayObj = queryObj;
+        this.setDefaultRankingData();
     }
 
     setSorting(params) {
-      const queryObj = [];
-      let sortObj = [];
+        const queryObj = [];
+        let sortObj = [];
 
-      if(!!params){
-        this.searchObject.sort = params
-      }else{
-        params = this.searchObject.sort;
-      }
+        if (!!params) {
+            this.searchObject.sort = params
+        } else {
+            params = this.searchObject.sort;
+        }
 
-      for(const key in this.arrayObj){
-        queryObj.push(this.arrayObj[key]);
-      }
+        for (const key in this.arrayObj) {
+            queryObj.push(this.arrayObj[key]);
+        }
 
-      if(this.flag){
-        this.flag = false;
-        this.setBrandSort();
-      }
+        if (this.flag) {
+            this.flag = false;
+            this.setBrandSort();
+        }
 
-      switch (params) {
+        switch (params) {
 
-        case 'review':
-          sortObj = this.setReviewSort(queryObj);
+            case 'review':
+                sortObj = this.setReviewSort(queryObj);
 
-          break;
-        case 'row':
-          sortObj = this.setRowPriceSort(queryObj);
+                break;
+            case 'row':
+                sortObj = this.setRowPriceSort(queryObj);
 
-          break;
-        default:
-          sortObj = this.setGradeSort(queryObj);
-          break;
-      }
+                break;
+            default:
+                sortObj = this.setGradeSort(queryObj);
+                break;
+        }
 
-      this.arrayObj = sortObj;
-      this.setDefaultRankingData();
+        this.arrayObj = sortObj;
+        this.setDefaultRankingData();
     }
 
-    setRowPriceSort(array){
-      array.sort(function(a, b){
-        const beforePrice = parseInt(a.price);
-        const afterPrice = parseInt(b.price);
+    setRowPriceSort(array) {
+        array.sort(function (a, b) {
+            const beforePrice = parseInt(a.price);
+            const afterPrice = parseInt(b.price);
 
-        if (beforePrice > afterPrice) {
-          return 1;
-        } else if (beforePrice < afterPrice) {
-          return -1;
-        } else{
-          return 0;
-        }
-      });
+            if (beforePrice > afterPrice) {
+                return 1;
+            } else if (beforePrice < afterPrice) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
 
-      return array;
+        return array;
     }
 
-    setReviewSort(array){
-      array.sort(function(a, b){
-        const beforeReview = parseInt(a.review_count);
-        const afterReview = parseInt(b.review_count);
-        if (beforeReview < afterReview) {
-          return 1;
-        } else if (beforeReview > afterReview) {
-          return -1;
-        } else{
-          return 0;
-        }
-      });
+    setReviewSort(array) {
+        array.sort(function (a, b) {
+            const beforeReview = parseInt(a.review_count);
+            const afterReview = parseInt(b.review_count);
+            if (beforeReview < afterReview) {
+                return 1;
+            } else if (beforeReview > afterReview) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
 
-      return array;
+        return array;
     }
 
-    setGradeSort(array){
-      array.sort(function(a, b){
-        const beforeGrade = parseFloat(a.grade_avg);
-        const afterGrade = parseFloat(b.grade_avg);
+    setGradeSort(array) {
+        array.sort(function (a, b) {
+            const beforeGrade = parseFloat(a.grade_avg);
+            const afterGrade = parseFloat(b.grade_avg);
 
-        if (beforeGrade < afterGrade) {
-          return 1;
-        } else if (beforeGrade > afterGrade) {
-          return -1;
-        } else{
-          return 0;
-        }
-      });
+            if (beforeGrade < afterGrade) {
+                return 1;
+            } else if (beforeGrade > afterGrade) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
 
-      return array;
+        return array;
     }
 
     reloadEvent() {
@@ -342,7 +343,7 @@ export class RankingViewPage {
             const value = this.arrayObj[key];
 
             if (!!value) {
-                value["rank"] = (i+1).toString();
+                value["rank"] = (i + 1).toString();
                 value["rating"] = "card-rank-rating" + i;
                 resultValue.push(value);
             }
@@ -355,17 +356,17 @@ export class RankingViewPage {
         this.setRatingHandler(resultValue);
     }
 
-    setSearchKeyword(){
-      const value = [];
+    setSearchKeyword() {
+        const value = [];
 
-      for(const key in this.arrayObj){
-        if((this.arrayObj[key].name).match(this.searchObject.keyword)){
-          value.push(this.arrayObj[key]);
+        for (const key in this.arrayObj) {
+            if ((this.arrayObj[key].name).match(this.searchObject.keyword)) {
+                value.push(this.arrayObj[key]);
+            }
         }
-      }
-      this.arrayObj = value;
+        this.arrayObj = value;
 
-      return value;
+        return value;
     }
 
     setDefaultRankingData() {
@@ -373,8 +374,8 @@ export class RankingViewPage {
         this.end = 12;
         this.height = 800;
 
-        if(this.flag){
-          this.setBrandSort();
+        if (this.flag) {
+            this.setBrandSort();
         }
 
         const data = (!!this.searchObject.keyword) ? this.setSearchKeyword() : this.arrayObj;
@@ -384,7 +385,7 @@ export class RankingViewPage {
             const key = Object.keys(data)[i];
             const value = data[key];
             if (!!value) {
-                const rank = (i+1).toString();
+                const rank = (i + 1).toString();
                 value["rank"] = rank;
                 value["style"] = "rank-card-badge-area" + rank;
                 value["rating"] = "card-rank-rating" + i;
@@ -411,4 +412,14 @@ export class RankingViewPage {
             i++;
         }
     }
+
 }
+
+function enterKeyEvent() {
+    if (window.event.keyCode === 13) {
+        document.getElementsByClassName("fixTab-search-button")[0].click();
+    }
+
+}
+
+window.enterKeyEvent = enterKeyEvent;
