@@ -48,9 +48,11 @@
             </ul>
         </div>
         <div>
-            <form>
-                <input class="fixTab-search-word" type="text" name="product" placeholder="상품명을 입력하세요">
-            </form>
+
+            <input class="fixTab-search-word" type="text"
+                   name="product" placeholder="상품명을 입력하세요"
+                   onKeyDown="enterKeyEvent()">
+
         </div>
         <div class="fixTab-search-button">
             <img style=" margin-top:2px; width: 25px; height: 25px" src="image/search.png"></div>
@@ -62,9 +64,9 @@
             <img id="fixTabProfileImg" style="border-radius:15px;opacity: 1; width: 30px; height: 30px"
                  src="image/profile.png">
         </div>
-            <div class="fixTab-profile-id">
+        <div class="fixTab-profile-id">
 
-            </div>
+        </div>
         <div class="fixTab-profile-button">
             <img style="opacity: 1; width: 13px; height: 7px" src="image/arrow_down.png">
         </div>
@@ -730,7 +732,7 @@
                         </ul>
                     </div>
                 </div>
-                <textarea class="popup-newReview-comment"  placeholder="부담없이 리뷰를 작성하세요!"></textarea>
+                <textarea class="popup-newReview-comment" placeholder="부담없이 리뷰를 작성하세요!"></textarea>
             </div>
             <div class="popup-newReviewWrapper-bottom">
                 <div class="popup-newReview-addAllegy">알레르기 성분 추가</div>
