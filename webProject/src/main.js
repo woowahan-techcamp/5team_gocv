@@ -1,6 +1,8 @@
 import {TimeManager} from "./manage";
+
 import {UpdateData} from './index.js';
 
+//드롭다운 만드는 클래스
 export class Dropdown {
 
     constructor(event, button, drop) {
@@ -28,6 +30,7 @@ export class Dropdown {
     }
 }
 
+//ajax , handbar.js template 관련 기능
 export class Util {
 
     ajax(func) {
@@ -275,23 +278,14 @@ export class Toast {
 //메인 상단 고정 탭
 export class SearchTab {
     constructor(searchParams) {
-        this.searchParams = {
-            brand: '.fixTab-search-brand',
-            brand_dropdown: '.fixTab-search-brand-dropdown',
-            category: '.fixTab-search-category',
-            category_drowndown: '.fixTab-search-category-dropdown',
-            text: '.fixTab-search-word',
-            button: '.fixTab-search-button'
-        };
-
-        this.brandDrop = document.querySelector(this.searchParams.brand);
-        this.brandNavi = document.querySelector(this.searchParams.brand_dropdown);
-        this.categoryDrop = document.querySelector(this.searchParams.category);
-        this.categoryNavi = document.querySelector(this.searchParams.category_drowndown);
-        this.inputText = document.querySelector(this.searchParams.text);
-        this.searchButton = document.querySelector(this.searchParams.button);
+        this.brandDrop = document.querySelector(searchParams.brand);
+        this.brandNavi = document.querySelector(searchParams.brand_dropdown);
+        this.categoryDrop = document.querySelector(searchParams.category);
+        this.categoryNavi = document.querySelector(searchParams.category_drowndown);
+        this.inputText = document.querySelector(searchParams.text);
+        this.searchButton = document.querySelector(searchParams.button);
         this.fixTabNavi = document.querySelector("#fixTabNavi");
-
+        this.searchParams = searchParams;
         this.init();
     }
 
@@ -315,7 +309,7 @@ export class SearchTab {
 
         this.searchButton.addEventListener("click", function () {
             this.setQuery();
-
+            new Toast("검색 결과입니다.")
             document.querySelector(".main-wrapper").style.display = "none";
             document.querySelector(".review-container").style.display = "none";
             document.querySelector(".rank-container").style.display = "";
@@ -342,6 +336,7 @@ export class SearchTab {
 
     setTabClickEvent() {
         this.fixTabNavi.addEventListener('click', function (e) {
+
             const selectedTab = document.getElementsByClassName("fixTab-select")[0];
 
             selectedTab.classList.remove("fixTab-select");

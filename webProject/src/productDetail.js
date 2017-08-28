@@ -1,42 +1,7 @@
-import {Util,Dropdown, Toast} from './main'
-import {DB, UpdateData} from './index.js'
+import {Util,Dropdown, Toast} from './main.js'
+import {UpdateData} from './index.js'
+import {DB} from './firebaseInit.js'
 import timestamp from './manage.js'
-import {PopupInfo} from "./manage";
-
-export class PopupOverlayClick {
-
-    constructor() {
-        this.signOverlay = document.querySelector('.sign-overlay');
-        this.signInner = document.querySelector('.sign-wrapper');
-
-        this.signFlag = false;
-
-        this.getEvent();
-    }
-
-    getEvent() {
-        /* sign in modal settings */
-        this.signOverlay.addEventListener('click', function () {
-            if (!this.signFlag) {
-                this.closePopup();
-            }
-            this.signFlag = false;
-
-        }.bind(this));
-
-        this.signInner.addEventListener('click', function () {
-            this.signFlag = true;
-        }.bind(this));
-
-    }
-
-    closePopup() {
-        if (!this.signFlag) {
-            this.signOverlay.style.display = "none";
-            this.signFlag = false;
-        }
-    }
-}
 
 //image 업로드하고 미리보기 만드는 클래스
 export class UpLoadImage {
@@ -82,6 +47,7 @@ export class UpLoadImage {
 
 }
 
+//리뷰 탭에서 이미지 클릭 시 상세화면 나타나는 클래스
 export class ReviewPopup {
 
     constructor(db, wrapper, targetName, reviewId, userId) {
@@ -100,7 +66,7 @@ export class ReviewPopup {
 
         this.wrapper.addEventListener("click", function (e) {
 
-            console.log(e.target)
+            // console.log(e.target)
             this.userId = firebase.auth().currentUser.uid;
 
             if (Array.from(e.target.classList).includes(this.targetName)) {
@@ -184,6 +150,7 @@ export class ReviewPopup {
     }
 }
 
+//상품 이미지 클릭 시 상세화면 나타나는 클래스
 export class ProductPopup {
 
     constructor(db, wrapper, targetName, productId, userId) {
@@ -201,7 +168,7 @@ export class ProductPopup {
 
         this.wrapper.addEventListener("click", function (e) {
 
-            console.log(e.target)
+            // console.log(e.target)
             this.userId = firebase.auth().currentUser.uid;
 
             if (Array.from(e.target.classList).includes(this.targetName)) {
@@ -236,7 +203,7 @@ export class ProductPopup {
         const sec = document.querySelector("#popup");
         const util = new Util();
 
-        console.log(this.db)
+        // console.log(this.db)
         //grade_avg 평점이 소수점 둘째자리까지만 표시
 
         this.db.product[this.productId].grade_avg = parseFloat(this.db.product[this.productId].grade_avg).toFixed(1);
@@ -324,7 +291,7 @@ export class ProductPopup {
 
         }.bind(this));
 
-        const reviewRating = new ReviewRating(this.db);
+        const reviewRating = new ReviewRating(this.db,this);
 
         document.querySelector(".popup-close").addEventListener("click", function () {
             this.scrollEvent("visible");
@@ -409,8 +376,6 @@ class MakeChart {
 //review의 이벤트를 만들고 리뷰를 생성하는 클래스
 class Review {
     constructor(id, navi, product, user) {
-        this.popup = new PopupInfo();
-
         this.id = id;
         this.value = 0;
         this.product = product;
@@ -611,6 +576,7 @@ class Review {
                 "id": this.reviewId,
                 "p_id": this.product.id,
                 "p_image": url,
+                "product_image":this.product.img,
                 "p_name": this.product.name,
                 "p_price": this.product.price,
                 "price": this.data[1],
@@ -695,7 +661,7 @@ class Review {
 
 
         }.bind(this)).catch(function (error) {
-            console.log(error);
+            // console.log(error);
             document.querySelector('#loading').style.display = "none"
         });
     }
@@ -924,8 +890,9 @@ class ReviewFilter {
     }
 }
 
+//리뷰 유용해야 별로에요 버튼 모듈 클래스
 class ReviewRating {
-    constructor(db, userId, productId, reviewId, likeList) {
+    constructor(db,reviewClass,userId, productId, reviewId, likeList) {
         this.db = db;
         this.userId = userId;
         this.productId = productId;
@@ -937,9 +904,11 @@ class ReviewRating {
 
     setEvent() {
         document.querySelector(".popup-reviewWrapperList").addEventListener("click", function (e) {
-
-
             if (e.target.classList.contains("popup-review-good") || e.target.classList.contains("popup-review-bad")) {
+                const goodBtn = e.target.parentElement.parentElement.childNodes[1].childNodes[1];
+                const badBtn = e.target.parentElement.parentElement.childNodes[3].childNodes[1];
+
+
                 this.userId = firebase.auth().currentUser.uid;
                 this.reviewId = e.target.parentElement.getAttribute("name");
 
@@ -953,11 +922,11 @@ class ReviewRating {
 
                 //데이터가 없거나, 0일경우
                 if (!this.likeList || this.likeList === 0) {
-                    console.log("데이터가 없거나, 0일경우");
+                    // console.log("데이터가 없거나, 0일경우");
 
                     document.querySelector('#loading').style.display = "block";
-                    e.target.disabled = true;
-
+                    goodBtn.disabled = true;
+                    badBtn.disabled = true;
 
                     let value = 0;
                     let newValue = parseInt(e.target.nextSibling.nextSibling.innerHTML);
@@ -993,18 +962,20 @@ class ReviewRating {
                             localStorage['user'] = JSON.stringify(snapshot.val());
                             that2.db.user = JSON.parse(localStorage['user']);
                             document.querySelector('#loading').style.display = "none"
-                            e.target.disabled = false;
-                            console.log("user 캐시 업데이트")
+                            goodBtn.disabled = false;
+                            badBtn.disabled = false;
+                            // console.log("user 캐시 업데이트")
                         }.bind(that2));
                     }.bind(that));
 
                     //이미 선택된적이 있는 경우
                 } else if (this.likeList === 1) {
-                    console.log("good 으로 선택된적 있는 경우")
+                    // console.log("good 으로 선택된적 있는 경우")
 
 
                     document.querySelector('#loading').style.display = "block"
-                    e.target.disabled = true;
+                    goodBtn.disabled = true;
+                    badBtn.disabled = true;
 
                     if (e.target.classList.contains("popup-review-good")) {
                         e.target.className = "popup-review-good";
@@ -1025,23 +996,24 @@ class ReviewRating {
                                 localStorage['user'] = JSON.stringify(snapshot.val());
                                 that2.db.user = JSON.parse(localStorage['user']);
                                 document.querySelector('#loading').style.display = "none"
-                                e.target.disabled = false;
-                                console.log("user 캐시 업데이트")
+                                goodBtn.disabled = false;
+                                badBtn.disabled = false;
+                                // console.log("user 캐시 업데이트")
                             }.bind(that2));
                         }.bind(that));
                     } else {
 
-                        console.log("아무반응이 없어야함")
+                        // console.log("아무반응이 없어야함")
                         document.querySelector('#loading').style.display = "none"
-                        e.target.disabled = false
-
+                        goodBtn.disabled = false;
+                        badBtn.disabled = false;
                     }
 
                 } else if (this.likeList === -1) {
-                    console.log("bad 으로 선택된적 있는 경우")
+                    // console.log("bad 으로 선택된적 있는 경우")
                     document.querySelector('#loading').style.display = "block"
-                    e.target.disabled = true;
-
+                    goodBtn.disabled = true;
+                    badBtn.disabled = true;
 
                     if (e.target.classList.contains("popup-review-bad")) {
                         e.target.className = "popup-review-bad";
@@ -1064,17 +1036,17 @@ class ReviewRating {
                                 localStorage['user'] = JSON.stringify(snapshot.val());
                                 that2.db.user = JSON.parse(localStorage['user']);
                                 document.querySelector('#loading').style.display = "none"
-                                e.target.disabled = false;
-                                console.log("user 캐시 업데이트")
+                                goodBtn.disabled = false;
+                                badBtn.disabled = false;
+                                // console.log("user 캐시 업데이트")
                             }.bind(that2));
                         }.bind(that));
 
                     } else {
-
-                        console.log("아무반응이 없어야함")
+                        // console.log("아무반응이 없어야함")
                         document.querySelector('#loading').style.display = "none"
-                        e.target.disabled = false
-
+                        goodBtn.disabled = false;
+                        badBtn.disabled = false;
                     }
                 }
             }
@@ -1084,26 +1056,3 @@ class ReviewRating {
 
 }
 
-
-function timestamp() {
-    var d = new Date();
-    var curr_date = d.getDate();
-    var curr_month = d.getMonth() + 1; //Months are zero based
-    var curr_year = d.getFullYear();
-    var curr_hour = d.getHours();
-    var curr_minute = d.getMinutes();
-    var curr_second = d.getSeconds();
-
-    if (curr_month < 10) {
-        curr_month = "0" + curr_month;
-    }
-    if (curr_second < 10) {
-        curr_second = "0" + curr_second;
-
-    }
-
-    return curr_year + "-" + curr_month + "-" + curr_date + " " +
-        curr_hour + ":" + curr_minute + ":" + curr_second;
-}
-
-export default timestamp;

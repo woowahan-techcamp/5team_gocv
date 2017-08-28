@@ -19,7 +19,6 @@ import "../style/sign.css"
 import "../style/review-preivew.css"
 import "../style/review.css"
 
-
 //class import
 import {SearchTab, Carousel, Counter} from './main.js';
 import {BrandRankingPreview} from './brand.js';
@@ -31,6 +30,8 @@ import {SignUp, SignIn, SignConnect} from './sign.js'
 import {DB} from './firebaseInit.js'
 import {PopupInfo} from "./manage";
 
+
+
 document.addEventListener('DOMContentLoaded', function (event) {
   console.log("Dom content Loaded");
 
@@ -39,7 +40,15 @@ document.addEventListener('DOMContentLoaded', function (event) {
     db.init();
 
     //main.js
-    const searchTab = new SearchTab();
+    const searchParams = {
+        brand: '.fixTab-search-brand',
+        brand_dropdown: '.fixTab-search-brand-dropdown',
+        category: '.fixTab-search-category',
+        category_drowndown: '.fixTab-search-category-dropdown',
+        text: '.fixTab-search-word',
+        button: '.fixTab-search-button'
+    };
+    const searchTab = new SearchTab(searchParams);
     const user = firebase.auth().currentUser;
     const carousel = new Carousel('reviewNavi', 'carousel-leftButton', 'carousel-rightButton', 10,
         'carousel-template', 'carouselSec');
@@ -60,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
         }
     });
 
-
+    //
     new PopupInfo().setRefreshOverlay();
     new UpdateData();
 
@@ -156,7 +165,6 @@ export class UpdateData{
         new ReviewPage(reviewParams);
     }
 }
-
 
 function enterKeyEvent() {
     if (window.event.keyCode === 13) {
