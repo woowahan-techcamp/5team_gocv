@@ -1,4 +1,4 @@
-class Toast {
+export class Toast {
     constructor(message) {
         this.message = message;
         this.setEvent();

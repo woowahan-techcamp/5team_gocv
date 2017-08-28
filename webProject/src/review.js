@@ -1,17 +1,5 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const reviewParams = {
-        sort_tab: '.review-query-type-wrapper',
-        selected_sort: 'selected-review-query-tab',
-        sort_check_key: 'review-query-tab selected-review-query-tab',
-        template: '#card-review-page-template',
-        content: '.review-item-list-wrapper',
-        readmore: 'review-card-readmore'
-    };
 
-    new ReviewPage(reviewParams);
-});
-
-class ReviewPage {
+export class ReviewPage {
     constructor(reviewParams, reviewObj) {
         this.template = document.querySelector(reviewParams.template).innerHTML;
         this.review_content = document.querySelector(reviewParams.content);
