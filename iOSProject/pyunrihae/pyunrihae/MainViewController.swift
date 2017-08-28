@@ -355,7 +355,6 @@ class MainViewController: UIViewController {
         popup.usefulBtn.addTarget(self, action: #selector(self.didPressUsefulBtn), for: UIControlEvents.touchUpInside)
 
         // 카카오톡 공유 버튼 누르기
-
         popup.kakaoShareBtn.addTarget(self, action: #selector(self.didPressKakaoShareBtn), for: UIControlEvents.touchUpInside)
 
 
