@@ -432,7 +432,7 @@ class DataManager{
             }
         })
     }
-    static func writeReview(brand: String, category: String, grade: Int, priceLevel: Int, flavorLevel: Int, quantityLevel: Int, allergy: [String], review: String, user: String,user_image: String, p_id: String, p_image: UIImage, p_name: String, p_price: Int, completion: ()->()) {
+    static func writeReview(brand: String, category: String, grade: Int, priceLevel: Int, flavorLevel: Int, quantityLevel: Int, allergy: [String], review: String, user: String,user_image: String, p_id: String, p_image: UIImage,product_image : String, p_name: String, p_price: Int, completion: ()->()) {
         let format = DateFormatter()
         format.locale = Locale(identifier: "ko_kr")
         format.timeZone = TimeZone(abbreviation: "KST")
@@ -448,7 +448,7 @@ class DataManager{
         // Create a storage reference from our storage service
         let storageRef = storage.reference(forURL: "gs://pyeonrehae.appspot.com")
         let imagesRef = storageRef.child("images/" + autoId + ".png")
-        var update = ["bad": 0, "useful": 0, "user": user, "user_image": user_image, "brand": brand, "category": category, "comment": review, "grade": grade, "price": priceLevel, "flavor": flavorLevel, "quantity": quantityLevel, "p_id": p_id, "p_name": p_name, "p_price": p_price, "timestamp": today, "id": autoId] as [String : Any]
+        var update = ["bad": 0, "useful": 0, "user": user, "user_image": user_image, "brand": brand, "category": category, "comment": review, "grade": grade, "price": priceLevel, "flavor": flavorLevel, "quantity": quantityLevel, "product_image": product_image,"p_id": p_id, "p_name": p_name, "p_price": p_price, "timestamp": today, "id": autoId] as [String : Any]
         if let data = UIImagePNGRepresentation(p_image) {
             imagesRef.putData(data, metadata: nil, completion: {
                 (metadata, error) in
