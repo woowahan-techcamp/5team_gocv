@@ -51,7 +51,7 @@ export class DB {
         this.updateDb("product");
     }
 
-    updateUserDb() {
+    updateUserDb(func) {
         firebase.database().ref('user/').once('value').then(function (snapshot) {
             localStorage['user'] = JSON.stringify(snapshot.val());
             this.user = JSON.parse(localStorage['user']);
