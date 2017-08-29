@@ -1,9 +1,9 @@
 //js bundle
 import "./firebaseInit.js"
-import "./ranking.js"
+import "./ranking_main.js"
 import "./brand.js"
 import "./main.js"
-import "./rankingTab.js"
+import "./ranking_tab.js"
 import "./sign.js"
 import "./review.js"
 import "./manage.js"
@@ -22,8 +22,8 @@ import "../style/review.css"
 //class import
 import {SearchTab, Carousel, Counter} from './main.js';
 import {BrandRankingPreview} from './brand.js';
-import {MainRankingPreview} from './ranking.js';
-import {RankingViewPage} from './rankingTab.js'
+import {MainRankingPreview} from './ranking_main.js';
+import {RankingViewPage} from './ranking_tab.js'
 import {ReviewPage} from './review.js'
 import {ProductPopup, ReviewPopup} from './productDetail.js'
 import {SignUp, SignIn, SignConnect} from './sign.js'
@@ -124,7 +124,7 @@ export class UpdateData{
         new BrandRankingPreview(cuParams, 'CU');
         new BrandRankingPreview(sevenParams, '7-eleven');
 
-        //ranking.js
+        //ranking_main.js
         const documentParams = {
             tab: '.main-rank-tab-wrapper',
             selected: 'main-rank-selectedtab',
@@ -134,7 +134,7 @@ export class UpdateData{
         };
         new MainRankingPreview(documentParams);
 
-        //rankingTab.js
+        //ranking_tab.js
         const rankingParams = {
             sort_tab: '.rank-query-type-wrapper',
             selected_sort: 'selected-rank-query-tab',

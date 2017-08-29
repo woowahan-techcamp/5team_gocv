@@ -255,8 +255,7 @@ export class PopupInfo {
         /* item view modal settings */
         this.popupOverlay.addEventListener('click', function () {
             if (!this.flag) {
-                $("body").css("overflow", "visible");
-                this.closeMyPagePopup();
+                this.closePopup();
             } else {
                 this.flag = false;
             }
@@ -268,8 +267,9 @@ export class PopupInfo {
         }.bind(this));
     }
 
-    closeMyPagePopup() {
+    closePopup() {
         if (!this.flag) {
+            $("body").css("overflow", "visible");
             document.getElementsByClassName('popup-close-fake')[0].click();
             this.flag = false;
         }
@@ -316,6 +316,7 @@ export class PopupInfo {
     closeSignPagePopup() {
         if (!this.signFlag) {
             this.signOverlay.style.display = "none";
+            $("body").css("overflow", "visible");
             this.signFlag = false;
         }
     }
@@ -329,28 +330,17 @@ export class PopupInfo {
 
     getItemPageEvent() {
         this.popupOverlay.addEventListener('click', function () {
-            console.log('out');
             if (!this.flag) {
-                this.closeItemPagePopup();
+                this.closePopup();
             } else {
                 this.flag = false;
             }
         }.bind(this));
 
         this.popupInner.addEventListener('click', function (e) {
-            console.log('in');
             this.flag = true;
             e.stopPropagation();
         }.bind(this));
-    }
-
-    closeItemPagePopup() {
-        if (!this.flag) {
-            console.log('close');
-            document.getElementsByClassName('popup-close-fake')[0].click();
-            $("body").css("overflow", "visible");
-            this.flag = false;
-        }
     }
 
     reviewPageInit() {
@@ -363,7 +353,7 @@ export class PopupInfo {
     getReviewPageEvent() {
         this.popupOverlay.addEventListener('click', function () {
             if (!this.flag) {
-                this.closeReviewPagePopup();
+                this.closePopup();
             } else {
                 this.flag = false;
             }
@@ -373,13 +363,5 @@ export class PopupInfo {
             this.flag = true;
             e.stopPropagation();
         }.bind(this));
-    }
-
-    closeReviewPagePopup() {
-        if (!this.flag) {
-            document.getElementsByClassName('popup-close-fake')[0].click();
-            $("body").css("overflow", "visible");
-            this.flag = false;
-        }
     }
 }
