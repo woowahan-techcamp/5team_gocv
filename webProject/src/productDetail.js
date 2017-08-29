@@ -411,13 +411,30 @@ class Review {
 
 
         writeBtn.addEventListener("click", function () {
-
-            if (this.db.user[userId].product_review_list.includes(this.product.id)) {
-                new Toast("이미 리뷰를 작성한 상품입니다");
-            } else {
+            if(!!this.db.user[userId].product_review_list){
+                if (this.db.user[userId].product_review_list.includes(this.product.id)) {
+                    new Toast("이미 리뷰를 작성한 상품입니다");
+                } else {
+                    this.setOnOff()
+                }
+            }else{
                 this.setOnOff()
             }
         }.bind(this));
+
+        const allergyBtn = new Dropdown("click", "#popupAllergyBtn", ".popup-newReview-Allergy-Wrapper");
+        const allergyWrapper = document.querySelector('.popup-newReview-Allergy-Wrapper');
+
+        allergyWrapper.addEventListener('click',function(e){
+            if(e.target.classList.contains("popup-newReview-Allergy-select")){
+                e.target.className = "popup-newReview-Allergy"
+            }else{
+                e.target.className = "popup-newReview-Allergy popup-newReview-Allergy-select"
+            }
+        })
+
+        console.log(this.product)
+
 
 
     }
@@ -519,7 +536,6 @@ class Review {
 
         this.data[4] = document.querySelector('.popup-newReview-comment').value;
 
-
         if (this.data[0] === 0) {
             new Toast("한 개이상의 별을 선택해 주세요.");
         } else if (this.data[1] === 0) {
@@ -592,6 +608,33 @@ class Review {
 
             database.ref('user/' + this.userId + '/product_review_list').set(this.db.user[this.userId].product_review_list);
             this.db.updateUserDb();
+
+            const allergyArr = Array.from(document.querySelectorAll('.popup-newReview-Allergy-select'));
+            console.log(allergyArr);
+
+            if(allergyArr.length === 0){
+
+            }else{
+                if(!!this.product.allergy){
+                    allergyArr.forEach(function(element){
+                        if(this.product.allergy.includes(element.getAttribute("name"))) {
+                            // console.log("이미있음")
+                        }else{
+                            // console.log("없으니까 추가")
+                            console.log(element.getAttribute("name"));
+                            this.product.allergy.push(element.getAttribute("name"));
+                        }
+                    }.bind(this))
+
+                }else {
+                    // console.log("애초에 아무것도 없는 경우")
+                    this.product.allergy = [];
+                    allergyArr.forEach(function(element){
+                        this.product.allergy.push(element.getAttribute("name"));
+                    }.bind(this))
+                }
+            }
+
 
             //상품 리뷰리스트에 리뷰 번호 추가
             if (!!this.product.reviewList) {

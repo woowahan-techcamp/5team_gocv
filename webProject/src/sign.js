@@ -276,9 +276,7 @@ class MyPage {
     constructor(db) {
         this.db= db;
         const user = firebase.auth().currentUser;
-        this.db.user = this.db.user;
-        this.userId = user.uid;
-
+        this.userId = user.uid
         this.setData();
         this.setEventUpdateImage();
         this.setEventUpdateNicname();
@@ -399,7 +397,7 @@ class MyPage {
                 firebase.database().ref('user/' + this.userId + '/nickname').set(changedName);
                 firebase.database().ref('user/').once('value').then(function (snapshot) {
                     localStorage['user'] = JSON.stringify(snapshot.val());
-
+                    that.db.user = JSON.parse(localStorage['user']);
 
                     that.setProfileTab();
                     document.querySelector('#loading').style.display = "none";
@@ -427,12 +425,12 @@ class MyPage {
 
         storageRef.child(this.fileName).getDownloadURL().then(function (url) {
             const that = this;
-            // const userStorage = localStorage['user'];
 
             database.ref('user/' + this.userId + '/user_profile').set(url);
 
             firebase.database().ref('user/').once('value').then(function (snapshot) {
                 localStorage['user'] = JSON.stringify(snapshot.val());
+                that.db.user = JSON.parse(localStorage['user']);
 
                 that.setProfileTab();
                 document.querySelector('#loading').style.display = "none";
@@ -445,6 +443,8 @@ class MyPage {
     }
 
     setProfileTab() {
+
+        console.log(this.db.user[this.userId]);
 
         //프로필 탭 설정
         document.querySelector(".fixTab-profile-wrapper").style.display = "block"
