@@ -651,38 +651,6 @@ class Review {
 
 }
 
-function timestamp() {
-    var d = new Date();
-    var curr_date = d.getDate();
-    var curr_month = d.getMonth() + 1; //Months are zero based
-    var curr_year = d.getFullYear();
-    var curr_hour = d.getHours();
-    var curr_minute = d.getMinutes();
-    var curr_second = d.getSeconds();
-
-    if (curr_month < 10) {
-        curr_month = "0" + curr_month;
-    }
-
-    if (curr_hour < 10) {
-        curr_hour = "0" + curr_hour;
-    }
-
-    if (curr_minute < 10) {
-        curr_minute = "0" + curr_minute;
-
-    }
-
-    if (curr_second < 10) {
-        curr_second = "0" + curr_second;
-
-    }
-
-    return curr_year + "-" + curr_month + "-" + curr_date + " " +
-        curr_hour + ":" + curr_minute + ":" + curr_second;
-}
-
-
 //리뷰 정렬 하는 클래스
 class ReviewFilter {
     constructor(reviewArray) {
