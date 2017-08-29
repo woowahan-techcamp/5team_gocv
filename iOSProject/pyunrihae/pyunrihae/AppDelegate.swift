@@ -24,17 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate{
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
         
-        _ = Auth.auth().addStateDidChangeListener { (auth, user) in
-            if user == nil {
-                do {
-                    try  Auth.auth().signOut()
-                    User.sharedInstance = User.init()
-                    NotificationCenter.default.post(name: NSNotification.Name("userLogined"), object: nil)
-                } catch let signOutError as NSError {
-                    print ("Error signing out: %@", signOutError)
-                }
-            }
-        }
         return true
     }
     func applicationWillResignActive(_ application: UIApplication) {
