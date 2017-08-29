@@ -182,18 +182,7 @@ extension MypageViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 { // 내가 찜한 상품을 눌렀을 때
             if User.sharedInstance.email == "" { // 로그인 된 상태가 아니면
-                let alertController = UIAlertController(title: "알림", message: "내가 찜한 상품은 로그인 뒤 이용가능합니다.", preferredStyle: UIAlertControllerStyle.alert)
-                let DestructiveAction = UIAlertAction(title: "취소", style: UIAlertActionStyle.destructive) { (result : UIAlertAction) -> Void in
-                    alertController.dismiss(animated: false, completion: nil)
-                }
-                let okAction = UIAlertAction(title: "로그인", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let vc = storyboard.instantiateViewController(withIdentifier: "LoginSignUpViewController") as! LoginSignUpViewController
-                    self.present(vc, animated: true, completion: nil)
-                }
-                alertController.addAction(DestructiveAction)
-                alertController.addAction(okAction)
-                self.present(alertController, animated: true, completion: nil)
+                Pyunrihae.showLoginOptionPopup(_ : self)
             } else {
                 // 내가 찜한 상품 뷰
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)

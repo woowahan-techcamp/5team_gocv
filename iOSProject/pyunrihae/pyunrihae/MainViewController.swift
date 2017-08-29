@@ -338,18 +338,14 @@ class MainViewController: UIViewController {
     }
     func didPressUsefulBtn(sender: UIButton) { //유용해요 버튼 누르기
         if User.sharedInstance.email == "" {
-            let alert = UIAlertController(title: "로그인 후 이용해주세요!", message: "", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            Pyunrihae.showLoginOptionPopup(_ : self)
         } else {
             Button.didPressUsefulBtn(sender: sender, reviewId: review.id, usefulNumLabel: usefulNumLabel, badNumLabel: badNumLabel, usefulBtn: usefulBtn, badBtn: badBtn, reviewList: reviewList)
         }
     }
     func didPressBadBtn(sender: UIButton) { //별로에요 버튼 누르기
         if User.sharedInstance.email == "" {
-            let alert = UIAlertController(title: "로그인 후 이용해주세요!", message: "", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            Pyunrihae.showLoginOptionPopup(_ : self)
         } else {
             Button.didPressBadBtn(sender: sender, reviewId: review.id, usefulNumLabel: usefulNumLabel, badNumLabel: badNumLabel, usefulBtn: usefulBtn, badBtn: badBtn, reviewList: reviewList)
         }
