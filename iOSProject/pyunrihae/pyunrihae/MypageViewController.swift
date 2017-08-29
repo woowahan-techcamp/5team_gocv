@@ -45,13 +45,12 @@ class MypageViewController: UIViewController, FusumaDelegate{
         }
     }
     func checkUserLogin(){
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let user = appDelegate.user
-        if user?.email != "" {
-            if user?.user_profile != nil {
+        let user = User.sharedInstance
+        if user.email != "" {
+            if user.user_profile != "" {
 //                userImage.af_setImage(withURL: URL(string: (user?.user_profile)!)!)
 //                userImage.image = userImage.image?.af_imageRoundedIntoCircle()
-                let url = URL(string: (user?.user_profile)!)!
+                let url = URL(string: (user.user_profile))!
                 let placeholderImage = UIImage(named: "ic_user")!
                 let filter = AspectScaledToFillSizeCircleFilter(
                     size: userImage.frame.size
@@ -64,8 +63,8 @@ class MypageViewController: UIViewController, FusumaDelegate{
             }else{
                 userImage.image = UIImage(named: "user_default.png")
             }
-            nickNameLabel.text = user?.nickname
-            emailLabel.text = user?.email
+            nickNameLabel.text = user.nickname
+            emailLabel.text = user.email
             labelList[2] = "로그아웃"
             DispatchQueue.main.async {
                 self.moreImg.isHidden = false
@@ -84,12 +83,11 @@ class MypageViewController: UIViewController, FusumaDelegate{
         }
     }
     func setLogined(){
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let currentUser = appDelegate.user
-        if currentUser?.email != "" {
+        let currentUser = User.sharedInstance
+        if currentUser.email != "" {
             DispatchQueue.main.async{
-                self.nickNameLabel.text = currentUser?.nickname
-                self.emailLabel.text = currentUser?.email
+                self.nickNameLabel.text = currentUser.nickname
+                self.emailLabel.text = currentUser.email
                 self.labelList[2] = "로그아웃"
                 self.tableView.reloadData()
             }
@@ -127,7 +125,7 @@ class MypageViewController: UIViewController, FusumaDelegate{
         }
     }
     func profileTapped(){
-        if appDelegate.user?.email != "" {
+        if User.sharedInstance.email != "" {
             let fusuma = FusumaViewController()
             fusuma.delegate = self
             fusuma.cropHeightRatio = 0.7
@@ -138,10 +136,10 @@ class MypageViewController: UIViewController, FusumaDelegate{
         }
     }
     func fusumaImageSelected(_ image: UIImage, source: FusumaMode) {
-        if appDelegate.user?.email != "" {
+        if User.sharedInstance.email != "" {
            userImage.image = image
            userImage.image = userImage.image?.af_imageRoundedIntoCircle()
-           DataManager.updateUserProfile(user: appDelegate.user!, profile: image)
+           DataManager.updateUserProfile(user: User.sharedInstance, profile: image)
         }
     }
     func fusumaMultipleImageSelected(_ images: [UIImage], source: FusumaMode) {
@@ -183,19 +181,8 @@ extension MypageViewController: UITableViewDataSource, UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 { // 내가 찜한 상품을 눌렀을 때
-            if appDelegate.user?.email == "" { // 로그인 된 상태가 아니면
-                let alertController = UIAlertController(title: "알림", message: "내가 찜한 상품은 로그인 뒤 이용가능합니다.", preferredStyle: UIAlertControllerStyle.alert)
-                let DestructiveAction = UIAlertAction(title: "취소", style: UIAlertActionStyle.destructive) { (result : UIAlertAction) -> Void in
-                    alertController.dismiss(animated: false, completion: nil)
-                }
-                let okAction = UIAlertAction(title: "로그인", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let vc = storyboard.instantiateViewController(withIdentifier: "LoginSignUpViewController") as! LoginSignUpViewController
-                    self.present(vc, animated: true, completion: nil)
-                }
-                alertController.addAction(DestructiveAction)
-                alertController.addAction(okAction)
-                self.present(alertController, animated: true, completion: nil)
+            if User.sharedInstance.email == "" { // 로그인 된 상태가 아니면
+                Pyunrihae.showLoginOptionPopup(_ : self)
             } else {
                 // 내가 찜한 상품 뷰
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -220,7 +207,7 @@ extension MypageViewController: UITableViewDataSource, UITableViewDelegate {
                     let firebaseAuth = Auth.auth()
                     do {
                         try firebaseAuth.signOut()
-                        self.appDelegate.user = User()
+                        User.sharedInstance = User()
                         self.setLogined()
                         self.showAlertIfLogined(bool: false)
                     } catch let signOutError as NSError {

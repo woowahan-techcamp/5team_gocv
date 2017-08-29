@@ -178,7 +178,7 @@ export class Carousel {
 
             const splitTimeStamp = time.split(' ');
 
-            value['time_score'] = this.manager.getDate(splitTimeStamp[0]) + this.manager.getTime(splitTimeStamp[1]);
+            value['time_score'] = this.manager.getDateTimeScore(splitTimeStamp[0], splitTimeStamp[1]);
 
             const dateValue = this.manager.getDateWord(value.time_score);
 
