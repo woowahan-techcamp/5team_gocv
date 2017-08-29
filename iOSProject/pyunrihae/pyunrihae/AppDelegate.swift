@@ -11,6 +11,7 @@ import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate{
+    var ref : DatabaseReference! = Database.database().reference()
     var window: UIWindow?
     var productList : [Product] = []
     let category = ["전체","도시락","김밥","베이커리","라면","식품","스낵","아이스크림","음료"]
@@ -23,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate{
         
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
+        
         
         return true
     }
