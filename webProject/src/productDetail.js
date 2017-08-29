@@ -73,7 +73,7 @@ export class ReviewPopup {
                 this.scrollEvent("hidden");
                 this.setReviewData();
 
-                new PopupInfo().setItemPageInit();
+                new PopupInfo().setReviewPageInit();
             }
 
         }.bind(this));
@@ -154,7 +154,7 @@ export class ProductPopup {
         this.setProductData();
         this.setProductWishEvent();
         this.setReviewData();
-        this.setReviewWishEvent();
+        // this.setReviewWishEvent();
 
         new PopupInfo().setItemPageInit();
 
