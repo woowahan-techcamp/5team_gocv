@@ -77,13 +77,7 @@ class ProductDetailViewController: UIViewController {
         }
     }
     func close() {
-        let transition = CATransition()
-        transition.duration = 0.4
-        transition.type = kCATransitionPush
-        transition.subtype = kCATransitionFromLeft
-        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        self.view.window!.layer.add(transition, forKey: kCATransition)
-        self.dismiss(animated: false, completion: nil)
+        self.navigationController?.popToRootViewController(animated: true)
         NotificationCenter.default.post(name: NSNotification.Name("reloadReview"), object: self)
     }
     @IBAction func closeNavViewBtn(_ sender: UIButton) {

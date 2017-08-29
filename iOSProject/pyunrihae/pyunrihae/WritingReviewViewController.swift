@@ -74,7 +74,8 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
         super.didReceiveMemoryWarning()
     }
     @IBAction func tabBackBtn(_ sender: UIButton) {
-        self.navigationController?.popToRootViewController(animated: true)
+        let productDetailViewController = self.navigationController?.viewControllers[1] as! ProductDetailViewController
+        self.navigationController?.popToViewController(productDetailViewController, animated: true)
     }
     @IBAction func tabCompleteBtn(_ sender: UIButton) {
          var user_image = ""

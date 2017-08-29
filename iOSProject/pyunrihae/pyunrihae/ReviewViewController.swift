@@ -55,14 +55,8 @@ class ReviewViewController: UIViewController {
     func showDetailProduct(_ notification: Notification) {
         if notification.userInfo?["validator"] as! Int == 1{
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "mainNavigationController") as! UINavigationController
-            let transition = CATransition()
-            transition.duration = 0.4
-            transition.type = kCATransitionPush
-            transition.subtype = kCATransitionFromRight
-            transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-            self.view.window!.layer.add(transition, forKey: kCATransition)
-            self.present(vc, animated: false, completion: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "ProductDetailViewController") as! ProductDetailViewController
+            self.navigationController?.pushViewController(vc, animated: true)
             NotificationCenter.default.post(name: NSNotification.Name("showReviewProduct"), object: self, userInfo: ["product" : review])
         }
     }
