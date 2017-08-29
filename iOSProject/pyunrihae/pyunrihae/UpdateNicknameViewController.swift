@@ -25,7 +25,7 @@ class UpdateNicknameViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     @IBAction func onNickNameTextChanged(_ sender: Any) {
-        if (nickNameTextField.text?.characters.count)! > 0 {
+        if (nickNameTextField.text?.characters.count)! > 0 &&  (nickNameTextField.text?.characters.count)! <= 10{
             completeBtn.isEnabled = true
         }else{
             completeBtn.isEnabled = false
@@ -33,17 +33,17 @@ class UpdateNicknameViewController: UIViewController {
     }
     @IBAction func onTouchCompleteBtn(_ sender: Any) {
         if completeBtn.isEnabled {
-            if appdelegate.user != nil {
+            if User.sharedInstance.email != "" { // 로그인 되어있으면
                 if (nickNameTextField.text?.characters.count)! > 10 {
-                    let alert = UIAlertController(title: "알림", message: "10자 이내로 닉네임을 설정해주세요!", preferredStyle: UIAlertControllerStyle.alert)
+                    let alert = UIAlertController(title: "알림", message: "닉네임을 10자 이내로 설정해주세요!", preferredStyle: UIAlertControllerStyle.alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
                     self.present(alert, animated: true, completion: nil)
                 } else {
-                    DataManager.updateUserNickname(user: appdelegate.user!, nickname: nickNameTextField.text!)
+                    DataManager.updateUserNickname(user: User.sharedInstance, nickname: nickNameTextField.text!)
                     self.dismiss(animated: false, completion: nil)
                     NotificationCenter.default.post(name: NSNotification.Name("userLogined"), object: nil)
                 }
-            }
+            } // 비회원이면 동작 안함
         }
     }
     func dismissKeyboard() {

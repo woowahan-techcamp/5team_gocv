@@ -46,16 +46,16 @@ class LoginViewController: UIViewController {
                         self.alertLabel.alpha = 0
                     })
                 }else{
-                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    _ = UIApplication.shared.delegate as! AppDelegate
                     if Auth.auth().currentUser != nil {
                         DataManager.getUserFromUID(uid: (Auth.auth().currentUser?.uid)!, completion: { (user) in
-                            appDelegate.user = user
+                            User.sharedInstance = user
                             self.dismiss(animated: true, completion: {
                                 NotificationCenter.default.post(name: NSNotification.Name("userLogined"), object: nil)
                             })
                         })
                     } else {
-                        appDelegate.user = User()
+                        User.sharedInstance = User()
                     }
                 }
             }

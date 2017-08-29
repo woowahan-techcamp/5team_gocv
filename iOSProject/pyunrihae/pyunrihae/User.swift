@@ -8,14 +8,16 @@
 import Foundation
 import FirebaseDatabase
 class User {
+    static var sharedInstance = User()
+    
     var id : String // FirebaseAuth의 UID
     var email : String // 이메일
     var nickname : String // 닉네임
-//    var password : String  비밀번호는 저장할 수 없음.
     var user_profile : String // 유저 프로필 사진 url
     var review_like_list : [String : Int]  // 유용해요 / 별로에요 누른 리뷰id : 숫자 (+1는 유용해요, -1는 별로에요)
     var product_review_list : [String] // 리뷰를 쓴 상품id 리스트
     var wish_product_list : [String] // 즐겨찾기한 상품id 리스트
+    
     init(){
         id = ""
         email = ""

@@ -67,10 +67,10 @@ class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
         didPressTabBtn(tabBtns[selectedTabIndex])
         if Auth.auth().currentUser != nil {
             DataManager.getUserFromUID(uid: (Auth.auth().currentUser?.uid)!, completion: { (user) in
-                self.appdelegate.user = user
+                User.sharedInstance = user
             })
         } else {
-            appdelegate.user = User()
+            User.sharedInstance = User()
         }
     }
     override func didReceiveMemoryWarning() {
