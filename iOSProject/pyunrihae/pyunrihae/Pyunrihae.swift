@@ -10,8 +10,6 @@ import Foundation
 
 
 class Pyunrihae {
-    
-    
     static func showLoginOptionPopup(_ controller : UIViewController){
         let alertController = UIAlertController(title: "알림", message: "로그인 뒤 이용가능합니다.", preferredStyle: UIAlertControllerStyle.alert)
         let DestructiveAction = UIAlertAction(title: "취소", style: UIAlertActionStyle.destructive) { (result : UIAlertAction) -> Void in
