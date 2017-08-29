@@ -78,14 +78,9 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
         }
     }
     func pushViewController(text:String) {
-        SelectedProduct.foodId = text
-        SelectedProduct.reviewCount = 0
-        DataManager.getReviewListBy(id: text) { (reviewList) in
-            SelectedProduct.reviewCount = reviewList.count
-            NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
-        }
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "ProductDetailViewController") as! ProductDetailViewController
+        vc.productId = text
         self.navigationController?.pushViewController(vc, animated: true)
     }
     func pushRankingController(text : String) {

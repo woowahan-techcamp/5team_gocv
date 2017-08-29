@@ -62,8 +62,6 @@ class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
         reviewViewController = storyboard.instantiateViewController(withIdentifier: "ReviewViewController") as! ReviewViewController
         reviewViewController.selectedBrandIndexFromTab = selectedBrandIndex
         mypageViewController = storyboard.instantiateViewController(withIdentifier: "MypageViewController") as! MypageViewController
-        productDetailViewController = storyboard.instantiateViewController(withIdentifier: "ProductDetailViewController") as! ProductDetailViewController
-        productDetailViewController.addNotiObserver()
         rankingViewController.addNotiObserver()
         reviewViewController.addNotiObserver() // 옵저버 미리 등록시켜주기
         viewControllers = [mainViewController,rankingViewController,reviewViewController,mypageViewController]

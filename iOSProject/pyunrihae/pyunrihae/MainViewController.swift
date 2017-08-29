@@ -21,6 +21,7 @@ class MainViewController: UIViewController {
     var badNumLabel = UILabel()
     var usefulBtn = UIButton()
     var badBtn = UIButton()
+    var popup = ReviewPopupView()
     var selectedBrandIndexFromTab : Int = 0 {
         didSet{
             getProductList()
@@ -38,6 +39,7 @@ class MainViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(getProductList), name: NSNotification.Name("productListChanged"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(selectCategory), name: NSNotification.Name("selectCategory"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showDetailProduct), name: NSNotification.Name("showDetailProduct"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showLoginPopup), name: NSNotification.Name("showLoginPopup"), object: nil)
         categoryScrollView.backgroundColor = UIColor.white
         addCategoryBtn() // 카테고리 버튼 만들어서 스크롤 뷰에 붙이기
         Button.select(btn: categoryBtns[selectedCategoryIndex]) // 맨 처음 카테고리는 전체 선택된 것으로 나타나게 함
@@ -60,12 +62,17 @@ class MainViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    func showLoginPopup(_ notification: Notification) {
+        if notification.userInfo?["validator"] as! Int == 0{
+            Pyunrihae.showLoginOptionPopup(_ : self)
+        }
+    }
     func showDetailProduct(_ notification: Notification) {
         if notification.userInfo?["validator"] as! Int == 0{
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "ProductDetailViewController") as! ProductDetailViewController
             self.navigationController?.pushViewController(vc, animated: true)
-            NotificationCenter.default.post(name: NSNotification.Name("showReviewProduct"), object: self, userInfo: ["product" : review])
+            vc.productId = review.p_id
         }
     }
     // 카테고리 버튼 스크롤 뷰에 추가하기
@@ -86,6 +93,7 @@ class MainViewController: UIViewController {
     }
     // 카테고리를 선택했을 때 함수
     func selectCategory(_ notification: Notification){
+        popup.tabView(self)
         Button.selectCategory(view: self.view, previousIndex: selectedCategoryIndex, categoryBtns: categoryBtns, selectedCategoryIndex: notification.userInfo?["category"] as! Int, categoryScrollView: categoryScrollView, scrollBar: scrollBar)
         selectedCategoryIndex = notification.userInfo?["category"] as! Int
         productScrollView.contentOffset.x = 0
@@ -308,45 +316,16 @@ class MainViewController: UIViewController {
     }
     // 리뷰 스크롤을 눌렀을 때 전환하는 함수
     func handleTap(_ sender: UITapGestureRecognizer) {
-        let popup: ReviewPopupView = UINib(nibName: "ReviewPopupView", bundle: nil).instantiate(withOwner: self, options: nil)[0] as! ReviewPopupView
+        popup = UINib(nibName: "ReviewPopupView", bundle: nil).instantiate(withOwner: self, options: nil)[0] as! ReviewPopupView
         popup.validator = 0
         var index = 0
         if reviewScrollView.contentOffset.x != 0{
             index = 2 - Int(reviewScrollView.frame.width / reviewScrollView.contentOffset.x)
         }
         review = reviewList[index]
-        Popup.showPopup(popup: popup, index: index, reviewList: reviewList, review: review, view: self.view)
-        popup.badBtn.isEnabled = false
-        popup.usefulBtn.isEnabled = false
-        DataManager.getReviewBy(id: review.id){ (review) in
-            popup.badNumLabel.text = String(review.bad)
-            popup.usefulNumLabel.text = String(review.useful)
-            self.usefulNumLabel = popup.usefulNumLabel
-            self.badNumLabel = popup.badNumLabel
-            self.usefulBtn = popup.usefulBtn
-            self.badBtn = popup.badBtn
-            Button.validateUseful(review: review, usefulBtn: self.usefulBtn, badBtn: self.badBtn, usefulNumLabel: self.usefulNumLabel, badNumLabel: self.badNumLabel)
-            popup.badBtn.isEnabled = true
-            popup.usefulBtn.isEnabled = true
-            popup.badBtn.addTarget(self, action: #selector(self.didPressBadBtn), for: UIControlEvents.touchUpInside)
-            popup.usefulBtn.addTarget(self, action: #selector(self.didPressUsefulBtn), for: UIControlEvents.touchUpInside)
-            // 카카오톡 공유 버튼 누르기
-            popup.kakaoShareBtn.addTarget(self, action: #selector(self.didPressKakaoShareBtn), for: UIControlEvents.touchUpInside)
-        }
-    }
-    func didPressUsefulBtn(sender: UIButton) { //유용해요 버튼 누르기
-        if User.sharedInstance.email == "" {
-            Pyunrihae.showLoginOptionPopup(_ : self)
-        } else {
-            Button.didPressUsefulBtn(sender: sender, reviewId: review.id, usefulNumLabel: usefulNumLabel, badNumLabel: badNumLabel, usefulBtn: usefulBtn, badBtn: badBtn, reviewList: reviewList)
-        }
-    }
-    func didPressBadBtn(sender: UIButton) { //별로에요 버튼 누르기
-        if User.sharedInstance.email == "" {
-            Pyunrihae.showLoginOptionPopup(_ : self)
-        } else {
-            Button.didPressBadBtn(sender: sender, reviewId: review.id, usefulNumLabel: usefulNumLabel, badNumLabel: badNumLabel, usefulBtn: usefulBtn, badBtn: badBtn, reviewList: reviewList)
-        }
+        Popup.showPopup(popup: popup, index: index, reviewList: reviewList, review: review, view: self.view, validator: popup.validator)
+        // 카카오톡 공유 버튼 누르기
+        popup.kakaoShareBtn.addTarget(self, action: #selector(self.didPressKakaoShareBtn), for: UIControlEvents.touchUpInside)
     }
     func didPressKakaoShareBtn(sender: UIButton) { //카카오톡 공유 버튼 클릭 이벤트
         DataManager.sendLinkFeed(review: review)
@@ -355,9 +334,9 @@ class MainViewController: UIViewController {
     func showProduct(_ sender: UITapGestureRecognizer) {
         if productList.count > 0 {
             let product = productList[(sender.view?.tag)!]
-            NotificationCenter.default.post(name: NSNotification.Name("showProduct"), object: self, userInfo: ["product" : product])
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "ProductDetailViewController") as! ProductDetailViewController
+            vc.productId = product.id
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

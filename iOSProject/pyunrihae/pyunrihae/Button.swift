@@ -208,7 +208,6 @@ class Button{
         }
     }
     static func validateUseful(review: Review, usefulBtn: UIButton, badBtn: UIButton, usefulNumLabel: UILabel, badNumLabel: UILabel) {
-        
         if let userReviewLike = User.sharedInstance.review_like_list[review.id]{
             if userReviewLike == 1 {
                 Button.makeBorder(btn: usefulBtn)
