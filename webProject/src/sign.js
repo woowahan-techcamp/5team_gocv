@@ -352,6 +352,7 @@ class MyPage {
 
         const template = document.querySelector("#myPage-template").innerHTML;
         const sec = document.querySelector("#myPage");
+        console.log(this.db.user);
         util.template(this.db.user[this.userId], template, sec);
 
         const myPageProduct = new ProductPopup(this.db, '#myPageReviewNavi', 'productSelect');

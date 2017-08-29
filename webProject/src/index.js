@@ -42,8 +42,8 @@ document.addEventListener('DOMContentLoaded', function (event) {
     db.dataInit();
 
     const signUp = new SignUp(db);
+    const signIn = new SignIn(db);
     const signConnect = new SignConnect()
-    const signIn = new SignIn(this.db);
 
 
 
