@@ -132,9 +132,9 @@ export class TimeManager {
             } else {
                 result = parseInt(result / 60) + '시간 전';
             }
-        } else if(this.now[0] - value[0] < 7){
+        } else if (this.now[0] - value[0] < 7) {
             result = this.now[0] - value[0] + '일 전';
-        } else{
+        } else {
             result = parseInt(this.now[0] - value[0]) + '주일 전';
         }
 
@@ -215,13 +215,31 @@ export class BrandInfo {
 
 export class PopupInfo {
     constructor() {
-
     }
 
     // My Page
     setMyPageInit() {
         this.myPageInit();
         this.getMyPageEvent();
+    }
+
+    // Sign Page 사용하지 않음
+    setSignPageInit() {
+        this.signPageInit();
+        this.getSignPageEvent();
+    }
+
+    // Item Page
+    setItemPageInit() {
+        this.itemPageInit();
+        this.getItemPageEvent();
+    }
+
+
+    // Review
+    setReviewPageInit() {
+        this.reviewPageInit();
+        this.getReviewPageEvent();
     }
 
     myPageInit() {
@@ -271,11 +289,6 @@ export class PopupInfo {
         })
     }
 
-    // Sign Page
-    setSignPageInit() {
-        this.signPageInit();
-        this.getSignPageEvent();
-    }
 
     signPageInit() {
         this.signOverlay = document.querySelector('.sign-overlay');
@@ -307,12 +320,6 @@ export class PopupInfo {
         }
     }
 
-    // Item Page
-    setItemPageInit() {
-        this.itemPageInit();
-        this.getItemPageEvent();
-    }
-
     itemPageInit() {
         this.popupOverlay = document.querySelector('.overlay');
         this.popupInner = document.querySelector('.popup-wrapper');
@@ -322,6 +329,7 @@ export class PopupInfo {
 
     getItemPageEvent() {
         this.popupOverlay.addEventListener('click', function () {
+            console.log('out');
             if (!this.flag) {
                 this.closeItemPagePopup();
             } else {
@@ -330,6 +338,7 @@ export class PopupInfo {
         }.bind(this));
 
         this.popupInner.addEventListener('click', function (e) {
+            console.log('in');
             this.flag = true;
             e.stopPropagation();
         }.bind(this));
@@ -337,16 +346,11 @@ export class PopupInfo {
 
     closeItemPagePopup() {
         if (!this.flag) {
+            console.log('close');
             document.getElementsByClassName('popup-close-fake')[0].click();
             $("body").css("overflow", "visible");
             this.flag = false;
         }
-    }
-
-    // Review
-    setReviewPageInit() {
-        this.reviewPageInit();
-        this.getReviewPageEvent();
     }
 
     reviewPageInit() {

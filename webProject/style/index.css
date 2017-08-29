@@ -1,3 +1,4 @@
+
 @font-face {
     font-family: 'NanumBarunGothic';
     font-style: normal;
@@ -21,28 +22,27 @@
     src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot');
     src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.ttf') format('truetype');
 }
-
-*{
+* {
     box-sizing: border-box;
     padding: 0;
-    margin:  0;
+    margin: 0;
 }
 
-body{
-    font-family: 'NanumBarunGothic', serif;
+body {
+    font-family: 'Nanum Gothic', serif;
 }
 
-ul{
+ul {
     list-style-type: none;
 
 }
 
-a{
+a {
     text-decoration: none;
     color: #212121;
 }
 
-button{
+button {
     cursor: pointer;
     border: none;
     background-color: transparent;
@@ -55,7 +55,7 @@ button{
     font-family: 'NanumBarunGothic', serif;
     z-index: 300;
     transition-duration: 1s;
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0, 0, 0, 0.7);
     color: #ffffff;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -95,17 +95,15 @@ button{
     animation: sk-bouncedelay 1.4s infinite ease-in-out both;
 }
 
-.bounce2{
+.bounce2 {
     background-image: url("/image/sandwich.png");
 
 }
 
-.bounce3{
+.bounce3 {
     background-image: url("/image/bento.png");
 
 }
-
-
 
 .spinner .bounce1 {
     -webkit-animation-delay: -0.32s;
@@ -118,16 +116,21 @@ button{
 }
 
 @-webkit-keyframes sk-bouncedelay {
-    0%, 80%, 100% { -webkit-transform: scale(0) }
-    40% { -webkit-transform: scale(1.0) }
+    0%, 80%, 100% {
+        -webkit-transform: scale(0)
+    }
+    40% {
+        -webkit-transform: scale(1.0)
+    }
 }
 
 @keyframes sk-bouncedelay {
     0%, 80%, 100% {
         -webkit-transform: scale(0);
         transform: scale(0);
-    } 40% {
-          -webkit-transform: scale(1.0);
-          transform: scale(1.0);
-      }
+    }
+    40% {
+        -webkit-transform: scale(1.0);
+        transform: scale(1.0);
+    }
 }

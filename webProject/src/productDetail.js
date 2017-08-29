@@ -1,6 +1,9 @@
 import {Util, Dropdown, Toast} from './main.js'
 import {UpdateData} from './index.js'
 import {DB} from './firebaseInit.js'
+import timestamp from './manage.js'
+import {PopupInfo, TimeManager} from "./manage";
+
 
 //image 업로드하고 미리보기 만드는 클래스
 export class UpLoadImage {
@@ -40,8 +43,6 @@ export class UpLoadImage {
         } else {
             reader.readAsDataURL(file);
         }
-
-
     }
 
 }
@@ -54,10 +55,9 @@ export class ReviewPopup {
         this.wrapper = wrapper;
         this.targetName = targetName;
         this.reviewId = reviewId;
-        this.userId = userId
+        this.userId = userId;
         this.init();
     }
-
 
     init() {
         this.wrapper = document.querySelector(this.wrapper);
@@ -69,23 +69,14 @@ export class ReviewPopup {
 
             if (Array.from(e.target.classList).includes(this.targetName)) {
                 this.reviewId = e.target.getAttribute("name");
-                this.setEvent();
+
+                this.scrollEvent("hidden");
+                this.setReviewData();
+
+                new PopupInfo().itemPageInit();
             }
 
-
         }.bind(this));
-
-
-    }
-
-    setEvent() {
-        this.scrollEvent("hidden");
-        this.setReviewData();
-
-        this.popupOverlay = document.querySelector('.overlay');
-        this.popupInner = document.querySelector('.popup-review-preview');
-        this.flag = false;
-        this.getCloseEvent();
     }
 
     setReviewData() {
@@ -123,29 +114,7 @@ export class ReviewPopup {
         $("body").css("overflow", event);
     }
 
-    getCloseEvent() {
-        /* item view modal settings */
-        this.popupOverlay.addEventListener('click', function () {
-            if (!this.flag) {
-                this.closePopup();
-            } else {
-                this.flag = false;
-            }
-        }.bind(this));
 
-        this.popupInner.addEventListener('click', function (e) {
-            this.flag = true;
-            e.stopPropagation();
-        }.bind(this));
-    }
-
-    closePopup() {
-        if (!this.flag) {
-            document.getElementsByClassName('popup-close-fake')[0].click();
-            $("body").css("overflow", "visible");
-            this.flag = false;
-        }
-    }
 }
 
 //상품 이미지 클릭 시 상세화면 나타나는 클래스
@@ -171,25 +140,27 @@ export class ProductPopup {
 
             if (Array.from(e.target.classList).includes(this.targetName)) {
                 this.productId = e.target.getAttribute("name");
-                this.setEvent();
+
+                this.scrollEvent("hidden");
+                this.settingData();
+                // this.setEvent();
             }
 
 
         }.bind(this));
     }
 
-    setEvent() {
-        this.scrollEvent("hidden");
-        // this.db.updateAllDb();
+    settingData() {
         this.setProductData();
         this.setProductWishEvent();
         this.setReviewData();
-        this.setReviewRatingEvent();
-        this.popupOverlay = document.querySelector('.overlay');
-        this.popupInner = document.querySelector('.popup-wrapper');
-        this.flag = false;
-        this.getCloseEvent();
+        this.setReviewWishEvent();
 
+        new PopupInfo().setItemPageInit();
+
+        document.querySelector(".popup-close").addEventListener("click", function () {
+            this.scrollEvent("visible");
+        }.bind(this));
     }
 
     scrollEvent(event) {
@@ -312,30 +283,6 @@ export class ProductPopup {
         document.querySelector(".popup-close").addEventListener("click", function () {
             this.scrollEvent("visible");
         }.bind(this));
-    }
-
-    getCloseEvent() {
-        /* item view modal settings */
-        this.popupOverlay.addEventListener('click', function () {
-            if (!this.flag) {
-                this.closePopup();
-            } else {
-                this.flag = false;
-            }
-        }.bind(this));
-
-        this.popupInner.addEventListener('click', function (e) {
-            this.flag = true;
-            e.stopPropagation();
-        }.bind(this));
-    }
-
-    closePopup() {
-        if (!this.flag) {
-            document.getElementsByClassName('popup-close-fake')[0].click();
-            $("body").css("overflow", "visible");
-            this.flag = false;
-        }
     }
 }
 
@@ -607,7 +554,7 @@ class Review {
                 "p_price": this.product.price,
                 "price": this.data[1],
                 "quantity": this.data[3],
-                "timestamp": timestamp(),
+                "timestamp": new TimeManager().timestamp(),
                 "useful": 0,
                 "user": this.db.user[this.userId].nickname,
                 "user_image": this.db.user[this.userId].user_profile,
@@ -708,38 +655,6 @@ class Review {
 
 }
 
-function timestamp() {
-    var d = new Date();
-    var curr_date = d.getDate();
-    var curr_month = d.getMonth() + 1; //Months are zero based
-    var curr_year = d.getFullYear();
-    var curr_hour = d.getHours();
-    var curr_minute = d.getMinutes();
-    var curr_second = d.getSeconds();
-
-    if (curr_month < 10) {
-        curr_month = "0" + curr_month;
-    }
-
-    if (curr_hour < 10) {
-        curr_hour = "0" + curr_hour;
-    }
-
-    if (curr_minute < 10) {
-        curr_minute = "0" + curr_minute;
-
-    }
-
-    if (curr_second < 10) {
-        curr_second = "0" + curr_second;
-
-    }
-
-    return curr_year + "-" + curr_month + "-" + curr_date + " " +
-        curr_hour + ":" + curr_minute + ":" + curr_second;
-}
-
-
 //리뷰 정렬 하는 클래스
 class ReviewFilter {
     constructor(reviewArray) {
@@ -748,6 +663,8 @@ class ReviewFilter {
         this.reviewFilterKey = 'popup-reviewFilter-element selected-popup-reviewFilter-element';
 
         this.reviewArray = reviewArray;
+
+        this.manager = new TimeManager();
 
         this.init();
     }
@@ -769,7 +686,7 @@ class ReviewFilter {
             const time = value.timestamp;
             const splitTimestamp = time.split(' ');
 
-            value['time_score'] = this.getDate(splitTimestamp[0]) + this.getTime(splitTimestamp[1]);
+            value['time_score'] = this.manager.getDateTimeScore(splitTimestamp[0], splitTimestamp[1]);
             // value['rating'] = "carousel-review-star" + i;
 
             queryObj.push(value);
@@ -777,61 +694,6 @@ class ReviewFilter {
         }
 
         return queryObj;
-    }
-
-    getDate(value) {
-        const splitDate = value.split('-');
-
-        const yy = parseInt(splitDate[0]);
-        const mm = parseInt(splitDate[1]);
-        const dd = parseInt(splitDate[2]);
-
-        let dateValue = 0;
-
-        for (let x = 2016; x < yy; x++) {
-            if (x % 4 == 0) {
-                if (x % 100 != 0 || x % 400 == 0) {
-                    dateValue += 366;
-                }
-            } else {
-                dateValue += 365;
-            }
-        }
-
-        for (let x = 1; x < mm; x++) {
-            switch (x) {
-                case 4:
-                case 6:
-                case 9:
-                case 11:
-                    dateValue += 31;
-                    break;
-                case 2:
-                    dateValue += 28;
-                default:
-                    dateValue += 31;
-                    break;
-            }
-        }
-
-        dateValue += dd;
-
-        return (dateValue);
-    }
-
-    getTime(value) {
-        const splitTime = value.split(':');
-
-        const hh = parseInt(splitTime[0]);
-        const mm = parseInt(splitTime[1]);
-        const ss = parseInt(splitTime[2]);
-
-        let timeValue = 0;
-
-        timeValue = (mm + (hh * 60)) * 100;
-        timeValue += ss;
-
-        return timeValue / 1e6;
     }
 
     getEvent(selectedReviewFilter, reviewFilterKey) {
@@ -885,12 +747,12 @@ class ReviewFilter {
 
     setDateSorting(array) {
         array.sort(function (a, b) {
-            const beforeTimeScore = parseFloat(a.time_score);
-            const afterTimeScore = parseFloat(b.time_score);
+            const beforeTimeScore = a.time_score;
+            const afterTimeScore = b.time_score;
 
-            if (beforeTimeScore < afterTimeScore) {
+            if (beforeTimeScore[2] < afterTimeScore[2]) {
                 return 1;
-            } else if (beforeTimeScore > afterTimeScore) {
+            } else if (beforeTimeScore[2] > afterTimeScore[2]) {
                 return -1;
             } else {
                 return 0;

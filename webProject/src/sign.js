@@ -313,19 +313,15 @@ export class SignConnect {
 
 class MyPage {
     constructor(db) {
-        this.db= db;
+        this.db = db;
         const user = firebase.auth().currentUser;
-        this.userId = user.uid
+        this.userId = user.uid;
         this.setData();
         this.setEventUpdateImage();
         this.setEventUpdateNicname();
-        this.getPopupInfo();
 
-    }
+        new PopupInfo().setMyPageInit();
 
-    getPopupInfo() {
-        const popup = new PopupInfo();
-        popup.setMyPageInit();
     }
 
     setData() {
