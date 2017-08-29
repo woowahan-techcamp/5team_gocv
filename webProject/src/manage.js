@@ -126,19 +126,17 @@ export class TimeManager {
             } else {
                 result = (this.now[1] - value[1]) + (this.now[0] - value[0]) * 1440;
             }
-            console.log(result);
 
             if (result > 1440) {
                 result = parseInt(result / 1440) + '일 전';
             } else {
                 result = parseInt(result / 60) + '시간 전';
             }
-        } else if(this.now[0] - value[0] < 7){
+        } else if (this.now[0] - value[0] < 7) {
             result = this.now[0] - value[0] + '일 전';
-        } else{
+        } else {
             result = parseInt(this.now[0] - value[0]) + '주일 전';
         }
-        console.log(result, this.now, value);
 
         return result;
     }
@@ -217,13 +215,31 @@ export class BrandInfo {
 
 export class PopupInfo {
     constructor() {
-
     }
 
     // My Page
     setMyPageInit() {
         this.myPageInit();
         this.getMyPageEvent();
+    }
+
+    // Sign Page 사용하지 않음
+    setSignPageInit() {
+        this.signPageInit();
+        this.getSignPageEvent();
+    }
+
+    // Item Page
+    setItemPageInit() {
+        this.itemPageInit();
+        this.getItemPageEvent();
+    }
+
+
+    // Review
+    setReviewPageInit() {
+        this.reviewPageInit();
+        this.getReviewPageEvent();
     }
 
     myPageInit() {
@@ -239,8 +255,7 @@ export class PopupInfo {
         /* item view modal settings */
         this.popupOverlay.addEventListener('click', function () {
             if (!this.flag) {
-                $("body").css("overflow", "visible");
-                this.closeMyPagePopup();
+                this.closePopup();
             } else {
                 this.flag = false;
             }
@@ -252,8 +267,9 @@ export class PopupInfo {
         }.bind(this));
     }
 
-    closeMyPagePopup() {
+    closePopup() {
         if (!this.flag) {
+            $("body").css("overflow", "visible");
             document.getElementsByClassName('popup-close-fake')[0].click();
             this.flag = false;
         }
@@ -273,11 +289,6 @@ export class PopupInfo {
         })
     }
 
-    // Sign Page
-    setSignPageInit() {
-        this.signPageInit();
-        this.getSignPageEvent();
-    }
 
     signPageInit() {
         this.signOverlay = document.querySelector('.sign-overlay');
@@ -305,14 +316,9 @@ export class PopupInfo {
     closeSignPagePopup() {
         if (!this.signFlag) {
             this.signOverlay.style.display = "none";
+            $("body").css("overflow", "visible");
             this.signFlag = false;
         }
-    }
-
-    // Item Page
-    setItemPageInit() {
-        this.itemPageInit();
-        this.getItemPageEvent();
     }
 
     itemPageInit() {
@@ -325,7 +331,7 @@ export class PopupInfo {
     getItemPageEvent() {
         this.popupOverlay.addEventListener('click', function () {
             if (!this.flag) {
-                this.closeItemPagePopup();
+                this.closePopup();
             } else {
                 this.flag = false;
             }
@@ -335,20 +341,6 @@ export class PopupInfo {
             this.flag = true;
             e.stopPropagation();
         }.bind(this));
-    }
-
-    closeItemPagePopup() {
-        if (!this.flag) {
-            document.getElementsByClassName('popup-close-fake')[0].click();
-            $("body").css("overflow", "visible");
-            this.flag = false;
-        }
-    }
-
-    // Review
-    setReviewPageInit() {
-        this.reviewPageInit();
-        this.getReviewPageEvent();
     }
 
     reviewPageInit() {
@@ -361,7 +353,7 @@ export class PopupInfo {
     getReviewPageEvent() {
         this.popupOverlay.addEventListener('click', function () {
             if (!this.flag) {
-                this.closeReviewPagePopup();
+                this.closePopup();
             } else {
                 this.flag = false;
             }
@@ -371,13 +363,5 @@ export class PopupInfo {
             this.flag = true;
             e.stopPropagation();
         }.bind(this));
-    }
-
-    closeReviewPagePopup() {
-        if (!this.flag) {
-            document.getElementsByClassName('popup-close-fake')[0].click();
-            $("body").css("overflow", "visible");
-            this.flag = false;
-        }
     }
 }
