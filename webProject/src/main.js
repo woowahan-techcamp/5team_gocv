@@ -243,6 +243,7 @@ export class Carousel {
         for (const x of value) {
             $('#carousel-rank-rating' + i).rateYo({
                 rating: x.grade,
+                readOnly: true,
                 spacing: "10px",
                 starWidth: "20px",
                 normalFill: "#e2dbd6",

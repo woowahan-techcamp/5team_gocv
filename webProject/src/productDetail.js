@@ -207,8 +207,12 @@ export class ProductPopup {
         const allergyEleArr = Array.from(document.querySelectorAll(".popup-review-Allergy"));
 
         allergyEleArr.forEach(function(element){
-            if(allergyArr.includes(element.getAttribute("name"))){
-                element.style.color = "black" ;
+            if(!!allergyArr) {
+                if (allergyArr.includes(element.getAttribute("name"))) {
+                    element.style.color = "black";
+                }
+            }else{
+
             }
         })
 

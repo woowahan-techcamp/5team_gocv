@@ -38,6 +38,9 @@ document.addEventListener('DOMContentLoaded', function (event) {
     //db 캐시화
     let db = new DB();
     db.init();
+        const signUp = new SignUp(db);
+        const signIn = new SignIn(db);
+        const signConnect = new SignConnect()
 
     //main.js
     const searchParams = {
@@ -73,10 +76,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
     new PopupInfo().setRefreshOverlay();
     new UpdateData();
 
-    //sign.js
-    const signUp = new SignUp(db);
-    const signIn = new SignIn(db);
-    const signConnect = new SignConnect();
+
 
     //productDetail.js
     const mainGsBrandProduct = new ProductPopup(db,'#gs-item-wrapper','productSelect');

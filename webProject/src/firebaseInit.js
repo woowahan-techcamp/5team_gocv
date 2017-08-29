@@ -26,7 +26,11 @@ export class DB {
 
         localStorage['search_keyword'] = JSON.stringify(value);
 
-        this.updateUserDb();
+        var provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+
+
+        const param = this.updateUserDb();
         this.updateProductDb();
         this.updateReviewDb();
 
@@ -34,18 +38,25 @@ export class DB {
         this.product = JSON.parse(localStorage['product']);
         this.review = JSON.parse(localStorage['review']);
 
+        return new Promise(function (resolve, reject) {
+            if (param) {
+                resolve("해결 완료");
+            } else {
+                reject(Error("실패!!"));
+            }
+        });
     }
 
-    updateDb(name){
-        firebase.database().ref(name+'/').once('value').then(function (snapshot) {
+    updateDb(name) {
+        firebase.database().ref(name + '/').once('value').then(function (snapshot) {
             localStorage[name] = JSON.stringify(snapshot.val());
             this.user = JSON.parse(localStorage[name]);
             document.querySelector('#loading').style.display = "none"
-            console.log(name+" 캐시 업데이트")
+            console.log(name + " 캐시 업데이트")
         }.bind(this));
     }
 
-    updateAllDb(){
+    updateAllDb() {
         this.updateDb("user");
         this.updateDb("review");
         this.updateDb("product");
@@ -57,7 +68,7 @@ export class DB {
             this.user = JSON.parse(localStorage['user']);
             document.querySelector('#loading').style.display = "none"
             console.log("user 캐시 업데이트")
-
+            return true;
         }.bind(this));
     }
 

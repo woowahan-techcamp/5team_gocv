@@ -93,17 +93,26 @@
 
 .rank-brand-type-tab{
     cursor: pointer;
-    border-radius: 5px;
     display: inline-block;
     line-height: 40px;
+    font-size: 12px;
     text-align: center;
     width: 5%;
-    background-color: #ffded1;
+    color: gray;
+    margin: 0px;
+    background-color: white;
+}
+
+.rank-brand-type-tab:hover{
+    font-size: 15px;
+    transition-duration: 0.3s;
+    color: #ff5f4e;
 }
 
 .selected-rank-brand-type-tab{
-    background-color: #ff5f4e;
-    color: white;
+    border-bottom: solid 3px #ff5f4e;
+    font-size: 15px;
+    color: #ff5f4e;
 }
 
 .ranking-item-list-wrapper{
@@ -140,6 +149,7 @@
     line-height: 25px;
     margin: 5px auto;
     height: 25px;
+    font-size: 12px;
     background-color: #ffd435;
     color:white;
 }
