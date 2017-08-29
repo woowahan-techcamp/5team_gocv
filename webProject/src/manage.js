@@ -126,7 +126,6 @@ export class TimeManager {
             } else {
                 result = (this.now[1] - value[1]) + (this.now[0] - value[0]) * 1440;
             }
-            console.log(result);
 
             if (result > 1440) {
                 result = parseInt(result / 1440) + '일 전';
@@ -138,7 +137,6 @@ export class TimeManager {
         } else{
             result = parseInt(this.now[0] - value[0]) + '주일 전';
         }
-        console.log(result, this.now, value);
 
         return result;
     }
