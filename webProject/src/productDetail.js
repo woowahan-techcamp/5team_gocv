@@ -1,7 +1,4 @@
 import {Util, Dropdown, Toast} from './main.js'
-import {UpdateData} from './index.js'
-import {DB} from './firebaseInit.js'
-import timestamp from './manage.js'
 import {PopupInfo, TimeManager} from "./manage";
 
 
@@ -73,7 +70,7 @@ export class ReviewPopup {
                 this.scrollEvent("hidden");
                 this.setReviewData();
 
-                new PopupInfo().itemPageInit();
+                new PopupInfo().setReviewPageInit();
             }
 
         }.bind(this));
@@ -207,16 +204,15 @@ export class ProductPopup {
         const allergyArr = this.db.product[this.productId].allergy;
         const allergyEleArr = Array.from(document.querySelectorAll(".popup-review-Allergy"));
 
-        allergyEleArr.forEach(function(element){
-            if(!!allergyArr) {
+        allergyEleArr.forEach(function (element) {
+            if (!!allergyArr) {
                 if (allergyArr.includes(element.getAttribute("name"))) {
                     element.style.color = "black";
                 }
-            }else{
+            } else {
 
             }
         })
-
 
 
     }
@@ -238,10 +234,7 @@ export class ProductPopup {
         //모달 리뷰 필터 드롭다운
         const reviewFilterDrop = new Dropdown("click", ".popup-reviewFilter", ".popup-reviewFilter-dropdown");
 
-        console.log(reviewArr);
-
         new ReviewFilter(reviewArr);
-
 
         document.querySelector('#loading').style.display = "none"
 
@@ -375,13 +368,13 @@ class Review {
 
 
         writeBtn.addEventListener("click", function () {
-            if(!!this.db.user[userId].product_review_list){
+            if (!!this.db.user[userId].product_review_list) {
                 if (this.db.user[userId].product_review_list.includes(this.product.id)) {
                     new Toast("이미 리뷰를 작성한 상품입니다");
                 } else {
                     this.setOnOff()
                 }
-            }else{
+            } else {
                 this.setOnOff()
             }
         }.bind(this));
@@ -389,16 +382,15 @@ class Review {
         const allergyBtn = new Dropdown("click", "#popupAllergyBtn", ".popup-newReview-Allergy-Wrapper");
         const allergyWrapper = document.querySelector('.popup-newReview-Allergy-Wrapper');
 
-        allergyWrapper.addEventListener('click',function(e){
-            if(e.target.classList.contains("popup-newReview-Allergy-select")){
+        allergyWrapper.addEventListener('click', function (e) {
+            if (e.target.classList.contains("popup-newReview-Allergy-select")) {
                 e.target.className = "popup-newReview-Allergy"
-            }else{
+            } else {
                 e.target.className = "popup-newReview-Allergy popup-newReview-Allergy-select"
             }
-        })
+        });
 
         console.log(this.product)
-
 
 
     }
@@ -576,24 +568,24 @@ class Review {
             const allergyArr = Array.from(document.querySelectorAll('.popup-newReview-Allergy-select'));
             console.log(allergyArr);
 
-            if(allergyArr.length === 0){
+            if (allergyArr.length === 0) {
 
-            }else{
-                if(!!this.product.allergy){
-                    allergyArr.forEach(function(element){
-                        if(this.product.allergy.includes(element.getAttribute("name"))) {
+            } else {
+                if (!!this.product.allergy) {
+                    allergyArr.forEach(function (element) {
+                        if (this.product.allergy.includes(element.getAttribute("name"))) {
                             // console.log("이미있음")
-                        }else{
+                        } else {
                             // console.log("없으니까 추가")
                             console.log(element.getAttribute("name"));
                             this.product.allergy.push(element.getAttribute("name"));
                         }
                     }.bind(this))
 
-                }else {
+                } else {
                     // console.log("애초에 아무것도 없는 경우")
                     this.product.allergy = [];
-                    allergyArr.forEach(function(element){
+                    allergyArr.forEach(function (element) {
                         this.product.allergy.push(element.getAttribute("name"));
                     }.bind(this))
                 }
@@ -633,16 +625,16 @@ class Review {
 
                 const reviewArr = [];
 
-                if(!!that.db.product[that.product.id].reviewList){
+                if (!!that.db.product[that.product.id].reviewList) {
                     that.db.product[that.product.id].reviewList.forEach(function (e) {
                         reviewArr.push(that.db.review[e])
                     });
                 }
 
-                const template2 = document.querySelector("#review-template").innerHTML;
-                const sec2 = document.querySelector("#popupReview");
-                util.template(reviewArr, template2, sec2);
-                util.setHandlebars(reviewArr);
+                console.log(reviewArr);
+
+                new ReviewFilter(reviewArr);
+
                 that.db.updateReviewDb();
                 document.querySelector('#loading').style.display = "none";
 

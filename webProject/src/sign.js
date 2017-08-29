@@ -220,7 +220,7 @@ export class SignIn {
             document.querySelector("#signinErrorCheck").style.display = "none";
         });
 
-        
+
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 this.login();
