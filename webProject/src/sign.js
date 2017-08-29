@@ -121,11 +121,11 @@ export class SignUp {
         }.bind(this));
     }
 
-    updateDb(){
+    updateDb() {
         //한번 다시 user db 캐시 업데이트
         firebase.database().ref('user/').once('value').then(function (snapshot) {
 
-            const that=this;
+            const that = this;
             document.querySelector('#loading').style.display = "none";
 
             localStorage['user'] = JSON.stringify(snapshot.val());
@@ -161,6 +161,7 @@ export class SignUp {
 
 
 }
+
 export class SignIn {
 
     constructor(db) {
@@ -240,6 +241,7 @@ export class SignIn {
     }
 
 }
+
 export class SignConnect {
     constructor() {
         this.sign = document.querySelector('#sign');
@@ -272,6 +274,7 @@ export class SignConnect {
 
 
 }
+
 class MyPage {
     constructor(db) {
         this.db= db;
@@ -284,7 +287,7 @@ class MyPage {
 
     }
 
-    getPopupInfo(){
+    getPopupInfo() {
         const popup = new PopupInfo();
         popup.setMyPageInit();
     }
@@ -299,7 +302,7 @@ class MyPage {
         const sec = document.querySelector("#myPage");
         util.template(this.db.user[this.userId], template, sec);
 
-        const myPageProduct = new ProductPopup(this.db,'#myPageReviewNavi','productSelect');
+        const myPageProduct = new ProductPopup(this.db, '#myPageReviewNavi', 'productSelect');
 
         const wishReviewArr = [];
 
@@ -382,7 +385,6 @@ class MyPage {
         const input = document.querySelector(".myPage-profile-nickname-input");
 
 
-
         changeBtn.addEventListener("click", function () {
 
             console.log(input.value);
@@ -401,7 +403,7 @@ class MyPage {
 
                     that.setProfileTab();
                     document.querySelector('#loading').style.display = "none";
-                    input.setAttribute("placeholder",input.value);
+                    input.setAttribute("placeholder", input.value);
                     new Toast("닉네임이 변경되었습니다.");
                 }.bind(that));
             } else if (input.value === "") {
