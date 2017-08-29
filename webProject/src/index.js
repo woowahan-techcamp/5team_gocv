@@ -45,8 +45,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
     const signIn = new SignIn(db);
     const signConnect = new SignConnect()
 
-
-
     //main.js
     const searchParams = {
         brand: '.fixTab-search-brand',

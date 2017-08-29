@@ -308,7 +308,7 @@ export class SearchTab {
 
         this.searchButton.addEventListener("click", function () {
             this.setQuery();
-            new Toast("검색 결과입니다.")
+            new Toast("검색 결과입니다.");
             document.querySelector(".main-wrapper").style.display = "none";
             document.querySelector(".review-container").style.display = "none";
             document.querySelector(".rank-container").style.display = "";
