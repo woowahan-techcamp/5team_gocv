@@ -1,3 +1,4 @@
+
 //
 //  Button.swift
 //  pyunrihae
@@ -93,14 +94,13 @@ class Button{
         return categoryBtns
     }
     static func didPressUsefulBtn(sender: UIButton, reviewId: String, usefulNumLabel: UILabel, badNumLabel: UILabel, usefulBtn: UIButton, badBtn: UIButton, reviewList: [Review]){
-        let appdelegate = UIApplication.shared.delegate as! AppDelegate
-        var reviewStatus = appdelegate.user?.review_like_list[reviewId]
-        let uid = appdelegate.user?.id
+        var reviewStatus = User.sharedInstance.review_like_list[reviewId]
+        let uid = User.sharedInstance.id
         if reviewStatus == nil { //유용해요 누른적이 없는 리뷰
             var useful = Int(usefulNumLabel.text!)
             useful = useful! + 1
             usefulNumLabel.text = String(describing: useful!)
-            DataManager.updateUsefulReview(id: reviewId, uid: uid!)
+            DataManager.updateUsefulReview(id: reviewId, uid: uid)
             reviewStatus = 1
             Button.makeBorder(btn: usefulBtn)
             Button.deleteBorder(btn: badBtn)
@@ -110,7 +110,7 @@ class Button{
             var useful = Int(usefulNumLabel.text!)
             useful = useful! - 1
             usefulNumLabel.text = String(describing: useful!)
-            DataManager.updateCancleReview(id: reviewId, uid: uid!)
+            DataManager.updateCancleReview(id: reviewId, uid: uid)
             reviewStatus = 0
             Button.deleteBorder(btn: usefulBtn)
             Button.deleteBorder(btn: badBtn)
@@ -123,7 +123,7 @@ class Button{
             var bad = Int(badNumLabel.text!)
             bad = bad! - 1
             badNumLabel.text = String(describing: bad!)
-            DataManager.updateUsefulReview(id: reviewId, uid: uid!)
+            DataManager.updateUsefulReview(id: reviewId, uid: uid)
             reviewStatus = 1
             Button.makeBorder(btn: usefulBtn)
             Button.deleteBorder(btn: badBtn)
@@ -133,14 +133,14 @@ class Button{
             var useful = Int(usefulNumLabel.text!)
             useful = useful! + 1
             usefulNumLabel.text = String(describing: useful!)
-            DataManager.updateUsefulReview(id: reviewId, uid: uid!)
+            DataManager.updateUsefulReview(id: reviewId, uid: uid)
             reviewStatus = 1
             Button.makeBorder(btn: usefulBtn)
             Button.deleteBorder(btn: badBtn)
             usefulNumLabel.textColor = UIColor.red
             badNumLabel.textColor = UIColor.lightGray
         }
-        appdelegate.user?.review_like_list[reviewId] = reviewStatus
+        User.sharedInstance.review_like_list[reviewId] = reviewStatus
         for i in 0..<reviewList.count {
             if reviewList[i].id == reviewId {
                 reviewList[i].useful = Int(usefulNumLabel.text!)!
@@ -151,14 +151,13 @@ class Button{
         }
     }
     static func didPressBadBtn(sender: UIButton, reviewId: String, usefulNumLabel: UILabel, badNumLabel: UILabel, usefulBtn: UIButton, badBtn: UIButton, reviewList: [Review]){
-        let appdelegate = UIApplication.shared.delegate as! AppDelegate
-        let uid = appdelegate.user?.id
-        var reviewStatus = appdelegate.user?.review_like_list[reviewId]
+        let uid = User.sharedInstance.id
+        var reviewStatus = User.sharedInstance.review_like_list[reviewId]
         if reviewStatus == nil { //별로에요 누른적이 없는 리뷰
             var bad = Int(badNumLabel.text!)
             bad = bad! + 1
             badNumLabel.text = String(describing: bad!)
-            DataManager.updateBadReview(id: reviewId, uid: uid!)
+            DataManager.updateBadReview(id: reviewId, uid: uid)
             reviewStatus = -1
             Button.makeBorder(btn: badBtn)
             Button.deleteBorder(btn: usefulBtn)
@@ -168,7 +167,7 @@ class Button{
             var bad = Int(badNumLabel.text!)
             bad = bad! - 1
             badNumLabel.text = String(describing: bad!)
-            DataManager.updateCancleReview(id: reviewId, uid: uid!)
+            DataManager.updateCancleReview(id: reviewId, uid: uid)
             reviewStatus = 0
             Button.deleteBorder(btn: usefulBtn)
             Button.deleteBorder(btn: badBtn)
@@ -181,7 +180,7 @@ class Button{
             var useful = Int(usefulNumLabel.text!)
             useful = useful! - 1
             usefulNumLabel.text = String(describing: useful!)
-            DataManager.updateBadReview(id: reviewId, uid: uid!)
+            DataManager.updateBadReview(id: reviewId, uid: uid)
             reviewStatus = -1
             Button.makeBorder(btn: badBtn)
             Button.deleteBorder(btn: usefulBtn)
@@ -191,14 +190,14 @@ class Button{
             var bad = Int(badNumLabel.text!)
             bad = bad! + 1
             badNumLabel.text = String(describing: bad!)
-            DataManager.updateBadReview(id: reviewId, uid: uid!)
+            DataManager.updateBadReview(id: reviewId, uid: uid)
             reviewStatus = -1
             Button.makeBorder(btn: badBtn)
             Button.deleteBorder(btn: usefulBtn)
             usefulNumLabel.textColor = UIColor.lightGray
             badNumLabel.textColor = UIColor.red
         }
-        appdelegate.user?.review_like_list[reviewId] = reviewStatus
+        User.sharedInstance.review_like_list[reviewId] = reviewStatus
         for i in 0..<reviewList.count {
             if reviewList[i].id == reviewId {
                 reviewList[i].useful = Int(usefulNumLabel.text!)!
@@ -209,8 +208,8 @@ class Button{
         }
     }
     static func validateUseful(review: Review, usefulBtn: UIButton, badBtn: UIButton, usefulNumLabel: UILabel, badNumLabel: UILabel) {
-        let appdelegate = UIApplication.shared.delegate as! AppDelegate
-        if let userReviewLike = appdelegate.user?.review_like_list[review.id]{
+        
+        if let userReviewLike = User.sharedInstance.review_like_list[review.id]{
             if userReviewLike == 1 {
                 Button.makeBorder(btn: usefulBtn)
                 Button.deleteBorder(btn: badBtn)

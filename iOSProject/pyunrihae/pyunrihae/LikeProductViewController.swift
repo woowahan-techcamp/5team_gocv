@@ -28,9 +28,9 @@ class LikeProductViewController: UIViewController {
     }
     func getLikeProductList(){
         likeProductList = []
-        if (appdelegate.user?.wish_product_list)! != [] && appdelegate.user?.wish_product_list != nil{
+        if (User.sharedInstance.wish_product_list) != [] {
             for product in appdelegate.productList {
-                for id in (appdelegate.user?.wish_product_list)! {
+                for id in (User.sharedInstance.wish_product_list) {
                     if product.id == id {
                         likeProductList.append(product)
                     }
