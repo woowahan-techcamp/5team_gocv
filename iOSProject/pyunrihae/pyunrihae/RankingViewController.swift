@@ -215,7 +215,7 @@ extension RankingViewController: UITableViewDelegate, UITableViewDataSource {
             }else{
                 cell.EventLabel.isHidden = true
             }
-            Image.drawStar(numberOfPlaces: 2.0, grade_avg: Double(product.grade_avg), gradeLabel: cell.gradeLabel, starView: cell.starView, needSpace: false)
+            Image.drawStar(numberOfPlaces: 2.0, grade_avg: Double(product.grade_avg), gradeLabel: cell.gradeLabel, starView: cell.starView)
             Label.makeRoundLabel(label: cell.PriceLevelLabel, color: UIColor.gray)
             Label.makeRoundLabel(label: cell.QuantityLevelLabel, color: UIColor.gray)
             Label.makeRoundLabel(label: cell.FlavorLevelLabel, color: UIColor.gray)

@@ -12,7 +12,6 @@ import GoogleSignIn
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate{
     var window: UIWindow?
-    var user: User?
     var productList : [Product] = []
     let category = ["전체","도시락","김밥","베이커리","라면","식품","스낵","아이스크림","음료"]
     let priceLevelList = ["비싸다","비싼편","적당","싼편","싸다"]
@@ -25,20 +24,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate{
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
         
-        let handle = Auth.auth().addStateDidChangeListener { (auth, user) in
+        _ = Auth.auth().addStateDidChangeListener { (auth, user) in
             if user == nil {
                 do {
                     try  Auth.auth().signOut()
-                    self.user = User.init()
+                    User.sharedInstance = User.init()
                     NotificationCenter.default.post(name: NSNotification.Name("userLogined"), object: nil)
                 } catch let signOutError as NSError {
                     print ("Error signing out: %@", signOutError)
                 }
             }
         }
-    
-        // 오프라인 일 때 기기에 저장
-        Database.database().isPersistenceEnabled = true
         return true
     }
     func applicationWillResignActive(_ application: UIApplication) {
@@ -80,17 +76,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate{
         // ...
         
         Auth.auth().signIn(with: credential) { (user, error) in
-            if let error = error {
-                // ...
+            if error != nil {
+                // 에러 발생하면
                 return
             }
-            // User is signed in
-            // ...
             
-            let user_instance = User.init(id: (user?.uid)!, email: (user?.email)!, nickname: (user?.displayName)!)
-            DataManager.saveUser(user: user_instance)
-            self.user = user_instance
-            NotificationCenter.default.post(name: NSNotification.Name("userLogined"), object: nil)
+            DataManager.getUserFromUID(uid: (user?.uid)!, completion: { (resultUser) in
+                if resultUser.email != "" { // 이전에 연결된 게 있으면
+                    User.sharedInstance = resultUser
+                    NotificationCenter.default.post(name: NSNotification.Name("userLogined"), object: nil)
+                }else{ // 새로 가입한 거라면
+                    let user_instance = User.init(id: (user!.uid), email: (user?.email)!, nickname: (user?.displayName)!)
+                    DataManager.saveUser(user: user_instance)
+                }
+            })
+            
+
         }
         
     }
@@ -103,7 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate{
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
-            self.user = User.init()
+            User.sharedInstance = User.init()
             NotificationCenter.default.post(name: NSNotification.Name("userLogined"), object: nil)
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)

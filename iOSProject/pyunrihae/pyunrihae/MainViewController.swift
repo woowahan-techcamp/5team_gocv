@@ -9,7 +9,6 @@ import UIKit
 class MainViewController: UIViewController {
     @IBOutlet weak var reviewScrollView: UIScrollView!
     @IBOutlet weak var categoryScrollView: UIScrollView!
-    @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     @IBOutlet weak var productScrollView: UIScrollView!
     let appdelegate = UIApplication.shared.delegate as! AppDelegate
     var productList : [Product] = []
@@ -46,11 +45,13 @@ class MainViewController: UIViewController {
         reviewScrollView.backgroundColor = UIColor.lightGray
         reviewScrollView.isPagingEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
-        self.reviewScrollView.addGestureRecognizer(tap)
-        self.reviewScrollView.isUserInteractionEnabled = true
+        reviewScrollView.addGestureRecognizer(tap)
+        reviewScrollView.isUserInteractionEnabled = true
+
         DataManager.getTop3Product() { (products) in
             self.productList = products
             DispatchQueue.main.async {
+                NotificationCenter.default.post(name: NSNotification.Name("doneLoading"), object: self)
 //                self.collectionView.reloadData()
             }
         }
@@ -62,14 +63,8 @@ class MainViewController: UIViewController {
     func showDetailProduct(_ notification: Notification) {
         if notification.userInfo?["validator"] as! Int == 0{
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "mainNavigationController") as! UINavigationController
-            let transition = CATransition()
-            transition.duration = 0.4
-            transition.type = kCATransitionPush
-            transition.subtype = kCATransitionFromRight
-            transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-            self.view.window!.layer.add(transition, forKey: kCATransition)
-            self.present(vc, animated: false, completion: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "ProductDetailViewController") as! ProductDetailViewController
+            self.navigationController?.pushViewController(vc, animated: true)
             NotificationCenter.default.post(name: NSNotification.Name("showReviewProduct"), object: self, userInfo: ["product" : review])
         }
     }
@@ -87,11 +82,13 @@ class MainViewController: UIViewController {
             self.selectedCategoryIndex = sender.tag
         },completion: nil)
         NotificationCenter.default.post(name: NSNotification.Name("showCategory"), object: self, userInfo: ["category" : selectedCategoryIndex])
+        productScrollView.contentOffset.x = 0
     }
     // 카테고리를 선택했을 때 함수
     func selectCategory(_ notification: Notification){
         Button.selectCategory(view: self.view, previousIndex: selectedCategoryIndex, categoryBtns: categoryBtns, selectedCategoryIndex: notification.userInfo?["category"] as! Int, categoryScrollView: categoryScrollView, scrollBar: scrollBar)
         selectedCategoryIndex = notification.userInfo?["category"] as! Int
+        productScrollView.contentOffset.x = 0
     }
     // 로딩 인디케이터 보이는 함수 DEPRECATED
     func showActivityIndicatory() {
@@ -196,6 +193,7 @@ class MainViewController: UIViewController {
                 var cnt = 0
                 let scrollViewImageNum = 3
                 self.reviewScrollView.contentSize = CGSize(width: imageViewWidth*CGFloat(3), height: imageViewHeight)
+                self.reviewScrollView.contentOffset.y = 0
                 for review in self.reviewList {
                     if cnt >= scrollViewImageNum {
                         break
@@ -337,19 +335,15 @@ class MainViewController: UIViewController {
         }
     }
     func didPressUsefulBtn(sender: UIButton) { //유용해요 버튼 누르기
-        if appdelegate.user?.email == "" {
-            let alert = UIAlertController(title: "로그인 후 이용해주세요!", message: "", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+        if User.sharedInstance.email == "" {
+            Pyunrihae.showLoginOptionPopup(_ : self)
         } else {
             Button.didPressUsefulBtn(sender: sender, reviewId: review.id, usefulNumLabel: usefulNumLabel, badNumLabel: badNumLabel, usefulBtn: usefulBtn, badBtn: badBtn, reviewList: reviewList)
         }
     }
     func didPressBadBtn(sender: UIButton) { //별로에요 버튼 누르기
-        if appdelegate.user?.email == "" {
-            let alert = UIAlertController(title: "로그인 후 이용해주세요!", message: "", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+        if User.sharedInstance.email == "" {
+            Pyunrihae.showLoginOptionPopup(_ : self)
         } else {
             Button.didPressBadBtn(sender: sender, reviewId: review.id, usefulNumLabel: usefulNumLabel, badNumLabel: badNumLabel, usefulBtn: usefulBtn, badBtn: badBtn, reviewList: reviewList)
         }
@@ -363,14 +357,8 @@ class MainViewController: UIViewController {
             let product = productList[(sender.view?.tag)!]
             NotificationCenter.default.post(name: NSNotification.Name("showProduct"), object: self, userInfo: ["product" : product])
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "mainNavigationController") as! UINavigationController
-            let transition = CATransition()
-            transition.duration = 0.4
-            transition.type = kCATransitionPush
-            transition.subtype = kCATransitionFromRight
-            transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-            self.view.window!.layer.add(transition, forKey: kCATransition)
-            self.present(vc, animated: false, completion: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "ProductDetailViewController") as! ProductDetailViewController
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }

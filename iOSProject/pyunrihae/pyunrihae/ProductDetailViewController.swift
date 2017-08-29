@@ -27,9 +27,8 @@ class ProductDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         writingReviewBtn.isHidden = true
-        let user = appdelegate.user
-        if user?.email != "" {
-            if (user?.wish_product_list.contains(SelectedProduct.foodId))!{
+        if User.sharedInstance.email != "" {
+            if (User.sharedInstance.wish_product_list.contains(SelectedProduct.foodId)){
                 wishBtn.setBackgroundImage(UIImage(named: "ic_like_filled.png"), for: .normal)
             } else {
                 wishBtn.setBackgroundImage(UIImage(named: "ic_like.png"), for: .normal)
@@ -77,22 +76,16 @@ class ProductDetailViewController: UIViewController {
         }
     }
     func close() {
-        let transition = CATransition()
-        transition.duration = 0.4
-        transition.type = kCATransitionPush
-        transition.subtype = kCATransitionFromLeft
-        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        self.view.window!.layer.add(transition, forKey: kCATransition)
-        self.dismiss(animated: false, completion: nil)
+        self.navigationController?.popToRootViewController(animated: true)
         NotificationCenter.default.post(name: NSNotification.Name("reloadReview"), object: self)
     }
     @IBAction func closeNavViewBtn(_ sender: UIButton) {
         close()
     }
     @IBAction func tabWishBtn(_ sender: UIButton) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let user = appDelegate.user
-        if user?.email != "" {
+        
+        let user = User.sharedInstance
+        if user.email != "" {
             uploadingView.isHidden = false
             if wishBtn.backgroundImage(for: .normal) == UIImage(named: "ic_like.png") {
                 alertMessageLabel.text = "위시리스트에 추가되었습니다!"
@@ -103,11 +96,9 @@ class ProductDetailViewController: UIViewController {
                 wishBtn.setBackgroundImage(UIImage(named: "ic_like.png"), for: .normal)
                 reviewUpload()
             }
-            DataManager.updateWishList(id: SelectedProduct.foodId, uid: (user?.id)!)
+            DataManager.updateWishList(id: SelectedProduct.foodId, uid: (user.id))
         } else {
-            let alert = UIAlertController(title: "로그인 후 이용해주세요!", message: "", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            Pyunrihae.showLoginOptionPopup(_ : self)
         }
     }
     func didPressallergyBtn(sender: UIButton){ // 알러지 리스트 누르기
@@ -121,19 +112,15 @@ class ProductDetailViewController: UIViewController {
         }
     }
     func didPressUsefulBtn(sender: UIButton) { //유용해요 버튼 누르기
-        if appdelegate.user?.email == "" {
-            let alert = UIAlertController(title: "로그인 후 이용해주세요!", message: "", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+        if User.sharedInstance.email == "" {
+            Pyunrihae.showLoginOptionPopup(_ : self)
         } else {
             Button.didPressUsefulBtn(sender: sender, reviewId: reviewIdList[sender.tag], usefulNumLabel: usefulLabels[sender.tag], badNumLabel: badLabels[sender.tag], usefulBtn: usefulBtns[sender.tag], badBtn: badBtns[sender.tag], reviewList: reviewList)
         }
     }
     func didPressBadBtn(sender: UIButton) { //별로에요 버튼 누르기
-        if appdelegate.user?.email == "" {
-            let alert = UIAlertController(title: "로그인 후 이용해주세요!", message: "", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+        if User.sharedInstance.email == "" {
+            Pyunrihae.showLoginOptionPopup(_ : self)
         } else {
             Button.didPressBadBtn(sender: sender, reviewId: reviewIdList[sender.tag], usefulNumLabel: usefulLabels[sender.tag], badNumLabel: badLabels[sender.tag], usefulBtn: usefulBtns[sender.tag], badBtn: badBtns[sender.tag], reviewList: reviewList)
         }
@@ -195,14 +182,12 @@ class ProductDetailViewController: UIViewController {
                 }
             }
         } else if segue.destination is WritingReviewViewController { // 리뷰 작성 화면
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            let user = appDelegate.user
-            if user?.email == "" {
-                let alert = UIAlertController(title: "로그인 후 이용해주세요!", message: "", preferredStyle: UIAlertControllerStyle.alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+            
+            let user = User.sharedInstance
+            if user.email == "" {
+                Pyunrihae.showLoginOptionPopup(_ : self)
             }
-            if (user?.product_review_list.contains(SelectedProduct.foodId))!{
+            if (user.product_review_list.contains(SelectedProduct.foodId)){
                 let alert = UIAlertController(title: "이미 리뷰한 상품입니다 :)", message: "", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
@@ -276,7 +261,7 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath) as! ProductDetailInfoTableViewCell
                 // 제품 별점 보여주기
                 DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
-                    Image.drawStar(numberOfPlaces: 2.0, grade_avg: Double(product.grade_avg), gradeLabel: cell.gradeLabel, starView: cell.starView, needSpace: true)
+                    Image.drawStar(numberOfPlaces: 2.0, grade_avg: Double(product.grade_avg), gradeLabel: cell.gradeLabel, starView: cell.starImageView)
                     let allergyList = product.allergy
                     if allergyList.count != 0 {
                         let allergy = allergyList[0]
@@ -338,7 +323,8 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                     cell.userImageLoading.startAnimating()
                     cell.usefulBtn.tag = usefulBtns.count - 1
                     cell.badBtn.tag = badBtns.count - 1
-                    cell.userImage.contentMode = .scaleAspectFit
+                    cell.userImage.contentMode = .scaleAspectFill
+                    cell.userImage.clipsToBounds = true
                     cell.userImage.af_setImage(withURL: URL(string: reviewList[row].user_image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
                         cell.userImageLoading.stopAnimating()
                     })

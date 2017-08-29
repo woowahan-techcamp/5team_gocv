@@ -4,6 +4,7 @@ import {DB} from './firebaseInit.js'
 import timestamp from './manage.js'
 import {PopupInfo, TimeManager} from "./manage";
 
+
 //image 업로드하고 미리보기 만드는 클래스
 export class UpLoadImage {
     constructor(inputId, imgPreviewId) {
@@ -74,7 +75,6 @@ export class ReviewPopup {
 
                 new PopupInfo().itemPageInit();
             }
-
 
         }.bind(this));
     }
@@ -152,6 +152,7 @@ export class ProductPopup {
 
     settingData() {
         this.setProductData();
+        this.setProductWishEvent();
         this.setReviewData();
         this.setReviewWishEvent();
 
@@ -201,6 +202,18 @@ export class ProductPopup {
         const priceChart = new MakeChart('bar', ["비쌈", "아쉽", "적당", "양호", "저렴"], priceData, 'priceChart', '#ee5563', '#9c3740');
         const flavorChart = new MakeChart('bar', ["노맛", "아쉽", "적당", "양호", "존맛"], flavorData, 'flavorChart', '#ee5563', '#9c3740');
         const quantityChart = new MakeChart('bar', ["창렬", "아쉽", "적당", "양호", "혜자"], quantityData, 'quantityChart', '#ee5563', '#9c3740');
+
+        const allergyArr = this.db.product[this.productId].allergy;
+        const allergyEleArr = Array.from(document.querySelectorAll(".popup-review-Allergy"));
+
+        allergyEleArr.forEach(function(element){
+            if(allergyArr.includes(element.getAttribute("name"))){
+                element.style.color = "black" ;
+            }
+        })
+
+
+
     }
 
     setReviewData() {
@@ -212,23 +225,24 @@ export class ProductPopup {
             }.bind(this));
         }
 
+
         //rateyo.js를 사용하기 위한 별이 들어갈 DOM의 id, 전체 리뷰 Wrapper 클래스명
-        const makeReview = new Review("popupStar", ".newReview-list", this.db.product[this.productId]);
+        const makeReview = new Review(this.db, "popupStar", ".newReview-list", this.db.product[this.productId]);
         const reviewImageUpLoad = new UpLoadImage('reviewImageInput', 'imagePreview');
 
         //모달 리뷰 필터 드롭다운
         const reviewFilterDrop = new Dropdown("click", ".popup-reviewFilter", ".popup-reviewFilter-dropdown");
 
+        console.log(reviewArr);
+
         new ReviewFilter(reviewArr);
 
-        setTimeout(function () {
-            document.querySelector('#loading').style.display = "none"
-        }, 1000);
 
+        document.querySelector('#loading').style.display = "none"
 
     }
 
-    setReviewWishEvent() {
+    setProductWishEvent() {
         document.querySelector("#popupWish").addEventListener("click", function () {
             const that = this;
 
@@ -256,9 +270,10 @@ export class ProductPopup {
             } else {
                 new Toast("이미 즐겨찾기에 포함된 상품입니다.")
             }
-
         }.bind(this));
+    }
 
+    setReviewRatingEvent() {
         const reviewRating = new ReviewRating(this.db, this);
 
         document.querySelector(".popup-close").addEventListener("click", function () {
@@ -319,17 +334,17 @@ class MakeChart {
 
 //review의 이벤트를 만들고 리뷰를 생성하는 클래스
 class Review {
-    constructor(id, navi, product, user) {
+    constructor(db, id, navi, product) {
+        this.db = db;
         this.id = id;
-        this.value = 0;
+        this.navi = navi;
         this.product = product;
-        this.user = user;
+        this.userId = firebase.auth().currentUser.uid;
+        this.value = 0;
         this.comment = "";
         this.data = [0, 0, 0, 0, ""];
-        this.navi = navi;
         this.reviewId = "";
         this.fileName = "";
-
         this.init();
 
     }
@@ -337,6 +352,7 @@ class Review {
     init() {
         this.setStar();
         this.setNavi();
+
         const makeBtn = document.querySelector(".popup-newReview-completeBtn");
         makeBtn.addEventListener("click", function () {
             this.setMakeReview();
@@ -350,23 +366,34 @@ class Review {
 
         const writeBtn = document.querySelector(".popup-reviewWrite");
 
-
-        const db = new DB();
-        db.updateUserDb();
-
-        const userStorage = localStorage['user'];
-        this.user = JSON.parse(userStorage);
         const userId = firebase.auth().currentUser.uid
 
 
         writeBtn.addEventListener("click", function () {
-
-            if (db.user[userId].product_review_list.includes(this.product.id)) {
-                new Toast("이미 리뷰를 작성한 상품입니다");
-            } else {
+            if(!!this.db.user[userId].product_review_list){
+                if (this.db.user[userId].product_review_list.includes(this.product.id)) {
+                    new Toast("이미 리뷰를 작성한 상품입니다");
+                } else {
+                    this.setOnOff()
+                }
+            }else{
                 this.setOnOff()
             }
         }.bind(this));
+
+        const allergyBtn = new Dropdown("click", "#popupAllergyBtn", ".popup-newReview-Allergy-Wrapper");
+        const allergyWrapper = document.querySelector('.popup-newReview-Allergy-Wrapper');
+
+        allergyWrapper.addEventListener('click',function(e){
+            if(e.target.classList.contains("popup-newReview-Allergy-select")){
+                e.target.className = "popup-newReview-Allergy"
+            }else{
+                e.target.className = "popup-newReview-Allergy popup-newReview-Allergy-select"
+            }
+        })
+
+        console.log(this.product)
+
 
 
     }
@@ -465,10 +492,8 @@ class Review {
     }
 
     setMakeReview() {
-        // document.querySelector('#loading').style.display = "block";
 
         this.data[4] = document.querySelector('.popup-newReview-comment').value;
-
 
         if (this.data[0] === 0) {
             new Toast("한 개이상의 별을 선택해 주세요.");
@@ -482,12 +507,12 @@ class Review {
             new Toast("20자 이상의 리뷰를 써주시길 바랍니다")
         } else {
             this.setOnOff();
-            const database = firebase.database();
+            document.querySelector('#loading').style.display = "block";
 
+            const database = firebase.database();
             this.reviewId = database.ref().child('review').push().key;
 
             let file = document.querySelector('#reviewImageInput').files[0];
-
 
             this.fileName = 'images/' + this.reviewId + "." + file.type.split("/")[1];
 
@@ -503,12 +528,12 @@ class Review {
     }
 
     updateDb() {
+
         const storageRef = firebase.storage().ref();
         const database = firebase.database();
 
         storageRef.child(this.fileName).getDownloadURL().then(function (url) {
             const that = this;
-            const userId = firebase.auth().currentUser.uid;
 
             database.ref('review/' + this.reviewId).set({
                 "bad": 0,
@@ -527,19 +552,47 @@ class Review {
                 "quantity": this.data[3],
                 "timestamp": new TimeManager().timestamp(),
                 "useful": 0,
-                "user": this.user[userId].nickname,
-                "user_image": this.user[userId].user_profile,
+                "user": this.db.user[this.userId].nickname,
+                "user_image": this.db.user[this.userId].user_profile,
             });
 
 
             //해당 유저에 자기가 작성한 리뷰 리스트 넣기
-            if (!!this.user.product_review_list) {
-                this.user.product_review_list.push(this.product.id);
+            if (!!this.db.user[this.userId].product_review_list) {
+                this.db.user[this.userId].product_review_list.push(this.product.id);
             } else {
-                this.user.product_review_list = [];
-                this.user.product_review_list.push(this.product.id);
+                this.db.user[this.userId].product_review_list = [];
+                this.db.user[this.userId].product_review_list.push(this.product.id);
             }
-            database.ref('user/' + userId + '/product_review_list').set(this.user.product_review_list);
+
+            database.ref('user/' + this.userId + '/product_review_list').set(this.db.user[this.userId].product_review_list);
+            this.db.updateUserDb();
+
+            const allergyArr = Array.from(document.querySelectorAll('.popup-newReview-Allergy-select'));
+            console.log(allergyArr);
+
+            if(allergyArr.length === 0){
+
+            }else{
+                if(!!this.product.allergy){
+                    allergyArr.forEach(function(element){
+                        if(this.product.allergy.includes(element.getAttribute("name"))) {
+                            // console.log("이미있음")
+                        }else{
+                            // console.log("없으니까 추가")
+                            console.log(element.getAttribute("name"));
+                            this.product.allergy.push(element.getAttribute("name"));
+                        }
+                    }.bind(this))
+
+                }else {
+                    // console.log("애초에 아무것도 없는 경우")
+                    this.product.allergy = [];
+                    allergyArr.forEach(function(element){
+                        this.product.allergy.push(element.getAttribute("name"));
+                    }.bind(this))
+                }
+            }
 
 
             //상품 리뷰리스트에 리뷰 번호 추가
@@ -549,6 +602,7 @@ class Review {
                 this.product.reviewList = [];
                 this.product.reviewList.push(this.reviewId);
             }
+
 
             this.product.grade_count += 1;
             this.product.review_count += 1;
@@ -560,57 +614,74 @@ class Review {
             this.product.flavor_level["f" + this.data[2]] += 1;
             this.product.quantity_level["q" + this.data[3]] += 1;
 
-
             //업데이트 반영된 product 삽입
-            database.ref('product/' + this.product.id).set(this.product);
-            database.ref('product/').once('value').then(function (snapshot) {
-                localStorage['product'] = JSON.stringify(snapshot.val());
-            });
-            database.ref('review/').once('value').then(function (snapshot) {
+            database.ref('product/' + this.product.id).set(this.product).then(function () {
+                that.db.updateProductDb();
+            }.bind(that));
+
+
+            firebase.database().ref('review/').once('value').then(function (snapshot) {
                 localStorage['review'] = JSON.stringify(snapshot.val());
+                that.db.review = JSON.parse(localStorage['review']);
 
                 const util = new Util();
-                const product = localStorage['product'];
-                const obj = JSON.parse(product);
-
-                const review = localStorage['review'];
-                const obj2 = JSON.parse(review);
 
                 const reviewArr = [];
-                obj[this.product.id].reviewList.forEach(function (e) {
-                    reviewArr.push(obj2[e])
-                });
+
+                if(!!that.db.product[that.product.id].reviewList){
+                    that.db.product[that.product.id].reviewList.forEach(function (e) {
+                        reviewArr.push(that.db.review[e])
+                    });
+                }
 
                 const template2 = document.querySelector("#review-template").innerHTML;
                 const sec2 = document.querySelector("#popupReview");
                 util.template(reviewArr, template2, sec2);
-
                 util.setHandlebars(reviewArr);
+                that.db.updateReviewDb();
                 document.querySelector('#loading').style.display = "none";
-
-                const Event = function () {
-                    this.getAttribute = function (name) {
-                        return that.product.id;
-                    };
-                };
-
-
-                const event = new Event();
-
-                loadDetailProduct(event);
-
-                new UpdateData();
 
             }.bind(that));
 
-
         }.bind(this)).catch(function (error) {
-            // console.log(error);
+            console.log(error);
             document.querySelector('#loading').style.display = "none"
         });
     }
 
 }
+
+function timestamp() {
+    var d = new Date();
+    var curr_date = d.getDate();
+    var curr_month = d.getMonth() + 1; //Months are zero based
+    var curr_year = d.getFullYear();
+    var curr_hour = d.getHours();
+    var curr_minute = d.getMinutes();
+    var curr_second = d.getSeconds();
+
+    if (curr_month < 10) {
+        curr_month = "0" + curr_month;
+    }
+
+    if (curr_hour < 10) {
+        curr_hour = "0" + curr_hour;
+    }
+
+    if (curr_minute < 10) {
+        curr_minute = "0" + curr_minute;
+
+    }
+
+    if (curr_second < 10) {
+        curr_second = "0" + curr_second;
+
+    }
+
+    return curr_year + "-" + curr_month + "-" + curr_date + " " +
+        curr_hour + ":" + curr_minute + ":" + curr_second;
+}
+
 
 //리뷰 정렬 하는 클래스
 class ReviewFilter {
