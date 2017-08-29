@@ -1,7 +1,6 @@
 import {Util, Dropdown, Toast} from './main.js'
 import {PopupInfo, TimeManager} from "./manage";
 
-
 //image 업로드하고 미리보기 만드는 클래스
 export class UpLoadImage {
     constructor(inputId, imgPreviewId) {
@@ -225,13 +224,13 @@ export class ProductPopup {
             }.bind(this));
         }
 
-
         //rateyo.js를 사용하기 위한 별이 들어갈 DOM의 id, 전체 리뷰 Wrapper 클래스명
         const makeReview = new Review(this.db, "popupStar", ".newReview-list", this.db.product[this.productId]);
         const reviewImageUpLoad = new UpLoadImage('reviewImageInput', 'imagePreview');
 
         //모달 리뷰 필터 드롭다운
         const reviewFilterDrop = new Dropdown("click", ".popup-reviewFilter", ".popup-reviewFilter-dropdown");
+        const storage = JSON.parse(localStorage['review']);
 
         new ReviewFilter(reviewArr);
 
@@ -389,9 +388,7 @@ class Review {
             }
         });
 
-        console.log(this.product)
-
-
+        console.log(this.product);
     }
 
     //초기화 함수
@@ -410,12 +407,10 @@ class Review {
         Array.from(removeArr3).forEach(function (e) {
             e.className = "newReview-element"
         });
-        this.setStar()
-
+        this.setStar();
     }
 
     setOnOff() {
-
         const newReview = document.querySelector(".popup-newReviewWrapper");
         if (newReview.style.display === "none") {
             newReview.style.display = "";
@@ -551,9 +546,9 @@ class Review {
         }
 
         let imageURL;
-        if(url){
+        if (url) {
             imageURL = url;
-        }else{
+        } else {
             imageURL = null;
         }
 
@@ -655,8 +650,6 @@ class Review {
                     reviewArr.push(that.db.review[e])
                 });
             }
-
-            console.log(reviewArr);
 
             new ReviewFilter(reviewArr);
 
@@ -852,12 +845,13 @@ class ReviewFilter {
 class ReviewRating {
     constructor(db, reviewClass, userId, productId, reviewId, likeList) {
         this.db = db;
+
         this.userId = userId;
         this.productId = productId;
         this.reviewId = reviewId;
         this.likeList = likeList;
 
-        this.setEvent()
+        this.setEvent();
     }
 
     setEvent() {
@@ -895,7 +889,11 @@ class ReviewRating {
                     //good 버튼을 누를 경우
                     if (e.target.classList.contains("popup-review-good")) {
                         e.target.className = "good-bad-select popup-review-good";
+
+                        // review[this.reviewId].useful++;
+
                         value = 1;
+
                         firebase.database().ref('review/' + this.reviewId + "/useful")
                             .set(this.db.review[this.reviewId].useful + 1).then(function () {
                             that.db.updateReviewDb();
@@ -904,13 +902,14 @@ class ReviewRating {
                         //bad button을 누를 경우
                     } else {
                         e.target.className = "good-bad-select popup-review-bad";
+
+                        // review[this.reviewId].bad++;
                         value = -1;
                         firebase.database().ref('review/' + this.reviewId + "/bad")
                             .set(this.db.review[this.reviewId].bad + 1).then(function () {
                             this.db.updateReviewDb();
                         }.bind(that));
                     }
-
 
                     //userDb에 해당 값을 업데이트
                     firebase.database().ref('user/' + this.userId + "/review_like_list/" + this.reviewId)
@@ -919,7 +918,7 @@ class ReviewRating {
                         firebase.database().ref('user/').once('value').then(function (snapshot) {
                             localStorage['user'] = JSON.stringify(snapshot.val());
                             that2.db.user = JSON.parse(localStorage['user']);
-                            document.querySelector('#loading').style.display = "none"
+                            document.querySelector('#loading').style.display = "none";
                             goodBtn.disabled = false;
                             badBtn.disabled = false;
                             // console.log("user 캐시 업데이트")
@@ -929,7 +928,6 @@ class ReviewRating {
                     //이미 선택된적이 있는 경우
                 } else if (this.likeList === 1) {
                     // console.log("good 으로 선택된적 있는 경우")
-
 
                     document.querySelector('#loading').style.display = "block";
                     goodBtn.disabled = true;
@@ -970,7 +968,7 @@ class ReviewRating {
 
                 } else if (this.likeList === -1) {
                     // console.log("bad 으로 선택된적 있는 경우")
-                    document.querySelector('#loading').style.display = "block"
+                    document.querySelector('#loading').style.display = "block";
                     goodBtn.disabled = true;
                     badBtn.disabled = true;
 
@@ -979,7 +977,6 @@ class ReviewRating {
                         let newValue = parseInt(e.target.nextSibling.nextSibling.innerHTML);
                         newValue -= 1;
                         e.target.nextSibling.nextSibling.innerHTML = newValue;
-
 
                         let value = 0;
                         firebase.database().ref('review/' + this.reviewId + "/bad")
@@ -994,7 +991,7 @@ class ReviewRating {
                             firebase.database().ref('user/').once('value').then(function (snapshot) {
                                 localStorage['user'] = JSON.stringify(snapshot.val());
                                 that2.db.user = JSON.parse(localStorage['user']);
-                                document.querySelector('#loading').style.display = "none"
+                                document.querySelector('#loading').style.display = "none";
                                 goodBtn.disabled = false;
                                 badBtn.disabled = false;
                                 // console.log("user 캐시 업데이트")
@@ -1003,13 +1000,13 @@ class ReviewRating {
 
                     } else {
                         // console.log("아무반응이 없어야함")
-                        document.querySelector('#loading').style.display = "none"
+                        document.querySelector('#loading').style.display = "none";
                         goodBtn.disabled = false;
                         badBtn.disabled = false;
                     }
                 }
             }
-        }.bind(this))
+        }.bind(this));
 
     }
 
