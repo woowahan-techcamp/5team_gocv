@@ -33,7 +33,6 @@ class Popup{
         }
         popup.btnsView.addSubview(btns)
         view.addSubview(popup)
-        btns.validator = validator
         btns.badBtn.isEnabled = false
         btns.usefulBtn.isEnabled = false
         Button.deleteBorder(btn: btns.usefulBtn)

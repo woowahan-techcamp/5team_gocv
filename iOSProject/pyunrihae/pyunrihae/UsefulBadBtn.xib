@@ -130,7 +130,7 @@
         </view>
     </objects>
     <resources>
-        <image name="bad.png" width="512" height="512"/>
-        <image name="useful.png" width="512" height="512"/>
+        <image name="bad.png" width="50" height="50"/>
+        <image name="useful.png" width="50" height="50"/>
     </resources>
 </document>

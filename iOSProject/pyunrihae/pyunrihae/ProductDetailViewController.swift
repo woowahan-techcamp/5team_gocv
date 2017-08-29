@@ -45,6 +45,7 @@ class ProductDetailViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(reviewUpload), name: NSNotification.Name("reviewUpload"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(startUploading), name: NSNotification.Name("startUploading"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showAllergy), name: NSNotification.Name("showAllergy"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showLoginPopup), name: NSNotification.Name("showLoginPopup"), object: nil)
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         self.view.addGestureRecognizer(tap)
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
@@ -64,6 +65,9 @@ class ProductDetailViewController: UIViewController {
                 default: break
             }
         }
+    }
+    func showLoginPopup(_ notification: Notification) {
+        Pyunrihae.showLoginOptionPopup(_ : self)
     }
     func handleTap(_ sender: UITapGestureRecognizer) { // 탭해주면 리뷰 작성 버튼 뜸
         if hidden == true {
@@ -150,7 +154,7 @@ class ProductDetailViewController: UIViewController {
         }
     }
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) { // 밑으로 내리면 리뷰작성 버튼 사라지고, 올리면 다시 뜸
-        if velocity.y > 0 {
+        if velocity.y >= 0 {
             if hidden == false {
                 hidden = true
                 UIView.animate(withDuration: 0.7, delay: 0, animations: {
