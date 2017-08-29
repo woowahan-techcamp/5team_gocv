@@ -231,7 +231,7 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                 var returnHeight : CGFloat = 0.0
                 if reviewList.count > 0 {
                     let row = indexPath.row - 2
-                    let font =  UIFont(name: "AppleSDGothicNeo-Thin", size: 13)
+                    let font =  UIFont(name: "AppleSDGothicNeo-Regular", size: 13)
                     let width = (tableView.superview?.frame.size.width)! - 110
                     let height = Label.heightForView(text: reviewList[row].comment, font: font!, width: width)
                     if reviewList[row].p_image != "" {

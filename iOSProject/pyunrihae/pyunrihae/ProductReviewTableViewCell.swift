@@ -74,7 +74,7 @@ class ProductReviewTableViewCell: UITableViewCell {
                 self.uploadedFoodImageBtn.isHidden = false
                 self.uploadedFoodImage.isHidden = false
                 self.detailReviewLabel.isHidden = false
-                self.reviewBoxView.frame.size.height = self.detailReviewLabel.frame.height + 135
+                self.reviewBoxView.frame.size.height = height + 135
                 self.uploadedImageLoading.startAnimating()
                 self.uploadedFoodImage.contentMode = .scaleAspectFill
                 self.uploadedFoodImage.clipsToBounds = true
@@ -89,7 +89,7 @@ class ProductReviewTableViewCell: UITableViewCell {
                     self.reviewBoxView.frame.size.height = 90
                 }else { // 사진만 없는 경우
                     self.detailReviewLabel.isHidden = false
-                    self.reviewBoxView.frame.size.height = self.detailReviewLabel.frame.height + 90
+                    self.reviewBoxView.frame.size.height = height + 90
                     self.commentTopConstraint.constant -= 60
                 }
             }

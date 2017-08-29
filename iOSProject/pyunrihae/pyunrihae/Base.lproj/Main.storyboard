@@ -744,10 +744,10 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" verticalHuggingPriority="248" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JfI-S8-kUQ">
-                                                            <rect key="frame" x="142.5" y="8" width="90" height="90"/>
+                                                            <rect key="frame" x="147.5" y="13" width="80" height="80"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="90" id="CnC-N6-Mvc"/>
-                                                                <constraint firstAttribute="height" constant="90" id="mMB-1s-f1U"/>
+                                                                <constraint firstAttribute="width" constant="80" id="CnC-N6-Mvc"/>
+                                                                <constraint firstAttribute="height" constant="80" id="mMB-1s-f1U"/>
                                                             </constraints>
                                                             <connections>
                                                                 <segue destination="VCz-lc-hnn" kind="show" id="fGg-R2-bk1"/>
@@ -834,7 +834,7 @@
                                                         <constraint firstItem="dqo-2X-vDe" firstAttribute="top" secondItem="mqw-Ps-KXU" secondAttribute="bottom" constant="15" id="bCG-km-p7q"/>
                                                         <constraint firstItem="WOt-dN-weK" firstAttribute="leading" secondItem="9Pw-03-jM2" secondAttribute="trailing" constant="10" id="cUb-AB-wnP"/>
                                                         <constraint firstItem="KNy-kz-u4p" firstAttribute="top" secondItem="46E-GN-5Jm" secondAttribute="top" constant="10" id="ctQ-Ji-gJC"/>
-                                                        <constraint firstItem="JfI-S8-kUQ" firstAttribute="top" secondItem="46E-GN-5Jm" secondAttribute="topMargin" id="e2A-Qh-u5n"/>
+                                                        <constraint firstItem="JfI-S8-kUQ" firstAttribute="top" secondItem="46E-GN-5Jm" secondAttribute="topMargin" constant="5" id="e2A-Qh-u5n"/>
                                                         <constraint firstAttribute="trailingMargin" secondItem="mqw-Ps-KXU" secondAttribute="trailing" constant="15" id="hmX-pP-8xg"/>
                                                         <constraint firstAttribute="trailingMargin" secondItem="TTH-cm-D1b" secondAttribute="trailing" constant="15" id="mFV-WZ-8ux"/>
                                                         <constraint firstAttribute="bottom" secondItem="0MK-5P-nnW" secondAttribute="bottom" constant="15" id="mz8-uA-AzF"/>
@@ -1004,11 +1004,11 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="24K-cN-721">
-                                                                    <rect key="frame" x="10" y="125" width="266" height="15"/>
+                                                                    <rect key="frame" x="10" y="125" width="266" height="16"/>
                                                                     <attributedString key="attributedText">
                                                                         <fragment content=" ">
                                                                             <attributes>
-                                                                                <font key="NSFont" size="13" name="NanumGothic"/>
+                                                                                <font key="NSFont" size="13" name="AppleSDGothicNeo-Regular"/>
                                                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                             </attributes>
                                                                         </fragment>
