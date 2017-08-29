@@ -165,6 +165,8 @@ export class SignIn {
 
     constructor(db) {
         this.db = db;
+        this.google = document.querySelector('.signin-google');
+        this.facebook = document.querySelector('.signin-facebook');
         this.email = document.querySelector(".signin-id");
         this.password = document.querySelector(".signin-password");
         this.signInButton = document.querySelector(".signin-button");
@@ -172,6 +174,26 @@ export class SignIn {
     }
 
     setEventButton() {
+        this.google.addEventListener('click',function(){
+            var provider = new firebase.auth.GoogleAuthProvider();
+            provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+
+            firebase.auth().signInWithPopup(provider).then(function(result) {
+
+                var token = result.credential.accessToken;
+                var user = result.user;
+
+                console.log(result);
+            }).catch(function(error) {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                var email = error.email;
+                var credential = error.credential;
+            });
+
+        })
+
+
         this.email.addEventListener("click", function () {
             document.querySelector("#signinErrorCheck").style.display = "none";
         });
@@ -417,7 +439,6 @@ class MyPage {
         }.bind(this))
 
     }
-
 
     updateDb() {
         const storageRef = firebase.storage().ref();
