@@ -27,9 +27,8 @@ class ProductDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         writingReviewBtn.isHidden = true
-        let user = appdelegate.user
-        if user?.email != "" {
-            if (user?.wish_product_list.contains(SelectedProduct.foodId))!{
+        if User.sharedInstance.email != "" {
+            if (User.sharedInstance.wish_product_list.contains(SelectedProduct.foodId)){
                 wishBtn.setBackgroundImage(UIImage(named: "ic_like_filled.png"), for: .normal)
             } else {
                 wishBtn.setBackgroundImage(UIImage(named: "ic_like.png"), for: .normal)
@@ -90,9 +89,9 @@ class ProductDetailViewController: UIViewController {
         close()
     }
     @IBAction func tabWishBtn(_ sender: UIButton) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let user = appDelegate.user
-        if user?.email != "" {
+        
+        let user = User.sharedInstance
+        if user.email != "" {
             uploadingView.isHidden = false
             if wishBtn.backgroundImage(for: .normal) == UIImage(named: "ic_like.png") {
                 alertMessageLabel.text = "위시리스트에 추가되었습니다!"
@@ -103,7 +102,7 @@ class ProductDetailViewController: UIViewController {
                 wishBtn.setBackgroundImage(UIImage(named: "ic_like.png"), for: .normal)
                 reviewUpload()
             }
-            DataManager.updateWishList(id: SelectedProduct.foodId, uid: (user?.id)!)
+            DataManager.updateWishList(id: SelectedProduct.foodId, uid: (user.id))
         } else {
             let alert = UIAlertController(title: "로그인 후 이용해주세요!", message: "", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
@@ -121,7 +120,7 @@ class ProductDetailViewController: UIViewController {
         }
     }
     func didPressUsefulBtn(sender: UIButton) { //유용해요 버튼 누르기
-        if appdelegate.user?.email == "" {
+        if User.sharedInstance.email == "" {
             let alert = UIAlertController(title: "로그인 후 이용해주세요!", message: "", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
@@ -130,7 +129,7 @@ class ProductDetailViewController: UIViewController {
         }
     }
     func didPressBadBtn(sender: UIButton) { //별로에요 버튼 누르기
-        if appdelegate.user?.email == "" {
+        if User.sharedInstance.email == "" {
             let alert = UIAlertController(title: "로그인 후 이용해주세요!", message: "", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
@@ -195,14 +194,14 @@ class ProductDetailViewController: UIViewController {
                 }
             }
         } else if segue.destination is WritingReviewViewController { // 리뷰 작성 화면
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            let user = appDelegate.user
-            if user?.email == "" {
+            
+            let user = User.sharedInstance
+            if user.email == "" {
                 let alert = UIAlertController(title: "로그인 후 이용해주세요!", message: "", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
-            if (user?.product_review_list.contains(SelectedProduct.foodId))!{
+            if (user.product_review_list.contains(SelectedProduct.foodId)){
                 let alert = UIAlertController(title: "이미 리뷰한 상품입니다 :)", message: "", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)

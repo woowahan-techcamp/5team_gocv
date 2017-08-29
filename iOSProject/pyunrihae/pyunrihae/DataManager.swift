@@ -202,8 +202,7 @@ class DataManager{
                 update["wish_product_list"] = wishList
             }
             localRef.updateChildValues(update)
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.user?.wish_product_list = wishList
+            User.sharedInstance.wish_product_list = wishList
             NotificationCenter.default.post(name: NSNotification.Name("likeListChanged"), object: nil)
         })
     }
@@ -452,12 +451,13 @@ class DataManager{
         if let data = UIImageJPEGRepresentation(p_image, 0.3) {
             imagesRef.putData(data, metadata: nil, completion: {
                 (metadata, error) in
-                if error != nil {
+                if error != nil { // 에러가 난 경우
                     update["p_image"] = imgURL
                     id.updateChildValues(update)
                     NotificationCenter.default.post(name: NSNotification.Name("reviewUpload"), object: self)
                     NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
                 } else {
+                    // 정상 작동한 경우
                     imagesRef.downloadURL { (URL, error) -> Void in // 업로드된 이미지 url 받아오기
                         if (error != nil) { // 없으면 ""로 저장
                             update["p_image"] = imgURL
@@ -474,7 +474,7 @@ class DataManager{
                     }
                 }
             })
-        } else {
+        } else { // 이미지가 없는 경우
             update["p_image"] = imgURL
             id.updateChildValues(update)
             NotificationCenter.default.post(name: NSNotification.Name("reviewUpload"), object: self)
@@ -528,6 +528,7 @@ class DataManager{
         let localRef = ref.child("user")
         localRef.child(user.id).setValue(["id": user.id, "email" : user.email, "nickname" : user.nickname,  "review_like_list": user.review_like_list, "product_review_list" : user.product_review_list, "wish_product_list": user.wish_product_list])
     }
+  
 
     /*
      * 마이페이지 화면
@@ -596,7 +597,7 @@ class DataManager{
                 contentBuilder.desc = review.comment
 
 
-                if review.product_image != nil && review.product_image != "" {
+                if  review.product_image != "" {
                     contentBuilder.imageURL = URL.init(string : review.product_image)!
                 }else{
                     contentBuilder.imageURL = URL.init(string : "https://s3.ap-northeast-2.amazonaws.com/pyunrihae/Group%402x.png")!

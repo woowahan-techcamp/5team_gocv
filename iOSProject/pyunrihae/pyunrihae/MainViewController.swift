@@ -337,7 +337,7 @@ class MainViewController: UIViewController {
         }
     }
     func didPressUsefulBtn(sender: UIButton) { //유용해요 버튼 누르기
-        if appdelegate.user?.email == "" {
+        if User.sharedInstance.email == "" {
             let alert = UIAlertController(title: "로그인 후 이용해주세요!", message: "", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
@@ -346,7 +346,7 @@ class MainViewController: UIViewController {
         }
     }
     func didPressBadBtn(sender: UIButton) { //별로에요 버튼 누르기
-        if appdelegate.user?.email == "" {
+        if User.sharedInstance.email == "" {
             let alert = UIAlertController(title: "로그인 후 이용해주세요!", message: "", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
