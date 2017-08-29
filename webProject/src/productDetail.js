@@ -231,6 +231,18 @@ export class ProductPopup {
         const priceChart = new MakeChart('bar', ["비쌈", "아쉽", "적당", "양호", "저렴"], priceData, 'priceChart', '#ee5563', '#9c3740');
         const flavorChart = new MakeChart('bar', ["노맛", "아쉽", "적당", "양호", "존맛"], flavorData, 'flavorChart', '#ee5563', '#9c3740');
         const quantityChart = new MakeChart('bar', ["창렬", "아쉽", "적당", "양호", "혜자"], quantityData, 'quantityChart', '#ee5563', '#9c3740');
+
+        const allergyArr = this.db.product[this.productId].allergy;
+        const allergyEleArr = Array.from(document.querySelectorAll(".popup-review-Allergy"));
+
+        allergyEleArr.forEach(function(element){
+            if(allergyArr.includes(element.getAttribute("name"))){
+                element.style.color = "black" ;
+            }
+        })
+
+
+
     }
 
     setReviewData() {
