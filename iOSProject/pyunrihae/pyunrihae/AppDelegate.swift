@@ -35,9 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate{
                 }
             }
         }
-    
-        // 오프라인 일 때 기기에 저장
-//        Database.database().isPersistenceEnabled = true
         return true
     }
     func applicationWillResignActive(_ application: UIApplication) {
