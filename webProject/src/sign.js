@@ -203,11 +203,21 @@ export class SignIn {
             document.querySelector("#signinErrorCheck").style.display = "none";
         });
 
-        this.signInButton.addEventListener("click", function () {
-            this.checkEmail();
-            document.querySelector('#loading').style.display = "block";
-        }.bind(this));
+
+        console.log(firebase.auth().currentUser)
+
+        if(!!firebase.auth().currentUser){
+            this.login();
+        }else{
+            this.signInButton.addEventListener("click", function () {
+                this.checkEmail();
+                document.querySelector('#loading').style.display = "block";
+            }.bind(this));
+        }
+
     }
+
+
 
     checkEmail() {
         firebase.auth().signInWithEmailAndPassword(this.email.value,
@@ -227,39 +237,43 @@ export class SignIn {
             document.querySelector('#loading').style.display = "none";
 
             return Promise.reject();
-        }).then(function () {
-
-            const that = this;
-            document.querySelector('#loading').style.display = "none";
-
-            const userStorage = localStorage['user'];
-            const userData = JSON.parse(userStorage);
-            const user = firebase.auth().currentUser;
-
-            document.querySelector(".fixTab-profile-wrapper").style.display = "block"
-            document.querySelector("#fixTabProfileImg").setAttribute("src", userData[user.uid].user_profile);
-            document.querySelector(".fixTab-profile-id").innerHTML =
-                userData[user.uid].nickname + "<ul class=\"fixTab-profile-dropdown\">\n" +
-                "                     <a href=\"#myPage\"><li class=\"fixTab-profile-element\">내 정보</li></a>\n" +
-                "                    <li id=\"logout\" class=\"fixTab-profile-element\">로그아웃</li>\n" +
-                "                </ul>";
-
-            document.querySelector("#logout").addEventListener("click", function () {
-                firebase.auth().signOut().then(function () {
-                    document.querySelector(".fixTab-profile-wrapper").style.display = "none"
-                    document.querySelector('#sign').style.display = "block";
-                }, function (error) {
-                    // An error happened.
-                });
-            })
-
-            document.querySelector('#sign').style.display = "none";
-
-            document.querySelector('.fixTab-profile-element').addEventListener("click", function () {
-                const myPage = new MyPage(that.db);
-
-            }.bind(that));
+        }).then(function (){
+            this.login();
         }.bind(this))
+
+    }
+
+    login(){
+        document.querySelector('#sign').style.display = "none";
+        document.querySelector('#loading').style.display = "none";
+
+        const userStorage = localStorage['user'];
+        const userData = JSON.parse(userStorage);
+        const user = firebase.auth().currentUser;
+
+        document.querySelector(".fixTab-profile-wrapper").style.display = "block"
+        document.querySelector("#fixTabProfileImg").setAttribute("src", userData[user.uid].user_profile);
+        document.querySelector(".fixTab-profile-id").innerHTML =
+            userData[user.uid].nickname + "<ul class=\"fixTab-profile-dropdown\">\n" +
+            "                     <a href=\"#myPage\"><li class=\"fixTab-profile-element\">내 정보</li></a>\n" +
+            "                    <li id=\"logout\" class=\"fixTab-profile-element\">로그아웃</li>\n" +
+            "                </ul>";
+
+        document.querySelector("#logout").addEventListener("click", function () {
+            firebase.auth().signOut().then(function () {
+                document.querySelector(".fixTab-profile-wrapper").style.display = "none"
+                document.querySelector('#sign').style.display = "block";
+            }, function (error) {
+                // An error happened.
+            });
+        })
+
+        document.querySelector('#sign').style.display = "none";
+
+        document.querySelector('.fixTab-profile-element').addEventListener("click", function () {
+            const myPage = new MyPage(this.db);
+
+        }.bind(this));
     }
 
 }
