@@ -141,7 +141,7 @@ class MainViewController: UIViewController {
                 self.productList = []
                 for product in self.appdelegate.productList {
                     if product.category == categoryBtns[selectedCategoryIndex].titleLabel?.text!{
-                         self.productList.append(product)
+                        self.productList.append(product)
                     }
                 }
                 DispatchQueue.main.async {
@@ -177,6 +177,7 @@ class MainViewController: UIViewController {
     }
     // 리뷰의 스크롤 이미지를 가져오는 함수
     func setReviewScrollImages(){
+        
         var brand = ""
         switch selectedBrandIndexFromTab {
             case 0 : brand = "전체"
@@ -185,7 +186,6 @@ class MainViewController: UIViewController {
             case 3 : brand = "7-eleven"
             default : break
         }
-//        indicatorView.startAnimating()
         DataManager.getTop3ReviewByBrand(brand: brand) { (reviews) in
             self.reviewList = reviews
             if self.reviewScrollView != nil {
@@ -256,9 +256,15 @@ class MainViewController: UIViewController {
         }
     }
     func setProductScrollView(){
+        
+        // 기존에 붙어있던 subview를 제거
         for subview in self.productScrollView.subviews {
             subview.removeFromSuperview()
         }
+        
+        // 스크롤을 맨 앞으로 다시 가져온다.
+        self.productScrollView.contentOffset.x = 0
+        
         if self.productScrollView != nil {
             let imageViewWidth = self.productScrollView.frame.size.width;
             let imageViewHeight = self.productScrollView.frame.size.height;
