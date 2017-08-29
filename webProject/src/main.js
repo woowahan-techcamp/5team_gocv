@@ -1,7 +1,5 @@
 import {TimeManager} from "./manage";
 
-import {UpdateData} from './index.js';
-
 //드롭다운 만드는 클래스
 export class Dropdown {
 

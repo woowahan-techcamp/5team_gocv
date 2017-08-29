@@ -41,6 +41,7 @@ export class DB {
         return new Promise(function (resolve, reject) {
             if (param) {
                 resolve("해결 완료");
+                window.location.reload();
             } else {
                 reject(Error("실패!!"));
             }
