@@ -78,7 +78,7 @@ class UsefulBadBtnView: UIView {
     }
     @IBAction func tabBadBtn(_ sender: UIButton) {
         if User.sharedInstance.email == "" {
-            
+            NotificationCenter.default.post(name: NSNotification.Name("showLoginPopup"), object: self, userInfo: ["validator": validator])
         } else {
             let uid = User.sharedInstance.id
             var reviewStatus = User.sharedInstance.review_like_list[reviewId]
