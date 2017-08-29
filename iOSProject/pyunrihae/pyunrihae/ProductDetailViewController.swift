@@ -76,13 +76,7 @@ class ProductDetailViewController: UIViewController {
         }
     }
     func close() {
-        let transition = CATransition()
-        transition.duration = 0.4
-        transition.type = kCATransitionPush
-        transition.subtype = kCATransitionFromLeft
-        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        self.view.window!.layer.add(transition, forKey: kCATransition)
-        self.dismiss(animated: false, completion: nil)
+        self.navigationController?.popToRootViewController(animated: true)
         NotificationCenter.default.post(name: NSNotification.Name("reloadReview"), object: self)
     }
     @IBAction func closeNavViewBtn(_ sender: UIButton) {
@@ -267,7 +261,7 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath) as! ProductDetailInfoTableViewCell
                 // 제품 별점 보여주기
                 DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
-                    Image.drawStar(numberOfPlaces: 2.0, grade_avg: Double(product.grade_avg), gradeLabel: cell.gradeLabel, starView: cell.starView, needSpace: true)
+                    Image.drawStar(numberOfPlaces: 2.0, grade_avg: Double(product.grade_avg), gradeLabel: cell.gradeLabel, starView: cell.starImageView)
                     let allergyList = product.allergy
                     if allergyList.count != 0 {
                         let allergy = allergyList[0]
@@ -329,7 +323,8 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                     cell.userImageLoading.startAnimating()
                     cell.usefulBtn.tag = usefulBtns.count - 1
                     cell.badBtn.tag = badBtns.count - 1
-                    cell.userImage.contentMode = .scaleAspectFit
+                    cell.userImage.contentMode = .scaleAspectFill
+                    cell.userImage.clipsToBounds = true
                     cell.userImage.af_setImage(withURL: URL(string: reviewList[row].user_image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
                         cell.userImageLoading.stopAnimating()
                     })

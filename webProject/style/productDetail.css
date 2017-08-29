@@ -62,9 +62,9 @@
 }
 
 .popup-reviewImage{
-    background-image: url("/image/ex2.png");
-    background-repeat: no-repeat;
-    background-size: cover;
+    /*background-image: url("/image/ex1.png");*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: cover;*/
     width: 100%;
     background-color: black;
     background-position: center;
@@ -227,6 +227,7 @@
     width: 23%;
     margin: 20px 1% 15px 1%;
     border-radius: 10px;
+    padding: 10px;
     height: 250px;
     float: left;
     background-color: white;
@@ -235,11 +236,29 @@
 .popup-reviewAllergy2{
     width: 100%;
     height: 200px;
-    line-height: 200px;
     text-align: center;
     font-size: 20px;
+    color: #eeeeee;
 
 }
+
+.popup-review-Allergy-wrapper{
+    margin-top: 30px;
+    width: 100%;
+    height: 100%;
+}
+
+.popup-review-Allergy{
+    width: 33.3333%;
+    float: left;
+    font-size: 12px;
+    height: 20px;
+}
+
+
+
+
+
 
 .popup-reviewCount,.popup-reviewFilter,.popup-reviewWrite{
     position:relative;
@@ -284,7 +303,7 @@
 }
 
 .popup-reviewFilter-element:hover{
-    background: darkslategray;
+    background: gray;
     color: #ffffff;
 }
 
@@ -376,7 +395,8 @@
 }
 
 .popup-review-image{
-
+    position: relative;
+    z-index: 110;
     background-size: contain;
     border-radius: 10px;
     width: 17%;
@@ -505,6 +525,39 @@
 
 }
 
+.popup-newReview-Allergy-Wrapper{
+    width: 63vw;
+    height: 100px;
+}
+
+.popup-newReview-Allergy{
+    float: left;
+    width: 50px;
+    text-align: center;
+    color: white;
+    line-height: 40px;
+    background-color: #ffbe9e;
+    font-size: 12px;
+}
+
+.popup-newReview-Allergy:hover, .popup-newReview-Allergy-select{
+    background-color: #ff531e;
+    color: white;
+}
+
+.popup-newReview-addAllergy{
+    cursor: pointer;
+    float: left;
+    width: 150px;
+    background-color: #FF7800;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 13px;
+    color: white;
+}
+
+
 
 .popup-newReview-cancel{
     margin-right: 10px;
@@ -613,28 +666,14 @@
     border-bottom-right-radius: 10px;
 }
 
-.popup-newReview-addAllegy{
+.popup-newReview-completeBtn {
     cursor: pointer;
-    float: left;
-    width: 130px;
-    background-color: #FF7800;
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-    font-size: 13px;
-    color: white;
-    border-top-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-
-.popup-newReview-completeBtn{
-    cursor: pointer;
-    background-image: url("/image/write_icon.png");
+    background-image: url(/image/write_icon.png);
     background-repeat: no-repeat;
     background-size: 30%;
     background-position: center;
-    float: right;;
     line-height: 30px;
+    float: right;
     margin-right: 5px;
     width: 80px;
     color: white;
@@ -644,7 +683,7 @@
     border-radius: 10px;
 }
 
-.popup-newReview-completeBtn:hover,.popup-newReview-addAllegy:hover{
+.popup-newReview-completeBtn:hover,.popup-newReview-addAllergy:hover{
     filter: brightness(130%);
 }
 
@@ -669,4 +708,6 @@
     background-color: #424242;
     color: white;
 }
+
+
 

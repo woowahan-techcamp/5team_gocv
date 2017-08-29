@@ -1,10 +1,14 @@
+//js bundle
+import "./firebaseInit.js"
 import "./ranking.js"
 import "./brand.js"
 import "./main.js"
 import "./rankingTab.js"
 import "./sign.js"
 import "./review.js"
+import "./manage.js"
 
+//css bundle
 import "../style/index.css"
 import "../style/productDetail.css"
 import "../style/brand.css"
@@ -15,23 +19,36 @@ import "../style/sign.css"
 import "../style/review-preivew.css"
 import "../style/review.css"
 
+//class import
 import {SearchTab, Carousel, Counter} from './main.js';
 import {BrandRankingPreview} from './brand.js';
 import {MainRankingPreview} from './ranking.js';
 import {RankingViewPage} from './rankingTab.js'
 import {ReviewPage} from './review.js'
+import {ProductPopup, ReviewPopup} from './productDetail.js'
 import {SignUp, SignIn, SignConnect} from './sign.js'
+import {DB} from './firebaseInit.js'
+import {PopupInfo} from "./manage";
+
 
 
 document.addEventListener('DOMContentLoaded', function (event) {
   console.log("Dom content Loaded");
 
     //db 캐시화
-    const db = new DB();
+    let db = new DB();
     db.init();
 
     //main.js
-    const searchTab = new SearchTab();
+    const searchParams = {
+        brand: '.fixTab-search-brand',
+        brand_dropdown: '.fixTab-search-brand-dropdown',
+        category: '.fixTab-search-category',
+        category_drowndown: '.fixTab-search-category-dropdown',
+        text: '.fixTab-search-word',
+        button: '.fixTab-search-button'
+    };
+    const searchTab = new SearchTab(searchParams);
     const user = firebase.auth().currentUser;
     const carousel = new Carousel('reviewNavi', 'carousel-leftButton', 'carousel-rightButton', 10,
         'carousel-template', 'carouselSec');
@@ -51,165 +68,104 @@ document.addEventListener('DOMContentLoaded', function (event) {
             dropdown.style.display = "none";
         }
     });
-    setRefreshOverlay();
 
-    //brand.js
-    const gsParams = {
-        brand: 'gs',
-        leftBtn: 'gs-left-scroll',
-        rightBtn: 'gs-right-scroll',
-        // ul
-        wrapper: '.brand-rank-item',
-        template: 'brand-ranking-template',
-        item_wrapper: 'gs-item-wrapper'
-    };
-    const cuParams = {
-        brand: 'cu',
-        leftBtn: 'cu-left-scroll',
-        rightBtn: 'cu-right-scroll',
-        // ul
-        wrapper: '.brand-rank-item',
-        template: 'brand-ranking-template',
-        item_wrapper: 'cu-item-wrapper'
-    };
-    const sevenParams = {
-        brand: 'seven',
-        leftBtn: 'seven-left-scroll',
-        rightBtn: 'seven-right-scroll',
-        // ul
-        wrapper: '.brand-rank-item',
-        template: 'brand-ranking-template',
-        item_wrapper: 'seven-item-wrapper'
-    };
-
-    new BrandRankingPreview(gsParams, 'GS25');
-    new BrandRankingPreview(cuParams, 'CU');
-    new BrandRankingPreview(sevenParams, '7-eleven');
-
-    //ranking.js
-    const documentParams = {
-        tab: '.main-rank-tab-wrapper',
-        selected: 'main-rank-selectedtab',
-        content: '.main-rank-content',
-        template: '#card-ranking-template',
-        check_key: 'main-rank-tab main-rank-selectedtab'
-    };
-    new MainRankingPreview(documentParams);
-
-    //rankingTab.js
-    const rankingParams = {
-        sort_tab: '.rank-query-type-wrapper',
-        selected_sort: 'selected-rank-query-tab',
-        sort_check_key: 'rank-query-tab selected-rank-query-tab',
-
-        category_tab: '.rank-category-wrapper',
-        selected_category: 'selected-rank-category-tab',
-        category_check_key: 'rank-category-tab selected-rank-category-tab',
-
-        brand_tab: '.rank-brand-type',
-        selected_brand: 'selected-rank-brand-type-tab',
-        brand_check_key: 'rank-brand-type-tab selected-rank-brand-type-tab',
-
-        template: '#rank-card-template',
-        content: '.ranking-item-list-wrapper'
-    };
-    new RankingViewPage(rankingParams);
-
-    //review.js
-    const reviewParams = {
-        sort_tab: '.review-query-type-wrapper',
-        selected_sort: 'selected-review-query-tab',
-        sort_check_key: 'review-query-tab selected-review-query-tab',
-        template: '#card-review-page-template',
-        content: '.review-item-list-wrapper',
-        readmore: 'review-card-readmore'
-    };
-    new ReviewPage(reviewParams);
+    //
+    new PopupInfo().setRefreshOverlay();
+    new UpdateData();
 
     //sign.js
-    const signUp = new SignUp();
-    const signIn = new SignIn();
+    const signUp = new SignUp(db);
+    const signIn = new SignIn(db);
     const signConnect = new SignConnect();
 
+    //productDetail.js
+    const mainGsBrandProduct = new ProductPopup(db,'#gs-item-wrapper','productSelect');
+    const mainCuBrandProduct = new ProductPopup(db,'#cu-item-wrapper','productSelect');
+    const mainSevenBrandProduct = new ProductPopup(db,'#seven-item-wrapper','productSelect');
+    const carouselProduct = new ProductPopup(db,'#carouselSec','productSelect');
+    const mainCategoryProduct = new ProductPopup(db,'.main-rank-content','productSelect');
+    const rankTabProduct = new ProductPopup(db,'.ranking-item-list-wrapper','productSelect');
+    const reviewTabReview = new ReviewPopup(db, '.review-item-list-wrapper','reviewSelect')
 
 });
 
-
-
-//DB 를 캐시화 해놓고 업데이트 해주는 클래스
-export class DB {
-    constructor(user, product, review) {
-        this.user = user;
-        this.product = product;
-        this.review = review;
-    }
-
-    init() {
-        const config = {
-            apiKey: "AIzaSyAnDViQ2LyXlNzBWO2kWyGnN-Lr22B9sUI",
-            authDomain: "pyeonrehae.firebaseapp.com",
-            databaseURL: "https://pyeonrehae.firebaseio.com",
-            projectId: "pyeonrehae",
-            storageBucket: "pyeonrehae.appspot.com",
-            messagingSenderId: "296270517036"
+export class UpdateData{
+    constructor(){
+        //brand.js
+        const gsParams = {
+            brand: 'gs',
+            leftBtn: 'gs-left-scroll',
+            rightBtn: 'gs-right-scroll',
+            // ul
+            wrapper: '.brand-rank-item',
+            template: 'brand-ranking-template',
+            item_wrapper: 'gs-item-wrapper'
+        };
+        const cuParams = {
+            brand: 'cu',
+            leftBtn: 'cu-left-scroll',
+            rightBtn: 'cu-right-scroll',
+            // ul
+            wrapper: '.brand-rank-item',
+            template: 'brand-ranking-template',
+            item_wrapper: 'cu-item-wrapper'
+        };
+        const sevenParams = {
+            brand: 'seven',
+            leftBtn: 'seven-left-scroll',
+            rightBtn: 'seven-right-scroll',
+            // ul
+            wrapper: '.brand-rank-item',
+            template: 'brand-ranking-template',
+            item_wrapper: 'seven-item-wrapper'
         };
 
-        firebase.initializeApp(config);
+        new BrandRankingPreview(gsParams, 'GS25');
+        new BrandRankingPreview(cuParams, 'CU');
+        new BrandRankingPreview(sevenParams, '7-eleven');
 
-        const value = {
-            brand: 'all',
-            category: '전체',
-            keyword: ''
+        //ranking.js
+        const documentParams = {
+            tab: '.main-rank-tab-wrapper',
+            selected: 'main-rank-selectedtab',
+            content: '.main-rank-content',
+            template: '#card-ranking-template',
+            check_key: 'main-rank-tab main-rank-selectedtab'
         };
-        localStorage['search_keyword'] = JSON.stringify(value);
+        new MainRankingPreview(documentParams);
 
-        this.updateUserDb();
-        this.updateProductDb();
-        this.updateReviewDb();
+        //rankingTab.js
+        const rankingParams = {
+            sort_tab: '.rank-query-type-wrapper',
+            selected_sort: 'selected-rank-query-tab',
+            sort_check_key: 'rank-query-tab selected-rank-query-tab',
 
-        this.user = JSON.parse(localStorage['user']);
-        this.product = JSON.parse(localStorage['product']);
-        this.review = JSON.parse(localStorage['review']);
-    }
+            category_tab: '.rank-category-wrapper',
+            selected_category: 'selected-rank-category-tab',
+            category_check_key: 'rank-category-tab selected-rank-category-tab',
 
-    updateUserDb() {
-        firebase.database().ref('user/').once('value').then(function (snapshot) {
-            localStorage['user'] = JSON.stringify(snapshot.val());
-            this.user = JSON.parse(localStorage['user']);
-            document.querySelector('#loading').style.display = "none"
-            console.log("user 캐시 업데이트")
+            brand_tab: '.rank-brand-type',
+            selected_brand: 'selected-rank-brand-type-tab',
+            brand_check_key: 'rank-brand-type-tab selected-rank-brand-type-tab',
 
-        }.bind(this));
-    }
+            template: '#rank-card-template',
+            content: '.ranking-item-list-wrapper'
+        };
+        new RankingViewPage(rankingParams);
 
-    updateReviewDb() {
-        firebase.database().ref('review/').once('value').then(function (snapshot) {
-            localStorage['review'] = JSON.stringify(snapshot.val());
-            this.product = JSON.parse(localStorage['review']);
-            document.querySelector('#loading').style.display = "none"
-            console.log("review 캐시 업데이트")
-
-        }.bind(this));
-    }
-
-    updateProductDb() {
-        firebase.database().ref('product/').once('value').then(function (snapshot) {
-            localStorage['product'] = JSON.stringify(snapshot.val());
-            this.review = JSON.parse(localStorage['product']);
-            document.querySelector('#loading').style.display = "none"
-            console.log("product 캐시 업데이트")
-        }.bind(this));
+        //review.js
+        const reviewParams = {
+            sort_tab: '.review-query-type-wrapper',
+            selected_sort: 'selected-review-query-tab',
+            sort_check_key: 'review-query-tab selected-review-query-tab',
+            template: '#card-review-page-template',
+            content: '.review-item-list-wrapper',
+            readmore: 'review-card-readmore'
+        };
+        new ReviewPage(reviewParams);
     }
 }
 
-
-function setRefreshOverlay(){
-    const popup = document.querySelector('#popup');
-
-    popup.addEventListener('click', function () {
-        document.getElementsByClassName('popup-close-fake')[0].click();
-    });
-}
 function enterKeyEvent() {
     if (window.event.keyCode === 13) {
         document.getElementsByClassName("fixTab-search-button")[0].click();
@@ -217,3 +173,5 @@ function enterKeyEvent() {
 
 }
 window.enterKeyEvent = enterKeyEvent;
+
+

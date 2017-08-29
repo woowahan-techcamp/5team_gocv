@@ -1,49 +1,5 @@
-function timestampScore() {
-    const d = new Date();
-    const curr_date = d.getDate();
-    const curr_month = d.getMonth() + 1; //Months are zero based
-    const curr_year = d.getFullYear();
-    const curr_hour = d.getHours();
-    const curr_minute = d.getMinutes();
-    const curr_second = d.getSeconds();
+import {TimeManager, BrandInfo} from "./manage";
 
-    let dateValue = 0;
-
-    for (let x = 2016; x < curr_year; x++) {
-        if (x % 4 == 0) {
-            if (x % 100 != 0 || x % 400 == 0) {
-                dateValue += 366;
-            }
-        } else {
-            dateValue += 365;
-        }
-    }
-
-    for (let x = 1; x < curr_month; x++) {
-        switch (x) {
-            case 4:
-            case 6:
-            case 9:
-            case 11:
-                dateValue += 31;
-                break;
-            case 2:
-                dateValue += 28;
-            default:
-                dateValue += 31;
-                break;
-        }
-    }
-
-    dateValue += curr_date;
-
-    let timeValue = 0;
-    timeValue = (curr_minute + (curr_hour * 60)) * 100;
-    timeValue += curr_second;
-
-    return parseFloat(dateValue + (timeValue / 1e6));
-
-}
 export class ReviewPage {
     constructor(reviewParams, reviewObj) {
         this.template = document.querySelector(reviewParams.template).innerHTML;
@@ -57,14 +13,15 @@ export class ReviewPage {
         this.domControlKey = 'date';
 
         this.maxiumWord = 240;
-        this.now = timestampScore();
+        this.manager = new TimeManager();
+        this.brand = new BrandInfo();
+
         this.arrayObj = this.getArrayObject();
 
         this.init();
     }
 
     init() {
-        // this.setDefaultReviewData();
         this.setSorting(this.domControlKey);
         this.sortEvent(this.selected_sort_review_tab, this.sort_key);
         this.reloadEvent();
@@ -133,12 +90,12 @@ export class ReviewPage {
 
     setDateSorting(array) {
         array.sort(function (a, b) {
-            const beforeTimeScore = parseFloat(a.time_score);
-            const afterTimeScore = parseFloat(b.time_score);
+            const beforeTimeScore = a.time_score;
+            const afterTimeScore = b.time_score;
 
-            if (beforeTimeScore < afterTimeScore) {
+            if (beforeTimeScore[2] < afterTimeScore[2]) {
                 return 1;
-            } else if (beforeTimeScore > afterTimeScore) {
+            } else if (beforeTimeScore[2] > afterTimeScore[2]) {
                 return -1;
             } else {
                 return 0;
@@ -164,7 +121,7 @@ export class ReviewPage {
                 if (value.comment.length > this.maxiumWord) {
                     value["comment"] = this.getCommentOptions(value.comment);
                 }
-                value["brand_image"] = this.getBrandImage(value.brand);
+                value["brand_image"] = this.brand.getBrandImage(value.brand);
                 value["rating"] = "card-rank-rating" + i;
                 resultValue.push(value);
             }
@@ -188,8 +145,9 @@ export class ReviewPage {
 
             const splitTimestamp = time.split(' ');
 
-            value['time_score'] = this.getDate(splitTimestamp[0]) + this.getTime(splitTimestamp[1]);
-            const dateValue = this.getDateWord(value.time_score);
+            value['time_score'] = this.manager.getDateTimeScore(splitTimestamp[0], splitTimestamp[1]);
+
+            const dateValue = this.manager.getDateWord(value.time_score);
 
             value['date'] = (!!dateValue) ? dateValue : splitTimestamp[0];
             value['key'] = key;
@@ -198,84 +156,6 @@ export class ReviewPage {
         }
 
         return queryObj;
-    }
-
-    getDateWord(value) {
-        const date = (this.now * 1e6) - (value * 1e6);
-
-        if (date < 6000) {
-            if (date / 100 < 1) {
-                return '방금 전';
-            } else {
-                return parseInt(date / 100) + '분 전';
-            }
-        } else if (date >= 1e6 && date <= 3e6) {
-            return parseInt(date / 1e6) + '일 전';
-        } else if (date <= 1e6) {
-            const day = parseInt(this.now);
-            const nowHour = parseInt((this.now - day) * 10000) + 2400;
-            const hour = parseInt((value - 634) * 10000);
-            if (hour > 1e4) {
-                return parseInt(hour / 1e4) + '시간 전';
-            } else {
-                return parseInt((nowHour - hour) / 100) + '시간 전';
-            }
-        }
-    }
-
-    getDate(value) {
-        const splitDate = value.split('-');
-
-        const yy = parseInt(splitDate[0]);
-        const mm = parseInt(splitDate[1]);
-        const dd = parseInt(splitDate[2]);
-
-        let dateValue = 0;
-
-        for (let x = 2016; x < yy; x++) {
-            if (x % 4 == 0) {
-                if (x % 100 != 0 || x % 400 == 0) {
-                    dateValue += 366;
-                }
-            } else {
-                dateValue += 365;
-            }
-        }
-
-        for (let x = 1; x < mm; x++) {
-            switch (x) {
-                case 4:
-                case 6:
-                case 9:
-                case 11:
-                    dateValue += 31;
-                    break;
-                case 2:
-                    dateValue += 28;
-                default:
-                    dateValue += 31;
-                    break;
-            }
-        }
-
-        dateValue += dd;
-
-        return (dateValue);
-    }
-
-    getTime(value) {
-        const splitTime = value.split(':');
-
-        const hh = parseInt(splitTime[0]);
-        const mm = parseInt(splitTime[1]);
-        const ss = parseInt(splitTime[2]);
-
-        let timeValue = 0;
-
-        timeValue = (mm + (hh * 60)) * 100;
-        timeValue += ss;
-
-        return timeValue / 1e6;
     }
 
     getCommentOptions(value) {
@@ -292,22 +172,7 @@ export class ReviewPage {
         return result;
     }
 
-    getBrandImage(value) {
-        switch (value) {
-            case 'gs25':
-            case 'GS25':
-                return './image/gs25.jpg';
-            case 'cu':
-            case 'CU':
-                return './image/cu.jpg';
-            case 'seven':
-            case '7ELEVEN':
-            case '7-eleven':
-                return './image/seven.png';
-            default:
-                return './image/all_category.png';
-        }
-    }
+
 
     setReviewData() {
         const resultValue = [];
@@ -322,7 +187,7 @@ export class ReviewPage {
                     value["comment"] = this.getCommentOptions(value.comment);
                 }
 
-                value["brand_image"] = this.getBrandImage(value.brand);
+                value["brand_image"] = this.brand.getBrandImage(value.brand);
                 value["rank"] = (i + 1).toString();
                 value["rating"] = "card-rank-rating" + i;
                 resultValue.push(value);

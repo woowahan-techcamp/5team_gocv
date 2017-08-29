@@ -34,7 +34,7 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
         // Dispose of any resources that can be recreated.
     }
     @IBAction func onBackBtnPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popToRootViewController(animated: true)
     }
     func ynSearchListViewDidScroll() {
         self.ynSearchTextfieldView.ynSearchTextField.endEditing(true)
@@ -85,14 +85,8 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
             NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
         }
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "mainNavigationController") as! UINavigationController
-        let transition = CATransition()
-        transition.duration = 0.4
-        transition.type = kCATransitionPush
-        transition.subtype = kCATransitionFromRight
-        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        self.view.window!.layer.add(transition, forKey: kCATransition)
-        self.present(vc, animated: false, completion: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "ProductDetailViewController") as! ProductDetailViewController
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     func pushRankingController(text : String) {
         NotificationCenter.default.post(name: NSNotification.Name("showRanking"), object: self)
@@ -109,6 +103,6 @@ class SearchViewController: YNSearchViewController,YNSearchDelegate {
         default : categoryIndex = 0
         }
         NotificationCenter.default.post(name: NSNotification.Name("selectCategory"), object: self, userInfo: ["category" : categoryIndex])
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popToRootViewController(animated: true)
     }
 }

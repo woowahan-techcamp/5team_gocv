@@ -13,7 +13,6 @@ class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
     @IBOutlet weak var waitingImage: UIImageView!
     @IBOutlet weak var pyunrihaeImage: UIImageView! // 대기화면
     @IBOutlet var searchBtn : UIButton!
-    @IBOutlet var titleLabel : UILabel!
     @IBOutlet var brandBtns : [UIButton]! // 브랜드 메뉴 버튼 4개
     @IBOutlet weak var contentView: UIView! //탭에 따라 바뀔 뷰 부분
     @IBOutlet weak var brandContentView: UIView! // 브랜드 버튼 뷰
@@ -33,10 +32,18 @@ class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
     let appdelegate = UIApplication.shared.delegate as! AppDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.automaticallyAdjustsScrollViewInsets = false
+        UINavigationBar.appearance().backgroundColor = UIColor.white
+        UINavigationBar.appearance().tintColor = UIColor.black
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.isTranslucent = false
         brandContentView.isHidden = true
         tabContentView.isHidden = true
         contentView.isHidden = true // 화면 받아오기 전까지 화면 터치 안됨
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         saveProductListToGlobal()
+        animateView()
         NVActivityIndicatorView.DEFAULT_BLOCKER_BACKGROUND_COLOR = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
         NVActivityIndicatorView.DEFAULT_TYPE = .pacman
         NVActivityIndicatorView.DEFAULT_BLOCKER_MESSAGE = "편리해 정보를 받아오는 중입니다..."
@@ -47,7 +54,6 @@ class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
         //카테고리 선택 탭 화면간 공유
         NotificationCenter.default.addObserver(self, selector: #selector(doneLoading), name: NSNotification.Name("doneLoading"), object: nil)
         //데이터 받아오기 완료
-        animateView()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         mainViewController = storyboard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
         mainViewController.selectedBrandIndexFromTab = selectedBrandIndex
@@ -91,7 +97,7 @@ class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
         vc.view.frame = contentView.bounds
         contentView.addSubview(vc.view)
         vc.didMove(toParentViewController: self)
-        titleLabel.text = titleName[selectedTabIndex]
+        self.navigationItem.title = titleName[selectedTabIndex]
         if selectedTabIndex == 3 {
             brandContentView.isHidden = true
             vc.view.frame.origin.y -= 40
@@ -134,19 +140,14 @@ class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
         brandContentView.isHidden = false
         tabContentView.isHidden = false
         contentView.isHidden = false
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.watingView.isHidden = true
+        self.waitingImage.isHidden = true
         self.stopAnimating()
-        UIView.animate(withDuration: 0.5, delay: 0, animations: {
-            self.waitingImage.alpha -= 1
-            self.watingView.alpha -= 0.35
-        }, completion: { (complete:Bool) in
-            self.watingView.isHidden = true
-            self.waitingImage.isHidden = true
-        })
     }
     func saveProductListToGlobal(){ // 전체 상품 데이터 받아오기
         DataManager.getProductAllInRank(){ (products) in
             self.appdelegate.productList = products.sorted(by: {$0.grade_avg > $1.grade_avg})
-            NotificationCenter.default.post(name: NSNotification.Name("doneLoading"), object: self)
         }
     }
 }

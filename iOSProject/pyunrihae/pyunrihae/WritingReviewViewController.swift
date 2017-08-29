@@ -74,7 +74,8 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
         super.didReceiveMemoryWarning()
     }
     @IBAction func tabBackBtn(_ sender: UIButton) {
-        self.navigationController?.popToRootViewController(animated: true)
+        let productDetailViewController = self.navigationController?.viewControllers[1] as! ProductDetailViewController
+        self.navigationController?.popToViewController(productDetailViewController, animated: true)
     }
     @IBAction func tabCompleteBtn(_ sender: UIButton) {
          var user_image = ""
@@ -89,7 +90,8 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             } else {
-                self.navigationController?.popToRootViewController(animated: true)
+                let productDetailViewController = self.navigationController?.viewControllers[1] as! ProductDetailViewController
+                self.navigationController?.popToViewController(productDetailViewController, animated: true)
                 NotificationCenter.default.post(name: NSNotification.Name("startUploading"), object: self)
                 User.sharedInstance.product_review_list.append(SelectedProduct.foodId)
                 DataManager.updateReviewList(id: SelectedProduct.foodId, uid: (User.sharedInstance.id))

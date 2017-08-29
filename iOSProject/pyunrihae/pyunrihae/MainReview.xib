@@ -16,7 +16,7 @@
         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ftV-lI-wTW" customClass="MainReviewView" customModule="pyunrihae" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="206"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sjk-NT-fxC">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sjk-NT-fxC">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="206"/>
                 </imageView>
                 <view alpha="0.60000002384185791" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ohm-HM-iKT">
