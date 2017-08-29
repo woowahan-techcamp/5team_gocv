@@ -174,25 +174,42 @@ export class SignIn {
         this.setEventButton();
     }
 
+    setGoogleLogin(){
+        var provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+            const that=this;
+            // var token = result.credential.accessToken;
+            var user = result.user;
+
+            if(!!this.db.user[user.uid]){
+                this.login();
+            }else{
+                firebase.database().ref('user/' + user.uid).set({
+                    "email": user.email,
+                    "id": user.uid,
+                    "nickname": user.displayName,
+                    "user_profile": "http://item.kakaocdn.net/dw/4407092.title.png"
+                }).then(function () {
+                    const that2 = that;
+                    firebase.database().ref('user/').once('value').then(function (snapshot) {
+                        localStorage['user'] = JSON.stringify(snapshot.val());
+                        that2.db.user = JSON.parse(localStorage['user']);
+                        document.querySelector('#loading').style.display = "none"
+                        console.log("user 캐시 업데이트")
+                        that2.login();
+                    }.bind(that2));
+                }.bind(that));
+            }
+        }.bind(this))
+    }
+
+
     setEventButton() {
         this.google.addEventListener('click',function(){
-            var provider = new firebase.auth.GoogleAuthProvider();
-            provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-
-            firebase.auth().signInWithPopup(provider).then(function(result) {
-
-                var token = result.credential.accessToken;
-                var user = result.user;
-
-                console.log(result);
-            }).catch(function(error) {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                var email = error.email;
-                var credential = error.credential;
-            });
-
-        })
+            this.setGoogleLogin()
+        }.bind(this));
 
 
         this.email.addEventListener("click", function () {
@@ -204,16 +221,19 @@ export class SignIn {
         });
 
 
-        console.log(firebase.auth().currentUser)
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                this.login();
+            } else {
+                const that = this;
+                this.signInButton.addEventListener("click", function () {
+                    this.checkEmail();
+                    document.querySelector('#loading').style.display = "block";
+                }.bind(that));
+            }
+        }.bind(this));
 
-        if(!!firebase.auth().currentUser){
-            this.login();
-        }else{
-            this.signInButton.addEventListener("click", function () {
-                this.checkEmail();
-                document.querySelector('#loading').style.display = "block";
-            }.bind(this));
-        }
+
 
     }
 
@@ -332,6 +352,7 @@ class MyPage {
 
         const template = document.querySelector("#myPage-template").innerHTML;
         const sec = document.querySelector("#myPage");
+        console.log(this.db.user);
         util.template(this.db.user[this.userId], template, sec);
 
         const myPageProduct = new ProductPopup(this.db, '#myPageReviewNavi', 'productSelect');
