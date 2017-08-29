@@ -31,16 +31,21 @@ import {DB} from './firebaseInit.js'
 import {PopupInfo} from "./manage";
 
 
-
 document.addEventListener('DOMContentLoaded', function (event) {
-  console.log("Dom content Loaded");
+    console.log("Dom content Loaded");
+
+    document.querySelector('#loading').style.display = "block";
 
     //db 캐시화
     let db = new DB();
     db.init();
-        const signUp = new SignUp(db);
-        const signIn = new SignIn(db);
-        const signConnect = new SignConnect()
+    db.dataInit();
+
+    const signUp = new SignUp(db);
+    const signConnect = new SignConnect()
+    const signIn = new SignIn(this.db);
+
+
 
     //main.js
     const searchParams = {
@@ -77,20 +82,19 @@ document.addEventListener('DOMContentLoaded', function (event) {
     new UpdateData();
 
 
-
     //productDetail.js
-    const mainGsBrandProduct = new ProductPopup(db,'#gs-item-wrapper','productSelect');
-    const mainCuBrandProduct = new ProductPopup(db,'#cu-item-wrapper','productSelect');
-    const mainSevenBrandProduct = new ProductPopup(db,'#seven-item-wrapper','productSelect');
-    const carouselProduct = new ProductPopup(db,'#carouselSec','productSelect');
-    const mainCategoryProduct = new ProductPopup(db,'.main-rank-content','productSelect');
-    const rankTabProduct = new ProductPopup(db,'.ranking-item-list-wrapper','productSelect');
-    const reviewTabReview = new ReviewPopup(db, '.review-item-list-wrapper','reviewSelect')
+    const mainGsBrandProduct = new ProductPopup(db, '#gs-item-wrapper', 'productSelect');
+    const mainCuBrandProduct = new ProductPopup(db, '#cu-item-wrapper', 'productSelect');
+    const mainSevenBrandProduct = new ProductPopup(db, '#seven-item-wrapper', 'productSelect');
+    const carouselProduct = new ProductPopup(db, '#carouselSec', 'productSelect');
+    const mainCategoryProduct = new ProductPopup(db, '.main-rank-content', 'productSelect');
+    const rankTabProduct = new ProductPopup(db, '.ranking-item-list-wrapper', 'productSelect');
+    const reviewTabReview = new ReviewPopup(db, '.review-item-list-wrapper', 'reviewSelect')
 
 });
 
-export class UpdateData{
-    constructor(){
+export class UpdateData {
+    constructor() {
         //brand.js
         const gsParams = {
             brand: 'gs',
@@ -172,6 +176,7 @@ function enterKeyEvent() {
     }
 
 }
+
 window.enterKeyEvent = enterKeyEvent;
 
 
