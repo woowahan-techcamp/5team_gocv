@@ -26,6 +26,12 @@ export class DB {
 
         localStorage['search_keyword'] = JSON.stringify(value);
 
+        var provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+
+
+
+
         this.updateUserDb();
         this.updateProductDb();
         this.updateReviewDb();
