@@ -5,9 +5,9 @@
     <title>Title</title>
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
     <meta name="viewport" content="width=device-width">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
     <link rel="stylesheet" href="./dist/styles.css">
-
 
 </head>
 <body>
@@ -651,7 +651,28 @@
 
             <div class="popup-reviewScoreElement">
                 <div class="popup-reviewAllergy">알레르기</div>
-                <div class="popup-reviewAllergy2">옥수수 외 2가지</div>
+                <div class="popup-reviewAllergy2">
+
+                    <ul class='popup-review-Allergy-wrapper'>
+                        <li class="popup-review-Allergy" name="메밀">메밀</li>
+                        <li class="popup-review-Allergy" name="달걀">달걀</li>
+                        <li class="popup-review-Allergy" name="우유">우유</li>
+                        <li class="popup-review-Allergy" name="콩">콩</li>
+                        <li class="popup-review-Allergy" name="밀">밀</li>
+                        <li class="popup-review-Allergy" name="게">게</li>
+                        <li class="popup-review-Allergy" name="새우">새우</li>
+                        <li class="popup-review-Allergy" name="고등어">고등어</li>
+                        <li class="popup-review-Allergy" name="돼지고기">돼지고기</li>
+                        <li class="popup-review-Allergy" name="소고기">소고기</li>
+                        <li class="popup-review-Allergy" name="닭고기">닭고기</li>
+                        <li class="popup-review-Allergy" name="복숭아">복숭아</li>
+                        <li class="popup-review-Allergy" name="땅콩">땅콩</li>
+                        <li class="popup-review-Allergy" name="토마토">토마토</li>
+                        <li class="popup-review-Allergy" name="오징어">오징어</li>
+                        <li class="popup-review-Allergy" name="호두">호두</li>
+                        <li class="popup-review-Allergy" name="조개">조개</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -727,8 +748,30 @@
                 <textarea class="popup-newReview-comment" placeholder="부담없이 리뷰를 작성하세요!"></textarea>
             </div>
             <div class="popup-newReviewWrapper-bottom">
-                <div class="popup-newReview-addAllegy">알레르기 성분 추가</div>
+                <div id="popupAllergyBtn" class="popup-newReview-addAllergy">알레르기 성분 추가
+                </div>
                 <div class="popup-newReview-completeBtn"></div>
+                    <ul style="display:none" class="popup-newReview-Allergy-Wrapper">
+                        <li class="popup-newReview-Allergy" name="메밀">메밀</li>
+                        <li class="popup-newReview-Allergy" name="달걀">달걀</li>
+                        <li class="popup-newReview-Allergy" name="우유">우유</li>
+                        <li class="popup-newReview-Allergy" name="콩">콩</li>
+                        <li class="popup-newReview-Allergy" name="밀">밀</li>
+                        <li class="popup-newReview-Allergy" name="게">게</li>
+                        <li class="popup-newReview-Allergy" name="새우">새우</li>
+                        <li class="popup-newReview-Allergy" name="고등어">고등어</li>
+                        <li class="popup-newReview-Allergy" name="돼지고기">돼지고기</li>
+                        <li class="popup-newReview-Allergy" name="소고기">소고기</li>
+                        <li class="popup-newReview-Allergy" name="닭고기">닭고기</li>
+                        <li class="popup-newReview-Allergy" name="복숭아">복숭아</li>
+                        <li class="popup-newReview-Allergy" name="땅콩">땅콩</li>
+                        <li class="popup-newReview-Allergy" name="토마토">토마토</li>
+                        <li class="popup-newReview-Allergy" name="오징어">오징어</li>
+                        <li class="popup-newReview-Allergy" name="호두">호두</li>
+                        <li class="popup-newReview-Allergy" name="조개">조개</li>
+                    </ul>
+
+
 
             </div>
 
@@ -977,7 +1020,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
 <script src="./plugin/jquery.animateNumber.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-
 <!--번들-->
 <script src="./dist/bundle.js"></script>
 </body>

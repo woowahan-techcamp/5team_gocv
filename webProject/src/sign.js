@@ -121,11 +121,11 @@ export class SignUp {
         }.bind(this));
     }
 
-    updateDb(){
+    updateDb() {
         //한번 다시 user db 캐시 업데이트
         firebase.database().ref('user/').once('value').then(function (snapshot) {
 
-            const that=this;
+            const that = this;
             document.querySelector('#loading').style.display = "none";
 
             localStorage['user'] = JSON.stringify(snapshot.val());
@@ -161,17 +161,57 @@ export class SignUp {
 
 
 }
+
 export class SignIn {
 
     constructor(db) {
         this.db = db;
+        this.google = document.querySelector('.signin-google');
+        this.facebook = document.querySelector('.signin-facebook');
         this.email = document.querySelector(".signin-id");
         this.password = document.querySelector(".signin-password");
         this.signInButton = document.querySelector(".signin-button");
         this.setEventButton();
     }
 
+    setGoogleLogin(){
+        var provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+            const that=this;
+            // var token = result.credential.accessToken;
+            var user = result.user;
+
+            if(!!this.db.user[user.uid]){
+                this.login();
+            }else{
+                firebase.database().ref('user/' + user.uid).set({
+                    "email": user.email,
+                    "id": user.uid,
+                    "nickname": user.displayName,
+                    "user_profile": "http://item.kakaocdn.net/dw/4407092.title.png"
+                }).then(function () {
+                    const that2 = that;
+                    firebase.database().ref('user/').once('value').then(function (snapshot) {
+                        localStorage['user'] = JSON.stringify(snapshot.val());
+                        that2.db.user = JSON.parse(localStorage['user']);
+                        document.querySelector('#loading').style.display = "none"
+                        console.log("user 캐시 업데이트")
+                        that2.login();
+                    }.bind(that2));
+                }.bind(that));
+            }
+        }.bind(this))
+    }
+
+
     setEventButton() {
+        this.google.addEventListener('click',function(){
+            this.setGoogleLogin()
+        }.bind(this));
+
+
         this.email.addEventListener("click", function () {
             document.querySelector("#signinErrorCheck").style.display = "none";
         });
@@ -180,11 +220,24 @@ export class SignIn {
             document.querySelector("#signinErrorCheck").style.display = "none";
         });
 
-        this.signInButton.addEventListener("click", function () {
-            this.checkEmail();
-            document.querySelector('#loading').style.display = "block";
+
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                this.login();
+            } else {
+                const that = this;
+                this.signInButton.addEventListener("click", function () {
+                    this.checkEmail();
+                    document.querySelector('#loading').style.display = "block";
+                }.bind(that));
+            }
         }.bind(this));
+
+
+
     }
+
+
 
     checkEmail() {
         firebase.auth().signInWithEmailAndPassword(this.email.value,
@@ -204,42 +257,47 @@ export class SignIn {
             document.querySelector('#loading').style.display = "none";
 
             return Promise.reject();
-        }).then(function () {
-
-            const that = this;
-            document.querySelector('#loading').style.display = "none";
-
-            const userStorage = localStorage['user'];
-            const userData = JSON.parse(userStorage);
-            const user = firebase.auth().currentUser;
-
-            document.querySelector(".fixTab-profile-wrapper").style.display = "block"
-            document.querySelector("#fixTabProfileImg").setAttribute("src", userData[user.uid].user_profile);
-            document.querySelector(".fixTab-profile-id").innerHTML =
-                userData[user.uid].nickname + "<ul class=\"fixTab-profile-dropdown\">\n" +
-                "                     <a href=\"#myPage\"><li class=\"fixTab-profile-element\">내 정보</li></a>\n" +
-                "                    <li id=\"logout\" class=\"fixTab-profile-element\">로그아웃</li>\n" +
-                "                </ul>";
-
-            document.querySelector("#logout").addEventListener("click", function () {
-                firebase.auth().signOut().then(function () {
-                    document.querySelector(".fixTab-profile-wrapper").style.display = "none"
-                    document.querySelector('#sign').style.display = "block";
-                }, function (error) {
-                    // An error happened.
-                });
-            })
-
-            document.querySelector('#sign').style.display = "none";
-
-            document.querySelector('.fixTab-profile-element').addEventListener("click", function () {
-                const myPage = new MyPage(that.db);
-
-            }.bind(that));
+        }).then(function (){
+            this.login();
         }.bind(this))
+
+    }
+
+    login(){
+        document.querySelector('#sign').style.display = "none";
+        document.querySelector('#loading').style.display = "none";
+
+        const userStorage = localStorage['user'];
+        const userData = JSON.parse(userStorage);
+        const user = firebase.auth().currentUser;
+
+        document.querySelector(".fixTab-profile-wrapper").style.display = "block"
+        document.querySelector("#fixTabProfileImg").setAttribute("src", userData[user.uid].user_profile);
+        document.querySelector(".fixTab-profile-id").innerHTML =
+            userData[user.uid].nickname + "<ul class=\"fixTab-profile-dropdown\">\n" +
+            "                     <a href=\"#myPage\"><li class=\"fixTab-profile-element\">내 정보</li></a>\n" +
+            "                    <li id=\"logout\" class=\"fixTab-profile-element\">로그아웃</li>\n" +
+            "                </ul>";
+
+        document.querySelector("#logout").addEventListener("click", function () {
+            firebase.auth().signOut().then(function () {
+                document.querySelector(".fixTab-profile-wrapper").style.display = "none"
+                document.querySelector('#sign').style.display = "block";
+            }, function (error) {
+                // An error happened.
+            });
+        })
+
+        document.querySelector('#sign').style.display = "none";
+
+        document.querySelector('.fixTab-profile-element').addEventListener("click", function () {
+            const myPage = new MyPage(this.db);
+
+        }.bind(this));
     }
 
 }
+
 export class SignConnect {
     constructor() {
         this.sign = document.querySelector('#sign');
@@ -272,27 +330,18 @@ export class SignConnect {
 
 
 }
+
 class MyPage {
     constructor(db) {
-        this.db= db;
-        const userStorage = localStorage['user'];
+        this.db = db;
         const user = firebase.auth().currentUser;
-
-
-        this.userData = JSON.parse(userStorage);
         this.userId = user.uid;
-
         this.setData();
         this.setEventUpdateImage();
         this.setEventUpdateNicname();
-        this.getPopupInfo();
 
-    }
+        new PopupInfo().setMyPageInit();
 
-    getPopupInfo(){
-        const popup = new PopupInfo();
-
-        popup.setMyPageInit();
     }
 
     setData() {
@@ -303,14 +352,15 @@ class MyPage {
 
         const template = document.querySelector("#myPage-template").innerHTML;
         const sec = document.querySelector("#myPage");
-        util.template(this.userData[this.userId], template, sec);
+        console.log(this.db.user);
+        util.template(this.db.user[this.userId], template, sec);
 
-        const myPageProduct = new ProductPopup(this.db,'#myPageReviewNavi','productSelect');
+        const myPageProduct = new ProductPopup(this.db, '#myPageReviewNavi', 'productSelect');
 
         const wishReviewArr = [];
 
-        if (!!this.userData[this.userId].wish_product_list) {
-            this.userData[this.userId].wish_product_list.forEach(function (e) {
+        if (!!this.db.user[this.userId].wish_product_list) {
+            this.db.user[this.userId].wish_product_list.forEach(function (e) {
                 wishReviewArr.push(productData[e]);
             });
         }
@@ -341,22 +391,18 @@ class MyPage {
                     const id = e.target.getAttribute("name");
                     const newWishArr = [];
 
-                    that.userData[that.userId].wish_product_list.forEach(function (e) {
+                    that.db.user[that.userId].wish_product_list.forEach(function (e) {
                         if (e !== id) {
                             newWishArr.push(e);
                         }
                     });
 
+                    const that2 = that;
                     firebase.database().ref('user/' + that.userId + "/wish_product_list").set(newWishArr).then(function () {
-                        firebase.database().ref('user/')
-                            .once('value').then(function (snapshot) {
+                        that2.db.updateUserDb();
 
-                            localStorage['user'] = JSON.stringify(snapshot.val());
-                            document.querySelector('#loading').style.display = "none";
-                            new Toast("삭제되었습니다.");
 
-                        });
-                    });
+                    }.bind(that2));
                 }
             }.bind(that));
         }.bind(this));
@@ -392,7 +438,6 @@ class MyPage {
         const input = document.querySelector(".myPage-profile-nickname-input");
 
 
-
         changeBtn.addEventListener("click", function () {
 
             console.log(input.value);
@@ -407,11 +452,11 @@ class MyPage {
                 firebase.database().ref('user/' + this.userId + '/nickname').set(changedName);
                 firebase.database().ref('user/').once('value').then(function (snapshot) {
                     localStorage['user'] = JSON.stringify(snapshot.val());
-
+                    that.db.user = JSON.parse(localStorage['user']);
 
                     that.setProfileTab();
                     document.querySelector('#loading').style.display = "none";
-                    input.setAttribute("placeholder",input.value);
+                    input.setAttribute("placeholder", input.value);
                     new Toast("닉네임이 변경되었습니다.");
                 }.bind(that));
             } else if (input.value === "") {
@@ -428,19 +473,18 @@ class MyPage {
 
     }
 
-
     updateDb() {
         const storageRef = firebase.storage().ref();
         const database = firebase.database();
 
         storageRef.child(this.fileName).getDownloadURL().then(function (url) {
             const that = this;
-            // const userStorage = localStorage['user'];
 
             database.ref('user/' + this.userId + '/user_profile').set(url);
 
             firebase.database().ref('user/').once('value').then(function (snapshot) {
                 localStorage['user'] = JSON.stringify(snapshot.val());
+                that.db.user = JSON.parse(localStorage['user']);
 
                 that.setProfileTab();
                 document.querySelector('#loading').style.display = "none";
@@ -453,13 +497,14 @@ class MyPage {
     }
 
     setProfileTab() {
-        const userStorage = localStorage['user'];
-        this.userData = JSON.parse(userStorage);
+
+        console.log(this.db.user[this.userId]);
+
         //프로필 탭 설정
         document.querySelector(".fixTab-profile-wrapper").style.display = "block"
-        document.querySelector("#fixTabProfileImg").setAttribute("src", this.userData[this.userId].user_profile);
+        document.querySelector("#fixTabProfileImg").setAttribute("src", this.db.user[this.userId].user_profile);
         document.querySelector(".fixTab-profile-id").innerHTML =
-            this.userData[this.userId].nickname + "<ul class=\"fixTab-profile-dropdown\">\n" +
+            this.db.user[this.userId].nickname + "<ul class=\"fixTab-profile-dropdown\">\n" +
             "                     <a href=\"#myPage\"><li class=\"fixTab-profile-element\">내 정보</li></a>\n" +
             "                    <li id=\"logout\" class=\"fixTab-profile-element\">로그아웃</li>\n" +
             "                </ul>";

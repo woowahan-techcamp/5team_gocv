@@ -1,7 +1,5 @@
 import {TimeManager} from "./manage";
 
-import {UpdateData} from './index.js';
-
 //드롭다운 만드는 클래스
 export class Dropdown {
 
@@ -178,7 +176,7 @@ export class Carousel {
 
             const splitTimeStamp = time.split(' ');
 
-            value['time_score'] = this.manager.getDate(splitTimeStamp[0]) + this.manager.getTime(splitTimeStamp[1]);
+            value['time_score'] = this.manager.getDateTimeScore(splitTimeStamp[0], splitTimeStamp[1]);
 
             const dateValue = this.manager.getDateWord(value.time_score);
 
@@ -243,6 +241,7 @@ export class Carousel {
         for (const x of value) {
             $('#carousel-rank-rating' + i).rateYo({
                 rating: x.grade,
+                readOnly: true,
                 spacing: "10px",
                 starWidth: "20px",
                 normalFill: "#e2dbd6",
@@ -309,7 +308,7 @@ export class SearchTab {
 
         this.searchButton.addEventListener("click", function () {
             this.setQuery();
-            new Toast("검색 결과입니다.")
+            new Toast("검색 결과입니다.");
             document.querySelector(".main-wrapper").style.display = "none";
             document.querySelector(".review-container").style.display = "none";
             document.querySelector(".rank-container").style.display = "";

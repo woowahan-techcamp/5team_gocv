@@ -1,3 +1,6 @@
+import {SignIn} from './sign.js'
+
+
 export class DB {
     constructor(user, product, review) {
         this.user = user;
@@ -17,18 +20,18 @@ export class DB {
 
         firebase.initializeApp(config);
 
+    }
 
+    dataInit(){
         const value = {
             brand: 'all',
             category: '전체',
             keyword: ''
         };
 
-        localStorage['search_keyword'] = JSON.stringify(value);
+        this.updateAllDb();
 
-        this.updateUserDb();
-        this.updateProductDb();
-        this.updateReviewDb();
+        localStorage['search_keyword'] = JSON.stringify(value);
 
         this.user = JSON.parse(localStorage['user']);
         this.product = JSON.parse(localStorage['product']);
@@ -36,22 +39,22 @@ export class DB {
 
     }
 
-    updateDb(name){
-        firebase.database().ref(name+'/').once('value').then(function (snapshot) {
+    updateDb(name) {
+        firebase.database().ref(name + '/').once('value').then(function (snapshot) {
             localStorage[name] = JSON.stringify(snapshot.val());
             this.user = JSON.parse(localStorage[name]);
             document.querySelector('#loading').style.display = "none"
-            console.log(name+" 캐시 업데이트")
+            console.log(name + " 캐시 업데이트")
         }.bind(this));
     }
 
-    updateAllDb(){
-        this.updateDb("user");
-        this.updateDb("review");
-        this.updateDb("product");
+    updateAllDb() {
+        this.updateUserDb();
+        this.updateReviewDb();
+        this.updateProductDb();
     }
 
-    updateUserDb() {
+    updateUserDb(func) {
         firebase.database().ref('user/').once('value').then(function (snapshot) {
             localStorage['user'] = JSON.stringify(snapshot.val());
             this.user = JSON.parse(localStorage['user']);

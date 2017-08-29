@@ -35,6 +35,12 @@
 		9865E54A1F3C436000014795 /* ProductReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E5491F3C436000014795 /* ProductReviewTableViewCell.swift */; };
 		9865E54E1F3C576D00014795 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E54D1F3C576D00014795 /* Image.swift */; };
 		9865E56C1F42E55E00014795 /* BigImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9865E56B1F42E55E00014795 /* BigImageViewController.swift */; };
+		986A888D1F55666600FFAED1 /* star0.png in Resources */ = {isa = PBXBuildFile; fileRef = 986A88871F55666600FFAED1 /* star0.png */; };
+		986A888E1F55666600FFAED1 /* star05.png in Resources */ = {isa = PBXBuildFile; fileRef = 986A88881F55666600FFAED1 /* star05.png */; };
+		986A888F1F55666600FFAED1 /* star15.png in Resources */ = {isa = PBXBuildFile; fileRef = 986A88891F55666600FFAED1 /* star15.png */; };
+		986A88901F55666600FFAED1 /* star25.png in Resources */ = {isa = PBXBuildFile; fileRef = 986A888A1F55666600FFAED1 /* star25.png */; };
+		986A88911F55666600FFAED1 /* star35.png in Resources */ = {isa = PBXBuildFile; fileRef = 986A888B1F55666600FFAED1 /* star35.png */; };
+		986A88921F55666600FFAED1 /* star45.png in Resources */ = {isa = PBXBuildFile; fileRef = 986A888C1F55666600FFAED1 /* star45.png */; };
 		98768AA01F39A5D600654C19 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C5AAD71F342C3900610115 /* DataManager.swift */; };
 		989FA79A1F511E40001D1E42 /* ReviewPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989FA7991F511E40001D1E42 /* ReviewPopupView.swift */; };
 		989FA79C1F511E59001D1E42 /* ReviewPopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 989FA79B1F511E59001D1E42 /* ReviewPopupView.xib */; };
@@ -185,6 +191,12 @@
 		9865E5491F3C436000014795 /* ProductReviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductReviewTableViewCell.swift; sourceTree = "<group>"; };
 		9865E54D1F3C576D00014795 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		9865E56B1F42E55E00014795 /* BigImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BigImageViewController.swift; sourceTree = "<group>"; };
+		986A88871F55666600FFAED1 /* star0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star0.png; sourceTree = "<group>"; };
+		986A88881F55666600FFAED1 /* star05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star05.png; sourceTree = "<group>"; };
+		986A88891F55666600FFAED1 /* star15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star15.png; sourceTree = "<group>"; };
+		986A888A1F55666600FFAED1 /* star25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star25.png; sourceTree = "<group>"; };
+		986A888B1F55666600FFAED1 /* star35.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star35.png; sourceTree = "<group>"; };
+		986A888C1F55666600FFAED1 /* star45.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star45.png; sourceTree = "<group>"; };
 		989FA7991F511E40001D1E42 /* ReviewPopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewPopupView.swift; sourceTree = "<group>"; };
 		989FA79B1F511E59001D1E42 /* ReviewPopupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewPopupView.xib; sourceTree = "<group>"; };
 		989FA79F1F52BEC8001D1E42 /* Popup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
@@ -395,6 +407,12 @@
 				98F865911F4407A700C2F333 /* ic_my.png */,
 				98F865921F4407A700C2F333 /* ic_ranking_selected.png */,
 				98F865931F4407A700C2F333 /* ic_ranking.png */,
+				986A88871F55666600FFAED1 /* star0.png */,
+				986A88881F55666600FFAED1 /* star05.png */,
+				986A88891F55666600FFAED1 /* star15.png */,
+				986A888A1F55666600FFAED1 /* star25.png */,
+				986A888B1F55666600FFAED1 /* star35.png */,
+				986A888C1F55666600FFAED1 /* star45.png */,
 				98F865941F4407A700C2F333 /* ic_review_selected.png */,
 				98F865951F4407A700C2F333 /* ic_review.png */,
 				989FA7A71F53EA9A001D1E42 /* empty_star.png */,
@@ -696,6 +714,7 @@
 				0EC14C9B1F51B34D00D257E1 /* kakaolink_btn_small.png in Resources */,
 				98F172F41F32EDB70044FD0D /* LaunchScreen.storyboard in Resources */,
 				98CBA0C21F467E7D003D0370 /* ic_add.png in Resources */,
+				986A888E1F55666600FFAED1 /* star05.png in Resources */,
 				98D5691E1F4BE6DA002693E9 /* bad.png in Resources */,
 				9865E5181F39C2A000014795 /* stars.png in Resources */,
 				98F8658B1F44021000C2F333 /* logo_cu.png in Resources */,
@@ -705,6 +724,7 @@
 				98F8658C1F44021000C2F333 /* logo_7eleven.png in Resources */,
 				98CBA0C41F467EE5003D0370 /* ic_dropdown.png in Resources */,
 				98F8659A1F4407A700C2F333 /* ic_ranking_selected.png in Resources */,
+				986A88921F55666600FFAED1 /* star45.png in Resources */,
 				98F865851F43FB1A00C2F333 /* star4.png in Resources */,
 				98CBA0BE1F458E87003D0370 /* ic_login_enabled.png in Resources */,
 				98CBA0C01F466919003D0370 /* ic_review_write.png in Resources */,
@@ -715,6 +735,7 @@
 				98CBA0CA1F468196003D0370 /* ic_star.png in Resources */,
 				989FA7AC1F5521AB001D1E42 /* UsefulBadBtn.xib in Resources */,
 				98DED89C1F41732700CC4D63 /* Main.storyboard in Resources */,
+				986A88901F55666600FFAED1 /* star25.png in Resources */,
 				0E9724EC1F52905100AAAD91 /* ic_google_sign_in.png in Resources */,
 				98F865A31F442A3000C2F333 /* bg_login.png in Resources */,
 				98F865861F43FB1A00C2F333 /* star3.png in Resources */,
@@ -730,11 +751,14 @@
 				98F865871F43FB1A00C2F333 /* star5.png in Resources */,
 				98D9F2E41F418DF3009D0E10 /* YNSearch.xcassets in Resources */,
 				98B288601F53EF43007673FF /* ic_default_product.png in Resources */,
+				986A888D1F55666600FFAED1 /* star0.png in Resources */,
 				984395861F32F29A0016B67D /* GoogleService-Info.plist in Resources */,
+				986A888F1F55666600FFAED1 /* star15.png in Resources */,
 				98F865AB1F442F8B00C2F333 /* ic_password.png in Resources */,
 				98F865A71F442EE100C2F333 /* ic_close.png in Resources */,
 				98D569201F4BE6EC002693E9 /* useful.png in Resources */,
 				0E9724ED1F52905100AAAD91 /* ic_emailsignup.png in Resources */,
+				986A88911F55666600FFAED1 /* star35.png in Resources */,
 				98CBA0B81F458BA8003D0370 /* back_right.png in Resources */,
 				98F8659B1F4407A700C2F333 /* ic_ranking.png in Resources */,
 				98F865981F4407A700C2F333 /* ic_my_selected.png in Resources */,

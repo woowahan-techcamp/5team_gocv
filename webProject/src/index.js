@@ -1,9 +1,9 @@
 //js bundle
 import "./firebaseInit.js"
-import "./ranking.js"
+import "./ranking_main.js"
 import "./brand.js"
 import "./main.js"
-import "./rankingTab.js"
+import "./ranking_tab.js"
 import "./sign.js"
 import "./review.js"
 import "./manage.js"
@@ -22,8 +22,8 @@ import "../style/review.css"
 //class import
 import {SearchTab, Carousel, Counter} from './main.js';
 import {BrandRankingPreview} from './brand.js';
-import {MainRankingPreview} from './ranking.js';
-import {RankingViewPage} from './rankingTab.js'
+import {MainRankingPreview} from './ranking_main.js';
+import {RankingViewPage} from './ranking_tab.js'
 import {ReviewPage} from './review.js'
 import {ProductPopup, ReviewPopup} from './productDetail.js'
 import {SignUp, SignIn, SignConnect} from './sign.js'
@@ -31,13 +31,19 @@ import {DB} from './firebaseInit.js'
 import {PopupInfo} from "./manage";
 
 
-
 document.addEventListener('DOMContentLoaded', function (event) {
-  console.log("Dom content Loaded");
+    console.log("Dom content Loaded");
+
+    document.querySelector('#loading').style.display = "block";
 
     //db 캐시화
     let db = new DB();
     db.init();
+    db.dataInit();
+
+    const signUp = new SignUp(db);
+    const signIn = new SignIn(db);
+    const signConnect = new SignConnect()
 
     //main.js
     const searchParams = {
@@ -73,24 +79,20 @@ document.addEventListener('DOMContentLoaded', function (event) {
     new PopupInfo().setRefreshOverlay();
     new UpdateData();
 
-    //sign.js
-    const signUp = new SignUp(db);
-    const signIn = new SignIn(db);
-    const signConnect = new SignConnect();
 
     //productDetail.js
-    const mainGsBrandProduct = new ProductPopup(db,'#gs-item-wrapper','productSelect');
-    const mainCuBrandProduct = new ProductPopup(db,'#cu-item-wrapper','productSelect');
-    const mainSevenBrandProduct = new ProductPopup(db,'#seven-item-wrapper','productSelect');
-    const carouselProduct = new ProductPopup(db,'#carouselSec','productSelect');
-    const mainCategoryProduct = new ProductPopup(db,'.main-rank-content','productSelect');
-    const rankTabProduct = new ProductPopup(db,'.ranking-item-list-wrapper','productSelect');
-    const reviewTabReview = new ReviewPopup(db, '.review-item-list-wrapper','reviewSelect')
+    const mainGsBrandProduct = new ProductPopup(db, '#gs-item-wrapper', 'productSelect');
+    const mainCuBrandProduct = new ProductPopup(db, '#cu-item-wrapper', 'productSelect');
+    const mainSevenBrandProduct = new ProductPopup(db, '#seven-item-wrapper', 'productSelect');
+    const carouselProduct = new ProductPopup(db, '#carouselSec', 'productSelect');
+    const mainCategoryProduct = new ProductPopup(db, '.main-rank-content', 'productSelect');
+    const rankTabProduct = new ProductPopup(db, '.ranking-item-list-wrapper', 'productSelect');
+    const reviewTabReview = new ReviewPopup(db, '.review-item-list-wrapper', 'reviewSelect')
 
 });
 
-export class UpdateData{
-    constructor(){
+export class UpdateData {
+    constructor() {
         //brand.js
         const gsParams = {
             brand: 'gs',
@@ -124,7 +126,7 @@ export class UpdateData{
         new BrandRankingPreview(cuParams, 'CU');
         new BrandRankingPreview(sevenParams, '7-eleven');
 
-        //ranking.js
+        //ranking_main.js
         const documentParams = {
             tab: '.main-rank-tab-wrapper',
             selected: 'main-rank-selectedtab',
@@ -134,7 +136,7 @@ export class UpdateData{
         };
         new MainRankingPreview(documentParams);
 
-        //rankingTab.js
+        //ranking_tab.js
         const rankingParams = {
             sort_tab: '.rank-query-type-wrapper',
             selected_sort: 'selected-rank-query-tab',
@@ -172,6 +174,7 @@ function enterKeyEvent() {
     }
 
 }
+
 window.enterKeyEvent = enterKeyEvent;
 
 
