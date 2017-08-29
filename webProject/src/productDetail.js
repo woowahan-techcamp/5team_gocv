@@ -363,7 +363,7 @@ class Review {
 
         const writeBtn = document.querySelector(".popup-reviewWrite");
 
-        const userId = firebase.auth().currentUser.uid
+        const userId = firebase.auth().currentUser.uid;
 
 
         writeBtn.addEventListener("click", function () {
@@ -510,15 +510,19 @@ class Review {
 
             let file = document.querySelector('#reviewImageInput').files[0];
 
-            this.fileName = 'images/' + this.reviewId + "." + file.type.split("/")[1];
+            console.log(this.reviewId);
+            if (file) {
+                this.fileName = 'images/' + this.reviewId + "." + file.type.split("/")[1];
 
-            const storageRef = firebase.storage().ref();
-            const mountainImagesRef = storageRef.child(this.fileName);
+                const storageRef = firebase.storage().ref();
+                const mountainImagesRef = storageRef.child(this.fileName);
 
-            mountainImagesRef.put(file).then(function (snapshot) {
+                mountainImagesRef.put(file).then(function (snapshot) {
+                    this.updateDb();
+                }.bind(this));
+            } else {
                 this.updateDb();
-            }.bind(this));
-
+            }
 
         }
     }
@@ -528,116 +532,144 @@ class Review {
         const storageRef = firebase.storage().ref();
         const database = firebase.database();
 
+        if (this.fileName) {
+            this.stoarge(storageRef, database);
+        } else {
+            this.getDatabase(database);
+        }
+
+    }
+
+    getDatabase(database, url) {
+        const that = this;
+        let product_image;
+
+        if (this.product.img) {
+            product_image = this.product.img;
+        } else {
+            product_image = null;
+        }
+
+        let imageURL;
+        if(url){
+            imageURL = url;
+        }else{
+            imageURL = null;
+        }
+
+        database.ref('review/' + this.reviewId).set({
+            "bad": 0,
+            "brand": this.product.brand,
+            "category": this.product.category,
+            "comment": this.data[4],
+            "flavor": this.data[2],
+            "grade": this.data[0],
+            "id": this.reviewId,
+            "p_id": this.product.id,
+            "p_image": imageURL,
+            "product_image": product_image,
+            "p_name": this.product.name,
+            "p_price": this.product.price,
+            "price": this.data[1],
+            "quantity": this.data[3],
+            "timestamp": new TimeManager().timestamp(),
+            "useful": 0,
+            "user": this.db.user[this.userId].nickname,
+            "user_image": this.db.user[this.userId].user_profile,
+        });
+
+
+        //해당 유저에 자기가 작성한 리뷰 리스트 넣기
+        if (!!this.db.user[this.userId].product_review_list) {
+            this.db.user[this.userId].product_review_list.push(this.product.id);
+        } else {
+            this.db.user[this.userId].product_review_list = [];
+            this.db.user[this.userId].product_review_list.push(this.product.id);
+        }
+
+        database.ref('user/' + this.userId + '/product_review_list').set(this.db.user[this.userId].product_review_list);
+        this.db.updateUserDb();
+
+        const allergyArr = Array.from(document.querySelectorAll('.popup-newReview-Allergy-select'));
+        console.log(allergyArr);
+
+        if (allergyArr.length === 0) {
+
+        } else {
+            if (!!this.product.allergy) {
+                allergyArr.forEach(function (element) {
+                    if (this.product.allergy.includes(element.getAttribute("name"))) {
+                        // console.log("이미있음")
+                    } else {
+                        // console.log("없으니까 추가")
+                        console.log(element.getAttribute("name"));
+                        this.product.allergy.push(element.getAttribute("name"));
+                    }
+                }.bind(this))
+
+            } else {
+                // console.log("애초에 아무것도 없는 경우")
+                this.product.allergy = [];
+                allergyArr.forEach(function (element) {
+                    this.product.allergy.push(element.getAttribute("name"));
+                }.bind(this))
+            }
+        }
+
+
+        //상품 리뷰리스트에 리뷰 번호 추가
+        if (!!this.product.reviewList) {
+            this.product.reviewList.push(this.reviewId);
+        } else {
+            this.product.reviewList = [];
+            this.product.reviewList.push(this.reviewId);
+        }
+
+
+        this.product.grade_count += 1;
+        this.product.review_count += 1;
+        this.product.grade_total += this.data[0];
+        // this.product.grade_avg = this.product.grade_total / this.product.grade_count;
+        this.product.grade_avg = (this.product.review_count / (this.product.review_count + 10)) * (this.product.grade_total / this.product.grade_count) + (10 / (this.product.review_count + 10)) * (2.75);
+        this.product.grade_data["g" + this.data[0]] += 1;
+        this.product.price_level["p" + this.data[1]] += 1;
+        this.product.flavor_level["f" + this.data[2]] += 1;
+        this.product.quantity_level["q" + this.data[3]] += 1;
+
+        //업데이트 반영된 product 삽입
+        database.ref('product/' + this.product.id).set(this.product).then(function () {
+            that.db.updateProductDb();
+        }.bind(that));
+
+
+        firebase.database().ref('review/').once('value').then(function (snapshot) {
+            localStorage['review'] = JSON.stringify(snapshot.val());
+            that.db.review = JSON.parse(localStorage['review']);
+
+            const util = new Util();
+
+            const reviewArr = [];
+
+            if (!!that.db.product[that.product.id].reviewList) {
+                that.db.product[that.product.id].reviewList.forEach(function (e) {
+                    reviewArr.push(that.db.review[e])
+                });
+            }
+
+            console.log(reviewArr);
+
+            new ReviewFilter(reviewArr);
+
+            that.db.updateReviewDb();
+            document.querySelector('#loading').style.display = "none";
+
+        }.bind(that));
+    }
+
+    stoarge(storageRef, database) {
         storageRef.child(this.fileName).getDownloadURL().then(function (url) {
             const that = this;
-
-            database.ref('review/' + this.reviewId).set({
-                "bad": 0,
-                "brand": this.product.brand,
-                "category": this.product.category,
-                "comment": this.data[4],
-                "flavor": this.data[2],
-                "grade": this.data[0],
-                "id": this.reviewId,
-                "p_id": this.product.id,
-                "p_image": url,
-                "product_image": this.product.img,
-                "p_name": this.product.name,
-                "p_price": this.product.price,
-                "price": this.data[1],
-                "quantity": this.data[3],
-                "timestamp": new TimeManager().timestamp(),
-                "useful": 0,
-                "user": this.db.user[this.userId].nickname,
-                "user_image": this.db.user[this.userId].user_profile,
-            });
-
-
-            //해당 유저에 자기가 작성한 리뷰 리스트 넣기
-            if (!!this.db.user[this.userId].product_review_list) {
-                this.db.user[this.userId].product_review_list.push(this.product.id);
-            } else {
-                this.db.user[this.userId].product_review_list = [];
-                this.db.user[this.userId].product_review_list.push(this.product.id);
-            }
-
-            database.ref('user/' + this.userId + '/product_review_list').set(this.db.user[this.userId].product_review_list);
-            this.db.updateUserDb();
-
-            const allergyArr = Array.from(document.querySelectorAll('.popup-newReview-Allergy-select'));
-            console.log(allergyArr);
-
-            if (allergyArr.length === 0) {
-
-            } else {
-                if (!!this.product.allergy) {
-                    allergyArr.forEach(function (element) {
-                        if (this.product.allergy.includes(element.getAttribute("name"))) {
-                            // console.log("이미있음")
-                        } else {
-                            // console.log("없으니까 추가")
-                            console.log(element.getAttribute("name"));
-                            this.product.allergy.push(element.getAttribute("name"));
-                        }
-                    }.bind(this))
-
-                } else {
-                    // console.log("애초에 아무것도 없는 경우")
-                    this.product.allergy = [];
-                    allergyArr.forEach(function (element) {
-                        this.product.allergy.push(element.getAttribute("name"));
-                    }.bind(this))
-                }
-            }
-
-
-            //상품 리뷰리스트에 리뷰 번호 추가
-            if (!!this.product.reviewList) {
-                this.product.reviewList.push(this.reviewId);
-            } else {
-                this.product.reviewList = [];
-                this.product.reviewList.push(this.reviewId);
-            }
-
-
-            this.product.grade_count += 1;
-            this.product.review_count += 1;
-            this.product.grade_total += this.data[0];
-            // this.product.grade_avg = this.product.grade_total / this.product.grade_count;
-            this.product.grade_avg = (this.product.review_count / (this.product.review_count + 10)) * (this.product.grade_total / this.product.grade_count) + (10 / (this.product.review_count + 10)) * (2.75);
-            this.product.grade_data["g" + this.data[0]] += 1;
-            this.product.price_level["p" + this.data[1]] += 1;
-            this.product.flavor_level["f" + this.data[2]] += 1;
-            this.product.quantity_level["q" + this.data[3]] += 1;
-
-            //업데이트 반영된 product 삽입
-            database.ref('product/' + this.product.id).set(this.product).then(function () {
-                that.db.updateProductDb();
-            }.bind(that));
-
-
-            firebase.database().ref('review/').once('value').then(function (snapshot) {
-                localStorage['review'] = JSON.stringify(snapshot.val());
-                that.db.review = JSON.parse(localStorage['review']);
-
-                const util = new Util();
-
-                const reviewArr = [];
-
-                if (!!that.db.product[that.product.id].reviewList) {
-                    that.db.product[that.product.id].reviewList.forEach(function (e) {
-                        reviewArr.push(that.db.review[e])
-                    });
-                }
-
-                console.log(reviewArr);
-
-                new ReviewFilter(reviewArr);
-
-                that.db.updateReviewDb();
-                document.querySelector('#loading').style.display = "none";
-
-            }.bind(that));
+            that.getDatabase(database, url);
 
         }.bind(this)).catch(function (error) {
             console.log(error);
@@ -899,7 +931,7 @@ class ReviewRating {
                     // console.log("good 으로 선택된적 있는 경우")
 
 
-                    document.querySelector('#loading').style.display = "block"
+                    document.querySelector('#loading').style.display = "block";
                     goodBtn.disabled = true;
                     badBtn.disabled = true;
 
@@ -921,7 +953,8 @@ class ReviewRating {
                             firebase.database().ref('user/').once('value').then(function (snapshot) {
                                 localStorage['user'] = JSON.stringify(snapshot.val());
                                 that2.db.user = JSON.parse(localStorage['user']);
-                                document.querySelector('#loading').style.display = "none"
+
+                                document.querySelector('#loading').style.display = "none";
                                 goodBtn.disabled = false;
                                 badBtn.disabled = false;
                                 // console.log("user 캐시 업데이트")
@@ -930,7 +963,7 @@ class ReviewRating {
                     } else {
 
                         // console.log("아무반응이 없어야함")
-                        document.querySelector('#loading').style.display = "none"
+                        document.querySelector('#loading').style.display = "none";
                         goodBtn.disabled = false;
                         badBtn.disabled = false;
                     }

@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
     db.init();
         const signUp = new SignUp(db);
         const signIn = new SignIn(db);
-        const signConnect = new SignConnect()
+        const signConnect = new SignConnect();
 
     //main.js
     const searchParams = {
