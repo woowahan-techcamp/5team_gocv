@@ -48,6 +48,7 @@ class ReviewViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(showDetailProduct), name: NSNotification.Name("showDetailProduct"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reloadReview), name: NSNotification.Name("reloadReview"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(getReviewList), name: NSNotification.Name("getReviewList"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showLoginPopup), name: NSNotification.Name("showLoginPopup"), object: nil)
         // Do any additional setup after loading the view.
     }
     override func didReceiveMemoryWarning() {
@@ -58,6 +59,9 @@ class ReviewViewController: UIViewController {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
+    }
+    func showLoginPopup(_ notification: Notification) {
+        Pyunrihae.showLoginOptionPopup(_ : self)
     }
     func showDetailProduct(_ notification: Notification) {
         if notification.userInfo?["validator"] as! Int == 1{

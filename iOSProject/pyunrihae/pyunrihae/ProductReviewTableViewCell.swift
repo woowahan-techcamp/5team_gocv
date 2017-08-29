@@ -46,6 +46,8 @@ class ProductReviewTableViewCell: UITableViewCell {
             btns.backgroundColor = UIColor.white.withAlphaComponent(0)
             btns.badBtn.isEnabled = false
             btns.usefulBtn.isEnabled = false
+            Button.deleteBorder(btn: btns.usefulBtn)
+            Button.deleteBorder(btn: btns.badBtn)
             DataManager.getReviewBy(id: review.id){ (review) in
                 btns.badNumLabel.text = String(review.bad)
                 btns.usefulNumLabel.text = String(review.useful)
@@ -74,7 +76,7 @@ class ProductReviewTableViewCell: UITableViewCell {
                 self.uploadedFoodImageBtn.isHidden = false
                 self.uploadedFoodImage.isHidden = false
                 self.detailReviewLabel.isHidden = false
-                self.reviewBoxView.frame.size.height = self.detailReviewLabel.frame.height + 135
+                self.reviewBoxView.frame.size.height = height + 135
                 self.uploadedImageLoading.startAnimating()
                 self.uploadedFoodImage.contentMode = .scaleAspectFill
                 self.uploadedFoodImage.clipsToBounds = true
@@ -89,7 +91,7 @@ class ProductReviewTableViewCell: UITableViewCell {
                     self.reviewBoxView.frame.size.height = 90
                 }else { // 사진만 없는 경우
                     self.detailReviewLabel.isHidden = false
-                    self.reviewBoxView.frame.size.height = self.detailReviewLabel.frame.height + 90
+                    self.reviewBoxView.frame.size.height = height + 90
                     self.commentTopConstraint.constant -= 60
                 }
             }

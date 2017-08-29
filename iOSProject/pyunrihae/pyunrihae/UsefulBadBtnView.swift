@@ -13,10 +13,9 @@ class UsefulBadBtnView: UIView {
     @IBOutlet weak var badNumLabel: UILabel!
     var reviewList = [Review]()
     var reviewId = ""
-    var validator = 0
     @IBAction func tabUsefulBtn(_ sender: UIButton) {
         if User.sharedInstance.email == "" {
-            NotificationCenter.default.post(name: NSNotification.Name("showLoginPopup"), object: self, userInfo: ["validator": validator])
+            NotificationCenter.default.post(name: NSNotification.Name("showLoginPopup"), object: self)
         } else {
             var reviewStatus = User.sharedInstance.review_like_list[reviewId]
             let uid = User.sharedInstance.id
@@ -78,7 +77,7 @@ class UsefulBadBtnView: UIView {
     }
     @IBAction func tabBadBtn(_ sender: UIButton) {
         if User.sharedInstance.email == "" {
-            NotificationCenter.default.post(name: NSNotification.Name("showLoginPopup"), object: self, userInfo: ["validator": validator])
+            NotificationCenter.default.post(name: NSNotification.Name("showLoginPopup"), object: self)
         } else {
             let uid = User.sharedInstance.id
             var reviewStatus = User.sharedInstance.review_like_list[reviewId]

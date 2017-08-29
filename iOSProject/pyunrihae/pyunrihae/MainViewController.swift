@@ -63,9 +63,7 @@ class MainViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     func showLoginPopup(_ notification: Notification) {
-        if notification.userInfo?["validator"] as! Int == 0{
-            Pyunrihae.showLoginOptionPopup(_ : self)
-        }
+        Pyunrihae.showLoginOptionPopup(_ : self)
     }
     func showDetailProduct(_ notification: Notification) {
         if notification.userInfo?["validator"] as! Int == 0{

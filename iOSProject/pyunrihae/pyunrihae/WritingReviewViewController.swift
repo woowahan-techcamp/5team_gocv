@@ -289,7 +289,8 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
 extension WritingReviewViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 3.0, initialSpringVelocity: 3.0, options: UIViewAnimationOptions.curveEaseInOut, animations: ({
-            self.scrollView.frame.origin.y = self.scrollView.contentOffset.y - 350
+            self.scrollView.frame.origin.y = -self.reviewTextView.frame.origin.y
+            self.scrollView.contentOffset.y = 0
             self.detailReview.frame.size.height = UIScreen.main.bounds.size.height * 3 / 11
         }), completion: nil)
         addedImageView.isHidden = true
