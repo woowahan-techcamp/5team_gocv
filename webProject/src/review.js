@@ -15,7 +15,6 @@ export class ReviewPage {
         this.maxiumWord = 240;
         this.manager = new TimeManager();
         this.brand = new BrandInfo();
-        this.now = this.manager.timestampScore();
 
         this.arrayObj = this.getArrayObject();
 
@@ -91,12 +90,12 @@ export class ReviewPage {
 
     setDateSorting(array) {
         array.sort(function (a, b) {
-            const beforeTimeScore = parseFloat(a.time_score);
-            const afterTimeScore = parseFloat(b.time_score);
+            const beforeTimeScore = a.time_score;
+            const afterTimeScore = b.time_score;
 
-            if (beforeTimeScore < afterTimeScore) {
+            if (beforeTimeScore[2] < afterTimeScore[2]) {
                 return 1;
-            } else if (beforeTimeScore > afterTimeScore) {
+            } else if (beforeTimeScore[2] > afterTimeScore[2]) {
                 return -1;
             } else {
                 return 0;
@@ -146,7 +145,8 @@ export class ReviewPage {
 
             const splitTimestamp = time.split(' ');
 
-            value['time_score'] = this.manager.getDate(splitTimestamp[0]) + this.manager.getTime(splitTimestamp[1]);
+            value['time_score'] = this.manager.getDateTimeScore(splitTimestamp[0], splitTimestamp[1]);
+
             const dateValue = this.manager.getDateWord(value.time_score);
 
             value['date'] = (!!dateValue) ? dateValue : splitTimestamp[0];
