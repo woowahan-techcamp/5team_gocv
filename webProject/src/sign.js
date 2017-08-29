@@ -288,14 +288,9 @@ class MyPage {
         this.setData();
         this.setEventUpdateImage();
         this.setEventUpdateNicname();
-        this.getPopupInfo();
 
-    }
+        new PopupInfo().setMyPageInit();
 
-    getPopupInfo() {
-        const popup = new PopupInfo();
-
-        popup.setMyPageInit();
     }
 
     setData() {
