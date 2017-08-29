@@ -151,7 +151,8 @@ export class ProductPopup {
         this.setProductData();
         this.setProductWishEvent();
         this.setReviewData();
-        // this.setReviewWishEvent();
+        this.setProductWishEvent();
+        this.setReviewRatingEvent();
 
         new PopupInfo().setItemPageInit();
 

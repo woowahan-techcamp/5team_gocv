@@ -1,3 +1,6 @@
+import {SignIn} from './sign.js'
+
+
 export class DB {
     constructor(user, product, review) {
         this.user = user;
@@ -17,35 +20,23 @@ export class DB {
 
         firebase.initializeApp(config);
 
+    }
 
+    dataInit(){
         const value = {
             brand: 'all',
             category: '전체',
             keyword: ''
         };
 
+        this.updateAllDb();
+
         localStorage['search_keyword'] = JSON.stringify(value);
-
-        var provider = new firebase.auth.GoogleAuthProvider();
-        provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-
-
-        const param = this.updateUserDb();
-        this.updateProductDb();
-        this.updateReviewDb();
 
         this.user = JSON.parse(localStorage['user']);
         this.product = JSON.parse(localStorage['product']);
         this.review = JSON.parse(localStorage['review']);
 
-        return new Promise(function (resolve, reject) {
-            if (param) {
-                resolve("해결 완료");
-                window.location.reload();
-            } else {
-                reject(Error("실패!!"));
-            }
-        });
     }
 
     updateDb(name) {
@@ -58,9 +49,9 @@ export class DB {
     }
 
     updateAllDb() {
-        this.updateDb("user");
-        this.updateDb("review");
-        this.updateDb("product");
+        this.updateUserDb();
+        this.updateReviewDb();
+        this.updateProductDb();
     }
 
     updateUserDb(func) {
@@ -69,7 +60,7 @@ export class DB {
             this.user = JSON.parse(localStorage['user']);
             document.querySelector('#loading').style.display = "none"
             console.log("user 캐시 업데이트")
-            return true;
+
         }.bind(this));
     }
 
