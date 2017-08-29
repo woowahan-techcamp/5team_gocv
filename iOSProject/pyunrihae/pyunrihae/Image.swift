@@ -24,7 +24,7 @@ class Image {
         if grade < 0.5 {
             starView.image = UIImage(named: "star0.png")
         } else if grade < 1.0 {
-            starView.image = UIImage(named: "star5.png")
+            starView.image = UIImage(named: "star05.png")
         } else if grade < 1.5 {
             starView.image = UIImage(named: "star1.png")
         } else if grade < 2.0 {
