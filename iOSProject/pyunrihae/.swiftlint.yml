@@ -1,0 +1,45 @@
+disabled_rules:
+  - force_cast
+  - force_try
+  - function_body_length
+  - line_length
+  - nesting
+  - todo
+  - type_body_length
+  - type_name
+  - variable_name
+
+cyclomatic_complexity:
+  - 24 # warning
+  - 25 # error
+
+function_parameter_count:
+  - 16 # warning
+  - 17 # error
+
+line_length:
+  - 200 # warning
+  - 300 # error
+
+force_cast: warning # implicitly. String! -> warning
+force_try:
+  severity: warning # explicitly. try! -> warning
+
+type_body_length:
+  - 300 # warning
+  - 400 # error
+
+# or they can set both explicitly
+file_length:
+  warning: 500
+  error: 800
+
+type_name:
+  min_length: 4 # only warning
+  max_length: # warning and error
+    warning: 30
+    error: 35
+
+excluded:
+  - Pods
+  - pyunrihae/YNSearch

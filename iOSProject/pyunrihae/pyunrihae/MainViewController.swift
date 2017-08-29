@@ -248,7 +248,7 @@ class MainViewController: UIViewController {
                     self.reviewScrollView.addSubview(reviewView)
                     xPosition += imageViewWidth
                     scrollViewSize += imageViewWidth
-                    cnt = cnt + 1
+                    cnt += 1
                 }
             }
         }
@@ -260,7 +260,7 @@ class MainViewController: UIViewController {
             subview.removeFromSuperview()
         }
         
-        // 스크롤을 맨 앞으로 다시 가져온다.
+        
         self.productScrollView.contentOffset.x = 0
         
         if self.productScrollView != nil {
@@ -308,7 +308,7 @@ class MainViewController: UIViewController {
                 productView.isUserInteractionEnabled = true
                 self.productScrollView.addSubview(productView)
                 xPosition += imageViewWidth / 3.0
-                cnt = cnt + 1
+                cnt += 1
             }
         }
     }

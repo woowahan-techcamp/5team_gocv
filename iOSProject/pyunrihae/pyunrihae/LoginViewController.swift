@@ -29,10 +29,10 @@ class LoginViewController: UIViewController {
     @IBAction func onEditingEmail(_ sender: Any) {
         isValidSignup()
     }
-    func isValidSignup(){
-        if Validator.isValidLogin(email: emailTextField.text!,password: passwordTextField.text!) {
+    func isValidSignup() {
+        if Validator.isValidLogin(email: emailTextField.text!, password: passwordTextField.text!) {
             loginButton.isEnabled = true
-        }else{
+        }else {
             loginButton.isEnabled = false
         }
     }
