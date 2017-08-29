@@ -45,8 +45,9 @@ class MainViewController: UIViewController {
         reviewScrollView.backgroundColor = UIColor.lightGray
         reviewScrollView.isPagingEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
-        self.reviewScrollView.addGestureRecognizer(tap)
-        self.reviewScrollView.isUserInteractionEnabled = true
+        reviewScrollView.addGestureRecognizer(tap)
+        reviewScrollView.isUserInteractionEnabled = true
+
         DataManager.getTop3Product() { (products) in
             self.productList = products
             DispatchQueue.main.async {
@@ -192,6 +193,7 @@ class MainViewController: UIViewController {
                 var cnt = 0
                 let scrollViewImageNum = 3
                 self.reviewScrollView.contentSize = CGSize(width: imageViewWidth*CGFloat(3), height: imageViewHeight)
+                self.reviewScrollView.contentOffset.y = 0
                 for review in self.reviewList {
                     if cnt >= scrollViewImageNum {
                         break
@@ -333,19 +335,15 @@ class MainViewController: UIViewController {
         }
     }
     func didPressUsefulBtn(sender: UIButton) { //유용해요 버튼 누르기
-        if appdelegate.user?.email == "" {
-            let alert = UIAlertController(title: "로그인 후 이용해주세요!", message: "", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+        if User.sharedInstance.email == "" {
+            Pyunrihae.showLoginOptionPopup(_ : self)
         } else {
             Button.didPressUsefulBtn(sender: sender, reviewId: review.id, usefulNumLabel: usefulNumLabel, badNumLabel: badNumLabel, usefulBtn: usefulBtn, badBtn: badBtn, reviewList: reviewList)
         }
     }
     func didPressBadBtn(sender: UIButton) { //별로에요 버튼 누르기
-        if appdelegate.user?.email == "" {
-            let alert = UIAlertController(title: "로그인 후 이용해주세요!", message: "", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+        if User.sharedInstance.email == "" {
+            Pyunrihae.showLoginOptionPopup(_ : self)
         } else {
             Button.didPressBadBtn(sender: sender, reviewId: review.id, usefulNumLabel: usefulNumLabel, badNumLabel: badNumLabel, usefulBtn: usefulBtn, badBtn: badBtn, reviewList: reviewList)
         }

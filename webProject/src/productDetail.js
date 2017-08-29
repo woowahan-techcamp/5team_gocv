@@ -1,40 +1,7 @@
-import {Util,Dropdown, Toast} from './main'
-import {DB} from './index'
-
-export class PopupOverlayClick {
-
-    constructor() {
-        this.signOverlay = document.querySelector('.sign-overlay');
-        this.signInner = document.querySelector('.sign-wrapper');
-
-        this.signFlag = false;
-
-        this.getEvent();
-    }
-
-    getEvent() {
-        /* sign in modal settings */
-        this.signOverlay.addEventListener('click', function () {
-            if (!this.signFlag) {
-                this.closePopup();
-            }
-            this.signFlag = false;
-
-        }.bind(this));
-
-        this.signInner.addEventListener('click', function () {
-            this.signFlag = true;
-        }.bind(this));
-
-    }
-
-    closePopup() {
-        if (!this.signFlag) {
-            this.signOverlay.style.display = "none";
-            this.signFlag = false;
-        }
-    }
-}
+import {Util,Dropdown, Toast} from './main.js'
+import {UpdateData} from './index.js'
+import {DB} from './firebaseInit.js'
+import timestamp from './manage.js'
 
 //image 업로드하고 미리보기 만드는 클래스
 export class UpLoadImage {
@@ -78,6 +45,282 @@ export class UpLoadImage {
 
     }
 
+}
+
+//리뷰 탭에서 이미지 클릭 시 상세화면 나타나는 클래스
+export class ReviewPopup {
+
+    constructor(db, wrapper, targetName, reviewId, userId) {
+        this.db = db;
+        this.wrapper = wrapper;
+        this.targetName = targetName;
+        this.reviewId = reviewId;
+        this.userId = userId
+        this.init();
+    }
+
+
+
+    init(){
+        this.wrapper = document.querySelector(this.wrapper);
+
+        this.wrapper.addEventListener("click", function (e) {
+
+            // console.log(e.target)
+            this.userId = firebase.auth().currentUser.uid;
+
+            if (Array.from(e.target.classList).includes(this.targetName)) {
+                this.reviewId = e.target.getAttribute("name");
+                this.setEvent();
+            }
+
+
+        }.bind(this));
+
+
+    }
+
+    setEvent(){
+        this.scrollEvent("hidden");
+        this.setReviewData();
+
+        this.popupOverlay = document.querySelector('.overlay');
+        this.popupInner = document.querySelector('.popup-review-preview');
+        this.flag = false;
+        this.getCloseEvent();
+    }
+
+    setReviewData(){
+
+        const template = document.querySelector('#review-preview-template').innerHTML;
+        const popup = document.querySelector('#popup');
+
+        const selectReviewData = this.db.review[this.reviewId];
+
+        selectReviewData["rating"] = "review-preview-rating";
+
+        const util = new Util();
+
+        util.template(selectReviewData, template, popup);
+
+        const reviewTabProduct = new ProductPopup(this.db,'.popup-review-preview','productSelect');
+
+
+        $("#review-preview-rating").rateYo({
+            rating: selectReviewData.grade,
+            readOnly: true,
+            spacing: "10px",
+            starWidth: "20px",
+            normalFill: "#e2dbd6",
+            ratedFill: "#ffcf4d"
+
+        });
+
+        document.querySelector(".popup-newReview-cancel").addEventListener("click", function () {
+            this.scrollEvent("visible")
+        }.bind(this));
+    }
+
+    scrollEvent(event) {
+        $("body").css("overflow", event);
+    }
+
+    getCloseEvent() {
+        /* item view modal settings */
+        this.popupOverlay.addEventListener('click', function () {
+            if (!this.flag) {
+                this.closePopup();
+            } else {
+                this.flag = false;
+            }
+        }.bind(this));
+
+        this.popupInner.addEventListener('click', function (e) {
+            this.flag = true;
+            e.stopPropagation();
+        }.bind(this));
+    }
+
+    closePopup() {
+        if (!this.flag) {
+            document.getElementsByClassName('popup-close-fake')[0].click();
+            $("body").css("overflow", "visible");
+            this.flag = false;
+        }
+    }
+}
+
+//상품 이미지 클릭 시 상세화면 나타나는 클래스
+export class ProductPopup {
+
+    constructor(db, wrapper, targetName, productId, userId) {
+        this.db = db;
+        this.wrapper = wrapper;
+        this.targetName = targetName;
+        this.productId = productId;
+        this.userId = userId;
+        this.init();
+    }
+
+    init() {
+        this.wrapper = document.querySelector(this.wrapper);
+
+
+        this.wrapper.addEventListener("click", function (e) {
+
+            // console.log(e.target)
+            this.userId = firebase.auth().currentUser.uid;
+
+            if (Array.from(e.target.classList).includes(this.targetName)) {
+                this.productId = e.target.getAttribute("name");
+                this.setEvent();
+            }
+
+
+        }.bind(this));
+    }
+
+    setEvent() {
+        this.scrollEvent("hidden");
+        // this.db.updateAllDb();
+        this.setProductData();
+        this.setReviewData();
+        this.setReviewWishEvent();
+
+        this.popupOverlay = document.querySelector('.overlay');
+        this.popupInner = document.querySelector('.popup-wrapper');
+        this.flag = false;
+        this.getCloseEvent();
+
+    }
+
+    scrollEvent(event) {
+        $("body").css("overflow", event);
+    }
+
+    setProductData() {
+        const template = document.querySelector("#popup-template").innerHTML;
+        const sec = document.querySelector("#popup");
+        const util = new Util();
+
+        // console.log(this.db)
+        //grade_avg 평점이 소수점 둘째자리까지만 표시
+
+        this.db.product[this.productId].grade_avg = parseFloat(this.db.product[this.productId].grade_avg).toFixed(1);
+        util.template(this.db.product[this.productId], template, sec);
+
+        const gradeData = [];
+        Object.keys(this.db.product[this.productId].grade_data).forEach(function (e) {
+            gradeData.push(this.db.product[this.productId].grade_data[e])
+        }.bind(this));
+
+        const priceData = [];
+        Object.keys(this.db.product[this.productId].price_level).forEach(function (e) {
+            priceData.push(this.db.product[this.productId].price_level[e])
+        }.bind(this));
+
+        const flavorData = [];
+        Object.keys(this.db.product[this.productId].flavor_level).forEach(function (e) {
+            flavorData.push(this.db.product[this.productId].flavor_level[e])
+        }.bind(this));
+
+        const quantityData = [];
+        Object.keys(this.db.product[this.productId].quantity_level).forEach(function (e) {
+            quantityData.push(this.db.product[this.productId].quantity_level[e])
+        }.bind(this));
+
+        const ratingChart = new MakeChart('line', ["1🌟", "2🌟", "3🌟", "4🌟", "5🌟"], gradeData, 'ratingChart', '#ffc225', '#eeb225');
+        const priceChart = new MakeChart('bar', ["비쌈", "아쉽", "적당", "양호", "저렴"], priceData, 'priceChart', '#ee5563', '#9c3740');
+        const flavorChart = new MakeChart('bar', ["노맛", "아쉽", "적당", "양호", "존맛"], flavorData, 'flavorChart', '#ee5563', '#9c3740');
+        const quantityChart = new MakeChart('bar', ["창렬", "아쉽", "적당", "양호", "혜자"], quantityData, 'quantityChart', '#ee5563', '#9c3740');
+    }
+
+    setReviewData() {
+        const reviewArr = [];
+
+        if (!!this.db.product[this.productId].reviewList) {
+            this.db.product[this.productId].reviewList.forEach(function (e) {
+                reviewArr.push(this.db.review[e])
+            }.bind(this));
+        }
+
+        //rateyo.js를 사용하기 위한 별이 들어갈 DOM의 id, 전체 리뷰 Wrapper 클래스명
+        const makeReview = new Review("popupStar", ".newReview-list", this.db.product[this.productId]);
+        const reviewImageUpLoad = new UpLoadImage('reviewImageInput', 'imagePreview');
+
+        //모달 리뷰 필터 드롭다운
+        const reviewFilterDrop = new Dropdown("click", ".popup-reviewFilter", ".popup-reviewFilter-dropdown");
+
+        new ReviewFilter(reviewArr);
+
+        setTimeout(function () {
+            document.querySelector('#loading').style.display = "none"
+        }, 1000);
+
+
+    }
+
+    setReviewWishEvent() {
+        document.querySelector("#popupWish").addEventListener("click", function () {
+            const that = this;
+
+            document.querySelector("#popupWish").setAttribute("class", "popup-wish popup-wish-select");
+
+            let newWishArr = this.db.user[this.userId].wish_product_list;
+            let double = true;
+
+            if (!!newWishArr) {
+                newWishArr.forEach(function (element) {
+                    if (element === that.productId) {
+                        double = false;
+                    }
+                }.bind(that))
+            } else {
+                newWishArr = [];
+            }
+
+            if (double) {
+                newWishArr.push(this.productId);
+                firebase.database().ref('user/' + this.userId + "/wish_product_list").set(newWishArr).then(function () {
+                    that.db.updateUserDb();
+                    new Toast("즐겨찾기 품목에 추가되었습니다.")
+                }.bind(that));
+            } else {
+                new Toast("이미 즐겨찾기에 포함된 상품입니다.")
+            }
+
+        }.bind(this));
+
+        const reviewRating = new ReviewRating(this.db,this);
+
+        document.querySelector(".popup-close").addEventListener("click", function () {
+            this.scrollEvent("visible");
+        }.bind(this));
+    }
+
+    getCloseEvent() {
+        /* item view modal settings */
+        this.popupOverlay.addEventListener('click', function () {
+            if (!this.flag) {
+                this.closePopup();
+            } else {
+                this.flag = false;
+            }
+        }.bind(this));
+
+        this.popupInner.addEventListener('click', function (e) {
+            this.flag = true;
+            e.stopPropagation();
+        }.bind(this));
+    }
+
+    closePopup() {
+        if (!this.flag) {
+            document.getElementsByClassName('popup-close-fake')[0].click();
+            $("body").css("overflow", "visible");
+            this.flag = false;
+        }
+    }
 }
 
 //chart.js를 이용하여 차트를 만드는 클래스
@@ -321,8 +564,6 @@ class Review {
 
         storageRef.child(this.fileName).getDownloadURL().then(function (url) {
             const that = this;
-
-
             const userId = firebase.auth().currentUser.uid;
 
             database.ref('review/' + this.reviewId).set({
@@ -335,6 +576,7 @@ class Review {
                 "id": this.reviewId,
                 "p_id": this.product.id,
                 "p_image": url,
+                "product_image":this.product.img,
                 "p_name": this.product.name,
                 "p_price": this.product.price,
                 "price": this.data[1],
@@ -413,12 +655,13 @@ class Review {
 
                 loadDetailProduct(event);
 
+                new UpdateData();
 
             }.bind(that));
 
 
         }.bind(this)).catch(function (error) {
-            console.log(error);
+            // console.log(error);
             document.querySelector('#loading').style.display = "none"
         });
     }
@@ -641,55 +884,49 @@ class ReviewFilter {
         }.bind(this));
 
         this.reviewObj = newReviewObj;
-        console.log(newReviewObj);
 
         util.template(this.reviewObj, template, popup);
         util.setHandlebars(this.reviewObj);
     }
 }
+
+//리뷰 유용해야 별로에요 버튼 모듈 클래스
 class ReviewRating {
-    constructor(userId, productId, reviewId, likeList) {
+    constructor(db,reviewClass,userId, productId, reviewId, likeList) {
+        this.db = db;
         this.userId = userId;
         this.productId = productId;
         this.reviewId = reviewId;
         this.likeList = likeList;
-        this.db = new DB();
+
         this.setEvent()
     }
 
     setEvent() {
-        // console.log(this.db.review);
-        // console.log(this.db.user);
-        // console.log(this.db.product);
-
         document.querySelector(".popup-reviewWrapperList").addEventListener("click", function (e) {
-
-
             if (e.target.classList.contains("popup-review-good") || e.target.classList.contains("popup-review-bad")) {
+                const goodBtn = e.target.parentElement.parentElement.childNodes[1].childNodes[1];
+                const badBtn = e.target.parentElement.parentElement.childNodes[3].childNodes[1];
+
+
                 this.userId = firebase.auth().currentUser.uid;
                 this.reviewId = e.target.parentElement.getAttribute("name");
-                //
-                // console.log(this.userId);
-                // console.log(this.productId);
-                // console.log(this.reviewId);
+
                 if (!!this.db.user[this.userId].review_like_list) {
                     this.likeList = this.db.user[this.userId].review_like_list[this.reviewId];
                 } else {
                     this.db.user[this.userId].review_like_list = {};
                     this.likeList = this.db.user[this.userId].review_like_list[this.reviewId];
                 }
-
-                // console.log(!this.likeList)
-
                 const that = this;
 
                 //데이터가 없거나, 0일경우
                 if (!this.likeList || this.likeList === 0) {
-                    console.log("데이터가 없거나, 0일경우");
+                    // console.log("데이터가 없거나, 0일경우");
 
                     document.querySelector('#loading').style.display = "block";
-                    e.target.disabled = true;
-
+                    goodBtn.disabled = true;
+                    badBtn.disabled = true;
 
                     let value = 0;
                     let newValue = parseInt(e.target.nextSibling.nextSibling.innerHTML);
@@ -725,18 +962,20 @@ class ReviewRating {
                             localStorage['user'] = JSON.stringify(snapshot.val());
                             that2.db.user = JSON.parse(localStorage['user']);
                             document.querySelector('#loading').style.display = "none"
-                            e.target.disabled = false;
-                            console.log("user 캐시 업데이트")
+                            goodBtn.disabled = false;
+                            badBtn.disabled = false;
+                            // console.log("user 캐시 업데이트")
                         }.bind(that2));
                     }.bind(that));
 
                     //이미 선택된적이 있는 경우
                 } else if (this.likeList === 1) {
-                    console.log("good 으로 선택된적 있는 경우")
+                    // console.log("good 으로 선택된적 있는 경우")
 
 
                     document.querySelector('#loading').style.display = "block"
-                    e.target.disabled = true;
+                    goodBtn.disabled = true;
+                    badBtn.disabled = true;
 
                     if (e.target.classList.contains("popup-review-good")) {
                         e.target.className = "popup-review-good";
@@ -757,23 +996,24 @@ class ReviewRating {
                                 localStorage['user'] = JSON.stringify(snapshot.val());
                                 that2.db.user = JSON.parse(localStorage['user']);
                                 document.querySelector('#loading').style.display = "none"
-                                e.target.disabled = false;
-                                console.log("user 캐시 업데이트")
+                                goodBtn.disabled = false;
+                                badBtn.disabled = false;
+                                // console.log("user 캐시 업데이트")
                             }.bind(that2));
                         }.bind(that));
                     } else {
 
-                        console.log("아무반응이 없어야함")
+                        // console.log("아무반응이 없어야함")
                         document.querySelector('#loading').style.display = "none"
-                        e.target.disabled = false
-
+                        goodBtn.disabled = false;
+                        badBtn.disabled = false;
                     }
 
                 } else if (this.likeList === -1) {
-                    console.log("bad 으로 선택된적 있는 경우")
+                    // console.log("bad 으로 선택된적 있는 경우")
                     document.querySelector('#loading').style.display = "block"
-                    e.target.disabled = true;
-
+                    goodBtn.disabled = true;
+                    badBtn.disabled = true;
 
                     if (e.target.classList.contains("popup-review-bad")) {
                         e.target.className = "popup-review-bad";
@@ -796,17 +1036,17 @@ class ReviewRating {
                                 localStorage['user'] = JSON.stringify(snapshot.val());
                                 that2.db.user = JSON.parse(localStorage['user']);
                                 document.querySelector('#loading').style.display = "none"
-                                e.target.disabled = false;
-                                console.log("user 캐시 업데이트")
+                                goodBtn.disabled = false;
+                                badBtn.disabled = false;
+                                // console.log("user 캐시 업데이트")
                             }.bind(that2));
                         }.bind(that));
 
                     } else {
-
-                        console.log("아무반응이 없어야함")
+                        // console.log("아무반응이 없어야함")
                         document.querySelector('#loading').style.display = "none"
-                        e.target.disabled = false
-
+                        goodBtn.disabled = false;
+                        badBtn.disabled = false;
                     }
                 }
             }
@@ -815,263 +1055,4 @@ class ReviewRating {
     }
 
 }
-class ItemPopup {
 
-    constructor() {
-        this.popupOverlay = document.querySelector('.overlay');
-        this.popupInner = document.querySelector('.popup-wrapper');
-
-        this.flag = false;
-
-        this.getEvent();
-    }
-
-    getEvent() {
-        /* item view modal settings */
-        this.popupOverlay.addEventListener('click', function () {
-            if (!this.flag) {
-                this.closePopup();
-            } else {
-                this.flag = false;
-            }
-        }.bind(this));
-
-        this.popupInner.addEventListener('click', function (e) {
-            this.flag = true;
-            e.stopPropagation();
-        }.bind(this));
-    }
-
-    closePopup() {
-        if (!this.flag) {
-            document.getElementsByClassName('popup-close-fake')[0].click();
-            $("body").css("overflow", "visible");
-            this.flag = false;
-        }
-    }
-}
-class ReviewPopup {
-
-    constructor() {
-        this.popupOverlay = document.querySelector('.overlay');
-        this.popupInner = document.querySelector('.popup-review-preview');
-
-        this.flag = false;
-
-        this.getEvent();
-    }
-
-    getEvent() {
-        /* item view modal settings */
-        this.popupOverlay.addEventListener('click', function () {
-            if (!this.flag) {
-                this.closePopup();
-            } else {
-                this.flag = false;
-            }
-        }.bind(this));
-
-        this.popupInner.addEventListener('click', function (e) {
-            this.flag = true;
-            e.stopPropagation();
-        }.bind(this));
-    }
-
-    closePopup() {
-        if (!this.flag) {
-            document.getElementsByClassName('popup-close-fake')[0].click();
-            $("body").css("overflow", "visible");
-            this.flag = false;
-        }
-    }
-}
-
-function loadDetailProduct(event) {
-
-    $("body").css("overflow", "hidden");
-    document.querySelector('#loading').style.display = "block";
-
-    //데이터 받아오기
-    const product = localStorage['product'];
-    const obj = JSON.parse(product);
-    const review = localStorage['review'];
-    const obj2 = JSON.parse(review);
-    const user = localStorage['user'];
-    const obj3 = JSON.parse(user);
-    const userId = firebase.auth().currentUser.uid;
-
-    //상품의 d 값받기 각종 초기 설정
-    const id = event.getAttribute("name");
-    const template = document.querySelector("#popup-template").innerHTML;
-    const sec = document.querySelector("#popup");
-    const util = new Util();
-
-
-    // const value = obj[grade_total]/obj[grade_count];
-
-    //grade_avg 평점이 소수점 둘째자리까지만 표시
-    obj[id].grade_avg = obj[id].grade_avg.toFixed(1);
-
-    util.template(obj[id], template, sec);
-
-    const gradeData = [];
-    Object.keys(obj[id].grade_data).forEach(function (e) {
-        gradeData.push(obj[id].grade_data[e])
-    });
-
-    const priceData = [];
-    Object.keys(obj[id].price_level).forEach(function (e) {
-        priceData.push(obj[id].price_level[e])
-    });
-
-    const flavorData = [];
-    Object.keys(obj[id].flavor_level).forEach(function (e) {
-        flavorData.push(obj[id].flavor_level[e])
-    });
-
-    const quantityData = [];
-    Object.keys(obj[id].quantity_level).forEach(function (e) {
-        quantityData.push(obj[id].quantity_level[e])
-    });
-
-    const ratingChart = new MakeChart('line', ["1🌟", "2🌟", "3🌟", "4🌟", "5🌟"], gradeData, 'ratingChart', '#ffc225', '#eeb225');
-    const priceChart = new MakeChart('bar', ["비쌈", "아쉽", "적당", "양호", "저렴"], priceData, 'priceChart', '#ee5563', '#9c3740');
-    const flavorChart = new MakeChart('bar', ["노맛", "아쉽", "적당", "양호", "존맛"], flavorData, 'flavorChart', '#ee5563', '#9c3740');
-    const quantityChart = new MakeChart('bar', ["창렬", "아쉽", "적당", "양호", "혜자"], quantityData, 'quantityChart', '#ee5563', '#9c3740');
-
-    const reviewArr = [];
-
-    if (!!obj[id].reviewList) {
-        obj[id].reviewList.forEach(function (e) {
-            reviewArr.push(obj2[e])
-        });
-    }
-
-
-    //rateyo.js를 사용하기 위한 별이 들어갈 DOM의 id, 전체 리뷰 Wrapper 클래스명
-    const makeReview = new Review("popupStar", ".newReview-list", obj[id]);
-    const reviewImageUpLoad = new UpLoadImage('reviewImageInput', 'imagePreview');
-
-    //모달 리뷰 필터 드롭다운
-    const reviewFilterDrop = new Dropdown("click", ".popup-reviewFilter", ".popup-reviewFilter-dropdown");
-
-    new ReviewFilter(reviewArr);
-
-    setTimeout(function () {
-        document.querySelector('#loading').style.display = "none"
-    }, 1000);
-
-    new ItemPopup();
-
-    document.querySelector("#popupWish").addEventListener("click", function () {
-        document.querySelector("#popupWish").setAttribute("class", "popup-wish popup-wish-select");
-
-        const userStorage = localStorage['user'];
-        const userData = JSON.parse(userStorage);
-        const user = firebase.auth().currentUser;
-        let newWishArr = userData[user.uid].wish_product_list;
-        let double = true;
-
-        if (!!newWishArr) {
-            newWishArr.forEach(function (e) {
-                if (e === id) {
-                    double = false;
-                }
-            })
-        } else {
-            newWishArr = [];
-        }
-
-        if (double) {
-            newWishArr.push(id);
-            firebase.database().ref('user/' + user.uid + "/wish_product_list").set(newWishArr).then(function () {
-                firebase.database().ref('user/').once('value').then(function (snapshot) {
-                    localStorage['user'] = JSON.stringify(snapshot.val());
-                    new Toast("즐겨찾기 품목에 추가되었습니다.")
-                });
-            });
-
-        } else {
-            new Toast("이미 즐겨찾기에 포함된 상품입니다.")
-
-        }
-
-    });
-
-    const reviewRating = new ReviewRating();
-
-
-    document.querySelector(".popup-close").addEventListener("click", function () {
-        $("body").css("overflow", "visible");
-    });
-}
-function timestamp() {
-    var d = new Date();
-    var curr_date = d.getDate();
-    var curr_month = d.getMonth() + 1; //Months are zero based
-    var curr_year = d.getFullYear();
-    var curr_hour = d.getHours();
-    var curr_minute = d.getMinutes();
-    var curr_second = d.getSeconds();
-
-    if (curr_month < 10) {
-        curr_month = "0" + curr_month;
-    }
-
-    if (curr_hour < 10) {
-        curr_hour = "0" + curr_hour;
-    }
-
-    if (curr_minute < 10) {
-        curr_minute = "0" + curr_minute;
-
-    }
-
-    if (curr_second < 10) {
-        curr_second = "0" + curr_second;
-
-    }
-
-    return curr_year + "-" + curr_month + "-" + curr_date + " " +
-        curr_hour + ":" + curr_minute + ":" + curr_second;
-}
-function loadReviewDetail(event) {
-
-    $("body").css("overflow", "hidden");
-
-    const key = event.getAttribute("name");
-    const review = localStorage['review'];
-
-    const reviewObj = JSON.parse(review);
-
-    const template = document.querySelector('#review-preview-template').innerHTML;
-    const popup = document.querySelector('#popup');
-
-    const selectReviewData = reviewObj[key];
-
-    selectReviewData["rating"] = "review-preview-rating";
-
-    const util = new Util();
-
-    util.template(selectReviewData, template, popup);
-
-    $("#review-preview-rating").rateYo({
-        rating: selectReviewData.grade,
-        readOnly: true,
-        spacing: "10px",
-        starWidth: "20px",
-        normalFill: "#e2dbd6",
-        ratedFill: "#ffcf4d"
-
-    });
-
-    new ReviewPopup();
-
-    document.querySelector(".popup-newReview-cancel").addEventListener("click", function () {
-        $("body").css("overflow", "visible");
-    });
-}
-
-window.loadDetailProduct = loadDetailProduct;
-window.loadReviewDetail = loadReviewDetail;
-export default timestamp;

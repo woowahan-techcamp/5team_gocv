@@ -90,12 +90,8 @@
 
         </div>
         <div class="carousel-navi">
-            <a href="#">
-                <button class="carousel-leftButton" id="carousel-leftButton"></button>
-            </a>
-            <a href="#">
-                <button class="carousel-rightButton" id="carousel-rightButton"></button>
-            </a>
+            <button class="carousel-leftButton" id="carousel-leftButton"></button>
+            <button class="carousel-rightButton" id="carousel-rightButton"></button>
         </div>
 
 
@@ -474,9 +470,10 @@
         <!--<div class="{{style}}">{{rank}}
         </div>-->
         <a href="#popup">
-            <div class="rank-card-image" style="background-image:url('{{img}}');
-            background-size:80%" name="{{id}}" onclick="loadDetailProduct(this)">
-                <div class="rank-card-medal {{style}}">{{rank}}</div>
+            <div class="rank-card-image productSelect" style="background-image:url('{{img}}');
+            background-size:80%" name="{{id}}">
+
+                <div class="rank-card-medal productSelect {{style}}" name="{{id}}">{{rank}}</div>
 
             </div>
         </a>
@@ -532,14 +529,11 @@
                     </div>
                 </div>
                 <div>
-                    <div class="carousel-review-image">
-                        <div class="carousel-review-imageEle">
-                            <a href="#popup">
-                                <img class="carousel-review-imageEle" src="{{p_image}}" name="{{p_id}}"
-                                     onerror="this.onerror=null;this.src='./image/no_image.gif';"
-                                     onclick="loadDetailProduct(this)"/>
-                            </a>
-                        </div>
+                    <div class="carousel-review-image productSelect" name="{{p_id}}">
+                        <a href="#popup">
+                            <img class="carousel-review-imageEle productSelect" src="{{p_image}}" name="{{p_id}}"
+                                 onerror="this.onerror=null;this.src='./image/no_image.gif';"/>
+                        </a>
                     </div>
                     <div style="float: left; width:90%; margin-left: 5%">
                         <div class="carousel-review-product">{{p_name}}</div>
@@ -559,8 +553,8 @@
         <div class="{{style}}">{{rank}}
         </div>
         <a href="#popup">
-            <img class="card-rank-image" src="{{img}}" name="{{id}}"
-                 onerror="this.onerror=null;this.src='./image/not_found.gif';" onclick="loadDetailProduct(this)"/>
+            <img class="card-rank-image productSelect" src="{{img}}"
+                 onerror="this.onerror=null;this.src='./image/not_found.gif'" name="{{id}}"/>
         </a>
         <div class="card-main-description">
             <div style="width:50px; margin-left:5px; margin-bottom:20px" id="{{rating}}">
@@ -570,7 +564,6 @@
             <div class="card-main-rank-name">{{name}}</div>
             <div class="card-main-rank-price">{{price}}원</div>
         </div>
-
     </div>
     {{/ranking}}
 </script>
@@ -579,20 +572,19 @@
     {{#this}}
 
     <a href="#popup">
-        <div class="rank-product-image" style="background-size:70%;background-image:url('{{img}}')" name="{{id}}"
-             onclick="loadDetailProduct(this)">
-            <div class="rank-product-type">
+        <div class="rank-product-image productSelect" style="background-size:70%;background-image:url('{{img}}')"
+             name="{{id}}">
+            <div class="rank-product-type productSelect">
                 {{category}}
             </div>
-            <div style="background-color:cornflowerblue" class="rank-product-type">
+            <div style="background-color:cornflowerblue" class="rank-product-type productSelect" name="{{id}}">
                 {{brand}}
             </div>
-
-            <div class="rank-event-wrapper">
-                {{#each event}}
-                <div class="rank-product-event">{{event_tag}}</div>
-                {{/each}}
-            </div>
+            <!--<div class="rank-event-wrapper" name="{{id}}">-->
+            <!--{{#each event}}-->
+            <!--<div class="rank-product-event">{{event_tag}}</div>-->
+            <!--{{/each}}-->
+            <!--</div>-->
         </div>
     </a>
     <div style="width:50px; margin-left:25px; margin-bottom:20px" id="{{rating}}">
@@ -810,12 +802,13 @@
     {{/this}}
 </script>
 <script id="review-preview-template" type="text/x-handlebars-template">
-    {{#this}}
 
     <div class="popup-review-preview">
+        {{#this}}
+
         <div class="popup-newReviewWrapper-top">
             <a href="#popup">
-                <div class="review-preview-title" name={{p_id}} onclick="loadDetailProduct(this)">
+                <div class="review-preview-title productSelect" name={{p_id}}>
                     해당 상품 보기
                 </div>
             </a>
@@ -876,18 +869,18 @@
                 {{comment}}
             </div>
         </div>
+        {{/this}}
     </div>
-    {{/this}}
-</script>
 
+</script>
 <script id="card-review-page-template" type="text/x-handlebars-template">
     {{#this}}
-    <div class="review-card-content" name={{key}} onclick="loadReviewDetail(this)">
+    <div class="review-card-content" >
         <div class="review-card-image-wrapper">
             <img class="review-card-brand" src="{{brand_image}}"/>
             <a href="#popup">
-                <img class="review-card-image" src="{{p_image}}"
-                     onerror="this.onerror=null;this.src='./image/no_image.gif';">
+                <img class="review-card-image reviewSelect" src="{{p_image}}"
+                     onerror="this.onerror=null;this.src='./image/no_image.gif';" name={{key}}>
             </a>
             <div class="review-user-image-wrapper">
                 <img class="review-user-image"
@@ -966,7 +959,7 @@
     {{#this}}
     <li class="myPage-wish-element">
         <a href="#popup">
-            <img name={{id}} onclick="loadDetailProduct(this)" src="{{img}}" class="myPage-wish-element-image">
+            <img name={{id}} src="{{img}}" class="myPage-wish-element-image productSelect">
         </a>
         <div style="margin-top:10px;float: left">
             <div class="myPage-wish-element-name">{{name}}</div>

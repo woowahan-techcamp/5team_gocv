@@ -1,8 +1,10 @@
 import {Toast, Util} from './main.js'
-import {UpLoadImage} from './productDetail'
+import {UpLoadImage, ProductPopup} from './productDetail.js'
+import {PopupInfo} from './manage'
 
 export class SignUp {
-    constructor(nic, email, pw1, pw2, pwCheck) {
+    constructor(db, nic, email, pw1, pw2, pwCheck) {
+        this.db = db;
         this.nic = nic;
         this.email = email;
         this.pw1 = pw1;
@@ -100,6 +102,7 @@ export class SignUp {
                 document.querySelector('#loading').style.display = "none";
 
             }).then(function () {
+                const that2 = that;
                 const user = firebase.auth().currentUser;
 
                 database.ref('user/' + user.uid).set({
@@ -108,49 +111,49 @@ export class SignUp {
                     "nickname": this.nic.value,
                     "user_profile": "http://item.kakaocdn.net/dw/4407092.title.png"
                 }).then(function () {
+                    that2.updateDb();
 
-
-                    //한번 다시 user db 캐시 업데이트
-                    firebase.database().ref('user/').once('value').then(function (snapshot) {
-
-                        document.querySelector('#loading').style.display = "none";
-
-                        localStorage['user'] = JSON.stringify(snapshot.val());
-
-                        const userStorage = localStorage['user'];
-                        const userData = JSON.parse(userStorage);
-                        const user = firebase.auth().currentUser;
-
-                        //프로필 탭 설정
-                        document.querySelector(".fixTab-profile-wrapper").style.display = "block"
-                        document.querySelector("#fixTabProfileImg").setAttribute("src", userData[user.uid].user_profile);
-                        document.querySelector(".fixTab-profile-id").innerHTML =
-                            userData[user.uid].nickname + "<ul class=\"fixTab-profile-dropdown\">\n" +
-                            "                    <a href=\"#myPage\"><li class=\"fixTab-profile-element\">내 정보</li></a>\n" +
-                            "                    <li id=\"logout\" class=\"fixTab-profile-element\">로그아웃</li>\n" +
-                            "                </ul>";
-
-                        document.querySelector("#logout").addEventListener("click", function () {
-                            firebase.auth().signOut().then(function () {
-                                document.querySelector(".fixTab-profile-wrapper").style.display = "none"
-                                document.querySelector('#sign').style.display = "block";
-                            }, function (error) {
-                                // An error happened.
-                            });
-                        })
-
-                        document.querySelector('.fixTab-profile-element').addEventListener("click", function () {
-                            const myPage = new MyPage(user.uid);
-
-                        });
-                    });
-
-
-                });
-
+                }.bind(that2));
 
                 document.querySelector('#signupDetail').style.display = "none";
 
+            }.bind(that));
+        }.bind(this));
+    }
+
+    updateDb(){
+        //한번 다시 user db 캐시 업데이트
+        firebase.database().ref('user/').once('value').then(function (snapshot) {
+
+            const that=this;
+            document.querySelector('#loading').style.display = "none";
+
+            localStorage['user'] = JSON.stringify(snapshot.val());
+
+            const userStorage = localStorage['user'];
+            const userData = JSON.parse(userStorage);
+            const user = firebase.auth().currentUser;
+
+            //프로필 탭 설정
+            document.querySelector(".fixTab-profile-wrapper").style.display = "block"
+            document.querySelector("#fixTabProfileImg").setAttribute("src", userData[user.uid].user_profile);
+            document.querySelector(".fixTab-profile-id").innerHTML =
+                userData[user.uid].nickname + "<ul class=\"fixTab-profile-dropdown\">\n" +
+                "                    <a href=\"#myPage\"><li class=\"fixTab-profile-element\">내 정보</li></a>\n" +
+                "                    <li id=\"logout\" class=\"fixTab-profile-element\">로그아웃</li>\n" +
+                "                </ul>";
+
+            document.querySelector("#logout").addEventListener("click", function () {
+                firebase.auth().signOut().then(function () {
+                    document.querySelector(".fixTab-profile-wrapper").style.display = "none"
+                    document.querySelector('#sign').style.display = "block";
+                }, function (error) {
+                    // An error happened.
+                });
+            })
+
+            document.querySelector('.fixTab-profile-element').addEventListener("click", function () {
+                const myPage = new MyPage(that.db);
 
             }.bind(that));
         }.bind(this));
@@ -160,7 +163,8 @@ export class SignUp {
 }
 export class SignIn {
 
-    constructor() {
+    constructor(db) {
+        this.db = db;
         this.email = document.querySelector(".signin-id");
         this.password = document.querySelector(".signin-password");
         this.signInButton = document.querySelector(".signin-button");
@@ -170,11 +174,11 @@ export class SignIn {
     setEventButton() {
         this.email.addEventListener("click", function () {
             document.querySelector("#signinErrorCheck").style.display = "none";
-        })
+        });
 
         this.password.addEventListener("click", function () {
             document.querySelector("#signinErrorCheck").style.display = "none";
-        })
+        });
 
         this.signInButton.addEventListener("click", function () {
             this.checkEmail();
@@ -185,7 +189,7 @@ export class SignIn {
     checkEmail() {
         firebase.auth().signInWithEmailAndPassword(this.email.value,
             this.password.value).catch(function (error) {
-            console.log(error)
+            console.log(error);
             if (error.code === "auth/user-not-found") {
                 document.querySelector("#signinErrorCheck").innerHTML = "존재하지 않는 이메일 입니다."
                 document.querySelector("#signinErrorCheck").style.display = "block";
@@ -202,7 +206,7 @@ export class SignIn {
             return Promise.reject();
         }).then(function () {
 
-
+            const that = this;
             document.querySelector('#loading').style.display = "none";
 
             const userStorage = localStorage['user'];
@@ -229,10 +233,10 @@ export class SignIn {
             document.querySelector('#sign').style.display = "none";
 
             document.querySelector('.fixTab-profile-element').addEventListener("click", function () {
-                const myPage = new MyPage(user.uid);
+                const myPage = new MyPage(that.db);
 
-            });
-        })
+            }.bind(that));
+        }.bind(this))
     }
 
 }
@@ -269,7 +273,8 @@ export class SignConnect {
 
 }
 class MyPage {
-    constructor() {
+    constructor(db) {
+        this.db= db;
         const userStorage = localStorage['user'];
         const user = firebase.auth().currentUser;
 
@@ -280,8 +285,14 @@ class MyPage {
         this.setData();
         this.setEventUpdateImage();
         this.setEventUpdateNicname();
+        this.getPopupInfo();
 
-        new UserInfoPopup();
+    }
+
+    getPopupInfo(){
+        const popup = new PopupInfo();
+
+        popup.setMyPageInit();
     }
 
     setData() {
@@ -293,6 +304,8 @@ class MyPage {
         const template = document.querySelector("#myPage-template").innerHTML;
         const sec = document.querySelector("#myPage");
         util.template(this.userData[this.userId], template, sec);
+
+        const myPageProduct = new ProductPopup(this.db,'#myPageReviewNavi','productSelect');
 
         const wishReviewArr = [];
 
@@ -306,7 +319,7 @@ class MyPage {
         const sec2 = document.querySelector("#myPageReviewNavi");
         util.template(wishReviewArr, template2, sec2);
 
-        this.setDeleteButtonEvent()
+        this.setDeleteButtonEvent();
 
         document.querySelector(".myPage-close").addEventListener("click", function () {
             $("body").css("overflow", "visible");
@@ -453,40 +466,4 @@ class MyPage {
     }
 
 }
-class UserInfoPopup {
 
-    constructor() {
-        this.popupOverlay = document.querySelector('.myPage-overlay');
-        this.popupInner = document.querySelector('.myPage-wrapper');
-
-        $("body").css("overflow", "hidden");
-
-        this.flag = false;
-
-        this.getEvent();
-    }
-
-    getEvent() {
-        /* item view modal settings */
-        this.popupOverlay.addEventListener('click', function () {
-            if (!this.flag) {
-                $("body").css("overflow", "visible");
-                this.closePopup();
-            } else {
-                this.flag = false;
-            }
-        }.bind(this));
-
-        this.popupInner.addEventListener('click', function (e) {
-            this.flag = true;
-            e.stopPropagation();
-        }.bind(this));
-    }
-
-    closePopup() {
-        if (!this.flag) {
-            document.getElementsByClassName('popup-close-fake')[0].click();
-            this.flag = false;
-        }
-    }
-}

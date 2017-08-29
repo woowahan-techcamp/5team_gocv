@@ -79,8 +79,8 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
     }
     @IBAction func tabCompleteBtn(_ sender: UIButton) {
          var user_image = ""
-        if appdelegate.user?.user_profile != "" {
-            user_image = (appdelegate.user?.user_profile)!
+        if User.sharedInstance.user_profile != "" {
+            user_image = (User.sharedInstance.user_profile)
         }else{
             user_image = "http://item.kakaocdn.net/dw/4407092.title.png"
         }
@@ -90,14 +90,15 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             } else {
-                self.navigationController?.popToRootViewController(animated: true)
+                let productDetailViewController = self.navigationController?.viewControllers[1] as! ProductDetailViewController
+                self.navigationController?.popToViewController(productDetailViewController, animated: true)
                 NotificationCenter.default.post(name: NSNotification.Name("startUploading"), object: self)
-                appdelegate.user?.product_review_list.append(SelectedProduct.foodId)
-                DataManager.updateReviewList(id: SelectedProduct.foodId, uid: (appdelegate.user?.id)!)
+                User.sharedInstance.product_review_list.append(SelectedProduct.foodId)
+                DataManager.updateReviewList(id: SelectedProduct.foodId, uid: (User.sharedInstance.id))
                 DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
                     DataManager.getUserFromUID(uid: (Auth.auth().currentUser?.uid)!, completion: { (user) in
                         let userNickName =  user.nickname
-                        DataManager.writeReview(brand: product.brand, category: product.category, grade: self.grade, priceLevel: self.priceLevel, flavorLevel: self.flavorLevel, quantityLevel: self.quantityLevel, allergy: self.allergy, review: self.detailReview.text, user: userNickName, user_image: user_image, p_id: product.id, p_image: self.reviewImage, p_name: product.name, p_price: Int(product.price)!){
+                        DataManager.writeReview(brand: product.brand, category: product.category, grade: self.grade, priceLevel: self.priceLevel, flavorLevel: self.flavorLevel, quantityLevel: self.quantityLevel, allergy: self.allergy, review: self.detailReview.text, user: userNickName, user_image: user_image, p_id: product.id, p_image: self.reviewImage, product_image: product.image, p_name: product.name, p_price: Int(product.price)!){
                         }
                     })
                 }

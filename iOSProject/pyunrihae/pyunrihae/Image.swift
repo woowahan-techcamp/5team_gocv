@@ -28,7 +28,7 @@ class Image {
             let imageView = UIImageView(image: uiImage)
             imageView.frame = CGRect(x: Int(grade) * 18 - 3, y: 0, width: 17, height: 15)
             starView.addSubview(imageView)
-            for i in (5 - Int(grade)..<5) {
+            for i in (Int(grade) + 1)..<5 {
                 let emptyStarImage =  UIImage(named: "empty_star.png")
                 let imageView = UIImageView(image: emptyStarImage)
                 imageView.contentMode = .scaleAspectFit

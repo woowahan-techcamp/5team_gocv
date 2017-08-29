@@ -32,10 +32,12 @@ class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
     let appdelegate = UIApplication.shared.delegate as! AppDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.automaticallyAdjustsScrollViewInsets = false
         UINavigationBar.appearance().backgroundColor = UIColor.white
         UINavigationBar.appearance().tintColor = UIColor.black
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.isTranslucent = false
         brandContentView.isHidden = true
         tabContentView.isHidden = true
         contentView.isHidden = true // 화면 받아오기 전까지 화면 터치 안됨
@@ -71,10 +73,10 @@ class TabBarViewController: UIViewController,NVActivityIndicatorViewable {
         didPressTabBtn(tabBtns[selectedTabIndex])
         if Auth.auth().currentUser != nil {
             DataManager.getUserFromUID(uid: (Auth.auth().currentUser?.uid)!, completion: { (user) in
-                self.appdelegate.user = user
+                User.sharedInstance = user
             })
         } else {
-            appdelegate.user = User()
+            User.sharedInstance = User()
         }
     }
     override func didReceiveMemoryWarning() {
