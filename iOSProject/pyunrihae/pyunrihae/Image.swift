@@ -13,45 +13,36 @@ class Image {
         image.layer.cornerRadius = image.layer.frame.height/2
         image.clipsToBounds = true
     }
-    static func drawStar(numberOfPlaces: Double, grade_avg: Double, gradeLabel: UILabel, starView: UIView) {
+    static func drawStar(numberOfPlaces: Double, grade_avg: Double, gradeLabel: UILabel, starView: UIImageView) {
         for sub in starView.subviews {
             sub.removeFromSuperview()
         }
         let multiplier = pow(10.0, numberOfPlaces)
         let grade = round(Double(grade_avg) * multiplier) / multiplier
         gradeLabel.text = String(grade)
-        if grade - Double(Int(grade)) >= 0.5 {
-            let starImage = UIImage(named: "stars.png")
-            let cgImage = starImage?.cgImage
-            let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: (starImage?.size.width)! * 4 / 5, y: 10, width: (starImage?.size.width)!, height: starImage!.size.height))!
-            let uiImage = UIImage(cgImage: croppedCGImage)
-            let imageView = UIImageView(image: uiImage)
-            imageView.frame = CGRect(x: Int(grade) * 18 - 3, y: 0, width: 17, height: 15)
-            starView.addSubview(imageView)
-            for i in (Int(grade) + 1)..<5 {
-                let emptyStarImage =  UIImage(named: "empty_star.png")
-                let imageView = UIImageView(image: emptyStarImage)
-                imageView.contentMode = .scaleAspectFit
-                imageView.frame = CGRect(x: i * 18 - 3, y: 0, width: 17, height: 15)
-                starView.addSubview(imageView)
-            }
-        } else{
-            for i in Int(grade)..<5 {
-                let emptyStarImage =  UIImage(named: "empty_star.png")
-                let imageView = UIImageView(image: emptyStarImage)
-                imageView.contentMode = .scaleAspectFit
-                imageView.frame = CGRect(x: i * 18 - 3, y: 0, width: 17, height: 15)
-                starView.addSubview(imageView)
-            }
-        }
-        for i in 0..<Int(grade) {
-            let starImage = UIImage(named: "stars.png")
-            let cgImage = starImage?.cgImage
-            let croppedCGImage: CGImage = cgImage!.cropping(to: CGRect(x: 0, y: 10, width: (starImage?.size.width)! / 5, height: starImage!.size.height))!
-            let uiImage = UIImage(cgImage: croppedCGImage)
-            let imageView = UIImageView(image: uiImage)
-            imageView.frame = CGRect(x: i * 18, y: 0, width: 17, height: 15)
-            starView.addSubview(imageView)
+        starView.contentMode = .scaleAspectFit
+        if grade < 0.5 {
+            starView.image = UIImage(named: "star0.png")
+        } else if grade < 1.0 {
+            starView.image = UIImage(named: "star5.png")
+        } else if grade < 1.5 {
+            starView.image = UIImage(named: "star1.png")
+        } else if grade < 2.0 {
+            starView.image = UIImage(named: "star15.png")
+        } else if grade < 2.5 {
+            starView.image = UIImage(named: "star2.png")
+        } else if grade < 3.0 {
+            starView.image = UIImage(named: "star25.png")
+        } else if grade < 3.5 {
+            starView.image = UIImage(named: "star3.png")
+        } else if grade < 4.0 {
+            starView.image = UIImage(named: "star35.png")
+        } else if grade < 4.5 {
+            starView.image = UIImage(named: "star4.png")
+        } else if grade < 5.0 {
+            starView.image = UIImage(named: "star45.png")
+        } else if grade == 5.0 {
+            starView.image = UIImage(named: "star5.png")
         }
     }
 }

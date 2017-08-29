@@ -36,6 +36,8 @@ class Popup{
         btns.validator = validator
         btns.badBtn.isEnabled = false
         btns.usefulBtn.isEnabled = false
+        Button.deleteBorder(btn: btns.usefulBtn)
+        Button.deleteBorder(btn: btns.badBtn)
         DataManager.getReviewBy(id: review.id){ (review) in
             btns.badNumLabel.text = String(review.bad)
             btns.usefulNumLabel.text = String(review.useful)
