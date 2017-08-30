@@ -59,9 +59,16 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
             self.productNameLabel.text = product.name
             self.brandLabel.text = product.brand
             self.priceLabel.text = product.price + "원"
-            self.productImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
+            
+            if product.image != "" {
+                self.productImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
+                    self.loading.stopAnimating()
+                })
+            }else{
+                self.productImage.image = UIImage(named: "ic_default_product.png")
                 self.loading.stopAnimating()
-            })
+            }
+            
         }
         detailReview.layer.borderWidth = 0.7
         detailReview.layer.borderColor = UIColor.lightGray.cgColor
