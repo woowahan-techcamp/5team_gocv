@@ -83,6 +83,8 @@ class ProductDetailViewController: UIViewController {
         self.navigationController?.popToRootViewController(animated: true)
         NotificationCenter.default.post(name: NSNotification.Name("getReviewList"), object: self)
     }
+    
+    
     @IBAction func closeNavViewBtn(_ sender: UIButton) {
         close()
     }

@@ -202,7 +202,7 @@ extension RankingViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.loading.stopAnimating()
                 })
             }else{
-                cell.foodImage.image = #imageLiteral(resourceName: "ic_default.png")
+                cell.foodImage.image = UIImage(named: "ic_default_product.png")
             }
             cell.orderNumLabel.text = (indexPath.item + 1).description
             cell.brandLabel.text = product.brand

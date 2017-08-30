@@ -17,7 +17,7 @@
         <!--검색-->
         <scene sceneID="2QL-aV-Axn">
             <objects>
-                <viewController storyboardIdentifier="SearchViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Gh4-QB-xFR" customClass="SearchViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Gh4-QB-xFR" customClass="SearchViewController" customModule="편의점리뷰해" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XuD-Ta-4B6"/>
                         <viewControllerLayoutGuide type="bottom" id="hNY-P8-qZa"/>
@@ -47,7 +47,7 @@
         <!--Main View Controller-->
         <scene sceneID="Igz-cB-Ito">
             <objects>
-                <viewController storyboardIdentifier="MainViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NeN-EZ-CjC" customClass="MainViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NeN-EZ-CjC" customClass="MainViewController" customModule="편의점리뷰해" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EJn-9B-I2E"/>
                         <viewControllerLayoutGuide type="bottom" id="odE-R0-RLy"/>
@@ -99,7 +99,7 @@
         <!--편리해-->
         <scene sceneID="g2Z-sH-bSe">
             <objects>
-                <viewController storyboardIdentifier="TabBarViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="09o-sF-lFm" customClass="TabBarViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TabBarViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="09o-sF-lFm" customClass="TabBarViewController" customModule="편의점리뷰해" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4eH-je-8dF"/>
                         <viewControllerLayoutGuide type="bottom" id="vEB-Xc-2dd"/>
@@ -112,7 +112,7 @@
                                 <rect key="frame" x="0.0" y="109" width="375" height="496"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w8h-kx-L4y" customClass="TabBarView" customModule="pyunrihae" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w8h-kx-L4y" customClass="TabBarView" customModule="편의점리뷰해" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="604" width="375" height="63"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dcO-LI-5dH">
@@ -472,7 +472,7 @@
         <!--Ranking View Controller-->
         <scene sceneID="LxM-4I-D0P">
             <objects>
-                <viewController storyboardIdentifier="RankingViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="haD-mA-XTm" customClass="RankingViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RankingViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="haD-mA-XTm" customClass="RankingViewController" customModule="편의점리뷰해" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="J8J-SZ-Jgx"/>
                         <viewControllerLayoutGuide type="bottom" id="FDE-cf-JS4"/>
@@ -485,7 +485,7 @@
                                 <rect key="frame" x="0.0" y="85" width="375" height="582"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="130" id="hx1-FC-c0Q" customClass="RankingTableViewCell" customModule="pyunrihae" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="130" id="hx1-FC-c0Q" customClass="RankingTableViewCell" customModule="편의점리뷰해" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="130"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hx1-FC-c0Q" id="ylF-Bu-Y03">
@@ -682,7 +682,7 @@
                                 <color key="textColor" red="0.56470588235294117" green="0.56470588235294117" blue="0.56470588235294117" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pf9-MT-aaT" customClass="CategoryScrollView" customModule="pyunrihae" customModuleProvider="target">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pf9-MT-aaT" customClass="CategoryScrollView" customModule="편의점리뷰해" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="R68-vX-mSl"/>
@@ -720,7 +720,7 @@
         <!--상품상세-->
         <scene sceneID="1Yi-Qd-Imp">
             <objects>
-                <viewController storyboardIdentifier="ProductDetailViewController" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="t3O-Pz-lwz" customClass="ProductDetailViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProductDetailViewController" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="t3O-Pz-lwz" customClass="ProductDetailViewController" customModule="편의점리뷰해" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iGX-N6-Qxt"/>
                         <viewControllerLayoutGuide type="bottom" id="FHL-9w-PA7"/>
@@ -736,7 +736,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="InfoCell" rowHeight="176" id="IY0-vb-mFz" customClass="ProductInfoTableViewCell" customModule="pyunrihae" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="InfoCell" rowHeight="176" id="IY0-vb-mFz" customClass="ProductInfoTableViewCell" customModule="편의점리뷰해" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="375" height="176"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IY0-vb-mFz" id="46E-GN-5Jm">
@@ -852,7 +852,7 @@
                                                     <outlet property="priceLabel" destination="TTH-cm-D1b" id="l1Z-Wj-4lB"/>
                                                 </connections>
                                             </tableViewCell>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DetailCell" rowHeight="154" id="0yY-VA-i2G" customClass="ProductDetailInfoTableViewCell" customModule="pyunrihae" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DetailCell" rowHeight="154" id="0yY-VA-i2G" customClass="ProductDetailInfoTableViewCell" customModule="편의점리뷰해" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="204" width="375" height="154"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0yY-VA-i2G" id="oTu-zk-F13">
@@ -984,7 +984,7 @@
                                                     <outlet property="starImageView" destination="rld-Hj-nwR" id="grb-Qn-pvB"/>
                                                 </connections>
                                             </tableViewCell>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="235" id="dxE-em-sid" customClass="ProductReviewTableViewCell" customModule="pyunrihae" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="235" id="dxE-em-sid" customClass="ProductReviewTableViewCell" customModule="편의점리뷰해" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="358" width="375" height="235"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dxE-em-sid" id="cgg-ac-nMU">
@@ -1099,6 +1099,17 @@
                                                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="LYt-YA-FDB">
                                                             <rect key="frame" x="31" y="39" width="20" height="20"/>
                                                         </activityIndicatorView>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fdr-eX-5XG">
+                                                            <rect key="frame" x="29" y="86" width="24" height="24"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="24" id="Xjq-Zg-1y5"/>
+                                                                <constraint firstAttribute="width" constant="24" id="yrv-tf-SBc"/>
+                                                            </constraints>
+                                                            <state key="normal" backgroundImage="kakaolink_btn_small.png"/>
+                                                            <connections>
+                                                                <action selector="kakaoShare:" destination="dxE-em-sid" eventType="touchUpInside" id="WiU-Pa-Mi4"/>
+                                                            </connections>
+                                                        </button>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YbJ-pW-FhM">
                                                             <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                                             <subviews>
@@ -1119,10 +1130,12 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="LYt-YA-FDB" firstAttribute="top" secondItem="cgg-ac-nMU" secondAttribute="topMargin" constant="31" id="1I6-8c-a29"/>
+                                                        <constraint firstItem="fdr-eX-5XG" firstAttribute="top" secondItem="NAm-hh-li3" secondAttribute="bottom" constant="8" id="4jD-mU-dry"/>
                                                         <constraint firstAttribute="bottom" secondItem="YbJ-pW-FhM" secondAttribute="bottom" id="6IX-Ew-Wbh"/>
                                                         <constraint firstAttribute="trailing" secondItem="YbJ-pW-FhM" secondAttribute="trailing" id="CGA-GN-BId"/>
                                                         <constraint firstItem="NAm-hh-li3" firstAttribute="leading" secondItem="cgg-ac-nMU" secondAttribute="leadingMargin" constant="3" id="Kqm-Tg-RYp"/>
                                                         <constraint firstItem="LYt-YA-FDB" firstAttribute="leading" secondItem="cgg-ac-nMU" secondAttribute="leadingMargin" constant="23" id="N0J-hx-T85"/>
+                                                        <constraint firstItem="fdr-eX-5XG" firstAttribute="centerX" secondItem="NAm-hh-li3" secondAttribute="centerX" id="Wb8-3y-jwa"/>
                                                         <constraint firstItem="Gt7-gt-hp8" firstAttribute="top" secondItem="cgg-ac-nMU" secondAttribute="topMargin" constant="3" id="dH4-hk-iwf"/>
                                                         <constraint firstItem="YbJ-pW-FhM" firstAttribute="centerX" secondItem="cgg-ac-nMU" secondAttribute="centerX" id="eeY-J1-gkt"/>
                                                         <constraint firstAttribute="bottomMargin" secondItem="Gt7-gt-hp8" secondAttribute="bottom" constant="3" id="nTz-c6-JJY"/>
@@ -1245,7 +1258,7 @@
         <!--Product Allergy View Controller-->
         <scene sceneID="nC9-Tt-QG8">
             <objects>
-                <viewController storyboardIdentifier="ProductAllergyViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HPT-ct-njI" customClass="ProductAllergyViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProductAllergyViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HPT-ct-njI" customClass="ProductAllergyViewController" customModule="편의점리뷰해" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="766-fA-00p"/>
                         <viewControllerLayoutGuide type="bottom" id="foU-ZA-cgm"/>
@@ -1314,7 +1327,7 @@
         <!--리뷰 쓰기-->
         <scene sceneID="U4u-zJ-8pO">
             <objects>
-                <viewController id="73h-LJ-DL6" customClass="WritingReviewViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="73h-LJ-DL6" customClass="WritingReviewViewController" customModule="편의점리뷰해" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="70K-Sp-8vz"/>
                         <viewControllerLayoutGuide type="bottom" id="r9v-QD-yI8"/>
@@ -1631,7 +1644,7 @@
         <!--Big Image View Controller-->
         <scene sceneID="Jkj-kS-wTC">
             <objects>
-                <viewController id="VCz-lc-hnn" customClass="BigImageViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="VCz-lc-hnn" customClass="BigImageViewController" customModule="편의점리뷰해" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zdW-6q-Lt6"/>
                         <viewControllerLayoutGuide type="bottom" id="AQ8-pT-ejH"/>
@@ -1663,7 +1676,7 @@
         <!--알레르기 성분 선택-->
         <scene sceneID="0Ja-zF-9l9">
             <objects>
-                <viewController id="noX-w8-BKx" customClass="AllergyViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="noX-w8-BKx" customClass="AllergyViewController" customModule="편의점리뷰해" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="efu-Ad-97U"/>
                         <viewControllerLayoutGuide type="bottom" id="8E4-r7-sJK"/>
@@ -1676,7 +1689,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" rowHeight="58" id="hEU-ol-izC" customClass="AllergyTableViewCell" customModule="pyunrihae" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" rowHeight="58" id="hEU-ol-izC" customClass="AllergyTableViewCell" customModule="편의점리뷰해" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hEU-ol-izC" id="dqg-zN-Mec">
@@ -1749,7 +1762,7 @@
         <!--로그인-->
         <scene sceneID="jkj-MD-ACi">
             <objects>
-                <viewController title="로그인" id="4W9-Pd-S0Y" customClass="LoginViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="로그인" id="4W9-Pd-S0Y" customClass="LoginViewController" customModule="편의점리뷰해" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7AC-Pe-rM0"/>
                         <viewControllerLayoutGuide type="bottom" id="CTA-q2-EVb"/>
@@ -1892,7 +1905,7 @@
         <!--회원가입-->
         <scene sceneID="RiN-Ae-fQ8">
             <objects>
-                <viewController storyboardIdentifier="SignupViewController" title="회원가입" id="KQa-R2-kWD" customClass="SignupViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignupViewController" title="회원가입" id="KQa-R2-kWD" customClass="SignupViewController" customModule="편의점리뷰해" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0h0-dB-PrQ"/>
                         <viewControllerLayoutGuide type="bottom" id="chv-nj-gls"/>
@@ -2107,7 +2120,7 @@
         <!--로그인회원가입-->
         <scene sceneID="rrK-yl-amE">
             <objects>
-                <viewController storyboardIdentifier="LoginSignUpViewController" title="로그인회원가입" id="diG-g8-7uo" customClass="LoginSignUpViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginSignUpViewController" title="로그인회원가입" id="diG-g8-7uo" customClass="LoginSignUpViewController" customModule="편의점리뷰해" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hRG-id-eRT"/>
                         <viewControllerLayoutGuide type="bottom" id="jaf-Jk-sNQ"/>
@@ -2202,7 +2215,7 @@
         <!--Review View Controller-->
         <scene sceneID="M9W-Bx-XYt">
             <objects>
-                <viewController storyboardIdentifier="ReviewViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NXa-eb-Qqi" customClass="ReviewViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ReviewViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NXa-eb-Qqi" customClass="ReviewViewController" customModule="편의점리뷰해" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wG3-cd-Riq"/>
                         <viewControllerLayoutGuide type="bottom" id="Frb-v8-qUL"/>
@@ -2211,7 +2224,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QJs-8j-rmm" customClass="CategoryScrollView" customModule="pyunrihae" customModuleProvider="target">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QJs-8j-rmm" customClass="CategoryScrollView" customModule="편의점리뷰해" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="U5F-JF-dWL"/>
@@ -2239,7 +2252,7 @@
                                 <rect key="frame" x="0.0" y="83" width="375" height="584"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="150" id="fB9-4a-er5" customClass="ReviewTableViewCell" customModule="pyunrihae" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="150" id="fB9-4a-er5" customClass="ReviewTableViewCell" customModule="편의점리뷰해" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fB9-4a-er5" id="lAb-5u-vVO">
@@ -2460,7 +2473,7 @@
         <!--Mypage View Controller-->
         <scene sceneID="PrM-cS-FOo">
             <objects>
-                <viewController storyboardIdentifier="MypageViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="IcY-wI-TbY" customClass="MypageViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MypageViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="IcY-wI-TbY" customClass="MypageViewController" customModule="편의점리뷰해" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xp7-nQ-RLp"/>
                         <viewControllerLayoutGuide type="bottom" id="Etu-3S-6tq"/>
@@ -2476,7 +2489,7 @@
                                     <constraint firstAttribute="height" constant="255" id="AmK-zT-qU4"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="MypageTableViewCell" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" focusStyle="custom" rowHeight="100" id="6Lg-Vw-iDj" customClass="MypageTableViewCell" customModule="pyunrihae" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="MypageTableViewCell" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" focusStyle="custom" rowHeight="100" id="6Lg-Vw-iDj" customClass="MypageTableViewCell" customModule="편의점리뷰해" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="12" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Lg-Vw-iDj" id="o4B-Aj-hJy">
@@ -2602,7 +2615,7 @@
         <!--닉네임수정-->
         <scene sceneID="BAk-qy-9cF">
             <objects>
-                <viewController storyboardIdentifier="UpdateNicknameViewController" title="닉네임수정" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HaO-aV-VCf" customClass="UpdateNicknameViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UpdateNicknameViewController" title="닉네임수정" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HaO-aV-VCf" customClass="UpdateNicknameViewController" customModule="편의점리뷰해" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4vG-ee-DVR"/>
                         <viewControllerLayoutGuide type="bottom" id="3iS-yd-gXw"/>
@@ -2695,7 +2708,7 @@
         <!--편리해란?-->
         <scene sceneID="Gwd-d6-W6S">
             <objects>
-                <viewController storyboardIdentifier="PyunrihaeInfoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="03j-Lr-zEd" customClass="PyunrihaeInfoViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PyunrihaeInfoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="03j-Lr-zEd" customClass="PyunrihaeInfoViewController" customModule="편의점리뷰해" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hDv-yV-gVo"/>
                         <viewControllerLayoutGuide type="bottom" id="XPZ-U8-GVi"/>
@@ -2802,7 +2815,7 @@
         <!--찜한 상품 리스트 -->
         <scene sceneID="RFr-9z-ag7">
             <objects>
-                <viewController storyboardIdentifier="LikeProductViewController" title="찜한 상품 리스트 " useStoryboardIdentifierAsRestorationIdentifier="YES" id="wCb-CE-OEE" customClass="LikeProductViewController" customModule="pyunrihae" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LikeProductViewController" title="찜한 상품 리스트 " useStoryboardIdentifierAsRestorationIdentifier="YES" id="wCb-CE-OEE" customClass="LikeProductViewController" customModule="편의점리뷰해" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="PR8-FU-3J0"/>
                         <viewControllerLayoutGuide type="bottom" id="iGb-uU-CQe"/>
@@ -2815,7 +2828,7 @@
                                 <rect key="frame" x="0.0" y="5" width="375" height="598"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LikeProductTableViewCell" focusStyle="custom" rowHeight="80" id="gYF-Pu-ctP" customClass="LikeProductTableViewCell" customModule="pyunrihae" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LikeProductTableViewCell" focusStyle="custom" rowHeight="80" id="gYF-Pu-ctP" customClass="LikeProductTableViewCell" customModule="편의점리뷰해" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gYF-Pu-ctP" id="MPM-Db-dqS">
@@ -2942,6 +2955,7 @@
         <image name="ic_review_selected.png" width="42" height="68"/>
         <image name="ic_review_write.png" width="120" height="120"/>
         <image name="ic_user.png" width="200" height="200"/>
+        <image name="kakaolink_btn_small.png" width="34" height="35"/>
         <image name="search" width="15" height="15"/>
     </resources>
     <inferredMetricsTieBreakers>

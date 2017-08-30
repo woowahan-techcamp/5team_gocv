@@ -44,10 +44,15 @@ class ProductInfoTableViewCell: UITableViewCell {
             self.foodImage.clipsToBounds = true
             
 
-            self.foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), completion:{ image in
-                self.foodImageBtn.setBackgroundImage(self.foodImage.image, for: .normal)
-                self.loading.stopAnimating()
-            })
+            if product.image != "" {
+                self.foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), completion:{ image in
+                    self.foodImageBtn.setBackgroundImage(self.foodImage.image, for: .normal)
+                    self.loading.stopAnimating()
+                })
+            }else{
+                self.foodImage.image = UIImage(named: "ic_default_product.png")
+            }
+            
         }
     }
 }
