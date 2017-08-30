@@ -279,21 +279,21 @@ export class ProductPopup {
             } else {
                 newWishArr=[]
             }
-            console.log(double);
-            console.log(newWishArr);
-            console.log(reduceWishArr);
+            // console.log(double);
+            // console.log(newWishArr);
+            // console.log(reduceWishArr);
 
 
             if (double) {
                 newWishArr.push(this.productId);
-                console.log(newWishArr)
+                // console.log(newWishArr)
                 firebase.database().ref('user/' + this.userId + "/wish_product_list").set(newWishArr).then(function () {
                     const that2 = that;
                     firebase.database().ref('user/').once('value').then(function (snapshot) {
                         localStorage['user'] = JSON.stringify(snapshot.val());
                         that2.db.user = JSON.parse(localStorage['user']);
                         new Toast("즐겨찾기 품목에 추가되었습니다.")
-                        console.log("user 캐시 업데이트")
+                        // console.log("user 캐시 업데이트")
 
                         popupWishBtn.disabled = false;
                         document.querySelector('#loading').style.display = "none";
@@ -306,7 +306,7 @@ export class ProductPopup {
                         localStorage['user'] = JSON.stringify(snapshot.val());
                         that2.db.user = JSON.parse(localStorage['user']);
                         new Toast("즐겨찾기에서 삭제되었습니다.")
-                        console.log("user 캐시 업데이트")
+                        // console.log("user 캐시 업데이트")
 
 
                         popupWishBtn.disabled = false;
@@ -429,7 +429,7 @@ class Review {
             }
         });
 
-        console.log(this.product);
+        // console.log(this.product);
     }
 
     //초기화 함수
@@ -548,7 +548,7 @@ class Review {
 
             let file = document.querySelector('#reviewImageInput').files[0];
 
-            console.log(this.reviewId);
+            // console.log(this.reviewId);
             if (file) {
                 this.fileName = 'images/' + this.reviewId + "." + file.type.split("/")[1];
 
@@ -629,7 +629,6 @@ class Review {
         this.db.updateUserDb();
 
         const allergyArr = Array.from(document.querySelectorAll('.popup-newReview-Allergy-select'));
-        console.log(allergyArr);
 
         if (allergyArr.length === 0) {
 
@@ -637,16 +636,12 @@ class Review {
             if (!!this.product.allergy) {
                 allergyArr.forEach(function (element) {
                     if (this.product.allergy.includes(element.getAttribute("name"))) {
-                        // console.log("이미있음")
                     } else {
-                        // console.log("없으니까 추가")
-                        console.log(element.getAttribute("name"));
                         this.product.allergy.push(element.getAttribute("name"));
                     }
                 }.bind(this))
 
             } else {
-                // console.log("애초에 아무것도 없는 경우")
                 this.product.allergy = [];
                 allergyArr.forEach(function (element) {
                     this.product.allergy.push(element.getAttribute("name"));
@@ -709,7 +704,6 @@ class Review {
             that.getDatabase(database, url);
 
         }.bind(this)).catch(function (error) {
-            console.log(error);
             document.querySelector('#loading').style.display = "none"
         });
     }
@@ -880,7 +874,6 @@ class ReviewFilter {
 
         this.reviewObj = newReviewObj;
 
-        console.log(this.reviewObj);
         const priceArr = ["비쌈", "아쉽", "적당", "양호", "저렴"]
         const flavorArr = ["노맛", "아쉽", "적당", "양호", "존맛"]
         const quantityArr = ["창렬", "아쉽", "적당", "양호", "혜자"]
@@ -909,7 +902,6 @@ class ReviewRating {
 
         this.userId = userId;
 
-        this.reviewArr = db.;
 
         this.productId = productId;
         this.reviewId = reviewId;
@@ -939,7 +931,6 @@ class ReviewRating {
 
                 //데이터가 없거나, 0일경우
                 if (!this.likeList || this.likeList === 0) {
-                    // console.log("데이터가 없거나, 0일경우");
 
                     document.querySelector('#loading').style.display = "block";
                     goodBtn.disabled = true;
@@ -986,13 +977,11 @@ class ReviewRating {
                             document.querySelector('#loading').style.display = "none";
                             goodBtn.disabled = false;
                             badBtn.disabled = false;
-                            // console.log("user 캐시 업데이트")
                         }.bind(that2));
                     }.bind(that));
 
                     //이미 선택된적이 있는 경우
                 } else if (this.likeList === 1) {
-                    // console.log("good 으로 선택된적 있는 경우")
 
                     document.querySelector('#loading').style.display = "block";
                     goodBtn.disabled = true;
@@ -1020,19 +1009,16 @@ class ReviewRating {
                                 document.querySelector('#loading').style.display = "none";
                                 goodBtn.disabled = false;
                                 badBtn.disabled = false;
-                                // console.log("user 캐시 업데이트")
                             }.bind(that2));
                         }.bind(that));
                     } else {
 
-                        // console.log("아무반응이 없어야함")
                         document.querySelector('#loading').style.display = "none";
                         goodBtn.disabled = false;
                         badBtn.disabled = false;
                     }
 
                 } else if (this.likeList === -1) {
-                    // console.log("bad 으로 선택된적 있는 경우")
                     document.querySelector('#loading').style.display = "block";
                     goodBtn.disabled = true;
                     badBtn.disabled = true;
@@ -1059,12 +1045,10 @@ class ReviewRating {
                                 document.querySelector('#loading').style.display = "none";
                                 goodBtn.disabled = false;
                                 badBtn.disabled = false;
-                                // console.log("user 캐시 업데이트")
                             }.bind(that2));
                         }.bind(that));
 
                     } else {
-                        // console.log("아무반응이 없어야함")
                         document.querySelector('#loading').style.display = "none";
                         goodBtn.disabled = false;
                         badBtn.disabled = false;

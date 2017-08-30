@@ -1,5 +1,3 @@
-import {SignIn} from './sign.js'
-
 
 export class DB {
     constructor(user, product, review) {
@@ -43,7 +41,7 @@ export class DB {
             localStorage[name] = JSON.stringify(snapshot.val());
             this.user = JSON.parse(localStorage[name]);
             document.querySelector('#loading').style.display = "none";
-            console.log(name + " 캐시 업데이트")
+            // console.log(name + " 캐시 업데이트")
         }.bind(this));
     }
 
@@ -58,7 +56,7 @@ export class DB {
             localStorage['user'] = JSON.stringify(snapshot.val());
             this.user = JSON.parse(localStorage['user']);
             document.querySelector('#loading').style.display = "none";
-            console.log("user 캐시 업데이트")
+            // console.log("user 캐시 업데이트")
 
         }.bind(this));
     }
@@ -68,7 +66,7 @@ export class DB {
             localStorage['review'] = JSON.stringify(snapshot.val());
             this.review = JSON.parse(localStorage['review']);
             document.querySelector('#loading').style.display = "none";
-            console.log("review 캐시 업데이트")
+            // console.log("review 캐시 업데이트")
 
         }.bind(this));
     }
@@ -78,7 +76,7 @@ export class DB {
             localStorage['product'] = JSON.stringify(snapshot.val());
             this.product = JSON.parse(localStorage['product']);
             document.querySelector('#loading').style.display = "none";
-            console.log("product 캐시 업데이트")
+            // console.log("product 캐시 업데이트")
         }.bind(this));
     }
 }
