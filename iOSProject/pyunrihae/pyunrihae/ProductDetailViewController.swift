@@ -16,19 +16,16 @@ class ProductDetailViewController: UIViewController {
     var sortingMethodLabel = UILabel()
     var orderBy = "최신순"
     var productGrade = 0.0
-    var usefulBtns = [UIButton]()
-    var badBtns = [UIButton]()
-    var usefulLabels = [UILabel]()
-    var badLabels = [UILabel]()
     var reviewList = [Review]()
-    var reviewIdList = [String]()
+    var reviewCount: Int = 0
+    var productId = ""
     var product = Product()
+    var reviewUploadingNow = false
     let appdelegate = UIApplication.shared.delegate as! AppDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
-        writingReviewBtn.isHidden = true
         if User.sharedInstance.email != "" {
-            if (User.sharedInstance.wish_product_list.contains(SelectedProduct.foodId)){
+            if (User.sharedInstance.wish_product_list.contains(productId)){
                 wishBtn.setBackgroundImage(UIImage(named: "ic_like_filled.png"), for: .normal)
             } else {
                 wishBtn.setBackgroundImage(UIImage(named: "ic_like.png"), for: .normal)
@@ -48,11 +45,15 @@ class ProductDetailViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name("complete"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reviewUpload), name: NSNotification.Name("reviewUpload"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(startUploading), name: NSNotification.Name("startUploading"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showAllergy), name: NSNotification.Name("showAllergy"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showLoginPopup), name: NSNotification.Name("showLoginPopup"), object: nil)
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         self.view.addGestureRecognizer(tap)
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
         swipeRight.direction = UISwipeGestureRecognizerDirection.right
         self.view.addGestureRecognizer(swipeRight)
+        reviewCount = 0
+        reload()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -66,6 +67,9 @@ class ProductDetailViewController: UIViewController {
             }
         }
     }
+    func showLoginPopup(_ notification: Notification) {
+        Pyunrihae.showLoginOptionPopup(_ : self)
+    }
     func handleTap(_ sender: UITapGestureRecognizer) { // 탭해주면 리뷰 작성 버튼 뜸
         if hidden == true {
             writingReviewBtn.isHidden = false
@@ -77,85 +81,51 @@ class ProductDetailViewController: UIViewController {
     }
     func close() {
         self.navigationController?.popToRootViewController(animated: true)
-        NotificationCenter.default.post(name: NSNotification.Name("reloadReview"), object: self)
+        NotificationCenter.default.post(name: NSNotification.Name("getReviewList"), object: self)
     }
+    
+    
     @IBAction func closeNavViewBtn(_ sender: UIButton) {
         close()
     }
     @IBAction func tabWishBtn(_ sender: UIButton) {
-        
         let user = User.sharedInstance
-        if user.email != "" {
+        if (user.email != "" && productId != "") {
             uploadingView.isHidden = false
             if wishBtn.backgroundImage(for: .normal) == UIImage(named: "ic_like.png") {
-                alertMessageLabel.text = "위시리스트에 추가되었습니다!"
+                if !reviewUploadingNow {
+                    alertMessageLabel.text = "즐겨찾기에 추가되었습니다!"
+                    reviewUpload()
+                }
                 wishBtn.setBackgroundImage(UIImage(named: "ic_like_filled.png"), for: .normal)
-                reviewUpload()
             } else if wishBtn.backgroundImage(for: .normal) == UIImage(named: "ic_like_filled.png") {
-                alertMessageLabel.text = "위시리스트에서 제거되었습니다."
+                if !reviewUploadingNow {
+                    alertMessageLabel.text = "즐겨찾기에서 제거되었습니다."
+                    reviewUpload()
+                }
                 wishBtn.setBackgroundImage(UIImage(named: "ic_like.png"), for: .normal)
-                reviewUpload()
             }
-            DataManager.updateWishList(id: SelectedProduct.foodId, uid: (user.id))
+            DataManager.updateWishList(id: productId, uid: (user.id))
         } else {
             Pyunrihae.showLoginOptionPopup(_ : self)
         }
     }
-    func didPressallergyBtn(sender: UIButton){ // 알러지 리스트 누르기
+    func showAllergy(_ notification: Notification){ // 알러지 리스트 보여주기
+        let productId = notification.userInfo?["productId"] as! String
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "ProductAllergyViewController") as! ProductAllergyViewController
         for product in appdelegate.productList {
-            if product.id == SelectedProduct.foodId{
+            if product.id == productId{
                 vc.allergyList = product.allergy
                 self.present(vc, animated: true, completion: nil)
             }
         }
     }
-    func didPressUsefulBtn(sender: UIButton) { //유용해요 버튼 누르기
-        if User.sharedInstance.email == "" {
-            Pyunrihae.showLoginOptionPopup(_ : self)
-        } else {
-            Button.didPressUsefulBtn(sender: sender, reviewId: reviewIdList[sender.tag], usefulNumLabel: usefulLabels[sender.tag], badNumLabel: badLabels[sender.tag], usefulBtn: usefulBtns[sender.tag], badBtn: badBtns[sender.tag], reviewList: reviewList)
-        }
-    }
-    func didPressBadBtn(sender: UIButton) { //별로에요 버튼 누르기
-        if User.sharedInstance.email == "" {
-            Pyunrihae.showLoginOptionPopup(_ : self)
-        } else {
-            Button.didPressBadBtn(sender: sender, reviewId: reviewIdList[sender.tag], usefulNumLabel: usefulLabels[sender.tag], badNumLabel: badLabels[sender.tag], usefulBtn: usefulBtns[sender.tag], badBtn: badBtns[sender.tag], reviewList: reviewList)
-        }
-    }
-    func showProduct(_ notification: Notification) { // 넘어온 product 정보 받아서 화면 구성
-        let product = notification.userInfo?["product"] as! Product
-        SelectedProduct.foodId = product.id
-        SelectedProduct.reviewCount = 0
-        DataManager.getReviewListBy(id: product.id) { (reviewList) in
-            SelectedProduct.reviewCount = reviewList.count
-            NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
-        }
-    }
-    func showReviewProduct(_ notification: Notification) { // 넘어온 review 정보 받아서 화면 구성
-        let product = notification.userInfo?["product"] as! Review
-        print(product.p_id)
-        SelectedProduct.foodId = product.p_id
-        SelectedProduct.reviewCount = 0
-        DataManager.getReviewListBy(id: product.p_id) { (reviewList) in
-            SelectedProduct.reviewCount = reviewList.count
-            NotificationCenter.default.post(name: NSNotification.Name("complete"), object: self)
-        }
-    }
     func reload() {
         DispatchQueue.main.async {
-            DataManager.getReviewListBy(id: SelectedProduct.foodId) { (reviewList) in
-                SelectedProduct.reviewCount = reviewList.count
-                self.reviewList = reviewList
-                self.setReviewListOrder()
-                self.reviewIdList = []
-                self.usefulLabels = []
-                self.badLabels = []
-                self.usefulBtns = []
-                self.badBtns = []
-                self.tableView.reloadData()
+            DataManager.getReviewListBy(id: self.productId) { (reviewList) in
+                self.setReviewListOrder(reviewList: reviewList)
+                self.reviewUploadingNow = false
             }
         }
     }
@@ -169,10 +139,6 @@ class ProductDetailViewController: UIViewController {
         alertMessageLabel.text = "리뷰 업로드 중입니다..."
         uploadingView.isHidden = false
     }
-    func addNotiObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(showProduct), name: NSNotification.Name("showProduct"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(showReviewProduct), name: NSNotification.Name("showReviewProduct"), object: nil)
-    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is BigImageViewController { // 사진 확대 화면
             let destination =  segue.destination as? BigImageViewController
@@ -182,20 +148,21 @@ class ProductDetailViewController: UIViewController {
                 }
             }
         } else if segue.destination is WritingReviewViewController { // 리뷰 작성 화면
-            
             let user = User.sharedInstance
             if user.email == "" {
                 Pyunrihae.showLoginOptionPopup(_ : self)
-            }
-            if (user.product_review_list.contains(SelectedProduct.foodId)){
+            } else if (user.product_review_list.contains(productId) && productId != ""){
                 let alert = UIAlertController(title: "이미 리뷰한 상품입니다 :)", message: "", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
+            } else {
+                let destination =  segue.destination as! WritingReviewViewController
+                destination.productId = productId
             }
         }
     }
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) { // 밑으로 내리면 리뷰작성 버튼 사라지고, 올리면 다시 뜸
-        if velocity.y > 0 {
+        if velocity.y >= 0 {
             if hidden == false {
                 hidden = true
                 UIView.animate(withDuration: 0.7, delay: 0, animations: {
@@ -223,10 +190,10 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
         if section == 0 {
             return 2
         } else {
-            if SelectedProduct.reviewCount == 0 {
+            if reviewCount == 0 {
                 return 3
             }
-            return SelectedProduct.reviewCount + 2
+            return reviewCount + 2
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -234,145 +201,30 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath) as! ProductInfoTableViewCell
                 cell.frame.size.width = tableView.frame.size.width
-                DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
-                    self.writingReviewBtn.isHidden = false
-                    cell.priceLabel.text = product.price + "원"
-                    cell.brandLabel.text = product.brand
-                    cell.foodNameLabel.text = product.name
-                    cell.capacityLabel.text = product.capacity
-                    cell.manufacturerLabel.text = product.manufacturer
-                    if product.event != "\r" { 
-                        cell.eventLabel.text = product.event
-                        Label.makeRoundLabel(label: cell.eventLabel, color: self.appdelegate.mainColor)
-                        cell.eventLabel.textColor = self.appdelegate.mainColor
-                    }else{
-                        cell.eventLabel.isHidden = true
-                    }
-                    cell.loading.startAnimating()
-                    cell.foodImage.contentMode = .scaleAspectFill
-                    cell.foodImage.clipsToBounds = true
-                    cell.foodImage.af_setImage(withURL: URL(string: product.image)!, placeholderImage: UIImage(), completion:{ image in
-                        cell.foodImageBtn.setBackgroundImage(cell.foodImage.image, for: .normal)
-                        cell.loading.stopAnimating()
-                    })
-                }
+                cell.setCellValue(productId: productId)
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath) as! ProductDetailInfoTableViewCell
                 // 제품 별점 보여주기
-                DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
-                    Image.drawStar(numberOfPlaces: 2.0, grade_avg: Double(product.grade_avg), gradeLabel: cell.gradeLabel, starView: cell.starImageView)
-                    let allergyList = product.allergy
-                    if allergyList.count != 0 {
-                        let allergy = allergyList[0]
-                        if allergyList.count == 1 {
-                            cell.allergyBtn.isEnabled = false
-                            cell.allergyBtn.setTitle(allergy, for: .normal)
-                        } else {
-                            cell.allergyBtn.isEnabled = true
-                            let count = allergyList.count - 1
-                            cell.allergyBtn.setTitle(allergy + " 외 " + count.description + "개의 성분 >", for: .normal)
-                            cell.allergyBtn.addTarget(self, action: #selector(self.didPressallergyBtn), for: .touchUpInside)
-                        }
-                    } else {
-                        cell.allergyBtn.isEnabled = false
-                        cell.allergyBtn.setTitle("알레르기 정보가 없습니다!", for: .normal)
-                    }
-                    Label.showLevel(PriceLevelLabel: cell.priceLevelLabel, FlavorLevelLabel: cell.flavorLevelLabel, QuantityLevelLabel: cell.quantityLevelLabel, priceLevelDict: product.price_level, flavorLevelDict: product.flavor_level, quantityLevelDict: product.quantity_level)
-                }
+                cell.setCellValue(productId: productId)
                 return cell
             }
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ProductReviewTableViewCell
             if indexPath.row > 1 {
-                cell.usefulView.layer.zPosition = 10
-                cell.badView.layer.zPosition = 10
                 cell.isHidden = false
-                cell.uploadedFoodImageBtn.isHidden = false
-                cell.detailReviewLabel.isHidden = false
-                cell.detailReviewLabel.frame.origin.y = 130
-                cell.commentTopConstraint.constant = 8
-                Image.makeCircleImage(image: cell.userImage)
-                cell.reviewBoxView.layer.cornerRadius = 10
                 let row = indexPath.row - 2
-                if SelectedProduct.reviewCount != 0 {
+                if reviewCount != 0 {
                     cell.noReviewView.isHidden = true
+                    if row >= 0{
+                        cell.setCellValue(review: reviewList[row], reviewList: reviewList)
+                    }
                 }
-                cell.userNameLabel.text = ""
-                cell.detailReviewLabel.text = ""
-                cell.usefulNumLabel.text = "0"
-                cell.badNumLabel.text = "0"
-                cell.userImage.image = UIImage(named: "user_default.png")
-                cell.uploadedFoodImageBtn.setBackgroundImage(UIImage(), for: .normal)
-                if reviewList.count == SelectedProduct.reviewCount && reviewList.count > 0 {
-                    Label.showWrittenTime(timestamp: reviewList[row].timestamp, timeLabel: cell.timeLabel)
-                    usefulBtns.append(cell.usefulBtn)
-                    badBtns.append(cell.badBtn)
-                    reviewIdList.append(reviewList[row].id)
-                    usefulLabels.append(cell.usefulNumLabel)
-                    badLabels.append(cell.badNumLabel)
-                    cell.usefulBtn.addTarget(self, action: #selector(self.didPressUsefulBtn), for: UIControlEvents.touchUpInside)
-                    cell.badBtn.addTarget(self, action: #selector(self.didPressBadBtn), for: UIControlEvents.touchUpInside)
-                    cell.badNumLabel.text = String(reviewList[row].bad)
-                    cell.usefulNumLabel.text = String(reviewList[row].useful)
-                    Button.validateUseful(review: reviewList[row], usefulBtn: cell.usefulBtn, badBtn: cell.badBtn, usefulNumLabel: cell.usefulNumLabel, badNumLabel: cell.badNumLabel)
-                    cell.detailReviewLabel.text = reviewList[row].comment
-                    let height = Label.heightForView(text: reviewList[row].comment, font: cell.detailReviewLabel.font, width: cell.detailReviewLabel.frame.width)
-                    cell.detailReviewLabel.frame.size.height = height
-                    cell.userNameLabel.text = reviewList[row].user
-                    cell.userImageLoading.startAnimating()
-                    cell.usefulBtn.tag = usefulBtns.count - 1
-                    cell.badBtn.tag = badBtns.count - 1
-                    cell.userImage.contentMode = .scaleAspectFill
-                    cell.userImage.clipsToBounds = true
-                    cell.userImage.af_setImage(withURL: URL(string: reviewList[row].user_image)!, placeholderImage: UIImage(), imageTransition: .crossDissolve(0.2), completion:{ image in
-                        cell.userImageLoading.stopAnimating()
-                    })
-                    if reviewList[row].p_image != "" {
-                        cell.reviewBoxView.frame.size.height = cell.detailReviewLabel.frame.height + 135
-                        cell.uploadedImageLoading.startAnimating()
-                        cell.uploadedFoodImage.contentMode = .scaleAspectFit
-                        let color = UIColor(red: CGFloat(230.0 / 255.0), green: CGFloat(230.0 / 255.0),  blue: CGFloat(230.0 / 255.0), alpha: CGFloat(Float(1)))
-                        cell.uploadedFoodImage.backgroundColor = color
-                        cell.uploadedFoodImage.af_setImage(withURL: URL(string: reviewList[row].p_image)!, placeholderImage: UIImage(), completion:{ image in
-                            cell.uploadedFoodImageBtn.setBackgroundImage(cell.uploadedFoodImage.image, for: .normal)
-                            cell.uploadedImageLoading.stopAnimating()
-                        })
-                    } else {
-                        if cell.detailReviewLabel.text == "" { // 사진 글 모두 없는 경우
-                            cell.detailReviewLabel.isHidden = true
-                            cell.reviewBoxView.frame.size.height = 90
-                        }else { // 사진만 없는 경우
-                            cell.reviewBoxView.frame.size.height = cell.detailReviewLabel.frame.height + 90
-                            cell.commentTopConstraint.constant -= 60
-                        }
-                        cell.uploadedFoodImageBtn.isHidden = true
-                    }
-                    for sub in cell.starImageView.subviews {
-                        sub.removeFromSuperview()
-                    }
-                    cell.starImageView.contentMode = .scaleAspectFit
-                    switch(reviewList[row].grade) {
-                        case 1 : cell.starImageView?.image = #imageLiteral(resourceName: "star1.png")
-                        case 2: cell.starImageView?.image = #imageLiteral(resourceName: "star2.png")
-                        case 3 : cell.starImageView?.image = #imageLiteral(resourceName: "star3.png")
-                        case 4 : cell.starImageView?.image = #imageLiteral(resourceName: "star4.png")
-                        case 5 : cell.starImageView?.image = #imageLiteral(resourceName: "star5.png")
-                        default : cell.starImageView?.image = #imageLiteral(resourceName: "star3.png")
-                    }                }
             } else {
                 cell.isHidden = true
             }
             return cell
         }
-    }
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0{
-            if indexPath.row == 0 {
-                return 187
-            }
-        }
-        return 150
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
@@ -391,7 +243,7 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                 var returnHeight : CGFloat = 0.0
                 if reviewList.count > 0 {
                     let row = indexPath.row - 2
-                    let font =  UIFont(name: "AppleSDGothicNeo-Thin", size: 13)
+                    let font =  UIFont(name: "AppleSDGothicNeo-Regular", size: 13)
                     let width = (tableView.superview?.frame.size.width)! - 110
                     let height = Label.heightForView(text: reviewList[row].comment, font: font!, width: width)
                     if reviewList[row].p_image != "" {
@@ -457,13 +309,13 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
         let orderByRanking = UIAlertAction(title: "최신순", style: .default) { action -> Void in
             DispatchQueue.main.async {
                 self.orderBy  = "최신순"
-                self.setReviewListOrder()
+                self.setReviewListOrder(reviewList: self.reviewList)
             }
         }
         let orderByPrice = UIAlertAction(title: "유용순", style: .default) { action -> Void in
             DispatchQueue.main.async {
                 self.orderBy  = "유용순"
-                self.setReviewListOrder()
+                self.setReviewListOrder(reviewList: self.reviewList)
             }
         }
         alert.addAction(cancelAction)
@@ -471,7 +323,7 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
         alert.addAction(orderByPrice)
         present(alert, animated: true, completion: nil)
     }
-    func setReviewListOrder(){
+    func setReviewListOrder(reviewList: [Review]){
         let format = DateFormatter()
         format.locale = Locale(identifier: "ko_kr")
         format.timeZone = TimeZone(abbreviation: "KST")
@@ -484,15 +336,12 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
                     return review1.id > review2.id
                 }
             })
+            self.reviewCount = reviewList.count
         }else{
             self.reviewList = reviewList.sorted(by: { $0.useful > $1.useful })
+            self.reviewCount = reviewList.count
         }
         DispatchQueue.main.async {
-            self.reviewIdList = []
-            self.usefulLabels = []
-            self.badLabels = []
-            self.usefulBtns = []
-            self.badBtns = []
             self.tableView.reloadData()
         }
     }

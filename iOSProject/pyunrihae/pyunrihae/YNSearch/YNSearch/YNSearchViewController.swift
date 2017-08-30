@@ -29,14 +29,14 @@ open class YNSearchViewController: UIViewController, UITextFieldDelegate {
     }
 
     open func ynSearchinit() {
-        self.ynSearchTextfieldView = YNSearchTextFieldView(frame: CGRect(x: 20, y: 64, width: width-40, height: 50))
+        self.ynSearchTextfieldView = YNSearchTextFieldView(frame: CGRect(x: 20, y: 0, width: width-40, height: 50))
         self.ynSearchTextfieldView.ynSearchTextField.delegate = self
         self.ynSearchTextfieldView.ynSearchTextField.addTarget(self, action: #selector(ynSearchTextfieldTextChanged(_:)), for: .editingChanged)
         self.ynSearchTextfieldView.cancelButton.addTarget(self, action: #selector(ynSearchTextfieldcancelButtonClicked), for: .touchUpInside)
         self.ynSearchTextfieldView.searchButton.addTarget(self, action: #selector(ynSearchTextfieldsearchButtonClicked), for: .touchUpInside)
         self.view.addSubview(self.ynSearchTextfieldView)
         
-        self.ynSearchView = YNSearchView(frame: CGRect(x: 0, y: 114, width: width, height: height-70))
+        self.ynSearchView = YNSearchView(frame: CGRect(x: 0, y: 50, width: width, height: height-70))
         self.view.addSubview(self.ynSearchView)
     }
     

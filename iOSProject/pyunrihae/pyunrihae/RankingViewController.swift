@@ -202,7 +202,7 @@ extension RankingViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.loading.stopAnimating()
                 })
             }else{
-                cell.foodImage.image = #imageLiteral(resourceName: "ic_default.png")
+                cell.foodImage.image = UIImage(named: "ic_default_product.png")
             }
             cell.orderNumLabel.text = (indexPath.item + 1).description
             cell.brandLabel.text = product.brand
@@ -231,9 +231,12 @@ extension RankingViewController: UITableViewDelegate, UITableViewDataSource {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let cell = sender as! RankingTableViewCell
         let indexRow = self.tableView!.indexPath(for: cell)?.row
-        if productList.count > 0 {
-            let product = productList[indexRow!]
-            NotificationCenter.default.post(name: NSNotification.Name("showProduct"), object: self, userInfo: ["product" : product])
+        if segue.destination is ProductDetailViewController {
+            let destination =  segue.destination as! ProductDetailViewController
+            if productList.count > 0 {
+                let product = productList[indexRow!]
+                destination.productId = product.id
+            }
         }
     }
 }

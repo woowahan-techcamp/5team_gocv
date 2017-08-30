@@ -23,6 +23,7 @@ class ReviewViewController: UIViewController {
     var isLoaded = false
     var actInd: UIActivityIndicatorView = UIActivityIndicatorView()
     var selectedReview = Review()
+    var popup = ReviewPopupView()
     var selectedBrandIndexFromTab : Int = 0 {
         didSet{
             getReviewList()
@@ -45,19 +46,29 @@ class ReviewViewController: UIViewController {
         didPressCategoryBtn(sender: categoryBtns[selectedCategoryIndex])
         isLoaded = true
         NotificationCenter.default.addObserver(self, selector: #selector(showDetailProduct), name: NSNotification.Name("showDetailProduct"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(getReviewList), name: NSNotification.Name("reloadReview"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadReview), name: NSNotification.Name("reloadReview"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(getReviewList), name: NSNotification.Name("getReviewList"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showLoginPopup), name: NSNotification.Name("showLoginPopup"), object: nil)
         // Do any additional setup after loading the view.
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    func reloadReview(_ notification: Notification) {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    func showLoginPopup(_ notification: Notification) {
+        Pyunrihae.showLoginOptionPopup(_ : self)
+    }
     func showDetailProduct(_ notification: Notification) {
         if notification.userInfo?["validator"] as! Int == 1{
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "ProductDetailViewController") as! ProductDetailViewController
             self.navigationController?.pushViewController(vc, animated: true)
-            NotificationCenter.default.post(name: NSNotification.Name("showReviewProduct"), object: self, userInfo: ["product" : review])
+            vc.productId = review.p_id
         }
     }
     @IBAction func tabDropDownBtn(_ sender: UIButton) {
@@ -97,6 +108,7 @@ class ReviewViewController: UIViewController {
     }
 
     func selectCategory(_ notification: Notification){
+        popup.tabView(self)
         Button.selectCategory(view: self.view, previousIndex: selectedCategoryIndex, categoryBtns: categoryBtns, selectedCategoryIndex: notification.userInfo?["category"] as! Int, categoryScrollView: categoryScrollView, scrollBar: scrollBar)
         selectedCategoryIndex = notification.userInfo?["category"] as! Int
         self.tableView.contentOffset.y = 0
@@ -251,47 +263,12 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate { //�
     }
     // 리뷰를 눌렀을 때 전환하는 함수
     func handleTap(index: Int) {
-        let popup: ReviewPopupView = UINib(nibName: "ReviewPopupView", bundle: nil).instantiate(withOwner: self, options: nil)[0] as! ReviewPopupView
+        popup = UINib(nibName: "ReviewPopupView", bundle: nil).instantiate(withOwner: self, options: nil)[0] as! ReviewPopupView
         popup.validator = 1
         review = reviewList[index]
-        Popup.showPopup(popup: popup, index: index, reviewList: reviewList, review: review, view: self.view)
-        popup.badBtn.isEnabled = false
-        popup.usefulBtn.isEnabled = false
-        DataManager.getReviewBy(id: review.id){ (review) in
-            popup.badNumLabel.text = String(review.bad)
-            popup.usefulNumLabel.text = String(review.useful)
-            self.usefulNumLabel = popup.usefulNumLabel
-            self.badNumLabel = popup.badNumLabel
-            self.usefulBtn = popup.usefulBtn
-            self.badBtn = popup.badBtn
-            Button.validateUseful(review: review, usefulBtn: self.usefulBtn, badBtn: self.badBtn, usefulNumLabel: self.usefulNumLabel, badNumLabel: self.badNumLabel)
-            popup.badBtn.isEnabled = true
-            popup.usefulBtn.isEnabled = true
-            popup.badBtn.addTarget(self, action: #selector(self.didPressBadBtn), for: UIControlEvents.touchUpInside)
-            popup.usefulBtn.addTarget(self, action: #selector(self.didPressUsefulBtn), for: UIControlEvents.touchUpInside)
-            // 카카오톡 공유 버튼 누르기
-            popup.kakaoShareBtn.addTarget(self, action: #selector(self.didPressKakaoShareBtn), for: UIControlEvents.touchUpInside)
-        }
-    }
-    func didPressUsefulBtn(sender: UIButton) { //유용해요 버튼 누르기
-        if User.sharedInstance.email == "" {
-            Pyunrihae.showLoginOptionPopup(_ : self)
-        } else {
-            Button.didPressUsefulBtn(sender: sender, reviewId: review.id, usefulNumLabel: usefulNumLabel, badNumLabel: badNumLabel, usefulBtn: usefulBtn, badBtn: badBtn, reviewList: reviewList)
-        }
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
-    func didPressBadBtn(sender: UIButton) { //별로에요 버튼 누르기
-        if User.sharedInstance.email == "" {
-            Pyunrihae.showLoginOptionPopup(_ : self)
-        } else {
-            Button.didPressBadBtn(sender: sender, reviewId: review.id, usefulNumLabel: usefulNumLabel, badNumLabel: badNumLabel, usefulBtn: usefulBtn, badBtn: badBtn, reviewList: reviewList)
-        }
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        Popup.showPopup(popup: popup, index: index, reviewList: reviewList, review: review, view: self.view, validator: popup.validator)
+        // 카카오톡 공유 버튼 누르기
+        popup.kakaoShareBtn.addTarget(self, action: #selector(self.didPressKakaoShareBtn), for: UIControlEvents.touchUpInside)
     }
     func didPressKakaoShareBtn(sender: UIButton) { //카카오톡 공유 버튼 클릭 이벤트
         DataManager.sendLinkFeed(review: review)

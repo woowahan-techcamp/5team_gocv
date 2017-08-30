@@ -18,7 +18,7 @@ class MypageViewController: UIViewController, FusumaDelegate{
     @IBOutlet weak var moreImg: UIImageView!
     @IBOutlet weak var photoEditImage: UIImageView!
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    var labelList = ["내가 찜한 상품","편리해란","회원가입 / 로그인"]
+    var labelList = ["즐겨찾기 상품","편리해란?","회원가입 / 로그인"]
     override func viewDidLoad() {
         NotificationCenter.default.addObserver(self, selector: #selector(checkUserLogin), name: NSNotification.Name("userLogined"), object: nil)
         super.viewDidLoad()
@@ -187,12 +187,12 @@ extension MypageViewController: UITableViewDataSource, UITableViewDelegate {
                 // 내가 찜한 상품 뷰
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let vc = storyboard.instantiateViewController(withIdentifier: "LikeProductViewController") as! LikeProductViewController
-                self.present(vc, animated: true, completion: nil)
+                self.navigationController?.pushViewController(vc, animated: true)
             }
         } else if indexPath.row == 1 {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "PyunrihaeInfoViewController") as! PyunrihaeInfoViewController
-            self.present(vc, animated: true, completion: nil)
+            self.navigationController?.pushViewController(vc, animated: true)
         } else if indexPath.row == 2 {
             if labelList[2] == "회원가입 / 로그인" {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)

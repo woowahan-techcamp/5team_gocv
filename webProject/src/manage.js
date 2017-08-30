@@ -215,6 +215,7 @@ export class BrandInfo {
 
 export class PopupInfo {
     constructor() {
+        this.scrollEvent();
     }
 
     // My Page
@@ -265,6 +266,10 @@ export class PopupInfo {
             this.flag = true;
             e.stopPropagation();
         }.bind(this));
+
+        document.querySelector(".myPage-close").addEventListener("click", function () {
+            this.closePopup();
+        }.bind(this));
     }
 
     closePopup() {
@@ -272,6 +277,7 @@ export class PopupInfo {
             $("body").css("overflow", "visible");
             document.getElementsByClassName('popup-close-fake')[0].click();
             this.flag = false;
+            this.moveBeforeElement();
         }
     }
 
@@ -295,7 +301,6 @@ export class PopupInfo {
         this.signInner = document.querySelector('.sign-wrapper');
 
         this.signFlag = false;
-
     }
 
     getSignPageEvent() {
@@ -311,6 +316,7 @@ export class PopupInfo {
             this.signFlag = true;
         }.bind(this));
 
+
     }
 
     closeSignPagePopup() {
@@ -318,6 +324,7 @@ export class PopupInfo {
             this.signOverlay.style.display = "none";
             $("body").css("overflow", "visible");
             this.signFlag = false;
+            this.moveBeforeElement();
         }
     }
 
@@ -341,6 +348,10 @@ export class PopupInfo {
             this.flag = true;
             e.stopPropagation();
         }.bind(this));
+
+        document.querySelector(".popup-close").addEventListener("click", function () {
+            this.closePopup();
+        }.bind(this));
     }
 
     reviewPageInit() {
@@ -363,5 +374,20 @@ export class PopupInfo {
             this.flag = true;
             e.stopPropagation();
         }.bind(this));
+
+        document.querySelector(".popup-newReview-cancel").addEventListener("click", function () {
+            this.closePopup();
+        }.bind(this));
+    }
+
+    scrollEvent(){
+        const that = this;
+        $(window).scroll(function () {
+            that.scroll = $(this).scrollTop();
+        });
+    }
+
+    moveBeforeElement(){
+        $(window).scrollTop(this.scroll);
     }
 }

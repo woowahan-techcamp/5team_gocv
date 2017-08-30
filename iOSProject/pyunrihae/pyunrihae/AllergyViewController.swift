@@ -20,12 +20,14 @@ class AllergyViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     @IBAction func tabBackBtn(_ sender: UIButton) {
-        let writingReviewViewController = self.navigationController?.viewControllers[2] as! WritingReviewViewController
+        let index = (self.navigationController?.viewControllers.count)! - 2
+        let writingReviewViewController = self.navigationController?.viewControllers[index] as! WritingReviewViewController
         self.navigationController?.popToViewController(writingReviewViewController, animated: true)
     }
     @IBAction func tabCompleteBtn(_ sender: UIButton) {
         NotificationCenter.default.post(name: NSNotification.Name("selectAllergy"), object: self, userInfo: ["allergy" : selectedAllergy])
-        let writingReviewViewController = self.navigationController?.viewControllers[2] as! WritingReviewViewController
+        let index = (self.navigationController?.viewControllers.count)! - 2
+        let writingReviewViewController = self.navigationController?.viewControllers[index] as! WritingReviewViewController
         self.navigationController?.popToViewController(writingReviewViewController, animated: true)
     }
 }

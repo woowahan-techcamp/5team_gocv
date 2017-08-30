@@ -1,4 +1,4 @@
-import {TimeManager} from "./manage";
+import {TimeManager, ResizeImage} from "./manage";
 
 //드롭다운 만드는 클래스
 export class Dropdown {
@@ -206,6 +206,7 @@ export class Carousel {
 
         const arr = [];
 
+
         arr.push(fakeBeforeValue);
         for (let i = 0; i <= 9; i++) {
             const value = queryObj[i];
@@ -308,7 +309,7 @@ export class SearchTab {
 
         this.searchButton.addEventListener("click", function () {
             this.setQuery();
-            new Toast("검색 결과입니다.")
+            new Toast("검색 결과입니다.");
             document.querySelector(".main-wrapper").style.display = "none";
             document.querySelector(".review-container").style.display = "none";
             document.querySelector(".rank-container").style.display = "";

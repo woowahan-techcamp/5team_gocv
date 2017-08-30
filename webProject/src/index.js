@@ -45,8 +45,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
     const signIn = new SignIn(db);
     const signConnect = new SignConnect()
 
-
-
     //main.js
     const searchParams = {
         brand: '.fixTab-search-brand',
@@ -56,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
         text: '.fixTab-search-word',
         button: '.fixTab-search-button'
     };
+
     const searchTab = new SearchTab(searchParams);
     const user = firebase.auth().currentUser;
     const carousel = new Carousel('reviewNavi', 'carousel-leftButton', 'carousel-rightButton', 10,
