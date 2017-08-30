@@ -171,18 +171,18 @@ export class SignIn {
         this.setEventButton();
     }
 
-    setGoogleLogin(){
+    setGoogleLogin() {
         var provider = new firebase.auth.GoogleAuthProvider();
         provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 
-        firebase.auth().signInWithPopup(provider).then(function(result) {
-            const that=this;
+        firebase.auth().signInWithPopup(provider).then(function (result) {
+            const that = this;
             // var token = result.credential.accessToken;
             var user = result.user;
 
-            if(!!this.db.user[user.uid]){
+            if (!!this.db.user[user.uid]) {
                 this.login();
-            }else{
+            } else {
                 firebase.database().ref('user/' + user.uid).set({
                     "email": user.email,
                     "id": user.uid,
@@ -203,7 +203,7 @@ export class SignIn {
 
 
     setEventButton() {
-        this.google.addEventListener('click',function(){
+        this.google.addEventListener('click', function () {
             this.setGoogleLogin()
         }.bind(this));
 
@@ -217,9 +217,9 @@ export class SignIn {
         });
 
 
-        firebase.auth().onAuthStateChanged(function(user) {
+        firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
-                if(this.db.user[user.uid]) {
+                if (this.db.user[user.uid]) {
                     this.login();
                 }
             } else {
@@ -250,13 +250,13 @@ export class SignIn {
             document.querySelector('#loading').style.display = "none";
 
             return Promise.reject();
-        }).then(function (){
+        }).then(function () {
             this.login();
         }.bind(this))
 
     }
 
-    login(){
+    login() {
         document.querySelector('#sign').style.display = "none";
         document.querySelector('#loading').style.display = "none";
 
@@ -284,6 +284,7 @@ export class SignIn {
 
         document.querySelector('.fixTab-profile-element').addEventListener("click", function () {
             const myPage = new MyPage(this.db);
+            console.log(this.db.user)
 
         }.bind(this));
     }
@@ -338,9 +339,7 @@ class MyPage {
 
     setData() {
         const util = new Util();
-
-        const productStorage = localStorage['product'];
-        const productData = JSON.parse(productStorage);
+        const that = this;
 
         const template = document.querySelector("#myPage-template").innerHTML;
         const sec = document.querySelector("#myPage");
@@ -352,8 +351,8 @@ class MyPage {
 
         if (!!this.db.user[this.userId].wish_product_list) {
             this.db.user[this.userId].wish_product_list.forEach(function (e) {
-                wishReviewArr.push(productData[e]);
-            });
+                wishReviewArr.push(that.db.product[e]);
+            }.bind(that));
         }
 
         const template2 = document.querySelector("#myPage-review-template").innerHTML;
@@ -368,34 +367,31 @@ class MyPage {
     setDeleteButtonEvent() {
         document.querySelector("#myPageReviewNavi").addEventListener("click", function (e) {
             const that = this;
+            document.querySelector('#loading').style.display = "block";
 
-            firebase.database().ref('user/').once('value').then(function (snapshot) {
+            if (e.target.classList.contains("myPage-wish-element-delete")) {
+                document.querySelector('#loading').style.display = "block";
 
+                e.target.parentElement.style.display = "none";
 
-                if (e.target.classList.contains("myPage-wish-element-delete")) {
-                    document.querySelector('#loading').style.display = "block";
+                const id = e.target.getAttribute("name");
+                const newWishArr = [];
 
-                    e.target.parentElement.style.display = "none";
+                this.db.user[this.userId].wish_product_list.forEach(function (e) {
+                    if (e !== id) {
+                        newWishArr.push(e);
+                    }
+                });
 
-                    const id = e.target.getAttribute("name");
-                    const newWishArr = [];
+                firebase.database().ref('user/' + that.userId + "/wish_product_list").set(newWishArr).then(function () {
+                    that.db.updateUserDb();
+                    new Toast("즐겨찾기에서 삭제되었습니다.");
 
-                    that.db.user[that.userId].wish_product_list.forEach(function (e) {
-                        if (e !== id) {
-                            newWishArr.push(e);
-                        }
-                    });
-
-                    const that2 = that;
-                    firebase.database().ref('user/' + that.userId + "/wish_product_list").set(newWishArr).then(function () {
-                        that2.db.updateUserDb();
-
-
-                    }.bind(that2));
-                }
-            }.bind(that));
+                }.bind(that));
+            }
         }.bind(this));
     }
+
 
     setEventUpdateImage() {
         const uploadProfile = new UpLoadImage("profileImageInput", "profilePreview");
@@ -414,7 +410,7 @@ class MyPage {
             const mountainImagesRef = storageRef.child(this.fileName);
 
             mountainImagesRef.put(file).then(function () {
-                this.updateDb();
+                that.updateDb();
                 document.querySelector('#loading').style.display = "none";
                 new Toast("이미지가 업로드 되었습니다.");
             }.bind(that));
@@ -493,6 +489,21 @@ class MyPage {
             "                     <a href=\"#myPage\"><li class=\"fixTab-profile-element\">내 정보</li></a>\n" +
             "                    <li id=\"logout\" class=\"fixTab-profile-element\">로그아웃</li>\n" +
             "                </ul>";
+        document.querySelector("#logout").addEventListener("click", function () {
+            firebase.auth().signOut().then(function () {
+                document.querySelector(".fixTab-profile-wrapper").style.display = "none"
+                document.querySelector('#sign').style.display = "block";
+            }, function (error) {
+                // An error happened.
+            });
+        });
+
+        document.querySelector('.fixTab-profile-element').addEventListener("click", function () {
+            const myPage = new MyPage(this.db);
+        }.bind(this));
+
+
+
     }
 
 }

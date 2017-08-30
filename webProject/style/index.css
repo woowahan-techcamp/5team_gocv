@@ -77,13 +77,12 @@ button {
 }
 
 .spinner {
-    margin: 100px auto 0;
-    width: 300px;
+    width: 60vw;
     text-align: center;
     position: fixed;
     z-index: 200;
     top: 35vh;
-    left: 40vw;
+    left: 20vw;
 }
 
 .bounce1, .bounce2, .bounce3 {
