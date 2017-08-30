@@ -249,7 +249,7 @@ export class ProductPopup {
 
     setProductWishEvent() {
 
-        const popupWishBtn = document.querySelector("#popupWish");
+       const popupWishBtn = document.querySelector("#popupWish");
 
         popupWishBtn.addEventListener("click", function () {
             document.querySelector('#loading').style.display = "block";
@@ -274,15 +274,30 @@ export class ProductPopup {
             } else {
                 newWishArr = []
             }
+<<<<<<< HEAD
 
             if (double) {
                 newWishArr.push(this.productId);
+=======
+            // console.log(double);
+            // console.log(newWishArr);
+            // console.log(reduceWishArr);
+
+
+            if (double) {
+                newWishArr.push(this.productId);
+                // console.log(newWishArr)
+>>>>>>> 87cc792a18a1d997daf50a67b0e0037aae4399cc
                 firebase.database().ref('user/' + this.userId + "/wish_product_list").set(newWishArr).then(function () {
                     const that2 = that;
                     firebase.database().ref('user/').once('value').then(function (snapshot) {
                         localStorage['user'] = JSON.stringify(snapshot.val());
                         that2.db.user = JSON.parse(localStorage['user']);
                         new Toast("즐겨찾기 품목에 추가되었습니다.")
+<<<<<<< HEAD
+=======
+                        // console.log("user 캐시 업데이트")
+>>>>>>> 87cc792a18a1d997daf50a67b0e0037aae4399cc
 
                         popupWishBtn.disabled = false;
                         document.querySelector('#loading').style.display = "none";
@@ -295,6 +310,10 @@ export class ProductPopup {
                         localStorage['user'] = JSON.stringify(snapshot.val());
                         that2.db.user = JSON.parse(localStorage['user']);
                         new Toast("즐겨찾기에서 삭제되었습니다.")
+<<<<<<< HEAD
+=======
+                        // console.log("user 캐시 업데이트")
+>>>>>>> 87cc792a18a1d997daf50a67b0e0037aae4399cc
 
 
                         popupWishBtn.disabled = false;
@@ -416,6 +435,11 @@ class Review {
                 e.target.className = "popup-newReview-Allergy popup-newReview-Allergy-select"
             }
         });
+<<<<<<< HEAD
+=======
+
+        // console.log(this.product);
+>>>>>>> 87cc792a18a1d997daf50a67b0e0037aae4399cc
     }
 
     //초기화 함수
@@ -534,6 +558,10 @@ class Review {
 
             let file = document.querySelector('#reviewImageInput').files[0];
 
+<<<<<<< HEAD
+=======
+            // console.log(this.reviewId);
+>>>>>>> 87cc792a18a1d997daf50a67b0e0037aae4399cc
             if (file) {
                 this.fileName = 'images/' + this.reviewId + "." + file.type.split("/")[1];
 
@@ -887,7 +915,10 @@ class ReviewRating {
 
         this.userId = userId;
 
+<<<<<<< HEAD
         this.reviewArr = reviewArr;
+=======
+>>>>>>> 87cc792a18a1d997daf50a67b0e0037aae4399cc
 
         this.productId = productId;
         this.reviewId = reviewId;
@@ -1033,6 +1064,10 @@ class ReviewRating {
                             }.bind(that2));
                         }.bind(that));
                     } else {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 87cc792a18a1d997daf50a67b0e0037aae4399cc
                         document.querySelector('#loading').style.display = "none";
                         goodBtn.disabled = false;
                         badBtn.disabled = false;

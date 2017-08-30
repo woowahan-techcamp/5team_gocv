@@ -877,10 +877,9 @@
         position: relative;
         left: 10%;
         z-index: 95;
-        top: -70px;
         min-width: 80%;
         width: 80%;
-        height: 450px;
+        height: 470px;
     }
 
     .carousel-review-element-wrapper:before {
@@ -978,7 +977,7 @@
         z-index: 110;
         position: relative;
         width: 90%;
-        height: 50vh;
+        height: 500px;
         overflow: hidden;
         font-size: 12px;
         padding: 20px;

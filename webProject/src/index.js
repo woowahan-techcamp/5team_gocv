@@ -28,7 +28,7 @@ import {PopupInfo, UpdateData} from "./manage";
 
 
 document.addEventListener('DOMContentLoaded', function (event) {
-    console.log("Dom content Loaded");
+    // console.log("Dom content Loaded");
 
     document.querySelector('#loading').style.display = "block";
 
