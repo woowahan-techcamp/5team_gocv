@@ -560,14 +560,12 @@ class DataManager{
 
         let storage = Storage.storage()
         let storageRef = storage.reference(forURL: "gs://prh-woowa.appspot.com")
-        
         let id = localRef.childByAutoId()
         var autoId = id.description()
         var components = autoId.components(separatedBy: "user/")
         autoId = components[1]
         
         let imagesRef = storageRef.child("user/" + autoId + ".jpeg")
-        
         if let data = UIImageJPEGRepresentation(profile, 0.1) {
             imagesRef.putData(data, metadata: nil, completion: {
                 (metadata, error) in
