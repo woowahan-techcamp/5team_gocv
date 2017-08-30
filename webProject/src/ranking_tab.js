@@ -41,14 +41,18 @@ export class RankingViewPage {
     }
 
     getSearchParams() {
-        const getObject = JSON.parse(localStorage['search_keyword']);
-
+        const value = localStorage['search_keyword'];
+        const json = JSON.parse(value);
         const searchParams = {};
 
-        searchParams.brand = getObject.brand;
-        searchParams.category = getObject.category;
-        searchParams.sort = getObject.sort;
-        searchParams.keyword = getObject.keyword;
+        if(json){
+            const getObject = JSON.parse(localStorage['search_keyword']);
+
+            searchParams.brand = getObject.brand;
+            searchParams.category = getObject.category;
+            searchParams.sort = getObject.sort;
+            searchParams.keyword = getObject.keyword;
+        }
 
         return searchParams;
     }
