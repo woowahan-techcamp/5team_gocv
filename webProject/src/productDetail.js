@@ -1,5 +1,5 @@
 import {Util, Dropdown, Toast} from './main.js'
-import {PopupInfo, TimeManager} from "./manage";
+import {PopupInfo, TimeManager, UpdateData} from "./manage";
 
 //image 업로드하고 미리보기 만드는 클래스
 export class UpLoadImage {
@@ -253,9 +253,14 @@ export class ProductPopup {
     }
 
     setProductWishEvent() {
-        document.querySelector("#popupWish").addEventListener("click", function () {
-            const that = this;
 
+        const popupWishBtn = document.querySelector("#popupWish");
+
+        popupWishBtn.addEventListener("click", function () {
+            document.querySelector('#loading').style.display = "block";
+
+            popupWishBtn.disabled = true;
+            const that = this;
             const wishBtn = document.querySelector("#popupWish")
             wishBtn.setAttribute("class", "popup-wish popup-wish-select");
 
@@ -263,38 +268,52 @@ export class ProductPopup {
             let reduceWishArr = []
             let double = true;
 
-            if (!!newWishArr) {
+            if (newWishArr) {
                 newWishArr.forEach(function (element) {
                     if (element === that.productId) {
                         double = false;
-                        newWishArr.forEach(function(ele){
-                            if(element === ele ){
-
-                            }else {
-                                reduceWishArr.push(ele);
-                            }
-                        })
+                    }else{
+                        reduceWishArr.push(element);
                     }
                 }.bind(that))
             } else {
-                newWishArr = [];
+                newWishArr=[]
             }
+            console.log(double);
+            console.log(newWishArr);
+            console.log(reduceWishArr);
+
 
             if (double) {
                 newWishArr.push(this.productId);
+                console.log(newWishArr)
                 firebase.database().ref('user/' + this.userId + "/wish_product_list").set(newWishArr).then(function () {
-                    that.db.updateUserDb();
-                    new Toast("즐겨찾기 품목에 추가되었습니다.")
+                    const that2 = that;
+                    firebase.database().ref('user/').once('value').then(function (snapshot) {
+                        localStorage['user'] = JSON.stringify(snapshot.val());
+                        that2.db.user = JSON.parse(localStorage['user']);
+                        new Toast("즐겨찾기 품목에 추가되었습니다.")
+                        console.log("user 캐시 업데이트")
+
+                        popupWishBtn.disabled = false;
+                        document.querySelector('#loading').style.display = "none";
+                    }.bind(that2));
                 }.bind(that));
             } else {
-                newWishArr.push(this.productId);
                 firebase.database().ref('user/' + this.userId + "/wish_product_list").set(reduceWishArr).then(function () {
-                    that.db.updateUserDb();
-                    new Toast("즐겨찾기에서 삭제되었습니다.")
-                    wishBtn.className="popup-wish"
+                    const that2 = that;
+                    firebase.database().ref('user/').once('value').then(function (snapshot) {
+                        localStorage['user'] = JSON.stringify(snapshot.val());
+                        that2.db.user = JSON.parse(localStorage['user']);
+                        new Toast("즐겨찾기에서 삭제되었습니다.")
+                        console.log("user 캐시 업데이트")
+
+
+                        popupWishBtn.disabled = false;
+                        wishBtn.className="popup-wish"
+                        document.querySelector('#loading').style.display = "none";
+                    }.bind(that2));
                 }.bind(that));
-
-
             }
         }.bind(this));
     }
@@ -501,6 +520,8 @@ class Review {
         const ele = document.querySelector(".popup-newReview-star");
         ele.style.background = "";
         this.data[0] = this.value;
+
+
         ele.innerHTML = this.value + "점 ";
     }
 
@@ -676,6 +697,7 @@ class Review {
             new ReviewFilter(reviewArr);
 
             that.db.updateReviewDb();
+            new UpdateData();
             document.querySelector('#loading').style.display = "none";
 
         }.bind(that));
@@ -780,8 +802,8 @@ class ReviewFilter {
         }
 
         this.reviewObj = result;
-
         this.setDefaultReviewData();
+
     }
 
     setDateSorting(array) {
@@ -857,6 +879,23 @@ class ReviewFilter {
         }.bind(this));
 
         this.reviewObj = newReviewObj;
+
+        console.log(this.reviewObj);
+        const priceArr = ["비쌈", "아쉽", "적당", "양호", "저렴"]
+        const flavorArr = ["노맛", "아쉽", "적당", "양호", "존맛"]
+        const quantityArr = ["창렬", "아쉽", "적당", "양호", "혜자"]
+
+        let resultObj = []
+        this.reviewObj.forEach(function(element){
+            if(typeof (element.price) === "number") {
+                element.price = priceArr[parseInt(element.price) - 1];
+                element.flavor = flavorArr[parseInt(element.flavor) - 1];
+                element.quantity = quantityArr[parseInt(element.quantity) - 1];
+            }
+            resultObj.push(element);
+        });
+
+        this.reviewObj = resultObj;
 
         util.template(this.reviewObj, template, popup);
         util.setHandlebars(this.reviewObj);

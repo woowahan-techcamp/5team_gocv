@@ -91,7 +91,7 @@
 }
 
 .myPage-profile-nickname:hover{
-    background-color: #ff6048;
+    background-color: #ff5f4e;
 }
 
 
@@ -132,7 +132,7 @@
     margin-top: 20px;
     height: 50px;
     line-height: 50px;
-    color: #ff6a46;
+    color: #ff5f4e;
 }
 
 .myPage-wish-element{
@@ -291,7 +291,7 @@
 
 .signin-google {
     text-align: left;
-    background-color: #e24a3c;
+    background-color: #ff5f4e;
     color: white;
 }
 
@@ -300,8 +300,8 @@
 }
 
 .signin-button, .signup-detail-button {
-    color: #ff6048;
-    border: solid 1px #ff6048;
+    color: #ff5f4e;
+    border: solid 1px #ff5f4e;
 }
 
 .signup-detail-title {
@@ -335,12 +335,12 @@
     text-align: center;
     height: 40px;
     border-radius: 5px;
-    color: #ff6048;
-    border: solid 1px #ff6048;
+    color: #ff5f4e;
+    border: solid 1px #ff5f4e;
 }
 
 .signup-button:hover, .signin-button:hover,.signup-detail-button:hover {
-    background-color: #ff6048;
+    background-color: #ff5f4e;
     color: white;
 
 }
@@ -465,8 +465,8 @@
     }
 
     .signin-button, .signup-detail-button {
-        color: #ff6048;
-        border: solid 1px #ff6048;
+        color: #ff5f4e;
+        border: solid 1px #ff5f4e;
     }
 
     .signup-detail-title {
@@ -500,12 +500,12 @@
         text-align: center;
         height: 40px;
         border-radius: 5px;
-        color: #ff6048;
-        border: solid 1px #ff6048;
+        color: #ff5f4e;
+        border: solid 1px #ff5f4e;
     }
 
     .signup-button:hover, .signin-button:hover,.signup-detail-button:hover {
-        background-color: #ff6048;
+        background-color: #ff5f4e;
         color: white;
 
     }

@@ -1,6 +1,6 @@
 
 .good-bad-select{
-    color: yellow !important;
+    color: #ff5f4e !important;
 }
 
 .overlay {
@@ -424,9 +424,9 @@
     float: left;
     width: 80px;
     color: white;
+    background-color: #727272;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
-    background-color: #9a80ff;
     text-align: center;
     margin-top: 5px;
     font-size: 12px;
@@ -447,8 +447,13 @@
 }
 
 .popup-review-bad{
-    background-color: #ff686d;
+    background-color: #727272;
 
+}
+
+.popup-review-good:hover, .popup-review-bad:hover{
+    background-color: #aaaaaa;
+    color: white;
 }
 
 .popup-review-pfq-p,.popup-review-pfq-f,.popup-review-pfq-q{
