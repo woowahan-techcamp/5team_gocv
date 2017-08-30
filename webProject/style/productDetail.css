@@ -88,7 +88,7 @@
 }
 
 .popup-wish{
-    background-image: url("/image/heart2.png");
+    background-image: url("/image/heart_before.png");
     background-repeat: no-repeat;
     background-size: contain;
     cursor: pointer;
@@ -104,8 +104,7 @@
 }
 
 .popup-wish:hover ,.popup-wish-select{
-    filter: brightness(100%);
-    transform: scale(1.5);
+    background-image: url("/image/heart_after.png");
     transition-duration: 0.5s;
 }
 
@@ -451,8 +450,8 @@
 
 }
 
-.popup-review-good:hover, .popup-review-bad:hover{
-    background-color: #aaaaaa;
+#good-bad-button:hover, #good-bad-button2:hover{
+    background-color: #575757;
     color: white;
 }
 

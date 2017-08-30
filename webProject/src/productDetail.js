@@ -66,7 +66,6 @@ export class ReviewPopup {
             if (Array.from(e.target.classList).includes(this.targetName)) {
                 this.reviewId = e.target.getAttribute("name");
 
-                // this.scrollEvent("hidden");
                 this.setReviewData();
 
                 this.popup.setReviewPageInit();
@@ -86,6 +85,17 @@ export class ReviewPopup {
 
         const util = new Util();
 
+
+        const priceArr = ["비쌈", "아쉽", "적당", "양호", "저렴"]
+        const flavorArr = ["노맛", "아쉽", "적당", "양호", "존맛"]
+        const quantityArr = ["창렬", "아쉽", "적당", "양호", "혜자"]
+
+        if(typeof(selectReviewData.price)==="number") {
+            selectReviewData.price = priceArr[parseInt(selectReviewData.price) - 1];
+            selectReviewData.flavor = flavorArr[parseInt(selectReviewData.flavor) - 1];
+            selectReviewData.quantity = quantityArr[parseInt(selectReviewData.quantity) - 1];
+        }
+
         util.template(selectReviewData, template, popup);
 
         const reviewTabProduct = new ProductPopup(this.db, '.popup-review-preview', 'productSelect');
@@ -101,15 +111,7 @@ export class ReviewPopup {
 
         });
 
-        /*document.querySelector(".popup-newReview-cancel").addEventListener("click", function () {
-            this.scrollEvent("visible")
-        }.bind(this));*/
     }
-
-    scrollEvent(event) {
-        $("body").css("overflow", event);
-    }
-
 
 }
 
@@ -137,9 +139,7 @@ export class ProductPopup {
             if (Array.from(e.target.classList).includes(this.targetName)) {
                 this.productId = e.target.getAttribute("name");
 
-                // this.scrollEvent("hidden");
                 this.settingData();
-                // this.setEvent();
             }
 
 
@@ -154,10 +154,6 @@ export class ProductPopup {
 
         this.popup.setItemPageInit();
 
-    }
-
-    scrollEvent(event) {
-        $("body").css("overflow", event);
     }
 
     setProductData() {
@@ -249,7 +245,7 @@ export class ProductPopup {
 
     setProductWishEvent() {
 
-       const popupWishBtn = document.querySelector("#popupWish");
+        const popupWishBtn = document.querySelector("#popupWish");
 
         popupWishBtn.addEventListener("click", function () {
             document.querySelector('#loading').style.display = "block";
@@ -274,7 +270,8 @@ export class ProductPopup {
             } else {
                 newWishArr = []
 
-            }if (double) {
+            }
+            if (double) {
                 newWishArr.push(this.productId);
                 firebase.database().ref('user/' + this.userId + "/wish_product_list").set(newWishArr).then(function () {
                     const that2 = that;
@@ -295,7 +292,7 @@ export class ProductPopup {
                         that2.db.user = JSON.parse(localStorage['user']);
 
                         new Toast("즐겨찾기에서 삭제되었습니다.");
-                      
+
                         popupWishBtn.disabled = false;
                         wishBtn.className = "popup-wish"
                         document.querySelector('#loading').style.display = "none";
@@ -916,13 +913,6 @@ class ReviewRating {
                     userReview = {};
                     this.likeList = userReview[this.reviewId];
                 }
-
-                /*if (!!this.db.user[this.userId].review_like_list) {
-                    this.likeList = this.db.user[this.userId].review_like_list[this.reviewId];
-                } else {
-                    this.db.user[this.userId].review_like_list = {};
-                    this.likeList = this.db.user[this.userId].review_like_list[this.reviewId];
-                }*/
 
                 const that = this;
 

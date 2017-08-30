@@ -814,11 +814,11 @@
             <div class="popup-review-eval">
                 <div style="float:right; width: 80px; margin-right: 20px">
                     <div name="{{id}}">
-                        <button class="popup-review-good{{rate1}}" name="{{p_id}}">유용해요</button>
+                        <button id="good-bad-button" class="popup-review-good{{rate1}}" name="{{p_id}}">유용해요</button>
                         <div class="popup-review-good2">{{useful}}</div>
                     </div>
                     <div name="{{id}}">
-                        <button class="popup-review-bad{{rate2}}" name="{{p_id}}"> 별로에요</button>
+                        <button id="good-bad-button2" class="popup-review-bad{{rate2}}" name="{{p_id}}">별로에요</button>
                         <div class="popup-review-bad2"> {{bad}}</div>
                     </div>
                 </div>
@@ -884,11 +884,11 @@
             <div class="popup-review-eval">
                 <div style="float:right; width: 80px; margin-right: 20px">
                     <div>
-                        <div class="popup-review-good">유용해요</div>
+                        <img class="popup-review-good" style="padding:2px 5px 2px 5px;width:30px; height:20px" src="image/like.png">
                         <div class="popup-review-good2">{{useful}}</div>
                     </div>
                     <div>
-                        <div class="popup-review-bad"> 별로에요</div>
+                        <img class="popup-review-bad" style="padding:2px 5px 2px 5px;width:30px; height:20px" src="image/bad.png">
                         <div class="popup-review-bad2">{{bad}}</div>
                     </div>
                 </div>
@@ -898,15 +898,15 @@
 
                     <div class="popup-review-pfq-q">
                         <div class="popup-review-pfq-top">양</div>
-                        <div class="popup-review-pfq-bottom">{{quantity}}점</div>
+                        <div class="popup-review-pfq-bottom">{{quantity}}</div>
                     </div>
                     <div class="popup-review-pfq-f">
                         <div class="popup-review-pfq-top">맛</div>
-                        <div class="popup-review-pfq-bottom">{{flavor}}점</div>
+                        <div class="popup-review-pfq-bottom">{{flavor}}</div>
                     </div>
                     <div class="popup-review-pfq-p">
                         <div class="popup-review-pfq-top">가격</div>
-                        <div class="popup-review-pfq-bottom">{{price}}점</div>
+                        <div class="popup-review-pfq-bottom">{{price}}</div>
                     </div>
                 </div>
             </div>
@@ -946,12 +946,12 @@
 
                 <span class="review-card-assess">
                     <div>
-                        <div class="popup-review-good">유용해요</div>
-                        <div class="popup-review-good2">{{useful}}</div>
+                        <img class="popup-review-good" style="margin-top:1px;padding:2px 5px 2px 5px;width:25px; height:15px" src="image/like.png">
+                        <div class="popup-review-good2" style="margin-top:2px">{{useful}}</div>
                     </div>
-                    <div>
-                        <div class="popup-review-bad">별로에요</div>
-                        <div class="popup-review-bad2">{{bad}}</div>
+                    <div style="margin-top:20px">
+                        <img class="popup-review-bad" style="margin-top:1px;padding:2px 5px 2px 5px;width:25px; height:15px" src="image/bad.png">
+                        <div class="popup-review-bad2" style="margin-top:1px">{{bad}}</div>
                     </div>
                   </span>
                 <div style="margin-left:10px" class="review-card-user-id"><img
