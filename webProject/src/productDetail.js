@@ -287,7 +287,7 @@ export class ProductPopup {
 
 
                         popupWishBtn.disabled = false;
-                        document.querySelector('#loading').style.display = "n fone";
+                        document.querySelector('#loading').style.display = "none";
                     }.bind(that2));
                 }.bind(that));
             } else {

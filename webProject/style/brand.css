@@ -19,24 +19,24 @@
     cursor: pointer;
     font-size: 30px;
     width: 30px;
-    height: 100px;
-    float: left;
-    margin-left: 5%;
-    text-align: center;
+    height: 50px;
     position: relative;
+    margin-left: 5%;
+    top: 70px;
+    text-align: center;
     background-repeat: no-repeat;
     background-size: contain;
-    background-image: url("/image/arrow_left.png");
+    background-image: url(/image/arrow_left.png);
 }
 
 .brand-rank-right {
     cursor: pointer;
     font-size: 30px;
     width: 30px;
-    height: 100px;
-    float: right;
+    height: 50px;
     position: relative;
-    margin-right: 5%;
+    margin-left: calc(95% - 125px);
+    top: 70px;
     text-align: center;
     background-repeat: no-repeat;
     background-size: contain;
