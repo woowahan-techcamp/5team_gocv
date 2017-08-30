@@ -20,6 +20,8 @@ class ProductReviewTableViewCell: UITableViewCell {
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var uploadedFoodImageBtn: UIButton!
     @IBOutlet weak var detailReviewLabel: UILabel!
+    var review : Review = Review()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -27,6 +29,7 @@ class ProductReviewTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     func setCellValue(review: Review, reviewList: [Review]) {
+        self.review = review
         self.userNameLabel.text = ""
         self.detailReviewLabel.text = ""
         self.userImage.image = UIImage(named: "user_default.png")
@@ -108,5 +111,8 @@ class ProductReviewTableViewCell: UITableViewCell {
             default : self.starImageView?.image = #imageLiteral(resourceName: "star3.png")
             }
         }
+    }
+    @IBAction func kakaoShare(_ sender: Any) {
+         DataManager.sendLinkFeed(review: self.review)
     }
 }
