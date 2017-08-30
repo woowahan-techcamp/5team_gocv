@@ -2,11 +2,8 @@
 export class BrandRankingPreview {
     constructor(documentParams, brandName) {
         this.item_template = documentParams.item_wrapper;
-        // this.wrapper = documentParams.wrapper;
-        // btn
         this.leftBtn = document.getElementById(documentParams.leftBtn);
         this.rightBtn = document.getElementById(documentParams.rightBtn);
-        // template
         this.template = document.getElementById(documentParams.template).innerHTML;
         this.brand = documentParams.brand;
         this.translateValue = 0;
@@ -38,10 +35,8 @@ export class BrandRankingPreview {
             element.setAttribute('class', 'brand-item-wrapper brand-item-selected');
         });
 
-
         this.setLeftScroll();
         this.setRightScroll();
-
 
     }
 
@@ -103,8 +98,6 @@ export class BrandRankingPreview {
             } else {
                 this.translateValue = '300px';
             }
-
-
 
             const that = this;
             this.leftBtn.disabled = true;

@@ -79,7 +79,6 @@ export class SignUp {
         //auth 생성후 db에 넣어주기
         firebase.auth().createUserWithEmailAndPassword(this.email.value, this.pw1.value).catch(function (error) {
 
-            // console.log(error);
 
             //이미 있는 유저 일 경우 처리
             if (error.code === "auth/email-already-in-use") {
@@ -98,7 +97,6 @@ export class SignUp {
 
             const that = this;
             firebase.auth().signInWithEmailAndPassword(this.email.value, this.pw1.value).catch(function (error) {
-                console.log(error);
                 document.querySelector('#loading').style.display = "none";
 
             }).then(function () {
@@ -129,16 +127,15 @@ export class SignUp {
             document.querySelector('#loading').style.display = "none";
 
             localStorage['user'] = JSON.stringify(snapshot.val());
-
             const userStorage = localStorage['user'];
-            const userData = JSON.parse(userStorage);
+            this.db.user = JSON.parse(userStorage);
             const user = firebase.auth().currentUser;
 
             //프로필 탭 설정
             document.querySelector(".fixTab-profile-wrapper").style.display = "block"
-            document.querySelector("#fixTabProfileImg").setAttribute("src", userData[user.uid].user_profile);
+            document.querySelector("#fixTabProfileImg").setAttribute("src", this.db.user[user.uid].user_profile);
             document.querySelector(".fixTab-profile-id").innerHTML =
-                userData[user.uid].nickname + "<ul class=\"fixTab-profile-dropdown\">\n" +
+                this.db.user[user.uid].nickname + "<ul class=\"fixTab-profile-dropdown\">\n" +
                 "                    <a href=\"#myPage\"><li class=\"fixTab-profile-element\">내 정보</li></a>\n" +
                 "                    <li id=\"logout\" class=\"fixTab-profile-element\">로그아웃</li>\n" +
                 "                </ul>";
@@ -197,7 +194,6 @@ export class SignIn {
                         localStorage['user'] = JSON.stringify(snapshot.val());
                         that2.db.user = JSON.parse(localStorage['user']);
                         document.querySelector('#loading').style.display = "none"
-                        console.log("user 캐시 업데이트")
                         that2.login();
                     }.bind(that2));
                 }.bind(that));
@@ -223,7 +219,9 @@ export class SignIn {
 
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
-                this.login();
+                if(this.db.user[user.uid]) {
+                    this.login();
+                }
             } else {
                 const that = this;
                 this.signInButton.addEventListener("click", function () {
@@ -238,7 +236,6 @@ export class SignIn {
     checkEmail() {
         firebase.auth().signInWithEmailAndPassword(this.email.value,
             this.password.value).catch(function (error) {
-            console.log(error);
             if (error.code === "auth/user-not-found") {
                 document.querySelector("#signinErrorCheck").innerHTML = "존재하지 않는 이메일 입니다."
                 document.querySelector("#signinErrorCheck").style.display = "block";
@@ -263,8 +260,7 @@ export class SignIn {
         document.querySelector('#sign').style.display = "none";
         document.querySelector('#loading').style.display = "none";
 
-        const userStorage = localStorage['user'];
-        const userData = JSON.parse(userStorage);
+        const userData = this.db.user;
         const user = firebase.auth().currentUser;
 
         document.querySelector(".fixTab-profile-wrapper").style.display = "block"
@@ -348,7 +344,6 @@ class MyPage {
 
         const template = document.querySelector("#myPage-template").innerHTML;
         const sec = document.querySelector("#myPage");
-        console.log(this.db.user);
         util.template(this.db.user[this.userId], template, sec);
 
         const myPageProduct = new ProductPopup(this.db, '#myPageReviewNavi', 'productSelect');
@@ -434,8 +429,6 @@ class MyPage {
 
         changeBtn.addEventListener("click", function () {
 
-            console.log(input.value);
-            console.log(input.getAttribute("placeholder"));
 
             if (input.value !== " " && input.value !== input.getAttribute("placeholder")) {
                 const that = this;
@@ -485,14 +478,12 @@ class MyPage {
             }.bind(that));
 
         }.bind(this)).catch(function (error) {
-            console.log(error);
             document.querySelector('#loading').style.display = "none"
         });
     }
 
     setProfileTab() {
 
-        console.log(this.db.user[this.userId]);
 
         //프로필 탭 설정
         document.querySelector(".fixTab-profile-wrapper").style.display = "block"
