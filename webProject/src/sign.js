@@ -284,7 +284,6 @@ export class SignIn {
 
         document.querySelector('.fixTab-profile-element').addEventListener("click", function () {
             const myPage = new MyPage(this.db);
-            console.log(this.db.user)
 
         }.bind(this));
     }
