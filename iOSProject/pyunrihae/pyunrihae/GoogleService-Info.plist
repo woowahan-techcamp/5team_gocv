@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>296270517036-ha63c7pv4n84hiq7bf2ja0a7mlrouq6s.apps.googleusercontent.com</string>
+	<string>947458280146-lnapphs8qd03rhts9j06nha0spqnklil.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.296270517036-ha63c7pv4n84hiq7bf2ja0a7mlrouq6s</string>
+	<string>com.googleusercontent.apps.947458280146-lnapphs8qd03rhts9j06nha0spqnklil</string>
 	<key>API_KEY</key>
-	<string>AIzaSyA8edZGLResgnFsVn-1YNv0w-CFrnJul8A</string>
+	<string>AIzaSyC5mElh2rdkjIdmcjNvrhJ5bGz2CNv4DDE</string>
 	<key>GCM_SENDER_ID</key>
-	<string>296270517036</string>
+	<string>947458280146</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.busride.pyunrihae</string>
 	<key>PROJECT_ID</key>
-	<string>pyeonrehae</string>
+	<string>prh-woowa</string>
 	<key>STORAGE_BUCKET</key>
-	<string>pyeonrehae.appspot.com</string>
+	<string>prh-woowa.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:296270517036:ios:ec29ce6a1599d2ab</string>
+	<string>1:947458280146:ios:ec29ce6a1599d2ab</string>
 	<key>DATABASE_URL</key>
-	<string>https://pyeonrehae.firebaseio.com</string>
+	<string>https://prh-woowa.firebaseio.com</string>
 </dict>
 </plist>

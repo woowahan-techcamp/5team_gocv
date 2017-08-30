@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 class Popup{
-    static func showPopup(popup: ReviewPopupView, index: Int, reviewList: [Review],review: Review, view: UIView){
+    static func showPopup(popup: ReviewPopupView, index: Int, reviewList: [Review],review: Review, view: UIView, validator: Int){
         let frame = view.frame
         popup.backgroundColor = UIColor.black.withAlphaComponent(0.1)
         popup.frame = frame
@@ -22,7 +22,28 @@ class Popup{
         popup.comment.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10)
         popup.userNameLabel.text = review.user
         popup.foodNameLabel.text = review.p_name
+        let btns = UsefulBadBtnView.instanceFromNib() as! UsefulBadBtnView
+        btns.reviewId = review.id
+        btns.reviewList = reviewList
+        btns.frame = popup.btnsView.frame
+        btns.frame.origin.x = 0
+        btns.frame.origin.y = 0
+        for sub in popup.btnsView.subviews {
+            sub.removeFromSuperview()
+        }
+        popup.btnsView.addSubview(btns)
         view.addSubview(popup)
+        btns.badBtn.isEnabled = false
+        btns.usefulBtn.isEnabled = false
+        Button.deleteBorder(btn: btns.usefulBtn)
+        Button.deleteBorder(btn: btns.badBtn)
+        DataManager.getReviewBy(id: review.id){ (review) in
+            btns.badNumLabel.text = String(review.bad)
+            btns.usefulNumLabel.text = String(review.useful)
+            Button.validateUseful(review: review, usefulBtn: btns.usefulBtn, badBtn: btns.badBtn, usefulNumLabel: btns.usefulNumLabel, badNumLabel: btns.badNumLabel)
+            btns.badBtn.isEnabled = true
+            btns.usefulBtn.isEnabled = true
+        }
         Image.makeCircleImage(image: popup.userImage)
         popup.userImage.contentMode = .scaleAspectFill
         popup.userImage.clipsToBounds = true
@@ -38,7 +59,7 @@ class Popup{
         if URL(string: review.p_image) != nil{
             popup.uploadedImage.af_setImage(withURL: URL(string: review.p_image)!)
         } else {
-            popup.uploadedImage.af_setImage(withURL: URL(string: "https://firebasestorage.googleapis.com/v0/b/pyeonrehae.appspot.com/o/ic_background_default.png?alt=media&token=09d05950-5f8a-4a73-95b3-a74faee4cad3")!)
+            popup.uploadedImage.image = UIImage(named: "review_default.png")
         }
         popup.brand.contentMode = .scaleAspectFit
         if review.brand == "CU" {

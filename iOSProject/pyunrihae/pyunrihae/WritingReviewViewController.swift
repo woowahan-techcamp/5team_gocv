@@ -42,6 +42,7 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
     var priceLevelBtns = [UIButton]()
     var flavorLevelBtns = [UIButton]()
     var quantityLevelBtns = [UIButton]()
+    var productId = ""
     let appdelegate = UIApplication.shared.delegate as! AppDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +55,7 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
         addQuantityLevelBtn()
         Image.makeCircleImage(image: productImage)
         loading.startAnimating()
-        DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
+        DataManager.getProductById(id: productId) { (product) in
             self.productNameLabel.text = product.name
             self.brandLabel.text = product.brand
             self.priceLabel.text = product.price + "원"
@@ -93,16 +94,16 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
                 let productDetailViewController = self.navigationController?.viewControllers[1] as! ProductDetailViewController
                 self.navigationController?.popToViewController(productDetailViewController, animated: true)
                 NotificationCenter.default.post(name: NSNotification.Name("startUploading"), object: self)
-                User.sharedInstance.product_review_list.append(SelectedProduct.foodId)
-                DataManager.updateReviewList(id: SelectedProduct.foodId, uid: (User.sharedInstance.id))
-                DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
+                User.sharedInstance.product_review_list.append(productId)
+                DataManager.updateReviewList(id: productId, uid: (User.sharedInstance.id))
+                DataManager.getProductById(id: productId) { (product) in
                     DataManager.getUserFromUID(uid: (Auth.auth().currentUser?.uid)!, completion: { (user) in
                         let userNickName =  user.nickname
                         DataManager.writeReview(brand: product.brand, category: product.category, grade: self.grade, priceLevel: self.priceLevel, flavorLevel: self.flavorLevel, quantityLevel: self.quantityLevel, allergy: self.allergy, review: self.detailReview.text, user: userNickName, user_image: user_image, p_id: product.id, p_image: self.reviewImage, product_image: product.image, p_name: product.name, p_price: Int(product.price)!){
                         }
                     })
                 }
-                DataManager.getProductById(id: SelectedProduct.foodId) { (product) in
+                DataManager.getProductById(id: productId) { (product) in
                     DataManager.updateProductInfo(p_id: product.id, grade: self.grade, priceLevel: self.priceLevel, flavorLevel: self.flavorLevel, quantityLevel: self.quantityLevel, allergy: self.allergy)
                 }
             }
@@ -288,7 +289,8 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
 extension WritingReviewViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 3.0, initialSpringVelocity: 3.0, options: UIViewAnimationOptions.curveEaseInOut, animations: ({
-            self.scrollView.frame.origin.y = self.scrollView.contentOffset.y - 350
+            self.scrollView.frame.origin.y = -self.reviewTextView.frame.origin.y
+            self.scrollView.contentOffset.y = 0
             self.detailReview.frame.size.height = UIScreen.main.bounds.size.height * 3 / 11
         }), completion: nil)
         addedImageView.isHidden = true

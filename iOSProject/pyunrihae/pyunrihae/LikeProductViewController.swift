@@ -17,14 +17,24 @@ class LikeProductViewController: UIViewController {
         tableView.dataSource = self
         NotificationCenter.default.addObserver(self, selector: #selector(getLikeProductList), name: NSNotification.Name("likeListChanged"), object: nil)
         // Do any additional setup after loading the view.
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        self.view.addGestureRecognizer(swipeRight)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.right: self.navigationController?.popToRootViewController(animated: true)
+            default: break
+            }
+        }
+    }
     @IBAction func onTouchCloseButton(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
-        dismiss(animated: true, completion: nil)
+        self.navigationController?.popToRootViewController(animated: true)
     }
     func getLikeProductList(){
         likeProductList = []
@@ -74,12 +84,10 @@ extension LikeProductViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if likeProductList.count > 0 {
             let product = likeProductList[indexPath.row]
-            NotificationCenter.default.post(name: NSNotification.Name("showProduct"), object: self, userInfo: ["product" : product])
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "mainNavigationController") as! UINavigationController
-            self.present(vc, animated: true, completion: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "ProductDetailViewController") as! ProductDetailViewController
+            vc.productId = product.id
+            self.navigationController?.pushViewController(vc, animated: true)
         }
-    }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     }
 }
