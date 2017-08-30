@@ -260,7 +260,7 @@
 		98D9F2DD1F418DF3009D0E10 /* YNSearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YNSearchView.swift; sourceTree = "<group>"; };
 		98D9F2DE1F418DF3009D0E10 /* YNSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YNSearchViewController.swift; sourceTree = "<group>"; };
 		98DED89A1F41729100CC4D63 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		98F172E61F32EDB70044FD0D /* pyunrihae.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pyunrihae.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		98F172E61F32EDB70044FD0D /* 편의점리뷰해.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "편의점리뷰해.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		98F172E91F32EDB70044FD0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98F172EE1F32EDB70044FD0D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		98F172F01F32EDB70044FD0D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -553,7 +553,7 @@
 		98F172E71F32EDB70044FD0D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				98F172E61F32EDB70044FD0D /* pyunrihae.app */,
+				98F172E61F32EDB70044FD0D /* 편의점리뷰해.app */,
 				98F172FA1F32EDB70044FD0D /* pyunrihaeTests.xctest */,
 				98F173051F32EDB70044FD0D /* pyunrihaeUITests.xctest */,
 			);
@@ -613,7 +613,7 @@
 			);
 			name = pyunrihae;
 			productName = pyunrihae;
-			productReference = 98F172E61F32EDB70044FD0D /* pyunrihae.app */;
+			productReference = 98F172E61F32EDB70044FD0D /* 편의점리뷰해.app */;
 			productType = "com.apple.product-type.application";
 		};
 		98F172F91F32EDB70044FD0D /* pyunrihaeTests */ = {
@@ -1190,7 +1190,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.busride.pyunrihae;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "편의점리뷰해";
 				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "./pyunrihae/KakaoOpenSDK-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1211,7 +1211,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.busride.pyunrihae;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "편의점리뷰해";
 				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "./pyunrihae/KakaoOpenSDK-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
