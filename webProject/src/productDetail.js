@@ -1,5 +1,5 @@
 import {Util, Dropdown, Toast} from './main.js'
-import {PopupInfo, TimeManager} from "./manage";
+import {PopupInfo, TimeManager, UpdateData} from "./manage";
 
 //image 업로드하고 미리보기 만드는 클래스
 export class UpLoadImage {
@@ -697,6 +697,7 @@ class Review {
             new ReviewFilter(reviewArr);
 
             that.db.updateReviewDb();
+            new UpdateData();
             document.querySelector('#loading').style.display = "none";
 
         }.bind(that));
