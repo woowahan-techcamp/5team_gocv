@@ -273,6 +273,7 @@ export class ProductPopup {
                 }.bind(that))
             } else {
                 newWishArr = []
+
             }if (double) {
                 newWishArr.push(this.productId);
                 firebase.database().ref('user/' + this.userId + "/wish_product_list").set(newWishArr).then(function () {
@@ -281,8 +282,9 @@ export class ProductPopup {
                         localStorage['user'] = JSON.stringify(snapshot.val());
                         that2.db.user = JSON.parse(localStorage['user']);
                         new Toast("즐겨찾기 품목에 추가되었습니다.")
+
                         popupWishBtn.disabled = false;
-                        document.querySelector('#loading').style.display = "none";
+                        document.querySelector('#loading').style.display = "n fone";
                     }.bind(that2));
                 }.bind(that));
             } else {
@@ -291,7 +293,9 @@ export class ProductPopup {
                     firebase.database().ref('user/').once('value').then(function (snapshot) {
                         localStorage['user'] = JSON.stringify(snapshot.val());
                         that2.db.user = JSON.parse(localStorage['user']);
+
                         new Toast("즐겨찾기에서 삭제되었습니다.");
+                      
                         popupWishBtn.disabled = false;
                         wishBtn.className = "popup-wish"
                         document.querySelector('#loading').style.display = "none";
@@ -528,6 +532,7 @@ class Review {
             this.reviewId = database.ref().child('review').push().key;
 
             let file = document.querySelector('#reviewImageInput').files[0];
+
             if (file) {
                 this.fileName = 'images/' + this.reviewId + "." + file.type.split("/")[1];
 
@@ -883,7 +888,6 @@ class ReviewRating {
 
         this.reviewArr = reviewArr;
 
-        this.productId = productId;
         this.reviewId = reviewId;
         this.likeList = likeList;
 
