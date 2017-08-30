@@ -322,7 +322,7 @@
 
 .red{
     font-size: 50px;
-    color: #ff6749;
+    color: #ff5f4e;
 }
 
 .carousel-review{
@@ -424,7 +424,7 @@
     margin-top: 35px;
     font-size: 20px;
     line-height: 40px;
-    color: #ff5039;
+    color: #ff5f4e;
     border-radius: 20px;
     background-color: white;
 }
@@ -524,7 +524,7 @@
     margin-top: 300px;
     width: 100%;
     height: 550px;
-    background-color: #ff724b;
+    background-color: #ff5f4e;
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -853,7 +853,7 @@
 
     .red {
         font-size: 50px;
-        color: #ff6749;
+        color: #ff5f4e;
     }
 
     .carousel-review {
@@ -937,7 +937,7 @@
         margin-top: 35px;
         font-size: 20px;
         line-height: 40px;
-        color: #ff5039;
+        color: #ff5f4e;
         border-radius: 20px;
         background-color: white;
     }
