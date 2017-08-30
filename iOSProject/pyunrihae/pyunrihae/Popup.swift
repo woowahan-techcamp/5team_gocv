@@ -59,7 +59,7 @@ class Popup{
         if URL(string: review.p_image) != nil{
             popup.uploadedImage.af_setImage(withURL: URL(string: review.p_image)!)
         } else {
-            popup.uploadedImage.af_setImage(withURL: URL(string: "https://firebasestorage.googleapis.com/v0/b/pyeonrehae.appspot.com/o/ic_background_default.png?alt=media&token=09d05950-5f8a-4a73-95b3-a74faee4cad3")!)
+            popup.uploadedImage.image = UIImage(named: "review_default.png")
         }
         popup.brand.contentMode = .scaleAspectFit
         if review.brand == "CU" {
