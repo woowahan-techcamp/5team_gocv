@@ -451,6 +451,11 @@
 
 }
 
+.popup-review-good:hover, .popup-review-bad:hover{
+    background-color: #aaaaaa;
+    color: white;
+}
+
 .popup-review-pfq-p,.popup-review-pfq-f,.popup-review-pfq-q{
     float: right;
     margin-right: 10px;
