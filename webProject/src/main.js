@@ -1,4 +1,4 @@
-import {TimeManager, ResizeImage} from "./manage";
+import {TimeManager} from "./manage";
 
 //드롭다운 만드는 클래스
 export class Dropdown {
@@ -323,7 +323,9 @@ export class SearchTab {
 
         const brand = (queryBrand === '브랜드') ? 'all' : queryBrand;
         const category = (queryCategory === '카테고리') ? '전체' : queryCategory;
-        const text = this.inputText.value;
+        const text = (this.inputText.value).replace(/^\s+/, "");
+
+        console.log(this.inputText.value, text);
 
         const value = {
             brand: brand,
@@ -360,6 +362,10 @@ export class SearchTab {
                 document.querySelector(".main-wrapper").style.display = "none";
                 document.querySelector(".rank-container").style.display = "";
                 document.querySelector(".review-container").style.display = "none";
+
+                $('.rank-wrapper').css('display', 'block');
+                $('.rank-brand-type-wrapper').css('display', 'block');
+                $('.ranking-item-list-wrapper').css('margin-top', '0px');
             } else if (text === "리뷰") {
                 document.querySelector(".main-wrapper").style.display = "none";
                 document.querySelector(".rank-container").style.display = "none";

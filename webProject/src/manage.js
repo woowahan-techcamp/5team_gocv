@@ -248,37 +248,25 @@ export class PopupInfo {
         this.popupInner = document.querySelector('.myPage-wrapper');
 
         $("body").css("overflow", "hidden");
-
-        this.flag = false;
     }
 
     getMyPageEvent() {
         /* item view modal settings */
         this.popupOverlay.addEventListener('click', function () {
-            if (!this.flag) {
-                this.closePopup();
-            } else {
-                this.flag = false;
-            }
+            this.closePopup();
+
         }.bind(this));
 
         this.popupInner.addEventListener('click', function (e) {
-            this.flag = true;
             e.stopPropagation();
-        }.bind(this));
-
-        document.querySelector(".myPage-close").addEventListener("click", function () {
-            this.closePopup();
         }.bind(this));
     }
 
     closePopup() {
-        if (!this.flag) {
-            $("body").css("overflow", "visible");
-            document.getElementsByClassName('popup-close-fake')[0].click();
-            this.flag = false;
-            this.moveBeforeElement();
-        }
+        $("body").css("overflow", "visible");
+        document.getElementsByClassName('popup-close-fake')[0].click();
+        this.moveBeforeElement();
+
     }
 
     setRefreshOverlay() {
@@ -300,57 +288,46 @@ export class PopupInfo {
         this.signOverlay = document.querySelector('.sign-overlay');
         this.signInner = document.querySelector('.sign-wrapper');
 
-        this.signFlag = false;
+        $("body").css("overflow", "hidden");
     }
 
     getSignPageEvent() {
         this.signOverlay.addEventListener('click', function () {
-            if (!this.signFlag) {
-                this.closeSignPagePopup();
-            }
-            this.signFlag = false;
+
+            this.closePopup();
 
         }.bind(this));
 
         this.signInner.addEventListener('click', function () {
-            this.signFlag = true;
+            e.stopPropagation();
         }.bind(this));
 
 
     }
 
     closeSignPagePopup() {
-        if (!this.signFlag) {
-            this.signOverlay.style.display = "none";
-            $("body").css("overflow", "visible");
-            this.signFlag = false;
-            this.moveBeforeElement();
-        }
+
+        this.signOverlay.style.display = "none";
+        $("body").css("overflow", "visible");
+        this.moveBeforeElement();
+
     }
 
     itemPageInit() {
         this.popupOverlay = document.querySelector('.overlay');
         this.popupInner = document.querySelector('.popup-wrapper');
 
-        this.flag = false;
+        $("body").css("overflow", "hidden");
     }
 
     getItemPageEvent() {
         this.popupOverlay.addEventListener('click', function () {
-            if (!this.flag) {
-                this.closePopup();
-            } else {
-                this.flag = false;
-            }
+            this.closePopup();
+
         }.bind(this));
 
         this.popupInner.addEventListener('click', function (e) {
-            this.flag = true;
             e.stopPropagation();
-        }.bind(this));
-
-        document.querySelector(".popup-close").addEventListener("click", function () {
-            this.closePopup();
         }.bind(this));
     }
 
@@ -358,36 +335,28 @@ export class PopupInfo {
         this.popupOverlay = document.querySelector('.overlay');
         this.popupInner = document.querySelector('.popup-review-preview');
 
-        this.flag = false;
+        $("body").css("overflow", "hidden");
     }
 
     getReviewPageEvent() {
         this.popupOverlay.addEventListener('click', function () {
-            if (!this.flag) {
-                this.closePopup();
-            } else {
-                this.flag = false;
-            }
+            this.closePopup();
+
         }.bind(this));
 
         this.popupInner.addEventListener('click', function (e) {
-            this.flag = true;
             e.stopPropagation();
-        }.bind(this));
-
-        document.querySelector(".popup-newReview-cancel").addEventListener("click", function () {
-            this.closePopup();
         }.bind(this));
     }
 
-    scrollEvent(){
+    scrollEvent() {
         const that = this;
         $(window).scroll(function () {
             that.scroll = $(this).scrollTop();
         });
     }
 
-    moveBeforeElement(){
+    moveBeforeElement() {
         $(window).scrollTop(this.scroll);
     }
 }

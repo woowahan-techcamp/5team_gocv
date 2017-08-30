@@ -40,7 +40,7 @@ export class RankingViewPage {
         this.reloadEvent();
     }
 
-    getSearchParams(){
+    getSearchParams() {
         const getObject = JSON.parse(localStorage['search_keyword']);
 
         const searchParams = {};
@@ -53,10 +53,14 @@ export class RankingViewPage {
         return searchParams;
     }
 
-    setClickEvent(){
-      document.querySelector('.fixTab-search-button').addEventListener('click', function() {
-          const storage = localStorage['search_keyword'];
-          const value = JSON.parse(storage);
+    setClickEvent() {
+        document.querySelector('.fixTab-search-button').addEventListener('click', function () {
+            const storage = localStorage['search_keyword'];
+            const value = JSON.parse(storage);
+
+            $('.rank-wrapper').css('display', 'none');
+            $('.rank-brand-type-wrapper').css('display', 'none');
+            $('.ranking-item-list-wrapper').css('margin-top', '50px');
 
             const brand = this.brandInfo.getBrandName(value.brand);
             value['brand'] = brand;
@@ -360,7 +364,7 @@ export class RankingViewPage {
     setDefaultRankingData() {
         this.start = 0;
         this.end = 12;
-        this.height = 800;
+        this.height = 400;
 
         if (this.flag) {
             this.setBrandSort();

@@ -68,7 +68,7 @@ export class ReviewPopup {
             if (Array.from(e.target.classList).includes(this.targetName)) {
                 this.reviewId = e.target.getAttribute("name");
 
-                this.scrollEvent("hidden");
+                // this.scrollEvent("hidden");
                 this.setReviewData();
 
                 this.popup.setReviewPageInit();
@@ -103,9 +103,9 @@ export class ReviewPopup {
 
         });
 
-        document.querySelector(".popup-newReview-cancel").addEventListener("click", function () {
+        /*document.querySelector(".popup-newReview-cancel").addEventListener("click", function () {
             this.scrollEvent("visible")
-        }.bind(this));
+        }.bind(this));*/
     }
 
     scrollEvent(event) {
@@ -141,7 +141,7 @@ export class ProductPopup {
             if (Array.from(e.target.classList).includes(this.targetName)) {
                 this.productId = e.target.getAttribute("name");
 
-                this.scrollEvent("hidden");
+                // this.scrollEvent("hidden");
                 this.settingData();
                 // this.setEvent();
             }
@@ -154,13 +154,10 @@ export class ProductPopup {
         this.setProductData();
         this.setProductWishEvent();
         this.setReviewData();
-        this.setReviewRatingEvent();
+        new ReviewRating(this.db, this);
 
         this.popup.setItemPageInit();
 
-        /*document.querySelector(".popup-close").addEventListener("click", function () {
-            this.scrollEvent("visible");
-        }.bind(this));*/
     }
 
     scrollEvent(event) {
@@ -271,14 +268,6 @@ export class ProductPopup {
                 new Toast("이미 즐겨찾기에 포함된 상품입니다.")
             }
         }.bind(this));
-    }
-
-    setReviewRatingEvent() {
-        const reviewRating = new ReviewRating(this.db, this);
-
-        /*document.querySelector(".popup-close").addEventListener("click", function () {
-            this.scrollEvent("visible");
-        }.bind(this));*/
     }
 }
 
