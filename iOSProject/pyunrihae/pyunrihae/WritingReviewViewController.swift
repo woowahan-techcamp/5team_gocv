@@ -94,6 +94,7 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
             } else {
                 let index = (self.navigationController?.viewControllers.count)! - 2
                 let productDetailViewController = self.navigationController?.viewControllers[index] as! ProductDetailViewController
+                productDetailViewController.reviewUploadingNow = true
                 self.navigationController?.popToViewController(productDetailViewController, animated: true)
                 NotificationCenter.default.post(name: NSNotification.Name("startUploading"), object: self)
                 User.sharedInstance.product_review_list.append(productId)

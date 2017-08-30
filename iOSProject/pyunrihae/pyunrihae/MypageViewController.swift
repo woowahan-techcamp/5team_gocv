@@ -18,7 +18,7 @@ class MypageViewController: UIViewController, FusumaDelegate{
     @IBOutlet weak var moreImg: UIImageView!
     @IBOutlet weak var photoEditImage: UIImageView!
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    var labelList = ["내가 찜한 상품","편리해란?","회원가입 / 로그인"]
+    var labelList = ["즐겨찾기 상품","편리해란?","회원가입 / 로그인"]
     override func viewDidLoad() {
         NotificationCenter.default.addObserver(self, selector: #selector(checkUserLogin), name: NSNotification.Name("userLogined"), object: nil)
         super.viewDidLoad()
