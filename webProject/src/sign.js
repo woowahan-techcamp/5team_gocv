@@ -233,11 +233,7 @@ export class SignIn {
             }
         }.bind(this));
 
-
-
     }
-
-
 
     checkEmail() {
         firebase.auth().signInWithEmailAndPassword(this.email.value,
@@ -286,7 +282,7 @@ export class SignIn {
             }, function (error) {
                 // An error happened.
             });
-        })
+        });
 
         document.querySelector('#sign').style.display = "none";
 
@@ -336,12 +332,12 @@ class MyPage {
         this.db = db;
         const user = firebase.auth().currentUser;
         this.userId = user.uid;
+
+        this.popup = new PopupInfo();
+
         this.setData();
         this.setEventUpdateImage();
         this.setEventUpdateNicname();
-
-        new PopupInfo().setMyPageInit();
-
     }
 
     setData() {
@@ -371,9 +367,11 @@ class MyPage {
 
         this.setDeleteButtonEvent();
 
+        this.popup.setMyPageInit();
+
         document.querySelector(".myPage-close").addEventListener("click", function () {
             $("body").css("overflow", "visible");
-        })
+        });
     }
 
     setDeleteButtonEvent() {

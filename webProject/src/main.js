@@ -1,4 +1,4 @@
-import {TimeManager} from "./manage";
+import {TimeManager, ResizeImage} from "./manage";
 
 //드롭다운 만드는 클래스
 export class Dropdown {
@@ -205,6 +205,7 @@ export class Carousel {
         fakeAfterValue["rating"] = "carousel-rank-rating" + '11';
 
         const arr = [];
+
 
         arr.push(fakeBeforeValue);
         for (let i = 0; i <= 9; i++) {

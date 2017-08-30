@@ -53,6 +53,8 @@ export class ReviewPopup {
         this.reviewId = reviewId;
         this.userId = userId;
         this.init();
+
+        this.popup = new PopupInfo();
     }
 
     init() {
@@ -69,7 +71,7 @@ export class ReviewPopup {
                 this.scrollEvent("hidden");
                 this.setReviewData();
 
-                new PopupInfo().setReviewPageInit();
+                this.popup.setReviewPageInit();
             }
 
         }.bind(this));
@@ -123,6 +125,8 @@ export class ProductPopup {
         this.productId = productId;
         this.userId = userId;
         this.init();
+
+        this.popup = new PopupInfo();
     }
 
     init() {
@@ -152,7 +156,7 @@ export class ProductPopup {
         this.setReviewData();
         this.setReviewRatingEvent();
 
-        new PopupInfo().setItemPageInit();
+        this.popup.setItemPageInit();
 
         document.querySelector(".popup-close").addEventListener("click", function () {
             this.scrollEvent("visible");
@@ -549,7 +553,7 @@ class Review {
         if (url) {
             imageURL = url;
         } else {
-            imageURL = null;
+            imageURL = product_image;
         }
 
         database.ref('review/' + this.reviewId).set({
