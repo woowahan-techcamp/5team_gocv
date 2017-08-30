@@ -616,7 +616,11 @@
             <div class="popup-productCount">
                 <div>누적리뷰 수</div>
                 <div>{{grade_count}} reviews</div>
-                <div id="popupWish" class="popup-wish"></div>
+                {{#if wish_flag}}
+                <button id="popupWish" class="popup-wish popup-wish-select"></button>
+                {{else}}
+                <button id="popupWish" class="popup-wish"></button>
+                {{/if}}
             </div>
             <div class="popup-productName">{{name}}</div>
             <div class="popup-productPrice">가격</div>
