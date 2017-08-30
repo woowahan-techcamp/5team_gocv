@@ -341,10 +341,12 @@ class MainViewController: UIViewController {
     func showProduct(_ sender: UITapGestureRecognizer) {
         if productList.count > 0 {
             let product = productList[(sender.view?.tag)!]
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "ProductDetailViewController") as! ProductDetailViewController
-            vc.productId = product.id
-            self.navigationController?.pushViewController(vc, animated: true)
+            if product.name != "" {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyboard.instantiateViewController(withIdentifier: "ProductDetailViewController") as! ProductDetailViewController
+                vc.productId = product.id
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
 }
