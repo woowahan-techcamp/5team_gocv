@@ -17,14 +17,18 @@ open class YNSearchView: UIView, YNSearchMainViewDelegate, YNSearchListViewDeleg
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         self.ynScrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
         
         self.ynSearchMainView = YNSearchMainView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
         self.ynSearchMainView.delegate = self
         self.ynScrollView.addSubview(self.ynSearchMainView)
+        //스크롤뷰 마지막이 안보여서 추가해줌
+        self.ynScrollView.contentInset = UIEdgeInsets(top: 0,left: 0,bottom: 40,right: 0)
         
+
         self.ynSearchListView = YNSearchListView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
+        // 테이블뷰 마지막이 안보여서 추가해줌
+        self.ynSearchListView.contentInset = UIEdgeInsetsMake(0,0,40,0)
         self.ynSearchListView.ynSearchListViewDelegate = self
         self.ynSearchListView.isHidden = true
         
