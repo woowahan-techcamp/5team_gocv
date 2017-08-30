@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
         text: '.fixTab-search-word',
         button: '.fixTab-search-button'
     };
+
     const searchTab = new SearchTab(searchParams);
     const user = firebase.auth().currentUser;
     const carousel = new Carousel('reviewNavi', 'carousel-leftButton', 'carousel-rightButton', 10,
