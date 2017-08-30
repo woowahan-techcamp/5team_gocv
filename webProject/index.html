@@ -87,11 +87,16 @@
         </div>
 
         <div class="carousel-background">
-
         </div>
         <div class="carousel-navi">
             <button class="carousel-leftButton" id="carousel-leftButton"></button>
             <button class="carousel-rightButton" id="carousel-rightButton"></button>
+        </div>
+
+        <div class="carousel-background-word">
+            <li class="carousel-background-word-element"><span class="red">편</span>의점 <span class="red">리</span>뷰 <span class="red">해!</span></li>
+            <li class="carousel-background-word-element">편의점 리뷰를 직접 작성하고,</li>
+            <li class="carousel-background-word-element">유용한 상품 리뷰도 얻어가세요</li>
         </div>
 
 
@@ -175,7 +180,7 @@
 
         <div class="main-div-wrapper">
 
-            <div class="main-rank-header"><span style="font-size: 30px; font-weight: 600">카테고리 별 HOT 상품</span>
+            <div class="main-rank-header">카테고리 별 HOT 상품
             </div>
 
             <ul class="main-rank-tab-wrapper">
@@ -268,7 +273,7 @@
 
     <!--하단부 구현-->
     <div class="bottom-wrapper">
-        <div class="fixTab-logo" style="margin-top: 15px; color: #858585">Pyenrihae</div>
+        <div class="bottom-log" style="margin-top: 5px; color: #858585">Pyunrihae</div>
         <div style="margin-right: 30px">
             <a href="https://www.naver.com">
                 <div class="bottom-tweet"></div>
@@ -290,8 +295,7 @@
 <div style="display: none;" class="rank-container">
     <div class="rank-wrapper">
         <ul class="rank-category-wrapper">
-            <li style="background-image:url('image/all.png')" class="rank-category-tab selected-rank-category-tab"
-                name="전체">
+            <li style="background-image:url('image/all.png')" class="rank-category-tab selected-rank-category-tab" name="전체">
                 전체
             </li>
             <li style="background-image:url('image/lunchbox.png')" class="rank-category-tab" name="도시락">
@@ -470,11 +474,13 @@
         <!--<div class="{{style}}">{{rank}}
         </div>-->
         <a href="#popup">
-            <div class="rank-card-image productSelect" style="background-image:url('{{img}}');
-            background-size:80%" name="{{id}}">
+            <div>
+                <div class="rank-card-image productSelect" style="background-image:url('{{img}}');
+                background-size:80%" name="{{id}}">
 
-                <div class="rank-card-medal productSelect {{style}}" name="{{id}}">{{rank}}</div>
+                    <div class="rank-card-medal productSelect {{style}}" name="{{id}}">{{rank}}</div>
 
+                </div>
             </div>
         </a>
         <div class="rank-card-description">
@@ -509,7 +515,7 @@
                     <div class="carousel-review-profile">
                         <img class="carousel-review-profile" src="{{user_image}}"/>
                     </div>
-                    <div style="margin-left:5px;margin-top:20px;float:left; width:30%">
+                    <div style="margin-left:10px;margin-top:30px;float:left; width:20%">
                         <div class="carousel-review-nic">
                             {{user}}
                         </div>

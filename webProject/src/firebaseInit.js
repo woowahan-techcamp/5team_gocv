@@ -9,6 +9,7 @@ export class DB {
     }
 
     init() {
+
         const config = {
             apiKey: "AIzaSyBA14XngeEDe4DV32NSs07PWdW1LX8sxu8",
             authDomain: "prh-woowa.firebaseapp.com",
@@ -18,7 +19,6 @@ export class DB {
             messagingSenderId: "947458280146"
         };
         firebase.initializeApp(config);
-
     }
 
     dataInit(){

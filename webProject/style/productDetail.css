@@ -62,9 +62,9 @@
 }
 
 .popup-reviewImage{
-    /*background-image: url("/image/ex1.png");*/
-    /*background-repeat: no-repeat;*/
-    /*background-size: cover;*/
+    background-image: url("/image/product_detail_bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
     width: 100%;
     background-color: black;
     background-position: center;
@@ -421,7 +421,6 @@
 }
 
 .popup-review-good, .popup-review-bad{
-    cursor:pointer;
     float: left;
     width: 80px;
     color: white;
@@ -433,9 +432,6 @@
     font-size: 12px;
 }
 
-.popup-review-good:hover, .popup-review-bad:hover {
-    filter: brightness(120%);
-}
 
 .popup-review-good2, .popup-review-bad2{
     float: left;
