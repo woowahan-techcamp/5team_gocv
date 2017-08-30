@@ -33,7 +33,7 @@
 }
 
 .selected-review-query-tab{
-    color: #ff2321;
+    color: #ff5f4e;
     font-weight: bold;
 }
 
@@ -46,7 +46,7 @@
 }
 
 .review-card-readmore:hover{
-    color: red;
+    color: #ff5f4e;
 }
 
 .review-card-content{;
@@ -201,7 +201,7 @@
     }
 
     .selected-review-query-tab{
-        color: #ff2321;
+        color: #ff5f4e;
         font-weight: bold;
         font-size: 12px;
     }

@@ -106,7 +106,7 @@
     height: 250px;
     background-size:  50%;
     background: url("/image/not_found.gif") no-repeat center;
-    border: solid 2px #ffb3b2;
+    border: solid 2px #ff5f4e;
 
 }
 
@@ -160,7 +160,7 @@
     color: white;
     height: 30px;
     line-height: 30px;
-    background-color: #ff9285;
+    background-color: #ff5f4e;
     width: 30%;
     text-align: center;
     font-size: 15px;
@@ -179,7 +179,7 @@
     height: 120px;
     margin: auto;
 
-    background-color: #ff471b;
+    background-color: #ff5f4e;
 }
 
 .brand-event:hover{
