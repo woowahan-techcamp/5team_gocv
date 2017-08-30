@@ -47,7 +47,7 @@ export class RankingViewPage {
 
         searchParams.brand = getObject.brand;
         searchParams.category = getObject.category;
-        searchParams.sort = 'grade';
+        searchParams.sort = getObject.sort;
         searchParams.keyword = getObject.keyword;
 
         return searchParams;
@@ -55,6 +55,7 @@ export class RankingViewPage {
 
     setClickEvent() {
         document.querySelector('.fixTab-search-button').addEventListener('click', function () {
+
             const storage = localStorage['search_keyword'];
             const value = JSON.parse(storage);
 
@@ -62,13 +63,15 @@ export class RankingViewPage {
             $('.rank-brand-type-wrapper').css('display', 'none');
             $('.ranking-item-list-wrapper').css('margin-top', '50px');
 
-            const brand = this.brandInfo.getBrandName(value.brand);
-            value['brand'] = brand;
+            value['brand'] = this.brandInfo.getBrandName(value.brand);
 
-            console.log(value);
             this.flag = true;
             this.searchObject = value;
+
             this.setDefaultRankingData();
+
+            document.querySelector('.rank-query-tab').click();
+            document.getElementsByClassName('popup-close-fake')[0].click();
         }.bind(this));
 
         document.querySelector("#fixTabNavi").addEventListener('click', function () {

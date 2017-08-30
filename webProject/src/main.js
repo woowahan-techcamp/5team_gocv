@@ -323,9 +323,7 @@ export class SearchTab {
 
         const brand = (queryBrand === '브랜드') ? 'all' : queryBrand;
         const category = (queryCategory === '카테고리') ? '전체' : queryCategory;
-        const text = (this.inputText.value).replace(/^\s+/, "");
-
-        console.log(this.inputText.value, text);
+        const text = (this.inputText.value).replace(/(^\s*)|(\s*$)/gi, "");
 
         const value = {
             brand: brand,
@@ -346,13 +344,15 @@ export class SearchTab {
 
             const text = document.getElementsByClassName("fixTab-select")[0].innerHTML;
 
-            const value = {
+            $('div.fixTab-search-brand > span').text('브랜드');
+            $('div.fixTab-search-category > span').text('카테고리');
+            $('input.fixTab-search-word').val('');
+
+            localStorage['search_keyword'] = {
                 brand: 'all',
                 category: '전체',
                 keyword: ''
             };
-
-            localStorage['search_keyword'] = JSON.stringify(value);
 
             if (text === "편리해") {
                 document.querySelector(".main-wrapper").style.display = "";
@@ -366,6 +366,8 @@ export class SearchTab {
                 $('.rank-wrapper').css('display', 'block');
                 $('.rank-brand-type-wrapper').css('display', 'block');
                 $('.ranking-item-list-wrapper').css('margin-top', '0px');
+
+                document.querySelector('.rank-query-tab').click();
             } else if (text === "리뷰") {
                 document.querySelector(".main-wrapper").style.display = "none";
                 document.querySelector(".rank-container").style.display = "none";
