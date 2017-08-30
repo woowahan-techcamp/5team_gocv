@@ -20,6 +20,7 @@ class ProductDetailViewController: UIViewController {
     var reviewCount: Int = 0
     var productId = ""
     var product = Product()
+    var reviewUploadingNow = false
     let appdelegate = UIApplication.shared.delegate as! AppDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,13 +91,17 @@ class ProductDetailViewController: UIViewController {
         if (user.email != "" && productId != "") {
             uploadingView.isHidden = false
             if wishBtn.backgroundImage(for: .normal) == UIImage(named: "ic_like.png") {
-                alertMessageLabel.text = "위시리스트에 추가되었습니다!"
+                if !reviewUploadingNow {
+                    alertMessageLabel.text = "즐겨찾기에 추가되었습니다!"
+                    reviewUpload()
+                }
                 wishBtn.setBackgroundImage(UIImage(named: "ic_like_filled.png"), for: .normal)
-                reviewUpload()
             } else if wishBtn.backgroundImage(for: .normal) == UIImage(named: "ic_like_filled.png") {
-                alertMessageLabel.text = "위시리스트에서 제거되었습니다."
+                if !reviewUploadingNow {
+                    alertMessageLabel.text = "즐겨찾기에서 제거되었습니다."
+                    reviewUpload()
+                }
                 wishBtn.setBackgroundImage(UIImage(named: "ic_like.png"), for: .normal)
-                reviewUpload()
             }
             DataManager.updateWishList(id: productId, uid: (user.id))
         } else {
@@ -118,6 +123,7 @@ class ProductDetailViewController: UIViewController {
         DispatchQueue.main.async {
             DataManager.getReviewListBy(id: self.productId) { (reviewList) in
                 self.setReviewListOrder(reviewList: reviewList)
+                self.reviewUploadingNow = false
             }
         }
     }

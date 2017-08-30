@@ -2870,7 +2870,7 @@
                             <constraint firstItem="9hs-eM-jtV" firstAttribute="bottom" secondItem="iGb-uU-CQe" secondAttribute="top" id="wq7-9i-jpz"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="찜한 상품 리스트" id="2wz-8o-VF5">
+                    <navigationItem key="navigationItem" title="즐겨찾기" id="2wz-8o-VF5">
                         <barButtonItem key="leftBarButtonItem" image="back.png" style="plain" id="icW-VC-SrS">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="CtH-Wu-ArS">
                                 <rect key="frame" x="16" y="13" width="20" height="17"/>
