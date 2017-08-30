@@ -158,9 +158,9 @@ export class ProductPopup {
 
         this.popup.setItemPageInit();
 
-        document.querySelector(".popup-close").addEventListener("click", function () {
+        /*document.querySelector(".popup-close").addEventListener("click", function () {
             this.scrollEvent("visible");
-        }.bind(this));
+        }.bind(this));*/
     }
 
     scrollEvent(event) {
@@ -276,9 +276,9 @@ export class ProductPopup {
     setReviewRatingEvent() {
         const reviewRating = new ReviewRating(this.db, this);
 
-        document.querySelector(".popup-close").addEventListener("click", function () {
+        /*document.querySelector(".popup-close").addEventListener("click", function () {
             this.scrollEvent("visible");
-        }.bind(this));
+        }.bind(this));*/
     }
 }
 

@@ -266,6 +266,10 @@ export class PopupInfo {
             this.flag = true;
             e.stopPropagation();
         }.bind(this));
+
+        document.querySelector(".myPage-close").addEventListener("click", function () {
+            this.closePopup();
+        }.bind(this));
     }
 
     closePopup() {
@@ -278,8 +282,6 @@ export class PopupInfo {
     }
 
     setRefreshOverlay() {
-        console.log('overlay');
-
         const itemPopup = document.querySelector('#popup');
         const myPagePopup = document.querySelector('#myPage');
         const fakeClose = document.getElementsByClassName('popup-close-fake')[0];
@@ -314,6 +316,7 @@ export class PopupInfo {
             this.signFlag = true;
         }.bind(this));
 
+
     }
 
     closeSignPagePopup() {
@@ -345,6 +348,10 @@ export class PopupInfo {
             this.flag = true;
             e.stopPropagation();
         }.bind(this));
+
+        document.querySelector(".popup-close").addEventListener("click", function () {
+            this.closePopup();
+        }.bind(this));
     }
 
     reviewPageInit() {
@@ -366,6 +373,10 @@ export class PopupInfo {
         this.popupInner.addEventListener('click', function (e) {
             this.flag = true;
             e.stopPropagation();
+        }.bind(this));
+
+        document.querySelector(".popup-newReview-cancel").addEventListener("click", function () {
+            this.closePopup();
         }.bind(this));
     }
 
