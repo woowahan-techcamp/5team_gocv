@@ -18,12 +18,11 @@
 }
 
 .myPage-wrapper{
-    max-height: 90vh;
     margin: 10vh auto;
     background: #fff;
     border-radius: 5px;
     height: 70vh;
-    width: 50vw;
+    width: 700px;
     position: relative;
     z-index: 120;
 }
@@ -33,6 +32,7 @@
     float: left;
     width: 50%;
     height: 100%;
+    overflow: auto;
 }
 
 
@@ -363,4 +363,171 @@
     float: left;
     height: 50px;
     width: 50px;
+}
+
+
+@media( max-width: 768px ) {
+
+    .myPage-wrapper{
+        overflow: scroll;
+        margin: 10vh auto;
+        background: #fff;
+        border-radius: 5px;
+        height: 70vh;
+        width: 360px;
+        position: relative;
+        z-index: 120;
+    }
+
+
+    .myPage-profile-wrapper{
+        float: left;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+
+
+    .myPage-profile-image{
+        cursor: pointer;
+        margin: auto;
+        width: 200px;
+        height: 200px;
+        border-radius: 100px;
+        border: solid 2px #cbcbcb;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-position: center;
+    }
+
+    .myPage-profile-image:hover{
+        filter:brightness(70%);
+    }
+
+
+    .myPage-wish-wrapper{
+        float: left;
+        width: 100%;
+        height: 100%;
+        overflow: scroll;
+        background-color: #f0f0f0;
+    }
+
+    .sign-wrapper, .signup-email-wrapper, .signup-detail-wrapper {
+        padding-top: 20px;
+        max-height: 90vh;
+        margin: 10vh auto;
+        background: #fff;
+        border-radius: 5px;
+        height: 500px;
+        width: 360px;
+        position: relative;
+        z-index: 120;
+        overflow: auto;
+
+    }
+
+
+    .signup-email-wrapper {
+        height: 350px;
+
+    }
+
+    .signup-detail-wrapper {
+        height: 550px;
+    }
+
+    .signin-facebook, .signin-google, .signup-detail-button, .signin-button,
+    .signin-id, .signin-password, .signup-email, .signup-detail-input {
+
+        margin: 10px;
+        width: 340px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+
+    }
+
+    .signup-email {
+
+    }
+
+    .signin-facebook {
+        text-align: left;
+
+    }
+
+    .signin-google {
+        text-align: left;
+
+    }
+
+    .signin-button, .signup-detail-button {
+        color: #ff6048;
+        border: solid 1px #ff6048;
+    }
+
+    .signup-detail-title {
+        margin: 10px;
+        height: 50px;
+        line-height: 50px;
+        font-size: 20px;
+        color: #4e4e4e;
+        width: 340px;
+        text-align: left;
+    }
+
+    .sign-line {
+        width: 340px;
+        margin: 10px;
+        height: 1px;
+        background-color: #eeeeee;
+    }
+
+    .signup-wrapper {
+        width: 320px;
+        margin: 20px;
+        height: 40px;
+        line-height: 40px;
+    }
+
+    .signup-button {
+        cursor: pointer;
+        float: right;
+        width: 80px;
+        text-align: center;
+        height: 40px;
+        border-radius: 5px;
+        color: #ff6048;
+        border: solid 1px #ff6048;
+    }
+
+    .signup-button:hover, .signin-button:hover,.signup-detail-button:hover {
+        background-color: #ff6048;
+        color: white;
+
+    }
+
+    .signup-text {
+        color: gray;
+        float: left;
+        width: 230px;
+    }
+
+    .signin-id, .signin-password, .signup-detail-input {
+        margin: 5px 10px 10px 10px;
+        text-align: left;
+        font-size: 15px;
+        padding-left: 20px;
+    }
+
+    .icon {
+        margin-left: 30px;
+        padding: 10px;
+        float: left;
+        height: 50px;
+        width: 50px;
+    }
+
 }

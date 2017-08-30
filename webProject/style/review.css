@@ -1,16 +1,18 @@
 .review-container{
-    margin: 100px 10%;
-    width: 80%;
+    width: 100%;
+    margin: 100px auto;
 
 }
 
 .review-item-list-wrapper{
     margin: auto;
     width: 100%;
+    text-align: center;
 }
 
 .review-query-wrapper{
     margin-top: 30px;
+    text-align: center;
     height: 50px;
 }
 
@@ -18,7 +20,7 @@
     text-align: right;
     width: 100%;
     float: right;
-    margin: 25px auto;
+    margin: 50px auto;
     padding-right: 5%;
 }
 
@@ -47,14 +49,14 @@
     color: red;
 }
 
-.review-card-content{
-    float: left;
+.review-card-content{;
     box-shadow: 3px 3px 3px #d6d6d6;
     border-radius: 10px;
     position: relative;
-    width: 28.3%;
-    margin: 2%;
-    height: auto;
+    width: 300px;
+    margin: 40px;
+    display: inline-block;
+    height: 495px;
     overflow: hidden;
 }
 
@@ -64,9 +66,8 @@
 }
 
 .review-card-brand{
-    position: absolute;
+    position: relative;
     z-index: 5;
-    width: 20%;
     height: 40px;
     border-bottom-right-radius: 10px;
 }
@@ -101,7 +102,7 @@
     float: left;
     width: 30%;
     height: 110px;
-    top: 181px;
+    top: 227px;
     left: 35%;
     position: absolute;
     background-color: white;
@@ -126,9 +127,11 @@
 
 .review-card-name{
     margin-top: 10px;
+    text-align: left;
 }
 
 .review-card-user-id{
+    text-align: left;
     padding-top: 2px;
     color: gray;
     font-size: 14px;
@@ -141,7 +144,7 @@
 }
 
 .review-card-review{
-    overflow: auto;
+    overflow: hidden;
     color: #5c5c5c;
     height: 200px;
     line-height: 1.7em;
@@ -155,18 +158,20 @@
 
 .popup-review-good, .popup-review-bad{
     float: left;
-    width: 70px;
+    width: 50px;
+    line-height: 17px;
+    height: 17px;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
-    background-color: #9a80ff;
+    background-color: #eeeeee;
     text-align: center;
-    color: white;
+    color: gray;
     margin-top: 5px;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 .popup-review-bad{
-    background-color: #ff686d;
+    background-color: #eeeeee;
 }
 
 .popup-review-good2, .popup-review-bad2{
@@ -180,4 +185,35 @@
     font-size: 12px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+}
+
+
+/*반응형*/
+@media( max-width: 768px ) {
+    .review-query-tab{
+        cursor: pointer;
+        text-align: center;
+        display: inline-block;
+        width: 100px;
+        color: grey;
+        font-size: 12px;
+    }
+
+    .selected-review-query-tab{
+        color: #ff2321;
+        font-weight: bold;
+        font-size: 12px;
+    }
+
+    .review-card-content{;
+        box-shadow: 3px 3px 3px #d6d6d6;
+        border-radius: 10px;
+        position: relative;
+        width: 280px;
+        margin: 40px;
+        display: inline-block;
+        height: 495px;
+        overflow: hidden;
+    }
+
 }

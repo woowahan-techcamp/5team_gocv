@@ -9,17 +9,15 @@ export class DB {
     }
 
     init() {
-        const config = {
-            apiKey: "AIzaSyAnDViQ2LyXlNzBWO2kWyGnN-Lr22B9sUI",
-            authDomain: "pyeonrehae.firebaseapp.com",
-            databaseURL: "https://pyeonrehae.firebaseio.com",
-            projectId: "pyeonrehae",
-            storageBucket: "pyeonrehae.appspot.com",
-            messagingSenderId: "296270517036"
+        let config = {
+            apiKey: "AIzaSyBA14XngeEDe4DV32NSs07PWdW1LX8sxu8",
+            authDomain: "prh-woowa.firebaseapp.com",
+            databaseURL: "https://prh-woowa.firebaseio.com",
+            projectId: "prh-woowa",
+            storageBucket: "prh-woowa.appspot.com",
+            messagingSenderId: "947458280146"
         };
-
         firebase.initializeApp(config);
-
     }
 
     dataInit(){
