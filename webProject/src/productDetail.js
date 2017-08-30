@@ -865,10 +865,13 @@ class ReviewFilter {
 
 //리뷰 유용해야 별로에요 버튼 모듈 클래스
 class ReviewRating {
-    constructor(db, reviewClass, userId, productId, reviewId, likeList) {
+    constructor(db, reviewClass, reviewArr, userId, productId, reviewId, likeList) {
         this.db = db;
 
         this.userId = userId;
+
+        this.reviewArr = db.;
+
         this.productId = productId;
         this.reviewId = reviewId;
         this.likeList = likeList;
@@ -882,6 +885,7 @@ class ReviewRating {
                 const goodBtn = e.target.parentElement.parentElement.childNodes[1].childNodes[1];
                 const badBtn = e.target.parentElement.parentElement.childNodes[3].childNodes[1];
 
+                const review = this.reviewArr;
 
                 this.userId = firebase.auth().currentUser.uid;
                 this.reviewId = e.target.parentElement.getAttribute("name");
