@@ -173,6 +173,19 @@ export class ProductPopup {
         //grade_avg 평점이 소수점 둘째자리까지만 표시
 
         this.db.product[this.productId].grade_avg = parseFloat(this.db.product[this.productId].grade_avg).toFixed(1);
+
+        let wish_flag = false;
+
+        if(!!this.db.user[this.userId].wish_product_list){
+            if(this.db.user[this.userId].wish_product_list.includes(this.productId)){
+                wish_flag = true;
+                this.db.product[this.productId].wish_flag = wish_flag;
+            }
+        }
+
+        this.db.product[this.productId].wish_flag = wish_flag;
+
+
         util.template(this.db.product[this.productId], template, sec);
 
         const gradeData = [];
@@ -243,15 +256,24 @@ export class ProductPopup {
         document.querySelector("#popupWish").addEventListener("click", function () {
             const that = this;
 
-            document.querySelector("#popupWish").setAttribute("class", "popup-wish popup-wish-select");
+            const wishBtn = document.querySelector("#popupWish")
+            wishBtn.setAttribute("class", "popup-wish popup-wish-select");
 
             let newWishArr = this.db.user[this.userId].wish_product_list;
+            let reduceWishArr = []
             let double = true;
 
             if (!!newWishArr) {
                 newWishArr.forEach(function (element) {
                     if (element === that.productId) {
                         double = false;
+                        newWishArr.forEach(function(ele){
+                            if(element === ele ){
+
+                            }else {
+                                reduceWishArr.push(ele);
+                            }
+                        })
                     }
                 }.bind(that))
             } else {
@@ -265,7 +287,14 @@ export class ProductPopup {
                     new Toast("즐겨찾기 품목에 추가되었습니다.")
                 }.bind(that));
             } else {
-                new Toast("이미 즐겨찾기에 포함된 상품입니다.")
+                newWishArr.push(this.productId);
+                firebase.database().ref('user/' + this.userId + "/wish_product_list").set(reduceWishArr).then(function () {
+                    that.db.updateUserDb();
+                    new Toast("즐겨찾기에서 삭제되었습니다.")
+                    wishBtn.className="popup-wish"
+                }.bind(that));
+
+
             }
         }.bind(this));
     }
