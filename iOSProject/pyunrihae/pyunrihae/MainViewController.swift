@@ -220,7 +220,7 @@ class MainViewController: UIViewController {
                     if url != nil {
                         myImageView?.af_setImage(withURL: url!)
                     }else{
-                        myImageView?.af_setImage(withURL: URL(string: "https://firebasestorage.googleapis.com/v0/b/pyeonrehae.appspot.com/o/ic_background_default.png?alt=media&token=09d05950-5f8a-4a73-95b3-a74faee4cad3")!)
+                        myImageView?.image = UIImage(named: "review_default.png")
                     }
                     myImageView?.contentMode = UIViewContentMode.scaleAspectFill
                     brandLabel?.text = review.brand
@@ -325,6 +325,9 @@ class MainViewController: UIViewController {
         var index = 0
         if reviewScrollView.contentOffset.x != 0{
             index = 2 - Int(reviewScrollView.frame.width / reviewScrollView.contentOffset.x)
+        }
+        if index >= reviewList.count {
+            return
         }
         review = reviewList[index]
         Popup.showPopup(popup: popup, index: index, reviewList: reviewList, review: review, view: self.view, validator: popup.validator)

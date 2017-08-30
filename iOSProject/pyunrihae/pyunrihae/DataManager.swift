@@ -445,7 +445,7 @@ class DataManager{
         var components = autoId.components(separatedBy: "review/")
         autoId = components[1]
         // Create a storage reference from our storage service
-        let storageRef = storage.reference(forURL: "gs://pyeonrehae.appspot.com")
+        let storageRef = storage.reference(forURL: "gs://prh-woowa.appspot.com")
         let imagesRef = storageRef.child("images/" + autoId + ".jpeg")
         var update = ["bad": 0, "useful": 0, "user": user, "user_image": user_image, "brand": brand, "category": category, "comment": review, "grade": grade, "price": priceLevel, "flavor": flavorLevel, "quantity": quantityLevel, "product_image": product_image,"p_id": p_id, "p_name": p_name, "p_price": p_price, "timestamp": today, "id": autoId] as [String : Any]
         if let data = UIImageJPEGRepresentation(p_image, 0.1) {
@@ -560,7 +560,7 @@ class DataManager{
 
         let storage = Storage.storage()
 
-        let storageRef = storage.reference(forURL: "gs://pyeonrehae.appspot.com")
+        let storageRef = storage.reference(forURL: "gs://prh-woowa.appspot.com")
         let imagesRef = storageRef.child("images/" + user.id + ".jpeg")
         
         if let data = UIImageJPEGRepresentation(profile, 0.1) {
