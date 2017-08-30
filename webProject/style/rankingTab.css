@@ -7,10 +7,6 @@
 
 .rank-wrapper{
     margin: auto;
-    /*background-size: cover;*/
-    /*background-repeat: no-repeat;*/
-    /*background-image: url("/image/counter_bg.jpg");*/
-    /*background-position: center;*/
     background-color: #ff5f4e;
     text-align: center;
     width: 100%;
@@ -42,7 +38,7 @@
     margin-left: 25%;
     margin-top: 20px;
     margin-right: 25%;
-    height: 100px;
+    height: 50px;
 }
 
 
@@ -116,15 +112,18 @@
 }
 
 .ranking-item-list-wrapper{
-    width: 100%;
-    /*height: 100%;*/
+    width: auto;
+    margin: auto;
+    text-align: center;
+
 }
 
 .rank-card-content{
     height: 400px;
     text-align: center;
-    width: 25%;
-    float: left;
+    width: 350px;
+    margin: auto;
+    display: inline-block;
     margin-bottom: 50px;
 }
 
@@ -186,4 +185,172 @@
 
 .rank-card-badge-area3{
     background-color: brown;
+}
+
+@media( max-width: 768px ) {
+
+    .rank-container{
+        margin-top: 60px;
+        width: 100%;
+        max-width: 100%;
+        /*height: 2000px;*/
+    }
+
+    .rank-wrapper{
+        margin: auto;
+        background-color: #ff5f4e;
+        text-align: center;
+        width: 100%;
+        height: 50px;
+    }
+
+    .rank-category-wrapper{
+        margin: 140px auto;
+    }
+
+    .rank-category-tab {
+        background-image: none !important;
+        display: inline-block;
+        line-height: 50px;
+        text-align: center;
+        width: 9%;
+        color: white;
+        font-size: 12px;
+        cursor: pointer;
+        height: 50px;
+        filter:brightness(70%);
+        overflow: hidden;
+
+    }
+
+    .img-category{
+        width: 50%;
+        margin-left: 25%;
+        margin-top: 20px;
+        margin-right: 25%;
+        height: 100px;
+        display: none;
+    }
+
+
+    .selected-rank-category-tab, .rank-category-tab:hover{
+        filter: brightness(140%);
+        font-size:12px;
+        height: 50px;
+    }
+
+    .rank-query-wrapper{
+        margin-top: 30px;
+        height: 50px;
+    }
+
+    .rank-query-type-wrapper{
+        text-align: right;
+        width: 60vw;
+        float: right;
+        margin: 10px auto;
+        font-size: 12px !important;
+        padding-right: 2%;
+    }
+
+    .rank-query-tab{
+        float: right;
+        cursor: pointer;
+        text-align: center;
+        display: inline-block;
+        width: 70px;
+        color: grey;
+    }
+
+    .selected-rank-query-tab{
+        color: #ff2321;
+        font-weight: bold;
+    }
+
+    .rank-brand-type-wrapper{
+        margin-left: 0;
+        width: 250px;
+        margin-bottom: 50px;
+        height: 40px;
+    }
+
+    .rank-brand-type{
+        margin: 10px auto;
+        font-size: 12px;
+        height: 40px;
+    }
+
+    .rank-brand-type-tab{
+        cursor: pointer;
+        display: inline-block;
+        line-height: 40px;
+        font-size: 12px;
+        text-align: center;
+        width: 50px;
+        color: gray;
+        margin: 0px;
+        background-color: white;
+    }
+
+    .rank-brand-type-tab:hover{
+        font-size: 10px;
+        color: #ff5f4e;
+    }
+
+    .selected-rank-brand-type-tab{
+        border-bottom: solid 3px #ff5f4e;
+        font-size: 12px;
+        color: #ff5f4e;
+    }
+
+
+    .rank-card-rating{
+        display: inline-block;
+    }
+
+    .rank-card-description {
+        margin-top: 20px;
+    }
+
+    .rank-card-name {
+        margin-top: 10px;
+    }
+
+    .rank-card-price {
+        margin-top: 5px;
+    }
+
+    .rank-card-review{
+        width: 60px;
+        line-height: 25px;
+        margin: 5px auto;
+        height: 25px;
+        font-size: 12px;
+        background-color: #ffd435;
+        color:white;
+    }
+
+    .rank-card-image {
+        float: left;
+        margin: 15px auto;
+        width: 350px;
+        height: 350px;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .rank-card-medal {
+        background-color: #ffad48;
+        color: white;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        border-radius: 3px;
+        font-size: 15px;
+    }
+
+
+
+
 }

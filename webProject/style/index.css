@@ -28,11 +28,17 @@
     margin: 0;
 }
 
+
 body {
     font-family: 'Nanum Gothic', serif;
 }
 
 ul {
+    list-style-type: none;
+
+}
+
+li{
     list-style-type: none;
 
 }
