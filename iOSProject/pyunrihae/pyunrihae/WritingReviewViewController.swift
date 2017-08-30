@@ -75,7 +75,8 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
         super.didReceiveMemoryWarning()
     }
     @IBAction func tabBackBtn(_ sender: UIButton) {
-        let productDetailViewController = self.navigationController?.viewControllers[1] as! ProductDetailViewController
+        let index = (self.navigationController?.viewControllers.count)! - 2
+        let productDetailViewController = self.navigationController?.viewControllers[index] as! ProductDetailViewController
         self.navigationController?.popToViewController(productDetailViewController, animated: true)
     }
     @IBAction func tabCompleteBtn(_ sender: UIButton) {
@@ -91,7 +92,8 @@ class WritingReviewViewController: UIViewController, FusumaDelegate{
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             } else {
-                let productDetailViewController = self.navigationController?.viewControllers[1] as! ProductDetailViewController
+                let index = (self.navigationController?.viewControllers.count)! - 2
+                let productDetailViewController = self.navigationController?.viewControllers[index] as! ProductDetailViewController
                 self.navigationController?.popToViewController(productDetailViewController, animated: true)
                 NotificationCenter.default.post(name: NSNotification.Name("startUploading"), object: self)
                 User.sharedInstance.product_review_list.append(productId)

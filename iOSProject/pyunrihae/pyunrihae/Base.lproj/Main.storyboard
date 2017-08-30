@@ -1721,7 +1721,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="back.png"/>
                                 <connections>
-                                    <action selector="tabBackBtn:" destination="73h-LJ-DL6" eventType="touchUpInside" id="IOP-FE-nlG"/>
                                     <action selector="tabBackBtn:" destination="noX-w8-BKx" eventType="touchUpInside" id="OXF-CW-P9c"/>
                                 </connections>
                             </button>
@@ -1734,7 +1733,6 @@
                                     <color key="titleColor" red="1" green="0.47061997649999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="tabCompleteBtn:" destination="73h-LJ-DL6" eventType="touchUpInside" id="nRK-ch-qqw"/>
                                     <action selector="tabCompleteBtn:" destination="noX-w8-BKx" eventType="touchUpInside" id="sjN-Ih-Otv"/>
                                 </connections>
                             </button>
