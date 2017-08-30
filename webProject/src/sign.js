@@ -368,10 +368,6 @@ class MyPage {
         this.setDeleteButtonEvent();
 
         this.popup.setMyPageInit();
-
-        document.querySelector(".myPage-close").addEventListener("click", function () {
-            $("body").css("overflow", "visible");
-        });
     }
 
     setDeleteButtonEvent() {

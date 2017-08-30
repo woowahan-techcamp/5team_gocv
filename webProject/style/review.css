@@ -53,8 +53,8 @@
     box-shadow: 3px 3px 3px #d6d6d6;
     border-radius: 10px;
     position: relative;
-    width: 300px;
-    margin: 40px;
+    width: 320px;
+    margin: 50px;
     display: inline-block;
     height: 495px;
     overflow: hidden;
@@ -112,6 +112,7 @@
 .review-card-description{
     width: 100%;
     font-size: 15px;
+    text-align: left;
     position: relative;
 
 

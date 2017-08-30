@@ -605,9 +605,8 @@
 
 <script id="popup-template" type="text/x-handlebars-template">
     <div class="popup-wrapper" style="z-index: 1;">
-        <a href="#">
-            <div class="popup-close"></div>
-        </a>
+
+        <!--<div class="popup-close"></div>-->
 
 
         <div class="popup-reviewImage"></div>
@@ -761,26 +760,25 @@
                 <div id="popupAllergyBtn" class="popup-newReview-addAllergy">알레르기 성분 추가
                 </div>
                 <div class="popup-newReview-completeBtn"></div>
-                    <ul style="display:none" class="popup-newReview-Allergy-Wrapper">
-                        <li class="popup-newReview-Allergy" name="메밀">메밀</li>
-                        <li class="popup-newReview-Allergy" name="달걀">달걀</li>
-                        <li class="popup-newReview-Allergy" name="우유">우유</li>
-                        <li class="popup-newReview-Allergy" name="콩">콩</li>
-                        <li class="popup-newReview-Allergy" name="밀">밀</li>
-                        <li class="popup-newReview-Allergy" name="게">게</li>
-                        <li class="popup-newReview-Allergy" name="새우">새우</li>
-                        <li class="popup-newReview-Allergy" name="고등어">고등어</li>
-                        <li class="popup-newReview-Allergy" name="돼지고기">돼지고기</li>
-                        <li class="popup-newReview-Allergy" name="소고기">소고기</li>
-                        <li class="popup-newReview-Allergy" name="닭고기">닭고기</li>
-                        <li class="popup-newReview-Allergy" name="복숭아">복숭아</li>
-                        <li class="popup-newReview-Allergy" name="땅콩">땅콩</li>
-                        <li class="popup-newReview-Allergy" name="토마토">토마토</li>
-                        <li class="popup-newReview-Allergy" name="오징어">오징어</li>
-                        <li class="popup-newReview-Allergy" name="호두">호두</li>
-                        <li class="popup-newReview-Allergy" name="조개">조개</li>
-                    </ul>
-
+                <ul style="display:none" class="popup-newReview-Allergy-Wrapper">
+                    <li class="popup-newReview-Allergy" name="메밀">메밀</li>
+                    <li class="popup-newReview-Allergy" name="달걀">달걀</li>
+                    <li class="popup-newReview-Allergy" name="우유">우유</li>
+                    <li class="popup-newReview-Allergy" name="콩">콩</li>
+                    <li class="popup-newReview-Allergy" name="밀">밀</li>
+                    <li class="popup-newReview-Allergy" name="게">게</li>
+                    <li class="popup-newReview-Allergy" name="새우">새우</li>
+                    <li class="popup-newReview-Allergy" name="고등어">고등어</li>
+                    <li class="popup-newReview-Allergy" name="돼지고기">돼지고기</li>
+                    <li class="popup-newReview-Allergy" name="소고기">소고기</li>
+                    <li class="popup-newReview-Allergy" name="닭고기">닭고기</li>
+                    <li class="popup-newReview-Allergy" name="복숭아">복숭아</li>
+                    <li class="popup-newReview-Allergy" name="땅콩">땅콩</li>
+                    <li class="popup-newReview-Allergy" name="토마토">토마토</li>
+                    <li class="popup-newReview-Allergy" name="오징어">오징어</li>
+                    <li class="popup-newReview-Allergy" name="호두">호두</li>
+                    <li class="popup-newReview-Allergy" name="조개">조개</li>
+                </ul>
 
 
             </div>
@@ -814,7 +812,7 @@
                 <!--</div>-->
             </div>
             <div class="popup-review-eval">
-                <div style="float:right; width: 130px">
+                <div style="float:right; width: 80px; margin-right: 20px">
                     <div name="{{id}}">
                         <button class="popup-review-good{{rate1}}" name="{{p_id}}">유용해요</button>
                         <div class="popup-review-good2">{{useful}}</div>
@@ -866,9 +864,9 @@
                 </div>
             </a>
 
-            <a href="#">
-                <div class="popup-newReview-cancel"></div>
-            </a>
+
+            <!--<div class="popup-newReview-cancel"></div>-->
+
         </div>
 
         <div style="margin-top:0px" class="popup-review-top">
@@ -884,7 +882,7 @@
             </div>
 
             <div class="popup-review-eval">
-                <div style="float:right; width: 130px">
+                <div style="float:right; width: 80px; margin-right: 20px">
                     <div>
                         <div class="popup-review-good">유용해요</div>
                         <div class="popup-review-good2">{{useful}}</div>
@@ -928,7 +926,7 @@
 </script>
 <script id="card-review-page-template" type="text/x-handlebars-template">
     {{#this}}
-    <div class="review-card-content" >
+    <div class="review-card-content">
         <div class="review-card-image-wrapper">
             <img class="review-card-brand" src="{{brand_image}}"/>
             <a href="#popup">
@@ -978,9 +976,9 @@
 <script id="myPage-template" type="text/x-handlebars-template">
     <div class="myPage-wrapper">
         <div class="myPage-profile-wrapper">
-            <a href="#">
-                <div style="margin-right:100px" class="myPage-close"></div>
-            </a>
+
+            <!--<div style="margin-right:100px" class="myPage-close"></div>-->
+
             <div style="width:200px; height: 130px; margin: 100px auto">
                 <img src="{{user_profile}}" class="myPage-profile-image" id="profilePreview"/>
             </div>
