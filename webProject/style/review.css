@@ -154,9 +154,8 @@
 }
 
 .popup-review-good, .popup-review-bad{
-    cursor:pointer;
     float: left;
-    width: 80px;
+    width: 70px;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     background-color: #9a80ff;
